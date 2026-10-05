@@ -72,6 +72,7 @@ import { Welcome } from './welcome'
 import { AppMenuBar } from './app-menu'
 import { UpdateAvailable, renderBanner } from './banners'
 import { Preferences } from './preferences'
+import { LocalizationEditor } from './localization/localization-editor'
 import { CopilotSettingsDialog } from './preferences/copilot-settings-dialog'
 import { CopilotCustomProvidersDialog } from './preferences/copilot-custom-providers-dialog'
 import { EditCopilotBYOKProviderDialog } from './copilot/edit-byok-provider-dialog'
@@ -1720,6 +1721,13 @@ export class App extends React.Component<IAppProps, IAppState> {
             file={popup.file}
             diff={popup.diff}
             selection={popup.selection}
+            onDismissed={onPopupDismissedFn}
+          />
+        )
+      case PopupType.LocalizationEditor:
+        return (
+          <LocalizationEditor
+            key="localization-editor"
             onDismissed={onPopupDismissedFn}
           />
         )

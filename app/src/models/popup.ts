@@ -35,6 +35,7 @@ export enum PopupType {
   DeleteRemoteBranch = 'DeleteRemoteBranch',
   ConfirmDiscardChanges = 'ConfirmDiscardChanges',
   Preferences = 'Preferences',
+  LocalizationEditor = 'LocalizationEditor',
   RepositorySettings = 'RepositorySettings',
   AddRepository = 'AddRepository',
   CreateRepository = 'CreateRepository',
@@ -160,6 +161,7 @@ export type PopupDetail =
       selection: DiffSelection
     }
   | { type: PopupType.Preferences; initialSelectedTab?: PreferencesTab }
+  | { type: PopupType.LocalizationEditor }
   | {
       type: PopupType.EditCopilotBYOKProvider
       provider: IBYOKProvider | null

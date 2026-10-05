@@ -77,6 +77,7 @@ import { trampolineServer } from '../lib/trampoline/trampoline-server'
 import { TrampolineCommandIdentifier } from '../lib/trampoline/trampoline-command'
 import { createAskpassTrampolineHandler } from '../lib/trampoline/trampoline-askpass-handler'
 import { createCredentialHelperTrampolineHandler } from '../lib/trampoline/trampoline-credential-helper'
+import { initializeLocalization, LocalizationProvider } from '../lib/l10n'
 
 if (__DEV__) {
   installDevGlobals()
@@ -419,16 +420,24 @@ ipcRenderer.on('cli-action', (_, action) =>
   })
 })(Grid.defaultProps, Grid.propTypes)
 
-ReactDOM.render(
-  <App
-    dispatcher={dispatcher}
-    appStore={appStore}
-    repositoryStateManager={repositoryStateManager}
-    issuesStore={issuesStore}
-    gitHubUserStore={gitHubUserStore}
-    aheadBehindStore={aheadBehindStore}
-    notificationsDebugStore={notificationsDebugStore}
-    startTime={startTime}
-  />,
-  document.getElementById('desktop-app-container')!
-)
+// Catalogs and the user's own translations have to be in place before the
+// first render, otherwise a Russian user sees a frame of English on startup.
+initializeLocalization()
+  .catch(e => console.error('Failed to initialize localization', e))
+  .then(() =>
+    ReactDOM.render(
+      <LocalizationProvider>
+        <App
+          dispatcher={dispatcher}
+          appStore={appStore}
+          repositoryStateManager={repositoryStateManager}
+          issuesStore={issuesStore}
+          gitHubUserStore={gitHubUserStore}
+          aheadBehindStore={aheadBehindStore}
+          notificationsDebugStore={notificationsDebugStore}
+          startTime={startTime}
+        />
+      </LocalizationProvider>,
+      document.getElementById('desktop-app-container')!
+    )
+  )

@@ -34,6 +34,8 @@ import {
   parseConfigLockFilePathFromError,
 } from '../../lib/git'
 import { ConfigLockFileExists } from '../lib/config-lock-file-exists'
+import { Language } from './language'
+import { t } from '../../lib/l10n'
 import {
   setDefaultBranch,
   getDefaultBranch,
@@ -386,7 +388,7 @@ export class Preferences extends React.Component<
     return (
       <Dialog
         id="preferences"
-        title={__DARWIN__ ? 'Settings' : 'Options'}
+        title={t('settings.title')}
         onDismissed={this.onCancel}
         onSubmit={this.onSave}
       >
@@ -399,41 +401,45 @@ export class Preferences extends React.Component<
           >
             <span id={this.getTabId(PreferencesTab.Accounts)}>
               <Octicon className="icon" symbol={octicons.home} />
-              Accounts
+              {t('settings.tab.accounts')}
             </span>
             <span id={this.getTabId(PreferencesTab.Integrations)}>
               <Octicon className="icon" symbol={octicons.person} />
-              Integrations
+              {t('settings.tab.integrations')}
             </span>
             {this.isCopilotSdkEnabled && (
               <span id={this.getTabId(PreferencesTab.Copilot)}>
                 <Octicon className="icon" symbol={octicons.copilot} />
-                Copilot
+                {t('settings.tab.copilot')}
               </span>
             )}
             <span id={this.getTabId(PreferencesTab.Git)}>
               <Octicon className="icon" symbol={octicons.gitCommit} />
-              Git
+              {t('settings.tab.git')}
             </span>
             <span id={this.getTabId(PreferencesTab.Appearance)}>
               <Octicon className="icon" symbol={octicons.paintbrush} />
-              Appearance
+              {t('settings.tab.appearance')}
             </span>
             <span id={this.getTabId(PreferencesTab.Notifications)}>
               <Octicon className="icon" symbol={octicons.bell} />
-              Notifications
+              {t('settings.tab.notifications')}
             </span>
             <span id={this.getTabId(PreferencesTab.Prompts)}>
               <Octicon className="icon" symbol={octicons.question} />
-              Prompts
+              {t('settings.tab.prompts')}
             </span>
             <span id={this.getTabId(PreferencesTab.Advanced)}>
               <Octicon className="icon" symbol={octicons.gear} />
-              Advanced
+              {t('settings.tab.advanced')}
             </span>
             <span id={this.getTabId(PreferencesTab.Accessibility)}>
               <Octicon className="icon" symbol={octicons.accessibility} />
-              Accessibility
+              {t('settings.tab.accessibility')}
+            </span>
+            <span id={this.getTabId(PreferencesTab.Language)}>
+              <Octicon className="icon" symbol={octicons.globe} />
+              {t('settings.tab.language')}
             </span>
           </TabBar>
 
@@ -473,6 +479,9 @@ export class Preferences extends React.Component<
         break
       case PreferencesTab.Accessibility:
         suffix = 'accessibility'
+        break
+      case PreferencesTab.Language:
+        suffix = 'language'
         break
       default:
         return assertNever(tab, `Unknown tab type: ${tab}`)
@@ -765,6 +774,9 @@ export class Preferences extends React.Component<
             onUnderlineLinksChanged={this.onUnderlineLinksChanged}
           />
         )
+        break
+      case PreferencesTab.Language:
+        View = <Language dispatcher={this.props.dispatcher} />
         break
       default:
         return assertNever(index, `Unknown tab index: ${index}`)
