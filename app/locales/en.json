@@ -430,6 +430,34 @@
       "@other": "S&how logs in your File Manager"
     },
     "install-cli": "Install Command Line Tool…",
+    "create-pull-request": {
+      "@darwin": "Create Pull Request",
+      "@other": "Create &pull request"
+    },
+    "view-pull-request": {
+      "@darwin": "View Pull Request on GitHub",
+      "@other": "View &pull request on GitHub"
+    },
+    "default-branch-name": {
+      "@darwin": "Default Branch",
+      "@other": "default branch"
+    },
+    "remove-repository-confirm": {
+      "@darwin": "Remove…",
+      "@other": "&Remove…"
+    },
+    "remove-repository": {
+      "@darwin": "Remove",
+      "@other": "&Remove"
+    },
+    "stash-all-changes-confirm": {
+      "@darwin": "Stash All Changes…",
+      "@other": "&Stash all changes…"
+    },
+    "stash-all-changes": {
+      "@darwin": "Stash All Changes",
+      "@other": "&Stash all changes"
+    },
     "new-repository": {
       "@darwin": "New Repository…",
       "@other": "New &repository…"
