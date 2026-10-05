@@ -19,6 +19,7 @@ import {
   EnterpriseServerConfirmation,
   enterpriseServerConfirmationDescriptionId,
 } from '../lib/enterprise-server-confirmation'
+import { t, Trans } from '../../lib/l10n'
 
 interface ISignInProps {
   readonly dispatcher: Dispatcher
@@ -32,19 +33,9 @@ interface ISignInState {
   readonly endpoint: string
 }
 
-const SignInWithBrowserTitle = __DARWIN__
-  ? 'Sign in Using Your Browser'
-  : 'Sign in using your browser'
-
-const DefaultTitle = 'Sign in'
-
-const browserSignInInfoContent = (
-  <p>
-    Your browser will redirect you back to GitHub Desktop once you've signed in.
-    If your browser asks for your permission to launch GitHub Desktop, please
-    allow it.
-  </p>
-)
+function getBrowserSignInInfoContent() {
+  return <p>{t('signIn.browser-redirect-info')}</p>
+}
 
 export class SignIn extends React.Component<ISignInProps, ISignInState> {
   private readonly dialogRef = React.createRef<Dialog>()
@@ -124,14 +115,12 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
 
     let primaryButtonText: string
     const stepKind = state.kind
-    const continueWithBrowserLabel = __DARWIN__
-      ? 'Continue With Browser'
-      : 'Continue with browser'
+    const continueWithBrowserLabel = t('signIn.continue-with-browser')
 
     switch (state.kind) {
       case SignInStep.EndpointEntry:
         disableSubmit = this.state.endpoint.length === 0
-        primaryButtonText = 'Continue'
+        primaryButtonText = t('signIn.continue')
         break
       case SignInStep.ExistingAccountWarning:
         primaryButtonText = continueWithBrowserLabel
@@ -159,12 +148,16 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
     return (
       <DialogContent>
         <p className="existing-account-warning">
-          You're already signed in to{' '}
-          <Ref>{new URL(getHTMLURL(state.endpoint)).host}</Ref> with the account{' '}
-          <Ref>{state.existingAccount.login}</Ref>. If you continue, you will
-          first be signed out.
+          <Trans
+            k="signIn.existing-account-warning"
+            params={{
+              host: new URL(getHTMLURL(state.endpoint)).host,
+              login: state.existingAccount.login,
+            }}
+            components={{ ref: <Ref /> }}
+          />
         </p>
-        {browserSignInInfoContent}
+        {getBrowserSignInInfoContent()}
       </DialogContent>
     )
   }
@@ -174,7 +167,7 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       <DialogContent>
         <Row>
           <TextBox
-            label="Enterprise address"
+            label={t('signIn.enterprise-address')}
             value={this.state.endpoint}
             onValueChanged={this.onEndpointChanged}
             placeholder="https://example.ghe.com"
@@ -189,7 +182,7 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       return (
         <DialogContent>
           <EnterpriseServerConfirmation endpoint={state.endpoint} />
-          {browserSignInInfoContent}
+          {getBrowserSignInInfoContent()}
         </DialogContent>
       )
     }
@@ -197,15 +190,18 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
     const credentialHelperInfo =
       this.props.isCredentialHelperSignIn && this.props.credentialHelperUrl ? (
         <p>
-          Git requesting credentials to access{' '}
-          <Ref>{this.props.credentialHelperUrl}</Ref>.
+          <Trans
+            k="signIn.credential-helper-info"
+            params={{ url: this.props.credentialHelperUrl }}
+            components={{ ref: <Ref /> }}
+          />
         </p>
       ) : undefined
 
     return (
       <DialogContent>
         {credentialHelperInfo}
-        {browserSignInInfoContent}
+        {getBrowserSignInInfoContent()}
       </DialogContent>
     )
   }
@@ -246,8 +242,8 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
 
     const title =
       state.kind === SignInStep.Authentication
-        ? SignInWithBrowserTitle
-        : DefaultTitle
+        ? t('signIn.browser-title')
+        : t('signIn.title')
 
     const confirmationDialogProps =
       state.kind === SignInStep.Authentication &&

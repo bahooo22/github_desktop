@@ -7,6 +7,7 @@ import { TextBox } from '../lib/text-box'
 import { Row } from '../lib/row'
 import { CLIAction } from '../../lib/cli-action'
 import { assertNever } from '../../lib/fatal-error'
+import { t } from '../../lib/l10n'
 
 /** The CLI action kinds available to dispatch, in tab order. */
 const tabs: ReadonlyArray<CLIAction['kind']> = ['open-repository', 'clone-url']
@@ -60,7 +61,7 @@ export class TestCLIActionDialog extends React.Component<
     return (
       <Dialog
         id="test-cli-action"
-        title="Dispatch CLI Action"
+        title={t('cli.dispatch-title')}
         onSubmit={this.onSubmit}
         onDismissed={this.props.onDismissed}
       >
@@ -68,15 +69,15 @@ export class TestCLIActionDialog extends React.Component<
           onTabClicked={this.onTabClicked}
           selectedIndex={this.state.selectedTabIndex}
         >
-          <span>Open repository</span>
-          <span>Clone URL</span>
+          <span>{t('cli.open-repository')}</span>
+          <span>{t('cli.clone-url')}</span>
         </TabBar>
 
         <DialogContent>{this.renderActiveTab()}</DialogContent>
 
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Dispatch"
+            okButtonText={t('cli.dispatch')}
             okButtonDisabled={!this.isActionValid()}
           />
         </DialogFooter>
@@ -92,7 +93,7 @@ export class TestCLIActionDialog extends React.Component<
         return (
           <Row>
             <TextBox
-              label="Path"
+              label={t('cli.path')}
               placeholder="/path/to/repository"
               value={this.state.path}
               onValueChanged={this.onPathChanged}
@@ -105,7 +106,7 @@ export class TestCLIActionDialog extends React.Component<
           <>
             <Row>
               <TextBox
-                label="URL"
+                label={t('cli.url')}
                 placeholder="https://github.com/desktop/desktop"
                 value={this.state.url}
                 onValueChanged={this.onUrlChanged}
@@ -114,7 +115,7 @@ export class TestCLIActionDialog extends React.Component<
             </Row>
             <Row>
               <TextBox
-                label="Branch (optional)"
+                label={t('cli.branch-optional')}
                 placeholder="main"
                 value={this.state.branch}
                 onValueChanged={this.onBranchChanged}

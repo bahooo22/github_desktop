@@ -18,6 +18,7 @@ import { encodePathAsUrl } from '../../lib/path'
 import { isOSNoLongerSupportedByElectron } from '../../lib/get-os'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { formatDate } from '../../lib/format-date'
+import { t, Trans } from '../../lib/l10n'
 
 const logoPath = __DARWIN__
   ? 'static/logo-64x64@2x.png'
@@ -107,7 +108,7 @@ export class About extends React.Component<IAboutProps> {
         return (
           <Row>
             <Button onClick={this.props.onQuitAndInstall}>
-              Quit and Install Update
+              {t('about.quit-and-install-update')}
             </Button>
           </Row>
         )
@@ -121,7 +122,7 @@ export class About extends React.Component<IAboutProps> {
             UpdateStatus.UpdateNotAvailable,
           ].includes(updateStatus) || isOSNoLongerSupportedByElectron()
 
-        const buttonTitle = 'Check for Updates'
+        const buttonTitle = t('about.check-for-updates')
 
         return (
           <Row>
@@ -147,21 +148,16 @@ export class About extends React.Component<IAboutProps> {
     }
 
     if (!this.canCheckForUpdates) {
-      return (
-        <p>
-          The application is currently running in development and will not
-          receive any updates.
-        </p>
-      )
+      return <p>{t('about.dev-no-updates')}</p>
     }
 
     const { status, lastSuccessfulCheck } = this.props.updateState
 
     switch (status) {
       case UpdateStatus.CheckingForUpdates:
-        return <UpdateInfo message="Checking for updates…" loading={true} />
+        return <UpdateInfo message={t('about.checking')} loading={true} />
       case UpdateStatus.UpdateAvailable:
-        return <UpdateInfo message="Downloading update…" loading={true} />
+        return <UpdateInfo message={t('about.downloading')} loading={true} />
       case UpdateStatus.UpdateNotAvailable:
         if (!lastSuccessfulCheck) {
           return null
@@ -169,8 +165,10 @@ export class About extends React.Component<IAboutProps> {
 
         const richMessage = (
           <p>
-            You have the latest version (last checked{' '}
-            <RelativeTime date={lastSuccessfulCheck} />)
+            <Trans
+              k="about.up-to-date-rich"
+              components={{ time: <RelativeTime date={lastSuccessfulCheck} /> }}
+            />
           </p>
         )
 
@@ -179,16 +177,13 @@ export class About extends React.Component<IAboutProps> {
           timeStyle: 'short',
         })
 
+        const upToDateMessage = t('about.up-to-date', { date: absoluteDate })
+
         return (
-          <UpdateInfo
-            message={`You have the latest version (last checked ${absoluteDate})`}
-            richMessage={richMessage}
-          />
+          <UpdateInfo message={upToDateMessage} richMessage={richMessage} />
         )
       case UpdateStatus.UpdateReady:
-        return (
-          <UpdateInfo message="An update has been downloaded and is ready to be installed." />
-        )
+        return <UpdateInfo message={t('about.update-ready')} />
       case UpdateStatus.UpdateNotChecked:
         return null
       default:
@@ -208,23 +203,20 @@ export class About extends React.Component<IAboutProps> {
     if (isOSNoLongerSupportedByElectron()) {
       return (
         <DialogError>
-          This operating system is no longer supported. Software updates have
-          been disabled.{' '}
-          <LinkButton uri="https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/overview/supported-operating-systems">
-            Supported operating systems
-          </LinkButton>
+          <Trans
+            k="about.os-unsupported"
+            components={{
+              link: (
+                <LinkButton uri="https://docs.github.com/en/desktop/installing-and-configuring-github-desktop/overview/supported-operating-systems" />
+              ),
+            }}
+          />
         </DialogError>
       )
     }
 
     if (!this.props.updateState.lastSuccessfulCheck) {
-      return (
-        <DialogError>
-          Couldn't determine the last time an update check was performed. You
-          may be running an old version. Please try manually checking for
-          updates and contact GitHub Support if the problem persists
-        </DialogError>
-      )
+      return <DialogError>{t('about.check-time-error')}</DialogError>
     }
 
     return null
@@ -237,12 +229,14 @@ export class About extends React.Component<IAboutProps> {
 
     return (
       <div>
-        <p className="no-padding">Looking for the latest features?</p>
+        <p className="no-padding">{t('about.looking-for-features')}</p>
         <p className="no-padding">
-          Check out the{' '}
-          <LinkButton uri="https://desktop.github.com/beta">
-            Beta Channel
-          </LinkButton>
+          <Trans
+            k="about.beta-channel"
+            components={{
+              link: <LinkButton uri="https://desktop.github.com/beta" />,
+            }}
+          />
         </p>
       </div>
     )
@@ -251,11 +245,14 @@ export class About extends React.Component<IAboutProps> {
   public render() {
     const name = this.props.applicationName
     const version = this.props.applicationVersion
+    const releaseNotesLabel = t('about.release-notes')
     const releaseNotesLink = (
-      <LinkButton uri={ReleaseNotesUri}>release notes</LinkButton>
+      <LinkButton uri={ReleaseNotesUri}>{releaseNotesLabel}</LinkButton>
     )
 
-    const versionText = __DEV__ ? `Build ${version}` : `Version ${version}`
+    const versionText = __DEV__
+      ? t('about.build', { version })
+      : t('about.version', { version })
     const titleId = 'Dialog_about'
 
     return (
@@ -275,7 +272,7 @@ export class About extends React.Component<IAboutProps> {
               height="64"
             />
           </Row>
-          <h1 id={titleId}>About {name}</h1>
+          <h1 id={titleId}>{t('about.title', { name })}</h1>
           <p className="no-padding">
             <span className="selectable-text">
               {versionText} ({this.props.applicationArchitecture})
@@ -288,17 +285,17 @@ export class About extends React.Component<IAboutProps> {
           <div className="terms-and-license-container">
             <p className="no-padding terms-and-license">
               <LinkButton onClick={this.props.onShowTermsAndConditions}>
-                Terms and Conditions
+                {t('about.terms-and-conditions')}
               </LinkButton>
             </p>
             <p className="no-padding terms-and-license">
               <LinkButton onClick={this.props.onShowAcknowledgements}>
-                License and Open Source Notices
+                {t('about.license-notices')}
               </LinkButton>
             </p>
             <p className="terms-and-license">
               <LinkButton uri="https://gh.io/copilot-for-desktop-transparency">
-                Responsible use of Copilot in GitHub Desktop
+                {t('about.responsible-use-copilot')}
               </LinkButton>
             </p>
           </div>

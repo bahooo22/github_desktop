@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Dialog, DialogContent, DefaultDialogFooter } from '../dialog'
 import { InstalledCLIPath } from '../lib/install-cli'
+import { t, Trans } from '../../lib/l10n'
 
 interface ICLIInstalledProps {
   /** Called when the popup should be dismissed. */
@@ -10,23 +11,23 @@ interface ICLIInstalledProps {
 /** Tell the user the CLI tool was successfully installed. */
 export class CLIInstalled extends React.Component<ICLIInstalledProps, {}> {
   public render() {
+    const path = InstalledCLIPath
+
     return (
       <Dialog
-        title={
-          __DARWIN__
-            ? 'Command Line Tool Installed'
-            : 'Command line tool installed'
-        }
+        title={t('cli.installed-title')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.props.onDismissed}
       >
         <DialogContent>
-          <div>
-            The command line tool has been installed at{' '}
-            <strong>{InstalledCLIPath}</strong>.
-          </div>
+          <Trans
+            as="div"
+            k="cli.installed-info"
+            params={{ path }}
+            components={{ strong: <strong /> }}
+          />
         </DialogContent>
-        <DefaultDialogFooter buttonText="Ok" />
+        <DefaultDialogFooter buttonText={t('common.ok')} />
       </Dialog>
     )
   }

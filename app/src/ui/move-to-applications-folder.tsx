@@ -7,6 +7,7 @@ import {
 } from './dialog'
 import { Dispatcher } from './dispatcher'
 import { Checkbox, CheckboxValue } from './lib/checkbox'
+import { t } from '../lib/l10n'
 
 interface IMoveToApplicationsFolderProps {
   readonly dispatcher: Dispatcher
@@ -35,7 +36,7 @@ export class MoveToApplicationsFolder extends React.Component<
   public render() {
     return (
       <Dialog
-        title="Move GitHub Desktop to the Applications folder?"
+        title={t('moveToApplications.title')}
         id="move-to-applications-folder"
         backdropDismissable={false}
         onDismissed={this.props.onDismissed}
@@ -43,18 +44,11 @@ export class MoveToApplicationsFolder extends React.Component<
         type="warning"
       >
         <DialogContent>
-          <p>
-            We've detected that you're not running GitHub Desktop from the
-            Applications folder of your machine. This could cause problems with
-            the app, including impacting your ability to sign in.
-          </p>
-          <p>
-            Do you want to move GitHub Desktop to the Applications folder now?
-            This will also restart the app.
-          </p>
+          <p>{t('moveToApplications.description')}</p>
+          <p>{t('moveToApplications.question')}</p>
           <div>
             <Checkbox
-              label="Do not show this message again"
+              label={t('moveToApplications.do-not-show-again')}
               value={
                 this.state.askToMoveToApplicationsFolder
                   ? CheckboxValue.Off
@@ -73,9 +67,9 @@ export class MoveToApplicationsFolder extends React.Component<
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText="Move and Restart"
-          okButtonTitle="This will move GitHub Desktop to the Applications folder in your machine and restart the app."
-          cancelButtonText="Not Now"
+          okButtonText={t('moveToApplications.move-and-restart')}
+          okButtonTitle={t('moveToApplications.move-and-restart-hint')}
+          cancelButtonText={t('moveToApplications.not-now')}
           onCancelButtonClick={this.onNotNow}
         />
       </DialogFooter>

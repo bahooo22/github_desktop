@@ -7,6 +7,7 @@ import { Ref } from '../lib/ref'
 import { LinkButton } from '../lib/link-button'
 import { Progress } from '../../models/progress'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 interface ICreateTutorialRepositoryDialogProps {
   /**
@@ -68,11 +69,13 @@ export class CreateTutorialRepositoryDialog extends React.Component<ICreateTutor
   public render() {
     const { account, progress } = this.props
     const loading = progress !== undefined
+    const login = `@${account.login}`
+    const endpoint = account.friendlyEndpoint
 
     return (
       <Dialog
         id="create-tutorial-repository-dialog"
-        title="Start tutorial"
+        title={t('noRepositories.start-tutorial')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.onSubmit}
         dismissDisabled={loading}
@@ -80,19 +83,19 @@ export class CreateTutorialRepositoryDialog extends React.Component<ICreateTutor
         disabled={loading}
       >
         <DialogContent>
-          <div>
-            This will create a repository on your local machine, and push it to
-            your account <Ref>@{this.props.account.login}</Ref> on{' '}
-            <LinkButton uri={getHTMLURL(account.endpoint)}>
-              {account.friendlyEndpoint}
-            </LinkButton>
-            . This repository will only be visible to you, and not visible
-            publicly.
-          </div>
+          <Trans
+            as="div"
+            k="noRepositories.create-tutorial-info"
+            params={{ login, endpoint }}
+            components={{
+              ref: <Ref />,
+              link: <LinkButton uri={getHTMLURL(account.endpoint)} />,
+            }}
+          />
           {this.renderProgress()}
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText="Continue" />
+          <OkCancelButtonGroup okButtonText={t('noRepositories.continue')} />
         </DialogFooter>
       </Dialog>
     )

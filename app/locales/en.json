@@ -616,5 +616,153 @@
       "@darwin": "Branch",
       "@other": "&Branch"
     }
+  },
+  "about": {
+    "title": "About {name}",
+    "build": "Build {version}",
+    "version": "Version {version}",
+    "release-notes": "release notes",
+    "check-for-updates": "Check for Updates",
+    "quit-and-install-update": "Quit and Install Update",
+    "checking": "Checking for updates…",
+    "downloading": "Downloading update…",
+    "up-to-date": "You have the latest version (last checked {date})",
+    "up-to-date-rich": "You have the latest version (last checked <time />)",
+    "update-ready": "An update has been downloaded and is ready to be installed.",
+    "dev-no-updates": "The application is currently running in development and will not receive any updates.",
+    "os-unsupported": "This operating system is no longer supported. Software updates have been disabled. <link>Supported operating systems</link>",
+    "check-time-error": "Couldn't determine the last time an update check was performed. You may be running an old version. Please try manually checking for updates and contact GitHub Support if the problem persists",
+    "looking-for-features": "Looking for the latest features?",
+    "beta-channel": "Check out the <link>Beta Channel</link>",
+    "terms-and-conditions": "Terms and Conditions",
+    "license-notices": "License and Open Source Notices",
+    "responsible-use-copilot": "Responsible use of Copilot in GitHub Desktop"
+  },
+  "acknowledgements": {
+    "title": "License and Open Source Notices",
+    "intro": "<desktop>GitHub Desktop</desktop> is an open source project published under the MIT License. You can view the source code and contribute to this project on <github>GitHub</github>.",
+    "libraries": "GitHub Desktop also distributes these libraries:",
+    "license": "License: {license}",
+    "unknown-license": "Unknown license"
+  },
+  "cli": {
+    "dispatch-title": "Dispatch CLI Action",
+    "open-repository": "Open repository",
+    "clone-url": "Clone URL",
+    "dispatch": "Dispatch",
+    "path": "Path",
+    "url": "URL",
+    "branch-optional": "Branch (optional)",
+    "installed-title": {
+      "@darwin": "Command Line Tool Installed",
+      "@other": "Command line tool installed"
+    },
+    "installed-info": "The command line tool has been installed at <strong>{path}</strong>."
+  },
+  "moveToApplications": {
+    "title": "Move GitHub Desktop to the Applications folder?",
+    "description": "We've detected that you're not running GitHub Desktop from the Applications folder of your machine. This could cause problems with the app, including impacting your ability to sign in.",
+    "question": "Do you want to move GitHub Desktop to the Applications folder now? This will also restart the app.",
+    "do-not-show-again": "Do not show this message again",
+    "move-and-restart": "Move and Restart",
+    "move-and-restart-hint": "This will move GitHub Desktop to the Applications folder in your machine and restart the app.",
+    "not-now": "Not Now"
+  },
+  "noRepositories": {
+    "start-tutorial": "Start tutorial",
+    "create-tutorial-info": "This will create a repository on your local machine, and push it to your account <ref>{login}</ref> on <link>{endpoint}</link>. This repository will only be visible to you, and not visible publicly.",
+    "continue": "Continue",
+    "get-started": "Let's get started!",
+    "add-repository-hint": "Add a repository to GitHub Desktop to start collaborating",
+    "clone-selected": "Clone <strong>{repository}</strong>",
+    "return-to-tutorial": {
+      "@darwin": "Return to In Progress Tutorial",
+      "@other": "Return to in progress tutorial"
+    },
+    "create-tutorial": {
+      "@darwin": "Create a Tutorial Repository…",
+      "@other": "Create a tutorial repository…"
+    },
+    "clone-from-internet": {
+      "@darwin": "Clone a Repository from the Internet…",
+      "@other": "Clone a repository from the Internet…"
+    },
+    "create-new-repository": {
+      "@darwin": "Create a New Repository on your Local Drive…",
+      "@other": "Create a New Repository on your local drive…"
+    },
+    "add-existing-repository": {
+      "@darwin": "Add an Existing Repository from your Local Drive…",
+      "@other": "Add an Existing Repository from your local drive…"
+    },
+    "drag-drop-hint": "<strong>ProTip!</strong> You can drag & drop an existing repository folder here to add it to Desktop"
+  },
+  "signIn": {
+    "title": "Sign in",
+    "browser-title": {
+      "@darwin": "Sign in Using Your Browser",
+      "@other": "Sign in using your browser"
+    },
+    "continue": "Continue",
+    "continue-with-browser": {
+      "@darwin": "Continue With Browser",
+      "@other": "Continue with browser"
+    },
+    "enterprise-address": "Enterprise address",
+    "browser-redirect-info": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop, please allow it.",
+    "existing-account-warning": "You're already signed in to <ref>{host}</ref> with the account <ref>{login}</ref>. If you continue, you will first be signed out.",
+    "credential-helper-info": "Git requesting credentials to access <ref>{url}</ref>."
+  },
+  "terms": {
+    "title": "GitHub Open Source Applications Terms and Conditions",
+    "intro": "These GitHub Open Source Applications Terms and Conditions (\"Application Terms\") are a legal agreement between you (either as an individual or on behalf of an entity) and GitHub, Inc. regarding your use of GitHub's applications, such as GitHub Desktop™ and associated documentation (\"Software\"). These Application Terms apply to the executable code version of the Software. Source code for the Software is available separately and free of charge under open source software license agreements. If you do not agree to all of the terms in these Application Terms, do not download, install, use, or copy the Software.",
+    "connecting-to-github": "Connecting to GitHub",
+    "connecting-governed": "If you configure the Software to work with one or more accounts on the GitHub.com website or with an instance of GitHub Enterprise Server, your use of the Software will also be governed your applicable GitHub.com website Terms of Service and/or the license agreement applicable to your instance of GitHub Enterprise (\"GitHub Terms\").",
+    "connecting-violation": "Any use of the Software that violates your applicable GitHub Terms will also be a violation of these Application Terms.",
+    "open-source-licenses": "Open Source Licenses and Notices",
+    "licenses-notices": "The open source license for the Software is included in the \"Open Source Notices\" documentation that is included with the Software. That documentation also includes copies of all applicable open source licenses.",
+    "licenses-source-code-offer": "To the extent the terms of the licenses applicable to open source components require GitHub to make an offer to provide source code in connection with the Software, such offer is hereby made, and you may exercise it by contacting GitHub: <link>contact</link>.",
+    "licenses-supersede": "Unless otherwise agreed to in writing with GitHub, your agreement with GitHub will always include, at a minimum, these Application Terms. Open source software licenses for the Software's source code constitute separate written agreements. To the limited extent that the open source software licenses expressly supersede these Application Terms, the open source licenses govern your agreement with GitHub for the use of the Software or specific included components of the Software.",
+    "logos": "GitHub's Logos",
+    "logos-trademark-rights": "The license grant included with the Software is not for GitHub's trademarks, which include the Software logo designs. GitHub reserves all trademark and copyright rights in and to all GitHub trademarks. GitHub's logos include, for instance, the stylized designs that include \"logo\" in the file title in the \"logos\" folder.",
+    "logos-trademarks": "The names GitHub, GitHub Desktop, GitHub for Mac, GitHub for Windows, Atom, the Octocat, and related GitHub logos and/or stylized names are trademarks of GitHub. You agree not to display or use these trademarks in any manner without GitHub's prior, written permission, except as allowed by GitHub's Logos and Usage Policy: <link>logos</link>.",
+    "privacy": "Privacy",
+    "privacy-description": "The Software may collect personal information. You may control what information the Software collects in the settings panel. If the Software does collect personal information on GitHub's behalf, GitHub will process that information in accordance with the <link>GitHub Privacy Statement</link>.",
+    "additional-services": "Additional Services",
+    "auto-update-services": "Auto-Update Services",
+    "auto-update-description": "The Software may include an auto-update service (\"Service\"). If you choose to use the Service or you download Software that automatically enables the Service, GitHub will automatically update the Software when a new version is available.",
+    "disclaimers": "Disclaimers and Limitations of Liability",
+    "disclaimer-as-is": "THE SERVICE IS PROVIDED ON AN \"AS IS\" BASIS, AND NO WARRANTY, EITHER EXPRESS OR IMPLIED, IS GIVEN. YOUR USE OF THE SERVICE IS AT YOUR SOLE RISK. GitHub does not warrant that (i) the Service will meet your specific requirements; (ii) the Service is fully compatible with any particular platform; (iii) your use of the Service will be uninterrupted, timely, secure, or error-free; (iv) the results that may be obtained from the use of the Service will be accurate or reliable; (v) the quality of any products, services, information, or other material purchased or obtained by you through the Service will meet your expectations; or (vi) any errors in the Service will be corrected.",
+    "disclaimer-liability": "YOU EXPRESSLY UNDERSTAND AND AGREE THAT GITHUB SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES, INCLUDING BUT NOT LIMITED TO, DAMAGES FOR LOSS OF PROFITS, GOODWILL, USE, DATA OR OTHER INTANGIBLE LOSSES (EVEN IF GITHUB HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES) RELATED TO THE SERVICE, including, for example: (i) the use or the inability to use the Service; (ii) the cost of procurement of substitute goods and services resulting from any goods, data, information or services purchased or obtained or messages received or transactions entered into through or from the Service; (iii) unauthorized access to or alteration of your transmissions or data; (iv) statements or conduct of any third-party on the Service; (v) or any other matter relating to the Service.",
+    "disclaimer-modify": "GitHub reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the Service (or any part thereof) with or without notice. GitHub shall not be liable to you or to any third-party for any price change, suspension or discontinuance of the Service.",
+    "miscellanea": "Miscellanea",
+    "misc-no-waiver": "No Waiver. The failure of GitHub to exercise or enforce any right or provision of these Application Terms shall not constitute a waiver of such right or provision.",
+    "misc-entire-agreement": "Entire Agreement. These Application Terms, together with any applicable Privacy Notices, constitutes the entire agreement between you and GitHub and governs your use of the Software, superseding any prior agreements between you and GitHub (including, but not limited to, any prior versions of the Application Terms).",
+    "misc-governing-law": "Governing Law. You agree that these Application Terms and your use of the Software are governed under California law and any dispute related to the Software must be brought in a tribunal of competent jurisdiction located in or near San Francisco, California.",
+    "misc-third-party-packages": "Third-Party Packages. The Software supports third-party \"Packages\" which may modify, add, remove, or alter the functionality of the Software. These Packages are not covered by these Application Terms and may include their own license which governs your use of that particular package.",
+    "misc-no-modifications": "No Modifications; Complete Agreement. These Application Terms may only be modified by a written amendment signed by an authorized representative of GitHub, or by the posting by GitHub of a revised version. These Application Terms, together with any applicable Open Source Licenses and Notices and GitHub's Privacy Statement, represent the complete and exclusive statement of the agreement between you and us. These Application Terms supersede any proposal or prior agreement oral or written, and any other communications between you and GitHub relating to the subject matter of these terms.",
+    "misc-license-to-policies": "License to GitHub Policies. These Application Terms are licensed under the <link>Creative Commons Attribution license</link>. You may use it freely under the terms of the Creative Commons license.",
+    "misc-contact": "Contact Us. Please send any questions about these Application Terms to <link>support@github.com</link>."
+  },
+  "thankYou": {
+    "title": "Thank you {name}!",
+    "note": "Thanks so much for all your hard work on GitHub Desktop{version}. We're so grateful for your willingness to contribute and make the app better for everyone!",
+    "contributed": "You contributed:"
+  },
+  "welcome": {
+    "aria": "Welcome to GitHub Desktop",
+    "title": "Welcome to <span>GitHub Desktop</span>",
+    "start-description": "GitHub Desktop is a seamless way to contribute to projects on GitHub and GitHub Enterprise. Sign in below to get started with your existing projects.",
+    "sign-in-to-github-com": "Sign in to GitHub.com",
+    "sign-in-to-github-enterprise": "Sign in to GitHub Enterprise",
+    "new-to-github": "New to GitHub?",
+    "create-account": "Create your free account.",
+    "skip": "Skip this step",
+    "legal-footer": "By creating an account, you agree to the <terms>Terms of Service</terms>. For more information about GitHub's privacy practices, see the <privacy>GitHub Privacy Statement.</privacy>",
+    "user-metrics": "GitHub Desktop sends usage metrics to improve the product and inform feature decisions. <link>Learn more about user metrics.</link>",
+    "configure-git-title": "Configure Git",
+    "configure-git-description": "This is used to identify the commits you create. Anyone will be able to see this information if you publish commits.",
+    "finish": "Finish",
+    "sign-in-enterprise-title": "Sign in to your GitHub Enterprise"
   }
 }
