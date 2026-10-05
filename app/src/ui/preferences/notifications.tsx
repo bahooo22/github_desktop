@@ -2,6 +2,7 @@ import * as React from 'react'
 import { DialogContent } from '../dialog'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { LinkButton } from '../lib/link-button'
+import { t, Trans } from '../../lib/l10n'
 import {
   getNotificationSettingsUrl,
   supportsNotifications,
@@ -51,9 +52,9 @@ export class Notifications extends React.Component<
     return (
       <DialogContent>
         <div className="advanced-section">
-          <h2>Notifications</h2>
+          <h2>{t('settings.notifications.title')}</h2>
           <Checkbox
-            label="Enable notifications"
+            label={t('settings.notifications.enable')}
             value={
               this.props.notificationsEnabled
                 ? CheckboxValue.On
@@ -62,8 +63,8 @@ export class Notifications extends React.Component<
             onChange={this.onNotificationsEnabledChanged}
           />
           <p className="settings-description">
-            Allows the display of notifications when high-signal events take
-            place in the current repository.{this.renderNotificationHint()}
+            {t('settings.notifications.description')}
+            {this.renderNotificationHint()}
           </p>
         </div>
       </DialogContent>
@@ -101,14 +102,12 @@ export class Notifications extends React.Component<
 
     if (suggestGrantNotificationPermission) {
       return (
-        <>
-          {' '}
-          You need to{' '}
-          <LinkButton onClick={this.onGrantNotificationPermission}>
-            grant permission
-          </LinkButton>{' '}
-          to display these notifications from GitHub Desktop.
-        </>
+        <Trans
+          k="settings.notifications.grant-permission-hint"
+          components={{
+            link: <LinkButton onClick={this.onGrantNotificationPermission} />,
+          }}
+        />
       )
     }
 
@@ -121,29 +120,27 @@ export class Notifications extends React.Component<
     if (warnNotificationsDenied) {
       return (
         <div className="setting-hint-warning">
-          <span className="warning-icon">⚠️</span> GitHub Desktop has no
-          permission to display notifications. Please, enable them in the{' '}
-          <LinkButton uri={notificationSettingsURL}>
-            Notifications Settings
-          </LinkButton>
-          .
+          <Trans
+            k="settings.notifications.permission-denied"
+            components={{
+              icon: <span className="warning-icon">⚠️</span>,
+              link: <LinkButton uri={notificationSettingsURL} />,
+            }}
+          />
         </div>
       )
     }
 
     const verb = suggestConfigureNotifications
-      ? 'properly configured'
-      : 'enabled'
+      ? t('settings.notifications.verb-properly-configured')
+      : t('settings.notifications.verb-enabled')
 
     return (
-      <>
-        {' '}
-        Make sure notifications are {verb} for GitHub Desktop in the{' '}
-        <LinkButton uri={notificationSettingsURL}>
-          Notifications Settings
-        </LinkButton>
-        .
-      </>
+      <Trans
+        k="settings.notifications.configure-hint"
+        params={{ verb }}
+        components={{ link: <LinkButton uri={notificationSettingsURL} /> }}
+      />
     )
   }
 }

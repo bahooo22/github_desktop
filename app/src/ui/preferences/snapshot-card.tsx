@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from '../../lib/l10n'
 import { getHTMLURL } from '../../lib/api'
 import { lookupPreferredEmail } from '../../lib/email'
 import type {
@@ -14,17 +15,19 @@ import { TooltipDirection } from '../lib/tooltip'
 import { formatNumber } from '../../lib/format-number'
 import { getNumberFormatPreference } from '../../models/formatting-preferences'
 
-const snapshotDisplayNames: Record<string, string> = {
-  chat: 'Chat messages',
-  completions: 'Code completions',
-  premium_interactions: 'Premium requests',
-  session: 'Session limits',
-  weekly: 'Weekly limits',
+const snapshotDisplayNameKeys: Record<string, string> = {
+  chat: 'settings.copilot.snapshot.chat',
+  completions: 'settings.copilot.snapshot.completions',
+  premium_interactions: 'settings.copilot.snapshot.premium-requests',
+  session: 'settings.copilot.snapshot.session-limits',
+  weekly: 'settings.copilot.snapshot.weekly-limits',
 }
 
-const tokenBasedSnapshotDisplayNames: Record<string, string> = {
-  premium_interactions: 'AI credits',
+const tokenBasedSnapshotDisplayNameKeys: Record<string, string> = {
+  premium_interactions: 'settings.copilot.snapshot.ai-credits',
 }
+
+const aiCreditsSnapshotKey = 'premium_interactions'
 
 const quotaKeys = ['chat', 'completions', 'premium_interactions']
 const rateLimitKeys = ['session', 'weekly']
@@ -74,13 +77,14 @@ function getSnapshotDisplayName(
   tokenBasedBilling: boolean
 ): string {
   if (tokenBasedBilling) {
-    const displayName = tokenBasedSnapshotDisplayNames[key]
-    if (displayName !== undefined) {
-      return displayName
+    const tokenBasedKey = tokenBasedSnapshotDisplayNameKeys[key]
+    if (tokenBasedKey !== undefined) {
+      return t(tokenBasedKey)
     }
   }
 
-  return snapshotDisplayNames[key] ?? key
+  const displayNameKey = snapshotDisplayNameKeys[key]
+  return displayNameKey === undefined ? key : t(displayNameKey)
 }
 
 function getUsedPercentage(snapshot: ICopilotQuotaSnapshot): number {
@@ -117,16 +121,18 @@ function formatUsedPercentage(snapshot: ICopilotQuotaSnapshot): string {
 
 function formatUsageTooltip(
   snapshot: ICopilotQuotaSnapshot,
-  displayName: string
+  displayName: string,
+  isCreditSnapshot: boolean
 ): string | undefined {
   if (snapshot.isUnlimitedEntitlement || snapshot.entitlementRequests <= 0) {
     return undefined
   }
 
-  if (displayName === 'AI credits') {
-    return `${formatAiCreditValue(
-      snapshot.usedRequests
-    )} / ${formatAiCreditValue(snapshot.entitlementRequests)} AI credits used`
+  if (isCreditSnapshot) {
+    return t('settings.copilot.snapshot.credits-used', {
+      used: formatAiCreditValue(snapshot.usedRequests),
+      entitlement: formatAiCreditValue(snapshot.entitlementRequests),
+    })
   }
 
   const formatRequests = (value: number) =>
@@ -135,9 +141,11 @@ function formatUsageTooltip(
       maximumFractionDigits: 2,
     })
 
-  return `${formatRequests(snapshot.usedRequests)} / ${formatRequests(
-    snapshot.entitlementRequests
-  )} ${displayName.toLowerCase()} used`
+  return t('settings.copilot.snapshot.requests-used', {
+    used: formatRequests(snapshot.usedRequests),
+    entitlement: formatRequests(snapshot.entitlementRequests),
+    displayName: displayName.toLowerCase(),
+  })
 }
 
 function isFutureResetDate(resetDate: string | undefined): boolean {
@@ -148,10 +156,6 @@ function isFutureResetDate(resetDate: string | undefined): boolean {
   return new Date(resetDate).getTime() > Date.now()
 }
 
-function pluralize(value: number, singular: string): string {
-  return value === 1 ? singular : `${singular}s`
-}
-
 function formatResetText(resetDate: string): string | null {
   const millisecondsUntilReset = new Date(resetDate).getTime() - Date.now()
   if (!Number.isFinite(millisecondsUntilReset) || millisecondsUntilReset <= 0) {
@@ -160,16 +164,16 @@ function formatResetText(resetDate: string): string | null {
 
   const minutes = Math.ceil(millisecondsUntilReset / (60 * 1000))
   if (minutes < 60) {
-    return `resets in ${minutes} ${pluralize(minutes, 'minute')}`
+    return t('settings.copilot.snapshot.resets-in-minutes', { count: minutes })
   }
 
   const hours = Math.ceil(minutes / 60)
   if (hours < 24) {
-    return `resets in ${hours} ${pluralize(hours, 'hour')}`
+    return t('settings.copilot.snapshot.resets-in-hours', { count: hours })
   }
 
   const days = Math.ceil(hours / 24)
-  return `resets in ${days} ${pluralize(days, 'day')}`
+  return t('settings.copilot.snapshot.resets-in-days', { count: days })
 }
 
 function isQuotaVisible(snapshot: ICopilotQuotaSnapshot): boolean {
@@ -248,8 +252,16 @@ function QuotaProgressBar({ snapshot }: IQuotaProgressBarProps) {
       aria-valuenow={usedPercentage}
       aria-valuemin={0}
       aria-valuemax={100}
-      aria-valuetext={disabled ? 'No usage limit' : undefined}
-      aria-label={disabled ? 'No usage limit' : `${usedPercentage}% quota used`}
+      aria-valuetext={
+        disabled ? t('settings.copilot.snapshot.no-usage-limit') : undefined
+      }
+      aria-label={
+        disabled
+          ? t('settings.copilot.snapshot.no-usage-limit')
+          : t('settings.copilot.snapshot.quota-used', {
+              percentage: usedPercentage,
+            })
+      }
     >
       <div
         className="copilot-snapshot-progress-value"
@@ -264,16 +276,22 @@ function SnapshotUsageItem({
   tokenBasedBilling = false,
 }: ISnapshotUsageItemProps) {
   const { snapshot, displayName } = item
+  const isCreditSnapshot =
+    tokenBasedBilling && item.key === aiCreditsSnapshotKey
   const usageLabel = snapshot.isUnlimitedEntitlement
-    ? 'No usage limit'
+    ? t('settings.copilot.snapshot.no-usage-limit')
     : formatUsedPercentage(snapshot)
-  const usageTooltip = formatUsageTooltip(snapshot, displayName)
+  const usageTooltip = formatUsageTooltip(
+    snapshot,
+    displayName,
+    isCreditSnapshot
+  )
   const resetText =
     snapshot.resetDate !== undefined && isFutureResetDate(snapshot.resetDate)
       ? formatResetText(snapshot.resetDate)
       : null
   const showMonthlyResetFallback =
-    item.key === 'premium_interactions' &&
+    item.key === aiCreditsSnapshotKey &&
     tokenBasedBilling &&
     !snapshot.isUnlimitedEntitlement &&
     resetText === null
@@ -286,7 +304,9 @@ function SnapshotUsageItem({
           {!snapshot.isUnlimitedEntitlement && resetText !== null ? (
             <span className="copilot-snapshot-reset">({resetText})</span>
           ) : showMonthlyResetFallback ? (
-            <span className="copilot-snapshot-reset">(resets monthly)</span>
+            <span className="copilot-snapshot-reset">
+              {t('settings.copilot.snapshot.resets-monthly')}
+            </span>
           ) : null}
         </span>
         <TooltippedContent
@@ -336,7 +356,9 @@ export class SnapshotCard extends React.Component<ISnapshotCardProps> {
             </div>
           </div>
           {onConfigureModels !== undefined && (
-            <Button onClick={this.onConfigureModelsClick}>Configure…</Button>
+            <Button onClick={this.onConfigureModelsClick}>
+              {t('settings.copilot.snapshot.configure')}
+            </Button>
           )}
         </div>
         {snapshots === null
@@ -352,7 +374,11 @@ export class SnapshotCard extends React.Component<ISnapshotCardProps> {
 }
 
 function renderLoadingSnapshots(): JSX.Element {
-  return <p className="copilot-usage-empty">Loading Copilot usage…</p>
+  return (
+    <p className="copilot-usage-empty">
+      {t('settings.copilot.snapshot.loading')}
+    </p>
+  )
 }
 
 function renderSnapshots(snapshots: CopilotQuotaSnapshots): JSX.Element {
@@ -363,7 +389,7 @@ function renderSnapshots(snapshots: CopilotQuotaSnapshots): JSX.Element {
   if (rateLimits.length === 0 && quotas.length === 0) {
     return (
       <p className="copilot-usage-empty">
-        No Copilot usage data available yet.
+        {t('settings.copilot.snapshot.no-data')}
       </p>
     )
   }

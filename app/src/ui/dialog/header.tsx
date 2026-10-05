@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Octicon, syncClockwise } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
+import { t } from '../../lib/l10n'
 
 interface IDialogHeaderProps {
   /**
@@ -68,7 +69,7 @@ export class DialogHeader extends React.Component<IDialogHeaderProps, {}> {
       <button
         className="close"
         onClick={this.onCloseButtonClick}
-        aria-label="Close"
+        aria-label={t('common.close')}
       >
         <Octicon symbol={octicons.x} />
       </button>

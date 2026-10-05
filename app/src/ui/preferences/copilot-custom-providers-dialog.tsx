@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from '../../lib/l10n'
 import { isLocalBaseUrl, type IBYOKProvider } from '../../lib/copilot/byok'
 import { Button } from '../lib/button'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
@@ -29,7 +30,7 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
       <Dialog
         id="copilot-custom-providers-dialog"
         className="copilot-settings-dialog"
-        title={__DARWIN__ ? 'Custom Providers' : 'Custom providers'}
+        title={t('settings.copilot.custom-providers-title')}
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >
@@ -37,13 +38,13 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
           <div className="copilot-section">
             {this.renderProviders()}
             <Button onClick={this.onAddProviderClick}>
-              {__DARWIN__ ? 'Add Provider…' : 'Add provider…'}
+              {t('settings.copilot.add-provider')}
             </Button>
           </div>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Done"
+            okButtonText={t('common.done')}
             cancelButtonVisible={false}
           />
         </DialogFooter>
@@ -55,8 +56,7 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
     if (this.props.providers.length === 0) {
       return (
         <p className="copilot-byok-empty">
-          Add a custom provider to use your own API keys with OpenAI-compatible
-          endpoints, Azure, Anthropic, or local providers like Ollama.
+          {t('settings.copilot.byok-empty-description')}
         </p>
       )
     }
@@ -70,7 +70,9 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
 
   private renderProvider = (provider: IBYOKProvider) => {
     const modelCount = provider.models.length
-    const modelLabel = modelCount === 1 ? '1 model' : `${modelCount} models`
+    const modelLabel = t('settings.copilot.provider-model-count', {
+      count: modelCount,
+    })
     const isLocal = isLocalBaseUrl(provider.baseUrl)
 
     return (
@@ -79,7 +81,9 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
           <div className="copilot-byok-entry-title">
             <span>{provider.name}</span>
             {isLocal && (
-              <span className="copilot-byok-provider-badge">Local</span>
+              <span className="copilot-byok-provider-badge">
+                {t('settings.copilot.local')}
+              </span>
             )}
           </div>
           <span className="copilot-byok-entry-meta">
@@ -89,13 +93,17 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
         <div className="copilot-byok-entry-actions">
           <Button
             onClick={this.onEditProviderClick(provider)}
-            ariaLabel={`Edit ${provider.name}`}
+            ariaLabel={t('settings.copilot.edit-provider', {
+              name: provider.name,
+            })}
           >
             <Octicon symbol={octicons.pencil} />
           </Button>
           <Button
             onClick={this.onDeleteProviderClick(provider)}
-            ariaLabel={`Remove ${provider.name}`}
+            ariaLabel={t('settings.copilot.remove-provider', {
+              name: provider.name,
+            })}
           >
             <Octicon symbol={octicons.trash} />
           </Button>
@@ -107,11 +115,11 @@ export class CopilotCustomProvidersDialog extends React.Component<ICopilotCustom
   private formatProviderType(provider: IBYOKProvider): string {
     switch (provider.type) {
       case 'openai':
-        return 'OpenAI-compatible'
+        return t('settings.copilot.provider-type-openai')
       case 'azure':
-        return 'Azure'
+        return t('settings.copilot.provider-type-azure')
       case 'anthropic':
-        return 'Anthropic'
+        return t('settings.copilot.provider-type-anthropic')
     }
   }
 }

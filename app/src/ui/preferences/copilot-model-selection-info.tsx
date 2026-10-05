@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { t } from '../../lib/l10n'
 import { type CopilotFeature } from '../../lib/stores/copilot-store'
 import { Button } from '../lib/button'
 import { type ICopilotModelPickerSelectionInfo } from '../lib/copilot-model-picker'
@@ -73,7 +74,7 @@ export class CopilotModelSelectionInfo extends React.Component<
     return (
       <div className="copilot-model-picker-cost-details-row">
         <dt>{label}</dt>
-        <dd>{value ?? 'Unavailable'}</dd>
+        <dd>{value ?? t('settings.copilot.unavailable')}</dd>
       </div>
     )
   }
@@ -118,28 +119,35 @@ export class CopilotModelSelectionInfo extends React.Component<
               {selectionInfo.contextWindow === null
                 ? null
                 : this.renderCostDetailsRow(
-                    'Context',
+                    t('settings.copilot.context'),
                     selectionInfo.contextWindow
                   )}
               {selectionInfo.reasoningEffortLevels === null
                 ? null
                 : this.renderCostDetailsRow(
-                    'Reasoning',
+                    t('settings.copilot.reasoning'),
                     selectionInfo.reasoningEffortLevels
                   )}
             </dl>
           ) : null}
 
           <div className="copilot-model-picker-cost-details-section">
-            <h4>AI credits per {tokenPriceDetails.batchSize} tokens</h4>
+            <h4>
+              {t('settings.copilot.ai-credits-per-tokens', {
+                count: tokenPriceDetails.batchSize,
+              })}
+            </h4>
             <dl>
-              {this.renderCostDetailsRow('Input', tokenPriceDetails.inputPrice)}
               {this.renderCostDetailsRow(
-                'Cached input',
+                t('settings.copilot.input'),
+                tokenPriceDetails.inputPrice
+              )}
+              {this.renderCostDetailsRow(
+                t('settings.copilot.cached-input'),
                 tokenPriceDetails.cachePrice
               )}
               {this.renderCostDetailsRow(
-                'Output',
+                t('settings.copilot.output'),
                 tokenPriceDetails.outputPrice
               )}
             </dl>
@@ -163,14 +171,14 @@ export class CopilotModelSelectionInfo extends React.Component<
             ariaControls={costDetailsContentId}
             ariaDescribedBy={costDetailsContentId}
             ariaExpanded={this.state.showCostDetails}
-            ariaLabel="Show Copilot model credit costs"
+            ariaLabel={t('settings.copilot.show-credit-costs-aria')}
             className="copilot-model-picker-selection-info-button"
             applyTooltipAriaDescribedBy={false}
             onButtonRef={this.onCostDetailsButtonRef}
             onClick={this.onCostDetailsButtonClick}
             onKeyDown={this.onCostDetailsButtonKeyDown}
             size="small"
-            tooltip="Show credit costs"
+            tooltip={t('settings.copilot.show-credit-costs')}
           >
             <Octicon symbol={octicons.info} />
           </Button>

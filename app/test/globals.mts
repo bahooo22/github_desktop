@@ -53,3 +53,6 @@ mock.module('electron', {
     },
   },
 })
+
+const builtins = await import('../src/lib/l10n/builtins.ts')
+;(builtins.registerBuiltInLocales ?? builtins.default.registerBuiltInLocales)()

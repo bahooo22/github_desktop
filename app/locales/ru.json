@@ -3,7 +3,9 @@
     "name": "Russian",
     "nativeName": "Русский",
     "direction": "ltr",
-    "authors": ["BaHooo"]
+    "authors": [
+      "BaHooo"
+    ]
   },
   "common": {
     "cancel": "Отмена",
@@ -16,6 +18,24 @@
     "discard": "Отменить",
     "done": "Готово",
     "learnMore": "Подробнее"
+  },
+  "app": {
+    "select-repository": {
+      "@darwin": "Выбрать репозиторий",
+      "@other": "Выбрать репозиторий"
+    },
+    "no-repositories": {
+      "@darwin": "Нет репозиториев",
+      "@other": "Нет репозиториев"
+    },
+    "current-repository": {
+      "@darwin": "Текущий репозиторий",
+      "@other": "Текущий репозиторий"
+    },
+    "no-repository-selected": "Репозиторий не выбран"
+  },
+  "account-picker": {
+    "account": "Аккаунт"
   },
   "settings": {
     "title": {
@@ -33,6 +53,14 @@
       "advanced": "Дополнительно",
       "accessibility": "Спец. возможности",
       "language": "Язык"
+    },
+    "accounts": {
+      "add-enterprise": "Добавить аккаунт GitHub Enterprise",
+      "sign-out": "Выйти",
+      "sign-into-dotcom": "Войти в GitHub.com",
+      "sign-into-enterprise": "Войти в GitHub Enterprise",
+      "dotcom-description": "Войдите в аккаунт GitHub.com, чтобы получить доступ к своим репозиториям.",
+      "enterprise-description": "Если вы используете GitHub Enterprise на работе, войдите в него, чтобы получить доступ к своим репозиториям."
     },
     "language": {
       "title": "Язык интерфейса",
@@ -62,6 +90,222 @@
       "reset": "Вернуть встроенный перевод",
       "resetAll": "Удалить все мои переводы",
       "confirmResetAll": "Будут удалены все добавленные вами переводы. Отменить это нельзя."
+    },
+    "integrations": {
+      "external-editor": "Внешний редактор",
+      "external-editor-aria": "Внешний редактор",
+      "no-editors-found": "Редакторы не найдены.",
+      "no-other-editors-found": "Другие редакторы не найдены.",
+      "install-editor": "Установить {name}?",
+      "configure-custom-editor": "Настроить пользовательский редактор…",
+      "shell": "Оболочка",
+      "configure-custom-shell": "Настроить пользовательскую оболочку…",
+      "applications": "Приложения",
+      "choose-copilot": "Выбрать GitHub Copilot",
+      "copilot-description": "Попробуйте разработку с помощью агентов, нативно встроенную в GitHub.",
+      "copilot-learn-more": "Подробнее о GitHub Copilot",
+      "app-location": "Расположение приложения",
+      "app-location-placeholder": {
+        "@darwin": "путь к GitHub Copilot.app",
+        "@other": "путь к github.exe"
+      },
+      "choose": "Выбрать…"
+    },
+    "git": {
+      "tab-author": "Автор",
+      "tab-default-branch": "Ветка по умолчанию",
+      "tab-hooks": "Хуки",
+      "default-branch-heading": "Имя ветки по умолчанию для новых репозиториев",
+      "default-branch-is": "Ветка по умолчанию в GitHub называется",
+      "default-branch-change": "Её стоит изменить, если у вас другой рабочий процесс или если ваши интеграции по-прежнему требуют историческое имя ветки по умолчанию",
+      "warning-verb-saved": "сохранено",
+      "edit-global-config-lead": "Эти параметры",
+      "edit-global-config-link": "изменят ваш глобальный файл конфигурации Git",
+      "hooks-load-env": "Загружать переменные окружения Git-хуков из оболочки",
+      "hooks-load-env-description": "Если включено, GitHub Desktop будет пытаться загружать переменные окружения из вашей оболочки при выполнении Git-хуков. Это полезно, если ваши Git-хуки зависят от переменных окружения, заданных в конфигурационных файлах оболочки, — распространённая практика для менеджеров версий, таких как nvm, rbenv, asdf и т. п.",
+      "hooks-shell-label": "Оболочка для загрузки переменных окружения",
+      "hooks-cache-env": "Кэшировать переменные окружения Git-хуков",
+      "hooks-cache-env-description": "Кэшируйте переменные окружения хуков для повышения производительности. Отключите, если ваши хуки зависят от часто меняющихся переменных окружения."
+    },
+    "appearance": {
+      "light": "Светлая",
+      "dark": "Тёмная",
+      "system": "Системная",
+      "loading-system-theme": "Загрузка системной темы",
+      "theme": "Тема",
+      "formatting": "Форматирование",
+      "date-format": "Формат даты",
+      "time-format": "Формат времени",
+      "number-format": "Формат чисел",
+      "format-example": "{example} ({pattern})",
+      "prefer-absolute-dates": "Предпочитать абсолютные даты относительным",
+      "miscellaneous": "Разное",
+      "diff-tab-size": "Размер табуляции в диффе",
+      "tab-size-default": "{size:number} (по умолчанию)",
+      "always-show-worktree-list": "Всегда показывать список worktree"
+    },
+    "notifications": {
+      "title": "Уведомления",
+      "enable": "Включить уведомления",
+      "description": "Позволяет показывать уведомления, когда в текущем репозитории происходят важные события.",
+      "grant-permission-hint": " Чтобы GitHub Desktop мог показывать эти уведомления, нужно <link>предоставить разрешение</link>.",
+      "permission-denied": "<icon/> У GitHub Desktop нет разрешения на показ уведомлений. Включите их в <link>настройках уведомлений</link>.",
+      "configure-hint": " Убедитесь, что уведомления для GitHub Desktop {verb} в <link>настройках уведомлений</link>.",
+      "verb-properly-configured": "настроены правильно",
+      "verb-enabled": "включены"
+    },
+    "accessibility": {
+      "title": "Специальные возможности",
+      "underline-links": "Подчёркивать ссылки",
+      "underline-description": "Если включено, GitHub Desktop будет подчёркивать ссылки в сообщениях коммитов, комментариях и других текстовых полях. Это помогает отличать ссылки от остального текста.",
+      "example-link": "Это пример ссылки",
+      "show-diff-check-marks": "Показывать галочки в диффе",
+      "show-diff-check-marks-description": "Если включено, галочки будут отображаться рядом с номерами строк и группами номеров строк в диффе при коммите. Если отключено, элементы управления номерами строк будут менее заметны."
+    },
+    "advanced": {
+      "background-updates": "Фоновые обновления",
+      "repository-indicators": "Показывать значки состояния в списке репозиториев",
+      "repository-indicators-description": "Эти значки показывают, в каких репозиториях есть локальные или удалённые изменения, и требуют периодического опроса репозиториев, которые сейчас не выбраны.",
+      "repository-indicators-off-description": "Отключение не остановит периодический опрос выбранного репозитория, но может повысить производительность приложения у пользователей с большим количеством репозиториев.",
+      "usage": "Статистика",
+      "help-improve": "Помогите сделать GitHub Desktop лучше — отправляйте",
+      "usage-stats": "статистику использования",
+      "network-and-credentials": "Сеть и учётные данные",
+      "use-git-credential-manager": "Использовать Git Credential Manager",
+      "gcm-description-prefix": "Используйте",
+      "gcm-name": "Git Credential Manager",
+      "gcm-description-suffix": "для закрытых репозиториев вне GitHub.com. Эта функция экспериментальная и может измениться.",
+      "use-system-openssh": "Использовать системный OpenSSH (рекомендуется)"
+    },
+    "prompts": {
+      "show-confirmation-dialog-before": "Показывать диалог подтверждения перед…",
+      "removing-repositories": "удалением репозиториев",
+      "discarding-changes": "отменой изменений",
+      "discarding-changes-permanently": "безвозвратной отменой изменений",
+      "discarding-stash": "удалением спрятанных изменений",
+      "checking-out-a-commit": "переключением на коммит",
+      "force-pushing": "принудительной отправкой изменений",
+      "undoing-commit": "отменой коммита",
+      "overriding-commit-message": "заменой сообщения коммита сгенерированным",
+      "removing-worktrees": "удалением worktree",
+      "committing-changes-hidden-by-filter": "коммитом изменений, скрытых фильтром",
+      "switch-branch-heading": "Если у меня есть изменения и я переключаю ветки…",
+      "ask-me-where-changes-go": "Спрашивать, куда перенести изменения",
+      "always-move-to-new-branch": "Всегда переносить мои изменения в новую ветку",
+      "always-stash-on-current-branch": "Всегда прятать изменения и оставлять их в текущей ветке",
+      "commit-length": "Длина сообщения коммита",
+      "show-commit-length-warning": "Показывать предупреждение о длине сообщения"
+    },
+    "copilot": {
+      "sign-in-to-configure": "Войдите в аккаунт с лицензией Copilot, чтобы настроить параметры Copilot.",
+      "sign-in": "Войти",
+      "checking-access": "Проверяем доступ к Copilot…",
+      "license-required": "Функции Copilot в GitHub Desktop требуют лицензию GitHub Copilot.",
+      "view-plans": "Смотреть тарифы Copilot",
+      "desktop-disabled": "Для вашего аккаунта лицензия Copilot есть, но функция \"Copilot in GitHub Desktop\" отключена в настройках функций Copilot.",
+      "open-feature-settings": "Открыть настройки функций Copilot",
+      "settings-title": "Параметры Copilot",
+      "custom-providers-title": "Пользовательские провайдеры",
+      "add-provider": "Добавить провайдера…",
+      "loading-models": "Загружаем доступные модели…",
+      "no-models": "Модели Copilot недоступны.",
+      "custom-instructions": "Настройте поведение Copilot с помощью <link>пользовательских инструкций</link>.",
+      "learn-more-commit-messages": "Подробнее о генерации сообщений коммитов.",
+      "commit-message-generation": "Генерация сообщений коммитов",
+      "conflict-resolution": "Разрешение конфликтов",
+      "conflict-model-changes": "Смена модели применяется к будущим разрешениям конфликтов.",
+      "always-use-copilot-conflicts": "Всегда использовать Copilot при обнаружении конфликтов",
+      "byok-empty-description": "Добавьте пользовательского провайдера, чтобы использовать свои ключи API с эндпоинтами, совместимыми с OpenAI, Azure, Anthropic или локальные провайдеры вроде Ollama.",
+      "provider-model-count": {
+        "_one": "{count:number} модель",
+        "_few": "{count:number} модели",
+        "_many": "{count:number} моделей",
+        "_other": "{count:number} модели"
+      },
+      "local": "Локальный",
+      "edit-provider": "Изменить {name}",
+      "remove-provider": "Удалить {name}",
+      "provider-type-openai": "Совместимый с OpenAI",
+      "provider-type-azure": "Azure",
+      "provider-type-anthropic": "Anthropic",
+      "unavailable": "Недоступно",
+      "context": "Контекст",
+      "reasoning": "Рассуждения",
+      "ai-credits-per-tokens": {
+        "_one": "AI-кредиты за {count:number} токен",
+        "_few": "AI-кредиты за {count:number} токена",
+        "_many": "AI-кредиты за {count:number} токенов",
+        "_other": "AI-кредиты за {count:number} токена"
+      },
+      "input": "Вход",
+      "cached-input": "Кэшированный вход",
+      "output": "Выход",
+      "show-credit-costs-aria": "Показать стоимость модели Copilot в кредитах",
+      "show-credit-costs": "Показать стоимость в кредитах",
+      "snapshot": {
+        "chat": "Сообщения чата",
+        "completions": "Автодополнение кода",
+        "premium-requests": "Премиум-запросы",
+        "premium-requests-or-ai-credits": "Премиум-запросы / AI-кредиты",
+        "session-limits": "Лимиты сессии",
+        "weekly-limits": "Недельные лимиты",
+        "ai-credits": "AI-кредиты",
+        "requests-used": "{displayName}: использовано {used} / {entitlement}",
+        "credits-used": "Использовано AI-кредитов: {used} / {entitlement}",
+        "no-usage-limit": "Лимит не задан",
+        "quota-used": "Использовано {percentage:number}% лимита",
+        "resets-in-minutes": {
+          "_one": "сброс через {count:number} минуту",
+          "_few": "сброс через {count:number} минуты",
+          "_many": "сброс через {count:number} минут",
+          "_other": "сброс через {count:number} минуты"
+        },
+        "resets-in-hours": {
+          "_one": "сброс через {count:number} час",
+          "_few": "сброс через {count:number} часа",
+          "_many": "сброс через {count:number} часов",
+          "_other": "сброс через {count:number} часа"
+        },
+        "resets-in-days": {
+          "_one": "сброс через {count:number} день",
+          "_few": "сброс через {count:number} дня",
+          "_many": "сброс через {count:number} дней",
+          "_other": "сброс через {count:number} дня"
+        },
+        "resets-monthly": "(сброс ежемесячно)",
+        "configure": "Настроить…",
+        "loading": "Загружаем данные об использовании Copilot…",
+        "no-data": "Данных об использовании Copilot пока нет.",
+        "test-title": "Тест карточки снимка Copilot",
+        "ai-credits-preset": "Пресет AI-кредитов",
+        "rate-limit-preset": "Пресет лимита запросов",
+        "fake-account": "Тестовый аккаунт",
+        "login": "Логин",
+        "name": "Имя",
+        "endpoint": "Эндпоинт",
+        "avatar-url": "URL аватара",
+        "enabled": "Включено",
+        "token-based-billing": "Оплата по токенам",
+        "unlimited": "Без ограничений",
+        "entitlement-requests": "Доступно запросов",
+        "used-requests": "Использовано запросов",
+        "remaining-percentage": "Осталось, %",
+        "overage": "Перерасход",
+        "reset-date": "Дата сброса",
+        "usage-allowed-quota-exhausted": "Использование разрешено после исчерпания квоты",
+        "overage-allowed-quota-exhausted": "Перерасход разрешён после исчерпания квоты"
+      }
+    },
+    "integration-form": {
+      "path": "Путь",
+      "path-placeholder": "Путь к исполняемому файлу",
+      "choose": "Выбрать…",
+      "arguments": "Аргументы",
+      "arguments-placeholder": "Аргументы командной строки",
+      "invalid-path": "Похоже, этот путь не является допустимым исполняемым файлом.",
+      "invalid-arguments": "Эти аргументы недопустимы.",
+      "missing-target-path": "Среди аргументов должен быть заполнитель пути к репозиторию ({targetPath}).",
+      "executables-filter": "Исполняемые файлы"
     }
   },
   "localizationEditor": {
@@ -109,6 +353,15 @@
     "close": "Закрыть"
   },
   "menu": {
+    "file": "&Файл",
+    "edit": "&Правка",
+    "view": "&Вид",
+    "undo": "&Отменить",
+    "redo": "&Повторить",
+    "cut": "&Вырезать",
+    "copy": "&Копировать",
+    "paste": "Вст&авить",
+    "select-all": "Выде&лить всё",
     "about": "О GitHub Desktop",
     "preferences": "Параметры…",
     "exit": "&Выход",
@@ -261,6 +514,6 @@
     },
     "branch-on-github": "Показать ветку на GitHub",
     "preview-pull-request": "Предпросмотр pull request",
-    "branch": "&Ветка"
+    "branch": "Вет&ка"
   }
 }

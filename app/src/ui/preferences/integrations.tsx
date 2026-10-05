@@ -16,6 +16,7 @@ import { Button } from '../lib/button'
 import { InputError } from '../lib/input-description/input-error'
 import { showOpenDialog } from '../main-process-proxy'
 import { copilotAppMarketingUrl } from '../../lib/copilot-app'
+import { t } from '../../lib/l10n'
 
 const CustomIntegrationValue = 'other'
 
@@ -198,7 +199,7 @@ export class Integrations extends React.Component<
   private renderExternalEditor() {
     const options = this.props.availableEditors
     const { selectedExternalEditor, useCustomEditor } = this.state
-    const label = __DARWIN__ ? 'External Editor' : 'External editor'
+    const label = t('settings.integrations.external-editor')
 
     if (!enableCustomIntegration() && options.length === 0) {
       // this is emulating the <Select/> component's UI so the styles are
@@ -210,9 +211,11 @@ export class Integrations extends React.Component<
         <div className="select-component no-options-found">
           <label>{label}</label>
           <span>
-            No editors found.{' '}
+            {t('settings.integrations.no-editors-found')}{' '}
             <LinkButton uri={suggestedExternalEditor.url}>
-              Install {suggestedExternalEditor.name}?
+              {t('settings.integrations.install-editor', {
+                name: suggestedExternalEditor.name,
+              })}
             </LinkButton>
           </span>
         </div>
@@ -222,7 +225,7 @@ export class Integrations extends React.Component<
     return (
       <Select
         label={enableCustomIntegration() ? undefined : label}
-        aria-label="External editor"
+        aria-label={t('settings.integrations.external-editor-aria')}
         value={
           useCustomEditor
             ? CustomIntegrationValue
@@ -237,9 +240,7 @@ export class Integrations extends React.Component<
         ))}
         {enableCustomIntegration() && (
           <option key={CustomIntegrationValue} value={CustomIntegrationValue}>
-            {__DARWIN__
-              ? 'Configure Custom Editor…'
-              : 'Configure custom editor…'}
+            {t('settings.integrations.configure-custom-editor')}
           </option>
         )}
       </Select>
@@ -256,9 +257,11 @@ export class Integrations extends React.Component<
       <Row>
         <div className="no-options-found">
           <span>
-            No other editors found.{' '}
+            {t('settings.integrations.no-other-editors-found')}{' '}
             <LinkButton uri={suggestedExternalEditor.url}>
-              Install {suggestedExternalEditor.name}?
+              {t('settings.integrations.install-editor', {
+                name: suggestedExternalEditor.name,
+              })}
             </LinkButton>
           </span>
         </div>
@@ -306,11 +309,12 @@ export class Integrations extends React.Component<
   private renderSelectedShell() {
     const options = this.props.availableShells
     const { selectedShell, useCustomShell } = this.state
+    const label = t('settings.integrations.shell')
 
     return (
       <Select
-        label={enableCustomIntegration() ? undefined : 'Shell'}
-        aria-label="Shell"
+        label={enableCustomIntegration() ? undefined : label}
+        aria-label={label}
         value={useCustomShell ? CustomIntegrationValue : selectedShell}
         onChange={this.onSelectedShellChanged}
       >
@@ -321,7 +325,7 @@ export class Integrations extends React.Component<
         ))}
         {enableCustomIntegration() && (
           <option key={CustomIntegrationValue} value={CustomIntegrationValue}>
-            {__DARWIN__ ? 'Configure Custom Shell…' : 'Configure custom shell…'}
+            {t('settings.integrations.configure-custom-shell')}
           </option>
         )}
       </Select>
@@ -372,7 +376,7 @@ export class Integrations extends React.Component<
 
   private onChooseCopilotAppPath = async () => {
     const path = await showOpenDialog({
-      title: 'Choose GitHub Copilot',
+      title: t('settings.integrations.choose-copilot'),
       properties: __DARWIN__ ? ['openFile', 'openDirectory'] : ['openFile'],
       filters: [
         { name: 'GitHub Copilot', extensions: [__DARWIN__ ? 'app' : 'exe'] },
@@ -395,9 +399,9 @@ export class Integrations extends React.Component<
           <h2>GitHub Copilot</h2>
         </legend>
         <p>
-          Experience agent-driven development built natively on GitHub.{' '}
+          {t('settings.integrations.copilot-description')}{' '}
           <LinkButton uri={copilotAppMarketingUrl}>
-            Learn more about GitHub Copilot
+            {t('settings.integrations.copilot-learn-more')}
           </LinkButton>
           .
         </p>
@@ -405,13 +409,11 @@ export class Integrations extends React.Component<
           <div className="custom-integration-form-container">
             <div className="custom-integration-form-path-container">
               <TextBox
-                label="App location"
+                label={t('settings.integrations.app-location')}
                 value={this.state.copilotAppPath}
-                placeholder={
-                  __DARWIN__
-                    ? 'path to GitHub Copilot.app'
-                    : 'path to github.exe'
-                }
+                placeholder={t(
+                  'settings.integrations.app-location-placeholder'
+                )}
                 onValueChanged={this.onCopilotAppPathChanged}
                 ariaDescribedBy={
                   this.props.copilotAppPathError === undefined
@@ -419,7 +421,9 @@ export class Integrations extends React.Component<
                     : 'copilot-app-path-error'
                 }
               />
-              <Button onClick={this.onChooseCopilotAppPath}>Choose…</Button>
+              <Button onClick={this.onChooseCopilotAppPath}>
+                {t('settings.integrations.choose')}
+              </Button>
             </div>
             {this.props.copilotAppPathError !== undefined && (
               <div className="custom-integration-form-error">
@@ -442,7 +446,7 @@ export class Integrations extends React.Component<
     if (!enableCustomIntegration()) {
       return (
         <DialogContent>
-          <h2>Applications</h2>
+          <h2>{t('settings.integrations.applications')}</h2>
           <Row>{this.renderExternalEditor()}</Row>
           <Row>{this.renderSelectedShell()}</Row>
           {this.renderCopilotApp()}
@@ -454,7 +458,7 @@ export class Integrations extends React.Component<
       <DialogContent>
         <fieldset>
           <legend>
-            <h2>{__DARWIN__ ? 'External Editor' : 'External editor'}</h2>
+            <h2>{t('settings.integrations.external-editor')}</h2>
           </legend>
           <Row>{this.renderExternalEditor()}</Row>
           {this.state.useCustomEditor && this.renderCustomExternalEditor()}
@@ -462,7 +466,7 @@ export class Integrations extends React.Component<
         </fieldset>
         <fieldset>
           <legend>
-            <h2>Shell</h2>
+            <h2>{t('settings.integrations.shell')}</h2>
           </legend>
           <Row>{this.renderSelectedShell()}</Row>
           {this.state.useCustomShell && this.renderCustomShell()}

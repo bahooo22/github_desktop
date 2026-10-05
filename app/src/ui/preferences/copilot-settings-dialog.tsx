@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from '../../lib/l10n'
 import type { Model } from '@github/copilot-sdk/dist/generated/rpc'
 import type { IBYOKProvider } from '../../lib/copilot/byok'
 import type {
@@ -37,7 +38,7 @@ export class CopilotSettingsDialog extends React.Component<ICopilotSettingsDialo
       <Dialog
         id="copilot-settings-dialog"
         className="copilot-settings-dialog"
-        title={__DARWIN__ ? 'Copilot Settings' : 'Copilot settings'}
+        title={t('settings.copilot.settings-title')}
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >
@@ -63,7 +64,7 @@ export class CopilotSettingsDialog extends React.Component<ICopilotSettingsDialo
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Done"
+            okButtonText={t('common.done')}
             cancelButtonVisible={false}
           />
         </DialogFooter>

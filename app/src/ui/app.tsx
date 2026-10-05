@@ -13,6 +13,7 @@ import {
 import { Dispatcher } from './dispatcher'
 import { AppStore, GitHubUserStore, IssuesStore } from '../lib/stores'
 import { assertNever } from '../lib/fatal-error'
+import { t } from '../lib/l10n'
 import { shell } from '../lib/app-shell'
 import { updateStore, UpdateStatus } from './lib/update-store'
 import { RetryAction } from '../models/retry-actions'
@@ -3512,10 +3513,10 @@ export class App extends React.Component<IAppProps, IAppState> {
       title = alias ?? repository.name
     } else if (this.state.repositories.length > 0) {
       icon = octicons.repo
-      title = __DARWIN__ ? 'Select a Repository' : 'Select a repository'
+      title = t('app.select-repository')
     } else {
       icon = octicons.repo
-      title = __DARWIN__ ? 'No Repositories' : 'No repositories'
+      title = t('app.no-repositories')
     }
 
     const isOpen =
@@ -3546,7 +3547,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       <ToolbarDropdown
         icon={icon}
         title={title}
-        description={__DARWIN__ ? 'Current Repository' : 'Current repository'}
+        description={t('app.current-repository')}
         tooltip={tooltip}
         foldoutStyle={foldoutStyle}
         onContextMenu={this.onRepositoryToolbarButtonContextMenu}
@@ -4282,5 +4283,5 @@ export class App extends React.Component<IAppProps, IAppState> {
 }
 
 function NoRepositorySelected() {
-  return <div className="panel blankslate">No repository selected</div>
+  return <div className="panel blankslate">{t('app.no-repository-selected')}</div>
 }

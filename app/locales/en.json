@@ -16,6 +16,24 @@
     "done": "Done",
     "learnMore": "Learn more"
   },
+  "app": {
+    "select-repository": {
+      "@darwin": "Select a Repository",
+      "@other": "Select a repository"
+    },
+    "no-repositories": {
+      "@darwin": "No Repositories",
+      "@other": "No repositories"
+    },
+    "current-repository": {
+      "@darwin": "Current Repository",
+      "@other": "Current repository"
+    },
+    "no-repository-selected": "No repository selected"
+  },
+  "account-picker": {
+    "account": "Account"
+  },
   "settings": {
     "title": {
       "@darwin": "Settings",
@@ -32,6 +50,23 @@
       "advanced": "Advanced",
       "accessibility": "Accessibility",
       "language": "Language"
+    },
+    "accounts": {
+      "add-enterprise": "Add GitHub Enterprise account",
+      "sign-out": {
+        "@darwin": "Sign Out",
+        "@other": "Sign out"
+      },
+      "sign-into-dotcom": {
+        "@darwin": "Sign Into GitHub.com",
+        "@other": "Sign into GitHub.com"
+      },
+      "sign-into-enterprise": {
+        "@darwin": "Sign Into GitHub Enterprise",
+        "@other": "Sign into GitHub Enterprise"
+      },
+      "dotcom-description": "Sign in to your GitHub.com account to access your repositories.",
+      "enterprise-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories."
     },
     "language": {
       "title": "Language",
@@ -59,6 +94,248 @@
       "reset": "Reset to shipped translation",
       "resetAll": "Discard all my translations",
       "confirmResetAll": "This deletes every translation you have added. This cannot be undone."
+    },
+    "integrations": {
+      "external-editor": {
+        "@darwin": "External Editor",
+        "@other": "External editor"
+      },
+      "external-editor-aria": "External editor",
+      "no-editors-found": "No editors found.",
+      "no-other-editors-found": "No other editors found.",
+      "install-editor": "Install {name}?",
+      "configure-custom-editor": {
+        "@darwin": "Configure Custom Editor…",
+        "@other": "Configure custom editor…"
+      },
+      "shell": "Shell",
+      "configure-custom-shell": {
+        "@darwin": "Configure Custom Shell…",
+        "@other": "Configure custom shell…"
+      },
+      "applications": "Applications",
+      "choose-copilot": "Choose GitHub Copilot",
+      "copilot-description": "Experience agent-driven development built natively on GitHub.",
+      "copilot-learn-more": "Learn more about GitHub Copilot",
+      "app-location": "App location",
+      "app-location-placeholder": {
+        "@darwin": "path to GitHub Copilot.app",
+        "@other": "path to github.exe"
+      },
+      "choose": "Choose…"
+    },
+    "git": {
+      "tab-author": "Author",
+      "tab-default-branch": "Default branch",
+      "tab-hooks": "Hooks",
+      "default-branch-heading": "Default branch name for new repositories",
+      "default-branch-is": "GitHub's default branch name is",
+      "default-branch-change": "You may want to change it due to different workflows, or because your integrations still require the historical default branch name of",
+      "warning-verb-saved": "saved",
+      "edit-global-config-lead": "These preferences will",
+      "edit-global-config-link": "edit your global Git config file",
+      "hooks-load-env": "Load Git hook environment variables from shell",
+      "hooks-load-env-description": "When enabled, GitHub Desktop will attempt to load environment variables from your shell when executing Git hooks. This is useful if your Git hooks depend on environment variables set in your shell configuration files, a common practice for version managers such as nvm, rbenv, asdf, etc.",
+      "hooks-shell-label": "Shell to use when loading environment",
+      "hooks-cache-env": "Cache Git hook environment variables",
+      "hooks-cache-env-description": "Cache hook environment variables to improve performance. Disable if your hooks rely on frequently changing environment variables."
+    },
+    "appearance": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System",
+      "loading-system-theme": "Loading system theme",
+      "theme": "Theme",
+      "formatting": "Formatting",
+      "date-format": {
+        "@darwin": "Date Format",
+        "@other": "Date format"
+      },
+      "time-format": {
+        "@darwin": "Time Format",
+        "@other": "Time format"
+      },
+      "number-format": {
+        "@darwin": "Number Format",
+        "@other": "Number format"
+      },
+      "format-example": "{example} ({pattern})",
+      "prefer-absolute-dates": "Prefer absolute dates over relative",
+      "miscellaneous": "Miscellaneous",
+      "diff-tab-size": {
+        "@darwin": "Diff Tab Size",
+        "@other": "Diff tab size"
+      },
+      "tab-size-default": "{size:number} (default)",
+      "always-show-worktree-list": "Always show worktree list"
+    },
+    "notifications": {
+      "title": "Notifications",
+      "enable": "Enable notifications",
+      "description": "Allows the display of notifications when high-signal events take place in the current repository.",
+      "grant-permission-hint": " You need to <link>grant permission</link> to display these notifications from GitHub Desktop.",
+      "permission-denied": "<icon/> GitHub Desktop has no permission to display notifications. Please, enable them in the <link>Notifications Settings</link>.",
+      "configure-hint": " Make sure notifications are {verb} for GitHub Desktop in the <link>Notifications Settings</link>.",
+      "verb-properly-configured": "properly configured",
+      "verb-enabled": "enabled"
+    },
+    "accessibility": {
+      "title": "Accessibility",
+      "underline-links": "Underline links",
+      "underline-description": "When enabled, GitHub Desktop will underline links in commit messages, comments, and other text fields. This can help make links easier to distinguish.",
+      "example-link": "This is an example link",
+      "show-diff-check-marks": "Show check marks in the diff",
+      "show-diff-check-marks-description": "When enabled, check marks will be displayed along side the line numbers and groups of line numbers in the diff when committing. When disabled, the line number controls will be less prominent."
+    },
+    "advanced": {
+      "background-updates": "Background updates",
+      "repository-indicators": "Show status icons in the repository list",
+      "repository-indicators-description": "These icons indicate which repositories have local or remote changes, and require the periodic fetching of repositories that are not currently selected.",
+      "repository-indicators-off-description": "Turning this off will not stop the periodic fetching of your currently selected repository, but may improve overall app performance for users with many repositories.",
+      "usage": "Usage",
+      "help-improve": "Help GitHub Desktop improve by submitting",
+      "usage-stats": "usage stats",
+      "network-and-credentials": "Network and credentials",
+      "use-git-credential-manager": "Use Git Credential Manager",
+      "gcm-description-prefix": "Use",
+      "gcm-name": "Git Credential Manager",
+      "gcm-description-suffix": "for private repositories outside of GitHub.com. This feature is experimental and subject to change.",
+      "use-system-openssh": "Use system OpenSSH (recommended)"
+    },
+    "prompts": {
+      "show-confirmation-dialog-before": "Show a confirmation dialog before...",
+      "removing-repositories": "Removing repositories",
+      "discarding-changes": "Discarding changes",
+      "discarding-changes-permanently": "Discarding changes permanently",
+      "discarding-stash": "Discarding stash",
+      "checking-out-a-commit": "Checking out a commit",
+      "force-pushing": "Force pushing",
+      "undoing-commit": "Undo commit",
+      "overriding-commit-message": "Overriding commit message with generated message",
+      "removing-worktrees": "Removing worktrees",
+      "committing-changes-hidden-by-filter": "Committing changes hidden by filter",
+      "switch-branch-heading": "If I have changes and I switch branches...",
+      "ask-me-where-changes-go": "Ask me where I want the changes to go",
+      "always-move-to-new-branch": "Always bring my changes to my new branch",
+      "always-stash-on-current-branch": "Always stash and leave my changes on the current branch",
+      "commit-length": "Commit Length",
+      "show-commit-length-warning": "Show commit length warning"
+    },
+    "copilot": {
+      "sign-in-to-configure": "Sign in to an account with a Copilot license to configure Copilot settings.",
+      "sign-in": "Sign In",
+      "checking-access": "Checking Copilot access…",
+      "license-required": "Copilot features in GitHub Desktop require a GitHub Copilot license.",
+      "view-plans": "View Copilot plans",
+      "desktop-disabled": "A Copilot license is available for your account, but \"Copilot in GitHub Desktop\" is disabled in your Copilot feature settings.",
+      "open-feature-settings": "Open Copilot feature settings",
+      "settings-title": {
+        "@darwin": "Copilot Settings",
+        "@other": "Copilot settings"
+      },
+      "custom-providers-title": {
+        "@darwin": "Custom Providers",
+        "@other": "Custom providers"
+      },
+      "add-provider": {
+        "@darwin": "Add Provider…",
+        "@other": "Add provider…"
+      },
+      "loading-models": "Loading available models…",
+      "no-models": "No Copilot models available.",
+      "custom-instructions": "Tailor how Copilot behaves by using <link>custom instructions</link>.",
+      "learn-more-commit-messages": "Learn more about generating commit messages.",
+      "commit-message-generation": {
+        "@darwin": "Commit Message Generation",
+        "@other": "Commit message generation"
+      },
+      "conflict-resolution": {
+        "@darwin": "Conflict Resolution",
+        "@other": "Conflict resolution"
+      },
+      "conflict-model-changes": "Model changes apply to future conflict resolutions.",
+      "always-use-copilot-conflicts": {
+        "@darwin": "Always Use Copilot When Conflicts Are Detected",
+        "@other": "Always use Copilot when conflicts are detected"
+      },
+      "byok-empty-description": "Add a custom provider to use your own API keys with OpenAI-compatible endpoints, Azure, Anthropic, or local providers like Ollama.",
+      "provider-model-count": {
+        "_one": "{count:number} model",
+        "_other": "{count:number} models"
+      },
+      "local": "Local",
+      "edit-provider": "Edit {name}",
+      "remove-provider": "Remove {name}",
+      "provider-type-openai": "OpenAI-compatible",
+      "provider-type-azure": "Azure",
+      "provider-type-anthropic": "Anthropic",
+      "unavailable": "Unavailable",
+      "context": "Context",
+      "reasoning": "Reasoning",
+      "ai-credits-per-tokens": "AI credits per {count:number} tokens",
+      "input": "Input",
+      "cached-input": "Cached input",
+      "output": "Output",
+      "show-credit-costs-aria": "Show Copilot model credit costs",
+      "show-credit-costs": "Show credit costs",
+      "snapshot": {
+        "chat": "Chat messages",
+        "completions": "Code completions",
+        "premium-requests": "Premium requests",
+        "premium-requests-or-ai-credits": "Premium requests / AI credits",
+        "session-limits": "Session limits",
+        "weekly-limits": "Weekly limits",
+        "ai-credits": "AI credits",
+        "requests-used": "{used} / {entitlement} {displayName} used",
+        "credits-used": "{used} / {entitlement} AI credits used",
+        "no-usage-limit": "No usage limit",
+        "quota-used": "{percentage:number}% quota used",
+        "resets-in-minutes": {
+          "_one": "resets in {count:number} minute",
+          "_other": "resets in {count:number} minutes"
+        },
+        "resets-in-hours": {
+          "_one": "resets in {count:number} hour",
+          "_other": "resets in {count:number} hours"
+        },
+        "resets-in-days": {
+          "_one": "resets in {count:number} day",
+          "_other": "resets in {count:number} days"
+        },
+        "resets-monthly": "(resets monthly)",
+        "configure": "Configure…",
+        "loading": "Loading Copilot usage…",
+        "no-data": "No Copilot usage data available yet.",
+        "test-title": "Test Copilot Snapshot Card",
+        "ai-credits-preset": "AI credits preset",
+        "rate-limit-preset": "Rate limit preset",
+        "fake-account": "Fake account",
+        "login": "Login",
+        "name": "Name",
+        "endpoint": "Endpoint",
+        "avatar-url": "Avatar URL",
+        "enabled": "Enabled",
+        "token-based-billing": "Token-based billing",
+        "unlimited": "Unlimited",
+        "entitlement-requests": "Entitlement requests",
+        "used-requests": "Used requests",
+        "remaining-percentage": "Remaining percentage",
+        "overage": "Overage",
+        "reset-date": "Reset date",
+        "usage-allowed-quota-exhausted": "Usage allowed with exhausted quota",
+        "overage-allowed-quota-exhausted": "Overage allowed with exhausted quota"
+      }
+    },
+    "integration-form": {
+      "path": "Path",
+      "path-placeholder": "Path to executable",
+      "choose": "Choose…",
+      "arguments": "Arguments",
+      "arguments-placeholder": "Command line arguments",
+      "invalid-path": "This path does not appear to be a valid executable.",
+      "invalid-arguments": "These arguments are not valid.",
+      "missing-target-path": "Arguments must include the target path placeholder ({targetPath}).",
+      "executables-filter": "Executables"
     }
   },
   "localizationEditor": {
@@ -102,6 +379,42 @@
     "close": "Close"
   },
   "menu": {
+    "file": {
+      "@darwin": "File",
+      "@other": "&File"
+    },
+    "edit": {
+      "@darwin": "Edit",
+      "@other": "&Edit"
+    },
+    "view": {
+      "@darwin": "View",
+      "@other": "&View"
+    },
+    "undo": {
+      "@darwin": "Undo",
+      "@other": "&Undo"
+    },
+    "redo": {
+      "@darwin": "Redo",
+      "@other": "&Redo"
+    },
+    "cut": {
+      "@darwin": "Cut",
+      "@other": "Cu&t"
+    },
+    "copy": {
+      "@darwin": "Copy",
+      "@other": "&Copy"
+    },
+    "paste": {
+      "@darwin": "Paste",
+      "@other": "&Paste"
+    },
+    "select-all": {
+      "@darwin": "Select All",
+      "@other": "Select &all"
+    },
     "about": "About GitHub Desktop",
     "preferences": "Settings…",
     "exit": "E&xit",

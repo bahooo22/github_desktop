@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from '../../lib/l10n'
 import { Account } from '../../models/account'
 import type {
   CopilotQuotaSnapshots,
@@ -26,15 +27,18 @@ type SnapshotKey =
 
 interface ISnapshotDefinition {
   readonly key: SnapshotKey
-  readonly label: string
+  readonly labelKey: string
 }
 
 const snapshotDefinitions: ReadonlyArray<ISnapshotDefinition> = [
-  { key: 'chat', label: 'Chat messages' },
-  { key: 'completions', label: 'Code completions' },
-  { key: 'premium_interactions', label: 'Premium requests / AI credits' },
-  { key: 'session', label: 'Session limits' },
-  { key: 'weekly', label: 'Weekly limits' },
+  { key: 'chat', labelKey: 'settings.copilot.snapshot.chat' },
+  { key: 'completions', labelKey: 'settings.copilot.snapshot.completions' },
+  {
+    key: 'premium_interactions',
+    labelKey: 'settings.copilot.snapshot.premium-requests-or-ai-credits',
+  },
+  { key: 'session', labelKey: 'settings.copilot.snapshot.session-limits' },
+  { key: 'weekly', labelKey: 'settings.copilot.snapshot.weekly-limits' },
 ]
 
 interface IEditableSnapshot {
@@ -171,7 +175,7 @@ export class TestCopilotSnapshotCardDialog extends React.Component<
     return (
       <Dialog
         id="test-copilot-snapshot-card"
-        title="Test Copilot Snapshot Card"
+        title={t('settings.copilot.snapshot.test-title')}
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >
@@ -192,13 +196,13 @@ export class TestCopilotSnapshotCardDialog extends React.Component<
         <DialogFooter>
           <div className="test-copilot-snapshot-card-footer-buttons">
             <Button type="button" onClick={this.onUseTokenBasedBillingPreset}>
-              AI credits preset
+              {t('settings.copilot.snapshot.ai-credits-preset')}
             </Button>
             <Button type="button" onClick={this.onUseRateLimitPreset}>
-              Rate limit preset
+              {t('settings.copilot.snapshot.rate-limit-preset')}
             </Button>
           </div>
-          <OkCancelButtonGroup okButtonText="Done" />
+          <OkCancelButtonGroup okButtonText={t('common.done')} />
         </DialogFooter>
       </Dialog>
     )
@@ -237,26 +241,26 @@ export class TestCopilotSnapshotCardDialog extends React.Component<
   private renderAccountControls(): JSX.Element {
     return (
       <fieldset className="test-copilot-snapshot-card-fieldset">
-        <legend>Fake account</legend>
+        <legend>{t('settings.copilot.snapshot.fake-account')}</legend>
         <div className="test-copilot-snapshot-card-grid">
           <TextBox
-            label="Login"
+            label={t('settings.copilot.snapshot.login')}
             value={this.state.login}
             onValueChanged={this.onLoginChanged}
             autoFocus={true}
           />
           <TextBox
-            label="Name"
+            label={t('settings.copilot.snapshot.name')}
             value={this.state.name}
             onValueChanged={this.onNameChanged}
           />
           <TextBox
-            label="Endpoint"
+            label={t('settings.copilot.snapshot.endpoint')}
             value={this.state.endpoint}
             onValueChanged={this.onEndpointChanged}
           />
           <TextBox
-            label="Avatar URL"
+            label={t('settings.copilot.snapshot.avatar-url')}
             value={this.state.avatarURL}
             onValueChanged={this.onAvatarURLChanged}
           />
@@ -273,51 +277,51 @@ export class TestCopilotSnapshotCardDialog extends React.Component<
         className="test-copilot-snapshot-card-fieldset"
         key={definition.key}
       >
-        <legend>{definition.label}</legend>
+        <legend>{t(definition.labelKey)}</legend>
         <Row className="test-copilot-snapshot-card-checkbox-row">
           <Checkbox
-            label="Enabled"
+            label={t('settings.copilot.snapshot.enabled')}
             value={checkboxValue(snapshot.enabled)}
             onChange={this.onSnapshotEnabledChanged(definition.key)}
           />
           <Checkbox
-            label="Token-based billing"
+            label={t('settings.copilot.snapshot.token-based-billing')}
             value={checkboxValue(snapshot.tokenBasedBilling)}
             onChange={this.onSnapshotTokenBasedBillingChanged(definition.key)}
           />
           <Checkbox
-            label="Unlimited"
+            label={t('settings.copilot.snapshot.unlimited')}
             value={checkboxValue(snapshot.isUnlimitedEntitlement)}
             onChange={this.onSnapshotUnlimitedChanged(definition.key)}
           />
         </Row>
         <div className="test-copilot-snapshot-card-grid">
           <TextBox
-            label="Entitlement requests"
+            label={t('settings.copilot.snapshot.entitlement-requests')}
             value={snapshot.entitlementRequests}
             onValueChanged={this.onSnapshotEntitlementRequestsChanged(
               definition.key
             )}
           />
           <TextBox
-            label="Used requests"
+            label={t('settings.copilot.snapshot.used-requests')}
             value={snapshot.usedRequests}
             onValueChanged={this.onSnapshotUsedRequestsChanged(definition.key)}
           />
           <TextBox
-            label="Remaining percentage"
+            label={t('settings.copilot.snapshot.remaining-percentage')}
             value={snapshot.remainingPercentage}
             onValueChanged={this.onSnapshotRemainingPercentageChanged(
               definition.key
             )}
           />
           <TextBox
-            label="Overage"
+            label={t('settings.copilot.snapshot.overage')}
             value={snapshot.overage}
             onValueChanged={this.onSnapshotOverageChanged(definition.key)}
           />
           <TextBox
-            label="Reset date"
+            label={t('settings.copilot.snapshot.reset-date')}
             value={snapshot.resetDate}
             placeholder="2026-07-10T12:00:00Z"
             onValueChanged={this.onSnapshotResetDateChanged(definition.key)}
@@ -325,12 +329,14 @@ export class TestCopilotSnapshotCardDialog extends React.Component<
         </div>
         <Row className="test-copilot-snapshot-card-checkbox-row">
           <Checkbox
-            label="Usage allowed with exhausted quota"
+            label={t('settings.copilot.snapshot.usage-allowed-quota-exhausted')}
             value={checkboxValue(snapshot.usageAllowedWithExhaustedQuota)}
             onChange={this.onSnapshotUsageAllowedChanged(definition.key)}
           />
           <Checkbox
-            label="Overage allowed with exhausted quota"
+            label={t(
+              'settings.copilot.snapshot.overage-allowed-quota-exhausted'
+            )}
             value={checkboxValue(snapshot.overageAllowedWithExhaustedQuota)}
             onChange={this.onSnapshotOverageAllowedChanged(definition.key)}
           />

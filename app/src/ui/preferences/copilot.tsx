@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from '../../lib/l10n'
 import type { IBYOKProvider } from '../../lib/copilot/byok'
 import { isGHES } from '../../lib/endpoint-capabilities'
 import { enableCopilotSdkCommitMessageGeneration } from '../../lib/feature-flag'
@@ -235,23 +236,23 @@ export class CopilotPreferences extends React.Component<ICopilotPreferencesProps
     switch (accessState) {
       case 'signed-out':
         return this.renderAccessCallToAction(
-          'Sign in to an account with a Copilot license to configure Copilot settings.',
-          'Sign In',
+          t('settings.copilot.sign-in-to-configure'),
+          t('settings.copilot.sign-in'),
           this.props.onSignIn,
           DialogPreferredFocusClassName
         )
       case 'checking':
-        return <p>Checking Copilot access…</p>
+        return <p>{t('settings.copilot.checking-access')}</p>
       case 'no-license':
         return this.renderAccessCallToAction(
-          'Copilot features in GitHub Desktop require a GitHub Copilot license.',
-          'View Copilot plans',
+          t('settings.copilot.license-required'),
+          t('settings.copilot.view-plans'),
           this.props.onOpenCopilotPlans
         )
       case 'desktop-disabled':
         return this.renderAccessCallToAction(
-          'A Copilot license is available for your account, but "Copilot in GitHub Desktop" is disabled in your Copilot feature settings.',
-          'Open Copilot feature settings',
+          t('settings.copilot.desktop-disabled'),
+          t('settings.copilot.open-feature-settings'),
           this.props.onOpenCopilotFeatureSettings
         )
     }

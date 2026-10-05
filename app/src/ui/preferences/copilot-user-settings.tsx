@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t, Trans } from '../../lib/l10n'
 import {
   encodeModelKey,
   parseModelKey,
@@ -88,36 +89,37 @@ export class CopilotUserSettings extends React.Component<ICopilotUserSettingsPro
     const { copilotModels, byokProviders } = this.props
 
     if (copilotModels === null) {
-      return <p>Loading available models…</p>
+      return <p>{t('settings.copilot.loading-models')}</p>
     }
 
     if (!hasCopilotModelPickerItems(copilotModels, byokProviders)) {
-      return <p>No Copilot models available.</p>
+      return <p>{t('settings.copilot.no-models')}</p>
     }
 
     return (
       <>
         <Row className="copilot-feature-hint">
           <p>
-            Tailor how Copilot behaves by using{' '}
-            <LinkButton uri="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions">
-              custom instructions
-            </LinkButton>
-            .
+            <Trans
+              k="settings.copilot.custom-instructions"
+              components={{
+                link: (
+                  <LinkButton uri="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-custom-instructions" />
+                ),
+              }}
+            />
           </p>
         </Row>
         {this.renderFeatureModelPicker(
           copilotModels,
           'commit-message-generation',
-          __DARWIN__
-            ? 'Commit Message Generation'
-            : 'Commit message generation',
+          t('settings.copilot.commit-message-generation'),
           this.onCommitMessageModelChanged,
           350
         )}
         <p className="settings-description">
           <LinkButton uri="https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop#write-a-commit-message-and-push-your-changes">
-            Learn more about generating commit messages.
+            {t('settings.copilot.learn-more-commit-messages')}
           </LinkButton>
         </p>
         {enableCopilotConflictResolution() && (
@@ -125,19 +127,15 @@ export class CopilotUserSettings extends React.Component<ICopilotUserSettingsPro
             {this.renderFeatureModelPicker(
               copilotModels,
               'conflict-resolution',
-              __DARWIN__ ? 'Conflict Resolution' : 'Conflict resolution',
+              t('settings.copilot.conflict-resolution'),
               this.onConflictResolutionModelChanged,
               280
             )}
             <p className="settings-description">
-              Model changes apply to future conflict resolutions.
+              {t('settings.copilot.conflict-model-changes')}
             </p>
             <Checkbox
-              label={
-                __DARWIN__
-                  ? 'Always Use Copilot When Conflicts Are Detected'
-                  : 'Always use Copilot when conflicts are detected'
-              }
+              label={t('settings.copilot.always-use-copilot-conflicts')}
               value={
                 this.props.alwaysUseCopilotForConflictResolution
                   ? CheckboxValue.On

@@ -1018,7 +1018,7 @@ export class Preferences extends React.Component<
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText="Save"
+          okButtonText={t('common.save')}
           okButtonDisabled={hasDisabledError}
         />
       </DialogFooter>

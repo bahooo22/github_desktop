@@ -157,7 +157,7 @@ export function buildDefaultMenuTemplate({
   }
 
   const fileMenu: Electron.MenuItemConstructorOptions = {
-    label: __DARWIN__ ? 'File' : '&File',
+    label: t('menu.file'),
     submenu: [
       {
         label: t('menu.new-repository'),
@@ -205,16 +205,16 @@ export function buildDefaultMenuTemplate({
   template.push(fileMenu)
 
   template.push({
-    label: __DARWIN__ ? 'Edit' : '&Edit',
+    label: t('menu.edit'),
     submenu: [
-      { role: 'undo', label: __DARWIN__ ? 'Undo' : '&Undo' },
-      { role: 'redo', label: __DARWIN__ ? 'Redo' : '&Redo' },
+      { role: 'undo', label: t('menu.undo') },
+      { role: 'redo', label: t('menu.redo') },
       separator,
-      { role: 'cut', label: __DARWIN__ ? 'Cut' : 'Cu&t' },
-      { role: 'copy', label: __DARWIN__ ? 'Copy' : '&Copy' },
-      { role: 'paste', label: __DARWIN__ ? 'Paste' : '&Paste' },
+      { role: 'cut', label: t('menu.cut') },
+      { role: 'copy', label: t('menu.copy') },
+      { role: 'paste', label: t('menu.paste') },
       {
-        label: __DARWIN__ ? 'Select All' : 'Select &all',
+        label: t('menu.select-all'),
         accelerator: 'CmdOrCtrl+A',
         click: emit('select-all'),
       },
@@ -229,7 +229,7 @@ export function buildDefaultMenuTemplate({
   })
 
   template.push({
-    label: __DARWIN__ ? 'View' : '&View',
+    label: t('menu.view'),
     submenu: [
       {
         label: t('menu.show-changes'),

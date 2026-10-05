@@ -9,6 +9,7 @@ import { DialogContent } from '../dialog'
 import { RadioGroup } from '../lib/radio-group'
 import { Select } from '../lib/select'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
+import { t } from '../../lib/l10n'
 import { encodePathAsUrl } from '../../lib/path'
 import { tabSizeDefault } from '../../lib/stores/app-store'
 import { enableFormattingPreferences } from '../../lib/feature-flag'
@@ -148,14 +149,18 @@ export class Appearance extends React.Component<
         return (
           <span>
             <img src={lightThemeImage} alt="" />
-            <span className="theme-value-label">Light</span>
+            <span className="theme-value-label">
+              {t('settings.appearance.light')}
+            </span>
           </span>
         )
       case ApplicationTheme.Dark:
         return (
           <span>
             <img src={darkThemeImage} alt="" />
-            <span className="theme-value-label">Dark</span>
+            <span className="theme-value-label">
+              {t('settings.appearance.dark')}
+            </span>
           </span>
         )
       case ApplicationTheme.System:
@@ -170,7 +175,9 @@ export class Appearance extends React.Component<
               <img src={lightThemeImage} alt="" />
               <img src={darkThemeImage} alt="" />
             </span>
-            <span className="theme-value-label">System</span>
+            <span className="theme-value-label">
+              {t('settings.appearance.system')}
+            </span>
           </span>
         )
     }
@@ -180,7 +187,7 @@ export class Appearance extends React.Component<
     const selectedTheme = this.state.selectedTheme
 
     if (selectedTheme == null) {
-      return <Row>Loading system theme</Row>
+      return <Row>{t('settings.appearance.loading-system-theme')}</Row>
     }
 
     const themes = [
@@ -191,7 +198,7 @@ export class Appearance extends React.Component<
 
     return (
       <div className="appearance-section">
-        <h2 id="theme-heading">Theme</h2>
+        <h2 id="theme-heading">{t('settings.appearance.theme')}</h2>
 
         <RadioGroup<ApplicationTheme>
           ariaLabelledBy="theme-heading"
@@ -212,36 +219,36 @@ export class Appearance extends React.Component<
 
     return (
       <div className="appearance-section formatting-section">
-        <h2 id="formatting-heading">Formatting</h2>
+        <h2 id="formatting-heading">{t('settings.appearance.formatting')}</h2>
 
         <Row>
           <Select
-            label={__DARWIN__ ? 'Date Format' : 'Date format'}
+            label={t('settings.appearance.date-format')}
             value={this.props.selectedDateFormat}
             onChange={this.onDateFormatChanged}
           >
             {dateFormats.map(({ pattern, example }) => (
               <option key={pattern} value={pattern}>
-                {example} ({pattern})
+                {t('settings.appearance.format-example', { example, pattern })}
               </option>
             ))}
           </Select>
 
           <Select
-            label={__DARWIN__ ? 'Time Format' : 'Time format'}
+            label={t('settings.appearance.time-format')}
             value={this.props.selectedTimeFormat}
             onChange={this.onTimeFormatChanged}
           >
             {timeFormats.map(({ pattern, example }) => (
               <option key={pattern} value={pattern}>
-                {example} ({pattern})
+                {t('settings.appearance.format-example', { example, pattern })}
               </option>
             ))}
           </Select>
         </Row>
 
         <Select
-          label={__DARWIN__ ? 'Number Format' : 'Number format'}
+          label={t('settings.appearance.number-format')}
           value={numberFormatToKey(this.props.selectedNumberFormat)}
           onChange={this.onNumberFormatChanged}
         >
@@ -257,7 +264,7 @@ export class Appearance extends React.Component<
 
         <Checkbox
           className="prefer-absolute-dates"
-          label="Prefer absolute dates over relative"
+          label={t('settings.appearance.prefer-absolute-dates')}
           value={
             this.props.preferAbsoluteDates
               ? CheckboxValue.On
@@ -274,23 +281,27 @@ export class Appearance extends React.Component<
 
     return (
       <div className="appearance-section">
-        <h2 id="miscellaneous-heading">Miscellaneous</h2>
+        <h2 id="miscellaneous-heading">
+          {t('settings.appearance.miscellaneous')}
+        </h2>
 
         <Select
           value={this.state.selectedTabSize.toString()}
-          label={__DARWIN__ ? 'Diff Tab Size' : 'Diff tab size'}
+          label={t('settings.appearance.diff-tab-size')}
           onChange={this.onSelectedTabSizeChanged}
         >
           {availableTabSizes.map(n => (
             <option key={n} value={n}>
-              {n === tabSizeDefault ? `${n} (default)` : n}
+              {n === tabSizeDefault
+                ? t('settings.appearance.tab-size-default', { size: n })
+                : n}
             </option>
           ))}
         </Select>
 
         <Checkbox
           className="always-show-worktree-list"
-          label="Always show worktree list"
+          label={t('settings.appearance.always-show-worktree-list')}
           value={
             this.props.alwaysShowWorktreeList
               ? CheckboxValue.On

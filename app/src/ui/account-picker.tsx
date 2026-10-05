@@ -11,6 +11,7 @@ import { IMatches } from '../lib/fuzzy-find'
 import { Avatar } from './lib/avatar'
 import { lookupPreferredEmail } from '../lib/email'
 import { IAvatarUser } from '../models/avatar'
+import { t } from '../lib/l10n'
 import memoizeOne from 'memoize-one'
 
 interface IAccountPickerProps {
@@ -154,7 +155,7 @@ export class AccountPicker extends React.Component<
             </span>
           </div>
         }
-        label="Account"
+        label={t('account-picker.account')}
         ref={this.popoverRef}
         openButtonClassName={this.props.openButtonClassName}
       >
