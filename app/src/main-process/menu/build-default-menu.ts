@@ -38,7 +38,58 @@ export const separator: Electron.MenuItemConstructorOptions = {
 }
 
 export function buildDefaultMenu(params: MenuLabelsEvent): Electron.Menu {
-  return Menu.buildFromTemplate(buildDefaultMenuTemplate(params))
+  return Menu.buildFromTemplate(
+    dedupeMenuAccessKeys(buildDefaultMenuTemplate(params))
+  )
+}
+
+/**
+ * Electron throws when two items in the same submenu advertise the same
+ * access key, and localized labels (including user-supplied catalogs) can
+ * easily collide. Keep the first mnemonic in each submenu and silently drop
+ * the redundant ampersands from the rest — the text stays, only the
+ * underline hint goes away.
+ */
+export function dedupeMenuAccessKeys(
+  items: ReadonlyArray<Electron.MenuItemConstructorOptions>
+): Electron.MenuItemConstructorOptions[] {
+  const used = new Set<string>()
+
+  return items.map(item => {
+    const withSubmenu = Array.isArray(item.submenu)
+      ? { ...item, submenu: dedupeMenuAccessKeys(item.submenu) }
+      : item
+
+    const label = withSubmenu.label
+    if (typeof label !== 'string') {
+      return withSubmenu
+    }
+
+    for (let i = 0; i < label.length - 1; i++) {
+      if (label[i] !== '&') {
+        continue
+      }
+
+      // '&&' is an escaped literal ampersand, not a mnemonic
+      if (label[i + 1] === '&') {
+        i++
+        continue
+      }
+
+      const key = label[i + 1].toLowerCase()
+      if (used.has(key)) {
+        return {
+          ...withSubmenu,
+          label: label.slice(0, i) + label.slice(i + 1),
+        }
+      }
+
+      used.add(key)
+      break
+    }
+
+    return withSubmenu
+  })
 }
 
 export function buildDefaultMenuTemplate({
@@ -219,7 +270,11 @@ export function buildDefaultMenuTemplate({
         click: emit('go-to-commit-message'),
       },
       {
-        label: getStashedChangesLabel(isStashedChangesVisible),
+        label: t(
+          isStashedChangesVisible
+            ? 'menu.hide-stashed-changes'
+            : 'menu.show-stashed-changes'
+        ),
         id: 'toggle-stashed-changes',
         accelerator: 'Ctrl+H',
         click: isStashedChangesVisible
@@ -227,11 +282,11 @@ export function buildDefaultMenuTemplate({
           : emit('show-stashed-changes'),
       },
       {
-        label: __DARWIN__
-          ? `${isChangesFilterVisible ? 'Hide' : 'Show'} Changes Filter`
-          : `${
-              isChangesFilterVisible ? 'Hide' : 'Show'
-            } Toggle Chan&ges Filter`,
+        label: t(
+          isChangesFilterVisible
+            ? 'menu.hide-changes-filter'
+            : 'menu.show-changes-filter'
+        ),
         id: 'toggle-changes-filter',
         accelerator: 'CmdOrCtrl+L',
         click: emit('toggle-changes-filter'),
@@ -618,14 +673,6 @@ function getPushLabel(
   }
 
   return __DARWIN__ ? 'Force Push' : 'Force P&ush'
-}
-
-function getStashedChangesLabel(isStashedChangesVisible: boolean): string {
-  if (isStashedChangesVisible) {
-    return __DARWIN__ ? 'Hide Stashed Changes' : 'H&ide stashed changes'
-  }
-
-  return __DARWIN__ ? 'Show Stashed Changes' : 'Sho&w stashed changes'
 }
 
 type ClickHandler = (

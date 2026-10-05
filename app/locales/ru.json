@@ -130,7 +130,7 @@
     },
     "view-pull-request": {
       "@darwin": "Открыть pull request на GitHub",
-      "@other": "Открыть pull request на &GitHub"
+      "@other": "Открыть pull request на Git&Hub"
     },
     "default-branch-name": {
       "@darwin": "Ветка по умолчанию",
@@ -154,13 +154,29 @@
     },
     "find": "&Найти",
     "show-changes": "&Изменения",
-    "show-history": "&История",
-    "show-repository-list": "&Список репозиториев",
+    "show-history": "И&стория",
+    "show-repository-list": "Список репо&зитория",
     "show-branches-list": "Список &веток",
-    "show-worktrees-list": "Список &worktree",
+    "show-worktrees-list": "Показать список &worktree",
+    "show-stashed-changes": {
+      "@darwin": "Показать спрятанные изменения",
+      "@other": "Показать спрят&анные изменения"
+    },
+    "hide-stashed-changes": {
+      "@darwin": "Скрыть спрятанные изменения",
+      "@other": "Скры&ть спрятанные изменения"
+    },
+    "show-changes-filter": {
+      "@darwin": "Показать фильтр изменений",
+      "@other": "Показать &фильтр изменений"
+    },
+    "hide-changes-filter": {
+      "@darwin": "Скрыть фильтр изменений",
+      "@other": "Скрыть &фильтр изменений"
+    },
     "go-to-commit-message": {
       "@darwin": "Перейти к описанию",
-      "@other": "Перейти к &описанию"
+      "@other": "Перейти к описа&нию"
     },
     "increase-active-resizable-width": "Развернуть активную панель",
     "decrease-active-resizable-width": "Свернуть активную панель",
@@ -201,11 +217,11 @@
     },
     "create-worktree": {
       "@darwin": "Новый worktree…",
-      "@other": "Но&вый worktree…"
+      "@other": "&Новый worktree…"
     },
     "show-repository-settings": {
       "@darwin": "Настройки репозитория…",
-      "@other": "Настройки репо&зитория…"
+      "@other": "Настройки &репозитория…"
     },
     "create-branch": {
       "@darwin": "Новая ветка…",
@@ -225,7 +241,7 @@
     },
     "compare-to-branch": {
       "@darwin": "Сравнить с веткой",
-      "@other": "Сравнить &с веткой"
+      "@other": "Ср&авнить с веткой"
     },
     "merge-branch": {
       "@darwin": "Слить в текущую ветку…",
@@ -233,7 +249,7 @@
     },
     "squash-and-merge-branch": {
       "@darwin": "Сжать и слить в текущую ветку…",
-      "@other": "Сжать и с&лить в текущую ветку…"
+      "@other": "С&жать и слить в текущую ветку…"
     },
     "rebase-branch": {
       "@darwin": "Перебазировать текущую ветку…",

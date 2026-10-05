@@ -153,6 +153,22 @@
       "@darwin": "Show Worktrees List",
       "@other": "Wor&ktrees list"
     },
+    "show-stashed-changes": {
+      "@darwin": "Show Stashed Changes",
+      "@other": "Sho&w stashed changes"
+    },
+    "hide-stashed-changes": {
+      "@darwin": "Hide Stashed Changes",
+      "@other": "H&ide stashed changes"
+    },
+    "show-changes-filter": {
+      "@darwin": "Show Changes Filter",
+      "@other": "Show Toggle Chan&ges Filter"
+    },
+    "hide-changes-filter": {
+      "@darwin": "Hide Changes Filter",
+      "@other": "Hide Toggle Chan&ges Filter"
+    },
     "go-to-commit-message": {
       "@darwin": "Go to Summary",
       "@other": "Go to &Summary"

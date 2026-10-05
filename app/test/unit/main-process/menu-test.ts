@@ -3,9 +3,14 @@ import assert from 'node:assert'
 import {
   ensureItemIds,
   buildDefaultMenuTemplate,
+  dedupeMenuAccessKeys,
 } from '../../../src/main-process/menu'
+import { registerBuiltInLocales } from '../../../src/lib/l10n/builtins'
+import { localization } from '../../../src/lib/l10n/core'
 import type { MenuLabelsEvent } from '../../../src/models/menu-labels'
 import { enableCopilotAppHandoff } from '../../../src/lib/feature-flag'
+
+registerBuiltInLocales()
 
 /** Extract the Windows-style access key from a menu item label, if any. */
 function getAccessKey(label: string): string | null {
@@ -158,6 +163,89 @@ describe('main-process menu', () => {
     })
   })
 
+  describe('dedupeMenuAccessKeys', () => {
+    it('keeps the first mnemonic and strips the marker from collisions', () => {
+      const deduped = dedupeMenuAccessKeys([
+        { label: '&File' },
+        { label: 'Re&cent' },
+        { label: '&Favorites' },
+      ])
+
+      assert.deepStrictEqual(
+        deduped.map(item => item.label),
+        ['&File', 'Re&cent', 'Favorites']
+      )
+    })
+
+    it('compares access keys case insensitively', () => {
+      const deduped = dedupeMenuAccessKeys([
+        { label: '&File' },
+        { label: 'New &FILE from folder' },
+      ])
+
+      assert.deepStrictEqual(
+        deduped.map(item => item.label),
+        ['&File', 'New FILE from folder']
+      )
+    })
+
+    it('leaves escaped ampersands and unmnemonized labels alone', () => {
+      const deduped = dedupeMenuAccessKeys([
+        { label: 'Save && &Upload' },
+        { label: 'Ben&&Jerrys' },
+        { label: 'Plain text' },
+      ])
+
+      assert.deepStrictEqual(
+        deduped.map(item => item.label),
+        ['Save && &Upload', 'Ben&&Jerrys', 'Plain text']
+      )
+    })
+
+    it('dedupes submenus independently of their parents', () => {
+      const deduped = dedupeMenuAccessKeys([
+        {
+          label: '&Repository',
+          submenu: [{ label: '&Push' }, { label: 'P&ull' }],
+        },
+        {
+          label: 'Branch',
+          submenu: [{ label: '&Push' }, { label: 'P&ull' }],
+        },
+      ])
+
+      const firstSubmenu = deduped[0]
+        .submenu as Electron.MenuItemConstructorOptions[]
+      const secondSubmenu = deduped[1]
+        .submenu as Electron.MenuItemConstructorOptions[]
+
+      assert.deepStrictEqual(
+        firstSubmenu.map(item => item.label),
+        ['&Push', 'P&ull']
+      )
+      assert.deepStrictEqual(
+        secondSubmenu.map(item => item.label),
+        ['&Push', 'P&ull']
+      )
+    })
+
+    it('does not mutate the original template', () => {
+      const template: Electron.MenuItemConstructorOptions[] = [
+        {
+          label: '&File',
+          submenu: [{ label: 'Re&cent' }, { label: '&Favorites' }],
+        },
+      ]
+
+      dedupeMenuAccessKeys(template)
+
+      const submenu = template[0]
+        .submenu as Electron.MenuItemConstructorOptions[]
+
+      assert.equal(submenu[1].label, '&Favorites')
+    })
+  })
+
   describe('buildDefaultMenuTemplate', () => {
     it('gates Copilot handoff to supported platforms and preview channels', t => {
       const preview = process.env.GITHUB_DESKTOP_PREVIEW_FEATURES
@@ -234,29 +322,36 @@ describe('main-process menu', () => {
       )
     })
 
-    it('has no duplicate access keys for any combination of label-affecting parameters', () => {
+    it('has no duplicate access keys in any built-in catalog for any combination of label-affecting parameters', () => {
       const combinationCount = 1 << variantKeys.length
 
-      for (let bits = 0; bits < combinationCount; bits++) {
-        const variantEntries = variantKeys.map(
-          (key, i) => [key, !!(bits & (1 << i))] as [VariantKey, boolean]
-        )
+      for (const tag of ['en', 'ru']) {
+        localization.setRequestedLocale(tag)
+        try {
+          for (let bits = 0; bits < combinationCount; bits++) {
+            const variantEntries = variantKeys.map(
+              (key, i) => [key, !!(bits & (1 << i))] as [VariantKey, boolean]
+            )
 
-        const params: MenuLabelsEvent = {
-          ...baseParams,
-          ...Object.fromEntries(variantEntries),
+            const params: MenuLabelsEvent = {
+              ...baseParams,
+              ...Object.fromEntries(variantEntries),
+            }
+
+            const template = buildDefaultMenuTemplate(params)
+            const duplicates = findDuplicateAccessKeys(template)
+
+            assert.deepStrictEqual(
+              duplicates,
+              [],
+              `${tag}: duplicate access keys found with params ${JSON.stringify(
+                params
+              )}: ${JSON.stringify(duplicates)}`
+            )
+          }
+        } finally {
+          localization.setRequestedLocale(null)
         }
-
-        const template = buildDefaultMenuTemplate(params)
-        const duplicates = findDuplicateAccessKeys(template)
-
-        assert.deepStrictEqual(
-          duplicates,
-          [],
-          `Duplicate access keys found with params ${JSON.stringify(
-            params
-          )}: ${JSON.stringify(duplicates)}`
-        )
       }
     })
   })
