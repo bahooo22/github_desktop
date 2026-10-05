@@ -18,6 +18,7 @@ up)
   done
   docker run -d --name "$NAME" --hostname "$NAME" \
     --shm-size=2g \
+    -p 127.0.0.1:6080:6080 \
     -v "$REPO":/work \
     -v gdlab_nm_root:/work/node_modules \
     -v gdlab_nm_app:/work/app/node_modules \
