@@ -17,6 +17,7 @@ import { DesktopNotificationPermission } from 'desktop-notifications'
 import { NotificationCallback } from 'desktop-notifications'
 import { DesktopAliveEvent } from './stores/alive-store'
 import { CLIAction } from './cli-action'
+import { LocalizationState } from './l10n/types'
 
 /**
  * Defines the simplex IPC channel names we use from the renderer
@@ -38,6 +39,7 @@ export type RequestChannels = {
   ) => void
   'get-app-menu': () => void
   'update-preferred-app-menu-item-labels': (labels: MenuLabelsEvent) => void
+  'update-localization': (tag: string) => void
   'uncaught-exception': (error: Error) => void
   'send-error-report': (
     error: Error,
@@ -137,4 +139,12 @@ export type RequestResponseChannels = {
   ) => Promise<string | null>
   'get-notifications-permission': () => Promise<DesktopNotificationPermission>
   'request-notifications-permission': () => Promise<boolean>
+  'get-localization-state': () => Promise<LocalizationState>
+  'set-preferred-locale': (tag: string | null) => Promise<string | undefined>
+  'save-user-localization': (
+    tag: string,
+    contents: object
+  ) => Promise<string | undefined>
+  'delete-user-localization': (tag: string) => Promise<boolean>
+  'show-user-localizations-folder': () => Promise<void>
 }

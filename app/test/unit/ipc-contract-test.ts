@@ -28,6 +28,7 @@ describe('IPC channel contract', () => {
     'show-certificate-trust-dialog',
     'get-app-menu',
     'update-preferred-app-menu-item-labels',
+    'update-localization',
     'uncaught-exception',
     'send-error-report',
     'unsafe-open-directory',
@@ -100,6 +101,11 @@ describe('IPC channel contract', () => {
     'show-notification',
     'get-notifications-permission',
     'request-notifications-permission',
+    'get-localization-state',
+    'set-preferred-locale',
+    'save-user-localization',
+    'delete-user-localization',
+    'show-user-localizations-folder',
   ] as const
 
   describe('RequestChannels', () => {

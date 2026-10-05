@@ -15,6 +15,12 @@ import * as Fs from 'fs'
 
 import { AppWindow } from './app-window'
 import { buildDefaultMenu, getAllMenuItems } from './menu'
+import {
+  initializeMainProcessLocalization,
+  registerLocalizationIpc,
+} from './l10n'
+import { localization } from '../lib/l10n/core'
+import { MenuLabelsEvent } from '../models/menu-labels'
 import { shellNeedsPatching, updateEnvironmentForProcess } from '../lib/shell'
 import { parseAppURL } from '../lib/parse-app-url'
 import {
@@ -58,6 +64,12 @@ app.setAppLogsPath()
 enableSourceMaps()
 
 let mainWindow: AppWindow | null = null
+
+/**
+ * The labels the renderer last reported, kept so a language change can rebuild
+ * the menu with the same state it was showing.
+ */
+let lastMenuLabels: MenuLabelsEvent | undefined
 
 const launchTime = now()
 
@@ -351,6 +363,10 @@ app.on('ready', () => {
   // repo assets
   const updateAccounts = installAuthenticatedImageFilter(orderedWebRequest)
 
+  // The menu translates while it's being built, so this has to happen first
+  // or the very first menu is English no matter what the user picked.
+  initializeMainProcessLocalization()
+
   Menu.setApplicationMenu(
     buildDefaultMenu({
       selectedShell: null,
@@ -362,7 +378,14 @@ app.on('ready', () => {
 
   ipcMain.on('update-accounts', (_, accounts) => updateAccounts(accounts))
 
-  ipcMain.on('update-preferred-app-menu-item-labels', (_, labels) => {
+  /**
+   * Rebuilds the default menu from the state the renderer reports.
+   *
+   * Also how the menu picks up a new language: the main process translates
+   * while building, so changing language means building the whole thing again.
+   */
+  const applyMenuLabels = (labels: MenuLabelsEvent) => {
+    lastMenuLabels = labels
     // The current application menu is mutable and we frequently
     // change whether particular items are enabled or not through
     // the update-menu-state IPC event. This menu that we're creating
@@ -431,6 +454,18 @@ app.on('ready', () => {
       // https://github.com/electron/electron/issues/2717
       Menu.setApplicationMenu(newMenu)
       mainWindow.sendAppMenu()
+    }
+  }
+
+  ipcMain.on('update-preferred-app-menu-item-labels', (_, labels) =>
+    applyMenuLabels(labels)
+  )
+
+  registerLocalizationIpc(tag => {
+    localization.setRequestedLocale(tag)
+
+    if (lastMenuLabels !== undefined) {
+      applyMenuLabels(lastMenuLabels)
     }
   })
 
