@@ -20,3 +20,6 @@ junit*.xml
 *.swp
 tslint-rules/
 playwright-videos/
+
+# Electron win32 cross-build output (unpacked app, ~1.2GB)
+bin/
