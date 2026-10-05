@@ -7,6 +7,7 @@ import { WorkingDirectoryFileChange } from '../../models/status'
 import { PathText } from '../lib/path-text'
 import { DefaultCommitMessage } from '../../models/commit-message'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t } from '../../lib/l10n'
 
 interface ICommitConflictsWarningProps {
   readonly dispatcher: Dispatcher
@@ -63,23 +64,18 @@ export class CommitConflictsWarning extends React.Component<
         id="commit-conflict-markers-warning"
         onDismissed={this.onCancel}
         onSubmit={this.onSubmit}
-        title={'Confirm committing conflicted files'}
+        title={t('mergeConflicts.commitWarning.title')}
         type={'warning'}
       >
         <DialogContent>
-          <p>
-            If you choose to commit, you’ll be committing the following
-            conflicted files into your repository:
-          </p>
+          <p>{t('mergeConflicts.commitWarning.warning')}</p>
           {this.renderFiles(this.props.files)}
-          <p>Are you sure you want to commit these conflicted files?</p>
+          <p>{t('mergeConflicts.commitWarning.confirm')}</p>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={
-              __DARWIN__ ? 'Yes, Commit Files' : 'Yes, commit files'
-            }
+            okButtonText={t('mergeConflicts.commitWarning.ok')}
           />
         </DialogFooter>
       </Dialog>

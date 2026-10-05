@@ -6,6 +6,7 @@ import { Dispatcher } from '../dispatcher'
 import { Row } from '../lib/row'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { UncommittedChangesStrategy } from '../../models/uncommitted-changes-strategy'
+import { t } from '../../lib/l10n'
 
 interface IOverwriteStashProps {
   readonly dispatcher: Dispatcher
@@ -31,7 +32,7 @@ export class OverwriteStash extends React.Component<
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Overwrite Stash?' : 'Overwrite stash?'
+    const title = t('stashChanges.overwrite.title')
 
     return (
       <Dialog
@@ -47,12 +48,14 @@ export class OverwriteStash extends React.Component<
       >
         <DialogContent>
           <Row id="overwrite-stash-warning-message">
-            Are you sure you want to proceed? This will overwrite your existing
-            stash with your current changes.
+            {t('stashChanges.overwrite.message')}
           </Row>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup destructive={true} okButtonText="Overwrite" />
+          <OkCancelButtonGroup
+            destructive={true}
+            okButtonText={t('stashChanges.overwrite.ok')}
+          />
         </DialogFooter>
       </Dialog>
     )

@@ -8,6 +8,7 @@ import { PathText } from '../lib/path-text'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { ITextDiff, DiffSelection } from '../../models/diff'
+import { t } from '../../lib/l10n'
 
 interface IDiscardSelectionProps {
   readonly repository: Repository
@@ -59,7 +60,7 @@ export class DiscardSelection extends React.Component<
   }
 
   private getOkButtonLabel() {
-    return __DARWIN__ ? 'Discard Changes' : 'Discard changes'
+    return t('discardChanges.okDiscard')
   }
 
   public render() {
@@ -68,9 +69,7 @@ export class DiscardSelection extends React.Component<
     return (
       <Dialog
         id="discard-changes"
-        title={
-          __DARWIN__ ? 'Confirm Discard changes' : 'Confirm discard changes'
-        }
+        title={t('discardChanges.titleDiscard')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.discard}
         dismissDisabled={isDiscardingChanges}
@@ -79,7 +78,7 @@ export class DiscardSelection extends React.Component<
         type="warning"
       >
         <DialogContent>
-          <p>Are you sure you want to discard the selected changes to:</p>
+          <p>{t('discardChanges.confirmSelected')}</p>
 
           <ul>
             <li>
@@ -88,7 +87,7 @@ export class DiscardSelection extends React.Component<
           </ul>
 
           <Checkbox
-            label="Do not show this message again"
+            label={t('discardChanges.dontShowAgain')}
             value={
               this.state.confirmDiscardSelection
                 ? CheckboxValue.Off

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { DialogContent } from '../dialog'
 import { LinkButton } from '../lib/link-button'
 import { CallToAction } from '../lib/call-to-action'
+import { t, Trans } from '../../lib/l10n'
 
 const HelpURL = 'https://help.github.com/articles/about-remote-repositories/'
 
@@ -15,13 +16,16 @@ export class NoRemote extends React.Component<INoRemoteProps, {}> {
   public render() {
     return (
       <DialogContent>
-        <CallToAction actionTitle="Publish" onAction={this.props.onPublish}>
-          <div className="no-remote-publish-message">
-            Publish your repository to GitHub. Need help?{' '}
-            <LinkButton uri={HelpURL}>
-              Learn more about remote repositories.
-            </LinkButton>
-          </div>
+        <CallToAction
+          actionTitle={t('repositorySettings.publish')}
+          onAction={this.props.onPublish}
+        >
+          <Trans
+            k="repositorySettings.no-remote-message"
+            components={{ link: <LinkButton uri={HelpURL} /> }}
+            className="no-remote-publish-message"
+            as="div"
+          />
         </CallToAction>
       </DialogContent>
     )

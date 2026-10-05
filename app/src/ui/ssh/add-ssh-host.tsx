@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t } from '../../lib/l10n'
 
 interface IAddSSHHostProps {
   readonly host: string
@@ -20,23 +21,26 @@ export class AddSSHHost extends React.Component<IAddSSHHostProps> {
       <Dialog
         id="add-ssh-host"
         type="normal"
-        title="SSH Host"
+        title={t('ssh.hostTitle')}
         backdropDismissable={false}
         onSubmit={this.onSubmit}
         onDismissed={this.onCancel}
       >
         <DialogContent>
           <p>
-            The authenticity of host '{this.props.host} ({this.props.ip})' can't
-            be established. {this.props.keyType} key fingerprint is{' '}
-            {this.props.fingerprint}.
+            {t('ssh.hostAuthenticity', {
+              host: this.props.host,
+              ip: this.props.ip,
+              keyType: this.props.keyType,
+              fingerprint: this.props.fingerprint,
+            })}
           </p>
-          <p>Are you sure you want to continue connecting?</p>
+          <p>{t('ssh.confirmConnect')}</p>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Yes"
-            cancelButtonText="No"
+            okButtonText={t('ssh.yes')}
+            cancelButtonText={t('ssh.no')}
             onCancelButtonClick={this.onCancel}
           />
         </DialogFooter>

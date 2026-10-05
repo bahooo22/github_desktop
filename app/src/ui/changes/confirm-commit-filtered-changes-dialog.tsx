@@ -4,6 +4,7 @@ import { Row } from '../lib/row'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { LinkButton } from '../lib/link-button'
+import { t, Trans } from '../../lib/l10n'
 
 interface IConfirmCommitFilteredChangesProps {
   readonly onCommitAnyway: () => void
@@ -33,9 +34,7 @@ export class ConfirmCommitFilteredChanges extends React.Component<
       <Dialog
         id="hidden-changes"
         type="warning"
-        title={
-          __DARWIN__ ? 'Commit Filtered Changes?' : 'Commit filtered changes?'
-        }
+        title={t('changes.commit-filtered-dialog.title')}
         onSubmit={this.onSubmit}
         onDismissed={this.props.onDismissed}
         role="alertdialog"
@@ -43,16 +42,18 @@ export class ConfirmCommitFilteredChanges extends React.Component<
       >
         <DialogContent>
           <p id="confirm-commit-filtered-changes-message">
-            You have a filter applied. There are{' '}
-            <LinkButton onClick={this.showFilesToBeCommitted}>
-              hidden changes
-            </LinkButton>{' '}
-            that will be committed. Are you sure you want to commit these
-            changes?
+            <Trans
+              k="changes.commit-filtered-dialog.message"
+              components={{
+                link: (
+                  <LinkButton onClick={this.showFilesToBeCommitted} />
+                ),
+              }}
+            />
           </p>
           <Row>
             <Checkbox
-              label="Do not show this message again"
+              label={t('changes.commit-filtered-dialog.dont-show-again')}
               value={
                 this.state.askForConfirmationOnCommitFilteredChanges
                   ? CheckboxValue.Off
@@ -65,8 +66,8 @@ export class ConfirmCommitFilteredChanges extends React.Component<
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={__DARWIN__ ? 'Commit Anyway' : 'Commit anyway'}
-            cancelButtonText={'Cancel'}
+            okButtonText={t('changes.commit-anyway')}
+            cancelButtonText={t('common.cancel')}
             onCancelButtonClick={this.props.onDismissed}
           />
         </DialogFooter>

@@ -13,6 +13,7 @@ import { ValidNotificationPullRequestReview } from '../../lib/valid-notification
 import { PullRequestCommentLike } from './pull-request-comment-like'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
+import { t } from '../../lib/l10n'
 
 interface IPullRequestReviewProps {
   readonly dispatcher: Dispatcher
@@ -102,20 +103,16 @@ export class PullRequestReview extends React.Component<
 
     if (!isApprovedReview) {
       if (shouldChangeRepository) {
-        okButtonTitle = __DARWIN__
-          ? 'Switch to Repository and Pull Request'
-          : 'Switch to repository and pull request'
+        okButtonTitle = t('notifications.switchToRepositoryAndPullRequest')
       } else if (shouldCheckoutBranch) {
-        okButtonTitle = __DARWIN__
-          ? 'Switch to Pull Request'
-          : 'Switch to pull request'
+        okButtonTitle = t('notifications.switchToPullRequest')
       }
     }
 
     const okCancelButtonGroup = (
       <OkCancelButtonGroup
         onCancelButtonClick={this.props.onDismissed}
-        cancelButtonText="Dismiss"
+        cancelButtonText={t('notifications.dismiss')}
         // If there is nothing special about the OK button, just hide the cancel
         // button, since they will both just dismiss the dialog.
         cancelButtonVisible={okButtonTitle !== undefined}
@@ -125,7 +122,7 @@ export class PullRequestReview extends React.Component<
       />
     )
 
-    const openInBrowserText = __DARWIN__ ? 'Open in Browser' : 'Open in browser'
+    const openInBrowserText = t('notifications.openInBrowser')
 
     return (
       <Row>

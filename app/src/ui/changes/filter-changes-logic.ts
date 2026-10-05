@@ -1,6 +1,7 @@
 import { IFileListFilterState } from '../../lib/app-state'
 import { IChangesListItem } from './filter-changes-list'
 import memoizeOne from 'memoize-one'
+import { t } from '../../lib/l10n'
 
 /**
  * Apply filter options to determine if a file should be shown
@@ -88,41 +89,32 @@ export function getNoResultsMessage(
   }
 
   if (filters.isIncludedInCommit) {
-    activeFilters.push('Included in commit')
+    activeFilters.push(t('changes.filter.name.included'))
   }
 
   if (filters.isExcludedFromCommit) {
-    activeFilters.push('Excluded from commit')
+    activeFilters.push(t('changes.filter.name.excluded'))
   }
 
   if (filters.isNewFile) {
-    activeFilters.push('New files')
+    activeFilters.push(t('changes.filter.name.new'))
   }
 
   if (filters.isModifiedFile) {
-    activeFilters.push('Modified files')
+    activeFilters.push(t('changes.filter.name.modified'))
   }
 
   if (filters.isDeletedFile) {
-    activeFilters.push('Deleted files')
+    activeFilters.push(t('changes.filter.name.deleted'))
   }
 
   if (activeFilters.length === 0) {
     return undefined
   }
 
-  // Format the list with proper grammar (e.g., "A, B, and C")
-  let filterList: string
-  if (activeFilters.length === 1) {
-    filterList = activeFilters[0]
-  } else if (activeFilters.length === 2) {
-    filterList = `${activeFilters[0]} and ${activeFilters[1]}`
-  } else {
-    const lastFilter = activeFilters[activeFilters.length - 1]
-    const otherFilters = activeFilters.slice(0, -1)
-    filterList = `${otherFilters.join(', ')}, and ${lastFilter}`
-  }
-  return `Sorry, I can't find any changed files matching the following filters: ${filterList}`
+  return t('changes.no-results-message', {
+    filters: activeFilters.join(', '),
+  })
 }
 
 /**

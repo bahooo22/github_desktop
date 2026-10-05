@@ -5,6 +5,7 @@ import { Dispatcher } from '../dispatcher'
 import { Row } from '../lib/row'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Commit } from '../../models/commit'
+import { t } from '../../lib/l10n'
 
 interface IWarningBeforeResetProps {
   readonly dispatcher: Dispatcher
@@ -31,7 +32,7 @@ export class WarningBeforeReset extends React.Component<
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Reset to Commit' : 'Reset to commit'
+    const title = t('reset.title')
 
     return (
       <Dialog
@@ -46,14 +47,13 @@ export class WarningBeforeReset extends React.Component<
         ariaDescribedBy="reset-warning-message"
       >
         <DialogContent>
-          <Row id="reset-warning-message">
-            You have changes in progress. Resetting to a previous commit might
-            result in some of these changes being lost. Do you want to continue
-            anyway?
-          </Row>
+          <Row id="reset-warning-message">{t('reset.warning')}</Row>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup destructive={true} okButtonText="Continue" />
+          <OkCancelButtonGroup
+            destructive={true}
+            okButtonText={t('reset.continue')}
+          />
         </DialogFooter>
       </Dialog>
     )

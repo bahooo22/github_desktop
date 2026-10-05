@@ -8,6 +8,7 @@ import { PathText } from '../lib/path-text'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { TrashNameLabel } from '../lib/context-menu'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t } from '../../lib/l10n'
 
 interface IDiscardChangesProps {
   readonly repository: Repository
@@ -57,18 +58,16 @@ export class DiscardChanges extends React.Component<
 
   private getOkButtonLabel() {
     if (this.props.discardingAllChanges) {
-      return __DARWIN__ ? 'Discard All Changes' : 'Discard all changes'
+      return t('discardChanges.okDiscardAll')
     }
-    return __DARWIN__ ? 'Discard Changes' : 'Discard changes'
+    return t('discardChanges.okDiscard')
   }
 
   private getDialogTitle() {
     if (this.props.discardingAllChanges) {
-      return __DARWIN__
-        ? 'Confirm Discard All Changes'
-        : 'Confirm discard all changes'
+      return t('discardChanges.titleDiscardAll')
     }
-    return __DARWIN__ ? 'Confirm Discard Changes' : 'Confirm discard changes'
+    return t('discardChanges.titleDiscard')
   }
 
   public render() {
@@ -90,8 +89,9 @@ export class DiscardChanges extends React.Component<
         <DialogContent>
           {this.renderFileList()}
           <p id="discard-changes-confirmation-message">
-            Changes can be restored by retrieving them from the {TrashNameLabel}
-            .
+            {t('discardChanges.restoreMessage', {
+              trash: TrashNameLabel,
+            })}
           </p>
           {this.renderConfirmDiscardChanges()}
         </DialogContent>
@@ -112,7 +112,7 @@ export class DiscardChanges extends React.Component<
     if (this.props.showDiscardChangesSetting) {
       return (
         <Checkbox
-          label="Do not show this message again"
+          label={t('discardChanges.dontShowAgain')}
           value={
             this.state.confirmDiscardChanges
               ? CheckboxValue.Off
@@ -133,14 +133,15 @@ export class DiscardChanges extends React.Component<
     if (this.props.files.length > MaxFilesToList) {
       return (
         <p id="discard-changes-confirmation-file-list">
-          Are you sure you want to discard all {this.props.files.length} changed
-          files?
+          {t('discardChanges.confirmManyFiles', {
+            count: this.props.files.length,
+          })}
         </p>
       )
     } else {
       return (
         <div id="discard-changes-confirmation-file-list">
-          <p>Are you sure you want to discard all changes to:</p>
+          <p>{t('discardChanges.confirmFileList')}</p>
           <div className="file-list">
             <ul>
               {this.props.files.map(p => (

@@ -5,6 +5,7 @@ import { Repository } from '../../models/repository'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { Ref } from '../lib/ref'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 interface IDeleteTagProps {
   readonly dispatcher: Dispatcher
@@ -33,7 +34,7 @@ export class DeleteTag extends React.Component<
     return (
       <Dialog
         id="delete-tag"
-        title={__DARWIN__ ? 'Delete Tag' : 'Delete tag'}
+        title={t('deleteTag.title')}
         type="warning"
         onSubmit={this.DeleteTag}
         onDismissed={this.props.onDismissed}
@@ -44,12 +45,18 @@ export class DeleteTag extends React.Component<
       >
         <DialogContent>
           <p id="delete-tag-confirmation">
-            Are you sure you want to delete the tag{' '}
-            <Ref>{this.props.tagName}</Ref>?
+            <Trans
+              k="deleteTag.confirm-message"
+              params={{ tag: this.props.tagName }}
+              components={{ ref: <Ref /> }}
+            />
           </p>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup destructive={true} okButtonText="Delete" />
+          <OkCancelButtonGroup
+            destructive={true}
+            okButtonText={t('deleteTag.delete')}
+          />
         </DialogFooter>
       </Dialog>
     )

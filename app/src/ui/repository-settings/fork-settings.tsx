@@ -5,6 +5,7 @@ import { RepositoryWithForkedGitHubRepository } from '../../models/repository'
 import { ForkSettingsDescription } from './fork-contribution-target-description'
 import { RadioGroup } from '../lib/radio-group'
 import { assertNever } from '../../lib/fatal-error'
+import { t } from '../../lib/l10n'
 
 interface IForkSettingsProps {
   readonly forkContributionTarget: ForkContributionTarget
@@ -19,9 +20,9 @@ export class ForkSettings extends React.Component<IForkSettingsProps, {}> {
   private renderForkOptionsLabel = (key: ForkContributionTarget) => {
     switch (key) {
       case ForkContributionTarget.Parent:
-        return 'To contribute to the parent repository'
+        return t('repositorySettings.fork-contribute-to-parent')
       case ForkContributionTarget.Self:
-        return 'For my own purposes'
+        return t('repositorySettings.fork-for-my-own-purposes')
       default:
         return assertNever(key, `Unknown fork contribution target: ${key}`)
     }
@@ -35,7 +36,9 @@ export class ForkSettings extends React.Component<IForkSettingsProps, {}> {
 
     return (
       <DialogContent>
-        <h2 id="fork-usage-heading">I'll be using this fork…</h2>
+        <h2 id="fork-usage-heading">
+          {t('repositorySettings.fork-usage-heading')}
+        </h2>
 
         <RadioGroup<ForkContributionTarget>
           ariaLabelledBy="fork-usage-heading"

@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { t } from '../../../lib/l10n'
 import { Image } from '../../../models/diff'
 import { ImageContainer } from './image-container'
 
@@ -16,7 +17,7 @@ export class DeletedImageDiff extends React.Component<
     return (
       <div className="panel image" id="diff">
         <div className="image-diff-previous">
-          <div className="image-diff-header">Deleted</div>
+          <div className="image-diff-header">{t('diff.image.deleted')}</div>
           <ImageContainer image={this.props.previous} />
         </div>
       </div>

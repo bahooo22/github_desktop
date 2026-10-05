@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t } from '../../../lib/l10n'
 import { Branch } from '../../../models/branch'
 import { Repository } from '../../../models/repository'
 import { IMatches } from '../../../lib/fuzzy-find'
@@ -265,7 +266,7 @@ export class ChooseBranchDialog extends React.Component<
             options={getMergeOptions()}
             disabled={!canStartOperation}
             ariaDescribedBy="merge-status-preview"
-            dropdownAriaLabel="Merge options"
+            dropdownAriaLabel={t('multiCommit.chooseBranch.mergeOptions')}
             tooltip={submitButtonTooltip}
             onCheckedOptionChange={this.onOperationChange}
           />

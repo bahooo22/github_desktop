@@ -9,6 +9,7 @@ import { IAPIRepository } from '../../lib/api'
 import { CloneableRepositoryFilterList } from './cloneable-repository-filter-list'
 import { ClickSource } from '../lib/list'
 import { AccountPicker } from '../account-picker'
+import { t } from '../../lib/l10n'
 
 interface ICloneGithubRepositoryProps {
   /** The account to clone from. */
@@ -120,11 +121,13 @@ export class CloneGithubRepository extends React.PureComponent<ICloneGithubRepos
         <Row className="local-path-field">
           <TextBox
             value={this.props.path}
-            label={__DARWIN__ ? 'Local Path' : 'Local path'}
-            placeholder="repository path"
+            label={t('cloneRepository.local-path')}
+            placeholder={t('cloneRepository.path-placeholder')}
             onValueChanged={this.props.onPathChanged}
           />
-          <Button onClick={this.props.onChooseDirectory}>Choose…</Button>
+          <Button onClick={this.props.onChooseDirectory}>
+            {t('cloneRepository.choose')}
+          </Button>
         </Row>
       </DialogContent>
     )

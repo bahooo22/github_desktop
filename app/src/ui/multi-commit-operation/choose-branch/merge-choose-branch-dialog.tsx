@@ -1,4 +1,5 @@
 import React from 'react'
+import { t, Trans } from '../../../lib/l10n'
 import { getAheadBehind, revSymmetricDifference } from '../../../lib/git'
 import { determineMergeability } from '../../../lib/git/merge-tree'
 import { Branch } from '../../../models/branch'
@@ -13,7 +14,6 @@ import {
   canStartOperation,
 } from './base-choose-branch-dialog'
 import { truncateWithEllipsis } from '../../../lib/truncate-with-ellipsis'
-import { formatNumber } from '../../../lib/format-number'
 
 interface IMergeChooseBranchDialogState {
   readonly commitCount: number
@@ -88,14 +88,18 @@ export class MergeChooseBranchDialog extends React.Component<
       this.props.currentBranch.name,
       40
     )
-    const squashPrefix =
-      this.props.operation === MultiCommitOperationKind.Squash
-        ? 'Squash and '
-        : null
+    const isSquash = this.props.operation === MultiCommitOperationKind.Squash
+
     return (
-      <>
-        {squashPrefix}Merge into <strong>{truncatedName}</strong>
-      </>
+      <Trans
+        k={
+          isSquash
+            ? 'multiCommit.mergeChooseBranch.squashTitle'
+            : 'multiCommit.mergeChooseBranch.title'
+        }
+        params={{ branch: truncatedName }}
+        components={{ strong: <strong /> }}
+      />
     )
   }
 
@@ -172,7 +176,7 @@ export class MergeChooseBranchDialog extends React.Component<
   }
 
   private renderLoadingMergeMessage() {
-    return <>Checking for ability to merge automatically...</>
+    return <>{t('multiCommit.mergeChooseBranch.checkingMergeability')}</>
   }
 
   private renderCleanMergeMessage(
@@ -182,31 +186,35 @@ export class MergeChooseBranchDialog extends React.Component<
   ) {
     if (commitCount === 0) {
       return (
-        <React.Fragment>
-          <strong>{currentBranch.name}</strong>
-          {` `}
-          is already up to date with <strong>{branch.name}</strong>
-        </React.Fragment>
+        <Trans
+          k="multiCommit.mergeChooseBranch.upToDate"
+          params={{ current: currentBranch.name, incoming: branch.name }}
+          components={{ current: <strong />, incoming: <strong /> }}
+        />
       )
     }
 
-    const pluralized = commitCount === 1 ? 'commit' : 'commits'
     return (
-      <React.Fragment>
-        This will merge
-        <strong>{` ${formatNumber(commitCount)} ${pluralized}`}</strong>
-        {` from `}
-        <strong>{branch.name}</strong>
-        {` into `}
-        <strong>{currentBranch.name}</strong>
-      </React.Fragment>
+      <Trans
+        k="multiCommit.mergeChooseBranch.cleanMerge"
+        params={{
+          count: commitCount,
+          branch: branch.name,
+          currentBranch: currentBranch.name,
+        }}
+        components={{
+          summary: <strong />,
+          from: <strong />,
+          into: <strong />,
+        }}
+      />
     )
   }
 
   private renderInvalidMergeMessage() {
     return (
       <React.Fragment>
-        Unable to merge unrelated histories in this repository
+        {t('multiCommit.mergeChooseBranch.unrelatedHistories')}
       </React.Fragment>
     )
   }
@@ -216,16 +224,20 @@ export class MergeChooseBranchDialog extends React.Component<
     currentBranch: Branch,
     count: number
   ) {
-    const pluralized = count === 1 ? 'file' : 'files'
     return (
-      <React.Fragment>
-        There will be
-        <strong>{` ${formatNumber(count)} conflicted ${pluralized}`}</strong>
-        {` when merging `}
-        <strong>{branch.name}</strong>
-        {` into `}
-        <strong>{currentBranch.name}</strong>
-      </React.Fragment>
+      <Trans
+        k="multiCommit.mergeChooseBranch.conflicts"
+        params={{
+          count,
+          branch: branch.name,
+          currentBranch: currentBranch.name,
+        }}
+        components={{
+          summary: <strong />,
+          from: <strong />,
+          into: <strong />,
+        }}
+      />
     )
   }
 

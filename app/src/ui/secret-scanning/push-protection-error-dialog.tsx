@@ -6,6 +6,7 @@ import { PushProtectionErrorLocation } from './push-protection-error-location'
 import { IAPICreatePushProtectionBypassResponse } from '../../lib/api'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
+import { t, Trans } from '../../lib/l10n'
 
 /** Represents the location of a detected secret detected on push  */
 export interface ISecretLocation {
@@ -68,11 +69,7 @@ export class PushProtectionErrorDialog extends React.Component<
   public render() {
     return (
       <Dialog
-        title={
-          __DARWIN__
-            ? 'Push Blocked: Secret Detected'
-            : 'Push blocked: secret detected'
-        }
+        title={t('secretScanning.title')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.props.onDismissed}
         type="error"
@@ -82,29 +79,33 @@ export class PushProtectionErrorDialog extends React.Component<
       >
         <DialogContent>
           <div id="push-protection-error-dialog-description">
-            <p>
-              <LinkButton uri="https://docs.github.com/code-security/secret-scanning/protecting-pushes-with-secret-scanning">
-                Secret Scanning
-              </LinkButton>{' '}
-              found secret(s) in the commit(s) you attempted to push.{' '}
-            </p>
-            <p>
-              Allowing secrets risks exposure. Consider{' '}
-              <LinkButton
-                onClick={this.props.onRemediationInstructionsLinkClick}
-                uri="https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-in-the-github-ui#resolving-a-blocked-commit"
-              >
-                removing the secret from your commit and commit history.
-              </LinkButton>
-            </p>
-            Exposing this secret can allow someone to:
+            <Trans
+              as="p"
+              k="secretScanning.foundSecrets"
+              components={{
+                link: (
+                  <LinkButton uri="https://docs.github.com/code-security/secret-scanning/protecting-pushes-with-secret-scanning" />
+                ),
+              }}
+            />
+            <Trans
+              as="p"
+              k="secretScanning.remediation"
+              components={{
+                link: (
+                  <LinkButton
+                    onClick={this.props.onRemediationInstructionsLinkClick}
+                    uri="https://docs.github.com/code-security/secret-scanning/working-with-secret-scanning-and-push-protection/working-with-push-protection-in-the-github-ui#resolving-a-blocked-commit"
+                  />
+                ),
+              }}
+            />
+            {t('secretScanning.exposureRisks')}
             <ul>
-              <li>Verify the identity of the secret(s)</li>
-              <li>Know which resources the secret(s) can access</li>
-              <li>Act on behalf of the secret's owner</li>
-              <li>
-                Push the secret(s) to this repository without being blocked
-              </li>
+              <li>{t('secretScanning.risk1')}</li>
+              <li>{t('secretScanning.risk2')}</li>
+              <li>{t('secretScanning.risk3')}</li>
+              <li>{t('secretScanning.risk4')}</li>
             </ul>
             {this.renderSecrets()}
           </div>
@@ -141,11 +142,13 @@ export class PushProtectionErrorDialog extends React.Component<
     if (secret.requiresApproval) {
       return (
         <LinkButton
-          ariaLabel={`Bypass ${secret.description}`}
+          ariaLabel={t('secretScanning.bypassAria', {
+            description: secret.description,
+          })}
           uri={secret.bypassURL}
           onClick={this.props.onDelegatedBypassLinkClick}
         >
-          Bypass
+          {t('secretScanning.bypass')}
         </LinkButton>
       )
     }
@@ -153,7 +156,7 @@ export class PushProtectionErrorDialog extends React.Component<
     if (this.state.secretsBypassed.get(secret.id)) {
       return (
         <span className="bypass-success">
-          Bypassed{' '}
+          {t('secretScanning.bypassed')}{' '}
           <Octicon symbol={octicons.check} className="bypass-success" />{' '}
         </span>
       )
@@ -161,10 +164,12 @@ export class PushProtectionErrorDialog extends React.Component<
 
     return (
       <LinkButton
-        ariaLabel={`Bypass ${secret.description}`}
+        ariaLabel={t('secretScanning.bypassAria', {
+          description: secret.description,
+        })}
         onClick={this.bypassSecret(secret)}
       >
-        Bypass
+        {t('secretScanning.bypass')}
       </LinkButton>
     )
   }
@@ -180,7 +185,7 @@ export class PushProtectionErrorDialog extends React.Component<
       </li>
     ))
     return (
-      <ul aria-label="Secrets" className="secret-list">
+      <ul aria-label={t('secretScanning.secrets')} className="secret-list">
         {listItems}
       </ul>
     )

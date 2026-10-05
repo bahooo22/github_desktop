@@ -1,4 +1,5 @@
 import React from 'react'
+import { Trans } from '../../lib/l10n'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { LinkButton } from '../lib/link-button'
@@ -66,27 +67,29 @@ export class DiffContentsWarning extends React.Component<IDiffContentsWarningPro
     switch (item.type) {
       case DiffContentsWarningType.UnicodeBidiCharacters:
         return (
-          <>
-            This diff contains bidirectional Unicode text that may be
-            interpreted or compiled differently than what appears below. To
-            review, open the file in an editor that reveals hidden Unicode
-            characters.{' '}
-            <LinkButton uri="https://github.co/hiddenchars">
-              Learn more about bidirectional Unicode characters
-            </LinkButton>
-          </>
+          <Trans
+            k="diff.unicodeBidiWarning"
+            components={{
+              link: <LinkButton uri="https://github.co/hiddenchars" />,
+            }}
+          />
         )
 
       case DiffContentsWarningType.LineEndingsChange:
         const { lineEndingsChange } = item
         return (
-          <>
-            This file uses '{lineEndingsChange.from}' line endings, but{' '}
-            <LinkButton uri="https://docs.github.com/get-started/git-basics/configuring-git-to-handle-line-endings">
-              Git is configured to convert them
-            </LinkButton>{' '}
-            to '{lineEndingsChange.to}' the next time the file is checked out.
-          </>
+          <Trans
+            k="diff.lineEndingsChange"
+            params={{
+              from: lineEndingsChange.from,
+              to: lineEndingsChange.to,
+            }}
+            components={{
+              link: (
+                <LinkButton uri="https://docs.github.com/get-started/git-basics/configuring-git-to-handle-line-endings" />
+              ),
+            }}
+          />
         )
     }
   }

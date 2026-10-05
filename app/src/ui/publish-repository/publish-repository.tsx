@@ -12,6 +12,7 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { RepositoryPublicationSettings } from '../../models/publish-settings'
 import { AccountPicker } from '../account-picker'
+import { t } from '../../lib/l10n'
 
 interface IPublishRepositoryProps {
   /** The user to use for publishing. */
@@ -115,7 +116,7 @@ export class PublishRepository extends React.Component<
     const options = new Array<JSX.Element>()
     options.push(
       <option value={-1} key={-1}>
-        None
+        {t('publish.none')}
       </option>
     )
 
@@ -136,7 +137,7 @@ export class PublishRepository extends React.Component<
 
     return (
       <Select
-        label="Organization"
+        label={t('publish.organization')}
         value={selectedIndex.toString()}
         onChange={this.onOrgChange}
       >
@@ -161,7 +162,7 @@ export class PublishRepository extends React.Component<
 
         <Row>
           <TextBox
-            label="Name"
+            label={t('publish.name')}
             value={this.name}
             onValueChanged={this.onNameChange}
           />
@@ -171,7 +172,7 @@ export class PublishRepository extends React.Component<
 
         <Row>
           <TextBox
-            label="Description"
+            label={t('publish.description')}
             value={this.props.settings.description}
             onValueChanged={this.onDescriptionChange}
           />
@@ -184,7 +185,7 @@ export class PublishRepository extends React.Component<
               checked={this.props.settings.private}
               onChange={this.onPrivateChange}
             />
-            Keep this code private
+            {t('publish.keep-private')}
           </label>
         </Row>
 
@@ -202,7 +203,7 @@ export class PublishRepository extends React.Component<
     return (
       <Row className="warning-helper-text">
         <Octicon symbol={octicons.alert} />
-        Will be created as {sanitizedName}
+        {t('publish.will-be-created-as', { name: sanitizedName })}
       </Row>
     )
   }

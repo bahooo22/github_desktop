@@ -5,6 +5,7 @@ import { DialogHeader } from '../dialog/header'
 import { Ref } from '../lib/ref'
 import { Repository } from '../../models/repository'
 import { IChangesetData } from '../../lib/git'
+import { t, Trans } from '../../lib/l10n'
 
 export const OpenPullRequestDialogId = 'Dialog_Open_Pull_Request'
 
@@ -64,7 +65,7 @@ export class OpenPullRequestDialogHeader extends React.Component<IOpenPullReques
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Open a Pull Request' : 'Open a pull request'
+    const title = t('openPullRequest.title')
     const {
       baseBranch,
       currentBranch,
@@ -77,7 +78,6 @@ export class OpenPullRequestDialogHeader extends React.Component<IOpenPullReques
       onDismissed,
     } = this.props
     const { linesAdded, linesDeleted } = changesetData
-    const commits = `${commitCount} commit${commitCount > 1 ? 's' : ''}`
 
     return (
       <DialogHeader
@@ -87,29 +87,40 @@ export class OpenPullRequestDialogHeader extends React.Component<IOpenPullReques
       >
         <div className="break"></div>
         <div className="base-branch-details">
-          Merge {commits} into{' '}
-          <BranchSelect
-            repository={this.props.repository}
-            branch={baseBranch}
-            defaultBranch={defaultBranch}
-            currentBranch={currentBranch}
-            allBranches={prBaseBranches}
-            recentBranches={prRecentBaseBranches}
-            onChange={onBranchChange}
-            noBranchesMessage={
-              <>
-                <p>Sorry, I can't find that remote branch.</p>
-                <p>You can only open pull requests against remote branches.</p>
-              </>
-            }
-          />{' '}
-          from <Ref>{currentBranch.name}</Ref>.
+          <Trans
+            k="openPullRequest.merge-commits-into"
+            params={{ count: commitCount, branch: currentBranch.name }}
+            components={{
+              select: (
+                <BranchSelect
+                  repository={this.props.repository}
+                  branch={baseBranch}
+                  defaultBranch={defaultBranch}
+                  currentBranch={currentBranch}
+                  allBranches={prBaseBranches}
+                  recentBranches={prRecentBaseBranches}
+                  onChange={onBranchChange}
+                  noBranchesMessage={
+                    <>
+                      <p>{t('openPullRequest.no-remote-branch')}</p>
+                      <p>{t('openPullRequest.remote-only-pr')}</p>
+                    </>
+                  }
+                />
+              ),
+              ref: <Ref />,
+            }}
+          />
         </div>
         <div className="lines-added-deleted">
-          <span className="sr-only">Lines changed:</span>
-          <span className="lines-added">{linesAdded} added lines</span>
+          <span className="sr-only">{t('openPullRequest.lines-changed')}</span>
+          <span className="lines-added">
+            {t('openPullRequest.lines-added', { count: linesAdded })}
+          </span>
           <span>, </span>
-          <span className="lines-deleted">{linesDeleted} removed lines</span>
+          <span className="lines-deleted">
+            {t('openPullRequest.lines-deleted', { count: linesDeleted })}
+          </span>
         </div>
       </DialogHeader>
     )

@@ -4,6 +4,7 @@ import { Row } from '../lib/row'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { PasswordTextBox } from '../lib/password-text-box'
+import { t } from '../../lib/l10n'
 
 interface ISSHUserPasswordProps {
   readonly username: string
@@ -36,7 +37,7 @@ export class SSHUserPassword extends React.Component<
       <Dialog
         id="ssh-user-password"
         type="normal"
-        title="SSH User Password"
+        title={t('ssh.userPasswordTitle')}
         backdropDismissable={false}
         onSubmit={this.onSubmit}
         onDismissed={this.onCancel}
@@ -44,14 +45,16 @@ export class SSHUserPassword extends React.Component<
         <DialogContent>
           <Row>
             <PasswordTextBox
-              label={`Enter password for '${this.props.username}':`}
+              label={t('ssh.userPasswordLabel', {
+                username: this.props.username,
+              })}
               value={this.state.password}
               onValueChanged={this.onValueChanged}
             />
           </Row>
           <Row>
             <Checkbox
-              label="Remember password"
+              label={t('ssh.rememberPassword')}
               value={
                 this.state.rememberPassword
                   ? CheckboxValue.On

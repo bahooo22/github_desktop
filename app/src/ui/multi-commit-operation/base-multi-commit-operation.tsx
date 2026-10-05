@@ -20,6 +20,8 @@ import { Account } from '../../models/account'
 import { IAPIRepoRuleset } from '../../lib/api'
 import { Emoji } from '../../lib/emoji'
 import { IConflictResolutionModelDisplay } from '../../lib/copilot/conflict-resolution-model'
+import { t } from '../../lib/l10n'
+import { getOperationName } from './operation-name'
 
 export interface IMultiCommitOperationProps {
   readonly repository: Repository
@@ -259,11 +261,13 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
         const { userHasResolvedConflicts, operationDetail } = state
         const { manualResolutions, ourBranch, theirBranch } = step.conflictState
 
-        const operation = __DARWIN__
-          ? operationDetail.kind
-          : operationDetail.kind.toLowerCase()
-        const submit = `Continue ${operation}`
-        const abort = `Abort ${operation}`
+        const operationName = getOperationName(operationDetail.kind)
+        const submit = t('multiCommit.continueOperation', {
+          operation: operationName,
+        })
+        const abort = t('multiCommit.abortOperation', {
+          operation: operationName,
+        })
 
         return (
           <ConflictsDialog
@@ -279,7 +283,9 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
             ourBranch={ourBranch}
             theirBranch={theirBranch}
             manualResolutions={manualResolutions}
-            headerTitle={`Resolve conflicts before ${operationDetail.kind}`}
+            headerTitle={t('multiCommit.resolveConflictsBefore', {
+              operation: operationName,
+            })}
             submitButton={submit}
             abortButton={abort}
             onSubmit={this.onContinueAfterConflicts}

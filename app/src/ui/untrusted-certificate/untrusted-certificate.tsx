@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as URL from 'url'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 interface IUntrustedCertificateProps {
   /** The untrusted certificate. */
@@ -37,36 +38,32 @@ export class UntrustedCertificate extends React.Component<
 
     return (
       <Dialog
-        title={__DARWIN__ ? 'Untrusted Server' : 'Untrusted server'}
+        title={t('untrustedCertificate.title')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.onContinue}
         type={__DARWIN__ ? 'warning' : 'error'}
       >
         <DialogContent>
-          <p>
-            GitHub Desktop cannot verify the identity of {host}. The certificate
-            ({this.props.certificate.subjectName}) is invalid or untrusted.{' '}
-            <strong>
-              This may indicate attackers are trying to steal your data.
-            </strong>
-          </p>
-          <p>In some cases, this may be expected. For example:</p>
+          <Trans
+            as="p"
+            k="untrustedCertificate.message"
+            params={{
+              host,
+              subjectName: this.props.certificate.subjectName,
+            }}
+            components={{ strong: <strong /> }}
+          />
+          <p>{t('untrustedCertificate.expected')}</p>
           <ul>
-            <li>If this is a GitHub Enterprise trial.</li>
-            <li>
-              If your GitHub Enterprise instance is run on an unusual top-level
-              domain.
-            </li>
+            <li>{t('untrustedCertificate.trial')}</li>
+            <li>{t('untrustedCertificate.unusualTld')}</li>
           </ul>
-          <p>
-            If you are unsure of what to do, cancel and contact your system
-            administrator.
-          </p>
+          <p>{t('untrustedCertificate.unsure')}</p>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={__DARWIN__ ? 'View Certificate' : 'Add certificate'}
+            okButtonText={t('untrustedCertificate.ok')}
           />
         </DialogFooter>
       </Dialog>

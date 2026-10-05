@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { t } from '../../../lib/l10n'
 import { Image } from '../../../models/diff'
 import { ImageContainer } from './image-container'
 
@@ -13,7 +14,7 @@ export class NewImageDiff extends React.Component<INewImageDiffProps, {}> {
     return (
       <div className="panel image" id="diff">
         <div className="image-diff-current">
-          <div className="image-diff-header">Added</div>
+          <div className="image-diff-header">{t('diff.image.added')}</div>
           <ImageContainer image={this.props.current} />
         </div>
       </div>

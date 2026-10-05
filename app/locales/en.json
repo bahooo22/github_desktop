@@ -17,28 +17,16 @@
     "learnMore": "Learn more"
   },
   "app": {
-    "select-repository": {
-      "@darwin": "Select a Repository",
-      "@other": "Select a repository"
-    },
-    "no-repositories": {
-      "@darwin": "No Repositories",
-      "@other": "No repositories"
-    },
-    "current-repository": {
-      "@darwin": "Current Repository",
-      "@other": "Current repository"
-    },
+    "select-repository": "Select Repository",
+    "no-repositories": "No Repositories",
+    "current-repository": "Current Repository",
     "no-repository-selected": "No repository selected"
   },
   "account-picker": {
     "account": "Account"
   },
   "settings": {
-    "title": {
-      "@darwin": "Settings",
-      "@other": "Options"
-    },
+    "title": "Title",
     "tab": {
       "accounts": "Accounts",
       "integrations": "Integrations",
@@ -53,18 +41,9 @@
     },
     "accounts": {
       "add-enterprise": "Add GitHub Enterprise account",
-      "sign-out": {
-        "@darwin": "Sign Out",
-        "@other": "Sign out"
-      },
-      "sign-into-dotcom": {
-        "@darwin": "Sign Into GitHub.com",
-        "@other": "Sign into GitHub.com"
-      },
-      "sign-into-enterprise": {
-        "@darwin": "Sign Into GitHub Enterprise",
-        "@other": "Sign into GitHub Enterprise"
-      },
+      "sign-out": "Sign Out",
+      "sign-into-dotcom": "Sign Into Dotcom",
+      "sign-into-enterprise": "Sign Into Enterprise",
       "dotcom-description": "Sign in to your GitHub.com account to access your repositories.",
       "enterprise-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories."
     },
@@ -72,11 +51,7 @@
       "title": "Language",
       "description": "Choose which language the application uses for its interface. New or edited translations are picked up right away, no restart needed.",
       "systemDefault": "Automatically use my system language",
-      "detected": {
-        "@darwin": "Detected from macOS: {languages}",
-        "@win32": "Detected from Windows: {languages}",
-        "@linux": "Detected from your desktop session: {languages}"
-      },
+      "detected": "Detected",
       "noMatch": "None of your system languages ({languages}) has a translation yet, so the interface stays in English.",
       "available": "Languages",
       "yours": "yours",
@@ -87,41 +62,26 @@
       "openFolder": "Open translations folder",
       "folderHint": "You can also drop JSON files into {path} and reload.",
       "reload": "Reload translations",
-      "reloaded": {
-        "_one": "Loaded {count:number} translation from disk",
-        "_other": "Loaded {count:number} translations from disk"
-      },
+      "reloaded": "Reloaded",
       "reset": "Reset to shipped translation",
       "resetAll": "Discard all my translations",
       "confirmResetAll": "This deletes every translation you have added. This cannot be undone."
     },
     "integrations": {
-      "external-editor": {
-        "@darwin": "External Editor",
-        "@other": "External editor"
-      },
+      "external-editor": "External Editor",
       "external-editor-aria": "External editor",
       "no-editors-found": "No editors found.",
       "no-other-editors-found": "No other editors found.",
       "install-editor": "Install {name}?",
-      "configure-custom-editor": {
-        "@darwin": "Configure Custom Editor…",
-        "@other": "Configure custom editor…"
-      },
+      "configure-custom-editor": "Configure Custom Editor",
       "shell": "Shell",
-      "configure-custom-shell": {
-        "@darwin": "Configure Custom Shell…",
-        "@other": "Configure custom shell…"
-      },
+      "configure-custom-shell": "Configure Custom Shell",
       "applications": "Applications",
       "choose-copilot": "Choose GitHub Copilot",
       "copilot-description": "Experience agent-driven development built natively on GitHub.",
       "copilot-learn-more": "Learn more about GitHub Copilot",
       "app-location": "App location",
-      "app-location-placeholder": {
-        "@darwin": "path to GitHub Copilot.app",
-        "@other": "path to github.exe"
-      },
+      "app-location-placeholder": "App Location Placeholder",
       "choose": "Choose…"
     },
     "git": {
@@ -147,25 +107,13 @@
       "loading-system-theme": "Loading system theme",
       "theme": "Theme",
       "formatting": "Formatting",
-      "date-format": {
-        "@darwin": "Date Format",
-        "@other": "Date format"
-      },
-      "time-format": {
-        "@darwin": "Time Format",
-        "@other": "Time format"
-      },
-      "number-format": {
-        "@darwin": "Number Format",
-        "@other": "Number format"
-      },
+      "date-format": "Date Format",
+      "time-format": "Time Format",
+      "number-format": "Number Format",
       "format-example": "{example} ({pattern})",
       "prefer-absolute-dates": "Prefer absolute dates over relative",
       "miscellaneous": "Miscellaneous",
-      "diff-tab-size": {
-        "@darwin": "Diff Tab Size",
-        "@other": "Diff tab size"
-      },
+      "diff-tab-size": "Diff Tab Size",
       "tab-size-default": "{size:number} (default)",
       "always-show-worktree-list": "Always show worktree list"
     },
@@ -229,40 +177,19 @@
       "view-plans": "View Copilot plans",
       "desktop-disabled": "A Copilot license is available for your account, but \"Copilot in GitHub Desktop\" is disabled in your Copilot feature settings.",
       "open-feature-settings": "Open Copilot feature settings",
-      "settings-title": {
-        "@darwin": "Copilot Settings",
-        "@other": "Copilot settings"
-      },
-      "custom-providers-title": {
-        "@darwin": "Custom Providers",
-        "@other": "Custom providers"
-      },
-      "add-provider": {
-        "@darwin": "Add Provider…",
-        "@other": "Add provider…"
-      },
+      "settings-title": "Settings Title",
+      "custom-providers-title": "Custom Providers Title",
+      "add-provider": "Add Provider",
       "loading-models": "Loading available models…",
       "no-models": "No Copilot models available.",
       "custom-instructions": "Tailor how Copilot behaves by using <link>custom instructions</link>.",
       "learn-more-commit-messages": "Learn more about generating commit messages.",
-      "commit-message-generation": {
-        "@darwin": "Commit Message Generation",
-        "@other": "Commit message generation"
-      },
-      "conflict-resolution": {
-        "@darwin": "Conflict Resolution",
-        "@other": "Conflict resolution"
-      },
+      "commit-message-generation": "Commit Message Generation",
+      "conflict-resolution": "Conflict Resolution",
       "conflict-model-changes": "Model changes apply to future conflict resolutions.",
-      "always-use-copilot-conflicts": {
-        "@darwin": "Always Use Copilot When Conflicts Are Detected",
-        "@other": "Always use Copilot when conflicts are detected"
-      },
+      "always-use-copilot-conflicts": "Always Use Copilot Conflicts",
       "byok-empty-description": "Add a custom provider to use your own API keys with OpenAI-compatible endpoints, Azure, Anthropic, or local providers like Ollama.",
-      "provider-model-count": {
-        "_one": "{count:number} model",
-        "_other": "{count:number} models"
-      },
+      "provider-model-count": "Provider Model Count",
       "local": "Local",
       "edit-provider": "Edit {name}",
       "remove-provider": "Remove {name}",
@@ -290,18 +217,9 @@
         "credits-used": "{used} / {entitlement} AI credits used",
         "no-usage-limit": "No usage limit",
         "quota-used": "{percentage:number}% quota used",
-        "resets-in-minutes": {
-          "_one": "resets in {count:number} minute",
-          "_other": "resets in {count:number} minutes"
-        },
-        "resets-in-hours": {
-          "_one": "resets in {count:number} hour",
-          "_other": "resets in {count:number} hours"
-        },
-        "resets-in-days": {
-          "_one": "resets in {count:number} day",
-          "_other": "resets in {count:number} days"
-        },
+        "resets-in-minutes": "Resets In Minutes",
+        "resets-in-hours": "Resets In Hours",
+        "resets-in-days": "Resets In Days",
         "resets-monthly": "(resets monthly)",
         "configure": "Configure…",
         "loading": "Loading Copilot usage…",
@@ -372,251 +290,10 @@
     "pluralNote": "This string changes with the number, so it needs one row per form.",
     "platformNote": "This string differs per operating system. The row for this system is the one you see.",
     "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
-    "progress": {
-      "_one": "{translated:number} of {total:number} string translated",
-      "_other": "{translated:number} of {total:number} strings translated"
-    },
+    "progress": "Progress",
     "close": "Close"
   },
-  "menu": {
-    "file": {
-      "@darwin": "File",
-      "@other": "&File"
-    },
-    "edit": {
-      "@darwin": "Edit",
-      "@other": "&Edit"
-    },
-    "view": {
-      "@darwin": "View",
-      "@other": "&View"
-    },
-    "undo": {
-      "@darwin": "Undo",
-      "@other": "&Undo"
-    },
-    "redo": {
-      "@darwin": "Redo",
-      "@other": "&Redo"
-    },
-    "cut": {
-      "@darwin": "Cut",
-      "@other": "Cu&t"
-    },
-    "copy": {
-      "@darwin": "Copy",
-      "@other": "&Copy"
-    },
-    "paste": {
-      "@darwin": "Paste",
-      "@other": "&Paste"
-    },
-    "select-all": {
-      "@darwin": "Select All",
-      "@other": "Select &all"
-    },
-    "about": "About GitHub Desktop",
-    "preferences": "Settings…",
-    "exit": "E&xit",
-    "help": "&Help",
-    "show-user-guides": "Show User Guides",
-    "show-keyboard-shortcuts": {
-      "@darwin": "Show Keyboard Shortcuts",
-      "@other": "Show keyboard shortcuts"
-    },
-    "show-logs": {
-      "@darwin": "Show Logs in Finder",
-      "@win32": "S&how logs in Explorer",
-      "@other": "S&how logs in your File Manager"
-    },
-    "install-cli": "Install Command Line Tool…",
-    "create-pull-request": {
-      "@darwin": "Create Pull Request",
-      "@other": "Create &pull request"
-    },
-    "view-pull-request": {
-      "@darwin": "View Pull Request on GitHub",
-      "@other": "View &pull request on GitHub"
-    },
-    "default-branch-name": {
-      "@darwin": "Default Branch",
-      "@other": "default branch"
-    },
-    "remove-repository-confirm": {
-      "@darwin": "Remove…",
-      "@other": "&Remove…"
-    },
-    "remove-repository": {
-      "@darwin": "Remove",
-      "@other": "&Remove"
-    },
-    "stash-all-changes-confirm": {
-      "@darwin": "Stash All Changes…",
-      "@other": "&Stash all changes…"
-    },
-    "stash-all-changes": {
-      "@darwin": "Stash All Changes",
-      "@other": "&Stash all changes"
-    },
-    "new-repository": {
-      "@darwin": "New Repository…",
-      "@other": "New &repository…"
-    },
-    "add-local-repository": {
-      "@darwin": "Add Local Repository…",
-      "@other": "Add &local repository…"
-    },
-    "clone-repository": {
-      "@darwin": "Clone Repository…",
-      "@other": "Clo&ne repository…"
-    },
-    "find": {
-      "@darwin": "Find",
-      "@other": "&Find"
-    },
-    "show-changes": {
-      "@darwin": "Show Changes",
-      "@other": "&Changes"
-    },
-    "show-history": {
-      "@darwin": "Show History",
-      "@other": "&History"
-    },
-    "show-repository-list": {
-      "@darwin": "Show Repository List",
-      "@other": "Repository &list"
-    },
-    "show-branches-list": {
-      "@darwin": "Show Branches List",
-      "@other": "&Branches list"
-    },
-    "show-worktrees-list": {
-      "@darwin": "Show Worktrees List",
-      "@other": "Wor&ktrees list"
-    },
-    "show-stashed-changes": {
-      "@darwin": "Show Stashed Changes",
-      "@other": "Sho&w stashed changes"
-    },
-    "hide-stashed-changes": {
-      "@darwin": "Hide Stashed Changes",
-      "@other": "H&ide stashed changes"
-    },
-    "show-changes-filter": {
-      "@darwin": "Show Changes Filter",
-      "@other": "Show Toggle Chan&ges Filter"
-    },
-    "hide-changes-filter": {
-      "@darwin": "Hide Changes Filter",
-      "@other": "Hide Toggle Chan&ges Filter"
-    },
-    "go-to-commit-message": {
-      "@darwin": "Go to Summary",
-      "@other": "Go to &Summary"
-    },
-    "increase-active-resizable-width": {
-      "@darwin": "Expand Active Resizable",
-      "@other": "Expand active resizable"
-    },
-    "decrease-active-resizable-width": {
-      "@darwin": "Contract Active Resizable",
-      "@other": "Contract active resizable"
-    },
-    "reload-window": "&Reload",
-    "show-devtools": {
-      "@darwin": "Toggle Developer Tools",
-      "@other": "&Toggle developer tools"
-    },
-    "repository": {
-      "@darwin": "Repository",
-      "@other": "&Repository"
-    },
-    "pull": {
-      "@darwin": "Pull",
-      "@other": "Pu&ll"
-    },
-    "fetch": {
-      "@darwin": "Fetch",
-      "@other": "&Fetch"
-    },
-    "view-repository-on-github": {
-      "@darwin": "View on GitHub",
-      "@other": "&View on GitHub"
-    },
-    "open-working-directory": {
-      "@darwin": "Show in Finder",
-      "@win32": "Show in E&xplorer",
-      "@other": "Show in your File Manager"
-    },
-    "open-in-copilot-app": {
-      "@darwin": "Open in GitHub Copilot",
-      "@other": "Open in GitHub &Copilot"
-    },
-    "open-with-external-editor": {
-      "@darwin": "Open With…",
-      "@other": "Open &with…"
-    },
-    "create-issue-in-repository-on-github": {
-      "@darwin": "Create Issue on GitHub",
-      "@other": "Create &issue on GitHub"
-    },
-    "create-worktree": {
-      "@darwin": "New Worktree…",
-      "@other": "New work&tree…"
-    },
-    "show-repository-settings": {
-      "@darwin": "Repository Settings…",
-      "@other": "Repository &settings…"
-    },
-    "create-branch": {
-      "@darwin": "New Branch…",
-      "@other": "New &branch…"
-    },
-    "rename-branch": {
-      "@darwin": "Rename…",
-      "@other": "&Rename…"
-    },
-    "delete-branch": {
-      "@darwin": "Delete…",
-      "@other": "&Delete…"
-    },
-    "discard-all-changes": {
-      "@darwin": "Discard All Changes…",
-      "@other": "Discard all changes…"
-    },
-    "compare-to-branch": {
-      "@darwin": "Compare to Branch",
-      "@other": "&Compare to branch"
-    },
-    "merge-branch": {
-      "@darwin": "Merge into Current Branch…",
-      "@other": "&Merge into current branch…"
-    },
-    "squash-and-merge-branch": {
-      "@darwin": "Squash and Merge into Current Branch…",
-      "@other": "Squas&h and merge into current branch…"
-    },
-    "rebase-branch": {
-      "@darwin": "Rebase Current Branch…",
-      "@other": "R&ebase current branch…"
-    },
-    "compare-on-github": {
-      "@darwin": "Compare on GitHub",
-      "@other": "Compare on &GitHub"
-    },
-    "branch-on-github": {
-      "@darwin": "View Branch on GitHub",
-      "@other": "View branch on GitHub"
-    },
-    "preview-pull-request": {
-      "@darwin": "Preview Pull Request",
-      "@other": "Preview pull request"
-    },
-    "branch": {
-      "@darwin": "Branch",
-      "@other": "&Branch"
-    }
-  },
+  "menu": "Menu",
   "about": {
     "title": "About {name}",
     "build": "Build {version}",
@@ -653,10 +330,7 @@
     "path": "Path",
     "url": "URL",
     "branch-optional": "Branch (optional)",
-    "installed-title": {
-      "@darwin": "Command Line Tool Installed",
-      "@other": "Command line tool installed"
-    },
+    "installed-title": "Installed Title",
     "installed-info": "The command line tool has been installed at <strong>{path}</strong>."
   },
   "moveToApplications": {
@@ -675,39 +349,18 @@
     "get-started": "Let's get started!",
     "add-repository-hint": "Add a repository to GitHub Desktop to start collaborating",
     "clone-selected": "Clone <strong>{repository}</strong>",
-    "return-to-tutorial": {
-      "@darwin": "Return to In Progress Tutorial",
-      "@other": "Return to in progress tutorial"
-    },
-    "create-tutorial": {
-      "@darwin": "Create a Tutorial Repository…",
-      "@other": "Create a tutorial repository…"
-    },
-    "clone-from-internet": {
-      "@darwin": "Clone a Repository from the Internet…",
-      "@other": "Clone a repository from the Internet…"
-    },
-    "create-new-repository": {
-      "@darwin": "Create a New Repository on your Local Drive…",
-      "@other": "Create a New Repository on your local drive…"
-    },
-    "add-existing-repository": {
-      "@darwin": "Add an Existing Repository from your Local Drive…",
-      "@other": "Add an Existing Repository from your local drive…"
-    },
+    "return-to-tutorial": "Return To Tutorial",
+    "create-tutorial": "Create Tutorial",
+    "clone-from-internet": "Clone From Internet",
+    "create-new-repository": "Create New Repository",
+    "add-existing-repository": "Add Existing Repository",
     "drag-drop-hint": "<strong>ProTip!</strong> You can drag & drop an existing repository folder here to add it to Desktop"
   },
   "signIn": {
     "title": "Sign in",
-    "browser-title": {
-      "@darwin": "Sign in Using Your Browser",
-      "@other": "Sign in using your browser"
-    },
+    "browser-title": "Browser Title",
     "continue": "Continue",
-    "continue-with-browser": {
-      "@darwin": "Continue With Browser",
-      "@other": "Continue with browser"
-    },
+    "continue-with-browser": "Continue With Browser",
     "enterprise-address": "Enterprise address",
     "browser-redirect-info": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop, please allow it.",
     "existing-account-warning": "You're already signed in to <ref>{host}</ref> with the account <ref>{login}</ref>. If you continue, you will first be signed out.",
@@ -764,5 +417,823 @@
     "configure-git-description": "This is used to identify the commits you create. Anyone will be able to see this information if you publish commits.",
     "finish": "Finish",
     "sign-in-enterprise-title": "Sign in to your GitHub Enterprise"
-  }
+  },
+  "activity": "Activity",
+  "addRepository": {
+    "add-local-repository": "Add Local Repository",
+    "add-repository-ok": "Add Repository",
+    "bare-repository-error": "This directory appears to be a bare repository. Bare repositories are not currently supported.",
+    "choose": "ChooseвЂ¦",
+    "create-new-repository": "Create a New Repository",
+    "create-repository-ok": "Create Repository",
+    "description": "Description",
+    "existing-repository-warning-aria": "Existing Repository Warning Aria",
+    "git-ignore-label": "Git Ignore",
+    "initialize-with-readme": "Initialize this repository with a README",
+    "invalid-path-error": "Invalid Path Error",
+    "license-label": "License",
+    "local-path": "repository path",
+    "name-placeholder": "Name Placeholder",
+    "none": "None",
+    "not-a-repository": "This directory does not appear to be a Git repository.",
+    "not-a-repository-screen-reader": "Not A Repository Screen Reader",
+    "path-placeholder": "repository path",
+    "readme-overwrite-aria": "Readme Overwrite Aria",
+    "subfolder-warning-aria": "Subfolder Warning Aria",
+    "unsafe-repository-screen-reader": "Unsafe Repository Screen Reader"
+  },
+  "appMenu": {
+    "application-menu": "Application menu"
+  },
+  "base": "Base",
+  "basic": "Basic",
+  "branches": {
+    "checkout-in-new-worktree": "Checkout in new worktreeвЂ¦",
+    "copy-name": "Copy Branch Name",
+    "default-branch-group": "Default Branch",
+    "delete": "DeleteвЂ¦",
+    "full-name": "Full Name:",
+    "last-modified": "Last Modified:",
+    "new-branch": "New Branch",
+    "other-branches-group": "Other Branches",
+    "recent-branches-group": "Recent Branches",
+    "rename": "RenameвЂ¦",
+    "view-on-github": "View Branch on GitHub",
+    "view-pr-on-github": "View Pull Request on GitHub"
+  },
+  "canvas": "Canvas",
+  "changes": {
+    "adjust-filters": "Adjust Filters",
+    "and-word": "GitHub",
+    "avatar": {
+      "account-emails": "Your Account Emails",
+      "also-word": "Also Word",
+      "aria-disallowed-email": "Email address is disallowed. View warning.",
+      "aria-misattributed": "Commit may be misattributed. View warning.",
+      "aria-view-author": "View commit author information",
+      "committing-with": "Committing with {email}",
+      "config-location-desc-local": "Config Location Desc Local",
+      "config-location-global": "Config Location Global",
+      "config-location-local": "Config Location Local",
+      "email-label": "Email Label",
+      "for-user": "For User",
+      "git-config-hint": "Git Config Hint",
+      "header-disallowed-email": "This email address is disallowed",
+      "header-misattributed": "This commit will be misattributed",
+      "ignore": "Ignore",
+      "learn-more-attribution": "Learn More Attribution",
+      "open-git-settings": "Open Git Settings",
+      "settings-git": "Open Git Settings",
+      "settings-repository": "Open Git Settings",
+      "unknown-user": "Unknown user",
+      "update-email": "Update Email"
+    },
+    "check-all-label": "Check All Label",
+    "check-all-label-filtered": "Check All Label Filtered",
+    "commit-anyway": "Commit Anyway",
+    "commit-filtered-dialog": {
+      "dont-show-again": "Do not show this message again",
+      "title": "Commit Filtered Changes?"
+    },
+    "commits-word": "Commits Word",
+    "continue-rebase": {
+      "rebasing": "Rebasing",
+      "resolve-conflicts": "Resolve all conflicts before continuing",
+      "tooltip": "Rebasing",
+      "untracked-excluded": "Untracked Excluded"
+    },
+    "create-pr-button": "Create Pr Button",
+    "create-pr-title": "Create Pr Title",
+    "discard-all-changes": "Discard All ChangesвЂ¦",
+    "discard-changes": "Discard Changes",
+    "discard-selected-changes": "Discard Selected Changes",
+    "exclude-selected-files": "Exclude selected files",
+    "file": {
+      "included": "Included",
+      "not-included": "Not Included",
+      "partially-included": "Partially Included"
+    },
+    "files-selected": "Files Selected",
+    "files-too-large": "Files Too Large",
+    "filter-placeholder": "Filter",
+    "filter": {
+      "applied": "Applied",
+      "clear": "Clear filters",
+      "deleted-files": "Deleted Files",
+      "excluded-from-commit": "Excluded From Commit",
+      "included-in-commit": "Included In Commit",
+      "modified-files": "Modified Files",
+      "name": {
+        "deleted": "Deleted files",
+        "excluded": "Excluded from commit",
+        "included": "Included in commit",
+        "modified": "Modified files",
+        "new": "New files"
+      },
+      "new-files": "New Files",
+      "title": "Filter Options"
+    },
+    "hidden-changes": "Hidden changes will be committed.",
+    "ignore-extension-files": "Ignore Extension Files",
+    "ignore-file": "Ignore file (add to .gitignore)",
+    "ignore-folder": "Ignore folder (add to .gitignore)",
+    "ignore-selected-files": "Ignore Selected Files",
+    "include-selected-files": "Include selected files",
+    "no-changes-description": "No Changes Description",
+    "no-files-match": "No files match your current filters",
+    "no-local-changes": "No Local Changes",
+    "no-results-message": "No Results Message",
+    "open-in-editor": "Open In Editor",
+    "open-in-editor-title": "Open In Editor Title",
+    "placeholder-create": "Placeholder Create",
+    "placeholder-delete": "Placeholder Delete",
+    "placeholder-update": "Placeholder Update",
+    "preview-pr-button": "Preview Pull Request",
+    "preview-pr-title": "Preview Pull Request",
+    "publish-branch-button": "Publish branch",
+    "publish-branch-title": "Publish your branch",
+    "publish-repo-button": "Publish repository",
+    "publish-repo-description": "This repository is currently only available on your local machine. By publishing it on GitHub you can share it, and collaborate with others.",
+    "publish-repo-title": "This repository is currently only available on your local machine. By publishing it on GitHub you can share it, and collaborate with others.",
+    "pull-branch-button": "Pull Branch Button",
+    "pull-branch-title": "Pull Branch Title",
+    "push-branch-button": "Push Branch Button",
+    "push-branch-description": "Push Branch Description",
+    "push-branch-title": "Push Branch Title",
+    "push-local-commits": "Push Local Commits",
+    "push-local-tags": "Push Local Tags",
+    "remote-word": "Remote Word",
+    "settings-or-options": "Settings Or Options",
+    "show-in-file-manager": "Show In File Manager",
+    "stash-all-changes": "Stash all changesвЂ¦",
+    "stash-description": "Stash Description",
+    "stash-discoverability": "Stash Discoverability",
+    "stash-title": "View your stashed changes",
+    "stash-view": "View stash",
+    "stashed-changes": "Stashed Changes",
+    "submodule-partially-committable": "Only changes that have been committed within the submodule will be added to this repository. You need to commit any other modified or untracked changes in the submodule before including them in this repository.",
+    "submodule-uncommittable": "This submodule change cannot be added to a commit in this repository because it contains changes that have not been committed.",
+    "summary-placeholder": "Summary (required)",
+    "tags-word": "Tags Word",
+    "undo": "Undo",
+    "undo-aria": "Undo commit",
+    "undo-disabled-tooltip": "Undo is disabled while the repository is being updated",
+    "view-on-github-title": "View On Github Title",
+    "warning-word": "Hidden changes will be committed."
+  },
+  "checkRuns": {
+    "completeness-aria": "Completeness Aria",
+    "loading": {
+      "cta": "Check runs incoming!",
+      "title": "Check runs incoming!"
+    },
+    "no-steps": "No Steps",
+    "rerun": {
+      "all-option": "Re-run All Checks",
+      "button": "Re-run Checks",
+      "button-with-menu": "Button With Menu",
+      "failed-option": "Re-run Failed Checks",
+      "job-tooltip": "Job Tooltip"
+    },
+    "summary-title": "Checks Summary",
+    "title": {
+      "all-failed": "All checks have failed",
+      "all-passed": "All checks have passed",
+      "pending": "Some checks haven't completed yet",
+      "some-failed": "Some checks were not successful"
+    },
+    "view-details": "View Details",
+    "view-on-github": "View On Github"
+  },
+  "checkout": {
+    "checkout": "Checkout",
+    "confirm-message": "Confirm Message",
+    "dont-show-again": "Do not show this message again",
+    "title": "Checkout Commit?"
+  },
+  "cherryPickBranchCreatedCount": "Cherrypickbranchcreatedcount",
+  "cherryPickConflictsEncounteredCount": "Cherrypickconflictsencounteredcount",
+  "cherryPickMultipleCommitsCount": "Cherrypickmultiplecommitscount",
+  "cherryPickSuccessfulWithConflictsCount": "Cherrypicksuccessfulwithconflictscount",
+  "cherryPickViaDragAndDropCount": "Cherrypickviadraganddropcount",
+  "chooseForkSettings": {
+    "continue": "Continue",
+    "contribute-to-parent": "To contribute to the parent project",
+    "for-my-own-purposes": "For my own purposes",
+    "question-label": "This repository is a fork. How do you plan to use it?",
+    "title": "How are you planning to use this fork?"
+  },
+  "cloneRepository": {
+    "archived": "Archived",
+    "choose": "ChooseвЂ¦",
+    "clone": "Clone",
+    "dotcom-sign-in-description": "Dotcom Sign In Description",
+    "enterprise-sign-in-description": "Enterprise Sign In Description",
+    "error-app-suffix": "The local path cannot end in .app on macOS. Choose a different folder name to avoid creating an application bundle.",
+    "error-directory-could-not-create": "Error Directory Could Not Create",
+    "error-folder-not-empty": "This folder contains files. Git can only clone to empty folders.",
+    "error-path-is-file": "There is already a file with this name. Git can only clone to a folder.",
+    "error-repository-not-found": "Error Repository Not Found",
+    "error-unable-to-read-path": "Unable to read path on disk. Please check the path and try again.",
+    "filter-placeholder": "Filter your repositories",
+    "loading-repositories": "Loading Repositories",
+    "local-path": "repository path",
+    "path-placeholder": "repository path",
+    "refresh-tooltip": "Refresh the list of repositories",
+    "save-dialog-name-field-label": "Clone As:",
+    "save-dialog-select-label": "Clone As:",
+    "sign-in": "Sign In",
+    "title": "Clone a Repository",
+    "url-label": "Repository URL or GitHub username and repository",
+    "url-placeholder": "URL or username/repository",
+    "your-repositories": "Your Repositories"
+  },
+  "commitMessage": {
+    "add-co-authors": "Add co-authors",
+    "allow-empty-commit": "Allow Empty Commit",
+    "amend": "Committing",
+    "amend-last-commit": "Amend Last Commit",
+    "amending": "Committing",
+    "bypass-hooks": "Bypass Commit Hooks",
+    "commit": "Commit",
+    "commit-title": "Commit Title",
+    "committed-just-now": "Committed Just Now",
+    "committing": "Committing",
+    "committing-changes": "Committing Changes",
+    "configure-options": "Configure commit options",
+    "copilot-tooltip": "Generate commit message with Copilot",
+    "copilot-tooltip-cancel": "Cancel generating commit details",
+    "copilot-tooltip-no-files": "Copilot Tooltip No Files",
+    "create-group": "Create commit",
+    "description-label": "Description",
+    "description-placeholder": "Description",
+    "description-sr-label": "Commit description",
+    "disable-spellcheck": "Disable commit spellcheck",
+    "enable-spellcheck": "Enable Spellcheck",
+    "error-word": "Error",
+    "generate-with-copilot": "Generate commit message with Copilot",
+    "generating-details": "Generating commit detailsвЂ¦",
+    "hook-failed": "Hook Failed",
+    "hook-finished": "Hook Finished",
+    "hook-running": "Optimizing repositoryвЂ¦",
+    "length-hint-aria": "Open Summary Length Info",
+    "length-hint-description": "Length Hint Description",
+    "length-hint-title": "Great commit summaries contain fewer than 50 characters. Place extra information in the description field.",
+    "new-badge": "New",
+    "optimizing-repository": "Optimizing repositoryвЂ¦",
+    "remove-co-authors": "Add co-authors",
+    "rule-failure-aria": "Rule Failure Aria",
+    "rule-failure-bypass": "Rule Failure Bypass",
+    "rule-failures-leading": "This commit message",
+    "rule-failures-title": "Commit message rule failures",
+    "select-files": "Select Files",
+    "show-progress": "Show commit progress",
+    "signed-off-by-trailer": "Add Signed-off-by trailer",
+    "summary-label": "Commit summary",
+    "summary-required": "Summary Required",
+    "summary-sr-label": "Summary Sr Label",
+    "warning-word": "Error"
+  },
+  "commitSigning": "Commitsigning",
+  "contextmenu": "Context Menu",
+  "createBranch": {
+    "based-on-commit": "Based On Commit",
+    "based-on-label": "Create branch based onвЂ¦",
+    "branch-exists-error": "Branch Exists Error",
+    "could-not-determine-default-branch": "Could not determine the default branch.",
+    "create-branch-ok": "Create Branch",
+    "current-branch-description": "The currently checked out branch. Pick this if you need to build on work done on this branch.",
+    "default-branch-description": "The default branch in your repository. Pick this to start on something new that",
+    "detached-head": "Detached Head",
+    "name": "Name",
+    "title": "Create a Branch",
+    "unborn-branch": "Unborn Branch",
+    "upstream-default-branch-description": "The default branch of the upstream repository. Pick this to start on something new that"
+  },
+  "createTag": {
+    "create-tag-ok": "Create Tag",
+    "name": "Name",
+    "name-too-long": "The tag name cannot be longer than {MaxTagNameLength} characters",
+    "no-matches": "No Matches",
+    "previous-tags": "Previous Tags",
+    "title": "Create a Tag"
+  },
+  "deleteBranch": {
+    "cannot-undo": "This action cannot be undone.",
+    "delete": "Delete",
+    "delete-on-remote": "Yes, delete this branch on the remote",
+    "delete-remote-title": "Delete Remote Branch",
+    "open-pr-warning": "This branch may have an open pull request associated with it.",
+    "remote-exists-question": "Remote Exists Question",
+    "remote-only-warning": "Remote Only Warning",
+    "title": "Delete Branch"
+  },
+  "deleteTag": {
+    "delete": "Delete",
+    "title": "Delete Tag"
+  },
+  "dialog-appeared": "Dialog Appeared",
+  "dialog-show": "Dialog Show",
+  "did-change": "Did Change",
+  "diff": {
+    "added": "Added",
+    "binary": {
+      "changed": "This binary file has changed.",
+      "openInExternalProgram": "Openinexternalprogram"
+    },
+    "conflictViaCommandLine": "Conflictviacommandline",
+    "contextMenu": {
+      "collapseExpandedLines": "Collapse expanded lines",
+      "copy": "Copy",
+      "expandWholeFile": "Expand Whole File",
+      "selectAll": "Select All"
+    },
+    "deleted": "Deleted",
+    "displayLegend": "Diff display",
+    "expandAll": "Expand All",
+    "expandDown": "Expand Down",
+    "expandUp": "Expand Up",
+    "expanded": "Expanded",
+    "fileEmpty": "The file is empty",
+    "hideWhitespaceChanges": "Hide Whitespace Changes",
+    "hideWhitespaceWarning": "Hidewhitespacewarning",
+    "image": {
+      "added": "Added",
+      "deleted": "Deleted",
+      "diffLabel": "Difflabel",
+      "difference": "Difference",
+      "noSizeDifference": "No size difference",
+      "onionSkin": "Difference",
+      "swipe": "Difference",
+      "twoUp": "Difference"
+    },
+    "largeTooBigMessage": "Largetoobigmessage",
+    "largeTooBigTitle": "Largetoobigtitle",
+    "line": "Line",
+    "linesRange": "Linesrange",
+    "modified": "Modified",
+    "noContentChanges": "No content changes found",
+    "noNewlineAtEndOfFile": "No newline at end of file",
+    "onlyWhitespaceChanges": "Only whitespace changes found",
+    "renamedButNotChanged": "Renamedbutnotchanged",
+    "renamedWithChanges": "Renamedwithchanges",
+    "search": {
+      "noResults": "No results",
+      "noResultsFor": "Noresultsfor",
+      "resultOf": "Resultof"
+    },
+    "searchPlaceholder": "SearchвЂ¦",
+    "settingsTitle": "Settings",
+    "showLargeDiff": "Show Diff",
+    "split": "Split",
+    "submodule": {
+      "canCommit": "Cancommit",
+      "changesModified": "Changesmodified",
+      "changesModifiedAndUntracked": "Changesmodifiedanduntracked",
+      "changesUntracked": "Changesuntracked",
+      "copyNewSha": "Copynewsha",
+      "copyPreviousSha": "Copyprevioussha",
+      "copySha": "Copysha",
+      "header": "Submodule changes",
+      "openButton": "Open Repository",
+      "openDescription": "Open Repository",
+      "openTitle": "Open Repository",
+      "pendingChanges": "Pendingchanges"
+    },
+    "unified": "Unified",
+    "unrenderable": "The diff is too large to be displayed.",
+    "whitespaceHint": {
+      "message": "Show whitespace changes?",
+      "no": "Yes",
+      "title": "Show whitespace changes?",
+      "yes": "Yes"
+    },
+    "whitespaceLegend": "Whitespace"
+  },
+  "discardChanges": {
+    "confirmFileList": "Are you sure you want to discard all changes to:",
+    "confirmManyFiles": "Confirmmanyfiles",
+    "confirmSelected": "Are you sure you want to discard the selected changes to:",
+    "dontShowAgain": "Do not show this message again",
+    "okDiscard": "Discard Changes",
+    "okDiscardAll": "Discard All Changes",
+    "restoreMessage": "Restoremessage",
+    "retry": {
+      "commonReasons": "Failed to discard changes to {TrashNameLabel}.",
+      "failed": "Failed to discard changes to {TrashNameLabel}.",
+      "ok": "Cancel",
+      "okTooltip": "Cancel",
+      "reason1": "Reason1",
+      "reason2": "Restricted access to move the file(s).",
+      "title": "Discarded changes will be unrecoverable",
+      "unrecoverable": "These changes will be unrecoverable from the {TrashNameLabel}."
+    },
+    "titleDiscard": "Confirm Discard changes",
+    "titleDiscardAll": "Confirm discard all changes"
+  },
+  "div": "Div",
+  "email": "Email",
+  "error": "Error",
+  "find-text": "Find Text",
+  "forks": {
+    "do-you-want-to-fork": "Do you want to fork this repository?",
+    "error-details": "Error details",
+    "fork-this-repository": "Fork This Repository"
+  },
+  "genericGitAuth": {
+    "password": "Password",
+    "title": "Title",
+    "username": "Username"
+  },
+  "highlighted": "Highlighted",
+  "hookFailed": {
+    "abort": "Abort",
+    "ignoreAndContinue": "Abort",
+    "message": "Message",
+    "title": "Failed"
+  },
+  "installGit": {
+    "install": "Install Git",
+    "message": "Message",
+    "openWithoutGit": "Install Git",
+    "resources": "Resources",
+    "terminal": "Terminal",
+    "title": "Unable to Locate Git"
+  },
+  "installingUpdate": {
+    "message": "Message",
+    "quitAnyway": "Quit Anyway",
+    "title": "Installing UpdateвЂ¦"
+  },
+  "invalidatedToken": {
+    "no": "Yes",
+    "title": "Invalidated Account Token",
+    "yes": "Yes"
+  },
+  "issueCreationWebpageOpenedCount": "Issuecreationwebpageopenedcount",
+  "keyboard": "Keyboard",
+  "lfs": {
+    "attributeMismatch": {
+      "title": "Update existing Git LFS filters?",
+      "update": "Not Now"
+    },
+    "initialize": {
+      "ok": "Not Now",
+      "title": "Initialize Git LFS"
+    },
+    "notNow": "Not Now"
+  },
+  "mergeConflicts": {
+    "commitWarning": {
+      "confirm": "Are you sure you want to commit these conflicted files?",
+      "ok": "Yes, Commit Files",
+      "title": "Confirm committing conflicted files",
+      "warning": "Warning"
+    }
+  },
+  "multiCommit": {
+    "abortOperation": "Abortoperation",
+    "alwaysNudge": {
+      "message": "Settings в†’ Copilot",
+      "no": "Yes",
+      "path": "Settings в†’ Copilot",
+      "title": "Always use Copilot for conflict resolution?",
+      "yes": "Yes"
+    },
+    "cherryPick": {
+      "cherryPickCommits": "Cherrypickcommits",
+      "chooseBranchTitle": "Choosebranchtitle",
+      "createBranchOk": "Cherry-pick to new branch",
+      "header": "Cherry-pick to new branch",
+      "sameBranchTooltip": "You are not able to cherry-pick from and to the same branch"
+    },
+    "chooseBranch": {
+      "mergeOptions": "Merge options"
+    },
+    "confirmAbort": {
+      "confirm": "Confirm",
+      "message": "Message",
+      "ok": "Ok",
+      "title": "Title"
+    },
+    "conflictChoice": {
+      "currentFile": "Use current file",
+      "currentFromFile": "Use current file",
+      "incomingFile": "Use incoming file",
+      "incomingFromFile": "Use incoming file"
+    },
+    "conflicts": {
+      "allResolved": "All conflicted files have been resolved.",
+      "copilotTooltip": "Use Copilot to suggest resolutions for conflicted files",
+      "copilotTooltipAborting": "Use Copilot to suggest resolutions for conflicted files",
+      "newBadge": "New",
+      "resolutionsUndone": "All resolutions have been undone.",
+      "resolveAllFirst": "Resolve all changes before continuing",
+      "resolveWithCopilot": "Resolvewithcopilot",
+      "resolvedCount": "Resolvedcount"
+    },
+    "continueOperation": "Continueoperation",
+    "copilotChanges": {
+      "changeResolution": "Change resolution choice",
+      "collapse": "Collapse",
+      "collapseDescription": "Expand description",
+      "currentBranch": "Currentbranch",
+      "expand": "Collapse",
+      "expandDescription": "Expand description",
+      "filesChanged": "Fileschanged",
+      "incomingBranch": "Incomingbranch",
+      "mergedResolution": "Using Copilot",
+      "noResolution": "No Copilot resolution available",
+      "noResolutionForFile": "Noresolutionforfile",
+      "unableToLoadDiff": "Unabletoloaddiff",
+      "usingChangesFrom": "Usingchangesfrom"
+    },
+    "copilotDialog": {
+      "chooseResolution": "Choose a resolution",
+      "chooseResolutionAria": "Choose a resolution for this file",
+      "configureCopilot": "Configure Copilot in app settings",
+      "conflictedFiles": "Conflictedfiles",
+      "deletingFile": "Deletingfile",
+      "fileOptions": "File options",
+      "keepingFile": "Keepingfile",
+      "noConflictsRemaining": "Noconflictsremaining",
+      "openInEditor": "Openineditor",
+      "skippedFiles": "Skippedfiles",
+      "skippedUnresolved": "Some files were skipped by Copilot. Those need to be resolved manually.",
+      "switchToManual": "Switchtomanual",
+      "tabChanges": "Changes",
+      "tabSummary": "Changes",
+      "useCopilotSuggestion": "Use Copilot"
+    },
+    "copilotLoading": {
+      "analyzing": "Analyzing conflictsвЂ¦",
+      "analyzingFile": "Analyzingfile",
+      "andMore": "Andmore",
+      "consideringSides": "Considering both sides of each conflict",
+      "crossReferencing": "Considering both sides of each conflict",
+      "gathering": "Analyzing conflictsвЂ¦",
+      "lookingContext": "Looking for related context",
+      "readingFile": "Readingfile",
+      "readingHistory": "Looking for related context",
+      "reviewingChanges": "Looking for related context",
+      "stop": "Stop",
+      "title": "Title"
+    },
+    "deleteConflict": {
+      "deleteFile": "Keep file",
+      "deleteFileOn": "Deletefileon",
+      "keepFile": "Keep file",
+      "keepFileFrom": "Keepfilefrom"
+    },
+    "dontShowAgain": "Do not show this message again",
+    "mergeChooseBranch": {
+      "checkingMergeability": "Checking for ability to merge automatically...",
+      "unrelatedHistories": "Unrelatedhistories"
+    },
+    "operation": {
+      "cherryPick": "Cherrypick",
+      "merge": "Merge",
+      "rebase": "Rebase",
+      "reorder": "Reorder",
+      "squash": "Squash"
+    },
+    "progress": {
+      "commitPosition": "Commitposition",
+      "title": "Title"
+    },
+    "rebaseChooseBranch": {
+      "invalid": "Unable to start rebase. Check you have chosen a valid branch.",
+      "loading": "Checking for ability to rebase automaticallyвЂ¦",
+      "selfRebaseTooltip": "You are not able to rebase this branch onto itself.",
+      "upToDateTooltip": "The current branch is already up to date with the selected branch."
+    },
+    "resolutionChoice": {
+      "current": "Current",
+      "incoming": "Incoming"
+    },
+    "resolveConflictsBefore": "Resolveconflictsbefore",
+    "summary": {
+      "context": "Context",
+      "copySha": "Copy the full SHA",
+      "localOnly": "Localonly",
+      "markdownTitle": "Copilot conflict resolution summary",
+      "title": "Title"
+    },
+    "warnForcePush": {
+      "confirm": "Confirm",
+      "message": "Message",
+      "ok": "Ok",
+      "title": "Title"
+    }
+  },
+  "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Multicommitdiffunreachablecommitsdialogopenedcount",
+  "next": "Next",
+  "notifications": {
+    "checksFailed": {
+      "footerMany": "Footermany",
+      "footerOne": "Footerone",
+      "standBy": "Check run steps incoming!",
+      "stepsIncoming": "Check run steps incoming!",
+      "summary": "Summary"
+    },
+    "dismiss": "Dismiss",
+    "markdownCommentTitle": "Pull request markdown comment",
+    "openInBrowser": "Open in Browser",
+    "switchToPullRequest": "Switch to pull request",
+    "switchToRepositoryAndPullRequest": "Switch to repository and pull request",
+    "verb": {
+      "approved": "Approved",
+      "commentedOn": "Commentedon",
+      "requestedChanges": "Requestedchanges",
+      "reviewed": "Reviewed"
+    }
+  },
+  "openInCopilotAppCount": "Openincopilotappcount",
+  "openPullRequest": {
+    "file-does-not-exist": "File does not exist on disk",
+    "file-list-description": "Pull request file list",
+    "lines-added": "Lines changed:",
+    "lines-changed": "Lines changed:",
+    "lines-deleted": "Lines Deleted",
+    "no-changes-title": "There are no changes.",
+    "no-default-branch-title": "Could not find a default branch to compare against.",
+    "no-remote-branch": "No Remote Branch",
+    "open-in": "Open In",
+    "remote-only-pr": "Remote Only Pr",
+    "select-base-branch": "Could not find a default branch to compare against.",
+    "showing-all-commits": "Showing All Commits",
+    "title": "Open a Pull Request"
+  },
+  "opensCheckRunsPopover": "Openscheckrunspopover",
+  "pointer": "Pointer",
+  "premium_interactions": "Premium Interactions",
+  "previous": "Previous",
+  "publish": {
+    "description": "Description",
+    "dotcom-sign-in-description": "Dotcom Sign In Description",
+    "enterprise-sign-in-description": "Enterprise Sign In Description",
+    "keep-private": "Keep Private",
+    "name": "Name",
+    "none": "None",
+    "organization": "Organization",
+    "publish-repository-ok": "Publish Repository",
+    "sign-in": "Sign In",
+    "title": "Publish Repository",
+    "will-be-created-as": "Will Be Created As"
+  },
+  "pushNeedsPull": {
+    "fetch": "Fetch",
+    "message": "Message",
+    "title": "Newer Commits on Remote"
+  },
+  "rebase": {
+    "forcePush": {
+      "dontShowAgain": "Do not show this message again",
+      "ok": "Ok",
+      "title": "Are you sure you want to force push?"
+    }
+  },
+  "rebaseSuccessWithoutConflictsCount": "Rebasesuccesswithoutconflictscount",
+  "rebaseWithBranchAlreadyUpToDateCount": "Rebasewithbranchalreadyuptodatecount",
+  "removeRepository": {
+    "confirm-message": "Confirm Message",
+    "move-to-trash": "Also move this repository to ",
+    "title": "Remove Repository",
+    "will-be-removed": "The repository will be removed from GitHub Desktop:"
+  },
+  "renameBranch": {
+    "name": "Name",
+    "rename-button": "Rename Button",
+    "title": "Rename Branch"
+  },
+  "reorderMultipleCommitsCount": "Reordermultiplecommitscount",
+  "reorderStartedCount": "Reorderstartedcount",
+  "repositoryAlias": {
+    "alias": "Alias",
+    "description": "Description",
+    "no-effect-note": "No Effect Note"
+  },
+  "repositorySettings": {
+    "error-read-gitignore": "Error Read Gitignore",
+    "error-save-gitignore": "Error Save Gitignore",
+    "error-set-remote": "Error Set Remote",
+    "fork-behavior-tab": "Fork Behavior",
+    "fork-contribute-to-parent": "To contribute to the parent repository",
+    "fork-for-my-own-purposes": "For my own purposes",
+    "fork-usage-heading": "I'll be using this forkвЂ¦",
+    "git-config-heading": "For this repository I wish to",
+    "git-config-tab": "Git Config",
+    "ignored-files": "Ignored files",
+    "ignored-files-tab": "Ignored Files",
+    "primary-remote-label": "Primary Remote Label",
+    "publish": "Publish",
+    "remote-tab": "Remote Tab",
+    "remote-url-placeholder": "Remote Url Placeholder",
+    "title": "Repository Settings",
+    "use-global-config": "Use my global Git config",
+    "use-local-config": "Use a local Git config"
+  },
+  "reset": {
+    "continue": "Continue",
+    "title": "Reset to Commit",
+    "warning": "Warning"
+  },
+  "resetToCommitCount": "Resettocommitcount",
+  "samlReauth": {
+    "confirm": "Confirm",
+    "message": "Message",
+    "ok": "Ok",
+    "title": "Re-authorization Required"
+  },
+  "secretScanning": {
+    "atLine": "Atline",
+    "bypass": "Bypass",
+    "bypassAria": "Bypassaria",
+    "bypassDialog": {
+      "falsePositiveDescription": "The detected string is not a secret",
+      "falsePositiveTitle": "The detected string is not a secret",
+      "ok": "Allow me to expose this secret",
+      "reasonLabel": "Reasonlabel",
+      "title": "Bypass Push Detection",
+      "usedInTestsDescription": "The secret poses no risk. If anyone finds it, they cannot do any damage or gain access to sensitive information.",
+      "usedInTestsTitle": "The secret poses no risk. If anyone finds it, they cannot do any damage or gain access to sensitive information.",
+      "willFixLaterDescription": "The secret is real, I understand the risk, and I will need to revoke it. This will open a security alert and notify admins of this repository.",
+      "willFixLaterTitle": "The secret is real, I understand the risk, and I will need to revoke it. This will open a security alert and notify admins of this repository."
+    },
+    "bypassed": "Bypassed",
+    "copySha": "Copy the full SHA",
+    "exposureRisks": "Exposurerisks",
+    "risk1": "Act on behalf of the secret's owner",
+    "risk2": "Risk2",
+    "risk3": "Risk3",
+    "risk4": "Risk4",
+    "secrets": "Secrets",
+    "showLessLocations": "Show More locations",
+    "showMoreLocations": "Show More locations",
+    "title": "Push blocked: secret detected"
+  },
+  "select-all": "Select All",
+  "skipGuidCheck": "Skipguidcheck",
+  "squashMergeSuccessfulCount": "Squashmergesuccessfulcount",
+  "squashMergeSuccessfulWithConflictsCount": "Squashmergesuccessfulwithconflictscount",
+  "squashMultipleCommitsInvokedCount": "Squashmultiplecommitsinvokedcount",
+  "squashViaContextMenuInvokedCount": "Squashviacontextmenuinvokedcount",
+  "squashViaDragAndDropInvokedCount": "Squashviadraganddropinvokedcount",
+  "ssh": {
+    "confirmConnect": "Are you sure you want to continue connecting?",
+    "hostAuthenticity": "Hostauthenticity",
+    "hostTitle": "SSH Host",
+    "keyPassphraseLabel": "Keypassphraselabel",
+    "keyPassphraseTitle": "SSH Key Passphrase",
+    "no": "Yes",
+    "rememberPassphrase": "Remember passphrase",
+    "rememberPassword": "Remember password",
+    "userPasswordLabel": "Userpasswordlabel",
+    "userPasswordTitle": "SSH User Password",
+    "yes": "Yes"
+  },
+  "stashChanges": {
+    "actionLabel": "You have changes on this branch. What would you like to do with them?",
+    "bringDescription": "Your in-progress work will follow you to the new branch",
+    "bringTitle": "Your in-progress work will follow you to the new branch",
+    "leaveDescription": "Your in-progress work will be stashed on this branch for you to return to later",
+    "leaveTitle": "Your in-progress work will be stashed on this branch for you to return to later",
+    "overwrite": {
+      "message": "Message",
+      "ok": "Overwrite",
+      "title": "Overwrite Stash?"
+    },
+    "overwriteWarning": "Overwritewarning",
+    "switchBranch": "Switch Branch"
+  },
+  "submit": "Submit",
+  "theme-changed": "Theme Changed",
+  "title": "Title",
+  "token": "Token",
+  "tooltip-hidden": "Tooltip Hidden",
+  "tooltip-shown": "Tooltip Shown",
+  "unknownAuthors": {
+    "list": "List",
+    "many": "Many",
+    "ok": "Commit Anyway",
+    "title": "Unknown Co-Authors"
+  },
+  "untrustedCertificate": {
+    "expected": "Expected",
+    "ok": "View Certificate",
+    "title": "Untrusted Server",
+    "trial": "Trial",
+    "unsure": "Unsure",
+    "unusualTld": "Unusualtld"
+  },
+  "upstreamAlreadyExists": {
+    "confirm": "Would you like to update the remote to use the expected URL?",
+    "ignore": "Ignore",
+    "title": "Upstream Already Exists",
+    "update": "Ignore"
+  },
+  "version": "Version",
+  "webgl2": "Webgl2",
+  "x-prioritize-update": "X Prioritize Update",
+  "x-prioritize-update-info-url": "X Prioritize Update Info Url"
 }

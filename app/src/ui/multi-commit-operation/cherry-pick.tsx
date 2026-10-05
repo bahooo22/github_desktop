@@ -1,4 +1,5 @@
 import React from 'react'
+import { t } from '../../lib/l10n'
 import { CherryPickConflictState } from '../../lib/app-state'
 import { Branch } from '../../models/branch'
 import {
@@ -121,13 +122,8 @@ export abstract class CherryPick extends BaseMultiCommitOperation {
       targetBranchName,
     } = step
 
-    const okButtonText = __DARWIN__
-      ? 'Create Branch and Cherry-pick'
-      : 'Create branch and cherry-pick'
-
-    const headerText = __DARWIN__
-      ? 'Cherry-pick to New Branch'
-      : 'Cherry-pick to new branch'
+    const okButtonText = t('multiCommit.cherryPick.createBranchOk')
+    const headerText = t('multiCommit.cherryPick.header')
 
     return (
       <CreateBranch

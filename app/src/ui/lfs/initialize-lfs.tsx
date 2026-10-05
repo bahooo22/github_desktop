@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { PathText } from '../lib/path-text'
 import { LinkButton } from '../lib/link-button'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 const LFSURL = 'https://git-lfs.github.com/'
 
@@ -34,7 +35,7 @@ export class InitializeLFS extends React.Component<IInitializeLFSProps, {}> {
     return (
       <Dialog
         id="initialize-lfs"
-        title="Initialize Git LFS"
+        title={t('lfs.initialize.title')}
         backdropDismissable={false}
         onSubmit={this.onInitialize}
         onDismissed={this.props.onDismissed}
@@ -43,8 +44,8 @@ export class InitializeLFS extends React.Component<IInitializeLFSProps, {}> {
 
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Initialize Git LFS"
-            cancelButtonText={__DARWIN__ ? 'Not Now' : 'Not now'}
+            okButtonText={t('lfs.initialize.ok')}
+            cancelButtonText={t('lfs.notNow')}
             onCancelButtonClick={this.props.onDismissed}
           />
         </DialogFooter>
@@ -58,28 +59,30 @@ export class InitializeLFS extends React.Component<IInitializeLFSProps, {}> {
   }
 
   private renderRepositories() {
+    const components = { lfs: <LinkButton uri={LFSURL} /> }
+
     if (this.props.repositories.length > MaxRepositoriesToList) {
       return (
-        <p>
-          {this.props.repositories.length} repositories use{' '}
-          <LinkButton uri={LFSURL}>Git LFS</LinkButton>. To contribute to them,
-          Git LFS must first be initialized. Would you like to do so now?
-        </p>
+        <Trans
+          as="p"
+          k="lfs.initialize.many-repositories"
+          params={{ count: this.props.repositories.length }}
+          components={components}
+        />
       )
     } else {
       const plural = this.props.repositories.length !== 1
-      const pluralizedRepositories = plural
-        ? 'The repositories use'
-        : 'This repository uses'
-      const pluralizedUse = plural ? 'them' : 'it'
       return (
         <div>
-          <p>
-            {pluralizedRepositories}{' '}
-            <LinkButton uri={LFSURL}>Git LFS</LinkButton>. To contribute to{' '}
-            {pluralizedUse}, Git LFS must first be initialized. Would you like
-            to do so now?
-          </p>
+          <Trans
+            as="p"
+            k={
+              plural
+                ? 'lfs.initialize.repositories-use'
+                : 'lfs.initialize.repository-uses'
+            }
+            components={components}
+          />
           <ul>
             {this.props.repositories.map(r => (
               <li key={r.id}>

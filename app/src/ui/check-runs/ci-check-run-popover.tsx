@@ -34,6 +34,7 @@ import { getPullRequestCommitRef } from '../../models/pull-request'
 import { CICheckReRunButton } from './ci-check-re-run-button'
 import groupBy from 'lodash/groupBy'
 import { toSentence } from '../../lib/to_sentence'
+import { t } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(
   __dirname,
@@ -226,8 +227,8 @@ export class CICheckRunPopover extends React.PureComponent<
     return (
       <div className="loading-check-runs">
         <img src={BlankSlateImage} className="blankslate-image" alt="" />
-        <div className="title">Stand By</div>
-        <div className="call-to-action">Check runs incoming!</div>
+        <div className="title">{t('checkRuns.loading.title')}</div>
+        <div className="call-to-action">{t('checkRuns.loading.cta')}</div>
       </div>
     )
   }
@@ -262,11 +263,11 @@ export class CICheckRunPopover extends React.PureComponent<
 
     const valueMap = getCheckStatusCountMap(checkRuns)
 
-    const ariaLabel = `Completeness indicator. ${
-      valueMap.get(APICheckStatus.Completed) ?? 0
-    } completed, ${valueMap.get(APICheckStatus.InProgress) ?? 0} in progress, ${
-      valueMap.get(APICheckStatus.Queued) ?? 0
-    } queued.`
+    const ariaLabel = t('checkRuns.completeness-aria', {
+      completed: valueMap.get(APICheckStatus.Completed) ?? 0,
+      inProgress: valueMap.get(APICheckStatus.InProgress) ?? 0,
+      queued: valueMap.get(APICheckStatus.Queued) ?? 0,
+    })
 
     return <Donut ariaLabel={ariaLabel} valueMap={valueMap} />
   }
@@ -279,18 +280,22 @@ export class CICheckRunPopover extends React.PureComponent<
   ): JSX.Element {
     switch (true) {
       case loading:
-        return <>Checks Summary</>
+        return <>{t('checkRuns.summary-title')}</>
       case somePendingNoFailures:
         return (
-          <span className="pending">Some checks haven't completed yet</span>
+          <span className="pending">{t('checkRuns.title.pending')}</span>
         )
       case allFailure:
-        return <span className="failure">All checks have failed</span>
+        return (
+          <span className="failure">{t('checkRuns.title.all-failed')}</span>
+        )
       case allSuccess:
-        return <>All checks have passed</>
+        return <>{t('checkRuns.title.all-passed')}</>
     }
 
-    return <span className="failure">Some checks were not successful</span>
+    return (
+      <span className="failure">{t('checkRuns.title.some-failed')}</span>
+    )
   }
 
   private renderHeader = (): JSX.Element => {

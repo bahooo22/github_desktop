@@ -4,6 +4,7 @@ import { ComputedAction } from '../../models/computed-action'
 import { MergeTreeResult } from '../../models/merge'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
+import { Trans } from '../../lib/l10n'
 
 interface IPullRequestMergeStatusProps {
   /** The result of merging the pull request branch into the base branch */
@@ -24,33 +25,31 @@ export class PullRequestMergeStatus extends React.Component<IPullRequestMergeSta
       case ComputedAction.Loading:
         return (
           <span className="pr-merge-status-loading">
-            <strong>Checking mergeability&hellip;</strong> Don’t worry, you can
-            still create the pull request.
+            <Trans k="openPullRequest.merge-status-loading" />
           </span>
         )
       case ComputedAction.Invalid:
         return (
           <span className="pr-merge-status-invalid">
-            <strong>Error checking merge status.</strong> Unable to merge
-            unrelated histories in this repository
+            <Trans k="openPullRequest.merge-status-invalid" />
           </span>
         )
       case ComputedAction.Clean:
         return (
           <span className="pr-merge-status-clean">
-            <strong>
-              <Octicon symbol={octicons.check} /> Able to merge.
-            </strong>{' '}
-            These branches can be automatically merged.
+            <Trans
+              k="openPullRequest.merge-status-clean"
+              components={{ icon: <Octicon symbol={octicons.check} /> }}
+            />
           </span>
         )
       case ComputedAction.Conflicts:
         return (
           <span className="pr-merge-status-conflicts">
-            <strong>
-              <Octicon symbol={octicons.x} /> Can't automatically merge.
-            </strong>{' '}
-            Don’t worry, you can still create the pull request.
+            <Trans
+              k="openPullRequest.merge-status-conflicts"
+              components={{ icon: <Octicon symbol={octicons.x} /> }}
+            />
           </span>
         )
       default:

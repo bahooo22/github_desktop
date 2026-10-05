@@ -31,6 +31,7 @@ import { showOpenDialog, showSaveDialog } from '../main-process-proxy'
 import { readdir } from 'fs/promises'
 import { isTopMostDialog } from '../dialog/is-top-most'
 import memoizeOne from 'memoize-one'
+import { t } from '../../lib/l10n'
 
 interface ICloneRepositoryProps {
   readonly dispatcher: Dispatcher
@@ -265,7 +266,7 @@ export class CloneRepository extends React.Component<
     return (
       <Dialog
         className="clone-repository"
-        title={__DARWIN__ ? 'Clone a Repository' : 'Clone a repository'}
+        title={t('cloneRepository.title')}
         onSubmit={this.clone}
         onDismissed={this.props.onDismissed}
         loading={this.state.loading}
@@ -326,7 +327,10 @@ export class CloneRepository extends React.Component<
 
     return (
       <DialogFooter>
-        <OkCancelButtonGroup okButtonText="Clone" okButtonDisabled={disabled} />
+        <OkCancelButtonGroup
+          okButtonText={t('cloneRepository.clone')}
+          okButtonDisabled={disabled}
+        />
       </DialogFooter>
     )
   }
@@ -517,14 +521,12 @@ export class CloneRepository extends React.Component<
   }
 
   private renderSignIn(tab: CloneRepositoryTab) {
-    const signInTitle = __DARWIN__ ? 'Sign In' : 'Sign in'
+    const signInTitle = t('cloneRepository.sign-in')
     switch (tab) {
       case CloneRepositoryTab.DotCom:
         return (
           <CallToAction actionTitle={signInTitle} onAction={this.signInDotCom}>
-            <div>
-              Sign in to your GitHub.com account to access your repositories.
-            </div>
+            <div>{t('cloneRepository.dotcom-sign-in-description')}</div>
           </CallToAction>
         )
       case CloneRepositoryTab.Enterprise:
@@ -533,10 +535,7 @@ export class CloneRepository extends React.Component<
             actionTitle={signInTitle}
             onAction={this.signInEnterprise}
           >
-            <div>
-              If you are using GitHub Enterprise at work, sign in to it to get
-              access to your repositories.
-            </div>
+            <div>{t('cloneRepository.enterprise-sign-in-description')}</div>
           </CallToAction>
         )
       case CloneRepositoryTab.Generic:
@@ -629,8 +628,8 @@ export class CloneRepository extends React.Component<
     const tabState = this.getSelectedTabState()
 
     const path = await showSaveDialog({
-      buttonLabel: 'Select',
-      nameFieldLabel: 'Clone As:',
+      buttonLabel: t('cloneRepository.save-dialog-select-label'),
+      nameFieldLabel: t('cloneRepository.save-dialog-name-field-label'),
       showsTagField: false,
       defaultPath: tabState.path ?? '',
       properties: ['createDirectory'],
@@ -686,18 +685,14 @@ export class CloneRepository extends React.Component<
   /** Validate the destination before cloning can create files in it. */
   private async validateClonePath(path: string | null): Promise<null | Error> {
     if (path === null) {
-      return new Error(
-        'Unable to read path on disk. Please check the path and try again.'
-      )
+      return new Error(t('cloneRepository.error-unable-to-read-path'))
     }
 
     if (
       __DARWIN__ &&
       Path.basename(Path.resolve(path)).toLowerCase().endsWith('.app')
     ) {
-      return new Error(
-        'The local path cannot end in .app on macOS. Choose a different folder name to avoid creating an application bundle.'
-      )
+      return new Error(t('cloneRepository.error-app-suffix'))
     }
 
     try {
@@ -706,16 +701,12 @@ export class CloneRepository extends React.Component<
       if (directoryFiles.length === 0) {
         return null
       } else {
-        return new Error(
-          'This folder contains files. Git can only clone to empty folders.'
-        )
+        return new Error(t('cloneRepository.error-folder-not-empty'))
       }
     } catch (error) {
       if (error.code === 'ENOTDIR') {
         // path refers to a file or other file system entry
-        return new Error(
-          'There is already a file with this name. Git can only clone to a folder.'
-        )
+        return new Error(t('cloneRepository.error-path-is-file'))
       }
 
       if (error.code === 'ENOENT') {
@@ -726,9 +717,7 @@ export class CloneRepository extends React.Component<
       log.error(
         'CloneRepository: Path validation failed. Error: ' + error.message
       )
-      return new Error(
-        'Unable to read path on disk. Please check the path and try again.'
-      )
+      return new Error(t('cloneRepository.error-unable-to-read-path'))
     }
   }
 
@@ -774,7 +763,9 @@ export class CloneRepository extends React.Component<
     const { path } = this.getSelectedTabState()
 
     if (path == null) {
-      const error = new Error(`Directory could not be created at this path.`)
+      const error = new Error(
+        t('cloneRepository.error-directory-could-not-create')
+      )
       this.setState({ loading: false })
       this.setSelectedTabState({ error })
       return
@@ -789,9 +780,7 @@ export class CloneRepository extends React.Component<
 
     const cloneInfo = await this.resolveCloneInfo()
     if (!cloneInfo) {
-      const error = new Error(
-        `We couldn't find that repository. Check that you are logged in, the network is accessible, and the URL or repository alias are spelled correctly.`
-      )
+      const error = new Error(t('cloneRepository.error-repository-not-found'))
       this.setState({ loading: false })
       this.setSelectedTabState({ error })
       return

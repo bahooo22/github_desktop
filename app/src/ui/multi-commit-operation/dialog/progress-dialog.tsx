@@ -6,6 +6,8 @@ import { Octicon } from '../../octicons'
 import * as octicons from '../../octicons/octicons.generated'
 import { IMultiCommitOperationProgress } from '../../../models/progress'
 import { Emoji } from '../../../lib/emoji'
+import { t } from '../../../lib/l10n'
+import { getOperationName } from '../operation-name'
 
 interface IProgressDialogProps {
   /**
@@ -28,11 +30,12 @@ export class ProgressDialog extends React.Component<IProgressDialogProps> {
     const { position, totalCommitCount, value, currentCommitSummary } = progress
 
     const progressValue = formatRebaseValue(value)
+    const operationName = getOperationName(operation)
     return (
       <Dialog
         dismissDisabled={true}
         id="multi-commit-progress"
-        title={`${operation} in progress`}
+        title={t('multiCommit.progress.title', { operation: operationName })}
       >
         <DialogContent>
           <div>
@@ -44,7 +47,10 @@ export class ProgressDialog extends React.Component<IProgressDialogProps> {
               </div>
               <div className="summary">
                 <div className="message">
-                  Commit {position} of {totalCommitCount}
+                  {t('multiCommit.progress.commitPosition', {
+                    position,
+                    total: totalCommitCount,
+                  })}
                 </div>
                 <div className="detail">
                   <RichText emoji={emoji} text={currentCommitSummary || ''} />

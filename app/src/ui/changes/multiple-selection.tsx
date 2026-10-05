@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { encodePathAsUrl } from '../../lib/path'
+import { t } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(
   __dirname,
@@ -19,7 +20,7 @@ export class MultipleSelection extends React.Component<
     return (
       <div className="panel blankslate" id="no-changes">
         <img src={BlankSlateImage} className="blankslate-image" alt="" />
-        <div>{this.props.count} files selected</div>
+        <div>{t('changes.files-selected', { count: this.props.count })}</div>
       </div>
     )
   }

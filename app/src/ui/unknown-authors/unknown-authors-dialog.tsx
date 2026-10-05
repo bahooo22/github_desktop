@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { PathText } from '../lib/path-text'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { UnknownAuthor } from '../../models/author'
+import { t } from '../../lib/l10n'
 
 interface IUnknownAuthorsProps {
   readonly authors: ReadonlyArray<UnknownAuthor>
@@ -26,7 +27,7 @@ export class UnknownAuthors extends React.Component<IUnknownAuthorsProps> {
     return (
       <Dialog
         id="unknown-authors"
-        title={__DARWIN__ ? 'Unknown Co-Authors' : 'Unknown co-authors'}
+        title={t('unknownAuthors.title')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.commit}
         type="warning"
@@ -36,7 +37,7 @@ export class UnknownAuthors extends React.Component<IUnknownAuthorsProps> {
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={__DARWIN__ ? 'Commit Anyway' : 'Commit anyway'}
+            okButtonText={t('unknownAuthors.ok')}
           />
         </DialogFooter>
       </Dialog>
@@ -47,17 +48,13 @@ export class UnknownAuthors extends React.Component<IUnknownAuthorsProps> {
     if (this.props.authors.length > MaxAuthorsToList) {
       return (
         <p>
-          {this.props.authors.length} users weren't found and won't be added as
-          co-authors of this commit. Are you sure you want to commit?
+          {t('unknownAuthors.many', { count: this.props.authors.length })}
         </p>
       )
     } else {
       return (
         <div>
-          <p>
-            These users weren't found and won't be added as co-authors of this
-            commit. Are you sure you want to commit?
-          </p>
+          <p>{t('unknownAuthors.list')}</p>
           <div className="author-list">
             <ul>
               {this.props.authors.map(a => (

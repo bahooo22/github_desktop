@@ -1,4 +1,5 @@
 import React from 'react'
+import { t, Trans } from '../../../lib/l10n'
 import { Branch } from '../../../models/branch'
 import { ComputedAction } from '../../../models/computed-action'
 import { RebasePreview } from '../../../models/rebase'
@@ -95,9 +96,9 @@ export class RebaseChooseBranchDialog extends React.Component<
         : false
 
     return selectedBranchIsCurrentBranch
-      ? 'You are not able to rebase this branch onto itself.'
+      ? t('multiCommit.rebaseChooseBranch.selfRebaseTooltip')
       : !currentBranchIsBehindSelectedBranch
-      ? 'The current branch is already up to date with the selected branch.'
+      ? t('multiCommit.rebaseChooseBranch.upToDateTooltip')
       : undefined
   }
 
@@ -107,9 +108,11 @@ export class RebaseChooseBranchDialog extends React.Component<
       40
     )
     return (
-      <>
-        Rebase <strong>{truncatedName}</strong>
-      </>
+      <Trans
+        k="multiCommit.rebaseChooseBranch.title"
+        params={{ branch: truncatedName }}
+        components={{ strong: <strong /> }}
+      />
     )
   }
 
@@ -148,11 +151,11 @@ export class RebaseChooseBranchDialog extends React.Component<
   }
 
   private renderLoadingRebaseMessage() {
-    return <>Checking for ability to rebase automatically…</>
+    return <>{t('multiCommit.rebaseChooseBranch.loading')}</>
   }
 
   private renderInvalidRebaseMessage() {
-    return <>Unable to start rebase. Check you have chosen a valid branch.</>
+    return <>{t('multiCommit.rebaseChooseBranch.invalid')}</>
   }
 
   private renderCleanRebaseMessage(
@@ -163,39 +166,50 @@ export class RebaseChooseBranchDialog extends React.Component<
   ) {
     // The current branch is behind the base branch
     if (commitsBehindCount > 0 && commitsAheadCount <= 0) {
-      const pluralized = commitsBehindCount === 1 ? 'commit' : 'commits'
       return (
-        <>
-          This will fast-forward <strong>{currentBranch.name}</strong> by
-          <strong>{` ${commitsBehindCount} ${pluralized}`}</strong>
-          {` to match `}
-          <strong>{baseBranch.name}</strong>
-        </>
+        <Trans
+          k="multiCommit.rebaseChooseBranch.fastForward"
+          params={{
+            count: commitsBehindCount,
+            currentBranch: currentBranch.name,
+            baseBranch: baseBranch.name,
+          }}
+          components={{
+            current: <strong />,
+            summary: <strong />,
+            base: <strong />,
+          }}
+        />
       )
     }
 
     // The current branch is behind and ahead of the base branch
     if (commitsBehindCount > 0 && commitsAheadCount > 0) {
-      const pluralized = commitsAheadCount === 1 ? 'commit' : 'commits'
       return (
-        <>
-          This will update <strong>{currentBranch.name}</strong>
-          {` by applying its `}
-          <strong>{` ${commitsAheadCount} ${pluralized}`}</strong>
-          {` on top of `}
-          <strong>{baseBranch.name}</strong>
-        </>
+        <Trans
+          k="multiCommit.rebaseChooseBranch.applyCommits"
+          params={{
+            count: commitsAheadCount,
+            currentBranch: currentBranch.name,
+            baseBranch: baseBranch.name,
+          }}
+          components={{
+            current: <strong />,
+            summary: <strong />,
+            base: <strong />,
+          }}
+        />
       )
     }
 
     // The current branch is a direct child of the base branch
     // Condition: commitsBehindCount <= 0 && commitsAheadCount >= 0
     return (
-      <>
-        <strong>{currentBranch.name}</strong>
-        {` `}
-        is already up to date with <strong>{baseBranch.name}</strong>
-      </>
+      <Trans
+        k="multiCommit.rebaseChooseBranch.upToDate"
+        params={{ current: currentBranch.name, base: baseBranch.name }}
+        components={{ current: <strong />, base: <strong /> }}
+      />
     )
   }
 

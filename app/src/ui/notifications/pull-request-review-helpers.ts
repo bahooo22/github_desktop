@@ -4,6 +4,7 @@ import {
 } from '../../lib/valid-notification-pull-request-review'
 import * as octicons from '../octicons/octicons.generated'
 import { OcticonSymbol } from '../octicons'
+import { t } from '../../lib/l10n'
 
 /** Returns the user-facing verb for a given review's state. */
 export function getVerbForPullRequestReview(
@@ -11,11 +12,11 @@ export function getVerbForPullRequestReview(
 ) {
   switch (review.state) {
     case 'APPROVED':
-      return 'approved'
+      return t('notifications.verb.approved')
     case 'CHANGES_REQUESTED':
-      return 'requested changes on'
+      return t('notifications.verb.requestedChanges')
     case 'COMMENTED':
-      return 'reviewed'
+      return t('notifications.verb.reviewed')
   }
 }
 

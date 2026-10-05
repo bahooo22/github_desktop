@@ -3,6 +3,8 @@ import { Checkbox, CheckboxValue } from '../../lib/checkbox'
 import { Dispatcher } from '../../dispatcher'
 import { DialogFooter, DialogContent, Dialog } from '../../dialog'
 import { OkCancelButtonGroup } from '../../dialog/ok-cancel-button-group'
+import { t } from '../../../lib/l10n'
+import { getOperationName } from '../operation-name'
 
 interface IWarnForcePushProps {
   /**
@@ -38,11 +40,10 @@ export class WarnForcePushDialog extends React.Component<
   }
 
   public render() {
-    const { operation, onDismissed } = this.props
+    const { onDismissed } = this.props
+    const operation = getOperationName(this.props.operation)
 
-    const title = __DARWIN__
-      ? `${operation} Will Require Force Push`
-      : `${operation} will require force push`
+    const title = t('multiCommit.warnForcePush.title', { operation })
 
     return (
       <Dialog
@@ -56,17 +57,14 @@ export class WarnForcePushDialog extends React.Component<
       >
         <DialogContent>
           <p id="warn-force-push-confirmation-title">
-            Are you sure you want to {operation.toLowerCase()}?
+            {t('multiCommit.warnForcePush.confirm', { operation })}
           </p>
           <p id="warn-force-push-confirmation-message">
-            At the end of the {operation.toLowerCase()} flow, GitHub Desktop
-            will enable you to force push the branch to update the upstream
-            branch. Force pushing will alter the history on the remote and
-            potentially cause problems for others collaborating on this branch.
+            {t('multiCommit.warnForcePush.message', { operation })}
           </p>
           <div>
             <Checkbox
-              label="Do not show this message again"
+              label={t('multiCommit.dontShowAgain')}
               value={
                 this.state.askForConfirmationOnForcePush
                   ? CheckboxValue.Off
@@ -78,9 +76,7 @@ export class WarnForcePushDialog extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={`Begin ${
-              __DARWIN__ ? operation : operation.toLowerCase()
-            }`}
+            okButtonText={t('multiCommit.warnForcePush.ok', { operation })}
             onCancelButtonClick={this.props.onDismissed}
           />
         </DialogFooter>

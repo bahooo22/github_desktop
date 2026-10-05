@@ -9,6 +9,7 @@ import { TooltipDirection } from '../lib/tooltip'
 import { TooltippedContent } from '../lib/tooltipped-content'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { IMatches } from '../../lib/fuzzy-find'
+import { t } from '../../lib/l10n'
 
 interface IChangedFileProps {
   readonly file: WorkingDirectoryFileChange
@@ -68,10 +69,10 @@ export class ChangedFile extends React.Component<IChangedFileProps, {}> {
 
     const includedText =
       this.props.include === true
-        ? 'included'
+        ? t('changes.file.included')
         : this.props.include === undefined
-        ? 'partially included'
-        : 'not included'
+        ? t('changes.file.partially-included')
+        : t('changes.file.not-included')
 
     const pathScreenReaderMessage = `${path} ${mapStatus(
       status

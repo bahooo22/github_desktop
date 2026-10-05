@@ -45,12 +45,15 @@ import { CopilotConflictsChanges } from './copilot-conflicts-changes'
 import {
   CopilotFileResolutionChoice,
   getResolutionChoiceForFile,
+  getResolutionChoiceLabel,
   resolutionChoices,
   isDeleteConflictFile,
   getDeletedSide,
   getDeleteConflictChoiceLabel,
   getOursTheirsLabels,
 } from './copilot-resolution-helpers'
+import { t } from '../../../lib/l10n'
+import { getOperationName } from '../operation-name'
 
 interface ICopilotConflictsDialogProps {
   readonly repository: Repository
@@ -164,7 +167,7 @@ export class CopilotConflictsDialog extends React.Component<
 
     const items: ReadonlyArray<IMenuItem> = [
       {
-        label: "Use Copilot's suggestion",
+        label: t('multiCommit.copilotDialog.useCopilotSuggestion'),
         type: 'checkbox',
         checked: currentChoice === 'copilot',
         action: () => this.setResolution(path, 'copilot'),
@@ -217,7 +220,9 @@ export class CopilotConflictsDialog extends React.Component<
 
     if (resolvedExternalEditor !== null) {
       items.push({
-        label: `Open in ${resolvedExternalEditor}`,
+        label: t('multiCommit.copilotDialog.openInEditor', {
+          editor: resolvedExternalEditor,
+        }),
         action: () => this.props.openFileInExternalEditor(absolutePath),
       })
     }
@@ -378,7 +383,7 @@ export class CopilotConflictsDialog extends React.Component<
         <div className="copilot-file-details">
           <PathText path={path} />
           <span className="copilot-file-explanation resolved-text">
-            No conflicts remaining
+            {t('multiCommit.copilotDialog.noConflictsRemaining')}
           </span>
         </div>
         <div className="green-circle">
@@ -410,9 +415,8 @@ export class CopilotConflictsDialog extends React.Component<
       choiceIcon =
         choice === 'copilot' ? octicons.copilot : resolutionChoices[choice].icon
     } else {
-      const resolved = resolutionChoices[choice]
-      choiceLabel = resolved.label
-      choiceIcon = resolved.icon
+      choiceLabel = getResolutionChoiceLabel(choice)
+      choiceIcon = resolutionChoices[choice].icon
     }
 
     let reasoningText: string | undefined
@@ -424,26 +428,30 @@ export class CopilotConflictsDialog extends React.Component<
         : undefined
       const { ourBranch, theirBranch } = this.props.conflictState
       if (deletedSide === 'ours') {
-        const branch = ourBranch ?? 'current branch'
+        const branch = ourBranch ?? t('multiCommit.copilotChanges.currentBranch')
         reasoningText =
           choice === 'ours'
-            ? `Deleting file (deleted on ${branch})`
-            : `Keeping modified file`
+            ? t('multiCommit.copilotDialog.deletingFile', { branch })
+            : t('multiCommit.copilotDialog.keepingFile')
       } else if (deletedSide === 'theirs') {
-        const branch = theirBranch ?? 'incoming branch'
+        const branch = theirBranch ?? t('multiCommit.copilotChanges.incomingBranch')
         reasoningText =
           choice === 'theirs'
-            ? `Deleting file (deleted on ${branch})`
-            : `Keeping modified file`
+            ? t('multiCommit.copilotDialog.deletingFile', { branch })
+            : t('multiCommit.copilotDialog.keepingFile')
       }
     } else if (choice === 'ours') {
-      reasoningText = `Using changes from ${
-        this.props.conflictState.ourBranch ?? 'current branch'
-      }`
+      reasoningText = t('multiCommit.copilotChanges.usingChangesFrom', {
+        branch:
+          this.props.conflictState.ourBranch ??
+          t('multiCommit.copilotChanges.currentBranch'),
+      })
     } else if (choice === 'theirs') {
-      reasoningText = `Using changes from ${
-        this.props.conflictState.theirBranch ?? 'incoming branch'
-      }`
+      reasoningText = t('multiCommit.copilotChanges.usingChangesFrom', {
+        branch:
+          this.props.conflictState.theirBranch ??
+          t('multiCommit.copilotChanges.incomingBranch'),
+      })
     }
 
     const onDropdownClick = this.getResolutionDropdownClickHandler(file.path)
@@ -471,7 +479,7 @@ export class CopilotConflictsDialog extends React.Component<
             className="copilot-overflow-menu"
             onClick={onOverflowClick}
             disabled={this.state.isContinuing}
-            ariaLabel="File options"
+            ariaLabel={t('multiCommit.copilotDialog.fileOptions')}
           >
             <Octicon symbol={octicons.kebabHorizontal} />
           </Button>
@@ -513,7 +521,9 @@ export class CopilotConflictsDialog extends React.Component<
       <>
         <h2 className="copilot-conflicts-file-heading">
           <Octicon symbol={octicons.fileCode} />
-          {conflictedFiles.length} Conflicted files
+          {t('multiCommit.copilotDialog.conflictedFiles', {
+            count: conflictedFiles.length,
+          })}
         </h2>
         <ul className="copilot-conflicts-file-list">
           {conflictedFiles.map(file =>
@@ -556,7 +566,7 @@ export class CopilotConflictsDialog extends React.Component<
         ? oursLabel
         : choice === 'theirs'
         ? theirsLabel
-        : 'Choose a resolution'
+        : t('multiCommit.copilotDialog.chooseResolution')
 
     const onDropdownClick = this.getSkippedDropdownClickHandler(skipped.path)
     const onOverflowClick = this.getOverflowMenuClickHandler(skipped.path)
@@ -572,7 +582,7 @@ export class CopilotConflictsDialog extends React.Component<
             className="copilot-resolution-dropdown"
             onClick={onDropdownClick}
             disabled={this.state.isContinuing}
-            ariaLabel="Choose a resolution for this file"
+            ariaLabel={t('multiCommit.copilotDialog.chooseResolutionAria')}
           >
             <Octicon
               symbol={choice === undefined ? octicons.alert : octicons.check}
@@ -584,7 +594,7 @@ export class CopilotConflictsDialog extends React.Component<
             className="copilot-overflow-menu"
             onClick={onOverflowClick}
             disabled={this.state.isContinuing}
-            ariaLabel="File options"
+            ariaLabel={t('multiCommit.copilotDialog.fileOptions')}
           >
             <Octicon symbol={octicons.kebabHorizontal} />
           </Button>
@@ -603,7 +613,9 @@ export class CopilotConflictsDialog extends React.Component<
       <>
         <h2 className="copilot-conflicts-file-heading copilot-conflicts-skipped-heading">
           <Octicon symbol={octicons.alert} />
-          {skippedFiles.length} Skipped by Copilot
+          {t('multiCommit.copilotDialog.skippedFiles', {
+            count: skippedFiles.length,
+          })}
         </h2>
         <ul className="copilot-conflicts-file-list">
           {skippedFiles.map(file => this.renderSkippedFile(file))}
@@ -660,11 +672,11 @@ export class CopilotConflictsDialog extends React.Component<
   }
 
   public render() {
-    const { operationKind, workingDirectory, model } = this.props
+    const { workingDirectory, model } = this.props
     const { isContinuing, selectedTab } = this.state
 
     const unmergedFiles = getUnmergedFiles(workingDirectory)
-    const operation = __DARWIN__ ? operationKind : operationKind.toLowerCase()
+    const operation = getOperationName(this.props.operationKind)
 
     const hasUnresolvedSkippedFiles = this.hasUnresolvedSkippedFiles()
 
@@ -684,7 +696,7 @@ export class CopilotConflictsDialog extends React.Component<
         disabled={isContinuing}
       >
         <DialogHeader
-          title={`Resolve conflicts before ${operationKind}`}
+          title={t('multiCommit.resolveConflictsBefore', { operation })}
           titleId={CopilotConflictsDialogTitleId}
           showCloseButton={!isContinuing}
           onCloseButtonClick={this.props.onDismissed}
@@ -694,8 +706,8 @@ export class CopilotConflictsDialog extends React.Component<
             <span className="copilot-conflicts-dialog-model">{modelLabel}</span>
             <Button
               className="copilot-conflicts-dialog-settings-button"
-              tooltip="Configure Copilot in app settings"
-              ariaLabel="Configure Copilot in app settings"
+              tooltip={t('multiCommit.copilotDialog.configureCopilot')}
+              ariaLabel={t('multiCommit.copilotDialog.configureCopilot')}
               onClick={this.onOpenCopilotSettings}
             >
               <Octicon symbol={octicons.sliders} />
@@ -708,25 +720,27 @@ export class CopilotConflictsDialog extends React.Component<
             onTabClicked={this.onTabSelected}
             type={TabBarType.Tabs}
           >
-            <span>Summary</span>
-            <span>Changes</span>
+            <span>{t('multiCommit.copilotDialog.tabSummary')}</span>
+            <span>{t('multiCommit.copilotDialog.tabChanges')}</span>
           </TabBar>
           {this.renderTabContent(unmergedFiles)}
         </DialogContent>
         <DialogFooter>
           <div className="copilot-conflicts-footer">
             <Button onClick={this.onBackToManual} disabled={isContinuing}>
-              Switch to manual
+              {t('multiCommit.copilotDialog.switchToManual')}
             </Button>
             <OkCancelButtonGroup
-              okButtonText={`Continue ${operation}`}
+              okButtonText={t('multiCommit.continueOperation', { operation })}
               okButtonDisabled={hasUnresolvedSkippedFiles || isContinuing}
               okButtonTitle={
                 hasUnresolvedSkippedFiles
-                  ? 'Some files were skipped by Copilot. Those need to be resolved manually.'
+                  ? t('multiCommit.copilotDialog.skippedUnresolved')
                   : undefined
               }
-              cancelButtonText={`Abort ${operation}`}
+              cancelButtonText={t('multiCommit.abortOperation', {
+                operation,
+              })}
               onCancelButtonClick={this.onAbort}
               cancelButtonDisabled={isContinuing}
             />

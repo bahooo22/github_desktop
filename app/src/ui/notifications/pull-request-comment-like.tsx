@@ -14,6 +14,7 @@ import { getStealthEmailForUser } from '../../lib/email'
 import { IAPIIdentity } from '../../lib/api'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
+import { t, Trans } from '../../lib/l10n'
 
 interface IPullRequestCommentLikeProps {
   readonly id?: string
@@ -113,15 +114,25 @@ export abstract class PullRequestCommentLike extends React.Component<IPullReques
             size={40}
           />
           {this.renderReviewIcon()}
-          <div className="summary">
-            <LinkButton uri={user.html_url} className="author">
-              {user.login}
-            </LinkButton>{' '}
-            {eventVerb} your pull request{' '}
-            <LinkButton uri={externalURL} className="submission-date">
-              {relativeReviewDate}
-            </LinkButton>
-          </div>
+          <Trans
+            as="div"
+            className="summary"
+            k="notifications.timeline.summary"
+            params={{
+              login: user.login,
+              verb: eventVerb,
+              date: relativeReviewDate,
+            }}
+            components={{
+              user: <LinkButton uri={user.html_url} className="author" />,
+              date: (
+                <LinkButton
+                  uri={externalURL}
+                  className="submission-date"
+                />
+              ),
+            }}
+          />
         </div>
         {bottomLine}
       </div>
@@ -176,7 +187,7 @@ export abstract class PullRequestCommentLike extends React.Component<IPullReques
         onMarkdownLinkClicked={this.onMarkdownLinkClicked}
         markdownContext={'PullRequestComment'}
         underlineLinks={this.props.underlineLinks}
-        title="Pull request markdown comment"
+        title={t('notifications.markdownCommentTitle')}
       />
     )
   }

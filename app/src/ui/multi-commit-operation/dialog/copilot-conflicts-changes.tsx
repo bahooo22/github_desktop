@@ -22,8 +22,10 @@ import * as octicons from '../../octicons/octicons.generated'
 import {
   CopilotFileResolutionChoice,
   getResolutionChoiceForFile,
+  getResolutionChoiceLabel,
   resolutionChoices,
 } from './copilot-resolution-helpers'
+import { t } from '../../../lib/l10n'
 
 interface ICopilotConflictsChangesProps {
   readonly repository: Repository
@@ -332,16 +334,22 @@ export class CopilotConflictsChanges extends React.Component<
     path: string
   ): string | undefined {
     if (choice === 'ours') {
-      return `Using changes from ${this.props.ourBranch ?? 'current branch'}`
+      return t('multiCommit.copilotChanges.usingChangesFrom', {
+        branch: this.props.ourBranch ?? t('multiCommit.copilotChanges.currentBranch'),
+      })
     }
     if (choice === 'theirs') {
-      return `Using changes from ${this.props.theirBranch ?? 'incoming branch'}`
+      return t('multiCommit.copilotChanges.usingChangesFrom', {
+        branch: this.props.theirBranch ?? t('multiCommit.copilotChanges.incomingBranch'),
+      })
     }
     const resolution = this.props.copilotResolutions?.find(r => r.path === path)
     if (resolution === undefined) {
-      return 'No Copilot resolution available'
+      return t('multiCommit.copilotChanges.noResolution')
     }
-    return resolution.reasoning ?? "Using Copilot's merged resolution"
+    return (
+      resolution.reasoning ?? t('multiCommit.copilotChanges.mergedResolution')
+    )
   }
 
   public render() {
@@ -363,7 +371,8 @@ export class CopilotConflictsChanges extends React.Component<
             this.props.manualResolutions
           )
         : 'copilot'
-    const { label: choiceLabel, icon: choiceIcon } = resolutionChoices[choice]
+    const { icon: choiceIcon } = resolutionChoices[choice]
+    const choiceLabel = getResolutionChoiceLabel(choice)
     const subheaderText =
       selectedFile !== null
         ? this.getSubheaderText(choice, selectedFile.path)
@@ -373,7 +382,9 @@ export class CopilotConflictsChanges extends React.Component<
       <div className="copilot-changes-tab">
         <div className="copilot-changes-header">
           <span className="copilot-changes-file-count">
-            {files.length} files changed
+            {t('multiCommit.copilotChanges.filesChanged', {
+              count: files.length,
+            })}
           </span>
           <DiffOptions
             isInteractiveDiff={false}
@@ -415,13 +426,15 @@ export class CopilotConflictsChanges extends React.Component<
                       className="copilot-changes-diff-subheader-toggle"
                       onClick={this.onToggleSubheaderExpanded}
                       tooltip={
-                        this.state.isSubheaderExpanded ? 'Collapse' : 'Expand'
+                        this.state.isSubheaderExpanded
+                          ? t('multiCommit.copilotChanges.collapse')
+                          : t('multiCommit.copilotChanges.expand')
                       }
                       ariaExpanded={this.state.isSubheaderExpanded}
                       ariaLabel={
                         this.state.isSubheaderExpanded
-                          ? 'Collapse description'
-                          : 'Expand description'
+                          ? t('multiCommit.copilotChanges.collapseDescription')
+                          : t('multiCommit.copilotChanges.expandDescription')
                       }
                       ariaControls="copilot-changes-diff-description"
                     >
@@ -437,7 +450,7 @@ export class CopilotConflictsChanges extends React.Component<
                   <Button
                     className="copilot-resolution-dropdown"
                     onClick={this.onDropdownClick}
-                    ariaLabel="Change resolution choice"
+                    ariaLabel={t('multiCommit.copilotChanges.changeResolution')}
                   >
                     <Octicon symbol={choiceIcon} />
                     {choiceLabel}
@@ -466,12 +479,12 @@ export class CopilotConflictsChanges extends React.Component<
             )}
             {selectedFile !== null && noResolution && (
               <div className="copilot-changes-no-diff">
-                No Copilot resolution available for this file.
+                {t('multiCommit.copilotChanges.noResolutionForFile')}
               </div>
             )}
             {selectedFile !== null && !noResolution && diffError && (
               <div className="copilot-changes-no-diff">
-                Unable to load the diff for this file.
+                {t('multiCommit.copilotChanges.unableToLoadDiff')}
               </div>
             )}
           </div>

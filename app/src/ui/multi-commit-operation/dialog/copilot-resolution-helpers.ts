@@ -6,15 +6,30 @@ import {
   ManualConflict,
 } from '../../../models/status'
 import * as octicons from '../../octicons/octicons.generated'
+import { t } from '../../../lib/l10n'
 
 export type CopilotFileResolutionChoice = 'copilot' | 'ours' | 'theirs'
 
-/** Label and icon for each resolution choice. */
+/** Icon for each resolution choice. */
 export const resolutionChoices = {
-  copilot: { label: 'Copilot', icon: octicons.copilot },
-  ours: { label: 'Current', icon: octicons.chevronLeft },
-  theirs: { label: 'Incoming', icon: octicons.chevronRight },
+  copilot: { icon: octicons.copilot },
+  ours: { icon: octicons.chevronLeft },
+  theirs: { icon: octicons.chevronRight },
 } as const
+
+/** Label for each resolution choice, translated at render time. */
+export function getResolutionChoiceLabel(
+  choice: CopilotFileResolutionChoice
+): string {
+  switch (choice) {
+    case 'copilot':
+      return 'Copilot'
+    case 'ours':
+      return t('multiCommit.resolutionChoice.current')
+    case 'theirs':
+      return t('multiCommit.resolutionChoice.incoming')
+  }
+}
 
 /**
  * Derive the resolution choice for a file from the manual resolutions map.
@@ -79,19 +94,27 @@ export function getDeleteConflictLabels(
   const deletedSide = getDeletedSide(status)
 
   if (deletedSide === 'ours') {
-    const keepSuffix = theirBranch ? ` from ${theirBranch}` : ''
-    const deleteSuffix = ourBranch ? ` on ${ourBranch}` : ''
     return {
-      oursLabel: `Delete file${deleteSuffix}`,
-      theirsLabel: `Keep file${keepSuffix}`,
+      oursLabel: ourBranch
+        ? t('multiCommit.deleteConflict.deleteFileOn', {
+            branch: ourBranch,
+          })
+        : t('multiCommit.deleteConflict.deleteFile'),
+      theirsLabel: theirBranch
+        ? t('multiCommit.deleteConflict.keepFileFrom', {
+            branch: theirBranch,
+          })
+        : t('multiCommit.deleteConflict.keepFile'),
     }
   }
 
-  const keepSuffix = ourBranch ? ` from ${ourBranch}` : ''
-  const deleteSuffix = theirBranch ? ` on ${theirBranch}` : ''
   return {
-    oursLabel: `Keep file${keepSuffix}`,
-    theirsLabel: `Delete file${deleteSuffix}`,
+    oursLabel: ourBranch
+      ? t('multiCommit.deleteConflict.keepFileFrom', { branch: ourBranch })
+      : t('multiCommit.deleteConflict.keepFile'),
+    theirsLabel: theirBranch
+      ? t('multiCommit.deleteConflict.deleteFileOn', { branch: theirBranch })
+      : t('multiCommit.deleteConflict.deleteFile'),
   }
 }
 
@@ -110,10 +133,14 @@ export function getDeleteConflictChoiceLabel(
   }
 
   if (deletedSide === 'ours') {
-    return choice === 'ours' ? 'Delete file' : 'Keep file'
+    return choice === 'ours'
+      ? t('multiCommit.deleteConflict.deleteFile')
+      : t('multiCommit.deleteConflict.keepFile')
   }
 
-  return choice === 'ours' ? 'Keep file' : 'Delete file'
+  return choice === 'ours'
+    ? t('multiCommit.deleteConflict.keepFile')
+    : t('multiCommit.deleteConflict.deleteFile')
 }
 
 /**
@@ -130,10 +157,10 @@ export function getOursTheirsLabels(
   }
 
   const oursLabel = ourBranch
-    ? `Use current file from ${ourBranch}`
-    : 'Use current file'
+    ? t('multiCommit.conflictChoice.currentFromFile', { branch: ourBranch })
+    : t('multiCommit.conflictChoice.currentFile')
   const theirsLabel = theirBranch
-    ? `Use incoming file from ${theirBranch}`
-    : 'Use incoming file'
+    ? t('multiCommit.conflictChoice.incomingFromFile', { branch: theirBranch })
+    : t('multiCommit.conflictChoice.incomingFile')
   return { oursLabel, theirsLabel }
 }

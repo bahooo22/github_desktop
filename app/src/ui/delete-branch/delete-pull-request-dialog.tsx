@@ -9,6 +9,7 @@ import { PullRequest } from '../../models/pull-request'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { LinkButton } from '../lib/link-button'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 interface IDeleteBranchProps {
   readonly dispatcher: Dispatcher
@@ -23,24 +24,28 @@ export class DeletePullRequest extends React.Component<IDeleteBranchProps, {}> {
     return (
       <Dialog
         id="delete-branch"
-        title={__DARWIN__ ? 'Delete Branch' : 'Delete branch'}
+        title={t('deleteBranch.title')}
         type="warning"
         onDismissed={this.props.onDismissed}
         onSubmit={this.deleteBranch}
       >
         <DialogContent>
-          <p>This branch may have an open pull request associated with it.</p>
+          <p>{t('deleteBranch.open-pr-warning')}</p>
           <p>
-            If{' '}
-            <LinkButton onClick={this.openPullRequest}>
-              #{this.props.pullRequest.pullRequestNumber}
-            </LinkButton>{' '}
-            has been merged, you can also go to GitHub to delete the remote
-            branch.
+            <Trans
+              k="deleteBranch.open-pr-hint"
+              params={{ number: this.props.pullRequest.pullRequestNumber }}
+              components={{
+                link: <LinkButton onClick={this.openPullRequest} />,
+              }}
+            />
           </p>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup destructive={true} okButtonText="Delete" />
+          <OkCancelButtonGroup
+            destructive={true}
+            okButtonText={t('deleteBranch.delete')}
+          />
         </DialogFooter>
       </Dialog>
     )

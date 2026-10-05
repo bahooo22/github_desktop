@@ -25,6 +25,7 @@ import { clamp } from '../../lib/clamp'
 import { getDotComAPIEndpoint } from '../../lib/api'
 import { createCommitURL } from '../../lib/commit-url'
 import { DiffOptions } from '../diff/diff-options'
+import { t } from '../../lib/l10n'
 
 interface IPullRequestFilesChangedProps {
   readonly repository: Repository
@@ -164,9 +165,7 @@ export class PullRequestFilesChanged extends React.Component<
     if (!fileExistsOnDisk) {
       showContextualMenu([
         {
-          label: __DARWIN__
-            ? 'File Does Not Exist on Disk'
-            : 'File does not exist on disk',
+          label: t('openPullRequest.file-does-not-exist'),
           enabled: false,
         },
       ])
@@ -179,7 +178,7 @@ export class PullRequestFilesChanged extends React.Component<
     const isSafeExtension = isSafeFileExtension(extension)
     const openInExternalEditor =
       externalEditorLabel !== undefined
-        ? `Open in ${externalEditorLabel}`
+        ? t('openPullRequest.open-in', { name: externalEditorLabel })
         : DefaultEditorLabel
 
     const items: IMenuItem[] = [
@@ -216,7 +215,11 @@ export class PullRequestFilesChanged extends React.Component<
       gitHubRepository && gitHubRepository.endpoint !== getDotComAPIEndpoint()
 
     items.push({
-      label: `View on GitHub${isEnterprise ? ' Enterprise' : ''}`,
+      label: t(
+        isEnterprise
+          ? 'openPullRequest.view-on-enterprise'
+          : 'openPullRequest.view-on-github'
+      ),
       action: () => this.onViewOnGitHub(file),
       enabled: nonLocalCommitSHA !== null && gitHubRepository !== null,
     })
@@ -244,7 +247,7 @@ export class PullRequestFilesChanged extends React.Component<
     return (
       <div className="files-changed-header">
         <div className="commits-displayed">
-          Showing changes from all commits
+          {t('openPullRequest.showing-all-commits')}
         </div>
         <DiffOptions
           isInteractiveDiff={false}
@@ -268,7 +271,7 @@ export class PullRequestFilesChanged extends React.Component<
         maximumWidth={fileListWidth.max}
         onResize={this.onFileListResize}
         onReset={this.onFileListSizeReset}
-        description="Pull request file list"
+        description={t('openPullRequest.file-list-description')}
       >
         <FileList
           files={files}

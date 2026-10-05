@@ -14,6 +14,7 @@ import { LinkButton } from '../../lib/link-button'
 import { Ref } from '../../lib/ref'
 import { Octicon } from '../../octicons'
 import * as octicons from '../../octicons/octicons.generated'
+import { t, Trans } from '../../../lib/l10n'
 
 interface ICopilotConflictsResolutionSummaryProps {
   readonly summary: ICopilotResolutionSummary
@@ -33,36 +34,49 @@ function getOperationPhrase(
   ourLabel: string,
   theirLabel: string
 ): JSX.Element {
+  const components = { our: <Ref />, their: <Ref /> }
+  const params = { ourLabel, theirLabel }
+
   switch (kind) {
     case MultiCommitOperationKind.Merge:
       return (
-        <span>
-          Merging <Ref>{theirLabel}</Ref> into <Ref>{ourLabel}</Ref>
-        </span>
+        <Trans
+          k="multiCommit.summary.merging"
+          params={params}
+          components={components}
+        />
       )
     case MultiCommitOperationKind.Rebase:
       return (
-        <span>
-          Rebasing <Ref>{ourLabel}</Ref> onto <Ref>{theirLabel}</Ref>
-        </span>
+        <Trans
+          k="multiCommit.summary.rebasing"
+          params={params}
+          components={components}
+        />
       )
     case MultiCommitOperationKind.CherryPick:
       return (
-        <span>
-          Cherry-picking from <Ref>{theirLabel}</Ref> into <Ref>{ourLabel}</Ref>
-        </span>
+        <Trans
+          k="multiCommit.summary.cherryPicking"
+          params={params}
+          components={components}
+        />
       )
     case MultiCommitOperationKind.Squash:
       return (
-        <span>
-          Squashing into <Ref>{ourLabel}</Ref>
-        </span>
+        <Trans
+          k="multiCommit.summary.squashing"
+          params={params}
+          components={components}
+        />
       )
     case MultiCommitOperationKind.Reorder:
       return (
-        <span>
-          Reordering <Ref>{ourLabel}</Ref>
-        </span>
+        <Trans
+          k="multiCommit.summary.reordering"
+          params={params}
+          components={components}
+        />
       )
     default:
       return assertNever(kind, `Unknown operation kind: ${kind}`)
@@ -124,7 +138,7 @@ export class CopilotConflictsResolutionSummary extends React.Component<ICopilotC
             className="copilot-conflicts-summary-copilot-icon"
           />
           <span className="copilot-conflicts-summary-theme-label">
-            Resolution summary
+            {t('multiCommit.summary.title')}
           </span>
         </h2>
         <div className="copilot-conflicts-summary-body">
@@ -150,7 +164,7 @@ export class CopilotConflictsResolutionSummary extends React.Component<ICopilotC
           repository={this.props.gitHubRepository ?? undefined}
           onMarkdownLinkClicked={this.props.onMarkdownLinkClicked}
           underlineLinks={true}
-          title="Copilot conflict resolution summary"
+          title={t('multiCommit.summary.markdownTitle')}
           customCSS={summaryMarkdownCSS}
         />
       </div>
@@ -165,7 +179,9 @@ export class CopilotConflictsResolutionSummary extends React.Component<ICopilotC
 
     return (
       <div className="copilot-conflicts-summary-references">
-        <h3 className="copilot-conflicts-summary-references-title">Context</h3>
+        <h3 className="copilot-conflicts-summary-references-title">
+          {t('multiCommit.summary.context')}
+        </h3>
         <ul className="copilot-conflicts-summary-reference-list">
           {references.map((ref, i) => (
             <li
@@ -252,13 +268,13 @@ function renderReference(
           <span className="copilot-conflicts-summary-reference-commit-ref">
             <span className="ref selectable">{ref.commit.shortSha}</span>
             <CopyButton
-              ariaLabel="Copy the full SHA"
+              ariaLabel={t('multiCommit.summary.copySha')}
               copyContent={ref.commit.sha}
             />
           </span>
           {!ref.commit.isOnRemote && (
             <span className="copilot-conflicts-summary-reference-tag">
-              local only
+              {t('multiCommit.summary.localOnly')}
             </span>
           )}
         </>

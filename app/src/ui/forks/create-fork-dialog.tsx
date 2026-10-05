@@ -16,6 +16,7 @@ import { Account } from '../../models/account'
 import { API } from '../../lib/api'
 import { LinkButton } from '../lib/link-button'
 import { PopupType } from '../../models/popup'
+import { t, Trans } from '../../lib/l10n'
 
 interface ICreateForkDialogProps {
   readonly dispatcher: Dispatcher
@@ -77,7 +78,7 @@ export class CreateForkDialog extends React.Component<
   public render() {
     return (
       <Dialog
-        title="Do you want to fork this repository?"
+        title={t('forks.do-you-want-to-fork')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.state.error ? undefined : this.onSubmit}
         dismissDisabled={this.state.loading}
@@ -111,25 +112,25 @@ function renderCreateForkDialogContent(
   return (
     <>
       <DialogContent>
-        <p>
-          {`It looks like you don’t have write access to `}
-          <strong>{repository.gitHubRepository.fullName}</strong>
-          {`. If you should, please check with a repository administrator.`}
-        </p>
-        <p>
-          {` Do you want to create a fork of this repository at `}
-          <strong>
-            {`${account.login}/${repository.gitHubRepository.name}`}
-          </strong>
-          {` to continue?`}
-        </p>
+        <Trans
+          k="forks.no-write-access"
+          params={{ fullName: repository.gitHubRepository.fullName }}
+          components={{ strong: <strong /> }}
+          as="p"
+        />
+        <Trans
+          k="forks.fork-question"
+          params={{
+            forkName: `${account.login}/${repository.gitHubRepository.name}`,
+          }}
+          components={{ strong: <strong /> }}
+          as="p"
+        />
       </DialogContent>
       <DialogFooter>
         <OkCancelButtonGroup
           destructive={true}
-          okButtonText={
-            __DARWIN__ ? 'Fork This Repository' : 'Fork this repository'
-          }
+          okButtonText={t('forks.fork-this-repository')}
           okButtonDisabled={loading}
           cancelButtonDisabled={loading}
         />
@@ -146,27 +147,28 @@ function renderCreateForkDialogError(
 ) {
   const suggestion =
     repository.gitHubRepository.htmlURL !== null ? (
-      <>
-        {`You can try `}
-        <LinkButton uri={repository.gitHubRepository.htmlURL}>
-          creating the fork manually on GitHub
-        </LinkButton>
-        .
-      </>
+      <Trans
+        k="forks.create-fork-manually"
+        components={{
+          link: <LinkButton uri={repository.gitHubRepository.htmlURL} />,
+        }}
+      />
     ) : undefined
   return (
     <>
       <DialogContent>
         <div>
-          {`Creating your fork `}
-          <strong>
-            {`${account.login}/${repository.gitHubRepository.name}`}
-          </strong>
-          {` failed. `}
+          <Trans
+            k="forks.fork-creation-failed"
+            params={{
+              forkName: `${account.login}/${repository.gitHubRepository.name}`,
+            }}
+            components={{ strong: <strong /> }}
+          />
           {suggestion}
         </div>
         <details>
-          <summary>Error details</summary>
+          <summary>{t('forks.error-details')}</summary>
           <pre className="error">{error.message}</pre>
         </details>
       </DialogContent>

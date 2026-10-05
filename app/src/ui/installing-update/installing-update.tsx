@@ -10,6 +10,7 @@ import {
 import { updateStore, IUpdateState, UpdateStatus } from '../lib/update-store'
 import { Disposable } from 'event-kit'
 import { Dispatcher } from '../dispatcher'
+import { t } from '../../lib/l10n'
 
 interface IInstallingUpdateProps {
   /**
@@ -65,7 +66,7 @@ export class InstallingUpdate extends React.Component<IInstallingUpdateProps> {
     return (
       <Dialog
         id="installing-update"
-        title={__DARWIN__ ? 'Installing Update…' : 'Installing update…'}
+        title={t('installingUpdate.title')}
         loading={true}
         onSubmit={this.props.onDismissed}
         backdropDismissable={false}
@@ -74,13 +75,12 @@ export class InstallingUpdate extends React.Component<IInstallingUpdateProps> {
       >
         <DialogContent>
           <Row className="updating-message">
-            Do not close GitHub Desktop while the update is in progress. Closing
-            now may break your installation.
+            {t('installingUpdate.message')}
           </Row>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={__DARWIN__ ? 'Quit Anyway' : 'Quit anyway'}
+            okButtonText={t('installingUpdate.quitAnyway')}
             onOkButtonClick={this.onQuitAnywayButtonClicked}
             onCancelButtonClick={this.props.onDismissed}
             destructive={true}

@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { t } from '../../lib/l10n'
 import {
   ITextDiff,
   DiffLineType,
@@ -1380,7 +1381,7 @@ export class SideBySideDiff extends React.Component<
     this.expandHunk(diff.hunks[hunkIndex], kind)
 
     this.ariaLiveChangeSignal = !this.ariaLiveChangeSignal
-    this.setState({ ariaLiveMessage: 'Expanded' })
+    this.setState({ ariaLiveMessage: t('diff.expanded') })
   }
 
   private onClickHunk = (hunkStartLine: number, select: boolean) => {
@@ -1419,13 +1420,13 @@ export class SideBySideDiff extends React.Component<
 
     const items: IMenuItem[] = [
       {
-        label: 'Copy',
+        label: t('diff.contextMenu.copy'),
         // When using role="copy", the enabled attribute is not taken into account.
         role: selectionLength > 0 ? 'copy' : undefined,
         enabled: selectionLength > 0,
       },
       {
-        label: __DARWIN__ ? 'Select All' : 'Select all',
+        label: t('diff.contextMenu.selectAll'),
         action: () => this.onSelectAll(),
       },
     ]
@@ -1480,7 +1481,7 @@ export class SideBySideDiff extends React.Component<
 
     return this.diffToRestore === null
       ? {
-          label: __DARWIN__ ? 'Expand Whole File' : 'Expand whole file',
+          label: t('diff.contextMenu.expandWholeFile'),
           action: this.onExpandWholeFile,
           // If there is only one hunk that can't be expanded, disable this item
           enabled:
@@ -1488,9 +1489,7 @@ export class SideBySideDiff extends React.Component<
             diff.hunks[0].expansionType !== DiffHunkExpansionType.None,
         }
       : {
-          label: __DARWIN__
-            ? 'Collapse Expanded Lines'
-            : 'Collapse expanded lines',
+          label: t('diff.contextMenu.collapseExpandedLines'),
           action: this.onCollapseExpandedLines,
         }
   }
@@ -1514,7 +1513,7 @@ export class SideBySideDiff extends React.Component<
     this.ariaLiveChangeSignal = !this.ariaLiveChangeSignal
     this.setState({
       diff: updatedDiff,
-      ariaLiveMessage: 'Expanded',
+      ariaLiveMessage: t('diff.expanded'),
     })
   }
 
@@ -1569,22 +1568,23 @@ export class SideBySideDiff extends React.Component<
 
   private getDiscardLabel(rangeType: DiffRangeType, numLines: number): string {
     const suffix = this.props.askForConfirmationOnDiscardChanges ? '…' : ''
-    let type = ''
+    let key = ''
 
     if (rangeType === DiffRangeType.Additions) {
-      type = __DARWIN__ ? 'Added' : 'added'
+      key = __DARWIN__ ? 'diff.discardLine.added.mac' : 'diff.discardLine.added'
     } else if (rangeType === DiffRangeType.Deletions) {
-      type = __DARWIN__ ? 'Removed' : 'removed'
+      key =
+        __DARWIN__ ? 'diff.discardLine.deleted.mac' : 'diff.discardLine.deleted'
     } else if (rangeType === DiffRangeType.Mixed) {
-      type = __DARWIN__ ? 'Modified' : 'modified'
+      key =
+        __DARWIN__
+          ? 'diff.discardLine.modified.mac'
+          : 'diff.discardLine.modified'
     } else {
       assertNever(rangeType, `Invalid range type: ${rangeType}`)
     }
 
-    const plural = numLines > 1 ? 's' : ''
-    return __DARWIN__
-      ? `Discard ${type} Line${plural}${suffix}`
-      : `Discard ${type} line${plural}${suffix}`
+    return t(key, { count: numLines }) + suffix
   }
 
   private onDiscardChanges(startLine: number, endLine: number = startLine) {
@@ -1631,7 +1631,7 @@ export class SideBySideDiff extends React.Component<
     const { searchResults } = this.state
 
     if (searchQuery?.trim() === '') {
-      this.resetSearch(true, 'No results')
+      this.resetSearch(true, t('diff.search.noResults'))
     } else if (searchQuery === this.state.searchQuery && searchResults) {
       this.continueSearch(searchResults, direction)
     } else {
@@ -1648,9 +1648,16 @@ export class SideBySideDiff extends React.Component<
     )
 
     if (searchResults === undefined || searchResults.length === 0) {
-      this.resetSearch(true, `No results for "${searchQuery}"`)
+      this.resetSearch(
+        true,
+        t('diff.search.noResultsFor', { query: searchQuery })
+      )
     } else {
-      const ariaLiveMessage = `Result 1 of ${searchResults.length} for "${searchQuery}"`
+      const ariaLiveMessage = t('diff.search.resultOf', {
+        position: 1,
+        total: searchResults.length,
+        query: searchQuery,
+      })
 
       this.scrollToSearchResult(0)
 
@@ -1679,9 +1686,11 @@ export class SideBySideDiff extends React.Component<
       (selectedSearchResult + delta + searchResults.length) %
       searchResults.length
 
-    const ariaLiveMessage = `Result ${selectedSearchResult + 1} of ${
-      searchResults.length
-    } for "${searchQuery}"`
+    const ariaLiveMessage = t('diff.search.resultOf', {
+      position: selectedSearchResult + 1,
+      total: searchResults.length,
+      query: searchQuery,
+    })
 
     this.scrollToSearchResult(selectedSearchResult)
 

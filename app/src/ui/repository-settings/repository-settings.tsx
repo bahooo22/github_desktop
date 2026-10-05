@@ -31,6 +31,7 @@ import {
 import { Account } from '../../models/account'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
+import { t } from '../../lib/l10n'
 
 interface IRepositorySettingsProps {
   readonly initialSelectedTab?: RepositorySettingsTab
@@ -105,7 +106,9 @@ export class RepositorySettings extends React.Component<
         `RepositorySettings: unable to read root .gitignore file for ${this.props.repository.path}`,
         e
       )
-      this.setState({ errors: [`Could not read root .gitignore: ${e}`] })
+      this.setState({
+        errors: [t('repositorySettings.error-read-gitignore', { error: e })],
+      })
     }
 
     const localCommitterName = await getConfigValue(
@@ -170,7 +173,7 @@ export class RepositorySettings extends React.Component<
     return (
       <Dialog
         id="repository-settings"
-        title={__DARWIN__ ? 'Repository Settings' : 'Repository settings'}
+        title={t('repositorySettings.title')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.onSubmit}
         disabled={this.state.disabled}
@@ -185,20 +188,20 @@ export class RepositorySettings extends React.Component<
           >
             <span>
               <Octicon className="icon" symbol={octicons.server} />
-              Remote
+              {t('repositorySettings.remote-tab')}
             </span>
             <span>
               <Octicon className="icon" symbol={octicons.file} />
-              {__DARWIN__ ? 'Ignored Files' : 'Ignored files'}
+              {t('repositorySettings.ignored-files-tab')}
             </span>
             <span>
               <Octicon className="icon" symbol={octicons.gitCommit} />
-              {__DARWIN__ ? 'Git Config' : 'Git config'}
+              {t('repositorySettings.git-config-tab')}
             </span>
             {showForkSettings && (
               <span>
                 <Octicon className="icon" symbol={octicons.repoForked} />
-                {__DARWIN__ ? 'Fork Behavior' : 'Fork behavior'}
+                {t('repositorySettings.fork-behavior-tab')}
               </span>
             )}
           </TabBar>
@@ -207,7 +210,7 @@ export class RepositorySettings extends React.Component<
         </div>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Save"
+            okButtonText={t('common.save')}
             okButtonDisabled={this.state.saveDisabled}
           />
         </DialogFooter>
@@ -308,7 +311,9 @@ export class RepositorySettings extends React.Component<
             `RepositorySettings: unable to set remote URL at ${this.props.repository.path}`,
             e
           )
-          errors.push(`Failed setting the remote URL: ${e}`)
+          errors.push(
+            t('repositorySettings.error-set-remote', { error: e })
+          )
         }
       }
     }
@@ -324,7 +329,9 @@ export class RepositorySettings extends React.Component<
           `RepositorySettings: unable to save gitignore at ${this.props.repository.path}`,
           e
         )
-        errors.push(`Failed saving the .gitignore file: ${e}`)
+        errors.push(
+          t('repositorySettings.error-save-gitignore', { error: e })
+        )
       }
     }
 

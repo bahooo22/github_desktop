@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { t } from '../../lib/l10n'
 import {
   syntaxHighlightLine,
   DiffRow,
@@ -455,7 +456,7 @@ export class SideBySideDiffRow extends React.Component<
           {data.noNewLineIndicator && (
             <span className="no-newline-indicator">
               <Octicon symbol={narrowNoNewlineSymbol} />
-              <span> No newline at end of file</span>
+              <span>{` ${t('diff.noNewlineAtEndOfFile')}`}</span>
             </span>
           )}
         </div>
@@ -472,7 +473,7 @@ export class SideBySideDiffRow extends React.Component<
       case DiffHunkExpansionType.Up:
         return {
           icon: octicons.foldUp,
-          title: 'Expand Up',
+          title: t('diff.expandUp'),
           handler: this.onExpandHunk(hunkIndex, expansionType),
         }
       // This can only be the last dummy hunk. In this case, we expand the
@@ -480,13 +481,13 @@ export class SideBySideDiffRow extends React.Component<
       case DiffHunkExpansionType.Down:
         return {
           icon: octicons.foldDown,
-          title: 'Expand Down',
+          title: t('diff.expandDown'),
           handler: this.onExpandHunk(hunkIndex - 1, expansionType),
         }
       case DiffHunkExpansionType.Short:
         return {
           icon: octicons.fold,
-          title: 'Expand All',
+          title: t('diff.expandAll'),
           handler: this.onExpandHunk(hunkIndex, expansionType),
         }
     }
@@ -645,12 +646,16 @@ export class SideBySideDiffRow extends React.Component<
           {!isOnlyOneCheckInRow && (
             <span className="sr-only">
               {' '}
-              Lines {lineNumbers.at(0)} to {lineNumbers.at(-1)}{' '}
-              {diffType === DiffRowType.Added
-                ? 'added'
-                : diffType === DiffRowType.Deleted
-                ? 'deleted'
-                : 'modified'}
+              {t('diff.linesRange', {
+                from: lineNumbers.at(0),
+                to: lineNumbers.at(-1),
+                status:
+                  diffType === DiffRowType.Added
+                    ? t('diff.added')
+                    : diffType === DiffRowType.Deleted
+                    ? t('diff.deleted')
+                    : t('diff.modified'),
+              })}{' '}
             </span>
           )}
         </span>
@@ -785,11 +790,15 @@ export class SideBySideDiffRow extends React.Component<
           {this.renderLineNumberCheck(isSelected)}
           {lineNumbers.map((lineNumber, index) => (
             <span key={index}>
-              {lineNumber && <span className="sr-only">Line </span>}
+              {lineNumber && (
+                <span className="sr-only">{`${t('diff.line')} `}</span>
+              )}
               {lineNumber}
               {lineNumber && isSelected !== undefined && (
                 <span className="sr-only">
-                  {column === DiffColumn.After ? ' added' : ' deleted'}
+                  {` ${t(
+                    column === DiffColumn.After ? 'diff.added' : 'diff.deleted'
+                  )}`}
                 </span>
               )}
             </span>

@@ -4,6 +4,7 @@ import { Button } from '../lib/button'
 import { Row } from '../lib/row'
 import { DialogContent } from '../dialog'
 import { Ref } from '../lib/ref'
+import { t } from '../../lib/l10n'
 
 interface ICloneGenericRepositoryProps {
   /** The URL to clone. */
@@ -34,13 +35,13 @@ export class CloneGenericRepository extends React.Component<
       <DialogContent className="clone-generic-repository-content">
         <Row>
           <TextBox
-            placeholder="URL or username/repository"
+            placeholder={t('cloneRepository.url-placeholder')}
             value={this.props.url}
             onValueChanged={this.onUrlChanged}
             autoFocus={true}
             label={
               <div className="clone-url-textbox-label">
-                <p>Repository URL or GitHub username and repository</p>
+                <p>{t('cloneRepository.url-label')}</p>
                 <p>
                   (<Ref>hubot/cool-repo</Ref>)
                 </p>
@@ -52,11 +53,13 @@ export class CloneGenericRepository extends React.Component<
         <Row>
           <TextBox
             value={this.props.path}
-            label={__DARWIN__ ? 'Local Path' : 'Local path'}
-            placeholder="repository path"
+            label={t('cloneRepository.local-path')}
+            placeholder={t('cloneRepository.path-placeholder')}
             onValueChanged={this.props.onPathChanged}
           />
-          <Button onClick={this.props.onChooseDirectory}>Choose…</Button>
+          <Button onClick={this.props.onChooseDirectory}>
+            {t('cloneRepository.choose')}
+          </Button>
         </Row>
       </DialogContent>
     )

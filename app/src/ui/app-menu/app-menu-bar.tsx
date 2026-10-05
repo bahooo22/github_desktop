@@ -7,6 +7,7 @@ import {
 } from '../../models/app-menu'
 import { AppMenuBarButton } from './app-menu-bar-button'
 import { Dispatcher } from '../dispatcher'
+import { t } from '../../lib/l10n'
 import { AppMenuFoldout, FoldoutType } from '../../lib/app-state'
 
 /** This is the id used for the windows app menu and used elsewhere
@@ -166,7 +167,7 @@ export class AppMenuBar extends React.Component<
         id="app-menu-bar"
         ref={this.onMenuBarRef}
         role="menubar"
-        aria-label="Application menu"
+        aria-label={t('appMenu.application-menu')}
       >
         {this.state.menuItems.map(this.renderMenuItem, this)}
       </div>

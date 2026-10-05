@@ -7,6 +7,7 @@ import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { Ref } from '../lib/ref'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 interface IDeleteBranchProps {
   readonly dispatcher: Dispatcher
@@ -39,7 +40,7 @@ export class DeleteBranch extends React.Component<
     return (
       <Dialog
         id="delete-branch"
-        title={__DARWIN__ ? 'Delete Branch' : 'Delete branch'}
+        title={t('deleteBranch.title')}
         type="warning"
         onSubmit={this.deleteBranch}
         onDismissed={this.props.onDismissed}
@@ -51,15 +52,22 @@ export class DeleteBranch extends React.Component<
         <DialogContent>
           <div id="delete-branch-confirmation-message">
             <p>
-              Delete branch <Ref>{this.props.branch.name}</Ref>?
+              <Trans
+                k="deleteBranch.confirm-message"
+                params={{ branch: this.props.branch.name }}
+                components={{ ref: <Ref /> }}
+              />
             </p>
-            <p>This action cannot be undone.</p>
+            <p>{t('deleteBranch.cannot-undo')}</p>
 
             {this.renderDeleteOnRemote()}
           </div>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup destructive={true} okButtonText="Delete" />
+          <OkCancelButtonGroup
+            destructive={true}
+            okButtonText={t('deleteBranch.delete')}
+          />
         </DialogFooter>
       </Dialog>
     )
@@ -70,13 +78,10 @@ export class DeleteBranch extends React.Component<
       return (
         <div>
           <p id="delete-branch-confirmation-message-remote">
-            <strong>
-              The branch also exists on the remote, do you wish to delete it
-              there as well?
-            </strong>
+            <strong>{t('deleteBranch.remote-exists-question')}</strong>
           </p>
           <Checkbox
-            label="Yes, delete this branch on the remote"
+            label={t('deleteBranch.delete-on-remote')}
             value={
               this.state.includeRemoteBranch
                 ? CheckboxValue.On

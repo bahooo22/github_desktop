@@ -7,6 +7,7 @@ import { Repository } from '../../models/repository'
 import { ICommitContext } from '../../models/commit'
 import { DefaultCommitMessage } from '../../models/commit-message'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t, Trans } from '../../lib/l10n'
 
 const GitLFSWebsiteURL =
   'https://help.github.com/articles/versioning-large-files/'
@@ -29,31 +30,29 @@ export class OversizedFiles extends React.Component<IOversizedFilesProps> {
     return (
       <Dialog
         id="oversized-files"
-        title={__DARWIN__ ? 'Files Too Large' : 'Files too large'}
+        title={t('changes.files-too-large')}
         onSubmit={this.onSubmit}
         onDismissed={this.props.onDismissed}
         type="warning"
       >
         <DialogContent>
-          <p>
-            The following files are over 100MB.{' '}
-            <strong>
-              If you commit these files, you will no longer be able to push this
-              repository to GitHub.com.
-            </strong>
-          </p>
+          <Trans
+            k="changes.oversized-files-warning"
+            components={{ strong: <strong /> }}
+          />
           {this.renderFileList()}
           <p className="recommendation">
-            We recommend you avoid committing these files or use{' '}
-            <LinkButton uri={GitLFSWebsiteURL}>Git LFS</LinkButton> to store
-            large files on GitHub.
+            <Trans
+              k="changes.oversized-files-recommendation"
+              components={{ link: <LinkButton uri={GitLFSWebsiteURL} /> }}
+            />
           </p>
         </DialogContent>
 
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={__DARWIN__ ? 'Commit Anyway' : 'Commit anyway'}
+            okButtonText={t('changes.commit-anyway')}
           />
         </DialogFooter>
       </Dialog>

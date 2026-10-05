@@ -28,6 +28,7 @@ import { Account } from '../../../models/account'
 import { Octicon } from '../../octicons'
 import * as octicons from '../../octicons/octicons.generated'
 import { Button } from '../../lib/button'
+import { t } from '../../../lib/l10n'
 
 interface IConflictsDialogProps {
   readonly dispatcher: Dispatcher
@@ -242,19 +243,20 @@ export class ConflictsDialog extends React.Component<
     }
 
     if (countResolved === 0) {
-      return <DialogSuccess>All resolutions have been undone.</DialogSuccess>
+      return (
+        <DialogSuccess>{t('multiCommit.conflicts.resolutionsUndone')}</DialogSuccess>
+      )
     }
 
     if (conflictedFilesCount === 0) {
       return (
-        <DialogSuccess>All conflicted files have been resolved. </DialogSuccess>
+        <DialogSuccess>{t('multiCommit.conflicts.allResolved')}</DialogSuccess>
       )
     }
 
-    const conflictPluralized = countResolved === 1 ? 'file has' : 'files have'
     return (
       <DialogSuccess>
-        {countResolved} conflicted {conflictPluralized} been resolved.
+        {t('multiCommit.conflicts.resolvedCount', { count: countResolved })}
       </DialogSuccess>
     )
   }
@@ -291,12 +293,12 @@ export class ConflictsDialog extends React.Component<
         disabled={this.state.isAborting}
         tooltip={
           this.state.isAborting
-            ? 'Cannot resolve while operation is being aborted'
-            : 'Use Copilot to suggest resolutions for conflicted files'
+            ? t('multiCommit.conflicts.copilotTooltipAborting')
+            : t('multiCommit.conflicts.copilotTooltip')
         }
       >
         <Octicon symbol={octicons.copilot} />
-        {' Resolve with Copilot'}
+        {' ' + t('multiCommit.conflicts.resolveWithCopilot')}
       </Button>
     )
 
@@ -306,7 +308,9 @@ export class ConflictsDialog extends React.Component<
 
     return (
       <div className="copilot-resolve-button-with-call-out">
-        <span className="call-to-action-bubble">New</span>
+        <span className="call-to-action-bubble">
+          {t('multiCommit.conflicts.newBadge')}
+        </span>
         {button}
       </div>
     )
@@ -359,7 +363,7 @@ export class ConflictsDialog extends React.Component<
 
     const tooltipString =
       conflictedFiles.length > 0
-        ? 'Resolve all changes before continuing'
+        ? t('multiCommit.conflicts.resolveAllFirst')
         : undefined
 
     return (

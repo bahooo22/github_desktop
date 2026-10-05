@@ -14,6 +14,7 @@ import {
   checkBranchNameRules,
   renderBranchNameRuleError,
 } from '../lib/branch-name-rule-validation'
+import { t } from '../../lib/l10n'
 
 interface IRenameBranchProps {
   readonly dispatcher: Dispatcher
@@ -66,7 +67,7 @@ export class RenameBranch extends React.Component<
     return (
       <Dialog
         id="rename-branch"
-        title={__DARWIN__ ? 'Rename Branch' : 'Rename branch'}
+        title={t('renameBranch.title')}
         onDismissed={this.props.onDismissed}
         onSubmit={this.renameBranch}
         focusCloseButtonOnOpen={true}
@@ -74,7 +75,7 @@ export class RenameBranch extends React.Component<
         <DialogContent>
           {renderBranchHasRemoteWarning(this.props.branch)}
           <RefNameTextBox
-            label="Name"
+            label={t('renameBranch.name')}
             ariaDescribedBy={hasError ? this.ERRORS_ID : undefined}
             initialValue={this.props.branch.name}
             onValueChange={this.onNameChange}
@@ -89,7 +90,9 @@ export class RenameBranch extends React.Component<
 
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={`Rename ${this.props.branch.name}`}
+            okButtonText={t('renameBranch.rename-button', {
+              branch: this.props.branch.name,
+            })}
             okButtonDisabled={disabled}
           />
         </DialogFooter>

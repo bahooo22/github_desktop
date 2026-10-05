@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { t } from '../../../lib/l10n'
 import { Image, ImageDiffType } from '../../../models/diff'
 import { TabBar, TabBarType } from '../../tab-bar'
 import { TwoUp } from './two-up'
@@ -153,10 +154,10 @@ export class ModifiedImageDiff extends React.Component<
           onTabClicked={this.props.onChangeDiffType}
           type={TabBarType.Switch}
         >
-          <span>2-up</span>
-          <span>Swipe</span>
-          <span>Onion Skin</span>
-          <span>Difference</span>
+          <span>{t('diff.image.twoUp')}</span>
+          <span>{t('diff.image.swipe')}</span>
+          <span>{t('diff.image.onionSkin')}</span>
+          <span>{t('diff.image.difference')}</span>
         </TabBar>
 
         {this.renderCurrentDiffType()}

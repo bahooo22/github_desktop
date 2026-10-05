@@ -1,6 +1,7 @@
 import * as React from 'react'
 import * as Path from 'path'
 
+import { t } from '../../lib/l10n'
 import { Repository } from '../../models/repository'
 
 import { LinkButton } from '../lib/link-button'
@@ -25,10 +26,10 @@ export class BinaryFile extends React.Component<IBinaryFileProps, {}> {
   public render() {
     return (
       <div className="panel binary" id="diff">
-        <div className="image-header">This binary file has changed.</div>
+        <div className="image-header">{t('diff.binary.changed')}</div>
         <div className="image-header">
           <LinkButton onClick={this.open}>
-            Open file in external program.
+            {t('diff.binary.openInExternalProgram')}
           </LinkButton>
         </div>
       </div>

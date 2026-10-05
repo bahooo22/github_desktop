@@ -23,6 +23,7 @@ import memoizeOne from 'memoize-one'
 import { getAuthors } from '../../lib/git/log'
 import { Repository } from '../../models/repository'
 import { formatDate } from '../../lib/format-date'
+import { t } from '../../lib/l10n'
 
 const RowHeight = 30
 
@@ -339,12 +340,12 @@ export class BranchList extends React.Component<
     return (
       <div className="branches-list-item-tooltip list-item-tooltip">
         <div>
-          <div className="label">Full Name: </div>
+          <div className="label">{`${t('branches.full-name')} `}</div>
           {name}
         </div>
         {absoluteDate && (
           <div>
-            <div className="label">Last Modified: </div>
+            <div className="label">{`${t('branches.last-modified')} `}</div>
             {absoluteDate}
           </div>
         )}
@@ -387,11 +388,11 @@ export class BranchList extends React.Component<
 
   private getGroupLabel(identifier: BranchGroupIdentifier) {
     if (identifier === 'default') {
-      return __DARWIN__ ? 'Default Branch' : 'Default branch'
+      return t('branches.default-branch-group')
     } else if (identifier === 'recent') {
-      return __DARWIN__ ? 'Recent Branches' : 'Recent branches'
+      return t('branches.recent-branches-group')
     } else if (identifier === 'other') {
-      return __DARWIN__ ? 'Other Branches' : 'Other branches'
+      return t('branches.other-branches-group')
     } else {
       return assertNever(identifier, `Unknown identifier: ${identifier}`)
     }
@@ -410,7 +411,7 @@ export class BranchList extends React.Component<
   private onRenderNewButton = () => {
     return this.props.canCreateNewBranch ? (
       <Button className="new-branch-button" onClick={this.onCreateNewBranch}>
-        {__DARWIN__ ? 'New Branch' : 'New branch'}
+        {t('branches.new-branch')}
       </Button>
     ) : null
   }

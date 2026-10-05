@@ -8,6 +8,7 @@ import {
 } from './push-protection-error-dialog'
 import { PathText } from '../lib/path-text'
 import { Button } from '../lib/button'
+import { t } from '../../lib/l10n'
 
 interface IPushProtectionErrorLocationProps {
   readonly secret: ISecretScanResult
@@ -44,7 +45,7 @@ export class PushProtectionErrorLocation extends React.Component<
             {location.commitSha.substring(0, 7)}
           </span>
           <CopyButton
-            ariaLabel="Copy the full SHA"
+            ariaLabel={t('secretScanning.copySha')}
             copyContent={location.commitSha}
           />
         </span>
@@ -54,7 +55,7 @@ export class PushProtectionErrorLocation extends React.Component<
               path={location.path}
               availableWidth={isFirst ? 200 : 275}
             />
-            at line {location.lineNumber}
+            {t('secretScanning.atLine', { line: location.lineNumber })}
           </span>
         </span>
       </span>
@@ -67,8 +68,8 @@ export class PushProtectionErrorLocation extends React.Component<
     const firstLocation = secret.locations.at(0)
     const showMoreLocationsToggle = secret.locations.length > 1
     const toggleText = showMoreLocations
-      ? 'Show Less Locations'
-      : 'Show More locations'
+      ? t('secretScanning.showLessLocations')
+      : t('secretScanning.showMoreLocations')
     if (firstLocation === undefined) {
       return null
     }

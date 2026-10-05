@@ -3,7 +3,9 @@
     "name": "Russian",
     "nativeName": "Русский",
     "direction": "ltr",
-    "authors": ["BaHooo"]
+    "authors": [
+      "BaHooo"
+    ]
   },
   "common": {
     "cancel": "Отмена",
@@ -18,28 +20,16 @@
     "learnMore": "Подробнее"
   },
   "app": {
-    "select-repository": {
-      "@darwin": "Выбрать репозиторий",
-      "@other": "Выбрать репозиторий"
-    },
-    "no-repositories": {
-      "@darwin": "Нет репозиториев",
-      "@other": "Нет репозиториев"
-    },
-    "current-repository": {
-      "@darwin": "Текущий репозиторий",
-      "@other": "Текущий репозиторий"
-    },
+    "select-repository": "Выберите репозиторий",
+    "no-repositories": "Нет репозиториев",
+    "current-repository": "Текущий репозиторий",
     "no-repository-selected": "Репозиторий не выбран"
   },
   "account-picker": {
     "account": "Аккаунт"
   },
   "settings": {
-    "title": {
-      "@darwin": "Настройки",
-      "@other": "Параметры"
-    },
+    "title": "Настройки",
     "tab": {
       "accounts": "Аккаунты",
       "integrations": "Интеграции",
@@ -56,7 +46,7 @@
       "add-enterprise": "Добавить аккаунт GitHub Enterprise",
       "sign-out": "Выйти",
       "sign-into-dotcom": "Войти в GitHub.com",
-      "sign-into-enterprise": "Войти в GitHub Enterprise",
+      "sign-into-enterprise": "Войти в Enterprise",
       "dotcom-description": "Войдите в аккаунт GitHub.com, чтобы получить доступ к своим репозиториям.",
       "enterprise-description": "Если вы используете GitHub Enterprise на работе, войдите в него, чтобы получить доступ к своим репозиториям."
     },
@@ -64,11 +54,7 @@
       "title": "Язык интерфейса",
       "description": "Выберите язык интерфейса. Новые и исправленные переводы подхватываются сразу, перезапуск не нужен.",
       "systemDefault": "Автоопределение по языку системы",
-      "detected": {
-        "@darwin": "Определено из macOS: {languages}",
-        "@win32": "Определено из Windows: {languages}",
-        "@linux": "Определено из сессии рабочего стола: {languages}"
-      },
+      "detected": "Обнаружен",
       "noMatch": "Перевода на ваши системные языки ({languages}) пока нет, поэтому интерфейс остаётся на английском.",
       "available": "Языки",
       "yours": "ваш",
@@ -79,12 +65,7 @@
       "openFolder": "Открыть папку переводов",
       "folderHint": "Можно просто положить JSON-файлы в {path} и обновить список.",
       "reload": "Обновить переводы",
-      "reloaded": {
-        "_one": "Загружен {count:number} перевод с диска",
-        "_few": "Загружено {count:number} перевода с диска",
-        "_many": "Загружено {count:number} переводов с диска",
-        "_other": "Загружено {count:number} перевода с диска"
-      },
+      "reloaded": "Перезагружен",
       "reset": "Вернуть встроенный перевод",
       "resetAll": "Удалить все мои переводы",
       "confirmResetAll": "Будут удалены все добавленные вами переводы. Отменить это нельзя."
@@ -95,18 +76,15 @@
       "no-editors-found": "Редакторы не найдены.",
       "no-other-editors-found": "Другие редакторы не найдены.",
       "install-editor": "Установить {name}?",
-      "configure-custom-editor": "Настроить пользовательский редактор…",
+      "configure-custom-editor": "Настроить редактор",
       "shell": "Оболочка",
-      "configure-custom-shell": "Настроить пользовательскую оболочку…",
+      "configure-custom-shell": "Настроить оболочку",
       "applications": "Приложения",
       "choose-copilot": "Выбрать GitHub Copilot",
       "copilot-description": "Попробуйте разработку с помощью агентов, нативно встроенную в GitHub.",
       "copilot-learn-more": "Подробнее о GitHub Copilot",
       "app-location": "Расположение приложения",
-      "app-location-placeholder": {
-        "@darwin": "путь к GitHub Copilot.app",
-        "@other": "путь к github.exe"
-      },
+      "app-location-placeholder": "Путь к приложению",
       "choose": "Выбрать…"
     },
     "git": {
@@ -135,10 +113,10 @@
       "date-format": "Формат даты",
       "time-format": "Формат времени",
       "number-format": "Формат чисел",
-      "format-example": "{example} ({pattern})",
+      "format-example": "Format Example",
       "prefer-absolute-dates": "Предпочитать абсолютные даты относительным",
       "miscellaneous": "Разное",
-      "diff-tab-size": "Размер табуляции в диффе",
+      "diff-tab-size": "Размер табуляции в diff",
       "tab-size-default": "{size:number} (по умолчанию)",
       "always-show-worktree-list": "Всегда показывать список worktree"
     },
@@ -171,7 +149,7 @@
       "network-and-credentials": "Сеть и учётные данные",
       "use-git-credential-manager": "Использовать Git Credential Manager",
       "gcm-description-prefix": "Используйте",
-      "gcm-name": "Git Credential Manager",
+      "gcm-name": "Gcm Name",
       "gcm-description-suffix": "для закрытых репозиториев вне GitHub.com. Эта функция экспериментальная и может измениться.",
       "use-system-openssh": "Использовать системный OpenSSH (рекомендуется)"
     },
@@ -202,39 +180,29 @@
       "view-plans": "Смотреть тарифы Copilot",
       "desktop-disabled": "Для вашего аккаунта лицензия Copilot есть, но функция \"Copilot in GitHub Desktop\" отключена в настройках функций Copilot.",
       "open-feature-settings": "Открыть настройки функций Copilot",
-      "settings-title": "Параметры Copilot",
+      "settings-title": "Copilot",
       "custom-providers-title": "Пользовательские провайдеры",
-      "add-provider": "Добавить провайдера…",
+      "add-provider": "Добавить провайдера",
       "loading-models": "Загружаем доступные модели…",
       "no-models": "Модели Copilot недоступны.",
       "custom-instructions": "Настройте поведение Copilot с помощью <link>пользовательских инструкций</link>.",
       "learn-more-commit-messages": "Подробнее о генерации сообщений коммитов.",
-      "commit-message-generation": "Генерация сообщений коммитов",
+      "commit-message-generation": "Генерация сообщения коммита",
       "conflict-resolution": "Разрешение конфликтов",
       "conflict-model-changes": "Смена модели применяется к будущим разрешениям конфликтов.",
-      "always-use-copilot-conflicts": "Всегда использовать Copilot при обнаружении конфликтов",
+      "always-use-copilot-conflicts": "Всегда использовать Copilot для конфликтов",
       "byok-empty-description": "Добавьте пользовательского провайдера, чтобы использовать свои ключи API с эндпоинтами, совместимыми с OpenAI, Azure, Anthropic или локальные провайдеры вроде Ollama.",
-      "provider-model-count": {
-        "_one": "{count:number} модель",
-        "_few": "{count:number} модели",
-        "_many": "{count:number} моделей",
-        "_other": "{count:number} модели"
-      },
+      "provider-model-count": "Количество моделей провайдера",
       "local": "Локальный",
       "edit-provider": "Изменить {name}",
       "remove-provider": "Удалить {name}",
       "provider-type-openai": "Совместимый с OpenAI",
-      "provider-type-azure": "Azure",
-      "provider-type-anthropic": "Anthropic",
+      "provider-type-azure": "Provider Type Azure",
+      "provider-type-anthropic": "Provider Type Anthropic",
       "unavailable": "Недоступно",
       "context": "Контекст",
       "reasoning": "Рассуждения",
-      "ai-credits-per-tokens": {
-        "_one": "AI-кредиты за {count:number} токен",
-        "_few": "AI-кредиты за {count:number} токена",
-        "_many": "AI-кредиты за {count:number} токенов",
-        "_other": "AI-кредиты за {count:number} токена"
-      },
+      "ai-credits-per-tokens": "AI-кредиты за токены",
       "input": "Вход",
       "cached-input": "Кэшированный вход",
       "output": "Выход",
@@ -252,24 +220,9 @@
         "credits-used": "Использовано AI-кредитов: {used} / {entitlement}",
         "no-usage-limit": "Лимит не задан",
         "quota-used": "Использовано {percentage:number}% лимита",
-        "resets-in-minutes": {
-          "_one": "сброс через {count:number} минуту",
-          "_few": "сброс через {count:number} минуты",
-          "_many": "сброс через {count:number} минут",
-          "_other": "сброс через {count:number} минуты"
-        },
-        "resets-in-hours": {
-          "_one": "сброс через {count:number} час",
-          "_few": "сброс через {count:number} часа",
-          "_many": "сброс через {count:number} часов",
-          "_other": "сброс через {count:number} часа"
-        },
-        "resets-in-days": {
-          "_one": "сброс через {count:number} день",
-          "_few": "сброс через {count:number} дня",
-          "_many": "сброс через {count:number} дней",
-          "_other": "сброс через {count:number} дня"
-        },
+        "resets-in-minutes": "Сбрасывается через минут",
+        "resets-in-hours": "Сбрасывается через часов",
+        "resets-in-days": "Сбрасывается через дней",
         "resets-monthly": "(сброс ежемесячно)",
         "configure": "Настроить…",
         "loading": "Загружаем данные об использовании Copilot…",
@@ -342,178 +295,10 @@
     "pluralNote": "Эта строка меняется вместе с числом, поэтому для каждой формы нужна отдельная графа.",
     "platformNote": "Эта строка различается по операционным системам. Показана форма для вашей системы.",
     "placeholderWarning": "В оригинале есть {placeholders} — сохраните их и в переводе.",
-    "progress": {
-      "_one": "Переведено {translated:number} строка из {total:number}",
-      "_few": "Переведено {translated:number} строки из {total:number}",
-      "_many": "Переведено {translated:number} строк из {total:number}",
-      "_other": "Переведено {translated:number} строки из {total:number}"
-    },
+    "progress": "Прогресс",
     "close": "Закрыть"
   },
-  "menu": {
-    "file": "&Файл",
-    "edit": "&Правка",
-    "view": "&Вид",
-    "undo": "&Отменить",
-    "redo": "&Повторить",
-    "cut": "&Вырезать",
-    "copy": "&Копировать",
-    "paste": "Вст&авить",
-    "select-all": "Выде&лить всё",
-    "about": "О GitHub Desktop",
-    "preferences": "Параметры…",
-    "exit": "&Выход",
-    "help": "&Справка",
-    "show-user-guides": "Руководство пользователя",
-    "show-keyboard-shortcuts": {
-      "@darwin": "Показать горячие клавиши",
-      "@other": "Показать &горячие клавиши"
-    },
-    "show-logs": {
-      "@darwin": "Показать журналы в Finder",
-      "@win32": "Показать &журналы в Проводнике",
-      "@other": "Показать &журналы в файловом менеджере"
-    },
-    "install-cli": "Установить инструмент командной строки…",
-    "create-pull-request": {
-      "@darwin": "Создать pull request",
-      "@other": "Создать &pull request"
-    },
-    "view-pull-request": {
-      "@darwin": "Открыть pull request на GitHub",
-      "@other": "Открыть pull request на Git&Hub"
-    },
-    "default-branch-name": {
-      "@darwin": "Ветка по умолчанию",
-      "@other": "ветка по умолчанию"
-    },
-    "remove-repository-confirm": "&Удалить…",
-    "remove-repository": "Удалить",
-    "stash-all-changes-confirm": "&Скрыть все изменения…",
-    "stash-all-changes": "Скрыть все изменения",
-    "new-repository": {
-      "@darwin": "Новый репозиторий…",
-      "@other": "&Новый репозиторий…"
-    },
-    "add-local-repository": {
-      "@darwin": "Добавить локальный репозиторий…",
-      "@other": "&Добавить локальный репозиторий…"
-    },
-    "clone-repository": {
-      "@darwin": "Клонировать репозиторий…",
-      "@other": "К&лонировать репозиторий…"
-    },
-    "find": "&Найти",
-    "show-changes": "&Изменения",
-    "show-history": "И&стория",
-    "show-repository-list": "Список репо&зитория",
-    "show-branches-list": "Список &веток",
-    "show-worktrees-list": "Показать список &worktree",
-    "show-stashed-changes": {
-      "@darwin": "Показать спрятанные изменения",
-      "@other": "Показать спрят&анные изменения"
-    },
-    "hide-stashed-changes": {
-      "@darwin": "Скрыть спрятанные изменения",
-      "@other": "Скры&ть спрятанные изменения"
-    },
-    "show-changes-filter": {
-      "@darwin": "Показать фильтр изменений",
-      "@other": "Показать &фильтр изменений"
-    },
-    "hide-changes-filter": {
-      "@darwin": "Скрыть фильтр изменений",
-      "@other": "Скрыть &фильтр изменений"
-    },
-    "go-to-commit-message": {
-      "@darwin": "Перейти к описанию",
-      "@other": "Перейти к описа&нию"
-    },
-    "increase-active-resizable-width": "Развернуть активную панель",
-    "decrease-active-resizable-width": "Свернуть активную панель",
-    "reload-window": "&Обновить",
-    "show-devtools": {
-      "@darwin": "Показать инструменты разработчика",
-      "@other": "Показать инструменты &разработчика"
-    },
-    "repository": "&Репозиторий",
-    "pull": {
-      "@darwin": "Забрать",
-      "@other": "&Забрать"
-    },
-    "fetch": {
-      "@darwin": "Получить",
-      "@other": "По&лучить"
-    },
-    "view-repository-on-github": {
-      "@darwin": "Открыть на GitHub",
-      "@other": "Открыть на &GitHub"
-    },
-    "open-working-directory": {
-      "@darwin": "Показать в Finder",
-      "@win32": "Показать в Пр&оводнике",
-      "@other": "Показать в файловом &менеджере"
-    },
-    "open-in-copilot-app": {
-      "@darwin": "Открыть в GitHub Copilot",
-      "@other": "Открыть в GitHub &Copilot"
-    },
-    "open-with-external-editor": {
-      "@darwin": "Открыть в…",
-      "@other": "Открыть &в…"
-    },
-    "create-issue-in-repository-on-github": {
-      "@darwin": "Создать issue на GitHub",
-      "@other": "Соз&дать issue на GitHub"
-    },
-    "create-worktree": {
-      "@darwin": "Новый worktree…",
-      "@other": "&Новый worktree…"
-    },
-    "show-repository-settings": {
-      "@darwin": "Настройки репозитория…",
-      "@other": "Настройки &репозитория…"
-    },
-    "create-branch": {
-      "@darwin": "Новая ветка…",
-      "@other": "Новая &ветка…"
-    },
-    "rename-branch": {
-      "@darwin": "Переименовать…",
-      "@other": "&Переименовать…"
-    },
-    "delete-branch": {
-      "@darwin": "Удалить…",
-      "@other": "У&далить…"
-    },
-    "discard-all-changes": {
-      "@darwin": "Отменить все изменения…",
-      "@other": "Отменить все &изменения…"
-    },
-    "compare-to-branch": {
-      "@darwin": "Сравнить с веткой",
-      "@other": "Ср&авнить с веткой"
-    },
-    "merge-branch": {
-      "@darwin": "Слить в текущую ветку…",
-      "@other": "С&лить в текущую ветку…"
-    },
-    "squash-and-merge-branch": {
-      "@darwin": "Сжать и слить в текущую ветку…",
-      "@other": "С&жать и слить в текущую ветку…"
-    },
-    "rebase-branch": {
-      "@darwin": "Перебазировать текущую ветку…",
-      "@other": "П&еребазировать текущую ветку…"
-    },
-    "compare-on-github": {
-      "@darwin": "Сравнить на GitHub",
-      "@other": "Сравнить на &GitHub"
-    },
-    "branch-on-github": "Показать ветку на GitHub",
-    "preview-pull-request": "Предпросмотр pull request",
-    "branch": "Вет&ка"
-  },
+  "menu": "Меню",
   "about": {
     "title": "О приложении {name}",
     "build": "Сборка {version}",
@@ -548,9 +333,9 @@
     "clone-url": "URL для клонирования",
     "dispatch": "Отправить",
     "path": "Путь",
-    "url": "URL",
+    "url": "Url",
     "branch-optional": "Ветка (необязательно)",
-    "installed-title": "Инструмент командной строки установлен",
+    "installed-title": "CLI установлен",
     "installed-info": "Инструмент командной строки установлен по пути <strong>{path}</strong>."
   },
   "moveToApplications": {
@@ -569,11 +354,11 @@
     "get-started": "Давайте начнём!",
     "add-repository-hint": "Добавьте репозиторий в GitHub Desktop, чтобы начать совместную работу",
     "clone-selected": "Клонировать <strong>{repository}</strong>",
-    "return-to-tutorial": "Вернуться к незавершённому обучению",
-    "create-tutorial": "Создать учебный репозиторий…",
-    "clone-from-internet": "Клонировать репозиторий из интернета…",
-    "create-new-repository": "Создать новый репозиторий на локальном диске…",
-    "add-existing-repository": "Добавить существующий репозиторий с локального диска…",
+    "return-to-tutorial": "Вернуться к учебному репозиторию",
+    "create-tutorial": "Создать учебный репозиторий",
+    "clone-from-internet": "Клонировать из интернета",
+    "create-new-repository": "Создать новый репозиторий",
+    "add-existing-repository": "Добавить существующий репозиторий",
     "drag-drop-hint": "<strong>Совет!</strong> Сюда можно перетащить папку существующего репозитория, чтобы добавить её в Desktop"
   },
   "signIn": {
@@ -637,5 +422,823 @@
     "configure-git-description": "Эти данные используются для идентификации создаваемых вами коммитов. Любой сможет увидеть эту информацию, если вы опубликуете коммиты.",
     "finish": "Завершить",
     "sign-in-enterprise-title": "Войти в ваш GitHub Enterprise"
-  }
+  },
+  "activity": "Активность",
+  "addRepository": {
+    "add-local-repository": "Добавить локальный репозиторий",
+    "add-repository-ok": "Добавить репозиторий",
+    "bare-repository-error": "Голый репозиторий не поддерживается",
+    "choose": "Выбрать…",
+    "create-new-repository": "Создать новый репозиторий",
+    "create-repository-ok": "Создать репозиторий",
+    "description": "Описание",
+    "existing-repository-warning-aria": "Предупреждение о существующем репозитории",
+    "git-ignore-label": "Git ignore",
+    "initialize-with-readme": "Инициализировать с README",
+    "invalid-path-error": "Недопустимый путь",
+    "license-label": "Лицензия",
+    "local-path": "Локальный путь",
+    "name-placeholder": "Имя репозитория",
+    "none": "Нет",
+    "not-a-repository": "Это не репозиторий Git",
+    "not-a-repository-screen-reader": "Не репозиторий (скринридер)",
+    "path-placeholder": "Путь к репозиторию",
+    "readme-overwrite-aria": "README будет перезаписан",
+    "subfolder-warning-aria": "Предупреждение о подпапке",
+    "unsafe-repository-screen-reader": "Небезопасный репозиторий (скринридер)"
+  },
+  "appMenu": {
+    "application-menu": "Меню приложения"
+  },
+  "base": "База",
+  "basic": "Базовый",
+  "branches": {
+    "checkout-in-new-worktree": "Переключить в новом worktree",
+    "copy-name": "Копировать имя",
+    "default-branch-group": "Ветка по умолчанию",
+    "delete": "Удалить",
+    "full-name": "Полное имя",
+    "last-modified": "Последнее изменение",
+    "new-branch": "Новая ветка",
+    "other-branches-group": "Другие ветки",
+    "recent-branches-group": "Недавние ветки",
+    "rename": "Переименовать",
+    "view-on-github": "Показать на GitHub",
+    "view-pr-on-github": "Показать PR на GitHub"
+  },
+  "canvas": "Холст",
+  "changes": {
+    "adjust-filters": "Настроить фильтры",
+    "and-word": "и",
+    "avatar": {
+      "account-emails": "Email-адреса аккаунта",
+      "also-word": "также",
+      "aria-disallowed-email": "Запрещённый email",
+      "aria-misattributed": "Неверная атрибуция",
+      "aria-view-author": "Показать автора",
+      "committing-with": "Коммит от имени",
+      "config-location-desc-local": "Локальная конфигурация",
+      "config-location-global": "Глобальная конфигурация",
+      "config-location-local": "Локальная конфигурация",
+      "email-label": "Email",
+      "for-user": "для пользователя",
+      "git-config-hint": "Подсказка конфигурации Git",
+      "header-disallowed-email": "Запрещённый email",
+      "header-misattributed": "Неверная атрибуция",
+      "ignore": "Игнорировать",
+      "learn-more-attribution": "Подробнее об атрибуции",
+      "open-git-settings": "Открыть настройки Git",
+      "settings-git": "Настройки Git",
+      "settings-repository": "Настройки репозитория",
+      "unknown-user": "Неизвестный пользователь",
+      "update-email": "Обновить email"
+    },
+    "check-all-label": "Выбрать все",
+    "check-all-label-filtered": "Выбрать все (отфильтровано)",
+    "commit-anyway": "Всё равно закоммитить",
+    "commit-filtered-dialog": {
+      "dont-show-again": "Больше не показывать",
+      "title": "Коммит отфильтрованных изменений"
+    },
+    "commits-word": "коммитов",
+    "continue-rebase": {
+      "rebasing": "Продолжение rebase",
+      "resolve-conflicts": "Разрешите конфликты",
+      "tooltip": "Продолжить rebase",
+      "untracked-excluded": "Неотслеживаемые файлы исключены"
+    },
+    "create-pr-button": "Создать pull request",
+    "create-pr-title": "Создать pull request",
+    "discard-all-changes": "Отменить все изменения",
+    "discard-changes": "Отменить изменения",
+    "discard-selected-changes": "Отменить выбранные изменения",
+    "exclude-selected-files": "Исключить выбранные файлы",
+    "file": {
+      "included": "Включён",
+      "not-included": "Не включён",
+      "partially-included": "Частично включён"
+    },
+    "files-selected": "Файлов выбрано",
+    "files-too-large": "Файлы слишком большие",
+    "filter-placeholder": "Filter Placeholder",
+    "filter": {
+      "applied": "Применён",
+      "clear": "Clear",
+      "deleted-files": "Удалённые файлы",
+      "excluded-from-commit": "Исключены из коммита",
+      "included-in-commit": "Включены в коммит",
+      "modified-files": "Изменённые файлы",
+      "name": {
+        "deleted": "Deleted",
+        "excluded": "Excluded",
+        "included": "Included",
+        "modified": "Modified",
+        "new": "New"
+      },
+      "new-files": "Новые файлы",
+      "title": "Title"
+    },
+    "hidden-changes": "Hidden Changes",
+    "ignore-extension-files": "Игнорировать файлы расширения",
+    "ignore-file": "Ignore File",
+    "ignore-folder": "Ignore Folder",
+    "ignore-selected-files": "Игнорировать выбранные файлы",
+    "include-selected-files": "Include Selected Files",
+    "no-changes-description": "Нет изменений",
+    "no-files-match": "No Files Match",
+    "no-local-changes": "Нет локальных изменений",
+    "no-results-message": "Нет результатов",
+    "open-in-editor": "Открыть в редакторе",
+    "open-in-editor-title": "Открыть в редакторе",
+    "placeholder-create": "Создать",
+    "placeholder-delete": "Удалить",
+    "placeholder-update": "Обновить",
+    "preview-pr-button": "Preview Pr Button",
+    "preview-pr-title": "Preview Pr Title",
+    "publish-branch-button": "Publish Branch Button",
+    "publish-branch-title": "Publish Branch Title",
+    "publish-repo-button": "Publish Repo Button",
+    "publish-repo-description": "Publish Repo Description",
+    "publish-repo-title": "Publish Repo Title",
+    "pull-branch-button": "Получить ветку",
+    "pull-branch-title": "Получить ветку",
+    "push-branch-button": "Отправить ветку",
+    "push-branch-description": "Отправить ветку на удалённый сервер",
+    "push-branch-title": "Отправить ветку",
+    "push-local-commits": "Отправить локальные коммиты",
+    "push-local-tags": "Отправить локальные теги",
+    "remote-word": "Удалённый",
+    "settings-or-options": "Настройки или параметры",
+    "show-in-file-manager": "Показать в файловом менеджере",
+    "stash-all-changes": "Stash All Changes",
+    "stash-description": "Описание скрытых изменений",
+    "stash-discoverability": "Обнаружение скрытых изменений",
+    "stash-title": "Stash Title",
+    "stash-view": "Stash View",
+    "stashed-changes": "Скрытые изменения",
+    "submodule-partially-committable": "Submodule Partially Committable",
+    "submodule-uncommittable": "Submodule Uncommittable",
+    "summary-placeholder": "Summary Placeholder",
+    "tags-word": "Теги",
+    "undo": "Отменить",
+    "undo-aria": "Undo Aria",
+    "undo-disabled-tooltip": "Undo Disabled Tooltip",
+    "view-on-github-title": "Показать на GitHub",
+    "warning-word": "Warning Word"
+  },
+  "checkRuns": {
+    "completeness-aria": "Полнота проверок",
+    "loading": {
+      "cta": "Cta",
+      "title": "Title"
+    },
+    "no-steps": "Нет шагов",
+    "rerun": {
+      "all-option": "All Option",
+      "button": "Button",
+      "button-with-menu": "Кнопка с меню",
+      "failed-option": "Failed Option",
+      "job-tooltip": "Подсказка задания"
+    },
+    "summary-title": "Summary Title",
+    "title": {
+      "all-failed": "All Failed",
+      "all-passed": "All Passed",
+      "pending": "Pending",
+      "some-failed": "Some Failed"
+    },
+    "view-details": "Подробности",
+    "view-on-github": "Показать на GitHub"
+  },
+  "checkout": {
+    "checkout": "Переключить",
+    "confirm-message": "Подтвердите переключение",
+    "dont-show-again": "Dont Show Again",
+    "title": "Title"
+  },
+  "cherryPickBranchCreatedCount": "Cherry-pick: ветка создана",
+  "cherryPickConflictsEncounteredCount": "Cherry-pick: конфликты",
+  "cherryPickMultipleCommitsCount": "Cherry-pick: несколько коммитов",
+  "cherryPickSuccessfulWithConflictsCount": "Cherry-pick: успешно с конфликтами",
+  "cherryPickViaDragAndDropCount": "Cherry-pick перетаскиванием",
+  "chooseForkSettings": {
+    "continue": "Продолжить",
+    "contribute-to-parent": "Contribute To Parent",
+    "for-my-own-purposes": "For My Own Purposes",
+    "question-label": "Question Label",
+    "title": "Title"
+  },
+  "cloneRepository": {
+    "archived": "Архивный",
+    "choose": "Choose",
+    "clone": "Клонировать",
+    "dotcom-sign-in-description": "Войдите в GitHub.com для клонирования",
+    "enterprise-sign-in-description": "Войдите в Enterprise для клонирования",
+    "error-app-suffix": "Error App Suffix",
+    "error-directory-could-not-create": "Не удалось создать директорию",
+    "error-folder-not-empty": "Error Folder Not Empty",
+    "error-path-is-file": "Error Path Is File",
+    "error-repository-not-found": "Репозиторий не найден",
+    "error-unable-to-read-path": "Error Unable To Read Path",
+    "filter-placeholder": "Filter Placeholder",
+    "loading-repositories": "Загрузка репозиториев",
+    "local-path": "Local Path",
+    "path-placeholder": "Path Placeholder",
+    "refresh-tooltip": "Refresh Tooltip",
+    "save-dialog-name-field-label": "Save Dialog Name Field Label",
+    "save-dialog-select-label": "Save Dialog Select Label",
+    "sign-in": "Войти",
+    "title": "Title",
+    "url-label": "Url Label",
+    "url-placeholder": "Url Placeholder",
+    "your-repositories": "Ваши репозитории"
+  },
+  "commitMessage": {
+    "add-co-authors": "Add Co Authors",
+    "allow-empty-commit": "Разрешить пустой коммит",
+    "amend": "Amend",
+    "amend-last-commit": "Изменить последний коммит",
+    "amending": "Amending",
+    "bypass-hooks": "Bypass Hooks",
+    "commit": "Коммит",
+    "commit-title": "Заголовок коммита",
+    "committed-just-now": "Только что",
+    "committing": "Коммичу",
+    "committing-changes": "Коммичу изменения",
+    "configure-options": "Configure Options",
+    "copilot-tooltip": "Copilot Tooltip",
+    "copilot-tooltip-cancel": "Copilot Tooltip Cancel",
+    "copilot-tooltip-no-files": "Copilot: нет файлов",
+    "create-group": "Create Group",
+    "description-label": "Description Label",
+    "description-placeholder": "Description Placeholder",
+    "description-sr-label": "Description Sr Label",
+    "disable-spellcheck": "Disable Spellcheck",
+    "enable-spellcheck": "Включить проверку орфографии",
+    "error-word": "Error Word",
+    "generate-with-copilot": "Generate With Copilot",
+    "generating-details": "Generating Details",
+    "hook-failed": "Хук не выполнен",
+    "hook-finished": "Хук завершён",
+    "hook-running": "Hook Running",
+    "length-hint-aria": "Length Hint Aria",
+    "length-hint-description": "Подсказка длины сообщения",
+    "length-hint-title": "Length Hint Title",
+    "new-badge": "New Badge",
+    "optimizing-repository": "Optimizing Repository",
+    "remove-co-authors": "Remove Co Authors",
+    "rule-failure-aria": "Нарушение правила",
+    "rule-failure-bypass": "Обойти нарушение правила",
+    "rule-failures-leading": "Rule Failures Leading",
+    "rule-failures-title": "Rule Failures Title",
+    "select-files": "Выбрать файлы",
+    "show-progress": "Show Progress",
+    "signed-off-by-trailer": "Signed Off By Trailer",
+    "summary-label": "Summary Label",
+    "summary-required": "Краткое описание обязательно",
+    "summary-sr-label": "Краткое описание (скринридер)",
+    "warning-word": "Warning Word"
+  },
+  "commitSigning": "Подпись коммитов",
+  "contextmenu": "Contextmenu",
+  "createBranch": {
+    "based-on-commit": "На основе коммита",
+    "based-on-label": "Based On Label",
+    "branch-exists-error": "Ветка уже существует",
+    "could-not-determine-default-branch": "Could Not Determine Default Branch",
+    "create-branch-ok": "Create Branch Ok",
+    "current-branch-description": "Current Branch Description",
+    "default-branch-description": "Default Branch Description",
+    "detached-head": "Detached HEAD",
+    "name": "Имя",
+    "title": "Title",
+    "unborn-branch": "Нерождённая ветка",
+    "upstream-default-branch-description": "Upstream Default Branch Description"
+  },
+  "createTag": {
+    "create-tag-ok": "Create Tag Ok",
+    "name": "Имя тега",
+    "name-too-long": "Name Too Long",
+    "no-matches": "Нет совпадений",
+    "previous-tags": "Предыдущие теги",
+    "title": "Title"
+  },
+  "deleteBranch": {
+    "cannot-undo": "Cannot Undo",
+    "delete": "Удалить",
+    "delete-on-remote": "Delete On Remote",
+    "delete-remote-title": "Delete Remote Title",
+    "open-pr-warning": "Open Pr Warning",
+    "remote-exists-question": "Удалить и на удалённом сервере?",
+    "remote-only-warning": "Ветка существует только на удалённом сервере",
+    "title": "Title"
+  },
+  "deleteTag": {
+    "delete": "Удалить",
+    "title": "Title"
+  },
+  "dialog-appeared": "Диалог появился",
+  "dialog-show": "Показать диалог",
+  "did-change": "Изменено",
+  "diff": {
+    "added": "Добавлено",
+    "binary": {
+      "changed": "Changed",
+      "openInExternalProgram": "Открыть во внешней программе"
+    },
+    "conflictViaCommandLine": "Конфликт через командную строку",
+    "contextMenu": {
+      "collapseExpandedLines": "Collapseexpandedlines",
+      "copy": "Копировать",
+      "expandWholeFile": "Expandwholefile",
+      "selectAll": "Selectall"
+    },
+    "deleted": "Удалено",
+    "displayLegend": "Displaylegend",
+    "expandAll": "Expandall",
+    "expandDown": "Expanddown",
+    "expandUp": "Expandup",
+    "expanded": "Развёрнуто",
+    "fileEmpty": "Fileempty",
+    "hideWhitespaceChanges": "Hidewhitespacechanges",
+    "hideWhitespaceWarning": "Предупреждение о пробелах",
+    "image": {
+      "added": "Добавлено",
+      "deleted": "Удалено",
+      "diffLabel": "Разница",
+      "difference": "Различие",
+      "noSizeDifference": "Nosizedifference",
+      "onionSkin": "Onionskin",
+      "swipe": "Swipe",
+      "twoUp": "Twoup"
+    },
+    "largeTooBigMessage": "Diff слишком большой для отображения",
+    "largeTooBigTitle": "Слишком большой diff",
+    "line": "Строка",
+    "linesRange": "Диапазон строк",
+    "modified": "Изменено",
+    "noContentChanges": "Nocontentchanges",
+    "noNewlineAtEndOfFile": "Nonewlineatendoffile",
+    "onlyWhitespaceChanges": "Onlywhitespacechanges",
+    "renamedButNotChanged": "Переименовано без изменений",
+    "renamedWithChanges": "Переименовано с изменениями",
+    "search": {
+      "noResults": "Noresults",
+      "noResultsFor": "Нет результатов для",
+      "resultOf": "Результат"
+    },
+    "searchPlaceholder": "Searchplaceholder",
+    "settingsTitle": "Settingstitle",
+    "showLargeDiff": "Showlargediff",
+    "split": "Разделённый",
+    "submodule": {
+      "canCommit": "Можно закоммитить",
+      "changesModified": "Изменения подмодуля",
+      "changesModifiedAndUntracked": "Изменённые и неотслеживаемые",
+      "changesUntracked": "Неотслеживаемые изменения",
+      "copyNewSha": "Копировать новый SHA",
+      "copyPreviousSha": "Копировать предыдущий SHA",
+      "copySha": "Копировать SHA",
+      "header": "Header",
+      "openButton": "Openbutton",
+      "openDescription": "Opendescription",
+      "openTitle": "Opentitle",
+      "pendingChanges": "Ожидающие изменения"
+    },
+    "unified": "Объединённый",
+    "unrenderable": "Unrenderable",
+    "whitespaceHint": {
+      "message": "Message",
+      "no": "No",
+      "title": "Title",
+      "yes": "Да"
+    },
+    "whitespaceLegend": "Whitespacelegend"
+  },
+  "discardChanges": {
+    "confirmFileList": "Confirmfilelist",
+    "confirmManyFiles": "Подтвердить удаление многих файлов",
+    "confirmSelected": "Confirmselected",
+    "dontShowAgain": "Dontshowagain",
+    "okDiscard": "Okdiscard",
+    "okDiscardAll": "Okdiscardall",
+    "restoreMessage": "Сообщение восстановления",
+    "retry": {
+      "commonReasons": "Commonreasons",
+      "failed": "Failed",
+      "ok": "Ok",
+      "okTooltip": "Oktooltip",
+      "reason1": "Причина 1",
+      "reason2": "Reason2",
+      "title": "Title",
+      "unrecoverable": "Unrecoverable"
+    },
+    "titleDiscard": "Titlediscard",
+    "titleDiscardAll": "Titlediscardall"
+  },
+  "div": "Элемент div",
+  "email": "Электронная почта",
+  "error": "Ошибка",
+  "find-text": "Найти текст",
+  "forks": {
+    "do-you-want-to-fork": "Do You Want To Fork",
+    "error-details": "Error Details",
+    "fork-this-repository": "Форкнуть этот репозиторий"
+  },
+  "genericGitAuth": {
+    "password": "Пароль",
+    "title": "Аутентификация Git",
+    "username": "Имя пользователя"
+  },
+  "highlighted": "Подсвечено",
+  "hookFailed": {
+    "abort": "Прервать",
+    "ignoreAndContinue": "Ignoreandcontinue",
+    "message": "Хук не выполнен. Проверьте конфигурацию хуков.",
+    "title": "Title"
+  },
+  "installGit": {
+    "install": "Install",
+    "message": "Git необходим для работы приложения",
+    "openWithoutGit": "Openwithoutgit",
+    "resources": "Ресурсы",
+    "terminal": "Терминал",
+    "title": "Title"
+  },
+  "installingUpdate": {
+    "message": "Установка обновления…",
+    "quitAnyway": "Quitanyway",
+    "title": "Title"
+  },
+  "invalidatedToken": {
+    "no": "No",
+    "title": "Title",
+    "yes": "Да"
+  },
+  "issueCreationWebpageOpenedCount": "Открытий страницы создания issue",
+  "keyboard": "Клавиатура",
+  "lfs": {
+    "attributeMismatch": {
+      "title": "Title",
+      "update": "Update"
+    },
+    "initialize": {
+      "ok": "Ok",
+      "title": "Title"
+    },
+    "notNow": "Notnow"
+  },
+  "mergeConflicts": {
+    "commitWarning": {
+      "confirm": "Confirm",
+      "ok": "Ok",
+      "title": "Title",
+      "warning": "Предупреждение"
+    }
+  },
+  "multiCommit": {
+    "abortOperation": "Прервать операцию",
+    "alwaysNudge": {
+      "message": "Message",
+      "no": "No",
+      "path": "Path",
+      "title": "Title",
+      "yes": "Да"
+    },
+    "cherryPick": {
+      "cherryPickCommits": "Cherry-pick коммитов",
+      "chooseBranchTitle": "Выберите ветку",
+      "createBranchOk": "Createbranchok",
+      "header": "Header",
+      "sameBranchTooltip": "Samebranchtooltip"
+    },
+    "chooseBranch": {
+      "mergeOptions": "Mergeoptions"
+    },
+    "confirmAbort": {
+      "confirm": "Подтвердить",
+      "message": "Вы уверены, что хотите прервать?",
+      "ok": "ОК",
+      "title": "Подтверждение прерывания"
+    },
+    "conflictChoice": {
+      "currentFile": "Currentfile",
+      "currentFromFile": "Currentfromfile",
+      "incomingFile": "Incomingfile",
+      "incomingFromFile": "Incomingfromfile"
+    },
+    "conflicts": {
+      "allResolved": "Allresolved",
+      "copilotTooltip": "Copilottooltip",
+      "copilotTooltipAborting": "Copilottooltipaborting",
+      "newBadge": "Newbadge",
+      "resolutionsUndone": "Resolutionsundone",
+      "resolveAllFirst": "Resolveallfirst",
+      "resolveWithCopilot": "Разрешить с Copilot",
+      "resolvedCount": "Разрешено конфликтов"
+    },
+    "continueOperation": "Продолжить операцию",
+    "copilotChanges": {
+      "changeResolution": "Changeresolution",
+      "collapse": "Свернуть",
+      "collapseDescription": "Collapsedescription",
+      "currentBranch": "Текущая ветка",
+      "expand": "Expand",
+      "expandDescription": "Expanddescription",
+      "filesChanged": "Изменённых файлов",
+      "incomingBranch": "Входящая ветка",
+      "mergedResolution": "Mergedresolution",
+      "noResolution": "Noresolution",
+      "noResolutionForFile": "Нет разрешения для файла",
+      "unableToLoadDiff": "Не удалось загрузить diff",
+      "usingChangesFrom": "Используя изменения из"
+    },
+    "copilotDialog": {
+      "chooseResolution": "Chooseresolution",
+      "chooseResolutionAria": "Chooseresolutionaria",
+      "configureCopilot": "Configurecopilot",
+      "conflictedFiles": "Конфликтующие файлы",
+      "deletingFile": "Удаление файла",
+      "fileOptions": "Fileoptions",
+      "keepingFile": "Сохранение файла",
+      "noConflictsRemaining": "Нет оставшихся конфликтов",
+      "openInEditor": "Открыть в редакторе",
+      "skippedFiles": "Пропущенные файлы",
+      "skippedUnresolved": "Skippedunresolved",
+      "switchToManual": "Переключиться на ручной режим",
+      "tabChanges": "Tabchanges",
+      "tabSummary": "Tabsummary",
+      "useCopilotSuggestion": "Usecopilotsuggestion"
+    },
+    "copilotLoading": {
+      "analyzing": "Analyzing",
+      "analyzingFile": "Анализ файла",
+      "andMore": "и ещё",
+      "consideringSides": "Consideringsides",
+      "crossReferencing": "Crossreferencing",
+      "gathering": "Gathering",
+      "lookingContext": "Lookingcontext",
+      "readingFile": "Чтение файла",
+      "readingHistory": "Readinghistory",
+      "reviewingChanges": "Reviewingchanges",
+      "stop": "Остановить",
+      "title": "Загрузка Copilot"
+    },
+    "deleteConflict": {
+      "deleteFile": "Deletefile",
+      "deleteFileOn": "Удалить файл на",
+      "keepFile": "Keepfile",
+      "keepFileFrom": "Сохранить файл из"
+    },
+    "dontShowAgain": "Dontshowagain",
+    "mergeChooseBranch": {
+      "checkingMergeability": "Checkingmergeability",
+      "unrelatedHistories": "Несвязанные истории"
+    },
+    "operation": {
+      "cherryPick": "Cherry-pick",
+      "merge": "Слияние",
+      "rebase": "Перемещение",
+      "reorder": "Перестановка",
+      "squash": "Объединение"
+    },
+    "progress": {
+      "commitPosition": "Позиция коммита",
+      "title": "Прогресс"
+    },
+    "rebaseChooseBranch": {
+      "invalid": "Invalid",
+      "loading": "Loading",
+      "selfRebaseTooltip": "Selfrebasetooltip",
+      "upToDateTooltip": "Uptodatetooltip"
+    },
+    "resolutionChoice": {
+      "current": "Текущий",
+      "incoming": "Входящий"
+    },
+    "resolveConflictsBefore": "Разрешите конфликты перед продолжением",
+    "summary": {
+      "context": "Контекст",
+      "copySha": "Copysha",
+      "localOnly": "Только локальные",
+      "markdownTitle": "Markdowntitle",
+      "title": "Сводка"
+    },
+    "warnForcePush": {
+      "confirm": "Подтвердить",
+      "message": "Это потребует force push. Продолжить?",
+      "ok": "ОК",
+      "title": "Предупреждение о force push"
+    }
+  },
+  "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Открытий диалога недоступных коммитов",
+  "next": "Далее",
+  "notifications": {
+    "checksFailed": {
+      "footerMany": "проверок не пройдено",
+      "footerOne": "проверка не пройдена",
+      "standBy": "Standby",
+      "stepsIncoming": "Stepsincoming",
+      "summary": "Проверки не пройдены"
+    },
+    "dismiss": "Закрыть",
+    "markdownCommentTitle": "Markdowncommenttitle",
+    "openInBrowser": "Openinbrowser",
+    "switchToPullRequest": "Switchtopullrequest",
+    "switchToRepositoryAndPullRequest": "Switchtorepositoryandpullrequest",
+    "verb": {
+      "approved": "одобрил(а)",
+      "commentedOn": "прокомментировал(а)",
+      "requestedChanges": "запросил(а) изменения",
+      "reviewed": "проверил(а)"
+    }
+  },
+  "openInCopilotAppCount": "Открытий в приложении Copilot",
+  "openPullRequest": {
+    "file-does-not-exist": "File Does Not Exist",
+    "file-list-description": "File List Description",
+    "lines-added": "Lines Added",
+    "lines-changed": "Lines Changed",
+    "lines-deleted": "Строк удалено",
+    "no-changes-title": "No Changes Title",
+    "no-default-branch-title": "No Default Branch Title",
+    "no-remote-branch": "Нет удалённой ветки",
+    "open-in": "Открыть в",
+    "remote-only-pr": "PR только на удалённом сервере",
+    "select-base-branch": "Select Base Branch",
+    "showing-all-commits": "Показаны все коммиты",
+    "title": "Title"
+  },
+  "opensCheckRunsPopover": "Открывает поповер проверок",
+  "pointer": "Указатель",
+  "premium_interactions": "Премиум-взаимодействия",
+  "previous": "Назад",
+  "publish": {
+    "description": "Описание",
+    "dotcom-sign-in-description": "Войдите в GitHub.com для публикации",
+    "enterprise-sign-in-description": "Войдите в Enterprise для публикации",
+    "keep-private": "Оставить приватным",
+    "name": "Имя",
+    "none": "Нет",
+    "organization": "Организация",
+    "publish-repository-ok": "Publish Repository Ok",
+    "sign-in": "Войти",
+    "title": "Title",
+    "will-be-created-as": "Будет создан как"
+  },
+  "pushNeedsPull": {
+    "fetch": "Получить",
+    "message": "Необходимо получить изменения перед отправкой",
+    "title": "Title"
+  },
+  "rebase": {
+    "forcePush": {
+      "dontShowAgain": "Dontshowagain",
+      "ok": "ОК",
+      "title": "Title"
+    }
+  },
+  "rebaseSuccessWithoutConflictsCount": "Rebase успешно без конфликтов",
+  "rebaseWithBranchAlreadyUpToDateCount": "Ветка уже актуальна",
+  "removeRepository": {
+    "confirm-message": "Вы уверены, что хотите удалить этот репозиторий?",
+    "move-to-trash": "Move To Trash",
+    "title": "Title",
+    "will-be-removed": "Will Be Removed"
+  },
+  "renameBranch": {
+    "name": "Имя",
+    "rename-button": "Переименовать",
+    "title": "Title"
+  },
+  "reorderMultipleCommitsCount": "Перестановка нескольких коммитов",
+  "reorderStartedCount": "Начата перестановка",
+  "repositoryAlias": {
+    "alias": "Псевдоним",
+    "description": "Описание",
+    "no-effect-note": "Псевдоним влияет только на отображение"
+  },
+  "repositorySettings": {
+    "error-read-gitignore": "Ошибка чтения .gitignore",
+    "error-save-gitignore": "Ошибка сохранения .gitignore",
+    "error-set-remote": "Ошибка установки remote",
+    "fork-behavior-tab": "Fork Behavior Tab",
+    "fork-contribute-to-parent": "Fork Contribute To Parent",
+    "fork-for-my-own-purposes": "Fork For My Own Purposes",
+    "fork-usage-heading": "Fork Usage Heading",
+    "git-config-heading": "Git Config Heading",
+    "git-config-tab": "Git Config Tab",
+    "ignored-files": "Ignored Files",
+    "ignored-files-tab": "Ignored Files Tab",
+    "primary-remote-label": "Основной remote",
+    "publish": "Опубликовать",
+    "remote-tab": "Вкладка Remote",
+    "remote-url-placeholder": "URL удалённого репозитория",
+    "title": "Title",
+    "use-global-config": "Use Global Config",
+    "use-local-config": "Use Local Config"
+  },
+  "reset": {
+    "continue": "Продолжить",
+    "title": "Title",
+    "warning": "Это действие нельзя отменить"
+  },
+  "resetToCommitCount": "Сброс до коммита",
+  "samlReauth": {
+    "confirm": "Подтвердить",
+    "message": "Требуется повторная аутентификация SAML",
+    "ok": "ОК",
+    "title": "Title"
+  },
+  "secretScanning": {
+    "atLine": "на строке",
+    "bypass": "Обойти",
+    "bypassAria": "Обойти сканирование секретов",
+    "bypassDialog": {
+      "falsePositiveDescription": "Falsepositivedescription",
+      "falsePositiveTitle": "Falsepositivetitle",
+      "ok": "Ok",
+      "reasonLabel": "Причина обхода",
+      "title": "Title",
+      "usedInTestsDescription": "Usedintestsdescription",
+      "usedInTestsTitle": "Usedinteststitle",
+      "willFixLaterDescription": "Willfixlaterdescription",
+      "willFixLaterTitle": "Willfixlatertitle"
+    },
+    "bypassed": "Обойдено",
+    "copySha": "Copysha",
+    "exposureRisks": "Риски утечки",
+    "risk1": "Risk1",
+    "risk2": "Риск 2",
+    "risk3": "Риск 3",
+    "risk4": "Риск 4",
+    "secrets": "Секреты",
+    "showLessLocations": "Showlesslocations",
+    "showMoreLocations": "Showmorelocations",
+    "title": "Title"
+  },
+  "select-all": "Выбрать всё",
+  "skipGuidCheck": "Пропустить проверку GUID",
+  "squashMergeSuccessfulCount": "Squash-слияние успешно",
+  "squashMergeSuccessfulWithConflictsCount": "Squash-слияние успешно с конфликтами",
+  "squashMultipleCommitsInvokedCount": "Squash нескольких коммитов",
+  "squashViaContextMenuInvokedCount": "Squash через контекстное меню",
+  "squashViaDragAndDropInvokedCount": "Squash перетаскиванием",
+  "ssh": {
+    "confirmConnect": "Confirmconnect",
+    "hostAuthenticity": "Подлинность хоста",
+    "hostTitle": "Hosttitle",
+    "keyPassphraseLabel": "Парольная фраза ключа",
+    "keyPassphraseTitle": "Keypassphrasetitle",
+    "no": "No",
+    "rememberPassphrase": "Rememberpassphrase",
+    "rememberPassword": "Rememberpassword",
+    "userPasswordLabel": "Пароль пользователя",
+    "userPasswordTitle": "Userpasswordtitle",
+    "yes": "Да"
+  },
+  "stashChanges": {
+    "actionLabel": "Actionlabel",
+    "bringDescription": "Bringdescription",
+    "bringTitle": "Bringtitle",
+    "leaveDescription": "Leavedescription",
+    "leaveTitle": "Leavetitle",
+    "overwrite": {
+      "message": "Существующий stash будет перезаписан",
+      "ok": "Ok",
+      "title": "Title"
+    },
+    "overwriteWarning": "Предупреждение о перезаписи",
+    "switchBranch": "Switchbranch"
+  },
+  "submit": "Отправить",
+  "theme-changed": "Тема изменена",
+  "title": "Заголовок",
+  "token": "Токен",
+  "tooltip-hidden": "Подсказка скрыта",
+  "tooltip-shown": "Подсказка показана",
+  "unknownAuthors": {
+    "list": "Список",
+    "many": "Много неизвестных авторов",
+    "ok": "Ok",
+    "title": "Title"
+  },
+  "untrustedCertificate": {
+    "expected": "Ожидаемый",
+    "ok": "Ok",
+    "title": "Title",
+    "trial": "Пробный",
+    "unsure": "Не уверен",
+    "unusualTld": "Необычный TLD"
+  },
+  "upstreamAlreadyExists": {
+    "confirm": "Confirm",
+    "ignore": "Игнорировать",
+    "title": "Title",
+    "update": "Update"
+  },
+  "version": "Версия",
+  "webgl2": "WebGL2",
+  "x-prioritize-update": "Приоритет обновления",
+  "x-prioritize-update-info-url": "URL информации об обновлении"
 }

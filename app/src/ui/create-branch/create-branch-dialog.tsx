@@ -35,6 +35,7 @@ import {
   checkBranchNameRules,
   renderBranchNameRuleError,
 } from '../lib/branch-name-rule-validation'
+import { t, Trans } from '../../lib/l10n'
 
 interface ICreateBranchProps {
   readonly repository: Repository
@@ -171,26 +172,22 @@ export class CreateBranch extends React.Component<
     if (targetCommit !== undefined) {
       return (
         <p>
-          Your new branch will be based on the commit '{targetCommit.summary}' (
-          {targetCommit.sha.substring(0, 7)}) from your repository.
+          {t('createBranch.based-on-commit', {
+            summary: targetCommit.summary,
+            sha: targetCommit.sha.substring(0, 7),
+          })}
         </p>
       )
     } else if (tip.kind === TipState.Detached) {
       return (
         <p>
-          You do not currently have any branch checked out (your HEAD reference
-          is detached). As such your new branch will be based on your currently
-          checked out commit ({tip.currentSha.substring(0, 7)}
-          ).
+          {t('createBranch.detached-head', {
+            sha: tip.currentSha.substring(0, 7),
+          })}
         </p>
       )
     } else if (tip.kind === TipState.Unborn) {
-      return (
-        <p>
-          Your current branch is unborn (does not contain any commits). Creating
-          a new branch will rename the current branch.
-        </p>
-      )
+      return <p>{t('createBranch.unborn-branch')}</p>
     } else if (tip.kind === TipState.Valid) {
       if (
         this.props.upstreamGitHubRepository !== null &&
@@ -237,7 +234,7 @@ export class CreateBranch extends React.Component<
       >
         <DialogContent>
           <RefNameTextBox
-            label="Name"
+            label={t('createBranch.name')}
             ariaDescribedBy={hasError ? this.ERRORS_ID : undefined}
             initialValue={this.props.initialName}
             onValueChange={this.onBranchNameChange}
@@ -272,7 +269,7 @@ export class CreateBranch extends React.Component<
       return this.props.headerText
     }
 
-    return __DARWIN__ ? 'Create a Branch' : 'Create a branch'
+    return t('createBranch.title')
   }
 
   private getOkButtonText = (): string => {
@@ -280,7 +277,7 @@ export class CreateBranch extends React.Component<
       return this.props.okButtonText
     }
 
-    return __DARWIN__ ? 'Create Branch' : 'Create branch'
+    return t('createBranch.create-branch-ok')
   }
 
   private onBranchNameChange = (name: string) => {
@@ -295,7 +292,9 @@ export class CreateBranch extends React.Component<
 
     const currentError = alreadyExists
       ? {
-          error: new Error(`A branch named ${branchName} already exists.`),
+          error: new Error(
+            t('createBranch.branch-exists-error', { name: branchName })
+          ),
           isWarning: false,
         }
       : null
@@ -360,7 +359,9 @@ export class CreateBranch extends React.Component<
       if (!defaultBranch) {
         this.setState({
           currentError: {
-            error: new Error('Could not determine the default branch.'),
+            error: new Error(
+              t('createBranch.could-not-determine-default-branch')
+            ),
             isWarning: false,
           },
         })
@@ -374,7 +375,9 @@ export class CreateBranch extends React.Component<
       if (!upstreamDefaultBranch) {
         this.setState({
           currentError: {
-            error: new Error('Could not determine the default branch.'),
+            error: new Error(
+              t('createBranch.could-not-determine-default-branch')
+            ),
             isWarning: false,
           },
         })
@@ -427,15 +430,30 @@ export class CreateBranch extends React.Component<
     defaultBranch: Branch | null
   ) {
     if (defaultBranch === null || defaultBranch.name === currentBranchName) {
+      const hasForkLink = isRepositoryWithForkedGitHubRepository(
+        this.props.repository
+      )
+
       return (
         <div>
-          Your new branch will be based on your currently checked out branch (
-          <Ref>{currentBranchName}</Ref>){this.renderForkLinkSuffix()}.{' '}
+          <Trans
+            k={
+              hasForkLink
+                ? 'createBranch.based-on-current-branch-fork'
+                : 'createBranch.based-on-current-branch'
+            }
+            params={{ branch: currentBranchName }}
+            components={{
+              ref: <Ref />,
+              forkLink: <LinkButton onClick={this.onForkSettingsClick} />,
+            }}
+          />{' '}
           {defaultBranch?.name === currentBranchName && (
-            <>
-              <Ref>{currentBranchName}</Ref> is the {defaultBranchLink} for your
-              repository.
-            </>
+            <Trans
+              k="createBranch.current-is-default"
+              params={{ branch: currentBranchName }}
+              components={{ ref: <Ref />, defaultLink: defaultBranchLink }}
+            />
           )}
         </div>
       )
@@ -443,14 +461,12 @@ export class CreateBranch extends React.Component<
       const items = [
         {
           title: defaultBranch.name,
-          description:
-            "The default branch in your repository. Pick this to start on something new that's not dependent on your current branch.",
+          description: t('createBranch.default-branch-description'),
           key: StartPoint.DefaultBranch,
         },
         {
           title: currentBranchName,
-          description:
-            'The currently checked out branch. Pick this if you need to build on work done on this branch.',
+          description: t('createBranch.current-branch-description'),
           key: StartPoint.CurrentBranch,
         },
       ]
@@ -483,27 +499,41 @@ export class CreateBranch extends React.Component<
     // we assume here that the upstream and this
     // fork will have the same default branch name
     if (currentBranchName === upstreamDefaultBranch.nameWithoutRemote) {
+      const hasForkLink = isRepositoryWithForkedGitHubRepository(
+        this.props.repository
+      )
+
       return (
         <div>
-          Your new branch will be based on{' '}
-          <strong>{upstreamRepositoryFullName}</strong>
-          's {defaultBranchLink} (
-          <Ref>{upstreamDefaultBranch.nameWithoutRemote}</Ref>)
-          {this.renderForkLinkSuffix()}.
+          <Trans
+            k={
+              hasForkLink
+                ? 'createBranch.based-on-upstream-default-fork'
+                : 'createBranch.based-on-upstream-default'
+            }
+            params={{
+              upstream: upstreamRepositoryFullName,
+              branch: upstreamDefaultBranch.nameWithoutRemote,
+            }}
+            components={{
+              strong: <strong />,
+              ref: <Ref />,
+              defaultLink: defaultBranchLink,
+              forkLink: <LinkButton onClick={this.onForkSettingsClick} />,
+            }}
+          />
         </div>
       )
     } else {
       const items = [
         {
           title: upstreamDefaultBranch.name,
-          description:
-            "The default branch of the upstream repository. Pick this to start on something new that's not dependent on your current branch.",
+          description: t('createBranch.upstream-default-branch-description'),
           key: StartPoint.UpstreamDefaultBranch,
         },
         {
           title: currentBranchName,
-          description:
-            'The currently checked out branch. Pick this if you need to build on work done on this branch.',
+          description: t('createBranch.current-branch-description'),
           key: StartPoint.CurrentBranch,
         },
       ]
@@ -525,27 +555,13 @@ export class CreateBranch extends React.Component<
     if (isRepositoryWithForkedGitHubRepository(this.props.repository)) {
       return (
         <div className="secondary-text">
-          Your default branch source is determined by your{' '}
-          <LinkButton onClick={this.onForkSettingsClick}>
-            fork behavior settings
-          </LinkButton>
-          .
+          <Trans
+            k="createBranch.fork-settings-hint"
+            components={{
+              link: <LinkButton onClick={this.onForkSettingsClick} />,
+            }}
+          />
         </div>
-      )
-    } else {
-      return
-    }
-  }
-
-  private renderForkLinkSuffix = () => {
-    if (isRepositoryWithForkedGitHubRepository(this.props.repository)) {
-      return (
-        <span>
-          &nbsp;as determined by your{' '}
-          <LinkButton onClick={this.onForkSettingsClick}>
-            fork behavior settings
-          </LinkButton>
-        </span>
       )
     } else {
       return
@@ -559,7 +575,7 @@ export class CreateBranch extends React.Component<
   ) => (
     <Row>
       <VerticalSegmentedControl
-        label="Create branch based on…"
+        label={t('createBranch.based-on-label')}
         items={items}
         selectedKey={selectedValue}
         onSelectionChanged={this.onBaseBranchChanged}

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { t, Trans } from '../../../lib/l10n'
 import { Branch } from '../../../models/branch'
 import { IMatches } from '../../../lib/fuzzy-find'
 import {
@@ -148,25 +149,23 @@ export class ChooseTargetBranchDialog extends React.Component<
 
   private renderOkButtonText() {
     const { selectedBranch, isCreateBranchState } = this.state
+    const { commitCount } = this.props
 
     if (isCreateBranchState) {
-      return __DARWIN__
-        ? 'Cherry-pick to New Branch'
-        : 'Cherry-pick to new branch'
+      return t('multiCommit.cherryPick.header')
     }
-
-    const pluralize = this.props.commitCount > 1 ? 'commits' : 'commit'
-    const okButtonText = `Cherry-pick ${this.props.commitCount} ${pluralize}`
 
     if (selectedBranch !== null) {
       return (
-        <>
-          {okButtonText} to <strong>{selectedBranch.name}</strong>…
-        </>
+        <Trans
+          k="multiCommit.cherryPick.cherryPickCommitsTo"
+          params={{ count: commitCount, branch: selectedBranch.name }}
+          components={{ strong: <strong /> }}
+        />
       )
     }
 
-    return okButtonText
+    return t('multiCommit.cherryPick.cherryPickCommits', { count: commitCount })
   }
 
   private onFilterListResultsChanged = (resultCount: number) => {
@@ -180,10 +179,9 @@ export class ChooseTargetBranchDialog extends React.Component<
 
   public render() {
     const tooltip = this.selectedBranchIsCurrentBranch()
-      ? 'You are not able to cherry-pick from and to the same branch'
+      ? t('multiCommit.cherryPick.sameBranchTooltip')
       : undefined
 
-    const pluralize = this.props.commitCount > 1 ? 'commits' : 'commit'
     return (
       <Dialog
         id="cherry-pick"
@@ -191,7 +189,9 @@ export class ChooseTargetBranchDialog extends React.Component<
         onSubmit={this.onSubmit}
         title={
           <strong>
-            Cherry-pick {this.props.commitCount} {pluralize} to a branch
+            {t('multiCommit.cherryPick.chooseBranchTitle', {
+              count: this.props.commitCount,
+            })}
           </strong>
         }
       >

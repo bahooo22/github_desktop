@@ -14,6 +14,7 @@ import {
 import { TooltippedContent } from '../lib/tooltipped-content'
 import { TooltipDirection } from '../lib/tooltip'
 import { Button } from '../lib/button'
+import { t } from '../../lib/l10n'
 
 interface ICICheckRunActionsJobStepListItemProps {
   readonly step: IAPIWorkflowJobStep
@@ -77,8 +78,8 @@ export class CICheckRunActionsJobStepListItem extends React.PureComponent<ICIChe
           role="link"
           className="view-check-externally"
           onClick={this.onViewJobStepExternally}
-          tooltip={`View ${step.name} on GitHub`}
-          ariaLabel={`View ${step.name} on GitHub`}
+          tooltip={t('checkRuns.view-on-github', { name: step.name })}
+          ariaLabel={t('checkRuns.view-on-github', { name: step.name })}
         >
           <Octicon symbol={octicons.linkExternal} />
         </Button>

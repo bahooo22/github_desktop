@@ -10,6 +10,7 @@ import { getPullRequestReviewStateIcon } from './pull-request-review-helpers'
 import { PullRequestCommentLike } from './pull-request-comment-like'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
+import { t } from '../../lib/l10n'
 
 interface IPullRequestCommentProps {
   readonly dispatcher: Dispatcher
@@ -76,7 +77,7 @@ export class PullRequestComment extends React.Component<
         pullRequest={pullRequest}
         emoji={emoji}
         eventDate={new Date(comment.created_at)}
-        eventVerb="commented on"
+        eventVerb={t('notifications.verb.commentedOn')}
         eventIconSymbol={icon.symbol}
         eventIconClass={icon.className}
         externalURL={comment.html_url}
@@ -98,19 +99,15 @@ export class PullRequestComment extends React.Component<
     let okButtonTitle: undefined | string = undefined
 
     if (shouldChangeRepository) {
-      okButtonTitle = __DARWIN__
-        ? 'Switch to Repository and Pull Request'
-        : 'Switch to repository and pull request'
+      okButtonTitle = t('notifications.switchToRepositoryAndPullRequest')
     } else if (shouldCheckoutBranch) {
-      okButtonTitle = __DARWIN__
-        ? 'Switch to Pull Request'
-        : 'Switch to pull request'
+      okButtonTitle = t('notifications.switchToPullRequest')
     }
 
     const okCancelButtonGroup = (
       <OkCancelButtonGroup
         onCancelButtonClick={this.props.onDismissed}
-        cancelButtonText="Dismiss"
+        cancelButtonText={t('notifications.dismiss')}
         // If there is nothing special about the OK button, just hide the cancel
         // button, since they will both just dismiss the dialog.
         cancelButtonVisible={okButtonTitle !== undefined}
@@ -120,7 +117,7 @@ export class PullRequestComment extends React.Component<
       />
     )
 
-    const openInBrowserText = __DARWIN__ ? 'Open in Browser' : 'Open in browser'
+    const openInBrowserText = t('notifications.openInBrowser')
 
     return (
       <Row>

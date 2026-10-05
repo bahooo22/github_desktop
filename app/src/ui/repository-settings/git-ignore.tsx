@@ -3,6 +3,7 @@ import { DialogContent } from '../dialog'
 import { TextArea } from '../lib/text-area'
 import { LinkButton } from '../lib/link-button'
 import { Ref } from '../lib/ref'
+import { t, Trans } from '../../lib/l10n'
 
 interface IGitIgnoreProps {
   readonly text: string | null
@@ -15,19 +16,20 @@ export class GitIgnore extends React.Component<IGitIgnoreProps, {}> {
   public render() {
     return (
       <DialogContent>
-        <p id="ignored-files-description">
-          Editing <Ref>.gitignore</Ref>. This file specifies intentionally
-          untracked files that Git should ignore. Files already tracked by Git
-          are not affected.{' '}
-          <LinkButton onClick={this.props.onShowExamples}>
-            Learn more about gitignore files
-          </LinkButton>
-        </p>
+        <Trans
+          k="repositorySettings.gitignore-description"
+          components={{
+            ref: <Ref />,
+            link: <LinkButton onClick={this.props.onShowExamples} />,
+          }}
+          as="p"
+          id="ignored-files-description"
+        />
 
         <TextArea
-          ariaLabel="Ignored files"
+          ariaLabel={t('repositorySettings.ignored-files')}
           ariaDescribedBy="ignored-files-description"
-          placeholder="Ignored files"
+          placeholder={t('repositorySettings.ignored-files')}
           value={this.props.text || ''}
           onValueChanged={this.props.onIgnoreTextChanged}
           textareaClassName="gitignore"
