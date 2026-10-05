@@ -1,0 +1,250 @@
+{
+  "meta": {
+    "name": "Russian",
+    "nativeName": "Русский",
+    "direction": "ltr",
+    "authors": ["BaHooo"]
+  },
+  "common": {
+    "cancel": "Отмена",
+    "ok": "ОК",
+    "save": "Сохранить",
+    "close": "Закрыть",
+    "add": "Добавить",
+    "remove": "Удалить",
+    "retry": "Повторить",
+    "discard": "Отменить",
+    "done": "Готово",
+    "learnMore": "Подробнее"
+  },
+  "settings": {
+    "title": {
+      "@darwin": "Настройки",
+      "@other": "Параметры"
+    },
+    "tab": {
+      "accounts": "Аккаунты",
+      "integrations": "Интеграции",
+      "copilot": "Copilot",
+      "git": "Git",
+      "appearance": "Внешний вид",
+      "notifications": "Уведомления",
+      "prompts": "Подтверждения",
+      "advanced": "Дополнительно",
+      "accessibility": "Спец. возможности",
+      "language": "Язык"
+    },
+    "language": {
+      "title": "Язык интерфейса",
+      "description": "Выберите язык интерфейса. Новые и исправленные переводы подхватываются сразу, перезапуск не нужен.",
+      "systemDefault": "Автоопределение по языку системы",
+      "detected": {
+        "@darwin": "Определено из macOS: {languages}",
+        "@win32": "Определено из Windows: {languages}",
+        "@linux": "Определено из сессии рабочего стола: {languages}"
+      },
+      "noMatch": "Перевода на ваши системные языки ({languages}) пока нет, поэтому интерфейс остаётся на английском.",
+      "available": "Языки",
+      "yours": "ваш",
+      "incomplete": "Не переведено строк: {missing:number} из {total:number}",
+      "complete": "Переведено полностью",
+      "editor": "Редактор переводов",
+      "editorHint": "Переведите любую строку или добавьте собственный язык.",
+      "openFolder": "Открыть папку переводов",
+      "folderHint": "Можно просто положить JSON-файлы в {path} и обновить список.",
+      "reload": "Обновить переводы",
+      "reloaded": {
+        "_one": "Загружен {count:number} перевод с диска",
+        "_few": "Загружено {count:number} перевода с диска",
+        "_many": "Загружено {count:number} переводов с диска",
+        "_other": "Загружено {count:number} перевода с диска"
+      },
+      "reset": "Вернуть встроенный перевод",
+      "resetAll": "Удалить все мои переводы",
+      "confirmResetAll": "Будут удалены все добавленные вами переводы. Отменить это нельзя."
+    }
+  },
+  "localizationEditor": {
+    "title": "Переводы",
+    "search": "Поиск по строкам",
+    "filterAll": "Все",
+    "filterMissing": "Не переведено",
+    "filterTranslated": "Переведено мной",
+    "target": "Редактируем",
+    "newLanguage": "Добавить язык",
+    "newLanguageHint": "Укажите любой код языка, например `pt-BR`. Приложение создаст для него файл в папке переводов.",
+    "languageName": "Код языка",
+    "displayName": "Название",
+    "create": "Создать",
+    "tagInvalid": "Используйте код языка: `ru`, `pt-BR` или `sr-Cyrl-RS`.",
+    "tagExists": "Перевод для {tag} уже существует.",
+    "original": "Оригинал",
+    "translation": "Перевод",
+    "empty": "Нечего показать.",
+    "noResults": "Ни одна строка не подходит под поиск.",
+    "unsaved": "Есть несохранённые изменения.",
+    "save": "Сохранить переводы",
+    "saved": "Сохранено в {path}",
+    "saveFailed": "Не удалось записать файл перевода: {error}",
+    "exported": "Скопировано в {path}",
+    "import": "Импорт",
+    "importFailed": "Не удалось прочитать {file}: {error}",
+    "delete": "Удалить этот перевод",
+    "deleted": "{tag} удалён",
+    "variants": {
+      "_one": "У строки {count:number} форма",
+      "_few": "У строки {count:number} формы",
+      "_many": "У строки {count:number} форм",
+      "_other": "У строки {count:number} формы"
+    },
+    "pluralNote": "Эта строка меняется вместе с числом, поэтому для каждой формы нужна отдельная графа.",
+    "platformNote": "Эта строка различается по операционным системам. Показана форма для вашей системы.",
+    "placeholderWarning": "В оригинале есть {placeholders} — сохраните их и в переводе.",
+    "progress": {
+      "_one": "Переведено {translated:number} строка из {total:number}",
+      "_few": "Переведено {translated:number} строки из {total:number}",
+      "_many": "Переведено {translated:number} строк из {total:number}",
+      "_other": "Переведено {translated:number} строки из {total:number}"
+    },
+    "close": "Закрыть"
+  },
+  "menu": {
+    "about": "О GitHub Desktop",
+    "preferences": "Параметры…",
+    "exit": "&Выход",
+    "help": "&Справка",
+    "show-user-guides": "Руководство пользователя",
+    "show-keyboard-shortcuts": {
+      "@darwin": "Показать горячие клавиши",
+      "@other": "Показать &горячие клавиши"
+    },
+    "show-logs": {
+      "@darwin": "Показать журналы в Finder",
+      "@win32": "Показать &журналы в Проводнике",
+      "@other": "Показать &журналы в файловом менеджере"
+    },
+    "install-cli": "Установить инструмент командной строки…",
+    "create-pull-request": {
+      "@darwin": "Создать pull request",
+      "@other": "Создать &pull request"
+    },
+    "view-pull-request": {
+      "@darwin": "Открыть pull request на GitHub",
+      "@other": "Открыть pull request на &GitHub"
+    },
+    "default-branch-name": {
+      "@darwin": "Ветка по умолчанию",
+      "@other": "ветка по умолчанию"
+    },
+    "remove-repository-confirm": "&Удалить…",
+    "remove-repository": "Удалить",
+    "stash-all-changes-confirm": "&Скрыть все изменения…",
+    "stash-all-changes": "Скрыть все изменения",
+    "new-repository": {
+      "@darwin": "Новый репозиторий…",
+      "@other": "&Новый репозиторий…"
+    },
+    "add-local-repository": {
+      "@darwin": "Добавить локальный репозиторий…",
+      "@other": "&Добавить локальный репозиторий…"
+    },
+    "clone-repository": {
+      "@darwin": "Клонировать репозиторий…",
+      "@other": "К&лонировать репозиторий…"
+    },
+    "find": "&Найти",
+    "show-changes": "&Изменения",
+    "show-history": "&История",
+    "show-repository-list": "&Список репозиториев",
+    "show-branches-list": "Список &веток",
+    "show-worktrees-list": "Список &worktree",
+    "go-to-commit-message": {
+      "@darwin": "Перейти к описанию",
+      "@other": "Перейти к &описанию"
+    },
+    "increase-active-resizable-width": "Развернуть активную панель",
+    "decrease-active-resizable-width": "Свернуть активную панель",
+    "reload-window": "&Обновить",
+    "show-devtools": {
+      "@darwin": "Показать инструменты разработчика",
+      "@other": "Показать инструменты &разработчика"
+    },
+    "repository": "&Репозиторий",
+    "pull": {
+      "@darwin": "Забрать",
+      "@other": "&Забрать"
+    },
+    "fetch": {
+      "@darwin": "Получить",
+      "@other": "По&лучить"
+    },
+    "view-repository-on-github": {
+      "@darwin": "Открыть на GitHub",
+      "@other": "Открыть на &GitHub"
+    },
+    "open-working-directory": {
+      "@darwin": "Показать в Finder",
+      "@win32": "Показать в Пр&оводнике",
+      "@other": "Показать в файловом &менеджере"
+    },
+    "open-in-copilot-app": {
+      "@darwin": "Открыть в GitHub Copilot",
+      "@other": "Открыть в GitHub &Copilot"
+    },
+    "open-with-external-editor": {
+      "@darwin": "Открыть в…",
+      "@other": "Открыть &в…"
+    },
+    "create-issue-in-repository-on-github": {
+      "@darwin": "Создать issue на GitHub",
+      "@other": "Соз&дать issue на GitHub"
+    },
+    "create-worktree": {
+      "@darwin": "Новый worktree…",
+      "@other": "Но&вый worktree…"
+    },
+    "show-repository-settings": {
+      "@darwin": "Настройки репозитория…",
+      "@other": "Настройки репо&зитория…"
+    },
+    "create-branch": {
+      "@darwin": "Новая ветка…",
+      "@other": "Новая &ветка…"
+    },
+    "rename-branch": {
+      "@darwin": "Переименовать…",
+      "@other": "&Переименовать…"
+    },
+    "delete-branch": {
+      "@darwin": "Удалить…",
+      "@other": "У&далить…"
+    },
+    "discard-all-changes": {
+      "@darwin": "Отменить все изменения…",
+      "@other": "Отменить все &изменения…"
+    },
+    "compare-to-branch": {
+      "@darwin": "Сравнить с веткой",
+      "@other": "Сравнить &с веткой"
+    },
+    "merge-branch": {
+      "@darwin": "Слить в текущую ветку…",
+      "@other": "С&лить в текущую ветку…"
+    },
+    "squash-and-merge-branch": {
+      "@darwin": "Сжать и слить в текущую ветку…",
+      "@other": "Сжать и с&лить в текущую ветку…"
+    },
+    "rebase-branch": {
+      "@darwin": "Перебазировать текущую ветку…",
+      "@other": "П&еребазировать текущую ветку…"
+    },
+    "compare-on-github": {
+      "@darwin": "Сравнить на GitHub",
+      "@other": "Сравнить на &GitHub"
+    },
+    "branch-on-github": "Показать ветку на GitHub",
+    "preview-pull-request": "Предпросмотр pull request",
+    "branch": "&Ветка"
+  }
+}

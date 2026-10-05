@@ -1,0 +1,263 @@
+{
+  "meta": {
+    "name": "English",
+    "nativeName": "English",
+    "direction": "ltr"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "ok": "OK",
+    "save": "Save",
+    "close": "Close",
+    "add": "Add",
+    "remove": "Remove",
+    "retry": "Retry",
+    "discard": "Discard",
+    "done": "Done",
+    "learnMore": "Learn more"
+  },
+  "settings": {
+    "title": {
+      "@darwin": "Settings",
+      "@other": "Options"
+    },
+    "tab": {
+      "accounts": "Accounts",
+      "integrations": "Integrations",
+      "copilot": "Copilot",
+      "git": "Git",
+      "appearance": "Appearance",
+      "notifications": "Notifications",
+      "prompts": "Prompts",
+      "advanced": "Advanced",
+      "accessibility": "Accessibility",
+      "language": "Language"
+    },
+    "language": {
+      "title": "Language",
+      "description": "Choose which language the application uses for its interface. New or edited translations are picked up right away, no restart needed.",
+      "systemDefault": "Automatically use my system language",
+      "detected": {
+        "@darwin": "Detected from macOS: {languages}",
+        "@win32": "Detected from Windows: {languages}",
+        "@linux": "Detected from your desktop session: {languages}"
+      },
+      "noMatch": "None of your system languages ({languages}) has a translation yet, so the interface stays in English.",
+      "available": "Languages",
+      "yours": "yours",
+      "incomplete": "{missing:number} of {total:number} strings missing",
+      "complete": "Fully translated",
+      "editor": "Edit translations",
+      "editorHint": "Translate any string, or add a language of your own.",
+      "openFolder": "Open translations folder",
+      "folderHint": "You can also drop JSON files into {path} and reload.",
+      "reload": "Reload translations",
+      "reloaded": {
+        "_one": "Loaded {count:number} translation from disk",
+        "_other": "Loaded {count:number} translations from disk"
+      },
+      "reset": "Reset to shipped translation",
+      "resetAll": "Discard all my translations",
+      "confirmResetAll": "This deletes every translation you have added. This cannot be undone."
+    }
+  },
+  "localizationEditor": {
+    "title": "Translations",
+    "search": "Search strings",
+    "filterAll": "All",
+    "filterMissing": "Missing",
+    "filterTranslated": "Translated by me",
+    "target": "Editing",
+    "newLanguage": "Add a language",
+    "newLanguageHint": "Pick any language code, for example `pt-BR`. The application creates a file for it in your translations folder.",
+    "languageName": "Language code",
+    "displayName": "Name",
+    "create": "Create",
+    "tagInvalid": "Use a language code such as `ru`, `pt-BR` or `sr-Cyrl-RS`.",
+    "tagExists": "A translation for {tag} already exists.",
+    "original": "Original",
+    "translation": "Translation",
+    "empty": "Nothing to show.",
+    "noResults": "No string matches that search.",
+    "unsaved": "You have changes that are not saved yet.",
+    "save": "Save translations",
+    "saved": "Saved to {path}",
+    "saveFailed": "Could not write the translation file: {error}",
+    "exported": "Copied to {path}",
+    "import": "Import",
+    "importFailed": "{file} could not be read: {error}",
+    "delete": "Delete this translation",
+    "deleted": "Removed {tag}",
+    "variants": {
+      "_one": "This string has {count:number} form",
+      "_other": "This string has {count:number} forms"
+    },
+    "pluralNote": "This string changes with the number, so it needs one row per form.",
+    "platformNote": "This string differs per operating system. The row for this system is the one you see.",
+    "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
+    "progress": {
+      "_one": "{translated:number} of {total:number} string translated",
+      "_other": "{translated:number} of {total:number} strings translated"
+    },
+    "close": "Close"
+  },
+  "menu": {
+    "about": "About GitHub Desktop",
+    "preferences": "Settings…",
+    "exit": "E&xit",
+    "help": "&Help",
+    "show-user-guides": "Show User Guides",
+    "show-keyboard-shortcuts": {
+      "@darwin": "Show Keyboard Shortcuts",
+      "@other": "Show keyboard shortcuts"
+    },
+    "show-logs": {
+      "@darwin": "Show Logs in Finder",
+      "@win32": "S&how logs in Explorer",
+      "@other": "S&how logs in your File Manager"
+    },
+    "install-cli": "Install Command Line Tool…",
+    "new-repository": {
+      "@darwin": "New Repository…",
+      "@other": "New &repository…"
+    },
+    "add-local-repository": {
+      "@darwin": "Add Local Repository…",
+      "@other": "Add &local repository…"
+    },
+    "clone-repository": {
+      "@darwin": "Clone Repository…",
+      "@other": "Clo&ne repository…"
+    },
+    "find": {
+      "@darwin": "Find",
+      "@other": "&Find"
+    },
+    "show-changes": {
+      "@darwin": "Show Changes",
+      "@other": "&Changes"
+    },
+    "show-history": {
+      "@darwin": "Show History",
+      "@other": "&History"
+    },
+    "show-repository-list": {
+      "@darwin": "Show Repository List",
+      "@other": "Repository &list"
+    },
+    "show-branches-list": {
+      "@darwin": "Show Branches List",
+      "@other": "&Branches list"
+    },
+    "show-worktrees-list": {
+      "@darwin": "Show Worktrees List",
+      "@other": "Wor&ktrees list"
+    },
+    "go-to-commit-message": {
+      "@darwin": "Go to Summary",
+      "@other": "Go to &Summary"
+    },
+    "increase-active-resizable-width": {
+      "@darwin": "Expand Active Resizable",
+      "@other": "Expand active resizable"
+    },
+    "decrease-active-resizable-width": {
+      "@darwin": "Contract Active Resizable",
+      "@other": "Contract active resizable"
+    },
+    "reload-window": "&Reload",
+    "show-devtools": {
+      "@darwin": "Toggle Developer Tools",
+      "@other": "&Toggle developer tools"
+    },
+    "repository": {
+      "@darwin": "Repository",
+      "@other": "&Repository"
+    },
+    "pull": {
+      "@darwin": "Pull",
+      "@other": "Pu&ll"
+    },
+    "fetch": {
+      "@darwin": "Fetch",
+      "@other": "&Fetch"
+    },
+    "view-repository-on-github": {
+      "@darwin": "View on GitHub",
+      "@other": "&View on GitHub"
+    },
+    "open-working-directory": {
+      "@darwin": "Show in Finder",
+      "@win32": "Show in E&xplorer",
+      "@other": "Show in your File Manager"
+    },
+    "open-in-copilot-app": {
+      "@darwin": "Open in GitHub Copilot",
+      "@other": "Open in GitHub &Copilot"
+    },
+    "open-with-external-editor": {
+      "@darwin": "Open With…",
+      "@other": "Open &with…"
+    },
+    "create-issue-in-repository-on-github": {
+      "@darwin": "Create Issue on GitHub",
+      "@other": "Create &issue on GitHub"
+    },
+    "create-worktree": {
+      "@darwin": "New Worktree…",
+      "@other": "New work&tree…"
+    },
+    "show-repository-settings": {
+      "@darwin": "Repository Settings…",
+      "@other": "Repository &settings…"
+    },
+    "create-branch": {
+      "@darwin": "New Branch…",
+      "@other": "New &branch…"
+    },
+    "rename-branch": {
+      "@darwin": "Rename…",
+      "@other": "&Rename…"
+    },
+    "delete-branch": {
+      "@darwin": "Delete…",
+      "@other": "&Delete…"
+    },
+    "discard-all-changes": {
+      "@darwin": "Discard All Changes…",
+      "@other": "Discard all changes…"
+    },
+    "compare-to-branch": {
+      "@darwin": "Compare to Branch",
+      "@other": "&Compare to branch"
+    },
+    "merge-branch": {
+      "@darwin": "Merge into Current Branch…",
+      "@other": "&Merge into current branch…"
+    },
+    "squash-and-merge-branch": {
+      "@darwin": "Squash and Merge into Current Branch…",
+      "@other": "Squas&h and merge into current branch…"
+    },
+    "rebase-branch": {
+      "@darwin": "Rebase Current Branch…",
+      "@other": "R&ebase current branch…"
+    },
+    "compare-on-github": {
+      "@darwin": "Compare on GitHub",
+      "@other": "Compare on &GitHub"
+    },
+    "branch-on-github": {
+      "@darwin": "View Branch on GitHub",
+      "@other": "View branch on GitHub"
+    },
+    "preview-pull-request": {
+      "@darwin": "Preview Pull Request",
+      "@other": "Preview pull request"
+    },
+    "branch": {
+      "@darwin": "Branch",
+      "@other": "&Branch"
+    }
+  }
+}
