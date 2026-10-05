@@ -69,9 +69,11 @@ describe('small action and dialog surfaces', () => {
     render(<CLIInstalled onDismissed={onDismissed} />)
 
     const title = screen.getByText(
-      __DARWIN__ ? 'Command Line Tool Installed' : 'Command line tool installed'
+      __DARWIN__
+        ? 'Инструмент командной строки установлен'
+        : 'Инструмент командной строки установлен'
     )
-    const okButton = screen.getByRole('button', { name: 'Ok', hidden: true })
+    const okButton = screen.getByRole('button', { name: 'ОК', hidden: true })
 
     assert.ok(title)
     assert.ok(screen.getByText('/usr/local/bin/github'))

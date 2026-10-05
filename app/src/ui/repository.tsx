@@ -28,6 +28,7 @@ import { StashDiffViewer } from './stashing'
 import { StashedChangesLoadStates } from '../models/stash-entry'
 import { TutorialPanel, TutorialWelcome, TutorialDone } from './tutorial'
 import { TutorialStep, isValidTutorialStep } from '../models/tutorial-step'
+import { t } from '../lib/l10n'
 import { openFile } from './lib/open-file'
 import { AheadBehindStore } from '../lib/stores/ahead-behind-store'
 import { dragAndDropManager } from '../lib/drag-and-drop-manager'
@@ -223,12 +224,12 @@ export class RepositoryView extends React.Component<
     return (
       <TabBar selectedIndex={selectedTab} onTabClicked={this.onTabClicked}>
         <span className="with-indicator" id="changes-tab">
-          <span>Changes</span>
+          <span>{t('repositoryTabs.changes')}</span>
           {this.renderChangesBadge()}
         </span>
 
         <div className="with-indicator" id="history-tab">
-          <span>History</span>
+          <span>{t('repositoryTabs.history')}</span>
         </div>
       </TabBar>
     )

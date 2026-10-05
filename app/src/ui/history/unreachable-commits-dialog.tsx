@@ -7,6 +7,7 @@ import { CommitList } from './commit-list'
 import { LinkButton } from '../lib/link-button'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
+import { t } from '../../lib/l10n'
 
 export enum UnreachableCommitsTab {
   Unreachable,
@@ -95,8 +96,8 @@ export class UnreachableCommitsDialog extends React.Component<
         onTabClicked={this.onTabClicked}
         selectedIndex={this.state.selectedTab}
       >
-        <span>Unreachable</span>
-        <span>Reachable</span>
+        <span>{t('unreachableCommits.unreachableTab')}</span>
+        <span>{t('unreachableCommits.reachableTab')}</span>
       </TabBar>
     )
   }

@@ -6,7 +6,6 @@ import {
   DialogFooter,
   DefaultDialogFooter,
 } from './dialog'
-import { t } from '../lib/l10n'
 import { dialogTransitionTimeout } from './app'
 import { GitError, isAuthFailureError } from '../lib/git/core'
 import { Popup, PopupType } from '../models/popup'
@@ -19,6 +18,7 @@ import { LinkButton } from './lib/link-button'
 import { getFileFromExceedsError } from '../lib/helpers/regex'
 import { CopilotError, getCopilotErrorDisplayInfo } from '../lib/copilot-error'
 import { Terminal } from './terminal'
+import { t } from '../lib/l10n'
 import { coerceToString } from '../lib/git/coerce-to-string'
 
 interface IAppErrorProps {
@@ -120,9 +120,16 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
             </>
           )}
           <p>
-            See{' '}
-            <LinkButton uri="https://gh.io/lfs">https://gh.io/lfs</LinkButton>{' '}
-            for more information on managing large files on GitHub
+            <Trans
+              k="appError.seeLfs"
+              components={{
+                link: (
+                  <LinkButton uri="https://gh.io/lfs">
+                    https://gh.io/lfs
+                  </LinkButton>
+                ),
+              }}
+            />
           </p>
         </>
       )

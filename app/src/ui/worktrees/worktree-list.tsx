@@ -11,6 +11,7 @@ import { Button } from '../lib/button'
 import { IMatches } from '../../lib/fuzzy-find'
 import { ClickSource } from '../lib/list'
 import memoizeOne from 'memoize-one'
+import { t } from '../../lib/l10n'
 
 const RowHeight = 30
 
@@ -129,7 +130,7 @@ export class WorktreeList extends React.Component<IWorktreeListProps> {
   }
 
   private onRenderNoItems = () => {
-    return <div className="no-items-found">No worktrees found</div>
+    return <div className="no-items-found">{t('worktreeList.noItemsFound')}</div>
   }
 
   private onItemClick = (item: IWorktreeListItem, source: ClickSource) => {

@@ -10,6 +10,7 @@ import {
   ReasoningEffort,
   ReasoningEffortOrder,
 } from '../../lib/stores/copilot-store'
+import { t, Trans } from '../../lib/l10n'
 
 const NoReasoningEffort = '__none__'
 
@@ -113,15 +114,18 @@ export class EditCopilotBYOKModelDialog extends React.Component<
               ))}
             </Select>
             <p className="copilot-byok-field-hint">
-              Reasoning models (o1, o3, GPT-5 reasoning variants, etc.) think
-              before responding. Higher levels are slower but produce better
-              answers on complex tasks. Leave on <em>Default</em> for
-              non-reasoning models or to let the provider pick.
+              <Trans k="copilotByokModel.reasoningHint" />
             </p>
           </Row>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText={isEditing ? 'Save' : 'Add'} />
+          <OkCancelButtonGroup
+            okButtonText={
+              isEditing
+                ? t('copilotByokModel.save')
+                : t('copilotByokModel.add')
+            }
+          />
         </DialogFooter>
       </Dialog>
     )

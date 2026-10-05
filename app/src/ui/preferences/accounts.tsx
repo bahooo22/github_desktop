@@ -35,12 +35,12 @@ export class Accounts extends React.Component<IAccountsProps, {}> {
 
     return (
       <DialogContent className="accounts-tab">
-        <h2>GitHub.com</h2>
+        <h2>{t('preferencesAccounts.dotcomHeading')}</h2>
         {dotComAccount
           ? this.renderAccount(dotComAccount, SignInType.DotCom)
           : this.renderSignIn(SignInType.DotCom)}
 
-        <h2>GitHub Enterprise</h2>
+        <h2>{t('preferencesAccounts.enterpriseHeading')}</h2>
         {this.renderMultipleEnterpriseAccounts()}
       </DialogContent>
     )

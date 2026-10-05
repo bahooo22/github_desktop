@@ -16,6 +16,7 @@ import { Banner } from './banner'
 import { ReleaseNotesUri } from '../lib/releases'
 import { RichText } from '../lib/rich-text'
 import { Emoji } from '../../lib/emoji'
+import { t, Trans } from '../../lib/l10n'
 
 interface IUpdateAvailableProps {
   readonly dispatcher: Dispatcher
@@ -99,12 +100,22 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
               emoji={this.props.emoji}
             />
           </span>
-          Exciting new features have been added{version}. See{' '}
-          <LinkButton onClick={this.showReleaseNotes}>what's new</LinkButton> or{' '}
-          <LinkButton onClick={this.dismissUpdateShowCaseVisibility}>
-            dismiss
-          </LinkButton>
-          .
+          <Trans
+            k="updateAvailableBanner.showcase"
+            params={{ version }}
+            components={{
+              whatsNew: (
+                <LinkButton onClick={this.showReleaseNotes}>
+                  {t('updateAvailableBanner.whatsNew')}
+                </LinkButton>
+              ),
+              dismiss: (
+                <LinkButton onClick={this.dismissUpdateShowCaseVisibility}>
+                  {t('updateAvailableBanner.dismiss')}
+                </LinkButton>
+              ),
+            }}
+          />
         </span>
       )
     }
@@ -112,30 +123,44 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
     if (this.props.prioritizeUpdate) {
       return (
         <span onSubmit={this.updateNow}>
-          This version of GitHub Desktop is missing{' '}
-          {this.props.prioritizeUpdateInfoUrl ? (
-            <LinkButton uri={this.props.prioritizeUpdateInfoUrl}>
-              important updates
-            </LinkButton>
-          ) : (
-            'important updates'
-          )}
-          . Please{' '}
-          <LinkButton onClick={this.updateNow}>
-            restart GitHub Desktop
-          </LinkButton>{' '}
-          now to install pending updates.
+          <Trans
+            k="updateAvailableBanner.prioritizeMissing"
+            components={{
+              importantUpdates: this.props.prioritizeUpdateInfoUrl ? (
+                <LinkButton uri={this.props.prioritizeUpdateInfoUrl}>
+                  {t('updateAvailableBanner.importantUpdates')}
+                </LinkButton>
+              ) : (
+                <>{t('updateAvailableBanner.importantUpdates')}</>
+              ),
+              restart: (
+                <LinkButton onClick={this.updateNow}>
+                  {t('updateAvailableBanner.restartNow')}
+                </LinkButton>
+              ),
+            }}
+          />
         </span>
       )
     }
 
     return (
       <span onSubmit={this.updateNow}>
-        An updated version of GitHub Desktop is available and will be installed
-        at the next launch. See{' '}
-        <LinkButton onClick={this.showReleaseNotes}>what's new</LinkButton> or{' '}
-        <LinkButton onClick={this.updateNow}>restart GitHub Desktop</LinkButton>
-        .
+        <Trans
+          k="updateAvailableBanner.pendingInstall"
+          components={{
+            whatsNew: (
+              <LinkButton onClick={this.showReleaseNotes}>
+                {t('updateAvailableBanner.whatsNew')}
+              </LinkButton>
+            ),
+            restart: (
+              <LinkButton onClick={this.updateNow}>
+                {t('updateAvailableBanner.restartNow')}
+              </LinkButton>
+            ),
+          }}
+        />
       </span>
     )
   }

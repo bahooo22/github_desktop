@@ -1383,7 +1383,7 @@ export class CommitMessage extends React.Component<
                 ? 'commitMessage.branch-fails-rules-bypass'
                 : 'commitMessage.branch-fails-rules'
             }
-            params={{ branch }}
+            params={{ branch: branch ?? undefined }}
             components={{
               strong: <strong />,
               link,
@@ -1412,7 +1412,7 @@ export class CommitMessage extends React.Component<
                 ? 'commitMessage.signed-commits-required-bypass'
                 : 'commitMessage.signed-commits-required'
             }
-            params={{ branch }}
+            params={{ branch: branch ?? undefined }}
             components={{
               strong: <strong />,
               link,
@@ -1443,7 +1443,7 @@ export class CommitMessage extends React.Component<
                 ? 'commitMessage.rules-prevent-pushing-bypass'
                 : 'commitMessage.rules-prevent-pushing'
             }
-            params={{ branch }}
+            params={{ branch: branch ?? undefined }}
             components={{
               strong: <strong />,
               link,

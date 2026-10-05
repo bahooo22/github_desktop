@@ -2,6 +2,7 @@ import * as React from 'react'
 import { encodePathAsUrl } from '../../lib/path'
 import { Ref } from '../lib/ref'
 import { LinkButton } from '../lib/link-button'
+import { t, Trans } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(
   __dirname,
@@ -42,15 +43,18 @@ export class NoPullRequests extends React.Component<INoPullRequestsProps, {}> {
 
   private renderTitle() {
     if (this.props.isSearch) {
-      return <div className="title">Sorry, I can't find that pull request!</div>
+      return <div className="title">{t('noPullRequests.notFound')}</div>
     } else if (this.props.isLoadingPullRequests) {
-      return <div className="title">Hang tight</div>
+      return <div className="title">{t('noPullRequests.hangTight')}</div>
     } else {
       return (
         <div>
-          <div className="title">You're all set!</div>
+          <div className="title">{t('noPullRequests.allSet')}</div>
           <div className="no-prs">
-            No open pull requests in <Ref>{this.props.repositoryName}</Ref>
+            <Trans
+              k="noPullRequests.noOpenPrs"
+              components={{ repo: <Ref>{this.props.repositoryName}</Ref> }}
+            />
           </div>
         </div>
       )

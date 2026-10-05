@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import classNames from 'classnames'
+import { t } from '../../lib/l10n'
 
 interface IBannerProps {
   readonly id?: string
@@ -39,7 +40,7 @@ export class Banner extends React.Component<IBannerProps, {}> {
 
     return (
       <div className="close">
-        <button onClick={onDismissed} aria-label="Dismiss this message">
+        <button onClick={onDismissed} aria-label={t('banners.dismiss-message')}>
           <Octicon symbol={octicons.x} />
         </button>
       </div>

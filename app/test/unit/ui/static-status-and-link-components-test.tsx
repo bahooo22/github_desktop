@@ -85,7 +85,12 @@ describe('static status and link components', () => {
     )
 
     assert.equal(items.length, 5)
-    assert.ok(items.every(item => item?.includes('desktop/desktop')))
+    assert.ok(
+      items.every(
+        item =>
+          item?.includes('desktop/desktop') || item?.includes('desktop/desktop')
+      )
+    )
 
     view.rerender(
       <ForkSettingsDescription
@@ -98,7 +103,12 @@ describe('static status and link components', () => {
       view.container.querySelectorAll('li')
     ).map(item => item.textContent?.trim())
 
-    assert.ok(rerenderedItems.every(item => item?.includes('github/desktop')))
+    assert.ok(
+      rerenderedItems.every(
+        item =>
+          item?.includes('github/desktop') || item?.includes('github/desktop')
+      )
+    )
   })
 
   it('renders action status icons for each computed state and hides null status', () => {

@@ -13,12 +13,12 @@ import {
 } from '../../models/tutorial-step'
 import { encodePathAsUrl } from '../../lib/path'
 import { PopupType } from '../../models/popup'
-import { t } from '../../lib/l10n'
 import { PreferencesTab } from '../../models/preferences'
 import { Ref } from '../lib/ref'
 import { suggestedExternalEditor } from '../../lib/editors/shared'
-import { TutorialStepInstructions } from './tutorial-step-instruction'
+import { TutorialStepInstructions } from './tutorial-step-instructions'
 import { KeyboardShortcut } from '../keyboard-shortcut/keyboard-shortcut'
+import { t } from '../../lib/l10n'
 
 const TutorialPanelImage = encodePathAsUrl(
   __dirname,
@@ -286,4 +286,4 @@ export class TutorialPanel extends React.Component<
 
 const SkipLinkButton: React.FunctionComponent<{
   onClick: () => void
-}> = props => <LinkButton onClick={props.onClick}>Skip</LinkButton>
+}> = props => <LinkButton onClick={props.onClick}>{t('tutorialPanelSkip.skip')}</LinkButton>

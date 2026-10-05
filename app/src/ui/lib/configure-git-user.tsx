@@ -17,6 +17,7 @@ import { ConfigLockFileExists } from './config-lock-file-exists'
 import { RadioButton } from './radio-button'
 import { Select } from './select'
 import { GitEmailNotFoundWarning } from './git-email-not-found-warning'
+import { t } from '../../lib/l10n'
 
 interface IConfigureGitUserProps {
   /** The logged-in accounts. */
@@ -185,7 +186,7 @@ export class ConfigureGitUser extends React.Component<
 
     return (
       <div id="commit-list" className="commit-list-example">
-        <div className="header">Example commit</div>
+        <div className="header">{t('configureGitUser.exampleCommit')}</div>
 
         <CommitListItem
           commit={dummyCommit}

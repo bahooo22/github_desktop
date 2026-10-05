@@ -48,7 +48,7 @@ export class UntrustedCertificate extends React.Component<
             as="p"
             k="untrustedCertificate.message"
             params={{
-              host,
+              host: host ?? undefined,
               subjectName: this.props.certificate.subjectName,
             }}
             components={{ strong: <strong /> }}

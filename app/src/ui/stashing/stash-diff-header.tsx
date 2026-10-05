@@ -6,7 +6,7 @@ import { PopupType } from '../../models/popup'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { ErrorWithMetadata } from '../../lib/error-with-metadata'
 import { RetryActionType } from '../../models/retry-actions'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IStashDiffHeaderProps {
   readonly stashEntry: IStashEntry
@@ -45,19 +45,20 @@ export class StashDiffHeader extends React.Component<
         <h3>{t('stashDiffHeader.title')}</h3>
         <div className="row">
           <OkCancelButtonGroup
-            okButtonText="Restore"
+            okButtonText={t('stashDiffHeader.restore')}
             okButtonDisabled={isRestoring || isDiscarding}
             onOkButtonClick={this.onRestoreClick}
-            cancelButtonText="Discard"
+            cancelButtonText={t('stashDiffHeader.discard')}
             cancelButtonDisabled={isRestoring || isDiscarding}
             onCancelButtonClick={this.onDiscardClick}
             okButtonAriaDescribedBy="restore-description"
           />
           <div className="explanatory-text" id="restore-description">
-            <span className="text">
-              <strong>Restore</strong> will move your stashed files to the
-              Changes list.
-            </span>
+            <Trans
+              as="span"
+              className="text"
+              k="stashDiffHeader.restoreDescription"
+            />
           </div>
         </div>
       </div>

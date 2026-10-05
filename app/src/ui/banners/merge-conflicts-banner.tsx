@@ -5,7 +5,7 @@ import { Banner } from './banner'
 import { Dispatcher } from '../dispatcher'
 import { Popup } from '../../models/popup'
 import { LinkButton } from '../lib/link-button'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IMergeConflictsBannerProps {
   readonly dispatcher: Dispatcher
@@ -34,11 +34,14 @@ export class MergeConflictsBanner extends React.Component<
       >
         <Octicon className="alert-icon" symbol={octicons.alert} />
         <div className="banner-message">
-          <span>
-            Resolve conflicts and commit to merge into{' '}
-            <strong>{this.props.ourBranch}</strong>.
-          </span>
-          <LinkButton onClick={this.openDialog}>{t('banners.viewConflicts')}</LinkButton>
+          <Trans
+            as="span"
+            k="banners.mergeConflicts"
+            components={{ branch: <strong>{this.props.ourBranch}</strong> }}
+          />
+          <LinkButton onClick={this.openDialog}>
+            {t('banners.viewConflicts')}
+          </LinkButton>
         </div>
       </Banner>
     )

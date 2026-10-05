@@ -19,16 +19,13 @@ export class TutorialWelcome extends React.Component {
       <div id="tutorial-welcome">
         <div className="header">
           <h1>{t('tutorialWelcome.title')}</h1>
-          <p>
-            Use this tutorial to get comfortable with Git, GitHub, and GitHub
-            Desktop.
-          </p>
+          <p>{t('tutorialWelcome.intro')}</p>
         </div>
         <ul className="definitions">
           <li>
             <img src={CodeImage} alt="Html syntax icon" />
             <p>
-              <strong>Git</strong> is the version control system.
+              <Trans k="tutorialWelcome.gitDefinition" />
             </p>
           </li>
           <li>
@@ -37,15 +34,13 @@ export class TutorialWelcome extends React.Component {
               alt="People with discussion bubbles overhead"
             />
             <p>
-              <strong>GitHub</strong> is where you store your code and
-              collaborate with others.
+              <Trans k="tutorialWelcome.githubDefinition" />
             </p>
           </li>
           <li>
             <img src={CloudServerImage} alt="Server stack with cloud" />
             <p>
-              <strong>GitHub Desktop</strong> helps you work with GitHub
-              locally.
+              <Trans k="tutorialWelcome.desktopDefinition" />
             </p>
           </li>
         </ul>

@@ -65,7 +65,7 @@ export class UpstreamAlreadyExists extends React.Component<IUpstreamAlreadyExist
             <li>
               <Trans
                 k="upstreamAlreadyExists.expected"
-                params={{ url: replacementURL }}
+                params={{ url: replacementURL ?? undefined }}
                 components={{ url: ref }}
               />
             </li>

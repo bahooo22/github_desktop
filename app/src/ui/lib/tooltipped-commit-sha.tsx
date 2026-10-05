@@ -4,6 +4,7 @@ import { Ref } from './ref'
 import { TooltipDirection } from './tooltip'
 import { TooltippedContent } from './tooltipped-content'
 import { writeClipboardText } from '../main-process-proxy'
+import { t } from '../../lib/l10n'
 
 interface ITooltippedCommitSHAProps {
   readonly className?: string
@@ -56,7 +57,7 @@ export class TooltippedCommitSHA extends React.Component<
     return (
       <>
         <code>{this.longSHA}</code>
-        <button onClick={this.onCopySHAButtonClick}>Copy</button>
+        <button onClick={this.onCopySHAButtonClick}>{t('tooltippedSha.copy')}</button>
       </>
     )
   }

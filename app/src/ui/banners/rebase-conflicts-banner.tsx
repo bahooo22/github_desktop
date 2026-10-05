@@ -4,7 +4,7 @@ import * as octicons from '../octicons/octicons.generated'
 import { Banner } from './banner'
 import { Dispatcher } from '../dispatcher'
 import { LinkButton } from '../lib/link-button'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IRebaseConflictsBannerProps {
   readonly dispatcher: Dispatcher
@@ -41,11 +41,14 @@ export class RebaseConflictsBanner extends React.Component<
       >
         <Octicon className="alert-icon" symbol={octicons.alert} />
         <div className="banner-message">
-          <span>
-            Resolve conflicts to continue rebasing{' '}
-            <strong>{this.props.targetBranch}</strong>.
-          </span>
-          <LinkButton onClick={this.openDialog}>{t('banners.viewConflicts')}</LinkButton>
+          <Trans
+            as="span"
+            k="banners.rebaseConflicts"
+            components={{ branch: <strong>{this.props.targetBranch}</strong> }}
+          />
+          <LinkButton onClick={this.openDialog}>
+            {t('banners.viewConflicts')}
+          </LinkButton>
         </div>
       </Banner>
     )

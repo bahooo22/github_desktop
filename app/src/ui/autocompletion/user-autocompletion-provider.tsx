@@ -11,6 +11,7 @@ import memoizeOne from 'memoize-one'
 import { copilotSweAgentBot } from '../../models/dot-com-bots'
 import { getStealthEmailForUser } from '../../lib/email'
 import { isDotCom } from '../../lib/endpoint-capabilities'
+import { t } from '../../lib/l10n'
 
 /** An autocompletion hit for a user. */
 export type KnownUserHit = {
@@ -157,7 +158,7 @@ export class UserAutocompletionProvider
     ) : (
       <div className="user unknown" key={item.username}>
         <span className="username">{item.username}</span>
-        <span className="description">Search for user</span>
+        <span className="description">{t('userAutocompletion.searchForUser')}</span>
       </div>
     )
   }

@@ -23,6 +23,7 @@ import { Button } from '../lib/button'
 import { BranchList } from './branch-list'
 import { PullRequestList } from './pull-request-list'
 import { IBranchListItem } from './group-branches'
+import { t } from '../../lib/l10n'
 import {
   getDefaultAriaLabelForBranch,
   renderDefaultBranch,
@@ -213,9 +214,9 @@ export class BranchesContainer extends React.Component<
         selectedIndex={this.props.selectedTab}
         allowDragOverSwitching={true}
       >
-        <span id="branches-tab">Branches</span>
+        <span id="branches-tab">{t('branchesContainerTabs.branchesTab')}</span>
         <span id="pull-requests-tab" className="pull-request-tab">
-          {__DARWIN__ ? 'Pull Requests' : 'Pull requests'}
+          {t('branchesContainerTabs.pullRequestsTab')}
           {this.renderOpenPullRequestsBubble()}
         </span>
       </TabBar>

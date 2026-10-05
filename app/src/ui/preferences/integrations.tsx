@@ -396,7 +396,7 @@ export class Integrations extends React.Component<
     return (
       <fieldset>
         <legend>
-          <h2>GitHub Copilot</h2>
+          <h2>{t('preferencesIntegrations.copilotHeading')}</h2>
         </legend>
         <p>
           {t('settings.integrations.copilot-description')}{' '}

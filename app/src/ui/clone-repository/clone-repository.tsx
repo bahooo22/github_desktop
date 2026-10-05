@@ -28,6 +28,7 @@ import { merge } from '../../lib/merge'
 import { ClickSource } from '../lib/list'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { showOpenDialog, showSaveDialog } from '../main-process-proxy'
+import { t } from '../../lib/l10n'
 import { readdir } from 'fs/promises'
 import { isTopMostDialog } from '../dialog/is-top-most'
 import memoizeOne from 'memoize-one'
@@ -275,9 +276,9 @@ export class CloneRepository extends React.Component<
           onTabClicked={this.onTabClicked}
           selectedIndex={this.props.selectedTab}
         >
-          <span id="dotcom-tab">GitHub.com</span>
-          <span id="enterprise-tab">GitHub Enterprise</span>
-          <span id="url-tab">URL</span>
+          <span id="dotcom-tab">{t('cloneRepositoryTabs.dotcomTab')}</span>
+          <span id="enterprise-tab">{t('cloneRepositoryTabs.enterpriseTab')}</span>
+          <span id="url-tab">{t('cloneRepositoryTabs.urlTab')}</span>
         </TabBar>
 
         {error ? <DialogError>{error.message}</DialogError> : null}

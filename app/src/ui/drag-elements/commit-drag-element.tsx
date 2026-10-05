@@ -11,6 +11,7 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
+import { t } from '../../lib/l10n'
 
 interface ICommitDragElementProps {
   readonly commit: Commit
@@ -86,7 +87,7 @@ export class CommitDragElement extends React.Component<
           <>
             {copyToPlus}
             <span>
-              <span className="copy-to">Copy to</span>
+              <span className="copy-to">{t('commitDragElement.copyTo')}</span>
               <span className="branch-name">
                 {currentDropTarget.branchName}
               </span>
