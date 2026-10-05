@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Octicon } from '../../octicons'
 import * as octicons from '../../octicons/octicons.generated'
 import { LinkButton } from '../link-button'
-import { t } from '../../l10n'
+import { t } from '../../../lib/l10n'
 
 export function renderUnmergedFilesSummary(conflictedFilesCount: number) {
   const message =

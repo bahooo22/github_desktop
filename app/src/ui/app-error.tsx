@@ -18,7 +18,7 @@ import { LinkButton } from './lib/link-button'
 import { getFileFromExceedsError } from '../lib/helpers/regex'
 import { CopilotError, getCopilotErrorDisplayInfo } from '../lib/copilot-error'
 import { Terminal } from './terminal'
-import { t } from '../lib/l10n'
+import { t, Trans } from '../lib/l10n'
 import { coerceToString } from '../lib/git/coerce-to-string'
 
 interface IAppErrorProps {

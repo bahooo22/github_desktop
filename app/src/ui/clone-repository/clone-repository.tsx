@@ -32,7 +32,6 @@ import { t } from '../../lib/l10n'
 import { readdir } from 'fs/promises'
 import { isTopMostDialog } from '../dialog/is-top-most'
 import memoizeOne from 'memoize-one'
-import { t } from '../../lib/l10n'
 
 interface ICloneRepositoryProps {
   readonly dispatcher: Dispatcher

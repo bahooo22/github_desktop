@@ -16,7 +16,7 @@ import { PopupType } from '../../models/popup'
 import { PreferencesTab } from '../../models/preferences'
 import { Ref } from '../lib/ref'
 import { suggestedExternalEditor } from '../../lib/editors/shared'
-import { TutorialStepInstructions } from './tutorial-step-instructions'
+import { TutorialStepInstructions } from './tutorial-step-instruction'
 import { KeyboardShortcut } from '../keyboard-shortcut/keyboard-shortcut'
 import { t } from '../../lib/l10n'
 

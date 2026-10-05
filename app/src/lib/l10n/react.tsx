@@ -85,7 +85,9 @@ export class LocalizationProvider extends React.Component<
   }
 }
 
-export type TransComponents = Readonly<Record<string, React.ReactElement<any>>>
+export type TransComponents = Readonly<
+  Record<string, React.ReactElement<any> | string>
+>
 
 type TransProps = Omit<React.HTMLAttributes<HTMLElement>, 'children'> & {
   /** Catalog key, e.g. `changes.n-files`. */
@@ -195,13 +197,17 @@ function renderTemplate(
       push(
         element === undefined
           ? frame.children
-          : React.cloneElement(
-              element,
-              { key: key++ },
-              frame.children.length > 0
-                ? frame.children
-                : element.props.children
-            )
+          : typeof element === 'string'
+            ? frame.children.length > 0
+              ? frame.children
+              : element
+            : React.cloneElement(
+                element,
+                { key: key++ },
+                frame.children.length > 0
+                  ? frame.children
+                  : element.props.children
+              )
       )
       continue
     }
@@ -209,7 +215,11 @@ function renderTemplate(
     if (selfClosing) {
       const element = components[name]
       if (element !== undefined) {
-        push(React.cloneElement(element, { key: key++ }))
+        push(
+          typeof element === 'string'
+            ? element
+            : React.cloneElement(element, { key: key++ })
+        )
       }
       continue
     }

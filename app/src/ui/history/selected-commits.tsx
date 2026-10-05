@@ -24,7 +24,6 @@ import { ThrottledScheduler } from '../lib/throttled-scheduler'
 
 import { Dispatcher } from '../dispatcher'
 import { Resizable } from '../resizable'
-import { t } from '../../lib/l10n'
 import { showContextualMenu } from '../../lib/menu-item'
 
 import { FileList } from './file-list'
