@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { writeClipboardText } from '../main-process-proxy'
 import * as Path from 'path'
+import { t } from '../../lib/l10n'
 
 import { Repository } from '../../models/repository'
 import { CommittedFileChange } from '../../models/status'
@@ -23,6 +24,7 @@ import { ThrottledScheduler } from '../lib/throttled-scheduler'
 
 import { Dispatcher } from '../dispatcher'
 import { Resizable } from '../resizable'
+import { t } from '../../lib/l10n'
 import { showContextualMenu } from '../../lib/menu-item'
 
 import { FileList } from './file-list'
@@ -253,7 +255,7 @@ export class SelectedCommits extends React.Component<
   private renderFileList() {
     const files = this.props.changesetData.files
     if (files.length === 0) {
-      return <div className="fill-window">No files in commit</div>
+      return <div className="fill-window">{t('selectedCommits.noFilesInCommit')}</div>
     }
 
     // -1 for right hand side border
@@ -348,18 +350,13 @@ export class SelectedCommits extends React.Component<
         <div className="panel blankslate">
           <img src={BlankSlateImage} className="blankslate-image" alt="" />
           <div>
-            <p>
-              Unable to display diff when multiple non-consecutive selected.
-            </p>
-            <div>You can:</div>
+            <p>{t('selectedCommits.unableToDisplayDiff')}</p>
+            <div>{t('selectedCommits.youCan')}</div>
             <ul>
-              <li>
-                Select a single commit or a range of consecutive commits to view
-                a diff.
-              </li>
-              <li>Drag the commits to the branch menu to cherry-pick them.</li>
-              <li>Drag the commits to squash or reorder them.</li>
-              <li>Right click on multiple commits to see options.</li>
+              <li>{t('selectedCommits.selectSingleOrRange')}</li>
+              <li>{t('selectedCommits.dragToCherryPick')}</li>
+              <li>{t('selectedCommits.dragToSquashOrReorder')}</li>
+              <li>{t('selectedCommits.rightClickForOptions')}</li>
             </ul>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { getHTMLURL } from '../../lib/api'
 import { Ref } from './ref'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
+import { t } from '../../lib/l10n'
 
 interface IEnterpriseServerConfirmationProps {
   readonly endpoint: string
@@ -19,7 +20,7 @@ export class EnterpriseServerConfirmation extends React.Component<IEnterpriseSer
         id={enterpriseServerConfirmationDescriptionId}
         className="enterprise-server-confirmation"
       >
-        <p>Git is requesting permission to sign in to this server:</p>
+        <p>{t('enterpriseServerConfirmation.signInRequest')}</p>
         <p>
           <Ref>{getHTMLURL(this.props.endpoint)}</Ref>
         </p>
@@ -27,10 +28,9 @@ export class EnterpriseServerConfirmation extends React.Component<IEnterpriseSer
           <Octicon symbol={octicons.alert} />
           <p>
             <strong>
-              Only continue if you recognize and trust this server.
+              {t('enterpriseServerConfirmation.trustWarning')}
             </strong>{' '}
-            Confirm this address appears in your browser. Otherwise, cancel and
-            contact your repository administrator.
+            {t('enterpriseServerConfirmation.confirmAddress')}
           </p>
         </div>
       </div>

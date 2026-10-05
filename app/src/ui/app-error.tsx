@@ -6,6 +6,7 @@ import {
   DialogFooter,
   DefaultDialogFooter,
 } from './dialog'
+import { t } from '../lib/l10n'
 import { dialogTransitionTimeout } from './app'
 import { GitError, isAuthFailureError } from '../lib/git/core'
 import { Popup, PopupType } from '../models/popup'
@@ -110,7 +111,7 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
           <p>{error.message}</p>
           {files.length > 0 && (
             <>
-              <p>Files that exceed the limit</p>
+              <p>{t('appError.filesExceedLimit')}</p>
               <ul>
                 {files.map(file => (
                   <li key={file}>{file}</li>

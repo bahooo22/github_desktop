@@ -19,6 +19,7 @@ import {
 import { formatReasoningEffort } from '../../lib/stores/copilot-store'
 import { Dispatcher } from '../dispatcher'
 import { PopupType } from '../../models/popup'
+import { t } from '../../lib/l10n'
 
 interface IEditCopilotBYOKProviderDialogProps {
   readonly dispatcher: Dispatcher
@@ -178,26 +179,26 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
   private renderProviderSection() {
     return (
       <fieldset className="copilot-byok-fieldset">
-        <legend>Provider</legend>
+        <legend>{t('copilotByokProvider.providerLegend')}</legend>
         <Row>
           <TextBox
-            label="Name"
+            label={t('copilotByokProvider.nameLabel')}
             value={this.state.name}
             onValueChanged={this.onNameChanged}
-            placeholder="My provider"
+            placeholder={t('copilotByokProvider.namePlaceholder')}
             required={true}
             autoFocus={true}
           />
         </Row>
         <Row>
           <Select
-            label="Type"
+            label={t('copilotByokProvider.typeLabel')}
             value={this.state.type}
             onChange={this.onTypeChanged}
           >
-            <option value="openai">OpenAI / OpenAI-compatible</option>
-            <option value="azure">Azure</option>
-            <option value="anthropic">Anthropic</option>
+            <option value="openai">{t('copilotByokProvider.typeOpenAI')}</option>
+            <option value="azure">{t('copilotByokProvider.typeAzure')}</option>
+            <option value="anthropic">{t('copilotByokProvider.typeAnthropic')}</option>
           </Select>
         </Row>
         <Row>
@@ -216,8 +217,8 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
               value={this.state.wireApi}
               onChange={this.onWireApiChanged}
             >
-              <option value="completions">Chat completions (default)</option>
-              <option value="responses">Responses (GPT-5 series)</option>
+              <option value="completions">{t('copilotByokProvider.wireApiCompletions')}</option>
+              <option value="responses">{t('copilotByokProvider.wireApiResponses')}</option>
             </Select>
           </Row>
         )}
@@ -252,20 +253,22 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
       <fieldset className="copilot-byok-fieldset">
         <Row>
           <Select
-            label="Authentication"
+            label={t('copilotByok.authentication')}
             value={this.state.authKind}
             onChange={this.onAuthKindChanged}
           >
-            <option value="apiKey">API key</option>
-            <option value="bearer">Bearer token</option>
-            <option value="none">None</option>
+            <option value="apiKey">{t('copilotByok.apiKey')}</option>
+            <option value="bearer">{t('copilotByok.bearerToken')}</option>
+            <option value="none">{t('copilotByok.none')}</option>
           </Select>
         </Row>
         {this.state.authKind !== 'none' && (
           <Row>
             <TextBox
               label={
-                this.state.authKind === 'bearer' ? 'Bearer token' : 'API key'
+                this.state.authKind === 'bearer'
+                  ? t('copilotByok.bearerToken')
+                  : t('copilotByok.apiKey')
               }
               type="password"
               value={this.state.secret}
@@ -286,7 +289,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
   private renderModelsSection() {
     return (
       <fieldset className="copilot-byok-fieldset copilot-byok-models">
-        <legend>Models</legend>
+        <legend>{t('copilotByokProvider.modelsLegend')}</legend>
         <p className="copilot-byok-section-hint">
           Tell Desktop which models this provider offers. Each one will appear
           in the model picker for Copilot features.

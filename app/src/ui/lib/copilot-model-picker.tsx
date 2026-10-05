@@ -1,5 +1,6 @@
 import * as React from 'react'
 import memoizeOne from 'memoize-one'
+import { t } from '../../lib/l10n'
 
 import { formatCompactNumber, formatNumber } from '../../lib/format-number'
 import { DefaultCopilotModel } from '../../lib/stores/copilot-store'
@@ -431,7 +432,7 @@ export class CopilotModelPicker extends React.Component<
   }
 
   private renderNoItems = () => {
-    return <div className="copilot-model-list-empty">No models found.</div>
+    return <div className="copilot-model-list-empty">{t('copilotModelPicker.noModelsFound')}</div>
   }
 
   private getItemAriaLabel = (item: ICopilotModelListItem) => {

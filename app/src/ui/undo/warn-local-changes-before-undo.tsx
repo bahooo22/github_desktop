@@ -6,6 +6,7 @@ import { Row } from '../lib/row'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Commit } from '../../models/commit'
+import { t } from '../../lib/l10n'
 
 interface IWarnLocalChangesBeforeUndoProps {
   readonly dispatcher: Dispatcher
@@ -90,18 +91,15 @@ export class WarnLocalChangesBeforeUndo extends React.Component<
       return (
         <DialogContent>
           <p>{this.getMergeCommitUndoWarningText()}</p>
-          <p>Do you want to continue anyway?</p>
+          <p>{t('warnLocalChanges.continueAnyway')}</p>
         </DialogContent>
       )
     }
     return (
       <DialogContent>
-        <p>
-          You have changes in progress. Undoing the merge commit might result in
-          some of these changes being lost.
-        </p>
+        <p>{t('warnLocalChanges.changesInProgress')}</p>
         <p>{this.getMergeCommitUndoWarningText()}</p>
-        <p>Do you want to continue anyway?</p>
+        <p>{t('warnLocalChanges.continueAnyway')}</p>
       </DialogContent>
     )
   }

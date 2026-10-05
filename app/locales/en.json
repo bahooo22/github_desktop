@@ -1235,5 +1235,186 @@
   "version": "Version",
   "webgl2": "Webgl2",
   "x-prioritize-update": "X Prioritize Update",
-  "x-prioritize-update-info-url": "X Prioritize Update Info Url"
+  "x-prioritize-update-info-url": "X Prioritize Update Info Url",
+  "banners": {
+    "dismiss-message": "Dismiss this message",
+    "viewConflicts": "View conflicts",
+    "rebaseConflicts": "Resolve conflicts to continue rebasing <branch/>.",
+    "mergeConflicts": "Resolve conflicts and commit to merge into <branch/>.",
+    "conflictsFound": "Resolve conflicts to continue <operation/>.",
+    "cherryPickConflicts": "Resolve conflicts to continue cherry-picking onto <branch/>."
+  },
+  "stashDiffHeader": {
+    "title": "Stashed changes",
+    "restore": "Restore",
+    "discard": "Discard",
+    "restoreDescription": "<strong>Restore</strong> will move your stashed files to the Changes list."
+  },
+  "worktreeList": {
+    "noItemsFound": "No worktrees found"
+  },
+  "tutorialPanel": {
+    "getStarted": "Get started"
+  },
+  "testNotifications": {
+    "noPullRequests": "No pull requests found",
+    "noReviews": "No reviews found",
+    "noComments": "No comments found",
+    "reviewWithoutBody": "Review without body",
+    "selectType": "Select the type of notification to display:"
+  },
+  "copilotByok": {
+    "authentication": "Authentication",
+    "apiKey": "API key",
+    "bearerToken": "Bearer token",
+    "none": "None"
+  },
+  "noPullRequests": {
+    "notFound": "Sorry, I can't find that pull request!",
+    "hangTight": "Hang tight",
+    "allSet": "You're all set!",
+    "noOpenPrs": "No open pull requests in <repo/>"
+  },
+  "userAutocompletion": {
+    "searchForUser": "Search for user"
+  },
+  "appError": {
+    "filesExceedLimit": "Files that exceed the limit",
+    "seeLfs": "See <link>https://gh.io/lfs</link> for more information on managing large files on GitHub"
+  },
+  "selectedCommits": {
+    "noFilesInCommit": "No files in commit",
+    "unableToDisplayDiff": "Unable to display diff when multiple non-consecutive commits are selected.",
+    "youCan": "You can:",
+    "selectSingleOrRange": "Select a single commit or a range of consecutive commits to view a diff.",
+    "dragToCherryPick": "Drag the commits to the branch menu to cherry-pick them.",
+    "dragToSquashOrReorder": "Drag the commits to squash or reorder them.",
+    "rightClickForOptions": "Right click on multiple commits to see options."
+  },
+  "pullRequestQuickView": {
+    "reviewRequested": "Review requested",
+    "viewOnGitHub": "View on GitHub"
+  },
+  "commitDragElement": {
+    "copyTo": "Copy to"
+  },
+  "conflicts": {
+    "allResolved": "All conflicts resolved",
+    "oneConflictedFile": "1 conflicted file",
+    "manyConflictedFiles": "{count} conflicted files"
+  },
+  "configureGitUser": {
+    "exampleCommit": "Example commit"
+  },
+  "repositoryTabs": {
+    "changes": "Changes",
+    "history": "History"
+  },
+  "updateAvailableBanner": {
+    "restartNow": "restart GitHub Desktop",
+    "whatsNew": "what's new",
+    "dismiss": "dismiss",
+    "pendingInstall": "An updated version of GitHub Desktop is available and will be installed at the next launch. See <whatsNew/> or <restart/>.",
+    "installNow": "A new version of GitHub Desktop is available. <restart/> now to install pending updates.",
+    "showcase": "Exciting new features have been added<version/>. See <whatsNew/> or <dismiss/>.",
+    "prioritizeMissing": "This version of GitHub Desktop is missing <importantUpdates/>. Please <restart/> now to install pending updates.",
+    "importantUpdates": "important updates"
+  },
+  "successBanner": {
+    "undo": "Undo"
+  },
+  "thankYouCard": {
+    "message": "The Desktop team would like to thank you for your contributions.",
+    "openCard": "Open Your Card",
+    "throwAway": "Throw It Away",
+    "or": "or"
+  },
+  "tutorialWelcome": {
+    "title": "Welcome to GitHub Desktop",
+    "intro": "Use this tutorial to get comfortable with Git, GitHub, and GitHub Desktop.",
+    "gitDefinition": "<strong>Git</strong> is the version control system.",
+    "githubDefinition": "<strong>GitHub</strong> is where you store your code and collaborate with others.",
+    "desktopDefinition": "<strong>GitHub Desktop</strong> helps you work with GitHub locally."
+  },
+  "copilotByokProvider": {
+    "providerLegend": "Provider",
+    "nameLabel": "Name",
+    "namePlaceholder": "My provider",
+    "typeLabel": "Type",
+    "typeOpenAI": "OpenAI / OpenAI-compatible",
+    "typeAzure": "Azure",
+    "typeAnthropic": "Anthropic",
+    "modelsLegend": "Models",
+    "wireApiCompletions": "Chat completions (default)",
+    "wireApiResponses": "Responses (GPT-5 series)"
+  },
+  "unreachableCommits": {
+    "unreachableTab": "Unreachable",
+    "reachableTab": "Reachable"
+  },
+  "tooltippedSha": {
+    "copy": "Copy"
+  },
+  "tutorialPanelSkip": {
+    "skip": "Skip"
+  },
+  "cloneRepositoryTabs": {
+    "dotcomTab": "GitHub.com",
+    "enterpriseTab": "GitHub Enterprise",
+    "urlTab": "URL"
+  },
+  "branchesContainerTabs": {
+    "branchesTab": "Branches",
+    "pullRequestsTab": "Pull Requests"
+  },
+  "preferencesIntegrations": {
+    "copilotHeading": "GitHub Copilot"
+  },
+  "preferencesAccounts": {
+    "dotcomHeading": "GitHub.com",
+    "enterpriseHeading": "GitHub Enterprise"
+  },
+  "copilotByokModel": {
+    "reasoningHint": "Reasoning models (o1, o3, GPT-5 reasoning variants, etc.) think before responding. Higher levels are slower but produce better answers on complex tasks. Leave on <em>Default</em> for non-reasoning models or to let the provider pick.",
+    "save": "Save",
+    "add": "Add"
+  },
+  "ciCheckRunRerun": {
+    "titleSingle": "Re-run Single check",
+    "titleFailed": "Re-run Failed checks",
+    "titleMultiple": "Re-run checks",
+    "titleSingleLower": "Re-run single check",
+    "titleFailedLower": "Re-run failed checks",
+    "titleMultipleLower": "Re-run checks",
+    "pleaseWait": "Please wait",
+    "determining": "Determining which checks can be re-run.",
+    "dependentsMessageOne": "A new attempt of <name/> will be started, including all of its dependents:",
+    "dependentsMessageMany": "A new attempt of <name/> will be started, including all of their dependents:",
+    "noRerunnableFailed": "There are no failed checks that can be re-run",
+    "noRerunnableAll": "There are no checks that can be re-run",
+    "nonRerunnableOne": "There is <count/> failed check that cannot be re-run",
+    "nonRerunnableMany": "There are <count/> failed checks that cannot be re-run",
+    "nonRerunnableAllOne": "There is <count/> check that cannot be re-run",
+    "nonRerunnableAllMany": "There are <count/> checks that cannot be re-run",
+    "nonRerunnableReason": "A check run cannot be re-run if the check is more than one month old, the check or its dependent has not completed, or the check is not configured to be re-run."
+  },
+  "localChangesOverwritten": {
+    "stashAndRecover": "You can stash your changes now and recover them afterwards."
+  },
+  "copilotModelPicker": {
+    "noModelsFound": "No models found."
+  },
+  "enterpriseServerConfirmation": {
+    "signInRequest": "Git is requesting permission to sign in to this server:",
+    "trustWarning": "Only continue if you recognize and trust this server.",
+    "confirmAddress": "Confirm this address appears in your browser. Otherwise, cancel and contact your repository administrator."
+  },
+  "warnLocalChanges": {
+    "continueAnyway": "Do you want to continue anyway?",
+    "changesInProgress": "You have changes in progress. Undoing the merge commit might result in some of these changes being lost."
+  },
+  "repositoryPath": {
+    "willBeCreatedAs": "Will be created as {{sanitizedName}}",
+    "invalidCharsReplaced": "Invalid characters have been replaced by hyphens."
+  }
 }

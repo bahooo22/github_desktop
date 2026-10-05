@@ -1240,5 +1240,186 @@
   "version": "Версия",
   "webgl2": "WebGL2",
   "x-prioritize-update": "Приоритет обновления",
-  "x-prioritize-update-info-url": "URL информации об обновлении"
+  "x-prioritize-update-info-url": "URL информации об обновлении",
+  "banners": {
+    "dismiss-message": "Закрыть это сообщение",
+    "viewConflicts": "Просмотреть конфликты",
+    "rebaseConflicts": "Разрешите конфликты, чтобы продолжить rebase <branch/>.",
+    "mergeConflicts": "Разрешите конфликты и сделайте коммит, чтобы слить в <branch/>.",
+    "conflictsFound": "Разрешите конфликты, чтобы продолжить <operation/>.",
+    "cherryPickConflicts": "Разрешите конфликты, чтобы продолжить cherry-pick в <branch/>."
+  },
+  "stashDiffHeader": {
+    "title": "Спрятанные изменения",
+    "restore": "Восстановить",
+    "discard": "Удалить",
+    "restoreDescription": "<strong>Восстановление</strong> переместит сохранённые файлы в список изменений."
+  },
+  "worktreeList": {
+    "noItemsFound": "Рабочие деревья не найдены"
+  },
+  "tutorialPanel": {
+    "getStarted": "Начать работу"
+  },
+  "testNotifications": {
+    "noPullRequests": "Pull request'ы не найдены",
+    "noReviews": "Ревью не найдены",
+    "noComments": "Комментарии не найдены",
+    "reviewWithoutBody": "Ревью без текста",
+    "selectType": "Выберите тип уведомления для отображения:"
+  },
+  "copilotByok": {
+    "authentication": "Аутентификация",
+    "apiKey": "API-ключ",
+    "bearerToken": "Bearer-токен",
+    "none": "Нет"
+  },
+  "noPullRequests": {
+    "notFound": "Не удалось найти этот pull request!",
+    "hangTight": "Подождите немного",
+    "allSet": "Всё готово!",
+    "noOpenPrs": "Нет открытых pull request'ов в <repo/>"
+  },
+  "userAutocompletion": {
+    "searchForUser": "Поиск пользователя"
+  },
+  "appError": {
+    "filesExceedLimit": "Файлы, превышающие лимит",
+    "seeLfs": "См. <link>https://gh.io/lfs</link> для получения дополнительной информации об управлении большими файлами на GitHub"
+  },
+  "selectedCommits": {
+    "noFilesInCommit": "В коммите нет файлов",
+    "unableToDisplayDiff": "Невозможно показать diff при выборе нескольких непоследовательных коммитов.",
+    "youCan": "Вы можете:",
+    "selectSingleOrRange": "Выберите один коммит или диапазон последовательных коммитов, чтобы увидеть diff.",
+    "dragToCherryPick": "Перетащите коммиты в меню веток для cherry-pick.",
+    "dragToSquashOrReorder": "Перетащите коммиты для объединения (squash) или изменения порядка.",
+    "rightClickForOptions": "Нажмите правой кнопкой на нескольких коммитах, чтобы увидеть параметры."
+  },
+  "pullRequestQuickView": {
+    "reviewRequested": "Запрошено ревью",
+    "viewOnGitHub": "Посмотреть на GitHub"
+  },
+  "commitDragElement": {
+    "copyTo": "Копировать в"
+  },
+  "conflicts": {
+    "allResolved": "Все конфликты разрешены",
+    "oneConflictedFile": "1 конфликтующий файл",
+    "manyConflictedFiles": "{count} конфликтующих файлов"
+  },
+  "configureGitUser": {
+    "exampleCommit": "Пример коммита"
+  },
+  "repositoryTabs": {
+    "changes": "Изменения",
+    "history": "История"
+  },
+  "updateAvailableBanner": {
+    "restartNow": "перезапустить GitHub Desktop",
+    "whatsNew": "что нового",
+    "dismiss": "скрыть",
+    "pendingInstall": "Доступна новая версия GitHub Desktop, которая будет установлена при следующем запуске. См. <whatsNew/> или <restart/>.",
+    "installNow": "Доступна новая версия GitHub Desktop. <restart/> сейчас, чтобы установить обновления.",
+    "showcase": "Добавлены новые возможности<version/>. См. <whatsNew/> или <dismiss/>.",
+    "prioritizeMissing": "В этой версии отсутствуют <importantUpdates/>. Пожалуйста, <restart/> сейчас, чтобы установить обновления.",
+    "importantUpdates": "важные обновления"
+  },
+  "successBanner": {
+    "undo": "Отменить"
+  },
+  "thankYouCard": {
+    "message": "Команда Desktop хочет поблагодарить вас за ваш вклад.",
+    "openCard": "Открыть открытку",
+    "throwAway": "Выбросить её",
+    "or": "или"
+  },
+  "tutorialWelcome": {
+    "title": "Добро пожаловать в GitHub Desktop",
+    "intro": "Это руководство поможет вам освоиться с Git, GitHub и GitHub Desktop.",
+    "gitDefinition": "<strong>Git</strong> — это система контроля версий.",
+    "githubDefinition": "<strong>GitHub</strong> — место, где вы храните код и сотрудничаете с другими.",
+    "desktopDefinition": "<strong>GitHub Desktop</strong> помогает работать с GitHub локально."
+  },
+  "copilotByokProvider": {
+    "providerLegend": "Провайдер",
+    "nameLabel": "Название",
+    "namePlaceholder": "Мой провайдер",
+    "typeLabel": "Тип",
+    "typeOpenAI": "OpenAI / совместимый с OpenAI",
+    "typeAzure": "Azure",
+    "typeAnthropic": "Anthropic",
+    "modelsLegend": "Модели",
+    "wireApiCompletions": "Chat completions (по умолчанию)",
+    "wireApiResponses": "Responses (серия GPT-5)"
+  },
+  "unreachableCommits": {
+    "unreachableTab": "Недостижимые",
+    "reachableTab": "Достижимые"
+  },
+  "tooltippedSha": {
+    "copy": "Копировать"
+  },
+  "tutorialPanelSkip": {
+    "skip": "Пропустить"
+  },
+  "cloneRepositoryTabs": {
+    "dotcomTab": "GitHub.com",
+    "enterpriseTab": "GitHub Enterprise",
+    "urlTab": "URL"
+  },
+  "branchesContainerTabs": {
+    "branchesTab": "Ветки",
+    "pullRequestsTab": "Pull request'ы"
+  },
+  "preferencesIntegrations": {
+    "copilotHeading": "GitHub Copilot"
+  },
+  "preferencesAccounts": {
+    "dotcomHeading": "GitHub.com",
+    "enterpriseHeading": "GitHub Enterprise"
+  },
+  "copilotByokModel": {
+    "reasoningHint": "Модели с рассуждением (o1, o3, варианты GPT-5 reasoning и т.д.) думают перед ответом. Более высокие уровни медленнее, но дают лучшие ответы на сложные задачи. Оставьте <em>Default</em> для моделей без рассуждения или чтобы провайдер выбрал сам.",
+    "save": "Сохранить",
+    "add": "Добавить"
+  },
+  "ciCheckRunRerun": {
+    "titleSingle": "Перезапустить одну проверку",
+    "titleFailed": "Перезапустить упавшие проверки",
+    "titleMultiple": "Перезапустить проверки",
+    "titleSingleLower": "перезапустить одну проверку",
+    "titleFailedLower": "перезапустить упавшие проверки",
+    "titleMultipleLower": "перезапустить проверки",
+    "pleaseWait": "Пожалуйста, подождите",
+    "determining": "Определяем, какие проверки можно перезапустить.",
+    "dependentsMessageOne": "Будет запущена новая попытка <name/>, включая все зависимые проверки:",
+    "dependentsMessageMany": "Будет запущена новая попытка <name/>, включая все зависимые проверки:",
+    "noRerunnableFailed": "Нет упавших проверок, которые можно перезапустить",
+    "noRerunnableAll": "Нет проверок, которые можно перезапустить",
+    "nonRerunnableOne": "Есть <count/> упавшая проверка, которую нельзя перезапустить",
+    "nonRerunnableMany": "Есть <count/> упавших проверок, которые нельзя перезапустить",
+    "nonRerunnableAllOne": "Есть <count/> проверка, которую нельзя перезапустить",
+    "nonRerunnableAllMany": "Есть <count/> проверок, которые нельзя перезапустить",
+    "nonRerunnableReason": "Проверку нельзя перезапустить, если ей больше месяца, она или её зависимая проверка не завершена, или повторный запуск не настроен."
+  },
+  "localChangesOverwritten": {
+    "stashAndRecover": "Вы можете спрятать изменения сейчас и восстановить их позже."
+  },
+  "copilotModelPicker": {
+    "noModelsFound": "Модели не найдены."
+  },
+  "enterpriseServerConfirmation": {
+    "signInRequest": "Git запрашивает разрешение на вход на этот сервер:",
+    "trustWarning": "Продолжайте только если вы узнаёте и доверяете этому серверу.",
+    "confirmAddress": "Убедитесь, что этот адрес отображается в вашем браузере. В противном случае отмените и свяжитесь с администратором репозитория."
+  },
+  "warnLocalChanges": {
+    "continueAnyway": "Вы всё равно хотите продолжить?",
+    "changesInProgress": "У вас есть незавершённые изменения. Отмена merge-коммита может привести к потере некоторых из них."
+  },
+  "repositoryPath": {
+    "willBeCreatedAs": "Будет создано как {{sanitizedName}}",
+    "invalidCharsReplaced": "Недопустимые символы заменены дефисами."
+  }
 }

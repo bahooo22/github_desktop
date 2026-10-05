@@ -5,6 +5,7 @@ import {
   DialogFooter,
   DefaultDialogFooter,
 } from '../dialog'
+import { t } from '../../lib/l10n'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Repository } from '../../models/repository'
 import { RetryAction, RetryActionType } from '../../models/retry-actions'
@@ -113,7 +114,7 @@ export class LocalChangesOverwrittenDialog extends React.Component<
       return null
     }
 
-    return <p>You can stash your changes now and recover them afterwards.</p>
+    return <p>{t('localChangesOverwritten.stashAndRecover')}</p>
   }
 
   private renderFooter() {

@@ -13,6 +13,7 @@ import {
 } from '../../models/tutorial-step'
 import { encodePathAsUrl } from '../../lib/path'
 import { PopupType } from '../../models/popup'
+import { t } from '../../lib/l10n'
 import { PreferencesTab } from '../../models/preferences'
 import { Ref } from '../lib/ref'
 import { suggestedExternalEditor } from '../../lib/editors/shared'
@@ -109,7 +110,7 @@ export class TutorialPanel extends React.Component<
     return (
       <div className="tutorial-panel-component panel">
         <div className="titleArea">
-          <h3>Get started</h3>
+          <h3>{t('tutorialPanel.getStarted')}</h3>
           <img src={TutorialPanelImage} alt="Partially checked check list" />
         </div>
         <ol>

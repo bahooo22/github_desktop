@@ -3,6 +3,7 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Banner } from './banner'
 import { LinkButton } from '../lib/link-button'
+import { t } from '../../lib/l10n'
 
 interface ICherryPickConflictsBannerProps {
   /** branch the user is rebasing into */
@@ -41,7 +42,7 @@ export class CherryPickConflictsBanner extends React.Component<
             Resolve conflicts to continue cherry-picking onto{' '}
             <strong>{this.props.targetBranchName}</strong>.
           </span>
-          <LinkButton onClick={this.openDialog}>View conflicts</LinkButton>
+          <LinkButton onClick={this.openDialog}>{t('banners.viewConflicts')}</LinkButton>
         </div>
       </Banner>
     )

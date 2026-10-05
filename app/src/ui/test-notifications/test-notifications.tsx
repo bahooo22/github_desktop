@@ -3,6 +3,7 @@ import React from 'react'
 import { getHTMLURL, IAPIComment } from '../../lib/api'
 import { assertNever } from '../../lib/fatal-error'
 import { NotificationsDebugStore } from '../../lib/stores/notifications-debug-store'
+import { t } from '../../lib/l10n'
 import {
   ValidNotificationPullRequestReview,
   ValidNotificationPullRequestReviewState,
@@ -473,7 +474,7 @@ export class TestNotifications extends React.Component<
     if (this.state.selectedFlow === null) {
       return (
         <div>
-          <p>Select the type of notification to display:</p>
+          <p>{t('testNotifications.selectType')}</p>
           <div className="notification-type-list">
             {this.renderNotificationType(
               TestNotificationType.PullRequestReview
@@ -515,7 +516,7 @@ export class TestNotifications extends React.Component<
     const { pullRequests, selectedRows } = this.state
 
     if (pullRequests.length === 0) {
-      return <p>No pull requests found</p>
+      return <p>{t('testNotifications.noPullRequests')}</p>
     }
 
     return (
@@ -559,7 +560,7 @@ export class TestNotifications extends React.Component<
     const { reviews, selectedRows } = this.state
 
     if (reviews.length === 0) {
-      return <p>No reviews found</p>
+      return <p>{t('testNotifications.noReviews')}</p>
     }
 
     return (
@@ -609,7 +610,7 @@ export class TestNotifications extends React.Component<
     const { comments, selectedRows } = this.state
 
     if (comments.length === 0) {
-      return <p>No comments found</p>
+      return <p>{t('testNotifications.noComments')}</p>
     }
 
     return (
@@ -672,7 +673,7 @@ export class TestNotifications extends React.Component<
         linkButtonDescription={`Open in browser: ${review.body}`}
         leftAccessory={this.renderReviewStateIcon(review.state)}
       >
-        {review.body || <i>Review without body</i>}
+        {review.body || <i>{t('testNotifications.reviewWithoutBody')}</i>}
         <br />
         by <i>{review.user.login}</i>
       </TestNotificationItemRowContent>
