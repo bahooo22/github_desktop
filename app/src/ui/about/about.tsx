@@ -25,6 +25,12 @@ const logoPath = __DARWIN__
   : 'static/windows-logo-64x64@2x.png'
 const DesktopLogo = encodePathAsUrl(__dirname, logoPath)
 
+// This fork's translations are maintained outside the upstream repository, so
+// the credit line points at the translator's profile and at the issue tracker
+// where a build number can be discussed.
+const LocalizationAuthorUri = 'https://github.com/bahooo22/'
+const ForkIssuesUri = 'https://github.com/bahooo22/github_desktop/issues'
+
 interface IAboutProps {
   /**
    * Event triggered when the dialog is dismissed by the user in the
@@ -284,11 +290,18 @@ export class About extends React.Component<IAboutProps> {
             if (locale?.authors && locale.authors.length > 0) {
               return (
                 <p className="no-padding selectable-text l10n-credit">
-                  {t('about.l10nCredit', {
-                    authors: locale.authors.join(', '),
-                    sha: __SHA__.substring(0, 10),
-                    date: __BUILD_DATE__,
-                  })}
+                  <Trans
+                    k="about.l10nCredit"
+                    params={{
+                      authors: locale.authors.join(', '),
+                      sha: __SHA__.substring(0, 10),
+                      date: __BUILD_DATE__,
+                    }}
+                    components={{
+                      authors: <LinkButton uri={LocalizationAuthorUri} />,
+                      sha: <LinkButton uri={ForkIssuesUri} />,
+                    }}
+                  />
                 </p>
               )
             }

@@ -646,7 +646,7 @@
     "terms-and-conditions": "Умови використання",
     "license-notices": "Ліцензії та сповіщення про ПЗ з відкритим кодом",
     "responsible-use-copilot": "Відповідальне використання Copilot у GitHub Desktop",
-    "l10nCredit": "Локалізація: {authors} (збірка {sha}, {date})"
+    "l10nCredit": "Локалізація: <authors>{authors}</authors> (збірка <sha>{sha}</sha>, {date})"
   },
   "acknowledgements": {
     "title": "Ліцензії та сповіщення про ПЗ з відкритим кодом",

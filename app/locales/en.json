@@ -689,7 +689,7 @@
     "terms-and-conditions": "Terms and Conditions",
     "license-notices": "License and Open Source Notices",
     "responsible-use-copilot": "Responsible use of Copilot in GitHub Desktop",
-    "l10nCredit": "Localization by {authors}. Built from {sha} on {date}."
+    "l10nCredit": "Localization by <authors>{authors}</authors>. Built from <sha>{sha}</sha> on {date}."
   },
   "acknowledgements": {
     "title": "License and Open Source Notices",
