@@ -2388,9 +2388,21 @@
     "pulling": "Pulling {remote}"
   },
   "revealDirectory": {
-    "title": "Reveal Repository in Finder?",
+    "title": {
+      "@darwin": "Reveal Repository in Finder?",
+      "@win32": "Reveal Repository in File Explorer?",
+      "@other": "Reveal Repository in the file manager?"
+    },
     "message": "This repository might be an application.",
-    "detail": "Opening it directly could run software. You can reveal and select it in Finder without opening it.",
-    "revealButton": "Reveal in Finder"
+    "detail": {
+      "@darwin": "Opening it directly could run software. You can reveal and select it in Finder without opening it.",
+      "@win32": "Opening it directly could run software. You can reveal and select it in File Explorer without opening it.",
+      "@other": "Opening it directly could run software. You can reveal and select it in the file manager without opening it."
+    },
+    "revealButton": {
+      "@darwin": "Reveal in Finder",
+      "@win32": "Reveal in File Explorer",
+      "@other": "Reveal in file manager"
+    }
   }
 }
