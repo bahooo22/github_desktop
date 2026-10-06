@@ -94,8 +94,27 @@ export function getWindowsDeltaNugetPackagePath() {
   )
 }
 
+/**
+ * This fork ships under its own Squirrel identifier instead of the upstream
+ * 'GitHubDesktop' one. Two builds with the same identifier share
+ * %LOCALAPPDATA%\<identifier>, the Start/Desktop shortcuts and – most
+ * importantly – the auto-update feed, so an upstream install would happily
+ * replace itself with a fork build and vice versa. A distinct identifier keeps
+ * the fork and upstream Desktop side by side and makes the fork's feed the only
+ * thing the fork can update from.
+ */
 export function getWindowsIdentifierName() {
-  return 'GitHubDesktop'
+  return 'GitHubDesktopL10n'
+}
+
+/**
+ * The Windows App User Model Id Squirrel generates for an install, derived from
+ * the identifier above so that notifications and taskbar grouping of a dev
+ * build line up with the installed one.
+ */
+export function getWindowsAppUserModelId() {
+  const identifier = getWindowsIdentifierName()
+  return `com.squirrel.${identifier}.${identifier}`
 }
 
 export function getBundleSizes() {
@@ -127,21 +146,48 @@ export function getDistArchitecture(): 'arm64' | 'x64' {
   }
 
   // TODO: Check if it's x64 running on an arm64 Windows with IsWow64Process2
-  // More info: https://www.rudyhuyn.com/blog/2017/12/13/how-to-detect-that-your-x86-application-runs-on-windows-on-arm/
+  // More info: https://www.rudyhuyn.com/blog/2017-12-13/how-to-detect-that-your-x86-application-runs-on-windows-on-arm/
   // Right now (March 3, 2021) is not very important because support for x64
   // apps on an arm64 Windows is experimental. See:
-  // https://blogs.windows.com/windows-insider/2020/12/10/introducing-x64-emulation-in-preview-for-windows-10-on-arm-pcs-to-the-windows-insider-program/
+  // https://blogs.windows.com/windows-insider/2020-12-10/introducing-x64-emulation-in-preview-for-windows-10-on-arm-pcs-to-the-windows-insider-program/
 
   return 'x64'
 }
 
+/** Host of upstream's own deployment feed, see `isCentralUpdatesFeed` below. */
+const centralUpdatesHost = 'central.github.com'
+
+/**
+ * Feed for this fork's releases: the assets of a GitHub Release, one release
+ * per architecture (a single tag can't serve both x64 and arm64 `RELEASES`
+ * files). Squirrel.Windows appends `RELEASES` to whatever it's given, so the
+ * value has to be the trailing-slash download base of the tag, not a link to a
+ * concrete asset.
+ */
 export function getUpdatesURL() {
-  // It is also possible to use a `x64/` path, but for now we'll leave the
-  // original URL without architecture in it (which will still work for
-  // compatibility reasons) in case anything goes wrong until we have everything
-  // sorted out.
-  const architecturePath = getDistArchitecture() === 'arm64' ? 'arm64/' : ''
-  return `https://central.github.com/api/deployments/desktop/desktop/${architecturePath}latest?version=${version}&env=${getChannel()}`
+  if (process.env.DESKTOP_UPDATES_URL !== undefined) {
+    return process.env.DESKTOP_UPDATES_URL
+  }
+
+  const tag =
+    getDistArchitecture() === 'arm64' ? 'latest-win-arm64' : 'latest-win-x64'
+
+  return `https://github.com/bahooo22/github_desktop/releases/download/${tag}/`
+}
+
+/**
+ * Whether the feed is upstream's Central endpoint rather than this fork's
+ * release assets. Central-specific behaviour (the staggered-release query
+ * parameters and the `/desktop/desktop/arm64/latest` path rewrite) is
+ * meaningless – and can actively break – a plain asset download, so callers
+ * gate it on this.
+ */
+export function isCentralUpdatesFeed(url: string): boolean {
+  try {
+    return new URL(url).hostname === centralUpdatesHost
+  } catch {
+    return false
+  }
 }
 
 export function shouldMakeDelta() {

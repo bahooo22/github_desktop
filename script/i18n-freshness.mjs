@@ -983,7 +983,13 @@ const buildDir = join(projectRoot, 'out')
 const shippedApps = [
   join(projectRoot, 'bin', 'resources', 'app'),
   join(projectRoot, 'dist', 'desktop-linux-x64', 'resources', 'app'),
-  join(projectRoot, 'dist', 'GitHubDesktop-win32-x64', 'resources', 'app'),
+  join(
+    projectRoot,
+    'dist',
+    'GitHubDesktopL10n-win32-x64',
+    'resources',
+    'app'
+  ),
 ]
 
 /** Bundles that embed the catalogs, so a missing language shows up in these. */

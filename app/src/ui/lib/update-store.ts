@@ -28,6 +28,16 @@ import { getUserAgent } from '../../lib/http'
 /** The last version a showcase was seen. */
 export const lastShowCaseVersionSeen = 'version-of-last-showcase'
 
+/**
+ * Whether the configured feed is upstream's Central endpoint. The staggered
+ * release flags and the arm64 path rewrite below only speak that protocol; this
+ * fork's feed is a GitHub release whose download URL is already signed, so
+ * appending query parameters to it risks breaking the redirect.
+ */
+function isCentralFeed(url: URL) {
+  return url.hostname === 'central.github.com'
+}
+
 /** The states the auto updater can be in. */
 export enum UpdateStatus {
   /** The auto updater is checking for updates. */
@@ -233,7 +243,7 @@ class UpdateStore {
       return __UPDATES_URL__
     }
 
-    if (skipGuidCheck) {
+    if (skipGuidCheck && isCentralFeed(url)) {
       // This will effectively disable the staggered releases system and attempt
       // to retrieve the latest available deployment.
       url.searchParams.set('skipGuidCheck', '1')
@@ -242,6 +252,7 @@ class UpdateStore {
     // If the app is running under arm64 to x64 translation, we need to tweak the
     // update URL here to point at the arm64 binary.
     if (
+      isCentralFeed(url) &&
       enableUpdateFromEmulatedX64ToARM64() &&
       (await isRunningUnderARM64Translation()) === true
     ) {

@@ -12,6 +12,7 @@ import {
   getWindowsInstallerName,
   shouldMakeDelta,
   getUpdatesURL,
+  isCentralUpdatesFeed,
   isPublishable,
   getBundleSizes,
   getDistRoot,
@@ -107,11 +108,19 @@ function packageWindows() {
   }
 
   if (shouldMakeDelta()) {
-    const url = new URL(getUpdatesURL())
-    // Make sure Squirrel.Windows isn't affected by partially or completely
-    // disabled releases.
-    url.searchParams.set('bypassStaggeredRelease', '1')
-    options.remoteReleases = url.toString()
+    const updatesUrl = getUpdatesURL()
+
+    if (isCentralUpdatesFeed(updatesUrl)) {
+      const url = new URL(updatesUrl)
+      // Make sure Squirrel.Windows isn't affected by partially or completely
+      // disabled releases.
+      url.searchParams.set('bypassStaggeredRelease', '1')
+      options.remoteReleases = url.toString()
+    } else {
+      // A plain release-assets feed has no staggered releases to bypass, and
+      // Squirrel appends RELEASES to the base itself.
+      options.remoteReleases = updatesUrl
+    }
   }
 
   if (isGitHubActions() && isPublishable()) {

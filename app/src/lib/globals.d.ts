@@ -53,6 +53,13 @@ declare const __RELEASE_CHANNEL__:
 /** The URL for Squirrel's updates. */
 declare const __UPDATES_URL__: string
 
+/**
+ * The Squirrel identifier this build installs under (Windows). Everything that
+ * has to match a real install – executable name, App User Model Id – derives it
+ * from here instead of repeating the literal.
+ */
+declare const __WINDOWS_IDENTIFIER_NAME__: string
+
 /** The URL for fatal exception reports. */
 declare const __ERROR_REPORTING_ENDPOINT__: string | undefined
 
