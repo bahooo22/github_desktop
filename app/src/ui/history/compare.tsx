@@ -168,7 +168,7 @@ export class CompareSidebar extends React.Component<
       <div id="compare-view" role="tabpanel" aria-labelledby="history-tab">
         <div className="compare-form">
           <FancyTextBox
-            ariaLabel="Branch filter"
+            ariaLabel={t('history.branchFilter')}
             symbol={octicons.gitBranch}
             displayClearButton={true}
             placeholder={placeholderText}
@@ -739,11 +739,9 @@ function getPlaceholderText(state: ICompareState) {
   const { branches, formState } = state
 
   if (!branches.some(b => !b.isDesktopForkRemoteBranch)) {
-    return __DARWIN__ ? 'No Branches to Compare' : 'No branches to compare'
+    return t('history.noBranchesToCompare')
   } else if (formState.kind === HistoryTabMode.History) {
-    return __DARWIN__
-      ? 'Select Branch to Compare…'
-      : 'Select branch to compare…'
+    return t('history.selectBranchToCompare')
   } else {
     return undefined
   }

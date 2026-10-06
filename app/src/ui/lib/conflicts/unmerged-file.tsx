@@ -203,10 +203,10 @@ const renderManualConflictedFile: React.FunctionComponent<{
   const { ourBranch, theirBranch } = props
   const { entry } = props.status
 
-  let conflictTypeString = manualConflictString
+  let conflictTypeString = t('conflicts.manualConflict')
 
   if ([entry.us, entry.them].includes(GitStatusEntry.Deleted)) {
-    let targetBranch = 'target branch'
+    let targetBranch = t('conflicts.targetBranch')
     if (entry.us === GitStatusEntry.Deleted && ourBranch !== undefined) {
       targetBranch = ourBranch
     }
@@ -523,8 +523,9 @@ function calculateConflicts(conflictMarkers: number) {
 }
 
 function editorButtonString(editorName: string | null): string {
-  const defaultEditorString = 'editor'
-  return `Open in ${editorName || defaultEditorString}`
+  return editorName === null
+    ? t('conflicts.openInEditorGeneric')
+    : t('conflicts.openInEditor', { editor: editorName })
 }
 
 function editorButtonTooltip(editorName: string | null): string | undefined {
@@ -533,11 +534,5 @@ function editorButtonTooltip(editorName: string | null): string | undefined {
     return
   }
 
-  if (__DARWIN__) {
-    return `No editor configured in Preferences > Advanced`
-  } else {
-    return `No editor configured in Options > Advanced`
-  }
+  return t('conflicts.noEditorConfigured')
 }
-
-const manualConflictString = 'Manual conflict'

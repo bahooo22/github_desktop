@@ -593,7 +593,7 @@ export class PushPullButton extends React.Component<
     lastFetched: Date | null,
     onClick: () => void
   ) {
-    const title = `Fetch ${remoteName}`
+    const title = t('toolbar.fetchFrom', { branch: remoteName })
     return (
       <ToolbarButton
         {...this.defaultButtonProps()}

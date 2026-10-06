@@ -141,7 +141,7 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
     let icon: OcticonSymbol = octicons.gitBranch
     let iconClassName: string | undefined = undefined
     let title: string
-    let description = __DARWIN__ ? 'Current Branch' : 'Current branch'
+    let description = t('toolbar.currentBranch')
     let canOpen = true
     let disabled = false
     let tooltip: string
@@ -160,10 +160,10 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
         b => !b.isDesktopForkRemoteBranch
       )
     } else if (tip.kind === TipState.Detached) {
-      title = `On ${tip.currentSha.substring(0, 7)}`
-      tooltip = 'Currently on a detached HEAD'
+      title = t('toolbar.onCommit', { sha: tip.currentSha.substring(0, 7) })
+      tooltip = t('toolbar.detachedHeadTooltip')
       icon = octicons.gitCommit
-      description = 'Detached HEAD'
+      description = t('toolbar.detachedHead')
     } else if (tip.kind === TipState.Valid) {
       title = tooltip = tip.branch.name
     } else {
@@ -190,11 +190,13 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
       canOpen = false
     } else if (conflictState !== null && isRebaseConflictState(conflictState)) {
       title = conflictState.targetBranch
-      description = 'Rebasing branch'
+      description = t('toolbar.rebasingBranch')
       icon = octicons.gitBranch
       canOpen = false
       disabled = true
-      tooltip = `Rebasing ${conflictState.targetBranch}`
+      tooltip = t('toolbar.rebasingTooltip', {
+        branch: conflictState.targetBranch,
+      })
     }
 
     const isOpen = this.props.isOpen

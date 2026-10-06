@@ -19,7 +19,8 @@
     "learnMore": "Подробнее",
     "do-not-show-again": "Больше не показывать это сообщение",
     "email": "Эл. почта",
-    "name": "Имя"
+    "name": "Имя",
+    "openPreferences": "Открыть настройки"
   },
   "app": {
     "select-repository": {
@@ -361,7 +362,10 @@
       "@darwin": "Добавить локальный репозиторий…",
       "@other": "&Добавить локальный репозиторий…"
     },
-    "branch": "Вет&ка",
+    "branch": {
+      "@darwin": "Ветка",
+      "@other": "Вет&ка"
+    },
     "branch-on-github": "Показать ветку на GitHub",
     "clone-repository": {
       "@darwin": "Клонировать репозиторий…",
@@ -375,7 +379,10 @@
       "@darwin": "Сравнить с веткой",
       "@other": "Ср&авнить с веткой"
     },
-    "copy": "&Копировать",
+    "copy": {
+      "@darwin": "Копировать",
+      "@other": "&Копировать"
+    },
     "create-branch": {
       "@darwin": "Новая ветка…",
       "@other": "Новая &ветка…"
@@ -392,7 +399,10 @@
       "@darwin": "Новый worktree…",
       "@other": "&Новый worktree…"
     },
-    "cut": "&Вырезать",
+    "cut": {
+      "@darwin": "Вырезать",
+      "@other": "&Вырезать"
+    },
     "decrease-active-resizable-width": "Свернуть активную панель",
     "default-branch-name": {
       "@darwin": "Ветка по умолчанию",
@@ -406,14 +416,23 @@
       "@darwin": "Отменить все изменения…",
       "@other": "Отменить все &изменения…"
     },
-    "edit": "&Правка",
+    "edit": {
+      "@darwin": "Правка",
+      "@other": "&Правка"
+    },
     "exit": "&Выход",
     "fetch": {
       "@darwin": "Получить",
       "@other": "По&лучить"
     },
-    "file": "&Файл",
-    "find": "&Найти",
+    "file": {
+      "@darwin": "Файл",
+      "@other": "&Файл"
+    },
+    "find": {
+      "@darwin": "Найти",
+      "@other": "&Найти"
+    },
     "go-to-commit-message": {
       "@darwin": "Перейти к описанию",
       "@other": "Перейти к описа&нию"
@@ -450,7 +469,10 @@
       "@other": "Показать в файловом &менеджере",
       "@win32": "Показать в Пр&оводнике"
     },
-    "paste": "Вст&авить",
+    "paste": {
+      "@darwin": "Вставить",
+      "@other": "Вст&авить"
+    },
     "preferences": "Параметры…",
     "preview-pull-request": "Предпросмотр pull request",
     "pull": {
@@ -461,18 +483,39 @@
       "@darwin": "Перебазировать текущую ветку…",
       "@other": "П&еребазировать текущую ветку…"
     },
-    "redo": "&Повторить",
+    "redo": {
+      "@darwin": "Повторить",
+      "@other": "&Повторить"
+    },
     "reload-window": "&Обновить",
-    "remove-repository": "Удалить",
-    "remove-repository-confirm": "&Удалить…",
+    "remove-repository": {
+      "@darwin": "Удалить",
+      "@other": "&Удалить"
+    },
+    "remove-repository-confirm": {
+      "@darwin": "Удалить…",
+      "@other": "&Удалить…"
+    },
     "rename-branch": {
       "@darwin": "Переименовать…",
       "@other": "&Переименовать…"
     },
-    "repository": "&Репозиторий",
-    "select-all": "Выде&лить всё",
-    "show-branches-list": "Список &веток",
-    "show-changes": "&Изменения",
+    "repository": {
+      "@darwin": "Репозиторий",
+      "@other": "&Репозиторий"
+    },
+    "select-all": {
+      "@darwin": "Выделить всё",
+      "@other": "Выде&лить всё"
+    },
+    "show-branches-list": {
+      "@darwin": "Список веток",
+      "@other": "Список &веток"
+    },
+    "show-changes": {
+      "@darwin": "Изменения",
+      "@other": "&Изменения"
+    },
     "show-changes-filter": {
       "@darwin": "Показать фильтр изменений",
       "@other": "Показать &фильтр изменений"
@@ -481,7 +524,10 @@
       "@darwin": "Показать инструменты разработчика",
       "@other": "Показать инструменты &разработчика"
     },
-    "show-history": "И&стория",
+    "show-history": {
+      "@darwin": "История",
+      "@other": "И&стория"
+    },
     "show-keyboard-shortcuts": {
       "@darwin": "Показать горячие клавиши",
       "@other": "Показать &горячие клавиши"
@@ -491,7 +537,10 @@
       "@other": "Показать &журналы в файловом менеджере",
       "@win32": "Показать &журналы в Проводнике"
     },
-    "show-repository-list": "Список репо&зитория",
+    "show-repository-list": {
+      "@darwin": "Список репозитория",
+      "@other": "Список репо&зитория"
+    },
     "show-repository-settings": {
       "@darwin": "Настройки репозитория…",
       "@other": "Настройки &репозитория…"
@@ -501,15 +550,30 @@
       "@other": "Показать спрят&анные изменения"
     },
     "show-user-guides": "Руководство пользователя",
-    "show-worktrees-list": "Показать список &worktree",
+    "show-worktrees-list": {
+      "@darwin": "Показать список worktree",
+      "@other": "Показать список &worktree"
+    },
     "squash-and-merge-branch": {
       "@darwin": "Сжать и слить в текущую ветку…",
       "@other": "С&жать и слить в текущую ветку…"
     },
-    "stash-all-changes": "Скрыть все изменения",
-    "stash-all-changes-confirm": "&Скрыть все изменения…",
-    "undo": "&Отменить",
-    "view": "&Вид",
+    "stash-all-changes": {
+      "@darwin": "Скрыть все изменения",
+      "@other": "&Скрыть все изменения"
+    },
+    "stash-all-changes-confirm": {
+      "@darwin": "Скрыть все изменения…",
+      "@other": "&Скрыть все изменения…"
+    },
+    "undo": {
+      "@darwin": "Отменить",
+      "@other": "&Отменить"
+    },
+    "view": {
+      "@darwin": "Вид",
+      "@other": "&Вид"
+    },
     "view-pull-request": {
       "@darwin": "Открыть pull request на GitHub",
       "@other": "Открыть pull request на Git&Hub"
@@ -1688,7 +1752,8 @@
     "createRepositoryFailed": "Не удалось создать репозиторий",
     "commitFailed": "Коммит не выполнен",
     "generic": "Ошибка",
-    "retryCloning": "Хотите повторить клонирование <ref/>?"
+    "retryCloning": "Хотите повторить клонирование <ref/>?",
+    "retryClone": "Повторить клонирование"
   },
   "selectedCommits": {
     "noFilesInCommit": "В коммите нет файлов",
@@ -1728,7 +1793,12 @@
     "manyConflictedFiles": "{count} конфликтующих файлов",
     "fileDoesNotExistOn": "Файл не существует в {branch}.",
     "fileResolutionOptions": "Варианты разрешения конфликта",
-    "resolveManuallyHint": "<link>Открыть в командной строке,</link> предпочтительный инструмент или закрыть окно, чтобы разрешить конфликты вручную."
+    "resolveManuallyHint": "<link>Открыть в командной строке,</link> предпочтительный инструмент или закрыть окно, чтобы разрешить конфликты вручную.",
+    "manualConflict": "Ручной конфликт",
+    "targetBranch": "целевая ветка",
+    "openInEditor": "Открыть в {editor}",
+    "openInEditorGeneric": "Открыть в редакторе",
+    "noEditorConfigured": "Редактор не выбран в «Настройках → Дополнительно»"
   },
   "configureGitUser": {
     "exampleCommit": "Пример коммита",
@@ -1950,7 +2020,10 @@
       "_few": "Показаны изменения из {count:number} коммитов",
       "_many": "Показаны изменения из {count:number} коммитов",
       "_other": "Показаны изменения из {count:number} коммита"
-    }
+    },
+    "noBranchesToCompare": "Нет веток для сравнения",
+    "selectBranchToCompare": "Выберите ветку для сравнения…",
+    "branchFilter": "Фильтр веток"
   },
   "gitUser": {
     "configureManually": "Настроить вручную",
@@ -1970,9 +2043,20 @@
   "openWithEditor": {
     "selectEditor": "Выберите редактор"
   },
+  "editorError": {
+    "title": "Не удалось открыть внешний редактор",
+    "download": "Скачать {name}"
+  },
+  "shellError": {
+    "title": "Не удалось открыть оболочку"
+  },
   "releaseNotes": {
     "markdownGenerated": "Примечания к выпуску, созданные из markdown",
-    "viewAll": "Показать все примечания к выпуску"
+    "viewAll": "Показать все примечания к выпуску",
+    "bugfixes": "Исправления",
+    "enhancements": "Улучшения",
+    "other": "Прочее",
+    "installAndRestart": "Установить и перезапустить"
   },
   "repositoriesList": {
     "fullNameLabel": "Полное имя:",
@@ -1990,7 +2074,7 @@
   "toolbar": {
     "currentBranchButton": "Кнопка списка текущей ветки",
     "fetchFrom": "Запросить из {branch}",
-    "fetchFromDescription": "Запросить последние изменения из {branch}",
+    "fetchFromDescription": "Запросить последние изменения из {branch} (git fetch: коммиты скачиваются в репозиторий, рабочие файлы при этом не меняются)",
     "warningTitle": "Внимание:",
     "forcePushWarning": "Принудительный push перезапишет историю на удалённом сервере. Всем, кто работает с этой веткой, придётся сбросить свою локальную ветку до состояния удалённой истории.",
     "forcePushTo": "Принудительный push в {branch}",
@@ -2001,7 +2085,13 @@
     "publishBranch": "Опубликовать ветку",
     "currentWorktreeButton": "Кнопка списка текущего worktree",
     "currentBranchIsTooltip": "Текущая ветка — {ref}",
-    "checkingOutTooltip": "Переключение на {branch}"
+    "checkingOutTooltip": "Переключение на {branch}",
+    "currentBranch": "Текущая ветка",
+    "onCommit": "Коммит {sha}",
+    "detachedHead": "Откреплённый HEAD",
+    "detachedHeadTooltip": "Вы находитесь на откреплённом HEAD (detached HEAD) — коммит выбран напрямую, а не как вершина ветки",
+    "rebasingBranch": "Выполняется rebase",
+    "rebasingTooltip": "Выполняется rebase (перенос ваших коммитов) поверх {branch}"
   },
   "revertProgress": {
     "title": "Идёт откат…",

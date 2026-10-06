@@ -270,7 +270,7 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText={__DARWIN__ ? 'Retry Clone' : 'Retry clone'}
+          okButtonText={t('appError.retryClone')}
           onOkButtonClick={this.onRetryAction}
           onCancelButtonClick={this.onCloseButtonClick}
         />
@@ -282,9 +282,9 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText="Close"
+          okButtonText={t('common.close')}
           onOkButtonClick={this.onCloseButtonClick}
-          cancelButtonText={__DARWIN__ ? 'Open Preferences' : 'Open options'}
+          cancelButtonText={t('common.openPreferences')}
           onCancelButtonClick={this.showPreferencesDialog}
         />
       </DialogFooter>

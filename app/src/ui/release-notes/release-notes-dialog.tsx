@@ -61,9 +61,12 @@ export class ReleaseNotes extends React.Component<IReleaseNotesProps, {}> {
     return (
       <div className="container">
         <div className="column">
-          {this.renderList(release.bugfixes, 'Bugfixes')}
-          {this.renderList(release.enhancements, 'Enhancements')}
-          {this.renderList(release.other, 'Other')}
+          {this.renderList(release.bugfixes, t('releaseNotes.bugfixes'))}
+          {this.renderList(
+            release.enhancements,
+            t('releaseNotes.enhancements')
+          )}
+          {this.renderList(release.other, t('releaseNotes.other'))}
         </div>
       </div>
     )
@@ -73,11 +76,14 @@ export class ReleaseNotes extends React.Component<IReleaseNotesProps, {}> {
     return (
       <div className="container">
         <div className="column">
-          {this.renderList(release.enhancements, 'Enhancements')}
-          {this.renderList(release.other, 'Other')}
+          {this.renderList(
+            release.enhancements,
+            t('releaseNotes.enhancements')
+          )}
+          {this.renderList(release.other, t('releaseNotes.other'))}
         </div>
         <div className="column">
-          {this.renderList(release.bugfixes, 'Bugfixes')}
+          {this.renderList(release.bugfixes, t('releaseNotes.bugfixes'))}
         </div>
       </div>
     )
@@ -137,7 +143,7 @@ export class ReleaseNotes extends React.Component<IReleaseNotesProps, {}> {
     if (latestVersion === __APP_VERSION__) {
       return (
         <Button type="submit" onClick={this.onDismissed}>
-          Close
+          {t('common.close')}
         </Button>
       )
     }
@@ -145,10 +151,8 @@ export class ReleaseNotes extends React.Component<IReleaseNotesProps, {}> {
     return (
       <OkCancelButtonGroup
         destructive={true}
-        okButtonText={
-          __DARWIN__ ? 'Install and Restart' : 'Install and restart'
-        }
-        cancelButtonText="Close"
+        okButtonText={t('releaseNotes.installAndRestart')}
+        cancelButtonText={t('common.close')}
       />
     )
   }

@@ -18,7 +18,11 @@
     "learnMore": "Learn more",
     "do-not-show-again": "Do not show this message again",
     "email": "Email",
-    "name": "Name"
+    "name": "Name",
+    "openPreferences": {
+      "@darwin": "Open Preferences",
+      "@other": "Open options"
+    }
   },
   "app": {
     "select-repository": {
@@ -1835,7 +1839,11 @@
     "createRepositoryFailed": "Failed creating repository",
     "commitFailed": "Commit failed",
     "generic": "Error",
-    "retryCloning": "Would you like to retry cloning <ref/>?"
+    "retryCloning": "Would you like to retry cloning <ref/>?",
+    "retryClone": {
+      "@darwin": "Retry Clone",
+      "@other": "Retry clone"
+    }
   },
   "selectedCommits": {
     "noFilesInCommit": "No files in commit",
@@ -1871,7 +1879,15 @@
     "manyConflictedFiles": "{count} conflicted files",
     "fileDoesNotExistOn": "File does not exist on {branch}.",
     "fileResolutionOptions": "File resolution options",
-    "resolveManuallyHint": "<link>Open in command line,</link> your tool of choice, or close to resolve manually."
+    "resolveManuallyHint": "<link>Open in command line,</link> your tool of choice, or close to resolve manually.",
+    "manualConflict": "Manual conflict",
+    "targetBranch": "target branch",
+    "openInEditor": "Open in {editor}",
+    "openInEditorGeneric": "Open in editor",
+    "noEditorConfigured": {
+      "@darwin": "No editor configured in Preferences > Advanced",
+      "@other": "No editor configured in Options > Advanced"
+    }
   },
   "configureGitUser": {
     "exampleCommit": "Example commit",
@@ -2086,7 +2102,16 @@
     "showingChangesFromPlain": {
       "_one": "Showing changes from {count:number} commit",
       "_other": "Showing changes from {count:number} commits"
-    }
+    },
+    "noBranchesToCompare": {
+      "@darwin": "No Branches to Compare",
+      "@other": "No branches to compare"
+    },
+    "selectBranchToCompare": {
+      "@darwin": "Select Branch to Compare…",
+      "@other": "Select branch to compare…"
+    },
+    "branchFilter": "Branch filter"
   },
   "gitUser": {
     "configureManually": "Configure manually",
@@ -2106,9 +2131,29 @@
   "openWithEditor": {
     "selectEditor": "Select an editor"
   },
+  "editorError": {
+    "title": {
+      "@darwin": "Unable to Open External Editor",
+      "@other": "Unable to open external editor"
+    },
+    "download": "Download {name}"
+  },
+  "shellError": {
+    "title": {
+      "@darwin": "Unable to Open Shell",
+      "@other": "Unable to open shell"
+    }
+  },
   "releaseNotes": {
     "markdownGenerated": "Release notes generated from markdown",
-    "viewAll": "View all release notes"
+    "viewAll": "View all release notes",
+    "bugfixes": "Bugfixes",
+    "enhancements": "Enhancements",
+    "other": "Other",
+    "installAndRestart": {
+      "@darwin": "Install and Restart",
+      "@other": "Install and restart"
+    }
   },
   "repositoriesList": {
     "fullNameLabel": "Full Name:",
@@ -2137,7 +2182,13 @@
     "publishBranch": "Publish branch",
     "currentWorktreeButton": "Current worktree dropdown button",
     "currentBranchIsTooltip": "Current branch is {ref}",
-    "checkingOutTooltip": "Checking out {branch}"
+    "checkingOutTooltip": "Checking out {branch}",
+    "currentBranch": "Current branch",
+    "onCommit": "On {sha}",
+    "detachedHead": "Detached HEAD",
+    "detachedHeadTooltip": "Currently on a detached HEAD",
+    "rebasingBranch": "Rebasing branch",
+    "rebasingTooltip": "Rebasing {branch}"
   },
   "revertProgress": {
     "title": "Reverting…",

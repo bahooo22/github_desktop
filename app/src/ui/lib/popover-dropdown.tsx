@@ -5,6 +5,7 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import classNames from 'classnames'
 import { createUniqueId, releaseUniqueId } from './id-pool'
+import { t } from '../../lib/l10n'
 
 const maxPopoverContentHeight = 500
 
@@ -117,7 +118,7 @@ export class PopoverDropdown extends React.Component<
             <button
               className="close"
               onClick={this.closePopover}
-              aria-label="Close"
+              aria-label={t('common.close')}
             >
               <Octicon symbol={octicons.x} />
             </button>

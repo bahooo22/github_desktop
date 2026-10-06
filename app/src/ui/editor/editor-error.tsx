@@ -9,6 +9,7 @@ import {
 } from '../dialog'
 import { shell } from '../../lib/app-shell'
 import { suggestedExternalEditor } from '../../lib/editors/shared'
+import { t } from '../../lib/l10n'
 
 interface IEditorErrorProps {
   /**
@@ -62,8 +63,8 @@ export class EditorError extends React.Component<IEditorErrorProps, {}> {
       return (
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Close"
-            cancelButtonText={__DARWIN__ ? 'Open Preferences' : 'Open options'}
+            okButtonText={t('common.close')}
+            cancelButtonText={t('common.openPreferences')}
             onCancelButtonClick={this.onShowPreferencesDialog}
           />
         </DialogFooter>
@@ -72,8 +73,10 @@ export class EditorError extends React.Component<IEditorErrorProps, {}> {
       return (
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Close"
-            cancelButtonText={`Download ${suggestedExternalEditor.name}`}
+            okButtonText={t('common.close')}
+            cancelButtonText={t('editorError.download', {
+              name: suggestedExternalEditor.name,
+            })}
             onCancelButtonClick={this.onExternalLink}
           />
         </DialogFooter>
@@ -84,9 +87,7 @@ export class EditorError extends React.Component<IEditorErrorProps, {}> {
   }
 
   public render() {
-    const title = __DARWIN__
-      ? 'Unable to Open External Editor'
-      : 'Unable to open external editor'
+    const title = t('editorError.title')
 
     return (
       <Dialog
