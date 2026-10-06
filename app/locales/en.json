@@ -22,7 +22,8 @@
     "openPreferences": {
       "@darwin": "Open Preferences",
       "@other": "Open options"
-    }
+    },
+    "hangOn": "Hang on…"
   },
   "app": {
     "select-repository": {
@@ -624,6 +625,48 @@
     "view": {
       "@darwin": "View",
       "@other": "&View"
+    },
+    "toggle-full-screen": {
+      "@darwin": "Toggle Full Screen",
+      "@other": "Toggle &full screen"
+    },
+    "reset-zoom": {
+      "@darwin": "Reset Zoom",
+      "@other": "&Reset zoom"
+    },
+    "zoom-in": {
+      "@darwin": "Zoom In",
+      "@other": "Zoom &in"
+    },
+    "zoom-out": {
+      "@darwin": "Zoom Out",
+      "@other": "Zoom &out"
+    },
+    "open-in-shell": {
+      "@darwin": "Open in {shell}",
+      "@other": "O&pen in {shell}"
+    },
+    "open-in-shell-default": "Shell",
+    "open-in-editor": {
+      "@darwin": "Open in {editor}",
+      "@other": "&Open in {editor}"
+    },
+    "open-in-editor-default": "External Editor",
+    "update-from": {
+      "@darwin": "Update from {branch}",
+      "@other": "&Update from {branch}"
+    },
+    "report-issue": {
+      "@darwin": "Report Issue…",
+      "@other": "&Report issue…"
+    },
+    "contact-support": {
+      "@darwin": "Contact GitHub Support…",
+      "@other": "&Contact GitHub support…"
+    },
+    "add-to-dictionary": {
+      "@darwin": "Add to Dictionary",
+      "@other": "Add to &dictionary"
     }
   },
   "about": {
@@ -995,7 +1038,9 @@
       "some-failed": "Some checks were not successful"
     },
     "view-details": "View check details",
-    "view-on-github": "View {name} on GitHub"
+    "view-on-github": "View {name} on GitHub",
+    "statusTooltip": "Checks: {conclusion}",
+    "jobStepAria": "{stepName}, {duration}, {status}"
   },
   "checkout": {
     "checkout": "Checkout",
@@ -1516,7 +1561,11 @@
         "@darwin": "{operation} Will Require Force Push",
         "@other": "{operation} will require force push"
       }
-    }
+    },
+    "currentBranchLabel": "current branch",
+    "incomingBranchLabel": "incoming branch",
+    "cherryPickedCommitLabel": "cherry-picked commit",
+    "copilotModelLabel": "{model} · {effort}"
   },
   "notifications": {
     "checksFailed": {
@@ -1778,7 +1827,21 @@
       "_one": "Successfully squashed {count} commit.",
       "_other": "Successfully squashed {count} commits."
     },
-    "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>"
+    "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>",
+    "branchAlreadyUpToDateWith": "<ours></ours> is already up to date with <theirs></theirs>",
+    "branchAlreadyUpToDate": "<ours></ours> is already up to date",
+    "squashUndone": {
+      "_one": "Squash of {count} commit undone.",
+      "_other": "Squash of {count} commits undone."
+    },
+    "reorderUndone": {
+      "_one": "Reorder of {count} commit undone.",
+      "_other": "Reorder of {count} commits undone."
+    },
+    "successfulMergeWith": "Successfully merged <theirs></theirs> into <ours></ours>",
+    "successfulMerge": "Successfully merged into <ours></ours>",
+    "successfulRebaseOnto": "Successfully rebased <target></target> onto <base></base>",
+    "successfulRebase": "Successfully rebased <target></target>"
   },
   "stashDiffHeader": {
     "title": "Stashed changes",
@@ -1787,7 +1850,15 @@
     "restoreDescription": "<strong>Restore</strong> will move your stashed files to the Changes list."
   },
   "worktreeList": {
-    "noItemsFound": "No worktrees found"
+    "noItemsFound": "No worktrees found",
+    "copyWorktreeName": {
+      "@darwin": "Copy Worktree Name",
+      "@other": "Copy worktree name"
+    },
+    "copyWorktreePath": {
+      "@darwin": "Copy Worktree Path",
+      "@other": "Copy worktree path"
+    }
   },
   "tutorialPanel": {
     "getStarted": "Get started",
@@ -1799,7 +1870,8 @@
     "editFile": "Open this repository in your preferred text editor. Edit the <ref/> file, save it, and come back.",
     "makeCommit": "A commit allows you to save sets of changes. In the “summary“ field in the bottom left, write a short message that describes the changes you made. When you’re done, click the blue Commit button to finish.",
     "publishToGithub": "Publishing will “push”, or upload, your commits to this branch of your repository on GitHub. Publish using the third button in the top bar.",
-    "openPullRequest": "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private."
+    "openPullRequest": "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private.",
+    "iHaveEditor": "I have an editor"
   },
   "testNotifications": {
     "noPullRequests": "No pull requests found",
@@ -1810,7 +1882,10 @@
     "done": "Done!",
     "title": "Test Notifications",
     "openPullRequestInBrowser": "Open pull request #{number} in browser",
-    "pullRequestsFor": "Pull requests for {name}:"
+    "pullRequestsFor": "Pull requests for {name}:",
+    "reviewsLabel": "Reviews:",
+    "commentsLabel": "Comments:",
+    "openInBrowser": "Open in browser: {body}"
   },
   "copilotByok": {
     "authentication": "Authentication",
@@ -1828,7 +1903,11 @@
     "createPrCta": "Would you like to <link>create a pull request</link> from the current branch?"
   },
   "userAutocompletion": {
-    "searchForUser": "Search for user"
+    "searchForUser": "Search for user",
+    "suggestions": {
+      "_one": "{count} suggestion",
+      "_other": "{count} suggestions"
+    }
   },
   "appError": {
     "filesExceedLimit": "Files that exceed the limit",
@@ -1858,7 +1937,12 @@
       "_one": "Squash {count:number} Commit",
       "_other": "Squash {count:number} Commits"
     },
-    "noCommitSelected": "No commit selected"
+    "noCommitSelected": "No commit selected",
+    "noFileSelected": "No file selected",
+    "fileDoesNotExistOnDisk": {
+      "@darwin": "File Does Not Exist on Disk",
+      "@other": "File does not exist on disk"
+    }
   },
   "pullRequestQuickView": {
     "reviewRequested": "Review requested",
@@ -1950,7 +2034,52 @@
     "modelsEmpty": "No models yet. Add at least one to use this provider.",
     "modelsHint": "Tell Desktop which models this provider offers. Each one will appear in the model picker for Copilot features.",
     "noCredentialsHint": "No credentials will be sent with requests to this provider.",
-    "removeQuestion": "Are you sure you want to remove the custom provider <ref/>?"
+    "removeQuestion": "Are you sure you want to remove the custom provider <ref/>?",
+    "removeTitle": {
+      "@darwin": "Remove Custom Provider",
+      "@other": "Remove custom provider"
+    },
+    "remove": "Remove",
+    "removeApiKeyConsequence": "Its API key will also be removed from your keychain.",
+    "removeBearerConsequence": "Its bearer token will also be removed from your keychain.",
+    "removeNoAuthConsequence": "Any models you have configured for it will no longer be available.",
+    "untitledModel": "Untitled model",
+    "reasoningMeta": "Reasoning: {effort}",
+    "editModelAria": "Edit {heading}",
+    "removeModelAria": "Remove {heading}",
+    "editTitle": {
+      "@darwin": "Edit Custom Provider",
+      "@other": "Edit custom provider"
+    },
+    "addTitle": {
+      "@darwin": "Add Custom Provider",
+      "@other": "Add custom provider"
+    },
+    "baseUrlLabel": "Base URL",
+    "apiFormatLabel": {
+      "@darwin": "API Format",
+      "@other": "API format"
+    },
+    "azureApiVersionLabel": {
+      "@darwin": "Azure API Version",
+      "@other": "Azure API version"
+    },
+    "requestTimeoutLabel": {
+      "@darwin": "Request Timeout (seconds)",
+      "@other": "Request timeout (seconds)"
+    },
+    "unchangedSecret": "(unchanged)",
+    "addModel": {
+      "@darwin": "Add Model…",
+      "@other": "Add model…"
+    },
+    "nameRequired": "Please enter a name.",
+    "baseUrlRequired": "Please enter a base URL.",
+    "baseUrlInvalid": "Base URL must be an https URL, or an http URL pointing at the local machine.",
+    "modelsRequired": "Please add at least one model.",
+    "bearerRequired": "Please enter a bearer token.",
+    "apiKeyRequired": "Please enter an API key.",
+    "timeoutInvalid": "Request timeout must be a positive number of seconds."
   },
   "unreachableCommits": {
     "unreachableTab": "Unreachable",
@@ -1963,7 +2092,11 @@
       "_one": "You will see changes from the following commit because it's in the ancestry path of the most recent commit in your selection.",
       "_other": "You will see changes from the following commits because they're in the ancestry path of the most recent commit in your selection."
     },
-    "learnMore": "<link>Learn more about unreachable commits.</link>"
+    "learnMore": "<link>Learn more about unreachable commits.</link>",
+    "title": {
+      "@darwin": "Commit Reachability",
+      "@other": "Commit reachability"
+    }
   },
   "tooltippedSha": {
     "copy": "Copy"
@@ -1994,7 +2127,28 @@
     "identifierRequired": "Please enter a model identifier.",
     "identifierExists": "Another model with the identifier '{id}' already exists.",
     "friendlyNameHint": "The friendly name shown in the Copilot model picker.",
-    "exactNameHint": "The exact name your provider expects (e.g. <code>gpt-4o</code>, <code>llama3</code>)."
+    "exactNameHint": "The exact name your provider expects (e.g. <code>gpt-4o</code>, <code>llama3</code>).",
+    "editTitle": {
+      "@darwin": "Edit Model",
+      "@other": "Edit model"
+    },
+    "addTitle": {
+      "@darwin": "Add Model",
+      "@other": "Add model"
+    },
+    "displayNameLabel": {
+      "@darwin": "Display Name",
+      "@other": "Display name"
+    },
+    "modelIdentifierLabel": {
+      "@darwin": "Model Identifier",
+      "@other": "Model identifier"
+    },
+    "reasoningEffortLabel": {
+      "@darwin": "Reasoning Effort",
+      "@other": "Reasoning effort"
+    },
+    "defaultReasoningOption": "Default (provider's choice)"
   },
   "ciCheckRunRerun": {
     "titleSingle": "Re-run Single check",
@@ -2041,7 +2195,9 @@
   },
   "copilotModelPicker": {
     "noModelsFound": "No models found.",
-    "configureCustomProviders": "Configure custom providers…"
+    "configureCustomProviders": "Configure custom providers…",
+    "defaultSuffix": "{name} (default)",
+    "itemAria": "{title}, {subtitle}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git is requesting permission to sign in to this server:",
@@ -2051,7 +2207,11 @@
   "warnLocalChanges": {
     "continueAnyway": "Do you want to continue anyway?",
     "changesInProgress": "You have changes in progress. Undoing the merge commit might result in some of these changes being lost.",
-    "undoWarning": "You have changes in progress. Undoing the commit might result in some of these changes being lost. Do you want to continue anyway?"
+    "undoWarning": "You have changes in progress. Undoing the commit might result in some of these changes being lost. Do you want to continue anyway?",
+    "undoCommitTitle": {
+      "@darwin": "Undo Commit",
+      "@other": "Undo commit"
+    }
   },
   "repositoryPath": {
     "willBeCreatedAs": "Will be created as {{sanitizedName}}",
@@ -2129,7 +2289,11 @@
     "title": "Icon Preview"
   },
   "openWithEditor": {
-    "selectEditor": "Select an editor"
+    "selectEditor": "Select an editor",
+    "dialogTitle": {
+      "@darwin": "Open With…",
+      "@other": "Open with…"
+    }
   },
   "editorError": {
     "title": {
@@ -2160,7 +2324,46 @@
     "pathLabel": "Path:",
     "noRepositoryFound": "Sorry, I can't find that repository",
     "uncommittedChanges": "There are uncommitted changes in this repository",
-    "proTip": "ProTip! Press <addShortcut/> to quickly add a local repository, and <cloneShortcut/> to clone from anywhere within the app"
+    "proTip": "ProTip! Press <addShortcut/> to quickly add a local repository, and <cloneShortcut/> to clone from anywhere within the app",
+    "aheadBehindBothTooltip": "The currently checked out branch is {behind} behind and {ahead} ahead of its tracked branch.",
+    "behindTooltip": "The currently checked out branch is {commits} behind its tracked branch.",
+    "aheadTooltip": "The currently checked out branch is {commits} ahead of its tracked branch.",
+    "cloneRepository": {
+      "@darwin": "Clone Repository…",
+      "@other": "Clone repository…"
+    },
+    "createNewRepository": {
+      "@darwin": "Create New Repository…",
+      "@other": "Create new repository…"
+    },
+    "addExistingRepository": {
+      "@darwin": "Add Existing Repository…",
+      "@other": "Add existing repository…"
+    },
+    "copyRepoName": {
+      "@darwin": "Copy Repo Name",
+      "@other": "Copy repo name"
+    },
+    "copyRepoPath": {
+      "@darwin": "Copy Repo Path",
+      "@other": "Copy repo path"
+    },
+    "createAlias": {
+      "@darwin": "Create Alias",
+      "@other": "Create alias"
+    },
+    "changeAlias": {
+      "@darwin": "Change Alias",
+      "@other": "Change alias"
+    },
+    "removeAlias": {
+      "@darwin": "Remove Alias",
+      "@other": "Remove alias"
+    },
+    "showWorktrees": {
+      "@darwin": "Show Worktrees",
+      "@other": "Show worktrees"
+    }
   },
   "resizable": {
     "resizeHandle": "Resize handle"
@@ -2204,7 +2407,19 @@
     "addDescription": "Work on an existing project in GitHub Desktop",
     "openAtomSite": "Open the Atom website",
     "doneMessage": "You’ve learned the basics on how to use GitHub Desktop. Here are some suggestions for what to do next.",
-    "doneImageAlt": "Hands clapping"
+    "doneImageAlt": "Hands clapping",
+    "openInBrowserButton": {
+      "@darwin": "Open in Browser",
+      "@other": "Open in browser"
+    },
+    "createRepositoryButton": {
+      "@darwin": "Create Repository",
+      "@other": "Create repository"
+    },
+    "addRepositoryButton": {
+      "@darwin": "Add Repository",
+      "@other": "Add repository"
+    }
   },
   "pushBranchCommits": {
     "publishTitle": "Your branch must be published before opening a pull request.",
@@ -2265,6 +2480,50 @@
     "tagsToPush": {
       "_one": "This commit has {count} tag to push",
       "_other": "This commit has {count} tags to push"
+    },
+    "reorderCommitsHintTitle": {
+      "@darwin": "Reorder Commits",
+      "@other": "Reorder commits"
+    },
+    "pressEnterToConfirm": "Press <enter/> to confirm.",
+    "viewOnGitHub": "View on GitHub",
+    "viewOnGitHubEnterprise": "View on GitHub Enterprise",
+    "amendCommit": {
+      "@darwin": "Amend Commit…",
+      "@other": "Amend commit…"
+    },
+    "undoCommit": {
+      "@darwin": "Undo Commit…",
+      "@other": "Undo commit…"
+    },
+    "resetToCommit": {
+      "@darwin": "Reset to Commit…",
+      "@other": "Reset to commit…"
+    },
+    "checkoutCommit": {
+      "@darwin": "Checkout Commit",
+      "@other": "Checkout commit"
+    },
+    "reorderCommit": {
+      "@darwin": "Reorder Commit",
+      "@other": "Reorder commit"
+    },
+    "revertChangesInCommit": {
+      "@darwin": "Revert Changes in Commit",
+      "@other": "Revert changes in commit"
+    },
+    "createBranchFromCommit": {
+      "@darwin": "Create Branch from Commit",
+      "@other": "Create branch from commit"
+    },
+    "cherryPickCommit": {
+      "@darwin": "Cherry-pick Commit…",
+      "@other": "Cherry-pick commit…"
+    },
+    "copySha": "Copy SHA",
+    "copyTags": {
+      "_one": "Copy Tag",
+      "_other": "Copy Tags"
     }
   },
   "authentication": {
@@ -2288,7 +2547,8 @@
   "authorInput": {
     "userNotFound": "Could not find user with username {username}",
     "searching": "Searching for @{username}",
-    "errorUserNotFound": "Error: user {username} not found"
+    "errorUserNotFound": "Error: user {username} not found",
+    "coAuthors": "Co-Authors"
   },
   "suggestedActions": {
     "branchAria": "Suggested actions for this branch"
@@ -2310,11 +2570,19 @@
     "notFoundPreferencesHint": "Already installed it? Let us know where in <preferences>Preferences</preferences>."
   },
   "worktreeDropdown": {
-    "currentWorktreeTooltip": "Current worktree is {worktree}"
+    "currentWorktreeTooltip": "Current worktree is {worktree}",
+    "currentWorktree": {
+      "@darwin": "Current Worktree",
+      "@other": "Current worktree"
+    }
   },
   "deleteWorktreeFailed": {
     "deletionFailed": "Deleting the worktree <ref/> failed.",
-    "forceDeleteQuestion": "Would you like to forcefully delete the worktree <ref/>?"
+    "forceDeleteQuestion": "Would you like to forcefully delete the worktree <ref/>?",
+    "title": {
+      "@darwin": "Delete Worktree Failed",
+      "@other": "Delete worktree failed"
+    }
   },
   "branchesContainer": {
     "chooseMergeInto": "Choose a branch to merge into <branch/>",
@@ -2338,7 +2606,11 @@
     "viewAllRulesets": "<link>View all rulesets for this branch.</link>"
   },
   "confirmExitTutorial": {
-    "leaveWarning": "Are you sure you want to leave the tutorial? This will bring you back to the home screen."
+    "leaveWarning": "Are you sure you want to leave the tutorial? This will bring you back to the home screen.",
+    "title": {
+      "@darwin": "Exit Tutorial",
+      "@other": "Exit tutorial"
+    }
   },
   "successfulCherryPick": {
     "copied": {
@@ -2361,11 +2633,23 @@
     "verbCreated": "created"
   },
   "confirmDiscardStash": {
-    "warning": "Are you sure you want to discard these stashed changes?"
+    "warning": "Are you sure you want to discard these stashed changes?",
+    "title": {
+      "@darwin": "Discard Stash?",
+      "@other": "Discard stash?"
+    }
   },
   "workflowPushRejected": {
     "rejectedMessage": "The push was rejected by the server for containing a modification to the workflow file <ref/>. In order to be able to push to workflow files GitHub Desktop needs to request additional permissions.",
-    "grantPermission": "Would you like to open a browser to grant GitHub Desktop permission to update workflow files?"
+    "grantPermission": "Would you like to open a browser to grant GitHub Desktop permission to update workflow files?",
+    "title": {
+      "@darwin": "Push Rejected",
+      "@other": "Push rejected"
+    },
+    "continueInBrowser": {
+      "@darwin": "Continue in Browser",
+      "@other": "Continue in browser"
+    }
   },
   "pullRequestList": {
     "loadingPullRequests": "Hang Tight. Loading pull requests as fast as I can!",
@@ -2390,7 +2674,23 @@
   "addWorktreeDialog": {
     "willCheckOutRemoteBranch": "Will check out remote branch <ref>{branch}</ref>.",
     "willCheckOutExistingBranch": "Will check out existing branch <ref>{branch}</ref>.",
-    "worktreeWillBeCreated": "Worktree will be created at <ref>{path}</ref>."
+    "worktreeWillBeCreated": "Worktree will be created at <ref>{path}</ref>.",
+    "title": {
+      "@darwin": "Add Worktree",
+      "@other": "Add worktree"
+    },
+    "worktreeNameLabel": {
+      "@darwin": "Worktree Name",
+      "@other": "Worktree name"
+    },
+    "branchNameLabel": {
+      "@darwin": "Branch Name",
+      "@other": "Branch name"
+    },
+    "createWorktree": {
+      "@darwin": "Create Worktree",
+      "@other": "Create worktree"
+    }
   },
   "updateBranch": {
     "mergeCommitLabel": "Create a merge commit",
@@ -2406,11 +2706,30 @@
     "pullRemoteWithRebase": "Pull {remoteName} with rebase"
   },
   "deleteWorktreeDialog": {
-    "confirmMessage": "Are you sure you want to delete the worktree <ref/>?"
+    "confirmMessage": "Are you sure you want to delete the worktree <ref/>?",
+    "title": {
+      "@darwin": "Delete Worktree",
+      "@other": "Delete worktree"
+    }
   },
   "crash": {
     "launchDescription": "GitHub Desktop encountered a catastrophic error that prevents it from launching. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
-    "runtimeErrorDescription": "GitHub Desktop has encountered an unrecoverable error and will need to restart. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>."
+    "runtimeErrorDescription": "GitHub Desktop has encountered an unrecoverable error and will need to restart. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
+    "nativeErrorTitle": {
+      "@darwin": "Unrecoverable Error",
+      "@other": "Unrecoverable error"
+    },
+    "nativeErrorMessage": "GitHub Desktop has encountered an unrecoverable error and will need to restart.\n\nThis has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop issue tracker.",
+    "launchTitle": "GitHub Desktop failed to launch",
+    "errorTitle": "GitHub Desktop encountered an error",
+    "quit": {
+      "@darwin": "Quit",
+      "@other": "Exit"
+    },
+    "quitAndRestart": {
+      "@darwin": "Quit and Restart",
+      "@other": "Exit and restart"
+    }
   },
   "copilotError": {
     "quotaExceeded": "Quota exceeded",
@@ -2455,5 +2774,56 @@
       "@win32": "Reveal in File Explorer",
       "@other": "Reveal in file manager"
     }
+  },
+  "contextMenu": {
+    "openIn": "Open in {name}",
+    "copyFilePath": {
+      "@darwin": "Copy File Path",
+      "@other": "Copy file path"
+    },
+    "copyRelativeFilePath": {
+      "@darwin": "Copy Relative File Path",
+      "@other": "Copy relative file path"
+    },
+    "copyPaths": {
+      "@darwin": "Copy Paths",
+      "@other": "Copy paths"
+    },
+    "copyRelativePaths": {
+      "@darwin": "Copy Relative Paths",
+      "@other": "Copy relative paths"
+    },
+    "openInExternalEditor": {
+      "@darwin": "Open in External Editor",
+      "@other": "Open in external editor"
+    },
+    "openInShell": {
+      "@darwin": "Open in Shell",
+      "@other": "Open in shell"
+    },
+    "revealInFileManager": {
+      "@darwin": "Reveal in Finder",
+      "@win32": "Show in Explorer",
+      "@other": "Show in your File Manager"
+    },
+    "trashName": {
+      "@win32": "Recycle Bin",
+      "@other": "Trash"
+    }
+  },
+  "renameWorktreeDialog": {
+    "title": {
+      "@darwin": "Rename Worktree",
+      "@other": "Rename worktree"
+    },
+    "renameButton": "Rename {name}"
+  },
+  "cloningRepository": {
+    "title": "Cloning {repository}"
+  },
+  "hooks": {
+    "killedBySignal": "{hookName} hook killed by signal {signal} after {duration}s",
+    "failedWithCode": "{hookName} hook failed with code {code} after {duration}s",
+    "done": "{hookName} hook done after {duration}s"
   }
 }
