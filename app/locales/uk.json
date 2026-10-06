@@ -3,9 +3,7 @@
     "name": "українська",
     "nativeName": "Українська",
     "direction": "ltr",
-    "authors": [
-      "BaHooo"
-    ]
+    "authors": ["BaHooo"]
   },
   "common": {
     "cancel": "Скасувати",
@@ -591,19 +589,19 @@
     },
     "reset-zoom": {
       "@darwin": "Скинути масштаб",
-      "@other": "&Скинути масштаб"
+      "@other": "Скинути масштаб"
     },
     "zoom-in": {
       "@darwin": "Збільшити масштаб",
-      "@other": "З&більшити масштаб"
+      "@other": "Збільшити масштаб"
     },
     "zoom-out": {
       "@darwin": "Зменшити масштаб",
-      "@other": "Зме&ншити масштаб"
+      "@other": "Зменшити масштаб"
     },
     "open-in-shell": {
       "@darwin": "Відкрити в {shell}",
-      "@other": "Відкрити в &{shell}"
+      "@other": "В&ідкрити в {shell}"
     },
     "open-in-shell-default": "оболонці за замовчуванням",
     "open-in-editor": {
@@ -623,7 +621,10 @@
       "@darwin": "Зв'язатися з підтримкою GitHub…",
       "@other": "Зв'&язатися з підтримкою GitHub…"
     },
-    "add-to-dictionary": "Додати до словника"
+    "add-to-dictionary": {
+      "@darwin": "Додати до словника",
+      "@other": "Додати до словника"
+    }
   },
   "about": {
     "title": "Про застосунок {name}",

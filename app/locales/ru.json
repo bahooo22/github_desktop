@@ -3,9 +3,7 @@
     "name": "русский",
     "nativeName": "Русский",
     "direction": "ltr",
-    "authors": [
-      "BaHooo"
-    ]
+    "authors": ["BaHooo"]
   },
   "common": {
     "cancel": "Отмена",
@@ -591,19 +589,19 @@
     },
     "reset-zoom": {
       "@darwin": "Сбросить масштаб",
-      "@other": "&Сбросить масштаб"
+      "@other": "Сбросить масштаб"
     },
     "zoom-in": {
       "@darwin": "Увеличить масштаб",
-      "@other": "У&величить масштаб"
+      "@other": "Увеличить масштаб"
     },
     "zoom-out": {
       "@darwin": "Уменьшить масштаб",
-      "@other": "Уме&ньшить масштаб"
+      "@other": "Уменьшить масштаб"
     },
     "open-in-shell": {
       "@darwin": "Открыть в {shell}",
-      "@other": "Открыть в &{shell}"
+      "@other": "О&ткрыть в {shell}"
     },
     "open-in-shell-default": "оболочке по умолчанию",
     "open-in-editor": {
@@ -623,7 +621,10 @@
       "@darwin": "Связаться с поддержкой GitHub…",
       "@other": "С&вязаться с поддержкой GitHub…"
     },
-    "add-to-dictionary": "Добавить в словарь"
+    "add-to-dictionary": {
+      "@darwin": "Добавить в словарь",
+      "@other": "Добавить в словарь"
+    }
   },
   "about": {
     "title": "О приложении {name}",

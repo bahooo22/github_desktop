@@ -632,15 +632,15 @@
     },
     "reset-zoom": {
       "@darwin": "Reset Zoom",
-      "@other": "&Reset zoom"
+      "@other": "Reset zoom"
     },
     "zoom-in": {
       "@darwin": "Zoom In",
-      "@other": "Zoom &in"
+      "@other": "Zoom in"
     },
     "zoom-out": {
       "@darwin": "Zoom Out",
-      "@other": "Zoom &out"
+      "@other": "Zoom out"
     },
     "open-in-shell": {
       "@darwin": "Open in {shell}",
@@ -658,7 +658,7 @@
     },
     "report-issue": {
       "@darwin": "Report Issue…",
-      "@other": "&Report issue…"
+      "@other": "Report issue…"
     },
     "contact-support": {
       "@darwin": "Contact GitHub Support…",
@@ -666,7 +666,7 @@
     },
     "add-to-dictionary": {
       "@darwin": "Add to Dictionary",
-      "@other": "Add to &dictionary"
+      "@other": "Add to dictionary"
     }
   },
   "about": {
