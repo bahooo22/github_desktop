@@ -78,7 +78,14 @@ start_app() {
   DISPLAY=$X_DISPLAY nohup "$APP_BIN" $APP_ARGS \
     >"$LOG_DIR/desktop.log" 2>&1 &
   echo $! >"$LOG_DIR/desktop.pid"
-  return 0
+  # Окно поднимается несколько секунд; без ожидания CDP перезапуск считался
+  # завершённым по старому процессу, и приёмка шла по устаревшему коду.
+  for _ in $(seq 60); do
+    curl -sf -m 3 -o /dev/null "$CDP_URL" && return 0
+    sleep 1
+  done
+  echo "приложение не отдало CDP, см. $LOG_DIR/desktop.log" >&2
+  return 1
 }
 
 kill_component() {
@@ -90,6 +97,21 @@ kill_component() {
   sleep 2
   kill -9 "$pid" 2>/dev/null
   rm -f "$pf"
+}
+
+# Приложение переживает свой PID-файл: `docker restart`, вчерашний процесс или
+# второй экземпляр под single-instance lock. Тогда старый рендерер держит
+# CDP-порт, и проверки идут по устаревшему коду, а новый экземпляр молча
+# завершается. Поэтому гасим все процессы этого бинарника.
+stop_app_all() {
+  pgrep -f "$APP_BIN" >/dev/null || { rm -f "$LOG_DIR/desktop.pid"; return 0; }
+  pkill -f "$APP_BIN" 2>/dev/null
+  for _ in $(seq 25); do
+    pgrep -f "$APP_BIN" >/dev/null || break
+    sleep 0.2
+  done
+  pkill -9 -f "$APP_BIN" 2>/dev/null
+  rm -f "$LOG_DIR/desktop.pid"
 }
 
 # Приложение может жить процессом и не отвечать на клики (зависший рендерер).
@@ -125,7 +147,7 @@ case "${1:-}" in
       if ! app_responsive; then
         echo "$(date -Is) приложение не отвечает на CDP — перезапускаю" \
           >>"$LOG_DIR/watchdog.log"
-        kill_component "$LOG_DIR/desktop.pid" desktop
+        stop_app_all
         start_app || true
       fi
       sleep 10
@@ -135,7 +157,7 @@ case "${1:-}" in
     status
     ;;
   --restart-app)
-    kill_component "$LOG_DIR/desktop.pid" desktop
+    stop_app_all
     start_app
     ;;
   *)
