@@ -310,6 +310,11 @@ class LocalizationManager {
       name: metadata.name,
       nativeName: metadata.nativeName,
       direction: metadata.direction,
+      // The effective layer is what `getLocale` hands to the caller, so a field
+      // left out here is invisible to the interface even though the catalog
+      // declares it. Authors fall back to the built-in catalog a user layer
+      // patches, like the other metadata it doesn't restate.
+      authors: metadata.authors ?? builtin?.authors,
       messages:
         builtin === undefined
           ? user!.messages

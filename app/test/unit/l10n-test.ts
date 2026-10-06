@@ -226,6 +226,28 @@ describe('l10n manager', () => {
     assert.equal(localization.translate('bye'), 'Goodbye')
   })
 
+  it('hands the catalog authors to the interface', () => {
+    fresh()
+    localization.registerFromJson(
+      'de',
+      {
+        meta: { name: 'German', nativeName: 'Deutsch', authors: ['Ada'] },
+        greeting: 'Hallo',
+      },
+      'builtin'
+    )
+
+    assert.deepEqual(localization.getLocale('de')?.authors, ['Ada'])
+
+    // A user override that restates no metadata keeps crediting the authors of
+    // the catalog it patches.
+    localization.registerFromJson('de', { greeting: 'Servus' }, 'user')
+    assert.deepEqual(localization.getLocale('de')?.authors, ['Ada'])
+    localization.setRequestedLocale('de')
+    assert.equal(localization.getActiveTag(), 'de')
+    assert.equal(localization.translate('greeting'), 'Servus')
+  })
+
   it('notifies subscribers when the language changes', () => {
     fresh()
     let notifications = 0
