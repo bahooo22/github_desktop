@@ -1,6 +1,7 @@
 #!/usr/bin/env node
+import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
-import { dirname, join, relative, resolve, sep } from 'node:path'
+import { basename, dirname, join, relative, resolve, sep } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath, pathToFileURL } from 'node:url'
 import ts from 'typescript'
@@ -855,6 +856,120 @@ export function runParity() {
   return issues.length > 0 ? 1 : 0
 }
 
+// ---------------------------------------------------------------------------
+// Shipped bundles.
+//
+// `out/` is what the sources compile to; the copies that actually ship are
+// rolled out from it by hand, so a copy rolled out before the last build keeps
+// serving an older interface forever and nothing in the build notices. This
+// mode compares the copies against `out/` and looks for every shipped language
+// inside them.
+
+const buildDir = join(projectRoot, 'out')
+
+/** Directories a finished bundle is expected to have been rolled out to. */
+const shippedApps = [
+  join(projectRoot, 'bin', 'resources', 'app'),
+  join(projectRoot, 'dist', 'desktop-linux-x64', 'resources', 'app'),
+  join(projectRoot, 'dist', 'GitHubDesktop-win32-x64', 'resources', 'app'),
+]
+
+/** Bundles that embed the catalogs, so a missing language shows up in these. */
+const catalogBundles = ['main.js', 'renderer.js', 'crash.js']
+
+function digestOf(path) {
+  return createHash('sha256').update(readFileSync(path)).digest('hex')
+}
+
+/**
+ * Whether a bundle contains a piece of text, in the raw form or as the
+ * `\uXXXX` escapes webpack may have emitted instead.
+ */
+function bundleContains(path, text) {
+  const contents = readFileSync(path)
+  if (contents.includes(text, 'utf8')) {
+    return true
+  }
+
+  const escaped = [...text]
+    .map(char => {
+      const code = char.codePointAt(0)
+      return code < 128 ? char : `\\u${code.toString(16).padStart(4, '0')}`
+    })
+    .join('')
+
+  return escaped !== text && contents.includes(escaped, 'utf8')
+}
+
+function runBundles() {
+  if (!existsSync(buildDir)) {
+    console.error('no out/ directory: build the app first (yarn build:dev)')
+    return 1
+  }
+
+  const built = readdirSync(buildDir).filter(name => name.endsWith('.js'))
+  if (built.length === 0) {
+    console.error('out/ contains no bundles')
+    return 1
+  }
+
+  const languages = readdirSync(localesDir)
+    .filter(name => name.endsWith('.json'))
+    .map(name => {
+      const tag = basename(name, '.json')
+      const catalog = readJson(join(localesDir, name))
+      return { tag, name: catalog?.meta?.nativeName ?? tag }
+    })
+
+  let problems = 0
+
+  for (const app of shippedApps) {
+    const label = displayPath(app)
+
+    if (!existsSync(app)) {
+      console.log(`${label}: not rolled out (skipped)`)
+      continue
+    }
+
+    const stale = built.filter(name => {
+      const shipped = join(app, name)
+      return (
+        !existsSync(shipped) ||
+        digestOf(shipped) !== digestOf(join(buildDir, name))
+      )
+    })
+
+    const missingLanguages = languages.filter(
+      language =>
+        !catalogBundles.every(name => !existsSync(join(app, name))) &&
+        catalogBundles.some(
+          name =>
+            existsSync(join(app, name)) &&
+            !bundleContains(join(app, name), language.name)
+        )
+    )
+
+    if (stale.length === 0 && missingLanguages.length === 0) {
+      console.log(`${label}: matches out/, all languages present`)
+      continue
+    }
+
+    problems++
+    console.log(
+      `${label}: ${stale.length} bundle(s) differ from out/` +
+        (missingLanguages.length > 0
+          ? `, missing language(s): ${missingLanguages
+              .map(language => language.tag)
+              .join(', ')}`
+          : '')
+    )
+    printCapped(stale, 20)
+  }
+
+  console.log(`shipped copies out of date: ${problems}`)
+  return problems > 0 ? 1 : 0
+}
+
 function main() {
   const args = process.argv.slice(2)
   const mode = args[0]
@@ -866,9 +981,11 @@ function main() {
   } else if (mode === '--upstream') {
     const ref = args[1] && !args[1].startsWith('--') ? args[1] : undefined
     process.exitCode = runUpstream(ref)
+  } else if (mode === '--bundles') {
+    process.exitCode = runBundles()
   } else {
     console.log(
-      'usage: node script/i18n-freshness.mjs [--audit | --parity | --upstream [ref]]'
+      'usage: node script/i18n-freshness.mjs [--audit | --parity | --upstream [ref] | --bundles]'
     )
     process.exitCode = mode === undefined ? 1 : 0
   }
