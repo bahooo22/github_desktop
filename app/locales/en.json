@@ -377,8 +377,8 @@
     "platformNote": "This string differs per operating system. The row for this system is the one you see.",
     "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
     "progress": {
-      "_one": "{translated:number} of {total:number} string translated",
-      "_other": "{translated:number} of {total:number} strings translated"
+      "_one": "Translated by me: {count:number} string of {total:number}",
+      "_other": "Translated by me: {count:number} strings of {total:number}"
     },
     "close": "Close",
     "languageExample": "Portuguese (Brazil)"

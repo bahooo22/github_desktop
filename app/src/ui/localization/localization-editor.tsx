@@ -190,11 +190,11 @@ export class LocalizationEditor extends React.Component<
 
   private renderProgress() {
     const total = localization.getBuiltInKeys().length
-    const translated = localization.getUserMessages(this.state.target).size
+    const count = localization.getUserMessages(this.state.target).size
 
     return (
       <p className="localization-editor-progress">
-        {t('localizationEditor.progress', { translated, total })}
+        {t('localizationEditor.progress', { count, total })}
       </p>
     )
   }
