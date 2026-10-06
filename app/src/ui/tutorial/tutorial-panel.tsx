@@ -206,7 +206,7 @@ export class TutorialPanel extends React.Component<
             {this.props.resolvedExternalEditor && (
               <div className="action">
                 <Button onClick={this.openTutorialFileInEditor}>
-                  {__DARWIN__ ? 'Open Editor' : 'Open editor'}
+                  {t('tutorialPanel.openEditor')}
                 </Button>
                 <KeyboardShortcut
                   darwinKeys={['⌘', '⇧', 'A']}
@@ -250,7 +250,7 @@ export class TutorialPanel extends React.Component<
             <p className="description">{t('tutorialPanel.openPullRequest')}</p>
             <div className="action">
               <Button onClick={this.openPullRequest} role="link">
-                {__DARWIN__ ? 'Open Pull Request' : 'Open pull request'}
+                {t('tutorialPanel.openPullRequestAction')}
                 <Octicon symbol={octicons.linkExternal} />
               </Button>
               <KeyboardShortcut darwinKeys={['⌘', 'R']} keys={['Ctrl', 'R']} />
@@ -259,7 +259,7 @@ export class TutorialPanel extends React.Component<
         </ol>
         <div className="footer">
           <Button onClick={this.props.onExitTutorial}>
-            {__DARWIN__ ? 'Exit Tutorial' : 'Exit tutorial'}
+            {t('tutorialPanel.exitTutorial')}
           </Button>
         </div>
       </div>

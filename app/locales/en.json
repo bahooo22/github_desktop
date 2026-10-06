@@ -1871,7 +1871,19 @@
     "makeCommit": "A commit allows you to save sets of changes. In the “summary“ field in the bottom left, write a short message that describes the changes you made. When you’re done, click the blue Commit button to finish.",
     "publishToGithub": "Publishing will “push”, or upload, your commits to this branch of your repository on GitHub. Publish using the third button in the top bar.",
     "openPullRequest": "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private.",
-    "iHaveEditor": "I have an editor"
+    "iHaveEditor": "I have an editor",
+    "openEditor": {
+      "@darwin": "Open Editor",
+      "@other": "&Open editor"
+    },
+    "openPullRequestAction": {
+      "@darwin": "Open Pull Request",
+      "@other": "&Open pull request"
+    },
+    "exitTutorial": {
+      "@darwin": "Exit Tutorial",
+      "@other": "E&xit tutorial"
+    }
   },
   "testNotifications": {
     "noPullRequests": "No pull requests found",
