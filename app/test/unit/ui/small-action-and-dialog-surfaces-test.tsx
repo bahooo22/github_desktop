@@ -3,6 +3,7 @@ import { afterEach, describe, it, mock } from 'node:test'
 import * as React from 'react'
 
 import { CICheckRunNoStepItem } from '../../../src/ui/check-runs/ci-check-run-no-steps'
+import { t } from '../../../src/lib/l10n'
 import { fireEvent, render, screen } from '../../helpers/ui/render'
 
 let restoreIpcSend: (() => void) | null = null
@@ -68,12 +69,11 @@ describe('small action and dialog surfaces', () => {
 
     render(<CLIInstalled onDismissed={onDismissed} />)
 
-    const title = screen.getByText(
-      __DARWIN__
-        ? 'Инструмент командной строки установлен'
-        : 'Инструмент командной строки установлен'
-    )
-    const okButton = screen.getByRole('button', { name: 'ОК', hidden: true })
+    const title = screen.getByText(t('cli.installed-title'))
+    const okButton = screen.getByRole('button', {
+      name: t('common.ok'),
+      hidden: true,
+    })
 
     assert.ok(title)
     assert.ok(screen.getByText('/usr/local/bin/github'))

@@ -160,9 +160,7 @@ export class ChangesListFilterOptions extends React.Component<
         onClickOutside={this.closeFilterOptions}
       >
         <div className="filter-popover-header">
-          <h3 id="filter-options-header">
-            {t('changes.filter.title')}
-          </h3>
+          <h3 id="filter-options-header">{t('changes.filter.title')}</h3>
           <button
             className="close"
             onClick={this.closeFilterOptions}

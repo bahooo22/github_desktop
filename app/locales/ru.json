@@ -1,11 +1,9 @@
 {
   "meta": {
-    "name": "Russian",
+    "name": "русский",
     "nativeName": "Русский",
     "direction": "ltr",
-    "authors": [
-      "BaHooo"
-    ]
+    "authors": ["BaHooo"]
   },
   "common": {
     "cancel": "Отмена",
@@ -20,16 +18,28 @@
     "learnMore": "Подробнее"
   },
   "app": {
-    "select-repository": "Выберите репозиторий",
-    "no-repositories": "Нет репозиториев",
-    "current-repository": "Текущий репозиторий",
+    "select-repository": {
+      "@darwin": "Выбрать репозиторий",
+      "@other": "Выбрать репозиторий"
+    },
+    "no-repositories": {
+      "@darwin": "Нет репозиториев",
+      "@other": "Нет репозиториев"
+    },
+    "current-repository": {
+      "@darwin": "Текущий репозиторий",
+      "@other": "Текущий репозиторий"
+    },
     "no-repository-selected": "Репозиторий не выбран"
   },
   "account-picker": {
     "account": "Аккаунт"
   },
   "settings": {
-    "title": "Настройки",
+    "title": {
+      "@darwin": "Настройки",
+      "@other": "Параметры"
+    },
     "tab": {
       "accounts": "Аккаунты",
       "integrations": "Интеграции",
@@ -54,7 +64,11 @@
       "title": "Язык интерфейса",
       "description": "Выберите язык интерфейса. Новые и исправленные переводы подхватываются сразу, перезапуск не нужен.",
       "systemDefault": "Автоопределение по языку системы",
-      "detected": "Обнаружен",
+      "detected": {
+        "@darwin": "Определено из macOS: {languages}",
+        "@linux": "Определено из сессии рабочего стола: {languages}",
+        "@win32": "Определено из Windows: {languages}"
+      },
       "noMatch": "Перевода на ваши системные языки ({languages}) пока нет, поэтому интерфейс остаётся на английском.",
       "available": "Языки",
       "yours": "ваш",
@@ -65,7 +79,12 @@
       "openFolder": "Открыть папку переводов",
       "folderHint": "Можно просто положить JSON-файлы в {path} и обновить список.",
       "reload": "Обновить переводы",
-      "reloaded": "Перезагружен",
+      "reloaded": {
+        "_few": "Загружено {count:number} перевода с диска",
+        "_many": "Загружено {count:number} переводов с диска",
+        "_one": "Загружен {count:number} перевод с диска",
+        "_other": "Загружено {count:number} перевода с диска"
+      },
       "reset": "Вернуть встроенный перевод",
       "resetAll": "Удалить все мои переводы",
       "confirmResetAll": "Будут удалены все добавленные вами переводы. Отменить это нельзя."
@@ -84,7 +103,10 @@
       "copilot-description": "Попробуйте разработку с помощью агентов, нативно встроенную в GitHub.",
       "copilot-learn-more": "Подробнее о GitHub Copilot",
       "app-location": "Расположение приложения",
-      "app-location-placeholder": "Путь к приложению",
+      "app-location-placeholder": {
+        "@darwin": "путь к GitHub Copilot.app",
+        "@other": "путь к github.exe"
+      },
       "choose": "Выбрать…"
     },
     "git": {
@@ -113,7 +135,7 @@
       "date-format": "Формат даты",
       "time-format": "Формат времени",
       "number-format": "Формат чисел",
-      "format-example": "Format Example",
+      "format-example": "{example} ({pattern})",
       "prefer-absolute-dates": "Предпочитать абсолютные даты относительным",
       "miscellaneous": "Разное",
       "diff-tab-size": "Размер табуляции в diff",
@@ -149,7 +171,7 @@
       "network-and-credentials": "Сеть и учётные данные",
       "use-git-credential-manager": "Использовать Git Credential Manager",
       "gcm-description-prefix": "Используйте",
-      "gcm-name": "Gcm Name",
+      "gcm-name": "Git Credential Manager",
       "gcm-description-suffix": "для закрытых репозиториев вне GitHub.com. Эта функция экспериментальная и может измениться.",
       "use-system-openssh": "Использовать системный OpenSSH (рекомендуется)"
     },
@@ -180,7 +202,7 @@
       "view-plans": "Смотреть тарифы Copilot",
       "desktop-disabled": "Для вашего аккаунта лицензия Copilot есть, но функция \"Copilot in GitHub Desktop\" отключена в настройках функций Copilot.",
       "open-feature-settings": "Открыть настройки функций Copilot",
-      "settings-title": "Copilot",
+      "settings-title": "Настройки Copilot",
       "custom-providers-title": "Пользовательские провайдеры",
       "add-provider": "Добавить провайдера",
       "loading-models": "Загружаем доступные модели…",
@@ -192,17 +214,27 @@
       "conflict-model-changes": "Смена модели применяется к будущим разрешениям конфликтов.",
       "always-use-copilot-conflicts": "Всегда использовать Copilot для конфликтов",
       "byok-empty-description": "Добавьте пользовательского провайдера, чтобы использовать свои ключи API с эндпоинтами, совместимыми с OpenAI, Azure, Anthropic или локальные провайдеры вроде Ollama.",
-      "provider-model-count": "Количество моделей провайдера",
+      "provider-model-count": {
+        "_few": "{count:number} модели",
+        "_many": "{count:number} моделей",
+        "_one": "{count:number} модель",
+        "_other": "{count:number} модели"
+      },
       "local": "Локальный",
       "edit-provider": "Изменить {name}",
       "remove-provider": "Удалить {name}",
       "provider-type-openai": "Совместимый с OpenAI",
-      "provider-type-azure": "Provider Type Azure",
-      "provider-type-anthropic": "Provider Type Anthropic",
+      "provider-type-azure": "Azure",
+      "provider-type-anthropic": "Anthropic",
       "unavailable": "Недоступно",
       "context": "Контекст",
       "reasoning": "Рассуждения",
-      "ai-credits-per-tokens": "AI-кредиты за токены",
+      "ai-credits-per-tokens": {
+        "_few": "AI-кредиты за {count:number} токена",
+        "_many": "AI-кредиты за {count:number} токенов",
+        "_one": "AI-кредиты за {count:number} токен",
+        "_other": "AI-кредиты за {count:number} токена"
+      },
       "input": "Вход",
       "cached-input": "Кэшированный вход",
       "output": "Выход",
@@ -220,9 +252,24 @@
         "credits-used": "Использовано AI-кредитов: {used} / {entitlement}",
         "no-usage-limit": "Лимит не задан",
         "quota-used": "Использовано {percentage:number}% лимита",
-        "resets-in-minutes": "Сбрасывается через минут",
-        "resets-in-hours": "Сбрасывается через часов",
-        "resets-in-days": "Сбрасывается через дней",
+        "resets-in-minutes": {
+          "_few": "сброс через {count:number} минуты",
+          "_many": "сброс через {count:number} минут",
+          "_one": "сброс через {count:number} минуту",
+          "_other": "сброс через {count:number} минуты"
+        },
+        "resets-in-hours": {
+          "_few": "сброс через {count:number} часа",
+          "_many": "сброс через {count:number} часов",
+          "_one": "сброс через {count:number} час",
+          "_other": "сброс через {count:number} часа"
+        },
+        "resets-in-days": {
+          "_few": "сброс через {count:number} дня",
+          "_many": "сброс через {count:number} дней",
+          "_one": "сброс через {count:number} день",
+          "_other": "сброс через {count:number} дня"
+        },
         "resets-monthly": "(сброс ежемесячно)",
         "configure": "Настроить…",
         "loading": "Загружаем данные об использовании Copilot…",
@@ -295,10 +342,178 @@
     "pluralNote": "Эта строка меняется вместе с числом, поэтому для каждой формы нужна отдельная графа.",
     "platformNote": "Эта строка различается по операционным системам. Показана форма для вашей системы.",
     "placeholderWarning": "В оригинале есть {placeholders} — сохраните их и в переводе.",
-    "progress": "Прогресс",
+    "progress": {
+      "_few": "Переведено {translated:number} строки из {total:number}",
+      "_many": "Переведено {translated:number} строк из {total:number}",
+      "_one": "Переведено {translated:number} строка из {total:number}",
+      "_other": "Переведено {translated:number} строки из {total:number}"
+    },
     "close": "Закрыть"
   },
-  "menu": "Меню",
+  "menu": {
+    "about": "О GitHub Desktop",
+    "add-local-repository": {
+      "@darwin": "Добавить локальный репозиторий…",
+      "@other": "&Добавить локальный репозиторий…"
+    },
+    "branch": "Вет&ка",
+    "branch-on-github": "Показать ветку на GitHub",
+    "clone-repository": {
+      "@darwin": "Клонировать репозиторий…",
+      "@other": "К&лонировать репозиторий…"
+    },
+    "compare-on-github": {
+      "@darwin": "Сравнить на GitHub",
+      "@other": "Сравнить на &GitHub"
+    },
+    "compare-to-branch": {
+      "@darwin": "Сравнить с веткой",
+      "@other": "Ср&авнить с веткой"
+    },
+    "copy": "&Копировать",
+    "create-branch": {
+      "@darwin": "Новая ветка…",
+      "@other": "Новая &ветка…"
+    },
+    "create-issue-in-repository-on-github": {
+      "@darwin": "Создать issue на GitHub",
+      "@other": "Соз&дать issue на GitHub"
+    },
+    "create-pull-request": {
+      "@darwin": "Создать pull request",
+      "@other": "Создать &pull request"
+    },
+    "create-worktree": {
+      "@darwin": "Новый worktree…",
+      "@other": "&Новый worktree…"
+    },
+    "cut": "&Вырезать",
+    "decrease-active-resizable-width": "Свернуть активную панель",
+    "default-branch-name": {
+      "@darwin": "Ветка по умолчанию",
+      "@other": "ветка по умолчанию"
+    },
+    "delete-branch": {
+      "@darwin": "Удалить…",
+      "@other": "У&далить…"
+    },
+    "discard-all-changes": {
+      "@darwin": "Отменить все изменения…",
+      "@other": "Отменить все &изменения…"
+    },
+    "edit": "&Правка",
+    "exit": "&Выход",
+    "fetch": {
+      "@darwin": "Получить",
+      "@other": "По&лучить"
+    },
+    "file": "&Файл",
+    "find": "&Найти",
+    "go-to-commit-message": {
+      "@darwin": "Перейти к описанию",
+      "@other": "Перейти к описа&нию"
+    },
+    "help": "&Справка",
+    "hide-changes-filter": {
+      "@darwin": "Скрыть фильтр изменений",
+      "@other": "Скрыть &фильтр изменений"
+    },
+    "hide-stashed-changes": {
+      "@darwin": "Скрыть спрятанные изменения",
+      "@other": "Скры&ть спрятанные изменения"
+    },
+    "increase-active-resizable-width": "Развернуть активную панель",
+    "install-cli": "Установить инструмент командной строки…",
+    "merge-branch": {
+      "@darwin": "Слить в текущую ветку…",
+      "@other": "С&лить в текущую ветку…"
+    },
+    "new-repository": {
+      "@darwin": "Новый репозиторий…",
+      "@other": "&Новый репозиторий…"
+    },
+    "open-in-copilot-app": {
+      "@darwin": "Открыть в GitHub Copilot",
+      "@other": "Открыть в GitHub &Copilot"
+    },
+    "open-with-external-editor": {
+      "@darwin": "Открыть в…",
+      "@other": "Открыть &в…"
+    },
+    "open-working-directory": {
+      "@darwin": "Показать в Finder",
+      "@other": "Показать в файловом &менеджере",
+      "@win32": "Показать в Пр&оводнике"
+    },
+    "paste": "Вст&авить",
+    "preferences": "Параметры…",
+    "preview-pull-request": "Предпросмотр pull request",
+    "pull": {
+      "@darwin": "Забрать",
+      "@other": "&Забрать"
+    },
+    "rebase-branch": {
+      "@darwin": "Перебазировать текущую ветку…",
+      "@other": "П&еребазировать текущую ветку…"
+    },
+    "redo": "&Повторить",
+    "reload-window": "&Обновить",
+    "remove-repository": "Удалить",
+    "remove-repository-confirm": "&Удалить…",
+    "rename-branch": {
+      "@darwin": "Переименовать…",
+      "@other": "&Переименовать…"
+    },
+    "repository": "&Репозиторий",
+    "select-all": "Выде&лить всё",
+    "show-branches-list": "Список &веток",
+    "show-changes": "&Изменения",
+    "show-changes-filter": {
+      "@darwin": "Показать фильтр изменений",
+      "@other": "Показать &фильтр изменений"
+    },
+    "show-devtools": {
+      "@darwin": "Показать инструменты разработчика",
+      "@other": "Показать инструменты &разработчика"
+    },
+    "show-history": "И&стория",
+    "show-keyboard-shortcuts": {
+      "@darwin": "Показать горячие клавиши",
+      "@other": "Показать &горячие клавиши"
+    },
+    "show-logs": {
+      "@darwin": "Показать журналы в Finder",
+      "@other": "Показать &журналы в файловом менеджере",
+      "@win32": "Показать &журналы в Проводнике"
+    },
+    "show-repository-list": "Список репо&зитория",
+    "show-repository-settings": {
+      "@darwin": "Настройки репозитория…",
+      "@other": "Настройки &репозитория…"
+    },
+    "show-stashed-changes": {
+      "@darwin": "Показать спрятанные изменения",
+      "@other": "Показать спрят&анные изменения"
+    },
+    "show-user-guides": "Руководство пользователя",
+    "show-worktrees-list": "Показать список &worktree",
+    "squash-and-merge-branch": {
+      "@darwin": "Сжать и слить в текущую ветку…",
+      "@other": "С&жать и слить в текущую ветку…"
+    },
+    "stash-all-changes": "Скрыть все изменения",
+    "stash-all-changes-confirm": "&Скрыть все изменения…",
+    "undo": "&Отменить",
+    "view": "&Вид",
+    "view-pull-request": {
+      "@darwin": "Открыть pull request на GitHub",
+      "@other": "Открыть pull request на Git&Hub"
+    },
+    "view-repository-on-github": {
+      "@darwin": "Открыть на GitHub",
+      "@other": "Открыть на &GitHub"
+    }
+  },
   "about": {
     "title": "О приложении {name}",
     "build": "Сборка {version}",
@@ -333,9 +548,9 @@
     "clone-url": "URL для клонирования",
     "dispatch": "Отправить",
     "path": "Путь",
-    "url": "Url",
+    "url": "URL",
     "branch-optional": "Ветка (необязательно)",
-    "installed-title": "CLI установлен",
+    "installed-title": "Инструмент командной строки установлен",
     "installed-info": "Инструмент командной строки установлен по пути <strong>{path}</strong>."
   },
   "moveToApplications": {
@@ -356,9 +571,9 @@
     "clone-selected": "Клонировать <strong>{repository}</strong>",
     "return-to-tutorial": "Вернуться к учебному репозиторию",
     "create-tutorial": "Создать учебный репозиторий",
-    "clone-from-internet": "Клонировать из интернета",
-    "create-new-repository": "Создать новый репозиторий",
-    "add-existing-repository": "Добавить существующий репозиторий",
+    "clone-from-internet": "Клонировать репозиторий из интернета…",
+    "create-new-repository": "Создать новый репозиторий на локальном диске…",
+    "add-existing-repository": "Добавить существующий репозиторий с локального диска…",
     "drag-drop-hint": "<strong>Совет!</strong> Сюда можно перетащить папку существующего репозитория, чтобы добавить её в Desktop"
   },
   "signIn": {
@@ -432,20 +647,26 @@
     "create-new-repository": "Создать новый репозиторий",
     "create-repository-ok": "Создать репозиторий",
     "description": "Описание",
-    "existing-repository-warning-aria": "Предупреждение о существующем репозитории",
-    "git-ignore-label": "Git ignore",
-    "initialize-with-readme": "Инициализировать с README",
-    "invalid-path-error": "Недопустимый путь",
+    "existing-repository-warning-aria": "Каталог {path} выглядит как репозиторий Git. Хотите вместо этого добавить его?",
+    "git-ignore-label": "Git Ignore",
+    "initialize-with-readme": "Инициализировать этот репозиторий файлом README",
+    "invalid-path-error": "Не удалось создать каталог по этому пути. Возможно, здесь нет прав на создание каталога.",
     "license-label": "Лицензия",
     "local-path": "Локальный путь",
     "name-placeholder": "Имя репозитория",
     "none": "Нет",
     "not-a-repository": "Это не репозиторий Git",
-    "not-a-repository-screen-reader": "Не репозиторий (скринридер)",
+    "not-a-repository-screen-reader": "Этот каталог не выглядит как репозиторий Git. Хотите вместо этого создать здесь репозиторий?",
     "path-placeholder": "Путь к репозиторию",
-    "readme-overwrite-aria": "README будет перезаписан",
-    "subfolder-warning-aria": "Предупреждение о подпапке",
-    "unsafe-repository-screen-reader": "Небезопасный репозиторий (скринридер)"
+    "readme-overwrite-aria": "В этом каталоге уже есть файл README.md. Если установить этот флажок, существующий файл будет перезаписан.",
+    "subfolder-warning-aria": "Каталог {path} выглядит как вложенный каталог репозитория Git. Вы знаете о подмодулях?",
+    "unsafe-repository-screen-reader": "Похоже, этот репозиторий Git принадлежит другому пользователю на вашем компьютере. Добавление недоверенных репозиториев может привести к автоматическому запуску файлов из них. Если вы доверяете владельцу каталога, добавьте для него исключение, чтобы продолжить.",
+    "create-repository-question": "Хотите вместо этого <link>создать репозиторий</link> здесь?",
+    "existing-repository-warning": "Каталог <ref>{path}</ref> похож на репозиторий Git. Хотите вместо этого <link>добавить этот репозиторий</link>?",
+    "readme-overwrite-warning": "В этом каталоге уже есть файл <ref>README.md</ref>. Если установить этот флажок, существующий файл будет перезаписан.",
+    "repository-will-be-created": "Репозиторий будет создан по пути <ref>{path}</ref>.",
+    "subfolder-warning": "Каталог <ref>{path}</ref> похож на вложенный каталог репозитория Git. <link>Узнайте о подмодулях.</link>",
+    "unsafe-repository-trust": "Похоже, этот репозиторий Git принадлежит другому пользователю вашего компьютера. Добавление непроверенных репозиториев может привести к автоматическому запуску файлов из репозитория. Если вы доверяете владельцу каталога, вы можете <link>добавить исключение для этого каталога</link>, чтобы продолжить."
   },
   "appMenu": {
     "application-menu": "Меню приложения"
@@ -468,21 +689,21 @@
   },
   "canvas": "Холст",
   "changes": {
-    "adjust-filters": "Настроить фильтры",
+    "adjust-filters": "Настройте фильтры, чтобы увидеть все {count} изменений",
     "and-word": "и",
     "avatar": {
       "account-emails": "Email-адреса аккаунта",
       "also-word": "также",
-      "aria-disallowed-email": "Запрещённый email",
-      "aria-misattributed": "Неверная атрибуция",
+      "aria-disallowed-email": "Адрес электронной почты запрещён. Показать предупреждение.",
+      "aria-misattributed": "Возможна неверная атрибуция коммита. Показать предупреждение.",
       "aria-view-author": "Показать автора",
-      "committing-with": "Коммит от имени",
+      "committing-with": "Коммит от имени {email}",
       "config-location-desc-local": "Локальная конфигурация",
       "config-location-global": "Глобальная конфигурация",
       "config-location-local": "Локальная конфигурация",
-      "email-label": "Email",
-      "for-user": "для пользователя",
-      "git-config-hint": "Подсказка конфигурации Git",
+      "email-label": "Эл. почта",
+      "for-user": " пользователя {name}",
+      "git-config-hint": "Изменить {location} конфигурацию Git {locationDesc} можно в {settings}.",
       "header-disallowed-email": "Запрещённый email",
       "header-misattributed": "Неверная атрибуция",
       "ignore": "Игнорировать",
@@ -491,14 +712,25 @@
       "settings-git": "Настройки Git",
       "settings-repository": "Настройки репозитория",
       "unknown-user": "Неизвестный пользователь",
-      "update-email": "Обновить email"
+      "update-email": "Обновить email",
+      "choose-local-email-hint": "Вы можете{also} выбрать адрес электронной почты для этого репозитория в <link>настройках репозитория</link>.",
+      "committing-as": "Коммит от имени <strong>{name}</strong>",
+      "local-email-hint": "Также задать адрес электронной почты для этого репозитория можно в <link>настройках репозитория</link>.",
+      "misattribution-message": "<email>{email}</email> не совпадает с вашей учётной записью GitHub{enterprise}{userName}. <link>Подробнее</link>",
+      "warning-header": "Адрес электронной почты в вашей глобальной конфигурации Git (<email>{email}</email>)"
     },
-    "check-all-label": "Выбрать все",
-    "check-all-label-filtered": "Выбрать все (отфильтровано)",
+    "check-all-label": {
+      "_one": "{count} изменённый файл",
+      "_few": "{count} изменённых файла",
+      "_many": "{count} изменённых файлов",
+      "_other": "{count} изменённого файла"
+    },
+    "check-all-label-filtered": "{visible} из {count} изменённых файлов",
     "commit-anyway": "Всё равно закоммитить",
     "commit-filtered-dialog": {
-      "dont-show-again": "Больше не показывать",
-      "title": "Коммит отфильтрованных изменений"
+      "dont-show-again": "Больше не показывать это сообщение",
+      "title": "Коммит отфильтрованных изменений",
+      "message": "У вас применён фильтр. <link>Скрытые изменения</link> тоже будут зафиксированы. Вы уверены, что хотите зафиксировать эти изменения?"
     },
     "commits-word": "коммитов",
     "continue-rebase": {
@@ -508,113 +740,144 @@
       "untracked-excluded": "Неотслеживаемые файлы исключены"
     },
     "create-pr-button": "Создать pull request",
-    "create-pr-title": "Создать pull request",
+    "create-pr-title": "Создать pull request из текущей ветки",
     "discard-all-changes": "Отменить все изменения",
     "discard-changes": "Отменить изменения",
-    "discard-selected-changes": "Отменить выбранные изменения",
+    "discard-selected-changes": "Отменить {count} выбранных изменений",
     "exclude-selected-files": "Исключить выбранные файлы",
     "file": {
       "included": "Включён",
       "not-included": "Не включён",
       "partially-included": "Частично включён"
     },
-    "files-selected": "Файлов выбрано",
-    "files-too-large": "Файлы слишком большие",
-    "filter-placeholder": "Filter Placeholder",
-    "filter": {
-      "applied": "Применён",
-      "clear": "Clear",
-      "deleted-files": "Удалённые файлы",
-      "excluded-from-commit": "Исключены из коммита",
-      "included-in-commit": "Включены в коммит",
-      "modified-files": "Изменённые файлы",
-      "name": {
-        "deleted": "Deleted",
-        "excluded": "Excluded",
-        "included": "Included",
-        "modified": "Modified",
-        "new": "New"
-      },
-      "new-files": "Новые файлы",
-      "title": "Title"
+    "files-selected": {
+      "_one": "{count} файл выбран",
+      "_few": "{count} файла выбрано",
+      "_many": "{count} файлов выбрано",
+      "_other": "{count} файлов выбрано"
     },
-    "hidden-changes": "Hidden Changes",
-    "ignore-extension-files": "Игнорировать файлы расширения",
-    "ignore-file": "Ignore File",
-    "ignore-folder": "Ignore Folder",
-    "ignore-selected-files": "Игнорировать выбранные файлы",
-    "include-selected-files": "Include Selected Files",
-    "no-changes-description": "Нет изменений",
-    "no-files-match": "No Files Match",
+    "files-too-large": "Файлы слишком большие",
+    "filter-placeholder": "Фильтр",
+    "filter": {
+      "applied": "({count} применено)",
+      "clear": "Сбросить фильтры",
+      "deleted-files": "Удалённые файлы ({count})",
+      "excluded-from-commit": "Исключены из коммита ({count})",
+      "included-in-commit": "Включены в коммит ({count})",
+      "modified-files": {
+        "_one": "Изменённый файл ({count})",
+        "_few": "Изменённых файла ({count})",
+        "_many": "Изменённых файлов ({count})",
+        "_other": "Изменённых файла ({count})"
+      },
+      "list": {
+        "many": "{others} и {last}",
+        "two": "{first} и {second}"
+      },
+      "name": {
+        "deleted": "Удалённые файлы",
+        "excluded": "Исключённые из коммита",
+        "included": "Включённые в коммит",
+        "modified": "Изменённые файлы",
+        "new": "Новые файлы"
+      },
+      "new-files": "Новые файлы ({count})",
+      "title": "Параметры фильтра"
+    },
+    "hidden-changes": "Скрытые изменения будут включены в коммит.",
+    "ignore-extension-files": "Игнорировать все файлы {extension} (добавить в .gitignore)",
+    "ignore-file": "Игнорировать файл (добавить в .gitignore)",
+    "ignore-folder": "Игнорировать папку (добавить в .gitignore)",
+    "ignore-selected-files": "Игнорировать {count} выбранных файлов (добавить в .gitignore)",
+    "include-selected-files": "Включить выбранные файлы",
+    "no-changes-description": "В этом репозитории нет несохранённых изменений. Вот несколько подсказок, что делать дальше.",
+    "no-files-match": "Ни один файл не соответствует текущим фильтрам",
     "no-local-changes": "Нет локальных изменений",
-    "no-results-message": "Нет результатов",
-    "open-in-editor": "Открыть в редакторе",
-    "open-in-editor-title": "Открыть в редакторе",
-    "placeholder-create": "Создать",
-    "placeholder-delete": "Удалить",
-    "placeholder-update": "Обновить",
-    "preview-pr-button": "Preview Pr Button",
-    "preview-pr-title": "Preview Pr Title",
-    "publish-branch-button": "Publish Branch Button",
-    "publish-branch-title": "Publish Branch Title",
-    "publish-repo-button": "Publish Repo Button",
-    "publish-repo-description": "Publish Repo Description",
-    "publish-repo-title": "Publish Repo Title",
-    "pull-branch-button": "Получить ветку",
-    "pull-branch-title": "Получить ветку",
-    "push-branch-button": "Отправить ветку",
-    "push-branch-description": "Отправить ветку на удалённый сервер",
-    "push-branch-title": "Отправить ветку",
-    "push-local-commits": "Отправить локальные коммиты",
-    "push-local-tags": "Отправить локальные теги",
+    "no-results-message": "Не найдено изменённых файлов, соответствующих этим фильтрам: {filters}",
+    "open-in-editor": "Открыть в {editor}",
+    "open-in-editor-title": "Открыть репозиторий во внешнем редакторе",
+    "placeholder-create": "Создать {name}",
+    "placeholder-delete": "Удалить {name}",
+    "placeholder-update": "Обновить {name}",
+    "preview-pr-button": "Предпросмотр pull request",
+    "preview-pr-title": "Предпросмотр pull request",
+    "publish-branch-button": "Опубликовать ветку",
+    "publish-branch-title": "Опубликуйте свою ветку",
+    "publish-repo-button": "Опубликовать репозиторий",
+    "publish-repo-description": "Этот репозиторий пока доступен только на вашем компьютере. Опубликовав его на GitHub, вы сможете делиться им и работать над ним вместе с другими.",
+    "publish-repo-title": "Этот репозиторий пока доступен только на вашем компьютере. Опубликовав его на GitHub, вы сможете делиться им и работать над ним вместе с другими.",
+    "pull-branch-button": "Получить из {remote}",
+    "pull-branch-title": "Получить из {remote} {number} коммитов",
+    "push-branch-button": "Отправить в {remote}",
+    "push-branch-description": "У вас есть {items}, ожидающие отправки в {remote}.",
+    "push-branch-title": "Отправить {items} в {remote}",
+    "push-local-commits": "{number} локальных коммитов",
+    "push-local-tags": "{number} локальных тегов",
     "remote-word": "Удалённый",
     "settings-or-options": "Настройки или параметры",
     "show-in-file-manager": "Показать в файловом менеджере",
-    "stash-all-changes": "Stash All Changes",
-    "stash-description": "Описание скрытых изменений",
-    "stash-discoverability": "Обнаружение скрытых изменений",
-    "stash-title": "Stash Title",
-    "stash-view": "Stash View",
+    "stash-all-changes": "Отложить все изменения…",
+    "stash-description": "У вас есть несохранённые изменения в количестве {number}.",
+    "stash-discoverability": "Когда схрон существует, он доступен внизу вкладки «Изменения» слева.",
+    "stash-title": "Просмотреть отложенные изменения",
+    "stash-view": "Показать stash",
     "stashed-changes": "Скрытые изменения",
-    "submodule-partially-committable": "Submodule Partially Committable",
-    "submodule-uncommittable": "Submodule Uncommittable",
-    "summary-placeholder": "Summary Placeholder",
+    "submodule-partially-committable": "В этот репозиторий будут добавлены только те изменения подмодуля, которые уже закоммичены в нём. Чтобы включить остальные изменённые и неотслеживаемые файлы, сначала сделайте коммит в подмодуле.",
+    "submodule-uncommittable": "Это изменение подмодуля нельзя включить в коммит данного репозитория, потому что в подмодуле есть незакоммиченные изменения.",
+    "summary-placeholder": "Краткое описание (обязательно)",
     "tags-word": "Теги",
     "undo": "Отменить",
-    "undo-aria": "Undo Aria",
-    "undo-disabled-tooltip": "Undo Disabled Tooltip",
-    "view-on-github-title": "Показать на GitHub",
-    "warning-word": "Warning Word"
+    "undo-aria": "Отменить коммит",
+    "undo-disabled-tooltip": "Отмена недоступна, пока репозиторий обновляется",
+    "view-on-github-title": "Открыть страницу репозитория на GitHub в браузере",
+    "warning-word": "Внимание:",
+    "committed-ago": "Зафиксировано <time/>",
+    "create-pr-description": "Текущая ветка (<ref>{branch}</ref>) уже опубликована на GitHub. Создайте пул-реквест, чтобы предложить свои изменения и обсудить их.",
+    "discoverability-menu-or": "меню «{menu}» или <shortcut/>",
+    "oversized-files-recommendation": "Рекомендуем не фиксировать эти файлы или использовать <link>Git LFS</link> для хранения больших файлов на GitHub.",
+    "oversized-files-warning": "Размер этих файлов превышает 100 МБ. <strong>Если вы их зафиксируете, вы больше не сможете отправить этот репозиторий на GitHub.com.</strong>",
+    "preview-pr-description": "Текущая ветка (<ref>{branch}</ref>) уже опубликована на GitHub. Просмотрите изменения, которые попадут в пул-реквест, прежде чем предлагать их.",
+    "publish-branch-discoverability": "Всегда доступно на панели инструментов или <shortcut/>",
+    "publish-repo-discoverability": "Для локальных репозиториев всегда доступно на панели инструментов или <shortcut/>",
+    "pull-branch-description": {
+      "_one": "Текущая ветка (<ref>{branch}</ref>) содержит на {remote} коммит, которого нет на вашем компьютере.",
+      "_few": "Текущая ветка (<ref>{branch}</ref>) содержит на {remote} {number} коммита, которых нет на вашем компьютере.",
+      "_many": "Текущая ветка (<ref>{branch}</ref>) содержит на {remote} {number} коммитов, которых нет на вашем компьютере.",
+      "_other": "Текущая ветка (<ref>{branch}</ref>) содержит на {remote} {number} коммитов, которых нет на вашем компьютере."
+    },
+    "pull-branch-discoverability": "Всегда доступно на панели инструментов, когда есть удалённые изменения, или <shortcut/>",
+    "push-branch-discoverability": "Всегда доступно на панели инструментов, когда локальные коммиты ожидают отправки, или <shortcut/>",
+    "select-editor-description": "Выберите редактор в <link>{settings}</link>"
   },
   "checkRuns": {
-    "completeness-aria": "Полнота проверок",
+    "completeness-aria": "Индикатор полноты. Завершено: {completed}, в процессе: {inProgress}, в очереди: {queued}.",
     "loading": {
-      "cta": "Cta",
-      "title": "Title"
+      "cta": "Проверки скоро появятся!",
+      "title": "Подождите"
     },
-    "no-steps": "Нет шагов",
+    "no-steps": "Для этой проверки нет шагов.",
     "rerun": {
-      "all-option": "All Option",
-      "button": "Button",
+      "all-option": "Перезапустить все проверки",
+      "button": "Перезапустить проверки",
       "button-with-menu": "Кнопка с меню",
-      "failed-option": "Failed Option",
-      "job-tooltip": "Подсказка задания"
+      "failed-option": "Перезапустить неудачные проверки",
+      "job-tooltip": "Повторить {name}"
     },
-    "summary-title": "Summary Title",
+    "summary-title": "Сводка проверок",
     "title": {
-      "all-failed": "All Failed",
-      "all-passed": "All Passed",
-      "pending": "Pending",
-      "some-failed": "Some Failed"
+      "all-failed": "Все проверки завершились с ошибкой",
+      "all-passed": "Все проверки успешно завершены",
+      "pending": "Некоторые проверки ещё не завершены",
+      "some-failed": "Некоторые проверки не прошли"
     },
-    "view-details": "Подробности",
-    "view-on-github": "Показать на GitHub"
+    "view-details": "Показать подробности",
+    "view-on-github": "Показать {name} на GitHub"
   },
   "checkout": {
     "checkout": "Переключить",
-    "confirm-message": "Подтвердите переключение",
-    "dont-show-again": "Dont Show Again",
-    "title": "Title"
+    "confirm-message": "Переключение на коммит создаст detached HEAD, и вы окажетесь вне всех веток. Вы уверены, что хотите переключиться на этот коммит?",
+    "dont-show-again": "Больше не показывать это сообщение",
+    "title": "Переключить на коммит?"
   },
   "cherryPickBranchCreatedCount": "Cherry-pick: ветка создана",
   "cherryPickConflictsEncounteredCount": "Cherry-pick: конфликты",
@@ -623,377 +886,453 @@
   "cherryPickViaDragAndDropCount": "Cherry-pick перетаскиванием",
   "chooseForkSettings": {
     "continue": "Продолжить",
-    "contribute-to-parent": "Contribute To Parent",
-    "for-my-own-purposes": "For My Own Purposes",
-    "question-label": "Question Label",
-    "title": "Title"
+    "contribute-to-parent": "Для внесения вклада в родительский проект",
+    "for-my-own-purposes": "Для собственных задач",
+    "question-label": "Этот репозиторий — форк. Как вы планируете его использовать?",
+    "title": "Как вы планируете использовать этот форк?",
+    "contribute-to-parent-description": "Мы поможем вам вносить изменения в репозиторий <strong>{repository}</strong>",
+    "contribute-to-self-description": "Мы поможем вам вносить изменения в репозиторий <strong>{repository}</strong>"
   },
   "cloneRepository": {
     "archived": "Архивный",
-    "choose": "Choose",
+    "choose": "Выбрать…",
     "clone": "Клонировать",
     "dotcom-sign-in-description": "Войдите в GitHub.com для клонирования",
     "enterprise-sign-in-description": "Войдите в Enterprise для клонирования",
-    "error-app-suffix": "Error App Suffix",
+    "error-app-suffix": "Локальный путь не может заканчиваться на .app в macOS. Выберите другое имя папки, чтобы не получится пакет приложения.",
     "error-directory-could-not-create": "Не удалось создать директорию",
-    "error-folder-not-empty": "Error Folder Not Empty",
-    "error-path-is-file": "Error Path Is File",
-    "error-repository-not-found": "Репозиторий не найден",
-    "error-unable-to-read-path": "Error Unable To Read Path",
-    "filter-placeholder": "Filter Placeholder",
-    "loading-repositories": "Загрузка репозиториев",
-    "local-path": "Local Path",
-    "path-placeholder": "Path Placeholder",
-    "refresh-tooltip": "Refresh Tooltip",
-    "save-dialog-name-field-label": "Save Dialog Name Field Label",
-    "save-dialog-select-label": "Save Dialog Select Label",
+    "error-folder-not-empty": "В этой папке уже есть файлы. Git может выполнять клонирование только в пустые папки.",
+    "error-path-is-file": "Файл с таким именем уже существует. Git может выполнять клонирование только в папку.",
+    "error-repository-not-found": "Не удалось найти этот репозиторий. Проверьте, что вы вошли в учётную запись, сеть доступна и URL или псевдоним репозитория указаны без ошибок.",
+    "error-unable-to-read-path": "Не удалось прочитать путь на диске. Проверьте путь и попробуйте снова.",
+    "filter-placeholder": "Фильтр по репозиториям",
+    "loading-repositories": "Загрузка репозиториев с {endpoint}…",
+    "local-path": "Локальный путь",
+    "path-placeholder": "путь к репозиторию",
+    "refresh-tooltip": "Обновить список репозиториев",
+    "save-dialog-name-field-label": "Клонировать как:",
+    "save-dialog-select-label": "Клонировать как:",
     "sign-in": "Войти",
-    "title": "Title",
-    "url-label": "Url Label",
-    "url-placeholder": "Url Placeholder",
-    "your-repositories": "Ваши репозитории"
+    "title": "Клонировать репозиторий",
+    "url-label": "URL репозитория или «имя пользователя GitHub и имя репозитория»",
+    "url-placeholder": "URL или username/repository",
+    "your-repositories": "Ваши репозитории",
+    "no-matches": "Не удалось найти репозиторий, соответствующий <ref>{text}</ref>",
+    "no-repositories": "Похоже, у <ref>{login}</ref> нет репозиториев на {endpoint}. <link>Обновите список</link>, если вы недавно создали репозиторий."
   },
   "commitMessage": {
-    "add-co-authors": "Add Co Authors",
+    "add-co-authors": "Добавить соавторов",
     "allow-empty-commit": "Разрешить пустой коммит",
-    "amend": "Amend",
-    "amend-last-commit": "Изменить последний коммит",
-    "amending": "Amending",
-    "bypass-hooks": "Bypass Hooks",
+    "amend": "Исправить",
+    "amend-last-commit": "{verb} последний коммит",
+    "amending": "Исправление",
+    "bypass-hooks": "Пропустить хуки коммита",
     "commit": "Коммит",
-    "commit-title": "Заголовок коммита",
-    "committed-just-now": "Только что",
+    "commit-title": "{verb} в ветку {branch}",
+    "committed-just-now": "Коммит выполнен только что — {summary} (Sha: {sha})",
     "committing": "Коммичу",
     "committing-changes": "Коммичу изменения",
-    "configure-options": "Configure Options",
-    "copilot-tooltip": "Copilot Tooltip",
-    "copilot-tooltip-cancel": "Copilot Tooltip Cancel",
-    "copilot-tooltip-no-files": "Copilot: нет файлов",
-    "create-group": "Create Group",
-    "description-label": "Description Label",
-    "description-placeholder": "Description Placeholder",
-    "description-sr-label": "Description Sr Label",
-    "disable-spellcheck": "Disable Spellcheck",
+    "configure-options": "Настроить параметры коммита",
+    "copilot-tooltip": "Создать сообщение коммита с Copilot",
+    "copilot-tooltip-cancel": "Отменить генерацию описания коммита",
+    "copilot-tooltip-no-files": "Сгенерировать сообщение коммита с Copilot. Чтобы сгенерировать сообщение, нужно выбрать файлы.",
+    "create-group": "Создать коммит",
+    "description-label": "Описание",
+    "description-placeholder": "Описание",
+    "description-sr-label": "Описание коммита",
+    "disable-spellcheck": "Отключить проверку орфографии",
     "enable-spellcheck": "Включить проверку орфографии",
-    "error-word": "Error Word",
-    "generate-with-copilot": "Generate With Copilot",
-    "generating-details": "Generating Details",
-    "hook-failed": "Хук не выполнен",
-    "hook-finished": "Хук завершён",
-    "hook-running": "Hook Running",
-    "length-hint-aria": "Length Hint Aria",
-    "length-hint-description": "Подсказка длины сообщения",
-    "length-hint-title": "Length Hint Title",
-    "new-badge": "New Badge",
-    "optimizing-repository": "Optimizing Repository",
-    "remove-co-authors": "Remove Co Authors",
-    "rule-failure-aria": "Нарушение правила",
+    "error-word": "Ошибка",
+    "generate-with-copilot": "Создать сообщение коммита с Copilot",
+    "generating-details": "Создание описания коммита…",
+    "hook-failed": "Хук {hookName} не выполнен",
+    "hook-finished": "Хук {hookName} завершён",
+    "hook-running": "Выполняется хук {hookName}…",
+    "length-hint-aria": "Открыть справку о длине заголовка",
+    "length-hint-description": "Дополнительную информацию размещайте в поле описания.",
+    "length-hint-title": "Хороший заголовок коммита содержит не больше 50 символов. Дополнительную информацию поместите в поле описания.",
+    "new-badge": "Новое",
+    "optimizing-repository": "Оптимизация репозитория…",
+    "remove-co-authors": "Убрать соавторов",
+    "rule-failure-aria": "{prefix}: сообщение коммита нарушает правила репозитория{bypass}. Показать подробности.",
     "rule-failure-bypass": "Обойти нарушение правила",
-    "rule-failures-leading": "Rule Failures Leading",
-    "rule-failures-title": "Rule Failures Title",
-    "select-files": "Выбрать файлы",
-    "show-progress": "Show Progress",
-    "signed-off-by-trailer": "Signed Off By Trailer",
-    "summary-label": "Summary Label",
-    "summary-required": "Краткое описание обязательно",
+    "rule-failures-leading": "Это сообщение коммита",
+    "rule-failures-title": "Нарушения правил сообщений коммита",
+    "select-files": "Выберите один или несколько файлов для коммита",
+    "show-progress": "Показать ход коммита",
+    "signed-off-by-trailer": "Добавить трейлер Signed-off-by",
+    "summary-label": "Заголовок коммита",
+    "summary-required": "Чтобы зафиксировать изменения, необходимо краткое описание коммита",
     "summary-sr-label": "Краткое описание (скринридер)",
-    "warning-word": "Warning Word"
+    "warning-word": "Предупреждение",
+    "amend-notice": "Ваши изменения изменят <strong>последний коммит</strong>. <link>Прекратите дополнение</link>, чтобы зафиксировать их как новый коммит.",
+    "commit-button": {
+      "_one": "{verb} {count:number} файл в ветку <strong>{branch}</strong>",
+      "_few": "{verb} {count:number} файла в ветку <strong>{branch}</strong>",
+      "_many": "{verb} {count:number} файлов в ветку <strong>{branch}</strong>",
+      "_other": "{verb} {count:number} файлов в ветку <strong>{branch}</strong>"
+    },
+    "commit-button-plain": "{verb} в ветку <strong>{branch}</strong>",
+    "no-write-access": "У вас нет прав на запись в <strong>{name}</strong>. Хотите <link>создать форк</link>?",
+    "protected-branch": "<strong>{branch}</strong> — защищённая ветка. Хотите <link>переключить ветку</link>?"
   },
   "commitSigning": "Подпись коммитов",
-  "contextmenu": "Contextmenu",
+  "contextmenu": "Контекстное меню",
   "createBranch": {
-    "based-on-commit": "На основе коммита",
-    "based-on-label": "Based On Label",
-    "branch-exists-error": "Ветка уже существует",
-    "could-not-determine-default-branch": "Could Not Determine Default Branch",
-    "create-branch-ok": "Create Branch Ok",
-    "current-branch-description": "Current Branch Description",
-    "default-branch-description": "Default Branch Description",
-    "detached-head": "Detached HEAD",
+    "based-on-commit": "Новая ветка будет основана на коммите «{summary}» ({sha}) из вашего репозитория.",
+    "based-on-label": "Создать ветку на основе…",
+    "branch-exists-error": "Ветка с именем {name} уже существует.",
+    "could-not-determine-default-branch": "Не удалось определить ветку по умолчанию.",
+    "create-branch-ok": "Создать ветку",
+    "current-branch-description": "Текущая checked out ветка. Выберите её, если нужно продолжить работу этой ветки.",
+    "default-branch-description": "Ветка по умолчанию в вашем репозитории. Выберите её, чтобы начать новую работу от",
+    "detached-head": "Сейчас ни одна ветка не открыта (ваш HEAD откреплён). Поэтому новая ветка будет создана на основе текущего коммита ({sha}).",
     "name": "Имя",
-    "title": "Title",
-    "unborn-branch": "Нерождённая ветка",
-    "upstream-default-branch-description": "Upstream Default Branch Description"
+    "title": "Создать ветку",
+    "unborn-branch": "Текущая ветка «нерождённая» (в ней нет коммитов). Создание новой ветки переименует текущую.",
+    "upstream-default-branch-description": "Ветка по умолчанию в родительском репозитории. Выберите её, чтобы начать новую работу от",
+    "current-is-default": "<ref>{branch}</ref> — <defaultLink/> вашего репозитория.",
+    "fork-settings-hint": "Источник ветки по умолчанию определяется <link>настройками поведения форка</link>."
   },
   "createTag": {
-    "create-tag-ok": "Create Tag Ok",
+    "create-tag-ok": "Создать тег",
     "name": "Имя тега",
-    "name-too-long": "Name Too Long",
-    "no-matches": "Нет совпадений",
+    "name-too-long": {
+      "_one": "Имя тега не может быть длиннее {count:number} символа",
+      "_few": "Имя тега не может быть длиннее {count:number} символов",
+      "_many": "Имя тега не может быть длиннее {count:number} символов",
+      "_other": "Имя тега не может быть длиннее {count:number} символа"
+    },
+    "no-matches": "Совпадений для «{name}» не найдено",
     "previous-tags": "Предыдущие теги",
-    "title": "Title"
+    "title": "Создать тег",
+    "tag-exists": "Тег с именем <ref>{name}</ref> уже существует"
   },
   "deleteBranch": {
-    "cannot-undo": "Cannot Undo",
+    "cannot-undo": "Это действие нельзя отменить.",
     "delete": "Удалить",
-    "delete-on-remote": "Delete On Remote",
-    "delete-remote-title": "Delete Remote Title",
-    "open-pr-warning": "Open Pr Warning",
+    "delete-on-remote": "Да, удалить эту ветку в удалённом репозитории",
+    "delete-remote-title": "Удалить удалённую ветку",
+    "open-pr-warning": "С этой веткой может быть связан открытый pull request.",
     "remote-exists-question": "Удалить и на удалённом сервере?",
-    "remote-only-warning": "Ветка существует только на удалённом сервере",
-    "title": "Title"
+    "remote-only-warning": "Этой ветки нет локально. Её удаление может повлиять на других, кто над ней работает.",
+    "title": "Удалить ветку",
+    "confirm-message": "Удалить ветку <ref>{branch}</ref>?",
+    "confirm-remote-message": "Удалить удалённую ветку <ref>{branch}</ref>?",
+    "open-pr-hint": "Если <link>#{number}</link> уже слит, удалённую ветку можно удалить и на GitHub."
   },
   "deleteTag": {
     "delete": "Удалить",
-    "title": "Title"
+    "title": "Удалить тег",
+    "confirm-message": "Вы уверены, что хотите удалить тег <ref>{tag}</ref>?"
   },
   "dialog-appeared": "Диалог появился",
   "dialog-show": "Показать диалог",
   "did-change": "Изменено",
   "diff": {
-    "added": "Добавлено",
+    "added": "добавлены",
     "binary": {
-      "changed": "Changed",
+      "changed": "Этот бинарный файл изменился.",
       "openInExternalProgram": "Открыть во внешней программе"
     },
     "conflictViaCommandLine": "Конфликт через командную строку",
     "contextMenu": {
-      "collapseExpandedLines": "Collapseexpandedlines",
+      "collapseExpandedLines": "Свернуть развернутые строки",
       "copy": "Копировать",
-      "expandWholeFile": "Expandwholefile",
-      "selectAll": "Selectall"
+      "expandWholeFile": "Развернуть файл целиком",
+      "selectAll": "Выделить всё"
     },
-    "deleted": "Удалено",
-    "displayLegend": "Displaylegend",
-    "expandAll": "Expandall",
-    "expandDown": "Expanddown",
-    "expandUp": "Expandup",
+    "deleted": "удалены",
+    "displayLegend": "Отображение diff",
+    "expandAll": "Развернуть всё",
+    "expandDown": "Развернуть вниз",
+    "expandUp": "Развернуть вверх",
     "expanded": "Развёрнуто",
-    "fileEmpty": "Fileempty",
-    "hideWhitespaceChanges": "Hidewhitespacechanges",
-    "hideWhitespaceWarning": "Предупреждение о пробелах",
+    "fileEmpty": "Файл пуст",
+    "hideWhitespaceChanges": "Скрывать изменения пробелов",
+    "hideWhitespaceWarning": "Пока пробелы скрыты, работа с отдельными строками и фрагментами недоступна.",
     "image": {
       "added": "Добавлено",
       "deleted": "Удалено",
       "diffLabel": "Разница",
       "difference": "Различие",
-      "noSizeDifference": "Nosizedifference",
-      "onionSkin": "Onionskin",
-      "swipe": "Swipe",
-      "twoUp": "Twoup"
+      "noSizeDifference": "Размеры совпадают",
+      "onionSkin": "Наложение",
+      "swipe": "Шторка",
+      "twoUp": "Рядом",
+      "dimensions": "<w>Ш:</w> {width} пкс | <h>В:</h> {height} пкс | <s>Размер:</s> {size}"
     },
     "largeTooBigMessage": "Diff слишком большой для отображения",
-    "largeTooBigTitle": "Слишком большой diff",
+    "largeTooBigTitle": "Diff слишком большой, чтобы отображать его по умолчанию.",
     "line": "Строка",
-    "linesRange": "Диапазон строк",
-    "modified": "Изменено",
-    "noContentChanges": "Nocontentchanges",
-    "noNewlineAtEndOfFile": "Nonewlineatendoffile",
-    "onlyWhitespaceChanges": "Onlywhitespacechanges",
-    "renamedButNotChanged": "Переименовано без изменений",
-    "renamedWithChanges": "Переименовано с изменениями",
+    "linesRange": "Строки с {from} по {to} {status}",
+    "modified": "изменены",
+    "noContentChanges": "Изменений содержимого не найдено",
+    "noNewlineAtEndOfFile": "В конце файла нет перевода строки",
+    "onlyWhitespaceChanges": "Найдены только изменения пробелов",
+    "renamedButNotChanged": "Файл переименован без изменений",
+    "renamedWithChanges": "Файл переименован и содержит изменения.",
     "search": {
-      "noResults": "Noresults",
-      "noResultsFor": "Нет результатов для",
-      "resultOf": "Результат"
+      "noResults": "Нет результатов",
+      "noResultsFor": "Нет результатов для «{query}»",
+      "resultOf": "Результат {position} из {total} для «{query}»"
     },
-    "searchPlaceholder": "Searchplaceholder",
-    "settingsTitle": "Settingstitle",
-    "showLargeDiff": "Showlargediff",
+    "searchPlaceholder": "Поиск…",
+    "settingsTitle": {
+      "@darwin": "Настройки diff",
+      "@other": "Параметры diff"
+    },
+    "showLargeDiff": "Показать diff",
     "split": "Разделённый",
     "submodule": {
-      "canCommit": "Можно закоммитить",
+      "canCommit": "Это изменение можно закоммитить в родительский репозиторий.",
       "changesModified": "Изменения подмодуля",
       "changesModifiedAndUntracked": "Изменённые и неотслеживаемые",
       "changesUntracked": "Неотслеживаемые изменения",
       "copyNewSha": "Копировать новый SHA",
       "copyPreviousSha": "Копировать предыдущий SHA",
       "copySha": "Копировать SHA",
-      "header": "Header",
-      "openButton": "Openbutton",
-      "openDescription": "Opendescription",
-      "openTitle": "Opentitle",
-      "pendingChanges": "Ожидающие изменения"
+      "header": "Изменения подмодуля",
+      "openButton": "Открыть репозиторий",
+      "openDescription": "Этот подмодуль можно открыть в GitHub Desktop как обычный репозиторий, чтобы управлять им и делать в нём коммиты.",
+      "openTitle": "Открыть этот подмодуль в GitHub Desktop",
+      "pendingChanges": "У этого подмодуля {changes} изменений. Сначала их нужно закоммитить внутри подмодуля, чтобы они попали в родительский репозиторий.",
+      "commitChanged": "Этот подмодуль изменил свой коммит с <previous>{previous}</previous> на <new>{new}</new>.",
+      "repository": "Это подмодуль, основанный на репозитории <link>{identifier}</link>."
     },
     "unified": "Объединённый",
-    "unrenderable": "Unrenderable",
+    "unrenderable": "Diff слишком большой, чтобы его показать.",
     "whitespaceHint": {
-      "message": "Message",
-      "no": "No",
-      "title": "Title",
+      "message": "Выделение строк недоступно, когда изменения пробелов скрыты.",
+      "no": "Нет",
+      "title": "Показывать изменения пробелов?",
       "yes": "Да"
     },
-    "whitespaceLegend": "Whitespacelegend"
+    "whitespaceLegend": "Пробелы",
+    "lineEndingsChange": "В этом файле используются переводы строк «{from}», но <link>Git настроен на их преобразование</link> в «{to}» при следующей выгрузке файла.",
+    "unicodeBidiWarning": "Этот дифф содержит двунаправленный Unicode-текст, который может интерпретироваться иначе, чем отображается ниже. Чтобы проверить его, откройте файл в редакторе, показывающем невидимые Unicode-символы. <link>Подробнее о двунаправленных Unicode-символах</link>"
   },
   "discardChanges": {
-    "confirmFileList": "Confirmfilelist",
-    "confirmManyFiles": "Подтвердить удаление многих файлов",
-    "confirmSelected": "Confirmselected",
-    "dontShowAgain": "Dontshowagain",
-    "okDiscard": "Okdiscard",
-    "okDiscardAll": "Okdiscardall",
-    "restoreMessage": "Сообщение восстановления",
+    "confirmFileList": "Вы уверены, что хотите отменить все изменения в:",
+    "confirmManyFiles": "Вы уверены, что хотите отменить все изменения в {count} файлах?",
+    "confirmSelected": "Вы уверены, что хотите отменить выбранные изменения в:",
+    "dontShowAgain": "Больше не показывать это сообщение",
+    "okDiscard": "Отменить изменения",
+    "okDiscardAll": "Отменить все изменения",
+    "restoreMessage": "Изменения можно восстановить из {trash}.",
     "retry": {
-      "commonReasons": "Commonreasons",
-      "failed": "Failed",
-      "ok": "Ok",
-      "okTooltip": "Oktooltip",
-      "reason1": "Причина 1",
-      "reason2": "Reason2",
-      "title": "Title",
-      "unrecoverable": "Unrecoverable"
+      "commonReasons": "Типичные причины:",
+      "failed": "Не удалось отменить изменения в {trash}.",
+      "ok": "Отменить изменения",
+      "okTooltip": "Изменения будут отменены, и их невозможно будет восстановить.",
+      "reason1": "{trash} настроен на немедленное удаление элементов.",
+      "reason2": "Нет прав на перемещение файлов.",
+      "title": "Отменённые изменения невозможно будет восстановить",
+      "unrecoverable": "Эти изменения невозможно будет восстановить из {trash}."
     },
-    "titleDiscard": "Titlediscard",
-    "titleDiscardAll": "Titlediscardall"
+    "titleDiscard": "Подтвердите отмену изменений",
+    "titleDiscardAll": "Подтвердите отмену всех изменений"
   },
   "div": "Элемент div",
   "email": "Электронная почта",
   "error": "Ошибка",
   "find-text": "Найти текст",
   "forks": {
-    "do-you-want-to-fork": "Do You Want To Fork",
-    "error-details": "Error Details",
-    "fork-this-repository": "Форкнуть этот репозиторий"
+    "do-you-want-to-fork": "Создать форк этого репозитория?",
+    "error-details": "Подробности ошибки",
+    "fork-this-repository": "Форкнуть этот репозиторий",
+    "create-fork-manually": "Можно попробовать <link>создать форк вручную на GitHub</link>.",
+    "fork-creation-failed": "Не удалось создать форк <strong>{forkName}</strong>.",
+    "fork-question": "Хотите продолжить, создав форк этого репозитория в <strong>{forkName}</strong>?",
+    "no-write-access": "Похоже, у вас нет прав на запись в <strong>{fullName}</strong>. Если они у вас должны быть, обратитесь к администратору репозитория."
   },
   "genericGitAuth": {
     "password": "Пароль",
-    "title": "Аутентификация Git",
-    "username": "Имя пользователя"
+    "title": "Ошибка аутентификации",
+    "username": "Имя пользователя",
+    "message": "Не удалось пройти проверку с <url>{remoteUrl}</url>. Введите имя пользователя и пароль, чтобы повторить попытку.",
+    "messageWithUser": "Не удалось пройти проверку с <url>{remoteUrl}</url>. Введите пароль пользователя <user>{username}</user>, чтобы повторить попытку.",
+    "patDescription": "В зависимости от сервиса размещения репозитория вместо пароля может потребоваться личный токен доступа (PAT). Подробнее о создании PAT — в нашей <link>документации по интеграциям</link>."
   },
   "highlighted": "Подсвечено",
   "hookFailed": {
     "abort": "Прервать",
-    "ignoreAndContinue": "Ignoreandcontinue",
-    "message": "Хук не выполнен. Проверьте конфигурацию хуков.",
-    "title": "Title"
+    "ignoreAndContinue": "Игнорировать и продолжить",
+    "message": "Хук {hookName} завершился с ошибкой. Что вы хотите сделать?",
+    "title": "{hookName} — сбой"
   },
   "installGit": {
-    "install": "Install",
-    "message": "Git необходим для работы приложения",
-    "openWithoutGit": "Openwithoutgit",
-    "resources": "Ресурсы",
-    "terminal": "Терминал",
-    "title": "Title"
+    "install": "Установить Git",
+    "message": "Не удалось найти Git в вашей системе. Это означает, что вы не сможете выполнять команды Git в {terminal}.",
+    "openWithoutGit": "Открыть без Git",
+    "resources": "Чтобы помочь вам установить и настроить Git под вашу операционную систему, мы предлагаем несколько внешних ресурсов.",
+    "terminal": {
+      "@darwin": "терминале",
+      "@other": "командной строке"
+    },
+    "title": "Не удалось найти Git"
   },
   "installingUpdate": {
-    "message": "Установка обновления…",
-    "quitAnyway": "Quitanyway",
-    "title": "Title"
+    "message": "Не закрывайте GitHub Desktop во время установки обновления. Если закрыть приложение сейчас, установка может повредиться.",
+    "quitAnyway": "Всё равно выйти",
+    "title": "Установка обновления…"
   },
   "invalidatedToken": {
-    "no": "No",
-    "title": "Title",
-    "yes": "Да"
+    "no": "Нет",
+    "title": "Токен аккаунта отозван",
+    "yes": "Да",
+    "message": "Токен учётной записи больше не действителен, и вы вышли из учётной записи <ref>{endpoint}</ref>. Войти снова?"
   },
   "issueCreationWebpageOpenedCount": "Открытий страницы создания issue",
   "keyboard": "Клавиатура",
   "lfs": {
     "attributeMismatch": {
-      "title": "Title",
-      "update": "Update"
+      "title": "Обновить существующие фильтры Git LFS?",
+      "update": "Обновить фильтры",
+      "message": "Фильтры Git LFS уже настроены в <config>глобальной конфигурации Git</config>, но их значения не совпадают с ожидаемыми. Обновить их сейчас?"
     },
     "initialize": {
-      "ok": "Ok",
-      "title": "Title"
+      "ok": "Инициализировать Git LFS",
+      "title": "Инициализировать Git LFS",
+      "many-repositories": {
+        "_one": "{count:number} репозиторий использует <lfs>Git LFS</lfs>. Чтобы вносить в него изменения, нужно сначала инициализировать Git LFS. Сделать это сейчас?",
+        "_few": "{count:number} репозитория используют <lfs>Git LFS</lfs>. Чтобы вносить в них изменения, нужно сначала инициализировать Git LFS. Сделать это сейчас?",
+        "_many": "{count:number} репозиториев используют <lfs>Git LFS</lfs>. Чтобы вносить в них изменения, нужно сначала инициализировать Git LFS. Сделать это сейчас?",
+        "_other": "{count:number} репозиториев используют <lfs>Git LFS</lfs>. Чтобы вносить в них изменения, нужно сначала инициализировать Git LFS. Сделать это сейчас?"
+      }
     },
-    "notNow": "Notnow"
+    "notNow": "Не сейчас"
   },
   "mergeConflicts": {
     "commitWarning": {
-      "confirm": "Confirm",
-      "ok": "Ok",
-      "title": "Title",
+      "confirm": "Вы уверены, что хотите закоммитить эти конфликтующие файлы?",
+      "ok": "Да, закоммитить файлы",
+      "title": "Подтвердите коммит конфликтующих файлов",
       "warning": "Предупреждение"
     }
   },
   "multiCommit": {
-    "abortOperation": "Прервать операцию",
+    "abortOperation": "Прервать {operation}",
     "alwaysNudge": {
-      "message": "Message",
-      "no": "No",
-      "path": "Path",
-      "title": "Title",
+      "message": "Настройки → Copilot",
+      "no": "Нет",
+      "path": "Настройки → Copilot",
+      "title": "Всегда использовать Copilot для разрешения конфликтов?",
       "yes": "Да"
     },
     "cherryPick": {
-      "cherryPickCommits": "Cherry-pick коммитов",
-      "chooseBranchTitle": "Выберите ветку",
-      "createBranchOk": "Createbranchok",
-      "header": "Header",
-      "sameBranchTooltip": "Samebranchtooltip"
+      "cherryPickCommits": "Cherry-pick {count} коммитов",
+      "chooseBranchTitle": "Cherry-pick {count} коммитов в ветку",
+      "createBranchOk": "Создать ветку и выполнить cherry-pick",
+      "header": "Cherry-pick в новую ветку",
+      "sameBranchTooltip": "Нельзя выполнить cherry-pick из ветки и в ту же ветку",
+      "cherryPickCommitsTo": {
+        "_one": "Перенести {count:number} коммит в <strong>{branch}</strong>…",
+        "_few": "Перенести {count:number} коммита в <strong>{branch}</strong>…",
+        "_many": "Перенести {count:number} коммитов в <strong>{branch}</strong>…",
+        "_other": "Перенести {count:number} коммитов в <strong>{branch}</strong>…"
+      }
     },
     "chooseBranch": {
-      "mergeOptions": "Mergeoptions"
+      "mergeOptions": "Параметры слияния"
     },
     "confirmAbort": {
-      "confirm": "Подтвердить",
-      "message": "Вы уверены, что хотите прервать?",
+      "confirm": "Вы уверены, что хотите прервать {operation}?",
+      "message": "Вы вернётесь к исходному состоянию ветки, а уже разрешённые конфликты будут отброшены.",
       "ok": "ОК",
-      "title": "Подтверждение прерывания"
+      "title": "Подтвердить прерывание операции {operation}"
     },
     "conflictChoice": {
-      "currentFile": "Currentfile",
-      "currentFromFile": "Currentfromfile",
-      "incomingFile": "Incomingfile",
-      "incomingFromFile": "Incomingfromfile"
+      "currentFile": "Использовать текущий файл",
+      "currentFromFile": "Использовать текущий файл из {branch}",
+      "incomingFile": "Использовать входящий файл",
+      "incomingFromFile": "Использовать входящий файл из {branch}"
     },
     "conflicts": {
-      "allResolved": "Allresolved",
-      "copilotTooltip": "Copilottooltip",
-      "copilotTooltipAborting": "Copilottooltipaborting",
-      "newBadge": "Newbadge",
-      "resolutionsUndone": "Resolutionsundone",
-      "resolveAllFirst": "Resolveallfirst",
+      "allResolved": "Все конфликтующие файлы разрешены.",
+      "copilotTooltip": "Использовать Copilot для предложения вариантов разрешения конфликтов",
+      "copilotTooltipAborting": "Использовать Copilot для предложения вариантов разрешения конфликтов",
+      "newBadge": "Новое",
+      "resolutionsUndone": "Все разрешения конфликтов отменены.",
+      "resolveAllFirst": "Сначала разрешите все конфликты",
       "resolveWithCopilot": "Разрешить с Copilot",
-      "resolvedCount": "Разрешено конфликтов"
+      "resolvedCount": "Конфликты в {count} файлах разрешены."
     },
-    "continueOperation": "Продолжить операцию",
+    "continueOperation": "Продолжить {operation}",
     "copilotChanges": {
-      "changeResolution": "Changeresolution",
+      "changeResolution": "Изменить вариант разрешения",
       "collapse": "Свернуть",
-      "collapseDescription": "Collapsedescription",
+      "collapseDescription": "Свернуть описание",
       "currentBranch": "Текущая ветка",
-      "expand": "Expand",
-      "expandDescription": "Expanddescription",
-      "filesChanged": "Изменённых файлов",
+      "expand": "Развернуть",
+      "expandDescription": "Развернуть описание",
+      "filesChanged": "Изменено файлов: {count}",
       "incomingBranch": "Входящая ветка",
-      "mergedResolution": "Mergedresolution",
-      "noResolution": "Noresolution",
+      "mergedResolution": "Решение Copilot",
+      "noResolution": "Решение Copilot недоступно",
       "noResolutionForFile": "Нет разрешения для файла",
       "unableToLoadDiff": "Не удалось загрузить diff",
-      "usingChangesFrom": "Используя изменения из"
+      "usingChangesFrom": "Используются изменения из {branch}"
     },
     "copilotDialog": {
-      "chooseResolution": "Chooseresolution",
-      "chooseResolutionAria": "Chooseresolutionaria",
-      "configureCopilot": "Configurecopilot",
-      "conflictedFiles": "Конфликтующие файлы",
-      "deletingFile": "Удаление файла",
-      "fileOptions": "Fileoptions",
+      "chooseResolution": "Выберите вариант разрешения",
+      "chooseResolutionAria": "Выберите вариант разрешения для этого файла",
+      "configureCopilot": "Настроить Copilot в параметрах приложения",
+      "conflictedFiles": {
+        "_one": "{count} конфликтный файл",
+        "_few": "{count} конфликтных файла",
+        "_many": "{count} конфликтных файлов",
+        "_other": "{count} конфликтных файлов"
+      },
+      "deletingFile": "Удаление файла (удалён в {branch})",
+      "fileOptions": "Параметры файла",
       "keepingFile": "Сохранение файла",
       "noConflictsRemaining": "Нет оставшихся конфликтов",
-      "openInEditor": "Открыть в редакторе",
-      "skippedFiles": "Пропущенные файлы",
-      "skippedUnresolved": "Skippedunresolved",
+      "openInEditor": "Открыть в {editor}",
+      "skippedFiles": "Пропущено Copilot: {count}",
+      "skippedUnresolved": "Copilot пропустил несколько файлов. Их нужно разрешить вручную.",
       "switchToManual": "Переключиться на ручной режим",
-      "tabChanges": "Tabchanges",
-      "tabSummary": "Tabsummary",
-      "useCopilotSuggestion": "Usecopilotsuggestion"
+      "tabChanges": "Изменения",
+      "tabSummary": "Сводка",
+      "useCopilotSuggestion": "Использовать предложение Copilot"
     },
     "copilotLoading": {
-      "analyzing": "Analyzing",
-      "analyzingFile": "Анализ файла",
-      "andMore": "и ещё",
-      "consideringSides": "Consideringsides",
-      "crossReferencing": "Crossreferencing",
-      "gathering": "Gathering",
-      "lookingContext": "Lookingcontext",
-      "readingFile": "Чтение файла",
-      "readingHistory": "Readinghistory",
-      "reviewingChanges": "Reviewingchanges",
+      "analyzing": "Анализ конфликтов…",
+      "analyzingFile": "Анализ {name}",
+      "andMore": "…и ещё {count}",
+      "consideringSides": "Сопоставление обеих сторон каждого конфликта",
+      "crossReferencing": "Поиск связей между файлами",
+      "gathering": "Сбор контекста…",
+      "lookingContext": "Поиск связанного контекста",
+      "readingFile": "Чтение {name}",
+      "readingHistory": "Чтение последних коммитов",
+      "reviewingChanges": "Разбор изменений каждой стороны",
       "stop": "Остановить",
-      "title": "Загрузка Copilot"
+      "title": "Разрешение конфликтов для {operation}"
     },
     "deleteConflict": {
-      "deleteFile": "Deletefile",
-      "deleteFileOn": "Удалить файл на",
-      "keepFile": "Keepfile",
-      "keepFileFrom": "Сохранить файл из"
+      "deleteFile": "Удалить файл",
+      "deleteFileOn": "Удалить файл в {branch}",
+      "keepFile": "Сохранить файл",
+      "keepFileFrom": "Оставить файл из {branch}"
     },
-    "dontShowAgain": "Dontshowagain",
+    "dontShowAgain": "Больше не показывать это сообщение",
     "mergeChooseBranch": {
-      "checkingMergeability": "Checkingmergeability",
-      "unrelatedHistories": "Несвязанные истории"
+      "checkingMergeability": "Проверяется возможность автоматического слияния…",
+      "unrelatedHistories": "Невозможно слить несвязанные истории в этом репозитории",
+      "cleanMerge": {
+        "_one": "Будет слит <summary>{count:number} коммит</summary> из <from>{branch}</from> в <into>{currentBranch}</into>",
+        "_few": "Будет слито <summary>{count:number} коммита</summary> из <from>{branch}</from> в <into>{currentBranch}</into>",
+        "_many": "Будет слито <summary>{count:number} коммитов</summary> из <from>{branch}</from> в <into>{currentBranch}</into>",
+        "_other": "Будет слито <summary>{count:number} коммитов</summary> из <from>{branch}</from> в <into>{currentBranch}</into>"
+      },
+      "conflicts": {
+        "_one": "При слиянии <from>{branch}</from> в <into>{currentBranch}</into> будет <summary>{count:number} конфликтный файл</summary>",
+        "_few": "При слиянии <from>{branch}</from> в <into>{currentBranch}</into> будет <summary>{count:number} конфликтных файла</summary>",
+        "_many": "При слиянии <from>{branch}</from> в <into>{currentBranch}</into> будет <summary>{count:number} конфликтных файлов</summary>",
+        "_other": "При слиянии <from>{branch}</from> в <into>{currentBranch}</into> будет <summary>{count:number} конфликтных файлов</summary>"
+      },
+      "upToDate": "<current>{current}</current> уже содержит все изменения из <incoming>{incoming}</incoming>"
     },
     "operation": {
       "cherryPick": "Cherry-pick",
@@ -1003,71 +1342,115 @@
       "squash": "Объединение"
     },
     "progress": {
-      "commitPosition": "Позиция коммита",
-      "title": "Прогресс"
+      "commitPosition": "Коммит {position} из {total}",
+      "title": "Выполняется {operation}"
     },
     "rebaseChooseBranch": {
-      "invalid": "Invalid",
-      "loading": "Loading",
-      "selfRebaseTooltip": "Selfrebasetooltip",
-      "upToDateTooltip": "Uptodatetooltip"
+      "invalid": "Не удалось начать rebase. Убедитесь, что выбрана подходящая ветка.",
+      "loading": "Проверяется возможность автоматического rebase…",
+      "selfRebaseTooltip": "Нельзя выполнить rebase ветки на неё саму.",
+      "upToDateTooltip": "Текущая ветка уже содержит все изменения выбранной ветки.",
+      "applyCommits": {
+        "_one": "Будет обновлена ветка <current>{currentBranch}</current>: её <summary>{count:number} коммит</summary> будет перенесён поверх <base>{baseBranch}</base>",
+        "_few": "Будет обновлена ветка <current>{currentBranch}</current>: её <summary>{count:number} коммита</summary> будут перенесены поверх <base>{baseBranch}</base>",
+        "_many": "Будет обновлена ветка <current>{currentBranch}</current>: её <summary>{count:number} коммитов</summary> будут перенесены поверх <base>{baseBranch}</base>",
+        "_other": "Будет обновлена ветка <current>{currentBranch}</current>: её <summary>{count:number} коммитов</summary> будут перенесены поверх <base>{baseBranch}</base>"
+      },
+      "fastForward": {
+        "_one": "Ветка <current>{currentBranch}</current> будет перемотана на <summary>{count:number} коммит</summary>, чтобы совпасть с <base>{baseBranch}</base>",
+        "_few": "Ветка <current>{currentBranch}</current> будет перемотана на <summary>{count:number} коммита</summary>, чтобы совпасть с <base>{baseBranch}</base>",
+        "_many": "Ветка <current>{currentBranch}</current> будет перемотана на <summary>{count:number} коммитов</summary>, чтобы совпасть с <base>{baseBranch}</base>",
+        "_other": "Ветка <current>{currentBranch}</current> будет перемотана на <summary>{count:number} коммитов</summary>, чтобы совпасть с <base>{baseBranch}</base>"
+      },
+      "title": "Перебазировать <strong>{branch}</strong>",
+      "upToDate": "<current>{current}</current> уже содержит все изменения из <base>{base}</base>"
     },
     "resolutionChoice": {
       "current": "Текущий",
       "incoming": "Входящий"
     },
-    "resolveConflictsBefore": "Разрешите конфликты перед продолжением",
+    "resolveConflictsBefore": "Разрешите конфликты перед тем, как продолжить {operation}",
     "summary": {
       "context": "Контекст",
-      "copySha": "Copysha",
+      "copySha": "Скопировать полный SHA",
       "localOnly": "Только локальные",
-      "markdownTitle": "Markdowntitle",
-      "title": "Сводка"
+      "markdownTitle": "Сводка разрешения конфликтов Copilot",
+      "title": "Сводка разрешения конфликтов",
+      "merging": "Слияние <their>{theirLabel}</their> в <our>{ourLabel}</our>",
+      "rebasing": "Перебазирование <our>{ourLabel}</our> на <their>{theirLabel}</their>",
+      "cherryPicking": "Перенос коммитов из <their>{theirLabel}</their> в <our>{ourLabel}</our>",
+      "squashing": "Сжатие в <our>{ourLabel}</our>",
+      "reordering": "Изменение порядка в <our>{ourLabel}</our>"
     },
     "warnForcePush": {
-      "confirm": "Подтвердить",
-      "message": "Это потребует force push. Продолжить?",
+      "confirm": "Вы уверены, что хотите выполнить {operation}?",
+      "message": "По завершении операции {operation} GitHub Desktop позволит выполнить принудительную отправку ветки, чтобы обновить вышестоящую ветку. Принудительная отправка изменит историю в удалённом репозитории и может создать проблемы для всех, кто работает над этой веткой.",
       "ok": "ОК",
-      "title": "Предупреждение о force push"
+      "title": "{operation} потребует force push"
     }
   },
   "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Открытий диалога недоступных коммитов",
   "next": "Далее",
   "notifications": {
     "checksFailed": {
-      "footerMany": "проверок не пройдено",
-      "footerOne": "проверка не пройдена",
-      "standBy": "Standby",
-      "stepsIncoming": "Stepsincoming",
+      "footerMany": "Хотите сейчас переключиться на этот pull request и начать исправлять их?",
+      "footerOne": "Хотите сейчас переключиться на этот pull request и начать исправлять его?",
+      "standBy": "Подождите",
+      "stepsIncoming": "Шаги проверки скоро появятся!",
       "summary": "Проверки не пройдены"
     },
     "dismiss": "Закрыть",
-    "markdownCommentTitle": "Markdowncommenttitle",
-    "openInBrowser": "Openinbrowser",
-    "switchToPullRequest": "Switchtopullrequest",
-    "switchToRepositoryAndPullRequest": "Switchtorepositoryandpullrequest",
+    "markdownCommentTitle": "Markdown-комментарий pull request",
+    "openInBrowser": "Открыть в браузере",
+    "switchToPullRequest": "Перейти к pull request",
+    "switchToRepositoryAndPullRequest": "Перейти к репозиторию и pull request",
     "verb": {
       "approved": "одобрил(а)",
       "commentedOn": "прокомментировал(а)",
       "requestedChanges": "запросил(а) изменения",
       "reviewed": "проверил(а)"
+    },
+    "timeline": {
+      "summary": "<user>{login}</user> {verb} ваш пул-реквест <date>{date}</date>"
     }
   },
   "openInCopilotAppCount": "Открытий в приложении Copilot",
   "openPullRequest": {
-    "file-does-not-exist": "File Does Not Exist",
-    "file-list-description": "File List Description",
-    "lines-added": "Lines Added",
-    "lines-changed": "Lines Changed",
-    "lines-deleted": "Строк удалено",
-    "no-changes-title": "No Changes Title",
-    "no-default-branch-title": "No Default Branch Title",
-    "no-remote-branch": "Нет удалённой ветки",
-    "open-in": "Открыть в",
+    "file-does-not-exist": "Файл не существует на диске",
+    "file-list-description": "Список файлов pull request",
+    "lines-added": {
+      "_one": "добавлена {count:number} строка",
+      "_few": "добавлено {count:number} строки",
+      "_many": "добавлено {count:number} строк",
+      "_other": "добавлена {count:number} строка"
+    },
+    "lines-changed": "Изменено строк:",
+    "lines-deleted": {
+      "_one": "удалена {count:number} строка",
+      "_few": "удалено {count:number} строки",
+      "_many": "удалено {count:number} строк",
+      "_other": "удалена {count:number} строка"
+    },
+    "no-changes-title": "Изменений нет.",
+    "no-default-branch-title": "Не удалось найти ветку по умолчанию для сравнения.",
+    "no-remote-branch": "Не удаётся найти эту удалённую ветку.",
+    "open-in": "Открыть в {name}",
     "remote-only-pr": "PR только на удалённом сервере",
-    "select-base-branch": "Select Base Branch",
+    "select-base-branch": "Выберите базовую ветку выше.",
     "showing-all-commits": "Показаны все коммиты",
-    "title": "Title"
+    "title": "Открыть pull request",
+    "branch-up-to-date": "<base>{base}</base> содержит все коммиты из <current>{current}</current>.",
+    "different-histories": "<base>{base}</base> и <current>{current}</current> имеют совершенно разные истории коммитов.",
+    "merge-commits-into": {
+      "_one": "Слить {count:number} коммит в <select/> из <ref>{branch}</ref>.",
+      "_few": "Слить {count:number} коммита в <select/> из <ref>{branch}</ref>.",
+      "_many": "Слить {count:number} коммитов в <select/> из <ref>{branch}</ref>.",
+      "_other": "Слить {count:number} коммитов в <select/> из <ref>{branch}</ref>."
+    },
+    "merge-status-clean": "<strong><icon/> Возможно слияние.</strong> Эти ветки можно слить автоматически.",
+    "merge-status-conflicts": "<strong><icon/> Автоматическое слияние невозможно.</strong> Не переживайте, пул-реквест всё равно можно создать.",
+    "merge-status-invalid": "<strong>Ошибка проверки возможности слияния.</strong> Невозможно слить несвязанные истории в этом репозитории",
+    "merge-status-loading": "<strong>Проверяем возможность слияния…</strong> Не переживайте, пул-реквест всё равно можно создать."
   },
   "opensCheckRunsPopover": "Открывает поповер проверок",
   "pointer": "Указатель",
@@ -1081,35 +1464,36 @@
     "name": "Имя",
     "none": "Нет",
     "organization": "Организация",
-    "publish-repository-ok": "Publish Repository Ok",
+    "publish-repository-ok": "Опубликовать репозиторий",
     "sign-in": "Войти",
-    "title": "Title",
-    "will-be-created-as": "Будет создан как"
+    "title": "Опубликовать репозиторий",
+    "will-be-created-as": "Будет создан как {name}"
   },
   "pushNeedsPull": {
     "fetch": "Получить",
-    "message": "Необходимо получить изменения перед отправкой",
-    "title": "Title"
+    "message": "GitHub Desktop не может отправить коммиты в эту ветку, потому что в удалённом репозитории есть коммиты, которых нет в вашей локальной ветке. Получите эти новые коммиты перед отправкой, чтобы согласовать их с вашими локальными коммитами.",
+    "title": "В удалённом репозитории более новые коммиты"
   },
   "rebase": {
     "forcePush": {
-      "dontShowAgain": "Dontshowagain",
+      "dontShowAgain": "Больше не показывать это сообщение",
       "ok": "ОК",
-      "title": "Title"
+      "title": "Вы уверены, что хотите выполнить force push?",
+      "message": "Принудительная отправка перезапишет историю в <ref>{upstreamBranch}</ref>. Всем участникам работы над этой веткой нужно будет сбросить свою локальную ветку до истории удалённого репозитория."
     }
   },
   "rebaseSuccessWithoutConflictsCount": "Rebase успешно без конфликтов",
   "rebaseWithBranchAlreadyUpToDateCount": "Ветка уже актуальна",
   "removeRepository": {
-    "confirm-message": "Вы уверены, что хотите удалить этот репозиторий?",
-    "move-to-trash": "Move To Trash",
-    "title": "Title",
-    "will-be-removed": "Will Be Removed"
+    "confirm-message": "Вы уверены, что хотите удалить репозиторий «{name}» из GitHub Desktop?",
+    "move-to-trash": "Также переместить этот репозиторий в ",
+    "title": "Убрать репозиторий",
+    "will-be-removed": "Репозиторий будет убран из GitHub Desktop:"
   },
   "renameBranch": {
     "name": "Имя",
-    "rename-button": "Переименовать",
-    "title": "Title"
+    "rename-button": "Переименовать {branch}",
+    "title": "Переименовать ветку"
   },
   "reorderMultipleCommitsCount": "Перестановка нескольких коммитов",
   "reorderStartedCount": "Начата перестановка",
@@ -1119,63 +1503,72 @@
     "no-effect-note": "Псевдоним влияет только на отображение"
   },
   "repositorySettings": {
-    "error-read-gitignore": "Ошибка чтения .gitignore",
-    "error-save-gitignore": "Ошибка сохранения .gitignore",
-    "error-set-remote": "Ошибка установки remote",
-    "fork-behavior-tab": "Fork Behavior Tab",
-    "fork-contribute-to-parent": "Fork Contribute To Parent",
-    "fork-for-my-own-purposes": "Fork For My Own Purposes",
-    "fork-usage-heading": "Fork Usage Heading",
-    "git-config-heading": "Git Config Heading",
-    "git-config-tab": "Git Config Tab",
-    "ignored-files": "Ignored Files",
-    "ignored-files-tab": "Ignored Files Tab",
-    "primary-remote-label": "Основной remote",
+    "error-read-gitignore": "Не удалось прочитать корневой .gitignore: {error}",
+    "error-save-gitignore": "Не удалось сохранить файл .gitignore: {error}",
+    "error-set-remote": "Не удалось установить URL удалённого репозитория: {error}",
+    "fork-behavior-tab": "Поведение форка",
+    "fork-contribute-to-parent": "Для внесения вклада в родительский репозиторий",
+    "fork-for-my-own-purposes": "Для собственных задач",
+    "fork-usage-heading": "Я буду использовать этот форк…",
+    "git-config-heading": "Для этого репозитория я хочу",
+    "git-config-tab": "Конфигурация Git",
+    "ignored-files": "Игнорируемые файлы",
+    "ignored-files-tab": "Игнорируемые файлы",
+    "primary-remote-label": "URL основного удалённого репозитория ({name})",
     "publish": "Опубликовать",
     "remote-tab": "Вкладка Remote",
     "remote-url-placeholder": "URL удалённого репозитория",
-    "title": "Title",
-    "use-global-config": "Use Global Config",
-    "use-local-config": "Use Local Config"
+    "title": "Настройки репозитория",
+    "use-global-config": "Использовать глобальную конфигурацию Git",
+    "use-local-config": "Использовать локальную конфигурацию Git",
+    "fork-desc-pull-requests": "Пул-реквесты, направленные в <strong>{repository}</strong>, будут отображаться в списке пул-реквестов.",
+    "fork-desc-issues": "Задачи будут создаваться в <strong>{repository}</strong>.",
+    "fork-desc-view-on-github": "«Открыть на GitHub» откроет <strong>{repository}</strong> в браузере.",
+    "fork-desc-new-branches": "Новые ветки будут создаваться от ветки по умолчанию в <strong>{repository}</strong>.",
+    "fork-desc-autocompletion": "Автодополнение имён пользователей и задач будет работать по <strong>{repository}</strong>.",
+    "gitignore-description": "Изменяется файл <ref>.gitignore</ref>. В нём перечислены файлы, которые Git намеренно игнорирует. Уже отслеживаемые Git файлы не затрагиваются. <link>Подробнее о файлах gitignore</link>",
+    "no-remote-message": "Опубликуйте свой репозиторий на GitHub. Нужна помощь? <link>Подробнее об удалённых репозиториях.</link>"
   },
   "reset": {
     "continue": "Продолжить",
-    "title": "Title",
+    "title": "Сбросить к коммиту",
     "warning": "Это действие нельзя отменить"
   },
   "resetToCommitCount": "Сброс до коммита",
   "samlReauth": {
-    "confirm": "Подтвердить",
-    "message": "Требуется повторная аутентификация SAML",
+    "confirm": "Хотите открыть браузер, чтобы разрешить GitHub Desktop доступ к репозиторию?",
+    "message": "Организация \"{organizationName}\" включила или требует SAML SSO. Чтобы получить доступ к этому репозиторию, нужно войти снова и предоставить GitHub Desktop доступ к репозиториям организации.",
     "ok": "ОК",
-    "title": "Title"
+    "title": "Требуется повторная авторизация"
   },
   "secretScanning": {
-    "atLine": "на строке",
+    "atLine": "на строке {line}",
     "bypass": "Обойти",
-    "bypassAria": "Обойти сканирование секретов",
+    "bypassAria": "Обойти {description}",
     "bypassDialog": {
-      "falsePositiveDescription": "Falsepositivedescription",
-      "falsePositiveTitle": "Falsepositivetitle",
-      "ok": "Ok",
-      "reasonLabel": "Причина обхода",
-      "title": "Title",
-      "usedInTestsDescription": "Usedintestsdescription",
-      "usedInTestsTitle": "Usedinteststitle",
-      "willFixLaterDescription": "Willfixlaterdescription",
-      "willFixLaterTitle": "Willfixlatertitle"
+      "falsePositiveDescription": "Найденная строка не является секретом",
+      "falsePositiveTitle": "Это ложное срабатывание",
+      "ok": "Разрешить мне раскрыть этот секрет",
+      "reasonLabel": "Почему вы обходите это {description}?",
+      "title": "Обойти проверку при push",
+      "usedInTestsDescription": "Этот секрет не представляет опасности. Даже если его найдут, злоумышленник не получит доступ к чувствительным данным.",
+      "usedInTestsTitle": "Он используется в тестах",
+      "willFixLaterDescription": "Секрет настоящий, я понимаю риск и отзову его позже. При этом появится предупреждение о безопасности, о котором будут уведомлены администраторы репозитория.",
+      "willFixLaterTitle": "Я исправлю это позже"
     },
     "bypassed": "Обойдено",
-    "copySha": "Copysha",
-    "exposureRisks": "Риски утечки",
-    "risk1": "Risk1",
-    "risk2": "Риск 2",
-    "risk3": "Риск 3",
-    "risk4": "Риск 4",
+    "copySha": "Скопировать полный SHA",
+    "exposureRisks": "Из-за утечки этого секрета кто-то сможет:",
+    "risk1": "Действовать от имени владельца секрета",
+    "risk2": "Узнать, к каким ресурсам имеет доступ секрет",
+    "risk3": "Действовать от имени владельца секрета",
+    "risk4": "Отправить секреты в этот репозиторий без блокировки",
     "secrets": "Секреты",
-    "showLessLocations": "Showlesslocations",
-    "showMoreLocations": "Showmorelocations",
-    "title": "Title"
+    "showLessLocations": "Показать меньше расположений",
+    "showMoreLocations": "Показать больше расположений",
+    "title": "Push заблокирован: обнаружен секрет",
+    "foundSecrets": "<link>Secret Scanning</link> нашёл секрет(ы) в коммитах, которые вы пытались отправить.",
+    "remediation": "Разрешение отправки с секретами угрожает их раскрытию. Рекомендуем <link>удалить секрет из коммита и истории коммитов.</link>"
   },
   "select-all": "Выбрать всё",
   "skipGuidCheck": "Пропустить проверку GUID",
@@ -1185,31 +1578,31 @@
   "squashViaContextMenuInvokedCount": "Squash через контекстное меню",
   "squashViaDragAndDropInvokedCount": "Squash перетаскиванием",
   "ssh": {
-    "confirmConnect": "Confirmconnect",
-    "hostAuthenticity": "Подлинность хоста",
-    "hostTitle": "Hosttitle",
-    "keyPassphraseLabel": "Парольная фраза ключа",
-    "keyPassphraseTitle": "Keypassphrasetitle",
-    "no": "No",
-    "rememberPassphrase": "Rememberpassphrase",
-    "rememberPassword": "Rememberpassword",
-    "userPasswordLabel": "Пароль пользователя",
-    "userPasswordTitle": "Userpasswordtitle",
+    "confirmConnect": "Вы уверены, что хотите продолжить подключение?",
+    "hostAuthenticity": "Невозможно установить подлинность хоста «{host} ({ip})». Отпечаток ключа {keyType}: {fingerprint}.",
+    "hostTitle": "SSH-хост",
+    "keyPassphraseLabel": "Введите кодовую фразу для ключа «{keyPath}»:",
+    "keyPassphraseTitle": "Парольная фраза SSH-ключа",
+    "no": "Нет",
+    "rememberPassphrase": "Запомнить парольную фразу",
+    "rememberPassword": "Запомнить пароль",
+    "userPasswordLabel": "Введите пароль для «{username}»:",
+    "userPasswordTitle": "Пароль пользователя SSH",
     "yes": "Да"
   },
   "stashChanges": {
-    "actionLabel": "Actionlabel",
-    "bringDescription": "Bringdescription",
-    "bringTitle": "Bringtitle",
-    "leaveDescription": "Leavedescription",
-    "leaveTitle": "Leavetitle",
+    "actionLabel": "В этой ветке есть изменения. Что вы хотите с ними сделать?",
+    "bringDescription": "Незавершённая работа перейдёт вместе с вами в новую ветку",
+    "bringTitle": "Перенести мои изменения в {branchName}",
+    "leaveDescription": "Незавершённая работа будет отложена в этой ветке, чтобы вы вернулись к ней позже",
+    "leaveTitle": "Оставить мои изменения в {branchName}",
     "overwrite": {
-      "message": "Существующий stash будет перезаписан",
-      "ok": "Ok",
-      "title": "Title"
+      "message": "Вы уверены, что хотите продолжить? Это перезапишет существующий stash вашими текущими изменениями.",
+      "ok": "Перезаписать",
+      "title": "Перезаписать stash?"
     },
-    "overwriteWarning": "Предупреждение о перезаписи",
-    "switchBranch": "Switchbranch"
+    "overwriteWarning": "Текущий схрон будет перезаписан при создании нового",
+    "switchBranch": "Переключить ветку"
   },
   "submit": "Отправить",
   "theme-changed": "Тема изменена",
@@ -1218,24 +1611,33 @@
   "tooltip-hidden": "Подсказка скрыта",
   "tooltip-shown": "Подсказка показана",
   "unknownAuthors": {
-    "list": "Список",
-    "many": "Много неизвестных авторов",
-    "ok": "Ok",
-    "title": "Title"
+    "list": "Эти пользователи не найдены и не будут добавлены в соавторы этого коммита. Вы уверены, что хотите выполнить коммит?",
+    "many": {
+      "_one": "{count} пользователь не найден и не будет добавлен соавтором этого коммита. Вы уверены, что хотите выполнить коммит?",
+      "_few": "{count} пользователя не найдены и не будут добавлены соавторами этого коммита. Вы уверены, что хотите выполнить коммит?",
+      "_many": "{count} пользователей не найдены и не будут добавлены соавторами этого коммита. Вы уверены, что хотите выполнить коммит?",
+      "_other": "{count} пользователя не найдены и не будут добавлены соавторами этого коммита. Вы уверены, что хотите выполнить коммит?"
+    },
+    "ok": "Всё равно закоммитить",
+    "title": "Неизвестные соавторы"
   },
   "untrustedCertificate": {
-    "expected": "Ожидаемый",
-    "ok": "Ok",
-    "title": "Title",
-    "trial": "Пробный",
-    "unsure": "Не уверен",
-    "unusualTld": "Необычный TLD"
+    "expected": "В некоторых случаях это может быть нормальным явлением. Например:",
+    "ok": "Просмотреть сертификат",
+    "title": "Недоверенный сервер",
+    "trial": "Если это пробная версия GitHub Enterprise.",
+    "unsure": "Если вы не знаете, как поступить, отмените действие и обратитесь к системному администратору.",
+    "unusualTld": "Если ваш экземпляр GitHub Enterprise работает на необычном домене верхнего уровня.",
+    "message": "GitHub Desktop не может подтвердить подлинность {host}. Сертификат ({subjectName}) недействителен или не вызывает доверия. <strong>Это может означать, что злоумышленники пытаются украсть ваши данные.</strong>"
   },
   "upstreamAlreadyExists": {
-    "confirm": "Confirm",
+    "confirm": "Обновить удалённый репозиторий, чтобы использовать ожидающий URL?",
     "ignore": "Игнорировать",
-    "title": "Title",
-    "update": "Update"
+    "title": "Upstream уже существует",
+    "update": "Обновить",
+    "message": "Репозиторий <repository>{name}</repository> является форком <parent>{parentName}</parent>, но его удалённый <remote>{remoteName}</remote> указывает на другой адрес.",
+    "current": "Текущий: <url>{url}</url>",
+    "expected": "Ожидаемый: <url>{url}</url>"
   },
   "version": "Версия",
   "webgl2": "WebGL2",

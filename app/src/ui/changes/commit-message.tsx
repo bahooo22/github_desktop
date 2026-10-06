@@ -1656,9 +1656,7 @@ export class CommitMessage extends React.Component<
         delay={0}
         tooltip={
           <>
-            <div className="title">
-              {t('commitMessage.length-hint-title')}
-            </div>
+            <div className="title">{t('commitMessage.length-hint-title')}</div>
             <div className="description">
               {t('commitMessage.length-hint-description')}
             </div>

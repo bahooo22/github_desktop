@@ -126,10 +126,7 @@ export abstract class PullRequestCommentLike extends React.Component<IPullReques
             components={{
               user: <LinkButton uri={user.html_url} className="author" />,
               date: (
-                <LinkButton
-                  uri={externalURL}
-                  className="submission-date"
-                />
+                <LinkButton uri={externalURL} className="submission-date" />
               ),
             }}
           />

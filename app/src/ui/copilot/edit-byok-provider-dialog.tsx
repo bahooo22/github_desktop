@@ -196,9 +196,13 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
             value={this.state.type}
             onChange={this.onTypeChanged}
           >
-            <option value="openai">{t('copilotByokProvider.typeOpenAI')}</option>
+            <option value="openai">
+              {t('copilotByokProvider.typeOpenAI')}
+            </option>
             <option value="azure">{t('copilotByokProvider.typeAzure')}</option>
-            <option value="anthropic">{t('copilotByokProvider.typeAnthropic')}</option>
+            <option value="anthropic">
+              {t('copilotByokProvider.typeAnthropic')}
+            </option>
           </Select>
         </Row>
         <Row>
@@ -217,8 +221,12 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
               value={this.state.wireApi}
               onChange={this.onWireApiChanged}
             >
-              <option value="completions">{t('copilotByokProvider.wireApiCompletions')}</option>
-              <option value="responses">{t('copilotByokProvider.wireApiResponses')}</option>
+              <option value="completions">
+                {t('copilotByokProvider.wireApiCompletions')}
+              </option>
+              <option value="responses">
+                {t('copilotByokProvider.wireApiResponses')}
+              </option>
             </Select>
           </Row>
         )}

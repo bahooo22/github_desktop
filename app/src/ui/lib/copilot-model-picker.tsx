@@ -432,7 +432,11 @@ export class CopilotModelPicker extends React.Component<
   }
 
   private renderNoItems = () => {
-    return <div className="copilot-model-list-empty">{t('copilotModelPicker.noModelsFound')}</div>
+    return (
+      <div className="copilot-model-list-empty">
+        {t('copilotModelPicker.noModelsFound')}
+      </div>
+    )
   }
 
   private getItemAriaLabel = (item: ICopilotModelListItem) => {

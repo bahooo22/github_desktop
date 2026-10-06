@@ -252,9 +252,11 @@ export class CommitMessageAvatar extends React.Component<
     return (
       <>
         <p>
-          {user && user.name && t('changes.avatar.email-label', {
-            email: user.email,
-          })}
+          {user &&
+            user.name &&
+            t('changes.avatar.email-label', {
+              email: user.email,
+            })}
         </p>
 
         <p>
@@ -343,9 +345,7 @@ export class CommitMessageAvatar extends React.Component<
     )
 
     if (warningType === 'misattribution') {
-      const enterprise = this.props.isEnterpriseAccount
-        ? ' Enterprise'
-        : ''
+      const enterprise = this.props.isEnterpriseAccount ? ' Enterprise' : ''
 
       const userName =
         this.props.user && this.props.user.name

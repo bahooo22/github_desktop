@@ -480,9 +480,7 @@ export class CreateRepository extends React.Component<
       return null
     }
 
-    return (
-      <DialogError>{t('addRepository.invalid-path-error')}</DialogError>
-    )
+    return <DialogError>{t('addRepository.invalid-path-error')}</DialogError>
   }
 
   private renderGitRepositoryError() {

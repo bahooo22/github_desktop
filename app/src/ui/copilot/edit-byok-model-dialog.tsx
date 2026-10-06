@@ -121,9 +121,7 @@ export class EditCopilotBYOKModelDialog extends React.Component<
         <DialogFooter>
           <OkCancelButtonGroup
             okButtonText={
-              isEditing
-                ? t('copilotByokModel.save')
-                : t('copilotByokModel.add')
+              isEditing ? t('copilotByokModel.save') : t('copilotByokModel.add')
             }
           />
         </DialogFooter>

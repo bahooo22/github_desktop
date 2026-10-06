@@ -244,7 +244,9 @@ export class ConflictsDialog extends React.Component<
 
     if (countResolved === 0) {
       return (
-        <DialogSuccess>{t('multiCommit.conflicts.resolutionsUndone')}</DialogSuccess>
+        <DialogSuccess>
+          {t('multiCommit.conflicts.resolutionsUndone')}
+        </DialogSuccess>
       )
     }
 

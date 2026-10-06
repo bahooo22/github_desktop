@@ -45,9 +45,7 @@ export class ConfirmCommitFilteredChanges extends React.Component<
             <Trans
               k="changes.commit-filtered-dialog.message"
               components={{
-                link: (
-                  <LinkButton onClick={this.showFilesToBeCommitted} />
-                ),
+                link: <LinkButton onClick={this.showFilesToBeCommitted} />,
               }}
             />
           </p>

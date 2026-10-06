@@ -55,9 +55,7 @@ export class ChangeRepositoryAlias extends React.Component<
             />
           </p>
           {repository.gitHubRepository !== null && (
-            <p className="description">
-              {t('repositoryAlias.no-effect-note')}
-            </p>
+            <p className="description">{t('repositoryAlias.no-effect-note')}</p>
           )}
         </DialogContent>
 

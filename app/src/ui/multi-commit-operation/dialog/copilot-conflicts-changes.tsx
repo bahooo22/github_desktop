@@ -335,12 +335,15 @@ export class CopilotConflictsChanges extends React.Component<
   ): string | undefined {
     if (choice === 'ours') {
       return t('multiCommit.copilotChanges.usingChangesFrom', {
-        branch: this.props.ourBranch ?? t('multiCommit.copilotChanges.currentBranch'),
+        branch:
+          this.props.ourBranch ?? t('multiCommit.copilotChanges.currentBranch'),
       })
     }
     if (choice === 'theirs') {
       return t('multiCommit.copilotChanges.usingChangesFrom', {
-        branch: this.props.theirBranch ?? t('multiCommit.copilotChanges.incomingBranch'),
+        branch:
+          this.props.theirBranch ??
+          t('multiCommit.copilotChanges.incomingBranch'),
       })
     }
     const resolution = this.props.copilotResolutions?.find(r => r.path === path)

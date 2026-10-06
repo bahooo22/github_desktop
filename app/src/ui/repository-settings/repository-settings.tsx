@@ -311,9 +311,7 @@ export class RepositorySettings extends React.Component<
             `RepositorySettings: unable to set remote URL at ${this.props.repository.path}`,
             e
           )
-          errors.push(
-            t('repositorySettings.error-set-remote', { error: e })
-          )
+          errors.push(t('repositorySettings.error-set-remote', { error: e }))
         }
       }
     }
@@ -329,9 +327,7 @@ export class RepositorySettings extends React.Component<
           `RepositorySettings: unable to save gitignore at ${this.props.repository.path}`,
           e
         )
-        errors.push(
-          t('repositorySettings.error-save-gitignore', { error: e })
-        )
+        errors.push(t('repositorySettings.error-save-gitignore', { error: e }))
       }
     }
 

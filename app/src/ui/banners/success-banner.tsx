@@ -26,7 +26,9 @@ export class SuccessBanner extends React.Component<ISuccessBannerProps, {}> {
     if (this.props.onUndo === undefined) {
       return
     }
-    return <LinkButton onClick={this.undo}>{t('successBanner.undo')}</LinkButton>
+    return (
+      <LinkButton onClick={this.undo}>{t('successBanner.undo')}</LinkButton>
+    )
   }
 
   public render() {

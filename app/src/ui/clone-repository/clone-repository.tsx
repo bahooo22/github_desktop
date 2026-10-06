@@ -276,7 +276,9 @@ export class CloneRepository extends React.Component<
           selectedIndex={this.props.selectedTab}
         >
           <span id="dotcom-tab">{t('cloneRepositoryTabs.dotcomTab')}</span>
-          <span id="enterprise-tab">{t('cloneRepositoryTabs.enterpriseTab')}</span>
+          <span id="enterprise-tab">
+            {t('cloneRepositoryTabs.enterpriseTab')}
+          </span>
           <span id="url-tab">{t('cloneRepositoryTabs.urlTab')}</span>
         </TabBar>
 

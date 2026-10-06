@@ -158,7 +158,9 @@ export class UserAutocompletionProvider
     ) : (
       <div className="user unknown" key={item.username}>
         <span className="username">{item.username}</span>
-        <span className="description">{t('userAutocompletion.searchForUser')}</span>
+        <span className="description">
+          {t('userAutocompletion.searchForUser')}
+        </span>
       </div>
     )
   }

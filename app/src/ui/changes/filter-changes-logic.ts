@@ -113,7 +113,26 @@ export function getNoResultsMessage(
   }
 
   return t('changes.no-results-message', {
-    filters: activeFilters.join(', '),
+    filters: formatFilterList(activeFilters),
+  })
+}
+
+/** The conjunction differs per language, so the shapes live in the catalog. */
+function formatFilterList(activeFilters: ReadonlyArray<string>): string {
+  if (activeFilters.length === 1) {
+    return activeFilters[0]
+  }
+
+  if (activeFilters.length === 2) {
+    return t('changes.filter.list.two', {
+      first: activeFilters[0],
+      second: activeFilters[1],
+    })
+  }
+
+  return t('changes.filter.list.many', {
+    others: activeFilters.slice(0, -1).join(', '),
+    last: activeFilters[activeFilters.length - 1],
   })
 }
 

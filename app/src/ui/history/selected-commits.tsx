@@ -254,7 +254,11 @@ export class SelectedCommits extends React.Component<
   private renderFileList() {
     const files = this.props.changesetData.files
     if (files.length === 0) {
-      return <div className="fill-window">{t('selectedCommits.noFilesInCommit')}</div>
+      return (
+        <div className="fill-window">
+          {t('selectedCommits.noFilesInCommit')}
+        </div>
+      )
     }
 
     // -1 for right hand side border

@@ -41,7 +41,9 @@ export class CherryPickConflictsBanner extends React.Component<
           <Trans
             as="span"
             k="banners.cherryPickConflicts"
-            components={{ branch: <strong>{this.props.targetBranchName}</strong> }}
+            components={{
+              branch: <strong>{this.props.targetBranchName}</strong>,
+            }}
           />
           <LinkButton onClick={this.openDialog}>
             {t('banners.viewConflicts')}

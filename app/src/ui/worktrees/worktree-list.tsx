@@ -130,7 +130,9 @@ export class WorktreeList extends React.Component<IWorktreeListProps> {
   }
 
   private onRenderNoItems = () => {
-    return <div className="no-items-found">{t('worktreeList.noItemsFound')}</div>
+    return (
+      <div className="no-items-found">{t('worktreeList.noItemsFound')}</div>
+    )
   }
 
   private onItemClick = (item: IWorktreeListItem, source: ClickSource) => {

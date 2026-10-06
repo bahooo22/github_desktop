@@ -27,9 +27,7 @@ export class EnterpriseServerConfirmation extends React.Component<IEnterpriseSer
         <div className="enterprise-server-warning">
           <Octicon symbol={octicons.alert} />
           <p>
-            <strong>
-              {t('enterpriseServerConfirmation.trustWarning')}
-            </strong>{' '}
+            <strong>{t('enterpriseServerConfirmation.trustWarning')}</strong>{' '}
             {t('enterpriseServerConfirmation.confirmAddress')}
           </p>
         </div>

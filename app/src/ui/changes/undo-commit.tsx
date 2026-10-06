@@ -29,9 +29,7 @@ export class UndoCommit extends React.Component<IUndoCommitProps, {}> {
   public render() {
     const disabled =
       this.props.isPushPullFetchInProgress || this.props.isCommitting
-    const title = disabled
-      ? t('changes.undo-disabled-tooltip')
-      : undefined
+    const title = disabled ? t('changes.undo-disabled-tooltip') : undefined
 
     const authorDate = this.props.commit.author.date
     return (

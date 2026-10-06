@@ -198,16 +198,16 @@ function renderTemplate(
         element === undefined
           ? frame.children
           : typeof element === 'string'
-            ? frame.children.length > 0
-              ? frame.children
-              : element
-            : React.cloneElement(
-                element,
-                { key: key++ },
-                frame.children.length > 0
-                  ? frame.children
-                  : element.props.children
-              )
+          ? frame.children.length > 0
+            ? frame.children
+            : element
+          : React.cloneElement(
+              element,
+              { key: key++ },
+              frame.children.length > 0
+                ? frame.children
+                : element.props.children
+            )
       )
       continue
     }

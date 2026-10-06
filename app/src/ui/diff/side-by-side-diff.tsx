@@ -1573,13 +1573,13 @@ export class SideBySideDiff extends React.Component<
     if (rangeType === DiffRangeType.Additions) {
       key = __DARWIN__ ? 'diff.discardLine.added.mac' : 'diff.discardLine.added'
     } else if (rangeType === DiffRangeType.Deletions) {
-      key =
-        __DARWIN__ ? 'diff.discardLine.deleted.mac' : 'diff.discardLine.deleted'
+      key = __DARWIN__
+        ? 'diff.discardLine.deleted.mac'
+        : 'diff.discardLine.deleted'
     } else if (rangeType === DiffRangeType.Mixed) {
-      key =
-        __DARWIN__
-          ? 'diff.discardLine.modified.mac'
-          : 'diff.discardLine.modified'
+      key = __DARWIN__
+        ? 'diff.discardLine.modified.mac'
+        : 'diff.discardLine.modified'
     } else {
       assertNever(rangeType, `Invalid range type: ${rangeType}`)
     }

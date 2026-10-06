@@ -428,13 +428,15 @@ export class CopilotConflictsDialog extends React.Component<
         : undefined
       const { ourBranch, theirBranch } = this.props.conflictState
       if (deletedSide === 'ours') {
-        const branch = ourBranch ?? t('multiCommit.copilotChanges.currentBranch')
+        const branch =
+          ourBranch ?? t('multiCommit.copilotChanges.currentBranch')
         reasoningText =
           choice === 'ours'
             ? t('multiCommit.copilotDialog.deletingFile', { branch })
             : t('multiCommit.copilotDialog.keepingFile')
       } else if (deletedSide === 'theirs') {
-        const branch = theirBranch ?? t('multiCommit.copilotChanges.incomingBranch')
+        const branch =
+          theirBranch ?? t('multiCommit.copilotChanges.incomingBranch')
         reasoningText =
           choice === 'theirs'
             ? t('multiCommit.copilotDialog.deletingFile', { branch })

@@ -286,4 +286,6 @@ export class TutorialPanel extends React.Component<
 
 const SkipLinkButton: React.FunctionComponent<{
   onClick: () => void
-}> = props => <LinkButton onClick={props.onClick}>{t('tutorialPanelSkip.skip')}</LinkButton>
+}> = props => (
+  <LinkButton onClick={props.onClick}>{t('tutorialPanelSkip.skip')}</LinkButton>
+)

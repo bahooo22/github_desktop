@@ -282,9 +282,7 @@ export class CICheckRunPopover extends React.PureComponent<
       case loading:
         return <>{t('checkRuns.summary-title')}</>
       case somePendingNoFailures:
-        return (
-          <span className="pending">{t('checkRuns.title.pending')}</span>
-        )
+        return <span className="pending">{t('checkRuns.title.pending')}</span>
       case allFailure:
         return (
           <span className="failure">{t('checkRuns.title.all-failed')}</span>
@@ -293,9 +291,7 @@ export class CICheckRunPopover extends React.PureComponent<
         return <>{t('checkRuns.title.all-passed')}</>
     }
 
-    return (
-      <span className="failure">{t('checkRuns.title.some-failed')}</span>
-    )
+    return <span className="failure">{t('checkRuns.title.some-failed')}</span>
   }
 
   private renderHeader = (): JSX.Element => {

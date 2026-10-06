@@ -49,7 +49,8 @@ function ShaRef({
   )
 }
 
-interface ISubmoduleDiffProps {  readonly onOpenSubmodule?: (fullPath: string) => void
+interface ISubmoduleDiffProps {
+  readonly onOpenSubmodule?: (fullPath: string) => void
   readonly diff: ISubmoduleDiff
 
   /**
@@ -120,9 +121,7 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
     const { diff, readOnly } = this.props
     const { oldSHA, newSHA } = diff
 
-    const suffix = readOnly ? null : (
-      <> {t('diff.submodule.canCommit')}</>
-    )
+    const suffix = readOnly ? null : <> {t('diff.submodule.canCommit')}</>
 
     if (oldSHA !== null && newSHA !== null) {
       return this.renderSubmoduleDiffItem(
@@ -136,10 +135,16 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
             }}
             components={{
               previous: (
-                <ShaRef sha={oldSHA} copyAriaLabel={t('diff.submodule.copyPreviousSha')} />
+                <ShaRef
+                  sha={oldSHA}
+                  copyAriaLabel={t('diff.submodule.copyPreviousSha')}
+                />
               ),
               new: (
-                <ShaRef sha={newSHA} copyAriaLabel={t('diff.submodule.copyNewSha')} />
+                <ShaRef
+                  sha={newSHA}
+                  copyAriaLabel={t('diff.submodule.copyNewSha')}
+                />
               ),
             }}
           />
@@ -151,11 +156,18 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
         { octicon: octicons.diffAdded, className: 'added-icon' },
         <>
           <Trans
-            k={readOnly ? 'diff.submodule.commitAddedWas' : 'diff.submodule.commitAdded'}
+            k={
+              readOnly
+                ? 'diff.submodule.commitAddedWas'
+                : 'diff.submodule.commitAdded'
+            }
             params={{ new: shortenSHA(newSHA) }}
             components={{
               new: (
-                <ShaRef sha={newSHA} copyAriaLabel={t('diff.submodule.copySha')} />
+                <ShaRef
+                  sha={newSHA}
+                  copyAriaLabel={t('diff.submodule.copySha')}
+                />
               ),
             }}
           />
@@ -175,7 +187,10 @@ export class SubmoduleDiff extends React.Component<ISubmoduleDiffProps> {
             params={{ previous: shortenSHA(oldSHA) }}
             components={{
               previous: (
-                <ShaRef sha={oldSHA} copyAriaLabel={t('diff.submodule.copySha')} />
+                <ShaRef
+                  sha={oldSHA}
+                  copyAriaLabel={t('diff.submodule.copySha')}
+                />
               ),
             }}
           />

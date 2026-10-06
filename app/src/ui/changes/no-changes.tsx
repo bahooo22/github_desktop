@@ -416,9 +416,7 @@ export class NoChanges extends React.Component<
       count: numChanges,
       number: formatNumber(numChanges),
     })
-    const discoverabilityContent = (
-      <>{t('changes.stash-discoverability')}</>
-    )
+    const discoverabilityContent = <>{t('changes.stash-discoverability')}</>
     const itemId: MenuIDs = 'toggle-stashed-changes'
     const menuItem = this.getMenuItemInfo(itemId)
     if (menuItem === undefined) {

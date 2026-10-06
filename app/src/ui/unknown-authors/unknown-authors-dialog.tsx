@@ -47,9 +47,7 @@ export class UnknownAuthors extends React.Component<IUnknownAuthorsProps> {
   private renderAuthorList() {
     if (this.props.authors.length > MaxAuthorsToList) {
       return (
-        <p>
-          {t('unknownAuthors.many', { count: this.props.authors.length })}
-        </p>
+        <p>{t('unknownAuthors.many', { count: this.props.authors.length })}</p>
       )
     } else {
       return (
