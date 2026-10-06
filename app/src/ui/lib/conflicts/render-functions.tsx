@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Octicon } from '../../octicons'
 import * as octicons from '../../octicons/octicons.generated'
 import { LinkButton } from '../link-button'
-import { t } from '../../../lib/l10n'
+import { t, Trans } from '../../../lib/l10n'
 
 export function renderUnmergedFilesSummary(conflictedFilesCount: number) {
   const message =
@@ -25,11 +25,10 @@ export function renderAllResolved() {
 
 export function renderShellLink(openThisRepositoryInShell: () => void) {
   return (
-    <div>
-      <LinkButton onClick={openThisRepositoryInShell}>
-        Open in command line,
-      </LinkButton>{' '}
-      your tool of choice, or close to resolve manually.
-    </div>
+    <Trans
+      as="div"
+      k="conflicts.resolveManuallyHint"
+      components={{ link: <LinkButton onClick={openThisRepositoryInShell} /> }}
+    />
   )
 }

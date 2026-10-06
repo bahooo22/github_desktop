@@ -7,7 +7,7 @@ import { CommitList } from './commit-list'
 import { LinkButton } from '../lib/link-button'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 export enum UnreachableCommitsTab {
   Unreachable,
@@ -137,23 +137,25 @@ export class UnreachableCommitsDialog extends React.Component<
 
   private renderUnreachableCommitsMessage = () => {
     const count = this.getShasToDisplay().length
-    const commitsPluralized = count > 1 ? 'commits' : 'commit'
-    const pronounPluralized = count > 1 ? `they're` : `it's`
+    const isUnreachable =
+      this.state.selectedTab === UnreachableCommitsTab.Unreachable
+
     return (
       <div className="message">
-        You will{' '}
-        {this.state.selectedTab === UnreachableCommitsTab.Unreachable
-          ? 'not'
-          : ''}{' '}
-        see changes from the following {commitsPluralized} because{' '}
-        {pronounPluralized}{' '}
-        {this.state.selectedTab === UnreachableCommitsTab.Unreachable
-          ? 'not'
-          : ''}{' '}
-        in the ancestry path of the most recent commit in your selection.{' '}
-        <LinkButton uri="https://github.com/desktop/desktop/blob/development/docs/learn-more/unreachable-commits.md">
-          Learn more about unreachable commits.
-        </LinkButton>
+        {t(
+          isUnreachable
+            ? 'unreachableCommits.wontSeeChanges'
+            : 'unreachableCommits.willSeeChanges',
+          { count }
+        )}{' '}
+        <Trans
+          k="unreachableCommits.learnMore"
+          components={{
+            link: (
+              <LinkButton uri="https://github.com/desktop/desktop/blob/development/docs/learn-more/unreachable-commits.md" />
+            ),
+          }}
+        />
       </div>
     )
   }

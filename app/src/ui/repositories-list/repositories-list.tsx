@@ -27,7 +27,7 @@ import { enableWorktreeSupport } from '../../lib/feature-flag'
 import { SectionFilterList } from '../lib/section-filter-list'
 import { assertNever } from '../../lib/fatal-error'
 import { IAheadBehind } from '../../models/branch'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(__dirname, 'static/empty-no-repo.svg')
 
@@ -398,18 +398,27 @@ export class RepositoriesList extends React.Component<
         <div className="title">{t('repositoriesList.noRepositoryFound')}</div>
 
         <div className="protip">
-          ProTip! Press{' '}
-          <div className="kbd-shortcut">
-            <KeyboardShortcut darwinKeys={['⌘', 'O']} keys={['Ctrl', 'O']} />
-          </div>{' '}
-          to quickly add a local repository, and{' '}
-          <div className="kbd-shortcut">
-            <KeyboardShortcut
-              darwinKeys={['⇧', '⌘', 'O']}
-              keys={['Ctrl', 'Shift', 'O']}
-            />
-          </div>{' '}
-          to clone from anywhere within the app
+          <Trans
+            k="repositoriesList.proTip"
+            components={{
+              addShortcut: (
+                <div className="kbd-shortcut">
+                  <KeyboardShortcut
+                    darwinKeys={['⌘', 'O']}
+                    keys={['Ctrl', 'O']}
+                  />
+                </div>
+              ),
+              cloneShortcut: (
+                <div className="kbd-shortcut">
+                  <KeyboardShortcut
+                    darwinKeys={['⇧', '⌘', 'O']}
+                    keys={['Ctrl', 'Shift', 'O']}
+                  />
+                </div>
+              ),
+            }}
+          />
         </div>
       </div>
     )

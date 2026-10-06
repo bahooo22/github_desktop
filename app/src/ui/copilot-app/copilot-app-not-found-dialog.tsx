@@ -2,6 +2,7 @@ import * as React from 'react'
 import { copilotAppMarketingUrl } from '../../lib/copilot-app'
 import { Dialog, DialogContent, DefaultDialogFooter } from '../dialog'
 import { LinkButton } from '../lib/link-button'
+import { Trans } from '../../lib/l10n'
 
 interface ICopilotAppNotFoundDialogProps {
   readonly onDismissed: () => void
@@ -24,21 +25,20 @@ export class CopilotAppNotFoundDialog extends React.Component<ICopilotAppNotFoun
         onSubmit={this.props.onDismissed}
       >
         <DialogContent>
-          <p>
-            Couldn't find the GitHub Copilot App on your machine. Experience
-            agent-driven development built natively on GitHub by{' '}
-            <LinkButton uri={copilotAppMarketingUrl}>
-              downloading GitHub Copilot
-            </LinkButton>
-            .
-          </p>
-          <p>
-            Already installed it? Let us know where in{' '}
-            <LinkButton onClick={this.onShowPreferences}>
-              Preferences
-            </LinkButton>
-            .
-          </p>
+          <Trans
+            as="p"
+            k="copilotApp.notFoundMessage"
+            components={{
+              download: <LinkButton uri={copilotAppMarketingUrl} />,
+            }}
+          />
+          <Trans
+            as="p"
+            k="copilotApp.notFoundPreferencesHint"
+            components={{
+              preferences: <LinkButton onClick={this.onShowPreferences} />,
+            }}
+          />
         </DialogContent>
         <DefaultDialogFooter />
       </Dialog>

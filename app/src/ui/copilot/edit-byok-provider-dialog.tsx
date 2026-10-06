@@ -287,7 +287,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
         )}
         {this.state.authKind === 'none' && (
           <p className="copilot-byok-section-hint">
-            No credentials will be sent with requests to this provider.
+            {t('copilotByokProvider.noCredentialsHint')}
           </p>
         )}
       </fieldset>
@@ -299,12 +299,11 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
       <fieldset className="copilot-byok-fieldset copilot-byok-models">
         <legend>{t('copilotByokProvider.modelsLegend')}</legend>
         <p className="copilot-byok-section-hint">
-          Tell Desktop which models this provider offers. Each one will appear
-          in the model picker for Copilot features.
+          {t('copilotByokProvider.modelsHint')}
         </p>
         {this.state.models.length === 0 ? (
           <p className="copilot-byok-empty">
-            No models yet. Add at least one to use this provider.
+            {t('copilotByokProvider.modelsEmpty')}
           </p>
         ) : (
           <ul className="copilot-byok-entry-list">
@@ -464,7 +463,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
     for (const model of trimmedModels) {
       const id = model.id.trim()
       if (ids.has(id)) {
-        return `Duplicate model ID '${id}'.`
+        return t('copilotByokProvider.duplicateModelId', { id })
       }
       ids.add(id)
     }

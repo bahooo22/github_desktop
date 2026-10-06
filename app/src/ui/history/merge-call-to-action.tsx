@@ -5,7 +5,7 @@ import { Repository } from '../../models/repository'
 import { Branch } from '../../models/branch'
 import { Dispatcher } from '../dispatcher'
 import { Button } from '../lib/button'
-import { formatNumber } from '../../lib/format-number'
+import { Trans } from '../../lib/l10n'
 
 interface IMergeCallToActionProps {
   readonly repository: Repository
@@ -38,7 +38,12 @@ export class MergeCallToAction extends React.Component<
           disabled={count <= 0}
           onClick={this.onMergeClicked}
         >
-          Merge into <strong>{this.props.currentBranch.name}</strong>
+          <Trans
+            k="history.mergeInto"
+            components={{
+              branch: <strong>{this.props.currentBranch.name}</strong>,
+            }}
+          />
         </Button>
       </div>
     )
@@ -49,19 +54,21 @@ export class MergeCallToAction extends React.Component<
     const count = formState.aheadBehind.behind
 
     if (count > 0) {
-      const pluralized = count === 1 ? 'commit' : 'commits'
       return (
         <div className="merge-message merge-message-legacy">
-          This will merge
-          <strong>{` ${formatNumber(count)} ${pluralized}`}</strong>
-          {` `}
-          from
-          {` `}
-          <strong>{branch.name}</strong>
-          {` `}
-          into
-          {` `}
-          <strong>{currentBranch.name}</strong>
+          <Trans
+            k="multiCommit.mergeChooseBranch.cleanMerge"
+            params={{
+              count,
+              branch: branch.name,
+              currentBranch: currentBranch.name,
+            }}
+            components={{
+              summary: <strong />,
+              from: <strong />,
+              into: <strong />,
+            }}
+          />
         </div>
       )
     }

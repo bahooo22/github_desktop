@@ -452,7 +452,7 @@ export class CreateBranch extends React.Component<
             <Trans
               k="createBranch.current-is-default"
               params={{ branch: currentBranchName }}
-              components={{ ref: <Ref />, defaultLink: defaultBranchLink }}
+              components={{ ref: <Ref />, defaultLink: getDefaultBranchLink() }}
             />
           )}
         </div>
@@ -518,7 +518,7 @@ export class CreateBranch extends React.Component<
             components={{
               strong: <strong />,
               ref: <Ref />,
-              defaultLink: defaultBranchLink,
+              defaultLink: getDefaultBranchLink(),
               forkLink: <LinkButton onClick={this.onForkSettingsClick} />,
             }}
           />
@@ -592,10 +592,10 @@ export class CreateBranch extends React.Component<
   }
 }
 
-/** Reusable snippet */
-const defaultBranchLink = (
+/** Reusable snippet (a function so the label follows the active language) */
+const getDefaultBranchLink = () => (
   <LinkButton uri="https://help.github.com/articles/setting-the-default-branch/">
-    default branch
+    {t('createBranch.default-branch-link')}
   </LinkButton>
 )
 

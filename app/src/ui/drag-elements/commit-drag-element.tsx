@@ -108,17 +108,19 @@ export class CommitDragElement extends React.Component<
         if (currentDropTarget.data.type !== DragType.Commit) {
           toolTipContents = (
             <>
-              <span>'Insert here'</span>
+              <span>{t('commitDragElement.insertHere')}</span>
             </>
           )
           break
         }
 
-        const pluralized =
-          currentDropTarget.data.commits.length === 1 ? 'commit' : 'commits'
         toolTipContents = (
           <>
-            <span>{`Move ${pluralized} here`}</span>
+            <span>
+              {t('commitDragElement.moveHere', {
+                count: currentDropTarget.data.commits.length,
+              })}
+            </span>
           </>
         )
         break

@@ -11,7 +11,7 @@ import { Dispatcher } from '../dispatcher'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { LinkButton } from '../lib/link-button'
 import { Row } from '../lib/row'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IGenerateCommitMessageOverrideWarningProps {
   readonly dispatcher: Dispatcher
@@ -58,18 +58,20 @@ export class GenerateCommitMessageOverrideWarning extends React.Component<
       >
         <DialogContent>
           <Row id="generate-commit-message-override-warning-body">
-            The commit message you have entered will be overridden by the
-            generated commit message.
+            {t('commitMessageOverride.body')}
           </Row>
           {this.props.showCopilotInstructionsTip ? (
             <Row>
-              <p id="generate-commit-message-override-warning-tip">
-                Tip: You can use{' '}
-                <LinkButton uri="https://gh.io/desktop-copilot-custom-instructions">
-                  Copilot Instructions
-                </LinkButton>{' '}
-                to customize how commit messages are generated.
-              </p>
+              <Trans
+                as="p"
+                id="generate-commit-message-override-warning-tip"
+                k="commitMessageOverride.copilotTip"
+                components={{
+                  link: (
+                    <LinkButton uri="https://gh.io/desktop-copilot-custom-instructions" />
+                  ),
+                }}
+              />
             </Row>
           ) : null}
           <Row>

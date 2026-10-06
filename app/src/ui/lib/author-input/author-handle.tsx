@@ -61,14 +61,19 @@ export class AuthorHandle extends React.Component<IAuthorHandleProps> {
   private getAriaLabel() {
     const { author } = this.props
     if (isKnownAuthor(author)) {
-      return `${getFullTextForAuthor(
-        author
-      )} press backspace or delete to remove`
+      return t('authorHandle.knownAriaLabel', {
+        author: getFullTextForAuthor(author),
+      })
     }
 
     const isError = author.state === 'error'
-    const stateAriaLabel = isError ? 'user not found' : 'searching'
-    return `${author.username}, ${stateAriaLabel}, press backspace or delete to remove`
+    const stateAriaLabel = isError
+      ? t('authorHandle.userNotFound')
+      : t('authorHandle.searching')
+    return t('authorHandle.unknownAriaLabel', {
+      username: author.username,
+      state: stateAriaLabel,
+    })
   }
 
   private getClassName() {

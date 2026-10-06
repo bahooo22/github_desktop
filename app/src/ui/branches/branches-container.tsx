@@ -23,7 +23,7 @@ import { Button } from '../lib/button'
 import { BranchList } from './branch-list'
 import { PullRequestList } from './pull-request-list'
 import { IBranchListItem } from './group-branches'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 import {
   getDefaultAriaLabelForBranch,
   renderDefaultBranch,
@@ -184,10 +184,15 @@ export class BranchesContainer extends React.Component<
         <Button
           className="merge-button"
           onClick={this.onMergeClick}
-          tooltip={`Choose a branch to merge into ${currentBranch.name}`}
+          tooltip={t('branchesContainer.chooseMergeIntoTooltip', {
+            branch: currentBranch.name,
+          })}
         >
           <Octicon className="icon" symbol={octicons.gitMerge} />
-          Choose a branch to merge into <strong>{currentBranch.name}</strong>
+          <Trans
+            k="branchesContainer.chooseMergeInto"
+            components={{ branch: <strong>{currentBranch.name}</strong> }}
+          />
         </Button>
       </Row>
     )

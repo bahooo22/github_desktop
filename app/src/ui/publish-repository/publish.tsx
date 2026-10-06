@@ -155,7 +155,9 @@ export class Publish extends React.Component<IPublishProps, IPublishState> {
           selectedIndex={this.state.currentTab}
         >
           <span id="dotcom-tab">GitHub.com</span>
-          <span id="enterprise-tab">GitHub Enterprise</span>
+          <span id="enterprise-tab">
+            {t('cloneRepositoryTabs.enterpriseTab')}
+          </span>
         </TabBar>
 
         {currentTabState.error ? (

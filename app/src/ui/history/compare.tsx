@@ -34,7 +34,7 @@ import { KeyboardInsertionData } from '../lib/list'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
 import { formatNumber } from '../../lib/format-number'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface ICompareSidebarProps {
   readonly repository: Repository
@@ -227,15 +227,21 @@ export class CompareSidebar extends React.Component<
 
       emptyListMessage =
         formState.comparisonMode === ComparisonMode.Ahead ? (
-          <p>
-            The compared branch (<Ref>{currentlyComparedBranchName}</Ref>) is up
-            to date with your branch
-          </p>
+          <Trans
+            as="p"
+            k="historyCompare.comparedBranchUpToDate"
+            components={{
+              ref: <Ref>{currentlyComparedBranchName}</Ref>,
+            }}
+          />
         ) : (
-          <p>
-            Your branch is up to date with the compared branch (
-            <Ref>{currentlyComparedBranchName}</Ref>)
-          </p>
+          <Trans
+            as="p"
+            k="historyCompare.yourBranchUpToDate"
+            components={{
+              ref: <Ref>{currentlyComparedBranchName}</Ref>,
+            }}
+          />
         )
     }
 
@@ -706,8 +712,12 @@ export class CompareSidebar extends React.Component<
         description: squashedDescription,
         timestamp: Date.now(),
       },
-      dialogTitle: `Squash ${allCommitsInSquash.length} Commits`,
-      dialogButtonText: `Squash ${allCommitsInSquash.length} Commits`,
+      dialogTitle: t('selectedCommits.squashCommits', {
+        count: allCommitsInSquash.length,
+      }),
+      dialogButtonText: t('selectedCommits.squashCommits', {
+        count: allCommitsInSquash.length,
+      }),
       prepopulateCommitSummary: true,
       onSubmitCommitMessage: async (context: ICommitContext) => {
         this.props.dispatcher.closePopup(PopupType.CommitMessage)

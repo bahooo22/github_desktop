@@ -1,5 +1,6 @@
 import { HttpStatusCode } from './http-status-code'
 import { isRecord } from './is-record'
+import { t } from './l10n/core'
 
 export type CopilotPaymentRequiredErrorCode =
   | 'quota_exceeded'
@@ -187,12 +188,10 @@ export function parseCopilotPaymentRequiredError(
 
 function getRetryAfterMessage(retryAfter: string) {
   if (/^\d+$/.test(retryAfter)) {
-    const seconds = Number(retryAfter)
-    const unit = seconds === 1 ? 'second' : 'seconds'
-    return `You can try again in ${seconds} ${unit}.`
+    return t('copilotError.retryAfterSeconds', { count: Number(retryAfter) })
   }
 
-  return `You can try again after ${retryAfter}.`
+  return t('copilotError.retryAfterDate', { retryAfter })
 }
 
 export function getCopilotErrorDisplayInfo(
@@ -205,7 +204,7 @@ export function getCopilotErrorDisplayInfo(
   switch (error.code) {
     case 'quota_exceeded':
       return {
-        title: 'Quota exceeded',
+        title: t('copilotError.quotaExceeded'),
         message: error.message,
         retryAfterMessage:
           error.retryAfter !== undefined
@@ -215,7 +214,7 @@ export function getCopilotErrorDisplayInfo(
 
     case 'session_quota_exceeded':
       return {
-        title: 'Session quota exceeded',
+        title: t('copilotError.sessionQuotaExceeded'),
         message: error.message,
         retryAfterMessage:
           error.retryAfter !== undefined
@@ -225,15 +224,15 @@ export function getCopilotErrorDisplayInfo(
 
     case 'billing_not_configured':
       return {
-        title: 'Copilot billing not configured',
+        title: t('copilotError.billingNotConfigured'),
         message: error.message,
-        actionText: 'Open GitHub Copilot settings',
+        actionText: t('copilotError.openSettings'),
         actionURL: 'https://github.com/settings/copilot',
       }
 
     default:
       return {
-        title: 'Copilot billing issue',
+        title: t('copilotError.billingIssue'),
         message: error.message,
       }
   }

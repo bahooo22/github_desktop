@@ -204,9 +204,11 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
 
     if (retryAction && retryAction.type === RetryActionType.Clone) {
       return (
-        <p>
-          Would you like to retry cloning <Ref>{retryAction.name}</Ref>?
-        </p>
+        <Trans
+          as="p"
+          k="appError.retryCloning"
+          components={{ ref: <Ref>{retryAction.name}</Ref> }}
+        />
       )
     }
 

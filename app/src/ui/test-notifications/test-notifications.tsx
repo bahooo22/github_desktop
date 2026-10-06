@@ -3,7 +3,7 @@ import React from 'react'
 import { getHTMLURL, IAPIComment } from '../../lib/api'
 import { assertNever } from '../../lib/fatal-error'
 import { NotificationsDebugStore } from '../../lib/stores/notifications-debug-store'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 import {
   ValidNotificationPullRequestReview,
   ValidNotificationPullRequestReviewState,
@@ -198,14 +198,12 @@ export class TestNotifications extends React.Component<
 
     if (suggestGrantNotificationPermission) {
       return (
-        <>
-          {' '}
-          You need to{' '}
-          <LinkButton onClick={this.onGrantNotificationPermission}>
-            grant permission
-          </LinkButton>{' '}
-          to display these notifications from GitHub Desktop.
-        </>
+        <Trans
+          k="settings.notifications.grant-permission-hint"
+          components={{
+            link: <LinkButton onClick={this.onGrantNotificationPermission} />,
+          }}
+        />
       )
     }
 
@@ -217,29 +215,26 @@ export class TestNotifications extends React.Component<
 
     if (warnNotificationsDenied) {
       return (
-        <>
-          <span className="warning-icon">⚠️</span> GitHub Desktop has no
-          permission to display notifications. Please, enable them in the{' '}
-          <LinkButton uri={notificationSettingsURL}>
-            Notifications Settings
-          </LinkButton>
-          .
-        </>
+        <Trans
+          k="settings.notifications.permission-denied"
+          components={{
+            icon: <span className="warning-icon">⚠️</span>,
+            link: <LinkButton uri={notificationSettingsURL} />,
+          }}
+        />
       )
     }
 
     const verb = suggestConfigureNotifications
-      ? 'properly configured'
-      : 'enabled'
+      ? t('settings.notifications.verb-properly-configured')
+      : t('settings.notifications.verb-enabled')
 
     return (
-      <>
-        Make sure notifications are {verb} for GitHub Desktop in the{' '}
-        <LinkButton uri={notificationSettingsURL}>
-          Notifications Settings
-        </LinkButton>
-        .
-      </>
+      <Trans
+        k="settings.notifications.configure-hint"
+        params={{ verb }}
+        components={{ link: <LinkButton uri={notificationSettingsURL} /> }}
+      />
     )
   }
 
@@ -521,7 +516,9 @@ export class TestNotifications extends React.Component<
 
     return (
       <div>
-        Pull requests for {this.getTypeFriendlyName()}:
+        {t('testNotifications.pullRequestsFor', {
+          name: this.getTypeFriendlyName(),
+        })}
         <SectionList
           rowHeight={40}
           rowCount={[pullRequests.length]}
@@ -701,7 +698,9 @@ export class TestNotifications extends React.Component<
       <TestNotificationItemRowContent
         dispatcher={this.props.dispatcher}
         html_url={htmlURL}
-        linkButtonDescription={`Open pull request #${pullRequest.pullRequestNumber} in browser`}
+        linkButtonDescription={t('testNotifications.openPullRequestInBrowser', {
+          number: pullRequest.pullRequestNumber,
+        })}
         leftAccessory={this.renderPullRequestStateIcon(pullRequest)}
       >
         <b>

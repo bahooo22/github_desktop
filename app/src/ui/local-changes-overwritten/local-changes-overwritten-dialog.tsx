@@ -52,7 +52,7 @@ export class LocalChangesOverwrittenDialog extends React.Component<
   public render() {
     const overwrittenText =
       this.props.files.length > 0
-        ? ' The following files would be overwritten:'
+        ? ` ${t('localChangesOverwritten.followingFilesOverwritten')}`
         : null
 
     return (
@@ -70,8 +70,10 @@ export class LocalChangesOverwrittenDialog extends React.Component<
         <DialogContent>
           <div id="local-changes-error-description">
             <p>
-              Unable to {this.getRetryActionName()} when changes are present on
-              your branch.{overwrittenText}
+              {t('localChangesOverwritten.unableWhenChanges', {
+                action: this.getRetryActionName(),
+              })}
+              {overwrittenText}
             </p>
             {this.renderFiles()}
             {this.renderStashText()}
@@ -181,30 +183,30 @@ export class LocalChangesOverwrittenDialog extends React.Component<
   private getRetryActionName() {
     switch (this.props.retryAction.type) {
       case RetryActionType.Checkout:
-        return 'checkout'
+        return t('localChangesOverwritten.action.checkout')
       case RetryActionType.Pull:
-        return 'pull'
+        return t('localChangesOverwritten.action.pull')
       case RetryActionType.Merge:
-        return 'merge'
+        return t('localChangesOverwritten.action.merge')
       case RetryActionType.Rebase:
-        return 'rebase'
+        return t('localChangesOverwritten.action.rebase')
       case RetryActionType.Clone:
-        return 'clone'
+        return t('localChangesOverwritten.action.clone')
       case RetryActionType.Fetch:
-        return 'fetch'
+        return t('localChangesOverwritten.action.fetch')
       case RetryActionType.Push:
-        return 'push'
+        return t('localChangesOverwritten.action.push')
       case RetryActionType.CherryPick:
       case RetryActionType.CreateBranchForCherryPick:
-        return 'cherry-pick'
+        return t('localChangesOverwritten.action.cherryPick')
       case RetryActionType.Squash:
-        return 'squash'
+        return t('localChangesOverwritten.action.squash')
       case RetryActionType.Reorder:
-        return 'reorder'
+        return t('localChangesOverwritten.action.reorder')
       case RetryActionType.DiscardChanges:
-        return 'discard changes'
+        return t('localChangesOverwritten.action.discardChanges')
       case RetryActionType.PopStash:
-        return 'restore stashed changes'
+        return t('localChangesOverwritten.action.restoreStashedChanges')
       default:
         assertNever(
           this.props.retryAction,

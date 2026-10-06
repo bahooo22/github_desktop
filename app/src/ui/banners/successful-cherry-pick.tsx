@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { SuccessBanner } from './success-banner'
+import { Trans } from '../../lib/l10n'
 
 interface ISuccessfulCherryPickBannerProps {
   readonly targetBranchName: string
@@ -16,14 +17,14 @@ export class SuccessfulCherryPick extends React.Component<
     const { countCherryPicked, onDismissed, onUndo, targetBranchName } =
       this.props
 
-    const pluralized = countCherryPicked === 1 ? 'commit' : 'commits'
-
     return (
       <SuccessBanner timeout={15000} onDismissed={onDismissed} onUndo={onUndo}>
-        <span>
-          Successfully copied {countCherryPicked} {pluralized} to{' '}
-          <strong>{targetBranchName}</strong>.
-        </span>
+        <Trans
+          as="span"
+          k="successfulCherryPick.copied"
+          params={{ count: countCherryPicked, branch: targetBranchName }}
+          components={{ strong: <strong /> }}
+        />
       </SuccessBanner>
     )
   }

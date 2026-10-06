@@ -62,15 +62,12 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
           <div className="header">
             <div className="text">
               <h1 ref={this.header}>{t('tutorial.doneTitle')}</h1>
-              <p>
-                You’ve learned the basics on how to use GitHub Desktop. Here are
-                some suggestions for what to do next.
-              </p>
+              <p>{t('tutorial.doneMessage')}</p>
             </div>
             <img
               src={ClappingHandsImage}
               className="image"
-              alt="Hands clapping"
+              alt={t('tutorial.doneImageAlt')}
             />
           </div>
           <SuggestedActionGroup>

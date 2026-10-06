@@ -643,7 +643,6 @@
     "finish": "Завершить",
     "sign-in-enterprise-title": "Войти в ваш GitHub Enterprise"
   },
-  "activity": "Активность",
   "addRepository": {
     "add-local-repository": "Добавить локальный репозиторий",
     "add-repository-ok": "Добавить репозиторий",
@@ -676,8 +675,6 @@
   "appMenu": {
     "application-menu": "Меню приложения"
   },
-  "base": "База",
-  "basic": "Базовый",
   "branches": {
     "checkout-in-new-worktree": "Переключить в новом worktree",
     "copy-name": "Копировать имя",
@@ -691,9 +688,10 @@
     "rename": "Переименовать",
     "view-on-github": "Показать на GitHub",
     "view-pr-on-github": "Показать PR на GitHub",
-    "noBranchFound": "Не удаётся найти эту ветку."
+    "noBranchFound": "Не удаётся найти эту ветку.",
+    "createNewBranchInstead": "Хотите вместо этого создать новую ветку?",
+    "createBranchShortcutProTip": "Совет! Нажмите <shortcut/>, чтобы быстро создать новую ветку из любого места приложения"
   },
-  "canvas": "Холст",
   "changes": {
     "adjust-filters": "Настройте фильтры, чтобы увидеть все {count} изменений",
     "and-word": "и",
@@ -885,11 +883,6 @@
     "dont-show-again": "Больше не показывать это сообщение",
     "title": "Переключить на коммит?"
   },
-  "cherryPickBranchCreatedCount": "Cherry-pick: ветка создана",
-  "cherryPickConflictsEncounteredCount": "Cherry-pick: конфликты",
-  "cherryPickMultipleCommitsCount": "Cherry-pick: несколько коммитов",
-  "cherryPickSuccessfulWithConflictsCount": "Cherry-pick: успешно с конфликтами",
-  "cherryPickViaDragAndDropCount": "Cherry-pick перетаскиванием",
   "chooseForkSettings": {
     "continue": "Продолжить",
     "contribute-to-parent": "Для внесения вклада в родительский проект",
@@ -982,8 +975,6 @@
     "no-write-access": "У вас нет прав на запись в <strong>{name}</strong>. Хотите <link>создать форк</link>?",
     "protected-branch": "<strong>{branch}</strong> — защищённая ветка. Хотите <link>переключить ветку</link>?"
   },
-  "commitSigning": "Подпись коммитов",
-  "contextmenu": "Контекстное меню",
   "createBranch": {
     "based-on-commit": "Новая ветка будет основана на коммите «{summary}» ({sha}) из вашего репозитория.",
     "based-on-label": "Создать ветку на основе…",
@@ -998,7 +989,8 @@
     "unborn-branch": "Текущая ветка «нерождённая» (в ней нет коммитов). Создание новой ветки переименует текущую.",
     "upstream-default-branch-description": "Ветка по умолчанию в родительском репозитории. Выберите её, чтобы начать новую работу от",
     "current-is-default": "<ref>{branch}</ref> — <defaultLink/> вашего репозитория.",
-    "fork-settings-hint": "Источник ветки по умолчанию определяется <link>настройками поведения форка</link>."
+    "fork-settings-hint": "Источник ветки по умолчанию определяется <link>настройками поведения форка</link>.",
+    "default-branch-link": "ветка по умолчанию"
   },
   "createTag": {
     "create-tag-ok": "Создать тег",
@@ -1032,9 +1024,6 @@
     "title": "Удалить тег",
     "confirm-message": "Вы уверены, что хотите удалить тег <ref>{tag}</ref>?"
   },
-  "dialog-appeared": "Диалог появился",
-  "dialog-show": "Показать диалог",
-  "did-change": "Изменено",
   "diff": {
     "added": "добавлены",
     "binary": {
@@ -1139,10 +1128,6 @@
     "titleDiscard": "Подтвердите отмену изменений",
     "titleDiscardAll": "Подтвердите отмену всех изменений"
   },
-  "div": "Элемент div",
-  "email": "Электронная почта",
-  "error": "Ошибка",
-  "find-text": "Найти текст",
   "forks": {
     "do-you-want-to-fork": "Создать форк этого репозитория?",
     "error-details": "Подробности ошибки",
@@ -1160,7 +1145,6 @@
     "messageWithUser": "Не удалось пройти проверку с <url>{remoteUrl}</url>. Введите пароль пользователя <user>{username}</user>, чтобы повторить попытку.",
     "patDescription": "В зависимости от сервиса размещения репозитория вместо пароля может потребоваться личный токен доступа (PAT). Подробнее о создании PAT — в нашей <link>документации по интеграциям</link>."
   },
-  "highlighted": "Подсвечено",
   "hookFailed": {
     "abort": "Прервать",
     "ignoreAndContinue": "Игнорировать и продолжить",
@@ -1189,8 +1173,6 @@
     "yes": "Да",
     "message": "Токен учётной записи больше не действителен, и вы вышли из учётной записи <ref>{endpoint}</ref>. Войти снова?"
   },
-  "issueCreationWebpageOpenedCount": "Открытий страницы создания issue",
-  "keyboard": "Клавиатура",
   "lfs": {
     "attributeMismatch": {
       "title": "Обновить существующие фильтры Git LFS?",
@@ -1395,8 +1377,6 @@
       "title": "{operation} потребует force push"
     }
   },
-  "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Открытий диалога недоступных коммитов",
-  "next": "Далее",
   "notifications": {
     "checksFailed": {
       "footerMany": "Хотите сейчас переключиться на этот pull request и начать исправлять их?",
@@ -1420,7 +1400,6 @@
       "summary": "<user>{login}</user> {verb} ваш пул-реквест <date>{date}</date>"
     }
   },
-  "openInCopilotAppCount": "Открытий в приложении Copilot",
   "openPullRequest": {
     "file-does-not-exist": "Файл не существует на диске",
     "file-list-description": "Список файлов pull request",
@@ -1458,10 +1437,6 @@
     "merge-status-invalid": "<strong>Ошибка проверки возможности слияния.</strong> Невозможно слить несвязанные истории в этом репозитории",
     "merge-status-loading": "<strong>Проверяем возможность слияния…</strong> Не переживайте, пул-реквест всё равно можно создать."
   },
-  "opensCheckRunsPopover": "Открывает поповер проверок",
-  "pointer": "Указатель",
-  "premium_interactions": "Премиум-взаимодействия",
-  "previous": "Назад",
   "publish": {
     "description": "Описание",
     "dotcom-sign-in-description": "Войдите в GitHub.com для публикации",
@@ -1488,8 +1463,6 @@
       "message": "Принудительная отправка перезапишет историю в <ref>{upstreamBranch}</ref>. Всем участникам работы над этой веткой нужно будет сбросить свою локальную ветку до истории удалённого репозитория."
     }
   },
-  "rebaseSuccessWithoutConflictsCount": "Rebase успешно без конфликтов",
-  "rebaseWithBranchAlreadyUpToDateCount": "Ветка уже актуальна",
   "removeRepository": {
     "confirm-message": "Вы уверены, что хотите удалить репозиторий «{name}» из GitHub Desktop?",
     "move-to-trash": "Также переместить этот репозиторий в ",
@@ -1501,8 +1474,6 @@
     "rename-button": "Переименовать {branch}",
     "title": "Переименовать ветку"
   },
-  "reorderMultipleCommitsCount": "Перестановка нескольких коммитов",
-  "reorderStartedCount": "Начата перестановка",
   "repositoryAlias": {
     "alias": "Псевдоним",
     "description": "Описание",
@@ -1540,7 +1511,6 @@
     "title": "Сбросить к коммиту",
     "warning": "Это действие нельзя отменить"
   },
-  "resetToCommitCount": "Сброс до коммита",
   "samlReauth": {
     "confirm": "Хотите открыть браузер, чтобы разрешить GitHub Desktop доступ к репозиторию?",
     "message": "Организация \"{organizationName}\" включила или требует SAML SSO. Чтобы получить доступ к этому репозиторию, нужно войти снова и предоставить GitHub Desktop доступ к репозиториям организации.",
@@ -1576,13 +1546,6 @@
     "foundSecrets": "<link>Secret Scanning</link> нашёл секрет(ы) в коммитах, которые вы пытались отправить.",
     "remediation": "Разрешение отправки с секретами угрожает их раскрытию. Рекомендуем <link>удалить секрет из коммита и истории коммитов.</link>"
   },
-  "select-all": "Выбрать всё",
-  "skipGuidCheck": "Пропустить проверку GUID",
-  "squashMergeSuccessfulCount": "Squash-слияние успешно",
-  "squashMergeSuccessfulWithConflictsCount": "Squash-слияние успешно с конфликтами",
-  "squashMultipleCommitsInvokedCount": "Squash нескольких коммитов",
-  "squashViaContextMenuInvokedCount": "Squash через контекстное меню",
-  "squashViaDragAndDropInvokedCount": "Squash перетаскиванием",
   "ssh": {
     "confirmConnect": "Вы уверены, что хотите продолжить подключение?",
     "hostAuthenticity": "Невозможно установить подлинность хоста «{host} ({ip})». Отпечаток ключа {keyType}: {fingerprint}.",
@@ -1610,12 +1573,6 @@
     "overwriteWarning": "Текущий схрон будет перезаписан при создании нового",
     "switchBranch": "Переключить ветку"
   },
-  "submit": "Отправить",
-  "theme-changed": "Тема изменена",
-  "title": "Заголовок",
-  "token": "Токен",
-  "tooltip-hidden": "Подсказка скрыта",
-  "tooltip-shown": "Подсказка показана",
   "unknownAuthors": {
     "list": "Эти пользователи не найдены и не будут добавлены в соавторы этого коммита. Вы уверены, что хотите выполнить коммит?",
     "many": {
@@ -1645,17 +1602,32 @@
     "current": "Текущий: <url>{url}</url>",
     "expected": "Ожидаемый: <url>{url}</url>"
   },
-  "version": "Версия",
-  "webgl2": "WebGL2",
-  "x-prioritize-update": "Приоритет обновления",
-  "x-prioritize-update-info-url": "URL информации об обновлении",
   "banners": {
     "dismiss-message": "Закрыть это сообщение",
     "viewConflicts": "Просмотреть конфликты",
     "rebaseConflicts": "Разрешите конфликты, чтобы продолжить rebase <branch/>.",
     "mergeConflicts": "Разрешите конфликты и сделайте коммит, чтобы слить в <branch/>.",
     "conflictsFound": "Разрешите конфликты, чтобы продолжить <operation/>.",
-    "cherryPickConflicts": "Разрешите конфликты, чтобы продолжить cherry-pick в <branch/>."
+    "cherryPickConflicts": "Разрешите конфликты, чтобы продолжить cherry-pick в <branch/>.",
+    "successfulReorder": {
+      "_one": "Успешно изменён порядок {count:number} коммита.",
+      "_few": "Успешно изменён порядок {count:number} коммитов.",
+      "_many": "Успешно изменён порядок {count:number} коммитов.",
+      "_other": "Успешно изменён порядок {count:number} коммитов."
+    },
+    "cherryPickUndone": {
+      "_one": "Cherry-pick отменён. Из ветки <branch/> успешно удалён {count} скопированный коммит.",
+      "_few": "Cherry-pick отменён. Из ветки <branch/> успешно удалено {count} скопированных коммита.",
+      "_many": "Cherry-pick отменён. Из ветки <branch/> успешно удалено {count} скопированных коммитов.",
+      "_other": "Cherry-pick отменён. Из ветки <branch/> успешно удалено {count} скопированного коммита."
+    },
+    "successfulSquash": {
+      "_one": "Успешно выполнено объединение {count} коммита.",
+      "_few": "Успешно выполнено объединение {count} коммитов.",
+      "_many": "Успешно выполнено объединение {count} коммитов.",
+      "_other": "Успешно выполнено объединение {count} коммита."
+    },
+    "osNotSupported": "Эта операционная система больше не поддерживается. Обновления программы отключены. <link>Сведения о поддержке</link>"
   },
   "stashDiffHeader": {
     "title": "Спрятанные изменения",
@@ -1668,7 +1640,15 @@
   },
   "tutorialPanel": {
     "getStarted": "Начать работу",
-    "altChecklist": "Частично выполненный чек-лист"
+    "altChecklist": "Частично выполненный чек-лист",
+    "noEditorInstalled": "Похоже, у вас не установлен текстовый редактор. Мы можем порекомендовать <editor>{editor}</editor> или <atom>Atom</atom>, но вы можете выбрать любой.",
+    "openEditorWebsite": "Открыть сайт {name}",
+    "defaultEditor": "Ваш редактор по умолчанию — <editor/>. Изменить предпочитаемый редактор можно в <link/>",
+    "createBranch": "Ветка позволяет работать с разными версиями репозитория одновременно. Создайте ветку: откройте меню веток на верхней панели и нажмите «{branch}».",
+    "editFile": "Откройте этот репозиторий в предпочитаемом текстовом редакторе. Измените файл <ref/>, сохраните его и вернитесь сюда.",
+    "makeCommit": "Коммит позволяет сохранять набор изменений. В поле «краткое описание» в левой нижней части напишите короткое сообщение, описывающее внесённые вами изменения. Когда закончите, нажмите синюю кнопку «Commit».",
+    "publishToGithub": "Публикация выполнит «push», то есть загрузит ваши коммиты в эту ветку репозитория на GitHub. Опубликуйте их с помощью третьей кнопки на верхней панели.",
+    "openPullRequest": "Pull request позволяет предложить изменения в коде. Создавая его, вы просите кого-нибудь проверить и слить эти изменения. Поскольку это демонстрационный репозиторий, pull request будет приватным."
   },
   "testNotifications": {
     "noPullRequests": "Pull request'ы не найдены",
@@ -1677,7 +1657,9 @@
     "reviewWithoutBody": "Ревью без текста",
     "selectType": "Выберите тип уведомления для отображения:",
     "done": "Готово!",
-    "title": "Тестовые уведомления"
+    "title": "Тестовые уведомления",
+    "openPullRequestInBrowser": "Открыть pull request №{number} в браузере",
+    "pullRequestsFor": "Pull request'ы для {name}:"
   },
   "copilotByok": {
     "authentication": "Аутентификация",
@@ -1689,7 +1671,10 @@
     "notFound": "Не удалось найти этот pull request!",
     "hangTight": "Подождите немного",
     "allSet": "Всё готово!",
-    "noOpenPrs": "Нет открытых pull request'ов в <repo/>"
+    "noOpenPrs": "Нет открытых pull request'ов в <repo/>",
+    "loading": "Загружаю pull request'ы так быстро, как только могу!",
+    "createBranchCta": "Хотите <link>создать новую ветку</link> и приступить к следующему проекту?",
+    "createPrCta": "Хотите <link>создать pull request</link> из текущей ветки?"
   },
   "userAutocompletion": {
     "searchForUser": "Поиск пользователя"
@@ -1702,7 +1687,8 @@
     "pushFailed": "Не удалось отправить",
     "createRepositoryFailed": "Не удалось создать репозиторий",
     "commitFailed": "Коммит не выполнен",
-    "generic": "Ошибка"
+    "generic": "Ошибка",
+    "retryCloning": "Хотите повторить клонирование <ref/>?"
   },
   "selectedCommits": {
     "noFilesInCommit": "В коммите нет файлов",
@@ -1712,7 +1698,14 @@
     "dragToCherryPick": "Перетащите коммиты в меню веток для cherry-pick.",
     "dragToSquashOrReorder": "Перетащите коммиты для объединения (squash) или изменения порядка.",
     "rightClickForOptions": "Нажмите правой кнопкой на нескольких коммитах, чтобы увидеть параметры.",
-    "fileListDescription": "Список файлов выбранного коммита"
+    "fileListDescription": "Список файлов выбранного коммита",
+    "squashCommits": {
+      "_one": "Объединить {count:number} коммит",
+      "_few": "Объединить {count:number} коммита",
+      "_many": "Объединить {count:number} коммитов",
+      "_other": "Объединить {count:number} коммита"
+    },
+    "noCommitSelected": "Коммит не выбран"
   },
   "pullRequestQuickView": {
     "reviewRequested": "Запрошено ревью",
@@ -1720,14 +1713,22 @@
     "markdownBody": "Тело pull request в markdown"
   },
   "commitDragElement": {
-    "copyTo": "Копировать в"
+    "copyTo": "Копировать в",
+    "insertHere": "'Вставить сюда'",
+    "moveHere": {
+      "_one": "Переместить коммит сюда",
+      "_few": "Переместить коммиты сюда",
+      "_many": "Переместить коммиты сюда",
+      "_other": "Переместить коммиты сюда"
+    }
   },
   "conflicts": {
     "allResolved": "Все конфликты разрешены",
     "oneConflictedFile": "1 конфликтующий файл",
     "manyConflictedFiles": "{count} конфликтующих файлов",
     "fileDoesNotExistOn": "Файл не существует в {branch}.",
-    "fileResolutionOptions": "Варианты разрешения конфликта"
+    "fileResolutionOptions": "Варианты разрешения конфликта",
+    "resolveManuallyHint": "<link>Открыть в командной строке,</link> предпочтительный инструмент или закрыть окно, чтобы разрешить конфликты вручную."
   },
   "configureGitUser": {
     "exampleCommit": "Пример коммита",
@@ -1748,7 +1749,13 @@
     "installNow": "Доступна новая версия GitHub Desktop. <restart/> сейчас, чтобы установить обновления.",
     "showcase": "Добавлены новые возможности<version/>. См. <whatsNew/> или <dismiss/>.",
     "prioritizeMissing": "В этой версии отсутствуют <importantUpdates/>. Пожалуйста, <restart/> сейчас, чтобы установить обновления.",
-    "importantUpdates": "важные обновления"
+    "importantUpdates": "важные обновления",
+    "arm64AutoUpdate": "Доступна оптимизированная версия GitHub Desktop для компьютера {chip}; она будет установлена при следующем запуске или <restart/> прямо сейчас.",
+    "architecture": {
+      "@darwin": "Apple silicon",
+      "@other": "Arm64"
+    },
+    "showcaseVersion": " с GitHub Desktop {version}"
   },
   "successBanner": {
     "undo": "Отменить"
@@ -1779,11 +1786,29 @@
     "typeAnthropic": "Anthropic",
     "modelsLegend": "Модели",
     "wireApiCompletions": "Chat completions (по умолчанию)",
-    "wireApiResponses": "Responses (серия GPT-5)"
+    "wireApiResponses": "Responses (серия GPT-5)",
+    "duplicateModelId": "Дублирующийся идентификатор модели '{id}'.",
+    "modelsEmpty": "Модели ещё не добавлены. Добавьте хотя бы одну, чтобы использовать этого провайдера.",
+    "modelsHint": "Укажите, какие модели предлагает этот провайдер. Каждая из них появится в списке выбора моделей для функций Copilot.",
+    "noCredentialsHint": "С запросами к этому провайдеру учётные данные отправляться не будут.",
+    "removeQuestion": "Вы уверены, что хотите удалить пользовательского провайдера <ref/>?"
   },
   "unreachableCommits": {
     "unreachableTab": "Недостижимые",
-    "reachableTab": "Достижимые"
+    "reachableTab": "Достижимые",
+    "wontSeeChanges": {
+      "_one": "Вы не увидите изменения из следующего коммита, потому что он не входит в цепочку предков самого последнего коммита из выбранных.",
+      "_few": "Вы не увидите изменения из следующих коммитов, потому что они не входят в цепочку предков самого последнего коммита из выбранных.",
+      "_many": "Вы не увидите изменения из следующих коммитов, потому что они не входят в цепочку предков самого последнего коммита из выбранных.",
+      "_other": "Вы не увидите изменения из следующих коммитов, потому что они не входят в цепочку предков самого последнего коммита из выбранных."
+    },
+    "willSeeChanges": {
+      "_one": "Вы увидите изменения из следующего коммита, потому что он входит в цепочку предков самого последнего коммита из выбранных.",
+      "_few": "Вы увидите изменения из следующих коммитов, потому что они входят в цепочку предков самого последнего коммита из выбранных.",
+      "_many": "Вы увидите изменения из следующих коммитов, потому что они входят в цепочку предков самого последнего коммита из выбранных.",
+      "_other": "Вы увидите изменения из следующих коммитов, потому что они входят в цепочку предков самого последнего коммита из выбранных."
+    },
+    "learnMore": "<link>Подробнее о недостижимых коммитах.</link>"
   },
   "tooltippedSha": {
     "copy": "Копировать"
@@ -1812,7 +1837,9 @@
     "save": "Сохранить",
     "add": "Добавить",
     "identifierRequired": "Укажите идентификатор модели.",
-    "identifierExists": "Модель с идентификатором «{id}» уже существует."
+    "identifierExists": "Модель с идентификатором «{id}» уже существует.",
+    "friendlyNameHint": "Понятное имя, отображаемое в списке выбора модели Copilot.",
+    "exactNameHint": "Точное имя, которое ожидает ваш провайдер (например, <code>gpt-4o</code>, <code>llama3</code>)."
   },
   "ciCheckRunRerun": {
     "titleSingle": "Перезапустить одну проверку",
@@ -1836,10 +1863,27 @@
   "localChangesOverwritten": {
     "stashAndRecover": "Вы можете спрятать изменения сейчас и восстановить их позже.",
     "stashAndContinue": "Спрятать изменения и продолжить",
-    "stashHintTitle": "Будет создан stash с текущими изменениями. Их можно вернуть, восстановив stash позже."
+    "stashHintTitle": "Будет создан stash с текущими изменениями. Их можно вернуть, восстановив stash позже.",
+    "unableWhenChanges": "Не удалось выполнить операцию «{action}», так как в вашей ветке уже есть изменения.",
+    "followingFilesOverwritten": "Следующие файлы будут перезаписаны:",
+    "action": {
+      "checkout": "переключение",
+      "pull": "получение изменений",
+      "merge": "слияние",
+      "rebase": "rebase",
+      "clone": "клонирование",
+      "fetch": "запрос изменений",
+      "push": "отправка изменений",
+      "cherryPick": "cherry-pick",
+      "squash": "объединение",
+      "reorder": "перестановка",
+      "discardChanges": "отмена изменений",
+      "restoreStashedChanges": "восстановление спрятанных изменений"
+    }
   },
   "copilotModelPicker": {
-    "noModelsFound": "Модели не найдены."
+    "noModelsFound": "Модели не найдены.",
+    "configureCustomProviders": "Настроить пользовательских провайдеров…"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git запрашивает разрешение на вход на этот сервер:",
@@ -1848,7 +1892,8 @@
   },
   "warnLocalChanges": {
     "continueAnyway": "Вы всё равно хотите продолжить?",
-    "changesInProgress": "У вас есть незавершённые изменения. Отмена merge-коммита может привести к потере некоторых из них."
+    "changesInProgress": "У вас есть незавершённые изменения. Отмена merge-коммита может привести к потере некоторых из них.",
+    "undoWarning": "У вас есть незавершённые изменения. Отмена коммита может привести к потере некоторых из них. Хотите продолжить?"
   },
   "repositoryPath": {
     "willBeCreatedAs": "Будет создано как {{sanitizedName}}",
@@ -1856,19 +1901,56 @@
     "sanitizedLive": "Будет создано как {sanitizedName}. Недопустимые символы заменены дефисами."
   },
   "missingRepository": {
-    "checkAgain": "Проверить снова."
+    "checkAgain": "Проверить снова.",
+    "locate": "Найти…",
+    "cloneAgain": "Клонировать снова",
+    "trustRepository": {
+      "@darwin": "Добавить репозиторий в доверенные",
+      "@other": "Добавить репозиторий в доверенные"
+    },
+    "potentiallyUnsafe": "{name} потенциально небезопасен",
+    "unsafeRepository": "Похоже, что репозиторий Git по пути <ref>{path}</ref> принадлежит другому пользователю вашего компьютера. Добавление недоверенных репозиториев может привести к автоматическому запуску файлов из них.",
+    "trustOwner": "Если вы доверяете владельцу каталога, добавьте для него исключение, чтобы продолжить.",
+    "cantFind": "Не удаётся найти «{name}»",
+    "lastSeenAt": "В последний раз он был доступен по пути <path>{path}</path>. <link/>"
   },
   "repository": {
     "sidebar": "Боковая панель репозитория"
   },
   "commitMessageOverride": {
-    "title": "Переопределение сообщения коммита"
+    "title": "Переопределение сообщения коммита",
+    "body": "Введённое вами сообщение коммита будет перезаписано сгенерированным сообщением.",
+    "copilotTip": "Совет: с помощью <link>Copilot Instructions</link> можно настроить создание сообщений коммитов."
   },
   "history": {
     "dateLabel": "Дата:",
     "cannotReorder": "Не удалось выполнить перестановку. При перестановке заново применяются все коммиты до последнего необходимого. Среди них не должно быть merge-коммита.",
     "cannotSquash": "Не удалось объединить коммиты. При объединении заново применяются все коммиты до последнего необходимого. Среди них не должно быть merge-коммита.",
-    "copyFullSha": "Скопировать полный SHA"
+    "copyFullSha": "Скопировать полный SHA",
+    "mergeInto": "Выполнить слияние в <branch/>",
+    "collapse": "Свернуть",
+    "expand": "Развернуть",
+    "collapseDetails": "Свернуть сведения о коммите",
+    "expandDetails": "Развернуть сведения о коммите",
+    "emptyCommitMessage": "Пустое сообщение коммита",
+    "notIncluded": {
+      "_one": "<link>{count:number} недостижимый коммит</link> не учтён.",
+      "_few": "<link>{count:number} недостижимых коммита</link> не учтено.",
+      "_many": "<link>{count:number} недостижимых коммитов</link> не учтено.",
+      "_other": "<link>{count:number} недостижимых коммита</link> не учтено."
+    },
+    "showingChangesFrom": {
+      "_one": "Показаны изменения из <link>{count:number} коммита</link>",
+      "_few": "Показаны изменения из <link>{count:number} коммитов</link>",
+      "_many": "Показаны изменения из <link>{count:number} коммитов</link>",
+      "_other": "Показаны изменения из <link>{count:number} коммита</link>"
+    },
+    "showingChangesFromPlain": {
+      "_one": "Показаны изменения из {count:number} коммита",
+      "_few": "Показаны изменения из {count:number} коммитов",
+      "_many": "Показаны изменения из {count:number} коммитов",
+      "_other": "Показаны изменения из {count:number} коммита"
+    }
   },
   "gitUser": {
     "configureManually": "Настроить вручную",
@@ -1889,13 +1971,15 @@
     "selectEditor": "Выберите редактор"
   },
   "releaseNotes": {
-    "markdownGenerated": "Примечания к выпуску, созданные из markdown"
+    "markdownGenerated": "Примечания к выпуску, созданные из markdown",
+    "viewAll": "Показать все примечания к выпуску"
   },
   "repositoriesList": {
     "fullNameLabel": "Полное имя:",
     "pathLabel": "Путь:",
     "noRepositoryFound": "Не удаётся найти этот репозиторий.",
-    "uncommittedChanges": "В этом репозитории есть незакоммиченные изменения."
+    "uncommittedChanges": "В этом репозитории есть незакоммиченные изменения.",
+    "proTip": "Совет! Нажмите <addShortcut/>, чтобы быстро добавить локальный репозиторий, и <cloneShortcut/>, чтобы клонировать репозиторий, не выходя из приложения"
   },
   "resizable": {
     "resizeHandle": "Перетащите, чтобы изменить размер"
@@ -1915,7 +1999,9 @@
     "publishRepository": "Опубликовать репозиторий",
     "publishRepositoryDescription": "Опубликовать этот репозиторий на GitHub",
     "publishBranch": "Опубликовать ветку",
-    "currentWorktreeButton": "Кнопка списка текущего worktree"
+    "currentWorktreeButton": "Кнопка списка текущего worktree",
+    "currentBranchIsTooltip": "Текущая ветка — {ref}",
+    "checkingOutTooltip": "Переключение на {branch}"
   },
   "revertProgress": {
     "title": "Идёт откат…",
@@ -1929,7 +2015,9 @@
     "createDescription": "Начните совершенно новый проект",
     "addTitle": "Добавить локальный репозиторий",
     "addDescription": "Работайте с существующим проектом в GitHub Desktop",
-    "openAtomSite": "Открыть сайт Atom"
+    "openAtomSite": "Открыть сайт Atom",
+    "doneMessage": "Вы освоили основы работы в GitHub Desktop. Вот несколько рекомендаций, что делать дальше.",
+    "doneImageAlt": "Аплодирующие руки"
   },
   "pushBranchCommits": {
     "publishTitle": "Ветку нужно опубликовать перед созданием pull request.",
@@ -1961,6 +2049,34 @@
       "_few": "Стрелками вверх и вниз выберите новое положение выбранных коммита, затем нажмите Ввод для подтверждения или Esc для отмены.",
       "_many": "Стрелками вверх и вниз выберите новое положение выбранных коммитов, затем нажмите Ввод для подтверждения или Esc для отмены.",
       "_other": "Стрелками вверх и вниз выберите новое положение выбранных коммита, затем нажмите Ввод для подтверждения или Esc для отмены."
+    },
+    "cherryPickCommits": {
+      "_one": "Cherry-pick {count} коммит…",
+      "_few": "Cherry-pick {count} коммита…",
+      "_many": "Cherry-pick {count} коммитов…",
+      "_other": "Cherry-pick {count} коммита…"
+    },
+    "createTag": "Создать тег…",
+    "deleteTag": "Удалить тег…",
+    "deleteTagNamed": "Удалить тег {name}",
+    "reorderChooseLocation": "Используйте <up/> <down/>, чтобы выбрать новое расположение.",
+    "reorderCommits": {
+      "_one": "Переупорядочить {count} коммит…",
+      "_few": "Переупорядочить {count} коммита…",
+      "_many": "Переупорядочить {count} коммитов…",
+      "_other": "Переупорядочить {count} коммита…"
+    },
+    "squashCommits": {
+      "_one": "Сжать {count} коммит…",
+      "_few": "Сжать {count} коммита…",
+      "_many": "Сжать {count} коммитов…",
+      "_other": "Сжать {count} коммита…"
+    },
+    "tagsToPush": {
+      "_one": "У этого коммита {count} тег для отправки",
+      "_few": "У этого коммита {count} тега для отправки",
+      "_many": "У этого коммита {count} тегов для отправки",
+      "_other": "У этого коммита {count} тега для отправки"
     }
   },
   "authentication": {
@@ -1983,7 +2099,8 @@
   },
   "authorInput": {
     "userNotFound": "Не удалось найти пользователя с именем {username}",
-    "searching": "Поиск @{username}"
+    "searching": "Поиск @{username}",
+    "errorUserNotFound": "Ошибка: пользователь {username} не найден"
   },
   "suggestedActions": {
     "branchAria": "Предложенные действия для этой ветки"
@@ -1991,5 +2108,212 @@
   "avatar": {
     "forUser": "Аватар {name}",
     "unknown": "Аватар неизвестного пользователя"
-  }
+  },
+  "historyCompare": {
+    "comparedBranchUpToDate": "Сравниваемая ветка (<ref/>) актуальна по отношению к вашей ветке",
+    "yourBranchUpToDate": "Ваша ветка актуальна по отношению к сравниваемой ветке (<ref/>)"
+  },
+  "branchNameWarnings": {
+    "trackingWarning": "Эта ветка отслеживает <ref/>, и её переименование не изменит имя ветки в удаленном репозитории.",
+    "nameExistsOnRemote": "Ветка с именем <ref/> уже существует в удаленном репозитории."
+  },
+  "copilotApp": {
+    "notFoundMessage": "Не удалось найти приложение GitHub Copilot на этом компьютере. Оцените разработку с ИИ-агентами, органично встроенную в GitHub: <download>скачайте GitHub Copilot</download>.",
+    "notFoundPreferencesHint": "Уже установили? Укажите расположение в <preferences>настройках</preferences>."
+  },
+  "worktreeDropdown": {
+    "currentWorktreeTooltip": "Текущий worktree: {worktree}"
+  },
+  "deleteWorktreeFailed": {
+    "deletionFailed": "Не удалось удалить worktree <ref/>.",
+    "forceDeleteQuestion": "Хотите принудительно удалить worktree <ref/>?"
+  },
+  "branchesContainer": {
+    "chooseMergeInto": "Выберите ветку для слияния в <branch/>",
+    "chooseMergeIntoTooltip": "Выберите ветку для слияния в {branch}"
+  },
+  "copilotDisclaimer": {
+    "poweredByAi": "Copilot работает на основе искусственного интеллекта, поэтому возможны ошибки.",
+    "learnMore": "<link>Подробнее о Copilot в GitHub Desktop.</link>",
+    "generateCommitMessage": "Внимательно проверьте и отредактируйте сформированное сообщение перед его использованием.",
+    "conflictResolution": "Внимательно проверьте предложенные варианты решения, прежде чем применять их к вашим файлам."
+  },
+  "repoRules": {
+    "fails": {
+      "_one": "<subject/> не проходит {count:number} правило.",
+      "_few": "<subject/> не проходит {count:number} правила.",
+      "_many": "<subject/> не проходит {count:number} правил.",
+      "_other": "<subject/> не проходит {count:number} правил."
+    },
+    "failsWithBypass": {
+      "_one": "<subject/> не проходит {count:number} правило, но вы можете его обойти. Действуйте с осторожностью!",
+      "_few": "<subject/> не проходит {count:number} правила, но вы можете их обойти. Действуйте с осторожностью!",
+      "_many": "<subject/> не проходит {count:number} правил, но вы можете их обойти. Действуйте с осторожностью!",
+      "_other": "<subject/> не проходит {count:number} правил, но вы можете их обойти. Действуйте с осторожностью!"
+    },
+    "viewAllRulesets": "<link>Показать все наборы правил для этой ветки.</link>"
+  },
+  "confirmExitTutorial": {
+    "leaveWarning": "Вы действительно хотите покинуть обучение? Вас вернут на домашний экран."
+  },
+  "successfulCherryPick": {
+    "copied": {
+      "_one": "Успешно скопирован {count:number} коммит в <strong>{branch}</strong>.",
+      "_few": "Успешно скопировано {count:number} коммита в <strong>{branch}</strong>.",
+      "_many": "Успешно скопировано {count:number} коммитов в <strong>{branch}</strong>.",
+      "_other": "Успешно скопировано {count:number} коммита в <strong>{branch}</strong>."
+    }
+  },
+  "authorHandle": {
+    "knownAriaLabel": "{author} — нажмите Backspace или Delete, чтобы удалить",
+    "unknownAriaLabel": "{username}, {state}, нажмите Backspace или Delete, чтобы удалить",
+    "userNotFound": "пользователь не найден",
+    "searching": "выполняется поиск"
+  },
+  "refNameTextBox": {
+    "errorNotValidName": "Ошибка: {name} не является допустимым именем.",
+    "notValidName": "<ref/> не является допустимым именем.",
+    "willBeAs": "Будет {verb} как <ref/>.",
+    "invalidCharsReplaced": "Пробелы и недопустимые символы заменены дефисами.",
+    "warningLive": "Внимание: будет {verb} как {value}. Пробелы и недопустимые символы заменены дефисами.",
+    "verbCreated": "создано"
+  },
+  "confirmDiscardStash": {
+    "warning": "Вы уверены, что хотите удалить эти отложенные изменения?"
+  },
+  "workflowPushRejected": {
+    "rejectedMessage": "Сервер отклонил push, так как он содержит изменение в файле workflow <ref/>. Чтобы выполнять push в файлы workflow, GitHub Desktop необходимо запросить дополнительные разрешения.",
+    "grantPermission": "Хотите открыть браузер, чтобы предоставить GitHub Desktop разрешение на обновление файлов workflow?"
+  },
+  "pullRequestList": {
+    "loadingPullRequests": "Подождите немного. Загружаю пул-реквесты так быстро, как только могу!",
+    "numFound": {
+      "_one": "Найден {count:number} пул-реквест",
+      "_few": "Найдено {count:number} пул-реквеста",
+      "_many": "Найдено {count:number} пул-реквестов",
+      "_other": "Найдено {count:number} пул-реквеста"
+    },
+    "pullRequestsIn": "Пул-реквесты в {repository}",
+    "refreshTooltip": "Обновить список пул-реквестов"
+  },
+  "configLockFile": {
+    "exists": "Не удалось обновить файл конфигурации Git. Файл блокировки уже существует по пути <ref>{lockFilePath}</ref>.",
+    "deleteAndRetry": "Это может произойти, если другой инструмент сейчас изменяет конфигурацию Git или если процесс Git завершился, не удалив файл блокировки. Хотите <link>удалить файл блокировки</link> и повторить попытку?"
+  },
+  "textBox": {
+    "clear": "Очистить",
+    "inputCleared": "Ввод очищен"
+  },
+  "fullScreenInfo": {
+    "exitFullscreen": "Нажмите <shortcut/>, чтобы выйти из полноэкранного режима"
+  },
+  "addWorktreeDialog": {
+    "willCheckOutRemoteBranch": "Будет выполнено переключение на удалённую ветку <ref>{branch}</ref>.",
+    "willCheckOutExistingBranch": "Будет выполнено переключение на существующую ветку <ref>{branch}</ref>.",
+    "worktreeWillBeCreated": "Worktree будет создан по пути <ref>{path}</ref>."
+  },
+  "updateBranch": {
+    "mergeCommitLabel": "Создать коммит слияния",
+    "mergeCommitDescription": "Коммиты из выбранной ветки будут добавлены в текущую ветку посредством коммита слияния.",
+    "squashLabel": "Squash-слияние",
+    "squashDescription": "Коммиты в выбранной ветке будут объединены в один коммит в текущей ветке.",
+    "rebaseDescription": "Коммиты из выбранной ветки будут перенесены (rebase) и добавлены в текущую ветку."
+  },
+  "pushPullButton": {
+    "lastFetched": "Изменения последний раз загружались <time/>",
+    "neverFetched": "Изменения ещё не загружались",
+    "pullRemote": "Забрать из {remoteName}",
+    "pullRemoteWithRebase": "Забрать из {remoteName} с rebase"
+  },
+  "deleteWorktreeDialog": {
+    "confirmMessage": "Вы уверены, что хотите удалить worktree <ref/>?"
+  },
+  "crash": {
+    "launchDescription": "GitHub Desktop столкнулась с критической ошибкой, которая не позволяет ей запуститься. Мы уже сообщили о ней команде, но если эта ошибка повторяется, пожалуйста, сообщите о ней в <link>трекер проблем</link> GitHub Desktop.",
+    "runtimeErrorDescription": "GitHub Desktop столкнулась с невосстановимой ошибкой и должна быть перезапущена. Мы уже сообщили о ней команде, но если эта ошибка повторяется, пожалуйста, сообщите о ней в <link>трекер проблем</link> GitHub Desktop."
+  },
+  "copilotError": {
+    "quotaExceeded": "Квота исчерпана",
+    "sessionQuotaExceeded": "Квота на сессию исчерпана",
+    "billingNotConfigured": "Оплата GitHub Copilot не настроена",
+    "billingIssue": "Ошибка оплаты GitHub Copilot",
+    "openSettings": "Открыть настройки GitHub Copilot",
+    "retryAfterSeconds": {
+      "_one": "Повторить попытку можно через {count:number} секунду.",
+      "_few": "Повторить попытку можно через {count:number} секунды.",
+      "_many": "Повторить попытку можно через {count:number} секунд.",
+      "_other": "Повторить попытку можно через {count:number} секунды."
+    },
+    "retryAfterDate": "Повторить попытку можно после {retryAfter}."
+  },
+  "commitProgress": {
+    "title": "Выполняется коммит",
+    "close": "Закрыть"
+  },
+  "appStore": {
+    "refreshingRepository": {
+      "@darwin": "Обновление репозитория",
+      "@other": "Обновление репозитория"
+    },
+    "checkingOut": "Переключение",
+    "fastForwardingBranches": "Перемотка веток",
+    "pushingTo": "Отправка в {remote}",
+    "pulling": "Получение из {remote}"
+  },
+  "revealDirectory": {
+    "title": "Показать репозиторий в Finder?",
+    "message": "Этот репозиторий может быть приложением.",
+    "detail": "При прямом открытии может запуститься программа. Вы можете показать и выделить репозиторий в Finder, не открывая его.",
+    "revealButton": "Показать в Finder"
+  },
+  "activity": "Активность",
+  "base": "База",
+  "basic": "Базовый",
+  "canvas": "Холст",
+  "cherryPickBranchCreatedCount": "Cherry-pick: ветка создана",
+  "cherryPickConflictsEncounteredCount": "Cherry-pick: конфликты",
+  "cherryPickMultipleCommitsCount": "Cherry-pick: несколько коммитов",
+  "cherryPickSuccessfulWithConflictsCount": "Cherry-pick: успешно с конфликтами",
+  "cherryPickViaDragAndDropCount": "Cherry-pick перетаскиванием",
+  "commitSigning": "Подпись коммитов",
+  "contextmenu": "Контекстное меню",
+  "dialog-appeared": "Диалог появился",
+  "dialog-show": "Показать диалог",
+  "did-change": "Изменено",
+  "div": "Элемент div",
+  "email": "Электронная почта",
+  "error": "Ошибка",
+  "find-text": "Найти текст",
+  "highlighted": "Подсвечено",
+  "issueCreationWebpageOpenedCount": "Открытий страницы создания issue",
+  "keyboard": "Клавиатура",
+  "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Открытий диалога недоступных коммитов",
+  "next": "Далее",
+  "openInCopilotAppCount": "Открытий в приложении Copilot",
+  "opensCheckRunsPopover": "Открывает поповер проверок",
+  "pointer": "Указатель",
+  "premium_interactions": "Премиум-взаимодействия",
+  "previous": "Назад",
+  "rebaseSuccessWithoutConflictsCount": "Rebase успешно без конфликтов",
+  "rebaseWithBranchAlreadyUpToDateCount": "Ветка уже актуальна",
+  "reorderMultipleCommitsCount": "Перестановка нескольких коммитов",
+  "reorderStartedCount": "Начата перестановка",
+  "resetToCommitCount": "Сброс до коммита",
+  "select-all": "Выбрать всё",
+  "skipGuidCheck": "Пропустить проверку GUID",
+  "squashMergeSuccessfulCount": "Squash-слияние успешно",
+  "squashMergeSuccessfulWithConflictsCount": "Squash-слияние успешно с конфликтами",
+  "squashMultipleCommitsInvokedCount": "Squash нескольких коммитов",
+  "squashViaContextMenuInvokedCount": "Squash через контекстное меню",
+  "squashViaDragAndDropInvokedCount": "Squash перетаскиванием",
+  "submit": "Отправить",
+  "theme-changed": "Тема изменена",
+  "title": "Заголовок",
+  "token": "Токен",
+  "tooltip-hidden": "Подсказка скрыта",
+  "tooltip-shown": "Подсказка показана",
+  "version": "Версия",
+  "webgl2": "WebGL2",
+  "x-prioritize-update": "Приоритет обновления",
+  "x-prioritize-update-info-url": "URL информации об обновлении"
 }

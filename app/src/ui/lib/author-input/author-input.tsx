@@ -17,6 +17,7 @@ import memoizeOne from 'memoize-one'
 import { FocusContainer } from '../focus-container'
 import { AuthorHandle } from './author-handle'
 import { getFullTextForAuthor } from './author-text'
+import { t } from '../../../lib/l10n'
 
 interface IAuthorInputProps {
   /**
@@ -432,7 +433,9 @@ export class AuthorInput extends React.Component<
 
       this.updateUnknownAuthor(erroredUnknownAuthor)
       this.setState({
-        lastActionDescription: `Error: user ${author.username} not found`,
+        lastActionDescription: t('authorInput.errorUserNotFound', {
+          username: author.username,
+        }),
       })
       return
     }

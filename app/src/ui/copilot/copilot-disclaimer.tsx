@@ -6,6 +6,7 @@ import {
   OkCancelButtonGroup,
 } from '../dialog'
 import { LinkButton } from '../lib/link-button'
+import { t, Trans } from '../../lib/l10n'
 
 interface ICopilotDisclaimerProps {
   /**
@@ -46,11 +47,16 @@ export class CopilotDisclaimer extends React.Component<ICopilotDisclaimerProps> 
       >
         <DialogContent>
           <p id="copilot-disclaimer-body">
-            Copilot is powered by AI, so mistakes are possible.
+            {t('copilotDisclaimer.poweredByAi')}
             {children !== undefined && <> {children}</>}{' '}
-            <LinkButton uri="https://gh.io/copilot-for-desktop-transparency">
-              Learn more about Copilot in GitHub Desktop.
-            </LinkButton>
+            <Trans
+              k="copilotDisclaimer.learnMore"
+              components={{
+                link: (
+                  <LinkButton uri="https://gh.io/copilot-for-desktop-transparency" />
+                ),
+              }}
+            />
           </p>
         </DialogContent>
         <DialogFooter>

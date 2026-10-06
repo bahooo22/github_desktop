@@ -3,6 +3,7 @@ import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Ref } from '../lib/ref'
 import { IBYOKProvider } from '../../lib/copilot/byok'
+import { Trans } from '../../lib/l10n'
 
 interface IConfirmDeleteCopilotBYOKProviderDialogProps {
   readonly provider: IBYOKProvider
@@ -29,8 +30,10 @@ export class ConfirmDeleteCopilotBYOKProviderDialog extends React.Component<ICon
       >
         <DialogContent>
           <p id="confirm-delete-copilot-byok-provider-message">
-            Are you sure you want to remove the custom provider{' '}
-            <Ref>{this.props.provider.name}</Ref>?{' '}
+            <Trans
+              k="copilotByokProvider.removeQuestion"
+              components={{ ref: <Ref>{this.props.provider.name}</Ref> }}
+            />{' '}
             {this.renderSecretConsequence()}
           </p>
         </DialogContent>

@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { TerminalOutputListener } from '../../lib/git'
 import { Terminal } from '../terminal'
+import { t } from '../../lib/l10n'
 interface ICommitProgressProps {
   readonly subscribeToCommitOutput: TerminalOutputListener
   readonly onDismissed: () => void
@@ -37,7 +38,7 @@ export class CommitProgress extends React.Component<ICommitProgressProps> {
     return (
       <Dialog
         id="commit-progress-dialog"
-        title={`Committing changes`}
+        title={t('commitProgress.title')}
         onDismissed={this.onDismissed}
         onSubmit={this.onDismissed}
       >
@@ -52,7 +53,7 @@ export class CommitProgress extends React.Component<ICommitProgressProps> {
 
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={'Close'}
+            okButtonText={t('commitProgress.close')}
             cancelButtonVisible={false}
           />
         </DialogFooter>

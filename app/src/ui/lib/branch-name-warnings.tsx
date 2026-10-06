@@ -5,16 +5,18 @@ import { Row } from './row'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Ref } from './ref'
+import { Trans } from '../../lib/l10n'
 
 export function renderBranchHasRemoteWarning(branch: Branch) {
   if (branch.upstream != null) {
     return (
       <Row className="warning-helper-text">
         <Octicon symbol={octicons.alert} />
-        <p>
-          This branch is tracking <Ref>{branch.upstream}</Ref> and renaming this
-          branch will not change the branch name on the remote.
-        </p>
+        <Trans
+          as="p"
+          k="branchNameWarnings.trackingWarning"
+          components={{ ref: <Ref>{branch.upstream}</Ref> }}
+        />
       </Row>
     )
   } else {
@@ -38,9 +40,11 @@ export function renderBranchNameExistsOnRemoteWarning(
   return (
     <Row className="warning-helper-text">
       <Octicon symbol={octicons.alert} />
-      <p>
-        A branch named <Ref>{sanitizedName}</Ref> already exists on the remote.
-      </p>
+      <Trans
+        as="p"
+        k="branchNameWarnings.nameExistsOnRemote"
+        components={{ ref: <Ref>{sanitizedName}</Ref> }}
+      />
     </Row>
   )
 }

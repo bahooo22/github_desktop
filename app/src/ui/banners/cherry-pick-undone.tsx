@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { SuccessBanner } from './success-banner'
+import { Trans } from '../../lib/l10n'
 
 interface ICherryPickUndoneBannerProps {
   readonly targetBranchName: string
@@ -13,12 +14,13 @@ export class CherryPickUndone extends React.Component<
 > {
   public render() {
     const { countCherryPicked, targetBranchName, onDismissed } = this.props
-    const pluralized = countCherryPicked === 1 ? 'commit' : 'commits'
     return (
       <SuccessBanner timeout={5000} onDismissed={onDismissed}>
-        Cherry-pick undone. Successfully removed the {countCherryPicked}
-        {' copied '}
-        {pluralized} from <strong>{targetBranchName}</strong>.
+        <Trans
+          k="banners.cherryPickUndone"
+          params={{ count: countCherryPicked }}
+          components={{ branch: <strong>{targetBranchName}</strong> }}
+        />
       </SuccessBanner>
     )
   }

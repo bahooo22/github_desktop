@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { SuccessBanner } from './success-banner'
+import { Trans } from '../../lib/l10n'
 
 interface ISuccessfulSquashedBannerProps {
   readonly count: number
@@ -14,13 +15,9 @@ export class SuccessfulSquash extends React.Component<
   public render() {
     const { count, onDismissed, onUndo } = this.props
 
-    const pluralized = count === 1 ? 'commit' : 'commits'
-
     return (
       <SuccessBanner timeout={15000} onDismissed={onDismissed} onUndo={onUndo}>
-        <span>
-          Successfully squashed {count} {pluralized}.
-        </span>
+        <Trans as="span" k="banners.successfulSquash" params={{ count }} />
       </SuccessBanner>
     )
   }

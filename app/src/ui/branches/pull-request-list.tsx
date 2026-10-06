@@ -24,6 +24,7 @@ import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { SectionFilterList } from '../lib/section-filter-list'
 import { generatePullRequestContextMenuItems } from './pull-request-list-item-context-menu'
 import { showContextualMenu } from '../../lib/menu-item'
+import { t } from '../../lib/l10n'
 
 interface IPullRequestListItem extends IFilterListItem {
   readonly id: string
@@ -133,11 +134,10 @@ export class PullRequestList extends React.Component<
     const loadingComplete =
       this.props.isLoadingPullRequests && !nextProps.isLoadingPullRequests
     const numPullRequests = this.props.pullRequests.length
-    const plural = numPullRequests === 1 ? '' : 's'
     const screenReaderStateMessage = loadingStarted
-      ? 'Hang Tight. Loading pull requests as fast as I can!'
+      ? t('pullRequestList.loadingPullRequests')
       : loadingComplete
-      ? `${numPullRequests} pull request${plural} found`
+      ? t('pullRequestList.numFound', { count: numPullRequests })
       : null
 
     this.setState({
@@ -148,7 +148,9 @@ export class PullRequestList extends React.Component<
   }
 
   private getListAriaLabel = () => {
-    return `Pull requests in ${this.getRepositoryName()}`
+    return t('pullRequestList.pullRequestsIn', {
+      repository: this.getRepositoryName(),
+    })
   }
 
   public render() {
@@ -323,7 +325,9 @@ export class PullRequestList extends React.Component<
   private renderListHeader = () => {
     return (
       <div className="filter-list-group-header">
-        Pull requests in {this.getRepositoryName()}
+        {t('pullRequestList.pullRequestsIn', {
+          repository: this.getRepositoryName(),
+        })}
       </div>
     )
   }
@@ -333,7 +337,7 @@ export class PullRequestList extends React.Component<
   }
 
   private renderPostFilter = () => {
-    const tooltip = 'Refresh the list of pull requests'
+    const tooltip = t('pullRequestList.refreshTooltip')
 
     return (
       <Button

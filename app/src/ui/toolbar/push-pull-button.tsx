@@ -31,7 +31,7 @@ import { PushPullButtonDropDown } from './push-pull-button-dropdown'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { enableResizingToolbarButtons } from '../../lib/feature-flag'
 import { formatCompactNumber } from '../../lib/format-number'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 export const DropdownItemClassName = 'push-pull-dropdown-item'
 
@@ -161,12 +161,13 @@ function renderAheadBehind(aheadBehind: IAheadBehind, numTagsToPush: number) {
 function renderLastFetched(lastFetched: Date | null): JSX.Element | string {
   if (lastFetched) {
     return (
-      <span>
-        Last fetched <RelativeTime date={lastFetched} />
-      </span>
+      <Trans
+        k="pushPullButton.lastFetched"
+        components={{ time: <RelativeTime date={lastFetched} /> }}
+      />
     )
   } else {
-    return 'Never fetched'
+    return t('pushPullButton.neverFetched')
   }
 }
 
@@ -614,8 +615,8 @@ export class PushPullButton extends React.Component<
     onClick: () => void
   ) {
     const title = pullWithRebase
-      ? `Pull ${remoteName} with rebase`
-      : `Pull ${remoteName}`
+      ? t('pushPullButton.pullRemoteWithRebase', { remoteName })
+      : t('pushPullButton.pullRemote', { remoteName })
 
     const dropdownItemTypes = [DropdownItemType.Fetch]
 
@@ -674,7 +675,7 @@ export class PushPullButton extends React.Component<
     return (
       <ToolbarDropdown
         {...this.defaultDropdownProps()}
-        title={`Force push ${remoteName}`}
+        title={t('toolbar.forcePushTo', { branch: remoteName })}
         description={renderLastFetched(lastFetched)}
         icon={forcePushIcon}
         onClick={onClick}

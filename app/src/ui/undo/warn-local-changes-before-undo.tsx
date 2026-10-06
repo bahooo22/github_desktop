@@ -67,10 +67,7 @@ export class WarnLocalChangesBeforeUndo extends React.Component<
     }
     return (
       <DialogContent>
-        <Row id="undo-warning-message">
-          You have changes in progress. Undoing the commit might result in some
-          of these changes being lost. Do you want to continue anyway?
-        </Row>
+        <Row id="undo-warning-message">{t('warnLocalChanges.undoWarning')}</Row>
         <Row>
           <Checkbox
             label={t('common.do-not-show-again')}

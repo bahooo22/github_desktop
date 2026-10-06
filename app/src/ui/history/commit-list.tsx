@@ -29,7 +29,7 @@ import { formatDate } from '../../lib/format-date'
 import { Avatar } from '../lib/avatar'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 const RowHeight = 50
 
@@ -362,9 +362,7 @@ export class CommitList extends React.Component<
     }
 
     if (numUnpushedTags > 0) {
-      return `This commit has ${numUnpushedTags} tag${
-        numUnpushedTags > 1 ? 's' : ''
-      } to push`
+      return t('commitList.tagsToPush', { count: numUnpushedTags })
     }
 
     return undefined
@@ -655,11 +653,14 @@ export class CommitList extends React.Component<
         }}
       >
         <h4>{reorderCommitsHintTitle}</h4>
-        <p>
-          Use <KeyboardShortcut darwinKeys={['↑']} keys={['↑']} />
-          <KeyboardShortcut darwinKeys={['↓']} keys={['↓']} /> to choose a new
-          location.
-        </p>
+        <Trans
+          as="p"
+          k="commitList.reorderChooseLocation"
+          components={{
+            up: <KeyboardShortcut darwinKeys={['↑']} keys={['↑']} />,
+            down: <KeyboardShortcut darwinKeys={['↓']} keys={['↓']} />,
+          }}
+        />
         <p>
           Press <KeyboardShortcut darwinKeys={['⏎']} keys={['⏎']} /> to confirm.
         </p>
@@ -824,7 +825,7 @@ export class CommitList extends React.Component<
         },
       },
       {
-        label: 'Create Tag…',
+        label: t('commitList.createTag'),
         action: () => this.props.onCreateTag?.(commit.sha),
         enabled: this.props.onCreateTag !== undefined,
       }
@@ -906,7 +907,7 @@ export class CommitList extends React.Component<
       const tagName = commit.tags[0]
 
       return {
-        label: `Delete tag ${tagName}`,
+        label: t('commitList.deleteTagNamed', { name: tagName }),
         action: () => onDeleteTag(tagName),
         enabled: unpushedTags.includes(tagName),
       }
@@ -916,7 +917,7 @@ export class CommitList extends React.Component<
     const unpushedTagsSet = new Set(unpushedTags)
 
     return {
-      label: 'Delete tag…',
+      label: t('commitList.deleteTag'),
       submenu: commit.tags.map(tagName => {
         return {
           label: tagName,
@@ -932,23 +933,17 @@ export class CommitList extends React.Component<
 
     return [
       {
-        label: __DARWIN__
-          ? `Cherry-pick ${count} Commits…`
-          : `Cherry-pick ${count} commits…`,
+        label: t('commitList.cherryPickCommits', { count }),
         action: () => this.props.onCherryPick?.(this.selectedCommits),
         enabled: this.canCherryPick(),
       },
       {
-        label: __DARWIN__
-          ? `Squash ${count} Commits…`
-          : `Squash ${count} commits…`,
+        label: t('commitList.squashCommits', { count }),
         action: () => this.onSquash(this.selectedCommits, commit, true),
         enabled: this.canSquash(),
       },
       {
-        label: __DARWIN__
-          ? `Reorder ${count} Commits…`
-          : `Reorder ${count} commits…`,
+        label: t('commitList.reorderCommits', { count }),
         action: () => this.props.onKeyboardReorder?.(this.selectedCommits),
         enabled: this.canReorder(),
       },

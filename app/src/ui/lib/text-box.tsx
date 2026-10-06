@@ -5,6 +5,7 @@ import { showContextualMenu } from '../../lib/menu-item'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
+import { t } from '../../lib/l10n'
 
 export interface ITextBoxProps {
   /** The label for the input field. */
@@ -336,14 +337,14 @@ export class TextBox extends React.Component<ITextBoxProps, ITextBoxState> {
           this.state.value !== '' && (
             <button
               className="clear-button"
-              aria-label="Clear"
+              aria-label={t('textBox.clear')}
               onClick={this.clearSearchText}
             >
               <Octicon symbol={octicons.x} />
             </button>
           )}
         {this.state.valueCleared && (
-          <AriaLiveContainer message="Input cleared" />
+          <AriaLiveContainer message={t('textBox.inputCleared')} />
         )}
       </div>
     )

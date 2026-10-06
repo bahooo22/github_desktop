@@ -11,6 +11,19 @@ import { getVersion } from '../ui/lib/app-proxy'
 import { getOS } from '../lib/get-os'
 import * as ipcRenderer from '../lib/ipc-renderer'
 import { getCurrentWindowState } from '../ui/main-process-proxy'
+import { Trans, localization, registerBuiltInLocales } from '../lib/l10n'
+
+// The crash window is a standalone renderer entry that never runs the main
+// renderer's localization bootstrap. Registering the shipped catalogs and
+// detecting the operating system language here lets the translated strings
+// below resolve (falling back to English) instead of rendering raw keys. We
+// deliberately avoid the IPC-backed `initializeLocalization` because the crash
+// process has neither a main-process round trip nor the renderer `log` global
+// that its failure path relies on.
+registerBuiltInLocales()
+localization.setSystemLocales(
+  (typeof navigator === 'undefined' ? [] : navigator.languages) ?? []
+)
 
 // This is a weird one, let's leave it as a placeholder
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -148,25 +161,17 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
   }
 
   private renderDescription() {
+    const components = { link: <LinkButton uri={issuesUri} /> }
+
     if (this.state.type === 'launch') {
       return (
-        <p>
-          GitHub Desktop encountered a catastrophic error that prevents it from
-          launching. This has been reported to the team, but if you encounter
-          this repeatedly please report this issue to the GitHub Desktop{' '}
-          <LinkButton uri={issuesUri}>issue tracker</LinkButton>.
-        </p>
-      )
-    } else {
-      return (
-        <p>
-          GitHub Desktop has encountered an unrecoverable error and will need to
-          restart. This has been reported to the team, but if you encounter this
-          repeatedly please report this issue to the GitHub Desktop{' '}
-          <LinkButton uri={issuesUri}>issue tracker</LinkButton>.
-        </p>
+        <Trans as="p" k="crash.launchDescription" components={components} />
       )
     }
+
+    return (
+      <Trans as="p" k="crash.runtimeErrorDescription" components={components} />
+    )
   }
 
   private renderErrorDetails() {

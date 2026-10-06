@@ -21,7 +21,7 @@ import { Avatar } from '../lib/avatar'
 import { CopyButton } from '../copy-button'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IExpandableCommitSummaryProps {
   readonly repository: Repository
@@ -126,7 +126,7 @@ function createState(
 
 function getCommitSummary(selectedCommits: ReadonlyArray<Commit>) {
   return selectedCommits[0].summary.length === 0
-    ? 'Empty commit message'
+    ? t('history.emptyCommitMessage')
     : selectedCommits[0].summary
 }
 
@@ -221,11 +221,11 @@ export class ExpandableCommitSummary extends React.Component<
       <Button
         onClick={isExpanded ? this.onCollapse : this.onExpand}
         className="expander"
-        tooltip={isExpanded ? 'Collapse' : 'Expand'}
+        tooltip={isExpanded ? t('history.collapse') : t('history.expand')}
         applyTooltipAriaDescribedBy={false}
         ariaExpanded={isExpanded}
         ariaLabel={
-          isExpanded ? 'Collapse commit details' : 'Expand commit details'
+          isExpanded ? t('history.collapseDetails') : t('history.expandDetails')
         }
         ariaControls="expandable-commit-summary"
       >
@@ -360,26 +360,29 @@ export class ExpandableCommitSummary extends React.Component<
       return
     }
 
-    const commitsPluralized = excludedCommitsCount > 1 ? 'commits' : 'commit'
-
     return (
       <div className="commit-unreachable-info">
         <Octicon symbol={octicons.info} />
-        <LinkButton
-          onClick={this.showUnreachableCommits}
-          onMouseOver={this.onHighlightShasNotInDiff}
-          onMouseOut={this.onRemoveHighlightOfShas}
-        >
-          {excludedCommitsCount} unreachable {commitsPluralized}
-        </LinkButton>{' '}
-        not included.
+        <Trans
+          k="history.notIncluded"
+          params={{ count: excludedCommitsCount }}
+          components={{
+            link: (
+              <LinkButton
+                onClick={this.showUnreachableCommits}
+                onMouseOver={this.onHighlightShasNotInDiff}
+                onMouseOut={this.onRemoveHighlightOfShas}
+              />
+            ),
+          }}
+        />
       </div>
     )
   }
 
   private renderExpandedAuthor(user: IAvatarUser): string | JSX.Element {
     if (!user) {
-      return 'Unknown user'
+      return t('changes.avatar.unknown-user')
     }
 
     if (user.name) {
@@ -469,27 +472,27 @@ export class ExpandableCommitSummary extends React.Component<
       shasInDiff
     )
     const numInDiff = selectedCommits.length - commitsNotInDiff
-    const commitsPluralized = numInDiff > 1 ? 'commits' : 'commit'
 
-    return (
-      <>
-        Showing changes from{' '}
-        {commitsNotInDiff > 0 ? (
-          <LinkButton
-            className="commits-in-diff"
-            onMouseOver={this.onHighlightShasInDiff}
-            onMouseOut={this.onRemoveHighlightOfShas}
-            onClick={this.showReachableCommits}
-          >
-            {numInDiff} {commitsPluralized}
-          </LinkButton>
-        ) : (
-          <>
-            {' '}
-            {numInDiff} {commitsPluralized}
-          </>
-        )}
-      </>
+    return commitsNotInDiff > 0 ? (
+      <Trans
+        k="history.showingChangesFrom"
+        params={{ count: numInDiff }}
+        components={{
+          link: (
+            <LinkButton
+              className="commits-in-diff"
+              onMouseOver={this.onHighlightShasInDiff}
+              onMouseOut={this.onRemoveHighlightOfShas}
+              onClick={this.showReachableCommits}
+            />
+          ),
+        }}
+      />
+    ) : (
+      <Trans
+        k="history.showingChangesFromPlain"
+        params={{ count: numInDiff }}
+      />
     )
   }
 
@@ -554,13 +557,17 @@ export class ExpandableCommitSummary extends React.Component<
       <div className="ecs-meta-item lines-added-deleted">
         {isExpanded ? <Octicon symbol={octicons.diff} /> : null}
         <div className="lines-added">
-          {!isExpanded ? <>+{linesAdded}</> : <>{linesAdded} added lines</>}
+          {!isExpanded ? (
+            <>+{linesAdded}</>
+          ) : (
+            t('openPullRequest.lines-added', { count: linesAdded })
+          )}
         </div>
         <div className="lines-deleted">
           {!isExpanded ? (
             <>-{linesDeleted}</>
           ) : (
-            <>{linesDeleted} removed lines</>
+            t('openPullRequest.lines-deleted', { count: linesDeleted })
           )}
         </div>
       </div>

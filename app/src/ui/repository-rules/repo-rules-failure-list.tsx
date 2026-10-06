@@ -6,6 +6,7 @@ import {
 } from '../../models/repo-rules'
 import { RepoRulesetsForBranchLink } from './repo-rulesets-for-branch-link'
 import { RepoRulesetLink } from './repo-ruleset-link'
+import { Trans } from '../../lib/l10n'
 
 interface IRepoRulesMetadataFailureListProps {
   readonly repository: GitHubRepository
@@ -28,23 +29,27 @@ export class RepoRulesMetadataFailureList extends React.Component<IRepoRulesMeta
     const { repository, branch, failures, leadingText } = this.props
 
     const totalFails = failures.failed.length + failures.bypassed.length
-    let endText: string
-    if (failures.status === 'bypass') {
-      endText = `, but you can bypass ${
-        totalFails === 1 ? 'it' : 'them'
-      }. Proceed with caution!`
-    } else {
-      endText = '.'
-    }
+    const canBypass = failures.status === 'bypass'
 
     return (
       <div className="repo-rules-failure-list-component">
         <p>
-          {leadingText} fails {totalFails} rule{totalFails > 1 ? 's' : ''}
-          {endText}{' '}
-          <RepoRulesetsForBranchLink repository={repository} branch={branch}>
-            View all rulesets for this branch.
-          </RepoRulesetsForBranchLink>
+          <Trans
+            k={canBypass ? 'repoRules.failsWithBypass' : 'repoRules.fails'}
+            params={{ count: totalFails }}
+            components={{ subject: <>{leadingText}</> }}
+          />{' '}
+          <Trans
+            k="repoRules.viewAllRulesets"
+            components={{
+              link: (
+                <RepoRulesetsForBranchLink
+                  repository={repository}
+                  branch={branch}
+                />
+              ),
+            }}
+          />
         </p>
         {this.renderRuleFailureList(failures.failed, 'Failed')}
         {this.renderRuleFailureList(failures.bypassed, 'Bypassed')}

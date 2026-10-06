@@ -1,4 +1,5 @@
 import { IMenuItem } from '../../lib/menu-item'
+import { t } from '../../lib/l10n'
 
 interface IPullRequestContextMenuConfig {
   onViewPullRequestOnGitHub?: () => void
@@ -13,7 +14,7 @@ export function generatePullRequestContextMenuItems(
 
   if (onViewPullRequestOnGitHub !== undefined) {
     items.push({
-      label: 'View Pull Request on GitHub',
+      label: t('branches.view-pr-on-github'),
       action: () => onViewPullRequestOnGitHub(),
     })
   }

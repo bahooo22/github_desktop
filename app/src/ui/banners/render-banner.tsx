@@ -19,6 +19,7 @@ import { SuccessfulSquash } from './successful-squash'
 import { SuccessBanner } from './success-banner'
 import { ConflictsFoundBanner } from './conflicts-found-banner'
 import { OSVersionNoLongerSupportedBanner } from './os-version-no-longer-supported-banner'
+import { t } from '../../lib/l10n'
 
 export function renderBanner(
   banner: Banner,
@@ -133,8 +134,6 @@ export function renderBanner(
       )
     }
     case BannerType.SuccessfulReorder: {
-      const pluralized = banner.count === 1 ? 'commit' : 'commits'
-
       return (
         <SuccessBanner
           key="successful-reorder"
@@ -142,9 +141,7 @@ export function renderBanner(
           onDismissed={onDismissed}
           onUndo={banner.onUndo}
         >
-          <span>
-            Successfully reordered {banner.count} {pluralized}.
-          </span>
+          <span>{t('banners.successfulReorder', { count: banner.count })}</span>
         </SuccessBanner>
       )
     }

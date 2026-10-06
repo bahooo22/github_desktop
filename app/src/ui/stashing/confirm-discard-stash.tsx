@@ -53,7 +53,7 @@ export class ConfirmDiscardStashDialog extends React.Component<
       >
         <DialogContent>
           <Row id="discard-stash-warning-message">
-            Are you sure you want to discard these stashed changes?
+            {t('confirmDiscardStash.warning')}
           </Row>
           <Row>
             <Checkbox

@@ -770,7 +770,6 @@
     "finish": "Finish",
     "sign-in-enterprise-title": "Sign in to your GitHub Enterprise"
   },
-  "activity": "Activity",
   "addRepository": {
     "add-local-repository": "Add Local Repository",
     "add-repository-ok": "Add Repository",
@@ -803,8 +802,6 @@
   "appMenu": {
     "application-menu": "Application menu"
   },
-  "base": "Base",
-  "basic": "Basic",
   "branches": {
     "checkout-in-new-worktree": "Checkout in new worktree…",
     "copy-name": "Copy Branch Name",
@@ -818,9 +815,10 @@
     "rename": "Rename…",
     "view-on-github": "View Branch on GitHub",
     "view-pr-on-github": "View Pull Request on GitHub",
-    "noBranchFound": "Sorry, I can't find that branch"
+    "noBranchFound": "Sorry, I can't find that branch",
+    "createNewBranchInstead": "Do you want to create a new branch instead?",
+    "createBranchShortcutProTip": "ProTip! Press <shortcut/> to quickly create a new branch from anywhere within the app"
   },
-  "canvas": "Canvas",
   "changes": {
     "adjust-filters": "Adjust the filters to see all {count} changes",
     "and-word": "GitHub",
@@ -1001,11 +999,6 @@
     "dont-show-again": "Do not show this message again",
     "title": "Checkout Commit?"
   },
-  "cherryPickBranchCreatedCount": "Cherrypickbranchcreatedcount",
-  "cherryPickConflictsEncounteredCount": "Cherrypickconflictsencounteredcount",
-  "cherryPickMultipleCommitsCount": "Cherrypickmultiplecommitscount",
-  "cherryPickSuccessfulWithConflictsCount": "Cherrypicksuccessfulwithconflictscount",
-  "cherryPickViaDragAndDropCount": "Cherrypickviadraganddropcount",
   "chooseForkSettings": {
     "continue": "Continue",
     "contribute-to-parent": "To contribute to the parent project",
@@ -1099,8 +1092,6 @@
     "no-write-access": "You don't have write access to <strong>{name}</strong>. Want to <link>create a fork</link>?",
     "protected-branch": "<strong>{branch}</strong> is a protected branch. Want to <link>switch branches</link>?"
   },
-  "commitSigning": "Commitsigning",
-  "contextmenu": "Context Menu",
   "createBranch": {
     "based-on-commit": "Your new branch will be based on the commit '{summary}' ({sha}) from your repository.",
     "based-on-label": "Create branch based on…",
@@ -1115,7 +1106,8 @@
     "unborn-branch": "Your current branch is unborn (does not contain any commits). Creating a new branch will rename the current branch.",
     "upstream-default-branch-description": "The default branch of the upstream repository. Pick this to start on something new that",
     "current-is-default": "<ref>{branch}</ref> is the <defaultLink/> for your repository.",
-    "fork-settings-hint": "Your default branch source is determined by your <link>fork behavior settings</link>."
+    "fork-settings-hint": "Your default branch source is determined by your <link>fork behavior settings</link>.",
+    "default-branch-link": "default branch"
   },
   "createTag": {
     "create-tag-ok": "Create Tag",
@@ -1147,9 +1139,6 @@
     "title": "Delete Tag",
     "confirm-message": "Are you sure you want to delete the tag <ref>{tag}</ref>?"
   },
-  "dialog-appeared": "Dialog Appeared",
-  "dialog-show": "Dialog Show",
-  "did-change": "Did Change",
   "diff": {
     "added": "added",
     "binary": {
@@ -1260,10 +1249,6 @@
     "titleDiscard": "Confirm Discard changes",
     "titleDiscardAll": "Confirm discard all changes"
   },
-  "div": "Div",
-  "email": "Email",
-  "error": "Error",
-  "find-text": "Find Text",
   "forks": {
     "do-you-want-to-fork": "Do you want to fork this repository?",
     "error-details": "Error details",
@@ -1284,7 +1269,6 @@
     "messageWithUser": "We were unable to authenticate with <url>{remoteUrl}</url>. Please enter the password for the user <user>{username}</user> to try again.",
     "patDescription": "Depending on your repository's hosting service, you might need to use a Personal Access Token (PAT) as your password. Learn more about creating a PAT in our <link>integration docs</link>."
   },
-  "highlighted": "Highlighted",
   "hookFailed": {
     "abort": "Abort",
     "ignoreAndContinue": "Ignore and Continue",
@@ -1322,8 +1306,6 @@
     "yes": "Yes",
     "message": "Your account token is no longer valid and you have been signed out from your <ref>{endpoint}</ref> account. Do you want to sign in again?"
   },
-  "issueCreationWebpageOpenedCount": "Issuecreationwebpageopenedcount",
-  "keyboard": "Keyboard",
   "lfs": {
     "attributeMismatch": {
       "title": {
@@ -1532,8 +1514,6 @@
       }
     }
   },
-  "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Multicommitdiffunreachablecommitsdialogopenedcount",
-  "next": "Next",
   "notifications": {
     "checksFailed": {
       "footerMany": "Do you want to switch to that Pull Request now and start fixing them?",
@@ -1566,7 +1546,6 @@
       "summary": "<user>{login}</user> {verb} your pull request <date>{date}</date>"
     }
   },
-  "openInCopilotAppCount": "Openincopilotappcount",
   "openPullRequest": {
     "file-does-not-exist": "File does not exist on disk",
     "file-list-description": "Pull request file list",
@@ -1598,10 +1577,6 @@
     "merge-status-invalid": "<strong>Error checking merge status.</strong> Unable to merge unrelated histories in this repository",
     "merge-status-loading": "<strong>Checking mergeability...</strong> Don't worry, you can still create the pull request."
   },
-  "opensCheckRunsPopover": "Openscheckrunspopover",
-  "pointer": "Pointer",
-  "premium_interactions": "Premium Interactions",
-  "previous": "Previous",
   "publish": {
     "description": "Description",
     "dotcom-sign-in-description": "Sign in to your GitHub.com account to access your repositories.",
@@ -1628,8 +1603,6 @@
       "message": "A force push will rewrite history on <ref>{upstreamBranch}</ref>. Any collaborators working on this branch will need to reset their own local branch to match the history of the remote."
     }
   },
-  "rebaseSuccessWithoutConflictsCount": "Rebasesuccesswithoutconflictscount",
-  "rebaseWithBranchAlreadyUpToDateCount": "Rebasewithbranchalreadyuptodatecount",
   "removeRepository": {
     "confirm-message": "Are you sure you want to remove the repository \"{name}\" from GitHub Desktop?",
     "move-to-trash": "Also move this repository to ",
@@ -1641,8 +1614,6 @@
     "rename-button": "Rename {branch}",
     "title": "Rename Branch"
   },
-  "reorderMultipleCommitsCount": "Reordermultiplecommitscount",
-  "reorderStartedCount": "Reorderstartedcount",
   "repositoryAlias": {
     "alias": "Alias",
     "description": "Description",
@@ -1680,7 +1651,6 @@
     "title": "Reset to Commit",
     "warning": "Warning"
   },
-  "resetToCommitCount": "Resettocommitcount",
   "samlReauth": {
     "confirm": "Would you like to open a browser to grant GitHub Desktop permission to access the repository?",
     "message": "The \"{organizationName}\" organization has enabled or enforced SAML SSO. To access this repository, you must sign in again and grant GitHub Desktop permission to access the organization's repositories.",
@@ -1722,13 +1692,6 @@
     "foundSecrets": "<link>Secret Scanning</link> found secret(s) in the commit(s) you attempted to push.",
     "remediation": "Allowing secrets risks exposure. Consider <link>removing the secret from your commit and commit history.</link>"
   },
-  "select-all": "Select All",
-  "skipGuidCheck": "Skipguidcheck",
-  "squashMergeSuccessfulCount": "Squashmergesuccessfulcount",
-  "squashMergeSuccessfulWithConflictsCount": "Squashmergesuccessfulwithconflictscount",
-  "squashMultipleCommitsInvokedCount": "Squashmultiplecommitsinvokedcount",
-  "squashViaContextMenuInvokedCount": "Squashviacontextmenuinvokedcount",
-  "squashViaDragAndDropInvokedCount": "Squashviadraganddropinvokedcount",
   "ssh": {
     "confirmConnect": "Are you sure you want to continue connecting?",
     "hostAuthenticity": "The authenticity of host '{host} ({ip})' can't be established. {keyType} key fingerprint is {fingerprint}.",
@@ -1762,12 +1725,6 @@
       "@other": "Switch branch"
     }
   },
-  "submit": "Submit",
-  "theme-changed": "Theme Changed",
-  "title": "Title",
-  "token": "Token",
-  "tooltip-hidden": "Tooltip Hidden",
-  "tooltip-shown": "Tooltip Shown",
   "unknownAuthors": {
     "list": "These users weren't found and won't be added as co-authors of this commit. Are you sure you want to commit?",
     "many": {
@@ -1798,17 +1755,26 @@
     "current": "Current: <url>{url}</url>",
     "expected": "Expected: <url>{url}</url>"
   },
-  "version": "Version",
-  "webgl2": "Webgl2",
-  "x-prioritize-update": "X Prioritize Update",
-  "x-prioritize-update-info-url": "X Prioritize Update Info Url",
   "banners": {
     "dismiss-message": "Dismiss this message",
     "viewConflicts": "View conflicts",
     "rebaseConflicts": "Resolve conflicts to continue rebasing <branch/>.",
     "mergeConflicts": "Resolve conflicts and commit to merge into <branch/>.",
     "conflictsFound": "Resolve conflicts to continue <operation/>.",
-    "cherryPickConflicts": "Resolve conflicts to continue cherry-picking onto <branch/>."
+    "cherryPickConflicts": "Resolve conflicts to continue cherry-picking onto <branch/>.",
+    "successfulReorder": {
+      "_one": "Successfully reordered {count:number} commit.",
+      "_other": "Successfully reordered {count:number} commits."
+    },
+    "cherryPickUndone": {
+      "_one": "Cherry-pick undone. Successfully removed the {count} copied commit from <branch/>.",
+      "_other": "Cherry-pick undone. Successfully removed the {count} copied commits from <branch/>."
+    },
+    "successfulSquash": {
+      "_one": "Successfully squashed {count} commit.",
+      "_other": "Successfully squashed {count} commits."
+    },
+    "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>"
   },
   "stashDiffHeader": {
     "title": "Stashed changes",
@@ -1821,7 +1787,15 @@
   },
   "tutorialPanel": {
     "getStarted": "Get started",
-    "altChecklist": "Partially checked check list"
+    "altChecklist": "Partially checked check list",
+    "noEditorInstalled": "It doesn’t look like you have a text editor installed. We can recommend <editor>{editor}</editor> or <atom>Atom</atom>, but feel free to use any.",
+    "openEditorWebsite": "Open the {name} website",
+    "defaultEditor": "Your default editor is <editor/>. You can change your preferred editor in <link/>",
+    "createBranch": "A branch allows you to work on different versions of a repository at one time. Create a branch by going into the branch menu in the top bar and clicking \"{branch}\".",
+    "editFile": "Open this repository in your preferred text editor. Edit the <ref/> file, save it, and come back.",
+    "makeCommit": "A commit allows you to save sets of changes. In the “summary“ field in the bottom left, write a short message that describes the changes you made. When you’re done, click the blue Commit button to finish.",
+    "publishToGithub": "Publishing will “push”, or upload, your commits to this branch of your repository on GitHub. Publish using the third button in the top bar.",
+    "openPullRequest": "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private."
   },
   "testNotifications": {
     "noPullRequests": "No pull requests found",
@@ -1830,7 +1804,9 @@
     "reviewWithoutBody": "Review without body",
     "selectType": "Select the type of notification to display:",
     "done": "Done!",
-    "title": "Test Notifications"
+    "title": "Test Notifications",
+    "openPullRequestInBrowser": "Open pull request #{number} in browser",
+    "pullRequestsFor": "Pull requests for {name}:"
   },
   "copilotByok": {
     "authentication": "Authentication",
@@ -1842,7 +1818,10 @@
     "notFound": "Sorry, I can't find that pull request!",
     "hangTight": "Hang tight",
     "allSet": "You're all set!",
-    "noOpenPrs": "No open pull requests in <repo/>"
+    "noOpenPrs": "No open pull requests in <repo/>",
+    "loading": "Loading pull requests as fast as I can!",
+    "createBranchCta": "Would you like to <link>create a new branch</link> and get going on your next project?",
+    "createPrCta": "Would you like to <link>create a pull request</link> from the current branch?"
   },
   "userAutocompletion": {
     "searchForUser": "Search for user"
@@ -1855,7 +1834,8 @@
     "pushFailed": "Failed to push",
     "createRepositoryFailed": "Failed creating repository",
     "commitFailed": "Commit failed",
-    "generic": "Error"
+    "generic": "Error",
+    "retryCloning": "Would you like to retry cloning <ref/>?"
   },
   "selectedCommits": {
     "noFilesInCommit": "No files in commit",
@@ -1865,7 +1845,12 @@
     "dragToCherryPick": "Drag the commits to the branch menu to cherry-pick them.",
     "dragToSquashOrReorder": "Drag the commits to squash or reorder them.",
     "rightClickForOptions": "Right click on multiple commits to see options.",
-    "fileListDescription": "Selected commit file list"
+    "fileListDescription": "Selected commit file list",
+    "squashCommits": {
+      "_one": "Squash {count:number} Commit",
+      "_other": "Squash {count:number} Commits"
+    },
+    "noCommitSelected": "No commit selected"
   },
   "pullRequestQuickView": {
     "reviewRequested": "Review requested",
@@ -1873,14 +1858,20 @@
     "markdownBody": "Pull request markdown body"
   },
   "commitDragElement": {
-    "copyTo": "Copy to"
+    "copyTo": "Copy to",
+    "insertHere": "'Insert here'",
+    "moveHere": {
+      "_one": "Move commit here",
+      "_other": "Move commits here"
+    }
   },
   "conflicts": {
     "allResolved": "All conflicts resolved",
     "oneConflictedFile": "1 conflicted file",
     "manyConflictedFiles": "{count} conflicted files",
     "fileDoesNotExistOn": "File does not exist on {branch}.",
-    "fileResolutionOptions": "File resolution options"
+    "fileResolutionOptions": "File resolution options",
+    "resolveManuallyHint": "<link>Open in command line,</link> your tool of choice, or close to resolve manually."
   },
   "configureGitUser": {
     "exampleCommit": "Example commit",
@@ -1901,7 +1892,13 @@
     "installNow": "A new version of GitHub Desktop is available. <restart/> now to install pending updates.",
     "showcase": "Exciting new features have been added<version/>. See <whatsNew/> or <dismiss/>.",
     "prioritizeMissing": "This version of GitHub Desktop is missing <importantUpdates/>. Please <restart/> now to install pending updates.",
-    "importantUpdates": "important updates"
+    "importantUpdates": "important updates",
+    "arm64AutoUpdate": "An optimized version of GitHub Desktop is available for your {chip} machine and will be installed at the next launch or <restart/> now.",
+    "architecture": {
+      "@darwin": "Apple silicon",
+      "@other": "Arm64"
+    },
+    "showcaseVersion": " with GitHub Desktop {version}"
   },
   "successBanner": {
     "undo": "Undo"
@@ -1932,11 +1929,25 @@
     "typeAnthropic": "Anthropic",
     "modelsLegend": "Models",
     "wireApiCompletions": "Chat completions (default)",
-    "wireApiResponses": "Responses (GPT-5 series)"
+    "wireApiResponses": "Responses (GPT-5 series)",
+    "duplicateModelId": "Duplicate model ID '{id}'.",
+    "modelsEmpty": "No models yet. Add at least one to use this provider.",
+    "modelsHint": "Tell Desktop which models this provider offers. Each one will appear in the model picker for Copilot features.",
+    "noCredentialsHint": "No credentials will be sent with requests to this provider.",
+    "removeQuestion": "Are you sure you want to remove the custom provider <ref/>?"
   },
   "unreachableCommits": {
     "unreachableTab": "Unreachable",
-    "reachableTab": "Reachable"
+    "reachableTab": "Reachable",
+    "wontSeeChanges": {
+      "_one": "You will not see changes from the following commit because it's not in the ancestry path of the most recent commit in your selection.",
+      "_other": "You will not see changes from the following commits because they're not in the ancestry path of the most recent commit in your selection."
+    },
+    "willSeeChanges": {
+      "_one": "You will see changes from the following commit because it's in the ancestry path of the most recent commit in your selection.",
+      "_other": "You will see changes from the following commits because they're in the ancestry path of the most recent commit in your selection."
+    },
+    "learnMore": "<link>Learn more about unreachable commits.</link>"
   },
   "tooltippedSha": {
     "copy": "Copy"
@@ -1965,7 +1976,9 @@
     "save": "Save",
     "add": "Add",
     "identifierRequired": "Please enter a model identifier.",
-    "identifierExists": "Another model with the identifier '{id}' already exists."
+    "identifierExists": "Another model with the identifier '{id}' already exists.",
+    "friendlyNameHint": "The friendly name shown in the Copilot model picker.",
+    "exactNameHint": "The exact name your provider expects (e.g. <code>gpt-4o</code>, <code>llama3</code>)."
   },
   "ciCheckRunRerun": {
     "titleSingle": "Re-run Single check",
@@ -1992,10 +2005,27 @@
       "@darwin": "Stash Changes and Continue",
       "@other": "Stash changes and continue"
     },
-    "stashHintTitle": "This will create a stash with your current changes. You can recover them by restoring the stash afterwards."
+    "stashHintTitle": "This will create a stash with your current changes. You can recover them by restoring the stash afterwards.",
+    "unableWhenChanges": "Unable to {action} when changes are present on your branch.",
+    "followingFilesOverwritten": "The following files would be overwritten:",
+    "action": {
+      "checkout": "checkout",
+      "pull": "pull",
+      "merge": "merge",
+      "rebase": "rebase",
+      "clone": "clone",
+      "fetch": "fetch",
+      "push": "push",
+      "cherryPick": "cherry-pick",
+      "squash": "squash",
+      "reorder": "reorder",
+      "discardChanges": "discard changes",
+      "restoreStashedChanges": "restore stashed changes"
+    }
   },
   "copilotModelPicker": {
-    "noModelsFound": "No models found."
+    "noModelsFound": "No models found.",
+    "configureCustomProviders": "Configure custom providers…"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git is requesting permission to sign in to this server:",
@@ -2004,7 +2034,8 @@
   },
   "warnLocalChanges": {
     "continueAnyway": "Do you want to continue anyway?",
-    "changesInProgress": "You have changes in progress. Undoing the merge commit might result in some of these changes being lost."
+    "changesInProgress": "You have changes in progress. Undoing the merge commit might result in some of these changes being lost.",
+    "undoWarning": "You have changes in progress. Undoing the commit might result in some of these changes being lost. Do you want to continue anyway?"
   },
   "repositoryPath": {
     "willBeCreatedAs": "Will be created as {{sanitizedName}}",
@@ -2012,19 +2043,50 @@
     "sanitizedLive": "Will be created as {sanitizedName}. Invalid characters have been replaced by hyphens."
   },
   "missingRepository": {
-    "checkAgain": "Check again."
+    "checkAgain": "Check again.",
+    "locate": "Locate…",
+    "cloneAgain": "Clone Again",
+    "trustRepository": {
+      "@darwin": "Trust Repository",
+      "@other": "Trust repository"
+    },
+    "potentiallyUnsafe": "{name} is potentially unsafe",
+    "unsafeRepository": "The Git repository at <ref>{path}</ref> appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository.",
+    "trustOwner": "If you trust the owner of the directory you can add an exception for this directory in order to continue.",
+    "cantFind": "Can't find \"{name}\"",
+    "lastSeenAt": "It was last seen at <path>{path}</path>. <link/>"
   },
   "repository": {
     "sidebar": "Repository sidebar"
   },
   "commitMessageOverride": {
-    "title": "Commit message override"
+    "title": "Commit message override",
+    "body": "The commit message you have entered will be overridden by the generated commit message.",
+    "copilotTip": "Tip: You can use <link>Copilot Instructions</link> to customize how commit messages are generated."
   },
   "history": {
     "dateLabel": "Date:",
     "cannotReorder": "Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits.",
     "cannotSquash": "Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits.",
-    "copyFullSha": "Copy the full SHA"
+    "copyFullSha": "Copy the full SHA",
+    "mergeInto": "Merge into <branch/>",
+    "collapse": "Collapse",
+    "expand": "Expand",
+    "collapseDetails": "Collapse commit details",
+    "expandDetails": "Expand commit details",
+    "emptyCommitMessage": "Empty commit message",
+    "notIncluded": {
+      "_one": "<link>{count:number} unreachable commit</link> not included.",
+      "_other": "<link>{count:number} unreachable commits</link> not included."
+    },
+    "showingChangesFrom": {
+      "_one": "Showing changes from <link>{count:number} commit</link>",
+      "_other": "Showing changes from <link>{count:number} commits</link>"
+    },
+    "showingChangesFromPlain": {
+      "_one": "Showing changes from {count:number} commit",
+      "_other": "Showing changes from {count:number} commits"
+    }
   },
   "gitUser": {
     "configureManually": "Configure manually",
@@ -2045,13 +2107,15 @@
     "selectEditor": "Select an editor"
   },
   "releaseNotes": {
-    "markdownGenerated": "Release notes generated from markdown"
+    "markdownGenerated": "Release notes generated from markdown",
+    "viewAll": "View all release notes"
   },
   "repositoriesList": {
     "fullNameLabel": "Full Name:",
     "pathLabel": "Path:",
     "noRepositoryFound": "Sorry, I can't find that repository",
-    "uncommittedChanges": "There are uncommitted changes in this repository"
+    "uncommittedChanges": "There are uncommitted changes in this repository",
+    "proTip": "ProTip! Press <addShortcut/> to quickly add a local repository, and <cloneShortcut/> to clone from anywhere within the app"
   },
   "resizable": {
     "resizeHandle": "Resize handle"
@@ -2071,7 +2135,9 @@
     "publishRepository": "Publish repository",
     "publishRepositoryDescription": "Publish this repository to GitHub",
     "publishBranch": "Publish branch",
-    "currentWorktreeButton": "Current worktree dropdown button"
+    "currentWorktreeButton": "Current worktree dropdown button",
+    "currentBranchIsTooltip": "Current branch is {ref}",
+    "checkingOutTooltip": "Checking out {branch}"
   },
   "revertProgress": {
     "title": "Reverting…",
@@ -2085,7 +2151,9 @@
     "createDescription": "Get started on a brand new project",
     "addTitle": "Add a local repository",
     "addDescription": "Work on an existing project in GitHub Desktop",
-    "openAtomSite": "Open the Atom website"
+    "openAtomSite": "Open the Atom website",
+    "doneMessage": "You’ve learned the basics on how to use GitHub Desktop. Here are some suggestions for what to do next.",
+    "doneImageAlt": "Hands clapping"
   },
   "pushBranchCommits": {
     "publishTitle": "Your branch must be published before opening a pull request.",
@@ -2126,6 +2194,26 @@
     "chooseLocation": {
       "_one": "Use the Up and Down arrow keys to choose a new location for the selected commit, then press Enter to confirm or Escape to cancel.",
       "_other": "Use the Up and Down arrow keys to choose a new location for the selected commits, then press Enter to confirm or Escape to cancel."
+    },
+    "cherryPickCommits": {
+      "@darwin": "Cherry-pick {count} Commits…",
+      "@other": "Cherry-pick {count} commits…"
+    },
+    "createTag": "Create Tag…",
+    "deleteTag": "Delete tag…",
+    "deleteTagNamed": "Delete tag {name}",
+    "reorderChooseLocation": "Use <up/> <down/> to choose a new location.",
+    "reorderCommits": {
+      "@darwin": "Reorder {count} Commits…",
+      "@other": "Reorder {count} commits…"
+    },
+    "squashCommits": {
+      "@darwin": "Squash {count} Commits…",
+      "@other": "Squash {count} commits…"
+    },
+    "tagsToPush": {
+      "_one": "This commit has {count} tag to push",
+      "_other": "This commit has {count} tags to push"
     }
   },
   "authentication": {
@@ -2148,7 +2236,8 @@
   },
   "authorInput": {
     "userNotFound": "Could not find user with username {username}",
-    "searching": "Searching for @{username}"
+    "searching": "Searching for @{username}",
+    "errorUserNotFound": "Error: user {username} not found"
   },
   "suggestedActions": {
     "branchAria": "Suggested actions for this branch"
@@ -2156,5 +2245,202 @@
   "avatar": {
     "forUser": "Avatar for {name}",
     "unknown": "Avatar for unknown user"
-  }
+  },
+  "historyCompare": {
+    "comparedBranchUpToDate": "The compared branch (<ref/>) is up to date with your branch",
+    "yourBranchUpToDate": "Your branch is up to date with the compared branch (<ref/>)"
+  },
+  "branchNameWarnings": {
+    "trackingWarning": "This branch is tracking <ref/> and renaming this branch will not change the branch name on the remote.",
+    "nameExistsOnRemote": "A branch named <ref/> already exists on the remote."
+  },
+  "copilotApp": {
+    "notFoundMessage": "Couldn't find the GitHub Copilot App on your machine. Experience agent-driven development built natively on GitHub by <download>downloading GitHub Copilot</download>.",
+    "notFoundPreferencesHint": "Already installed it? Let us know where in <preferences>Preferences</preferences>."
+  },
+  "worktreeDropdown": {
+    "currentWorktreeTooltip": "Current worktree is {worktree}"
+  },
+  "deleteWorktreeFailed": {
+    "deletionFailed": "Deleting the worktree <ref/> failed.",
+    "forceDeleteQuestion": "Would you like to forcefully delete the worktree <ref/>?"
+  },
+  "branchesContainer": {
+    "chooseMergeInto": "Choose a branch to merge into <branch/>",
+    "chooseMergeIntoTooltip": "Choose a branch to merge into {branch}"
+  },
+  "copilotDisclaimer": {
+    "poweredByAi": "Copilot is powered by AI, so mistakes are possible.",
+    "learnMore": "<link>Learn more about Copilot in GitHub Desktop.</link>",
+    "generateCommitMessage": "Review and edit the generated message carefully before use.",
+    "conflictResolution": "Review the suggested resolutions carefully before applying them to your files."
+  },
+  "repoRules": {
+    "fails": {
+      "_one": "<subject/> fails {count:number} rule.",
+      "_other": "<subject/> fails {count:number} rules."
+    },
+    "failsWithBypass": {
+      "_one": "<subject/> fails {count:number} rule, but you can bypass it. Proceed with caution!",
+      "_other": "<subject/> fails {count:number} rules, but you can bypass them. Proceed with caution!"
+    },
+    "viewAllRulesets": "<link>View all rulesets for this branch.</link>"
+  },
+  "confirmExitTutorial": {
+    "leaveWarning": "Are you sure you want to leave the tutorial? This will bring you back to the home screen."
+  },
+  "successfulCherryPick": {
+    "copied": {
+      "_one": "Successfully copied {count:number} commit to <strong>{branch}</strong>.",
+      "_other": "Successfully copied {count:number} commits to <strong>{branch}</strong>."
+    }
+  },
+  "authorHandle": {
+    "knownAriaLabel": "{author} press backspace or delete to remove",
+    "unknownAriaLabel": "{username}, {state}, press backspace or delete to remove",
+    "userNotFound": "user not found",
+    "searching": "searching"
+  },
+  "refNameTextBox": {
+    "errorNotValidName": "Error: {name} is not a valid name.",
+    "notValidName": "<ref/> is not a valid name.",
+    "willBeAs": "Will be {verb} as <ref/>.",
+    "invalidCharsReplaced": "Spaces and invalid characters have been replaced by hyphens.",
+    "warningLive": "Warning: Will be {verb} as {value}. Spaces and invalid characters have been replaced by hyphens.",
+    "verbCreated": "created"
+  },
+  "confirmDiscardStash": {
+    "warning": "Are you sure you want to discard these stashed changes?"
+  },
+  "workflowPushRejected": {
+    "rejectedMessage": "The push was rejected by the server for containing a modification to the workflow file <ref/>. In order to be able to push to workflow files GitHub Desktop needs to request additional permissions.",
+    "grantPermission": "Would you like to open a browser to grant GitHub Desktop permission to update workflow files?"
+  },
+  "pullRequestList": {
+    "loadingPullRequests": "Hang Tight. Loading pull requests as fast as I can!",
+    "numFound": {
+      "_one": "{count:number} pull request found",
+      "_other": "{count:number} pull requests found"
+    },
+    "pullRequestsIn": "Pull requests in {repository}",
+    "refreshTooltip": "Refresh the list of pull requests"
+  },
+  "configLockFile": {
+    "exists": "Failed to update Git configuration file. A lock file already exists at <ref>{lockFilePath}</ref>.",
+    "deleteAndRetry": "This can happen if another tool is currently modifying the Git configuration or if a Git process has terminated earlier without cleaning up the lock file. Do you want to <link>delete the lock file</link> and try again?"
+  },
+  "textBox": {
+    "clear": "Clear",
+    "inputCleared": "Input cleared"
+  },
+  "fullScreenInfo": {
+    "exitFullscreen": "Press <shortcut/> to exit fullscreen"
+  },
+  "addWorktreeDialog": {
+    "willCheckOutRemoteBranch": "Will check out remote branch <ref>{branch}</ref>.",
+    "willCheckOutExistingBranch": "Will check out existing branch <ref>{branch}</ref>.",
+    "worktreeWillBeCreated": "Worktree will be created at <ref>{path}</ref>."
+  },
+  "updateBranch": {
+    "mergeCommitLabel": "Create a merge commit",
+    "mergeCommitDescription": "The commits from the selected branch will be added to the current branch via a merge commit.",
+    "squashLabel": "Squash and merge",
+    "squashDescription": "The commits in the selected branch will be combined into one commit in the current branch.",
+    "rebaseDescription": "The commits from the selected branch will be rebased and added to the current branch."
+  },
+  "pushPullButton": {
+    "lastFetched": "Last fetched <time/>",
+    "neverFetched": "Never fetched",
+    "pullRemote": "Pull {remoteName}",
+    "pullRemoteWithRebase": "Pull {remoteName} with rebase"
+  },
+  "deleteWorktreeDialog": {
+    "confirmMessage": "Are you sure you want to delete the worktree <ref/>?"
+  },
+  "crash": {
+    "launchDescription": "GitHub Desktop encountered a catastrophic error that prevents it from launching. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
+    "runtimeErrorDescription": "GitHub Desktop has encountered an unrecoverable error and will need to restart. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>."
+  },
+  "copilotError": {
+    "quotaExceeded": "Quota exceeded",
+    "sessionQuotaExceeded": "Session quota exceeded",
+    "billingNotConfigured": "Copilot billing not configured",
+    "billingIssue": "Copilot billing issue",
+    "openSettings": "Open GitHub Copilot settings",
+    "retryAfterSeconds": {
+      "_one": "You can try again in {count:number} second.",
+      "_other": "You can try again in {count:number} seconds."
+    },
+    "retryAfterDate": "You can try again after {retryAfter}."
+  },
+  "commitProgress": {
+    "title": "Committing changes",
+    "close": "Close"
+  },
+  "appStore": {
+    "refreshingRepository": {
+      "@darwin": "Refreshing Repository",
+      "@other": "Refreshing repository"
+    },
+    "checkingOut": "Checking out",
+    "fastForwardingBranches": "Fast-forwarding branches",
+    "pushingTo": "Pushing to {remote}",
+    "pulling": "Pulling {remote}"
+  },
+  "revealDirectory": {
+    "title": "Reveal Repository in Finder?",
+    "message": "This repository might be an application.",
+    "detail": "Opening it directly could run software. You can reveal and select it in Finder without opening it.",
+    "revealButton": "Reveal in Finder"
+  },
+  "activity": "Activity",
+  "base": "Base",
+  "basic": "Basic",
+  "canvas": "Canvas",
+  "cherryPickBranchCreatedCount": "Cherrypickbranchcreatedcount",
+  "cherryPickConflictsEncounteredCount": "Cherrypickconflictsencounteredcount",
+  "cherryPickMultipleCommitsCount": "Cherrypickmultiplecommitscount",
+  "cherryPickSuccessfulWithConflictsCount": "Cherrypicksuccessfulwithconflictscount",
+  "cherryPickViaDragAndDropCount": "Cherrypickviadraganddropcount",
+  "commitSigning": "Commitsigning",
+  "contextmenu": "Context Menu",
+  "dialog-appeared": "Dialog Appeared",
+  "dialog-show": "Dialog Show",
+  "did-change": "Did Change",
+  "div": "Div",
+  "email": "Email",
+  "error": "Error",
+  "find-text": "Find Text",
+  "highlighted": "Highlighted",
+  "issueCreationWebpageOpenedCount": "Issuecreationwebpageopenedcount",
+  "keyboard": "Keyboard",
+  "multiCommitDiffUnreachableCommitsDialogOpenedCount": "Multicommitdiffunreachablecommitsdialogopenedcount",
+  "next": "Next",
+  "openInCopilotAppCount": "Openincopilotappcount",
+  "opensCheckRunsPopover": "Openscheckrunspopover",
+  "pointer": "Pointer",
+  "premium_interactions": "Premium Interactions",
+  "previous": "Previous",
+  "rebaseSuccessWithoutConflictsCount": "Rebasesuccesswithoutconflictscount",
+  "rebaseWithBranchAlreadyUpToDateCount": "Rebasewithbranchalreadyuptodatecount",
+  "reorderMultipleCommitsCount": "Reordermultiplecommitscount",
+  "reorderStartedCount": "Reorderstartedcount",
+  "resetToCommitCount": "Resettocommitcount",
+  "select-all": "Select All",
+  "skipGuidCheck": "Skipguidcheck",
+  "squashMergeSuccessfulCount": "Squashmergesuccessfulcount",
+  "squashMergeSuccessfulWithConflictsCount": "Squashmergesuccessfulwithconflictscount",
+  "squashMultipleCommitsInvokedCount": "Squashmultiplecommitsinvokedcount",
+  "squashViaContextMenuInvokedCount": "Squashviacontextmenuinvokedcount",
+  "squashViaDragAndDropInvokedCount": "Squashviadraganddropinvokedcount",
+  "submit": "Submit",
+  "theme-changed": "Theme Changed",
+  "title": "Title",
+  "token": "Token",
+  "tooltip-hidden": "Tooltip Hidden",
+  "tooltip-shown": "Tooltip Shown",
+  "version": "Version",
+  "webgl2": "Webgl2",
+  "x-prioritize-update": "X Prioritize Update",
+  "x-prioritize-update-info-url": "X Prioritize Update Info Url"
 }

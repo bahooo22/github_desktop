@@ -6,6 +6,7 @@ import { Ref } from './ref'
 import { InputWarning } from './input-description/input-warning'
 import { InputError } from './input-description/input-error'
 import { AutocompletingInput, IAutocompletionProvider } from '../autocompletion'
+import { t, Trans } from '../../lib/l10n'
 
 interface IRefNameProps {
   /**
@@ -213,9 +214,14 @@ export class RefNameTextBox extends React.Component<
           id="branch-name-error"
           className="warning-helper-text"
           trackedUserInput={proposedValue}
-          ariaLiveMessage={`Error: ${proposedValue} is not a valid name.`}
+          ariaLiveMessage={t('refNameTextBox.errorNotValidName', {
+            name: proposedValue,
+          })}
         >
-          <Ref>{proposedValue}</Ref> is not a valid name.
+          <Trans
+            k="refNameTextBox.notValidName"
+            components={{ ref: <Ref>{proposedValue}</Ref> }}
+          />
         </InputError>
       )
     }
@@ -232,19 +238,27 @@ export class RefNameTextBox extends React.Component<
     )
   }
 
+  private getWarningVerb() {
+    return this.props.warningMessageVerb ?? t('refNameTextBox.verbCreated')
+  }
+
   private getWarningMessageAsString(sanitizedValue: string): string {
-    return `Warning: Will be ${
-      this.props.warningMessageVerb ?? 'created '
-    } as ${sanitizedValue}. Spaces and invalid characters have been replaced by hyphens.`
+    return t('refNameTextBox.warningLive', {
+      verb: this.getWarningVerb(),
+      value: sanitizedValue,
+    })
   }
 
   private renderWarningMessage(sanitizedValue: string) {
     return (
       <>
-        Will be {this.props.warningMessageVerb ?? 'created'} as{' '}
-        <Ref>{sanitizedValue}</Ref>.{' '}
+        <Trans
+          k="refNameTextBox.willBeAs"
+          params={{ verb: this.getWarningVerb() }}
+          components={{ ref: <Ref>{sanitizedValue}</Ref> }}
+        />{' '}
         <span className="sr-only">
-          Spaces and invalid characters have been replaced by hyphens.
+          {t('refNameTextBox.invalidCharsReplaced')}
         </span>
       </>
     )

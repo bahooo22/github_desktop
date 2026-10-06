@@ -19,7 +19,7 @@ import {
   initializeMainProcessLocalization,
   registerLocalizationIpc,
 } from './l10n'
-import { localization } from '../lib/l10n/core'
+import { localization, t } from '../lib/l10n/core'
 import { MenuLabelsEvent } from '../models/menu-labels'
 import { shellNeedsPatching, updateEnvironmentForProcess } from '../lib/shell'
 import { parseAppURL } from '../lib/parse-app-url'
@@ -681,11 +681,10 @@ app.on('ready', () => {
     const window = BrowserWindow.fromWebContents(event.sender)
     const options: Electron.MessageBoxOptions = {
       type: 'warning',
-      title: 'Reveal Repository in Finder?',
-      message: 'This repository might be an application.',
-      detail:
-        'Opening it directly could run software. You can reveal and select it in Finder without opening it.',
-      buttons: ['Reveal in Finder', 'Cancel'],
+      title: t('revealDirectory.title'),
+      message: t('revealDirectory.message'),
+      detail: t('revealDirectory.detail'),
+      buttons: [t('revealDirectory.revealButton'), t('common.cancel')],
       defaultId: 1,
       cancelId: 1,
       noLink: true,

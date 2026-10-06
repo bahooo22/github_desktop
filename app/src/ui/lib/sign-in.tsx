@@ -12,6 +12,7 @@ import {
 } from '../../lib/stores'
 import { Ref } from './ref'
 import { getHTMLURL } from '../../lib/api'
+import { Trans } from '../../lib/l10n'
 import { EnterpriseServerConfirmation } from './enterprise-server-confirmation'
 
 interface ISignInProps {
@@ -36,12 +37,16 @@ export class SignIn extends React.Component<ISignInProps, {}> {
   private renderExistingAccountWarningStep(state: IExistingAccountWarning) {
     return (
       <>
-        <p className="existing-account-warning">
-          You're already signed in to{' '}
-          <Ref>{new URL(getHTMLURL(state.endpoint)).host}</Ref> with the account{' '}
-          <Ref>{state.existingAccount.login}</Ref>. If you continue, you will
-          first be signed out.
-        </p>
+        <Trans
+          as="p"
+          className="existing-account-warning"
+          k="signIn.existing-account-warning"
+          params={{
+            host: new URL(getHTMLURL(state.endpoint)).host,
+            login: state.existingAccount.login,
+          }}
+          components={{ ref: <Ref /> }}
+        />
         {this.renderAuthenticationStep(state)}
       </>
     )

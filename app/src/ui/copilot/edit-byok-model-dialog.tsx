@@ -82,7 +82,7 @@ export class EditCopilotBYOKModelDialog extends React.Component<
               autoFocus={true}
             />
             <p className="copilot-byok-field-hint">
-              The friendly name shown in the Copilot model picker.
+              {t('copilotByokModel.friendlyNameHint')}
             </p>
           </Row>
           <Row className="copilot-byok-field">
@@ -93,10 +93,12 @@ export class EditCopilotBYOKModelDialog extends React.Component<
               placeholder="gpt-4o"
               required={true}
             />
-            <p className="copilot-byok-field-hint">
-              The exact name your provider expects (e.g. <code>gpt-4o</code>,{' '}
-              <code>llama3</code>).
-            </p>
+            <Trans
+              as="p"
+              className="copilot-byok-field-hint"
+              k="copilotByokModel.exactNameHint"
+              components={{ code: <code /> }}
+            />
           </Row>
           <Row className="copilot-byok-field">
             <Select

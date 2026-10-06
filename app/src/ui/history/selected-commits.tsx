@@ -467,7 +467,7 @@ function NoCommitSelected() {
   return (
     <div className="panel blankslate">
       <img src={BlankSlateImage} className="blankslate-image" alt="" />
-      No commit selected
+      {t('selectedCommits.noCommitSelected')}
     </div>
   )
 }

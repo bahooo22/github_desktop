@@ -2,7 +2,7 @@ import * as React from 'react'
 import { encodePathAsUrl } from '../../lib/path'
 import { Button } from '../lib/button'
 import { KeyboardShortcut } from '../keyboard-shortcut/keyboard-shortcut'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(
   __dirname,
@@ -27,9 +27,7 @@ export class NoBranches extends React.Component<INoBranchesProps> {
 
           <div className="title">{t('branches.noBranchFound')}</div>
 
-          <div className="subtitle">
-            Do you want to create a new branch instead?
-          </div>
+          <div className="subtitle">{t('branches.createNewBranchInstead')}</div>
 
           <Button
             className="create-branch-button"
@@ -40,12 +38,17 @@ export class NoBranches extends React.Component<INoBranchesProps> {
           </Button>
 
           <div className="protip">
-            ProTip! Press{' '}
-            <KeyboardShortcut
-              darwinKeys={['⌘', '⇧', 'N']}
-              keys={['Ctrl', 'Shift', 'N']}
-            />{' '}
-            to quickly create a new branch from anywhere within the app
+            <Trans
+              k="branches.createBranchShortcutProTip"
+              components={{
+                shortcut: (
+                  <KeyboardShortcut
+                    darwinKeys={['⌘', '⇧', 'N']}
+                    keys={['Ctrl', 'Shift', 'N']}
+                  />
+                ),
+              }}
+            />
           </div>
         </div>
       )

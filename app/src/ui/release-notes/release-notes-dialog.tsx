@@ -188,7 +188,7 @@ export class ReleaseNotes extends React.Component<IReleaseNotesProps, {}> {
         </DialogContent>
         <DialogFooter>
           <LinkButton onClick={this.showAllReleaseNotes}>
-            View all release notes
+            {t('releaseNotes.viewAll')}
           </LinkButton>
           {this.renderButtons()}
         </DialogFooter>

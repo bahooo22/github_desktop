@@ -155,7 +155,7 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
       return null
     } else if (tip.kind === TipState.Unborn) {
       title = tip.ref
-      tooltip = `Current branch is ${tip.ref}`
+      tooltip = t('toolbar.currentBranchIsTooltip', { ref: tip.ref })
       canOpen = branchesState.allBranches.some(
         b => !b.isDesktopForkRemoteBranch
       )
@@ -181,7 +181,9 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
         description = `${description} (${friendlyProgress}%)`
       }
 
-      tooltip = `Checking out ${checkoutProgress.target}`
+      tooltip = t('toolbar.checkingOutTooltip', {
+        branch: checkoutProgress.target,
+      })
       progressValue = checkoutProgress.value
       icon = syncClockwise
       iconClassName = 'spin'

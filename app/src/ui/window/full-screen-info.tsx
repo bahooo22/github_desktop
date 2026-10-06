@@ -2,6 +2,7 @@ import * as React from 'react'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import { WindowState } from '../../lib/window-state'
 import { KeyboardShortcut } from '../keyboard-shortcut/keyboard-shortcut'
+import { Trans } from '../../lib/l10n'
 
 interface IFullScreenInfoProps {
   readonly windowState: WindowState | null
@@ -153,8 +154,14 @@ export class FullScreenInfo extends React.Component<
         timeout={toastTransitionTimeout}
       >
         <div key="notification" className="toast-notification">
-          Press <KeyboardShortcut darwinKeys={['^', '⌘', 'F']} keys={['F11']} />{' '}
-          to exit fullscreen
+          <Trans
+            k="fullScreenInfo.exitFullscreen"
+            components={{
+              shortcut: (
+                <KeyboardShortcut darwinKeys={['^', '⌘', 'F']} keys={['F11']} />
+              ),
+            }}
+          />
         </div>
       </CSSTransition>
     )

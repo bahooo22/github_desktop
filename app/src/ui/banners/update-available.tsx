@@ -74,13 +74,17 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
     if (this.props.isX64ToARM64ImmediateAutoUpdate) {
       return (
         <span onSubmit={this.updateNow}>
-          An optimized version of GitHub Desktop is available for your{' '}
-          {__DARWIN__ ? 'Apple silicon' : 'Arm64'} machine and will be installed
-          at the next launch or{' '}
-          <LinkButton onClick={this.updateNow}>
-            restart GitHub Desktop
-          </LinkButton>{' '}
-          now.
+          <Trans
+            k="updateAvailableBanner.arm64AutoUpdate"
+            params={{ chip: t('updateAvailableBanner.architecture') }}
+            components={{
+              restart: (
+                <LinkButton onClick={this.updateNow}>
+                  {t('updateAvailableBanner.restartNow')}
+                </LinkButton>
+              ),
+            }}
+          />
         </span>
       )
     }
@@ -88,7 +92,9 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
     if (this.props.isUpdateShowcaseVisible) {
       const version =
         this.props.newReleases !== null
-          ? ` with GitHub Desktop ${this.props.newReleases[0].latestVersion}`
+          ? t('updateAvailableBanner.showcaseVersion', {
+              version: this.props.newReleases[0].latestVersion,
+            })
           : ''
 
       return (
@@ -102,8 +108,8 @@ export class UpdateAvailable extends React.Component<IUpdateAvailableProps> {
           </span>
           <Trans
             k="updateAvailableBanner.showcase"
-            params={{ version }}
             components={{
+              version,
               whatsNew: (
                 <LinkButton onClick={this.showReleaseNotes}>
                   {t('updateAvailableBanner.whatsNew')}

@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { DialogFooter, DialogContent, Dialog } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t } from '../../lib/l10n'
 
 interface IConfirmExitTutorialProps {
   readonly onDismissed: () => void
@@ -21,10 +22,7 @@ export class ConfirmExitTutorial extends React.Component<
         type="normal"
       >
         <DialogContent>
-          <p>
-            Are you sure you want to leave the tutorial? This will bring you
-            back to the home screen.
-          </p>
+          <p>{t('confirmExitTutorial.leaveWarning')}</p>
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup

@@ -159,7 +159,11 @@ export class WorktreeDropdown extends React.Component<
         icon={octicons.fileDirectory}
         title={title}
         description={description}
-        tooltip={isOpen ? undefined : `Current worktree is ${title}`}
+        tooltip={
+          isOpen
+            ? undefined
+            : t('worktreeDropdown.currentWorktreeTooltip', { worktree: title })
+        }
         onDropdownStateChanged={this.props.onDropDownStateChanged}
         onContextMenu={this.onContextMenu}
         dropdownContentRenderer={this.renderWorktreeFoldout}

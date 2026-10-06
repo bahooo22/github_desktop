@@ -6,7 +6,7 @@ import { Ref } from '../lib/ref'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Repository } from '../../models/repository'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IDeleteWorktreeDialogProps {
   readonly repository: Repository
@@ -54,9 +54,12 @@ export class DeleteWorktreeDialog extends React.Component<
         ariaDescribedBy="delete-worktree-confirmation"
       >
         <DialogContent>
-          <p id="delete-worktree-confirmation">
-            Are you sure you want to delete the worktree <Ref>{name}</Ref>?
-          </p>
+          <Trans
+            as="p"
+            id="delete-worktree-confirmation"
+            k="deleteWorktreeDialog.confirmMessage"
+            components={{ ref: <Ref>{name}</Ref> }}
+          />
           <Checkbox
             label={t('common.do-not-show-again')}
             value={

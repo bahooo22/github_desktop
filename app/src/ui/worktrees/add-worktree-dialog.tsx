@@ -13,6 +13,7 @@ import memoizeOne from 'memoize-one'
 import { RepositoryPath } from '../lib/repository-path'
 import { Ref } from '../lib/ref'
 import { sanitizedRefName } from '../../lib/sanitize-ref-name'
+import { Trans } from '../../lib/l10n'
 
 interface IAddWorktreeDialogProps {
   readonly repository: Repository
@@ -150,13 +151,17 @@ export class AddWorktreeDialog extends React.Component<
       <Row>
         <p className="branch-status-hint">
           {branch.type === BranchType.Remote ? (
-            <>
-              Will check out remote branch <Ref>{effectiveName}</Ref>.
-            </>
+            <Trans
+              k="addWorktreeDialog.willCheckOutRemoteBranch"
+              params={{ branch: effectiveName }}
+              components={{ ref: <Ref /> }}
+            />
           ) : (
-            <>
-              Will check out existing branch <Ref>{effectiveName}</Ref>.
-            </>
+            <Trans
+              k="addWorktreeDialog.willCheckOutExistingBranch"
+              params={{ branch: effectiveName }}
+              components={{ ref: <Ref /> }}
+            />
           )}
         </p>
       </Row>
@@ -171,7 +176,11 @@ export class AddWorktreeDialog extends React.Component<
 
     return (
       <div id="add-worktree-path-msg">
-        Worktree will be created at <Ref>{fullPath}</Ref>.
+        <Trans
+          k="addWorktreeDialog.worktreeWillBeCreated"
+          params={{ path: fullPath }}
+          components={{ ref: <Ref /> }}
+        />
       </div>
     )
   }

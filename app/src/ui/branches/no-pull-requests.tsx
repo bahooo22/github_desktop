@@ -63,31 +63,29 @@ export class NoPullRequests extends React.Component<INoPullRequestsProps, {}> {
 
   private renderCallToAction() {
     if (this.props.isLoadingPullRequests) {
-      return (
-        <div className="call-to-action">
-          Loading pull requests as fast as I can!
-        </div>
-      )
+      return <div className="call-to-action">{t('noPullRequests.loading')}</div>
     }
 
     if (this.props.isOnDefaultBranch) {
       return (
         <div className="call-to-action">
-          Would you like to{' '}
-          <LinkButton onClick={this.props.onCreateBranch}>
-            create a new branch
-          </LinkButton>{' '}
-          and get going on your next project?
+          <Trans
+            k="noPullRequests.createBranchCta"
+            components={{
+              link: <LinkButton onClick={this.props.onCreateBranch} />,
+            }}
+          />
         </div>
       )
     } else {
       return (
         <div className="call-to-action">
-          Would you like to{' '}
-          <LinkButton onClick={this.props.onCreatePullRequest}>
-            create a pull request
-          </LinkButton>{' '}
-          from the current branch?
+          <Trans
+            k="noPullRequests.createPrCta"
+            components={{
+              link: <LinkButton onClick={this.props.onCreatePullRequest} />,
+            }}
+          />
         </div>
       )
     }

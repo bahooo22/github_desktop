@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Ref } from './ref'
 import { LinkButton } from './link-button'
 import { unlink } from 'fs/promises'
+import { Trans } from '../../lib/l10n'
 
 interface IConfigLockFileExistsProps {
   /**
@@ -40,19 +41,19 @@ export class ConfigLockFileExists extends React.Component<IConfigLockFileExistsP
   public render() {
     return (
       <div className="config-lock-file-exists-component">
-        <p>
-          Failed to update Git configuration file. A lock file already exists at{' '}
-          <Ref>{this.props.lockFilePath}</Ref>.
-        </p>
-        <p>
-          This can happen if another tool is currently modifying the Git
-          configuration or if a Git process has terminated earlier without
-          cleaning up the lock file. Do you want to{' '}
-          <LinkButton onClick={this.onDeleteLockFile}>
-            delete the lock file
-          </LinkButton>{' '}
-          and try again?
-        </p>
+        <Trans
+          as="p"
+          k="configLockFile.exists"
+          params={{ lockFilePath: this.props.lockFilePath }}
+          components={{ ref: <Ref /> }}
+        />
+        <Trans
+          as="p"
+          k="configLockFile.deleteAndRetry"
+          components={{
+            link: <LinkButton onClick={this.onDeleteLockFile} />,
+          }}
+        />
       </div>
     )
   }

@@ -1,5 +1,6 @@
 import * as Path from 'path'
 import { writeFile } from 'fs/promises'
+import { t } from '../l10n/core'
 import {
   AccountsStore,
   CloningRepositoriesStore,
@@ -4766,8 +4767,8 @@ export class AppStore extends TypedBaseStore<IAppState> {
   ) {
     this.updateCheckoutProgress(repository, {
       kind: 'checkout',
-      title: `Refreshing ${__DARWIN__ ? 'Repository' : 'repository'}`,
-      description: 'Checking out',
+      title: t('appStore.refreshingRepository'),
+      description: t('appStore.checkingOut'),
       value: 1,
       target: commitish,
     })
@@ -5213,7 +5214,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
 
       const remoteName = branch.upstreamRemoteName || remote.name
 
-      const pushTitle = `Pushing to ${remoteName}`
+      const pushTitle = t('appStore.pushingTo', { remote: remoteName })
 
       // Emit an initial progress even before our push begins
       // since we're doing some work to get remotes up front.
@@ -5318,15 +5319,13 @@ export class AppStore extends TypedBaseStore<IAppState> {
             })
           })
 
-          const refreshTitle = __DARWIN__
-            ? 'Refreshing Repository'
-            : 'Refreshing repository'
+          const refreshTitle = t('appStore.refreshingRepository')
           const refreshStartProgress = pushWeight + fetchWeight
 
           this.updatePushPullFetchProgress(repository, {
             kind: 'generic',
             title: refreshTitle,
-            description: 'Fast-forwarding branches',
+            description: t('appStore.fastForwardingBranches'),
             value: refreshStartProgress,
           })
 
@@ -5495,7 +5494,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
           }
         }
 
-        const title = `Pulling ${remote.name}`
+        const title = t('appStore.pulling', { remote: remote.name })
         const kind = 'pull'
         this.updatePushPullFetchProgress(repository, {
           kind,
@@ -5577,14 +5576,12 @@ export class AppStore extends TypedBaseStore<IAppState> {
           }
 
           const refreshStartProgress = pullWeight + fetchWeight
-          const refreshTitle = __DARWIN__
-            ? 'Refreshing Repository'
-            : 'Refreshing repository'
+          const refreshTitle = t('appStore.refreshingRepository')
 
           this.updatePushPullFetchProgress(repository, {
             kind: 'generic',
             title: refreshTitle,
-            description: 'Fast-forwarding branches',
+            description: t('appStore.fastForwardingBranches'),
             value: refreshStartProgress,
           })
 
@@ -5952,14 +5949,12 @@ export class AppStore extends TypedBaseStore<IAppState> {
           )
         }
 
-        const refreshTitle = __DARWIN__
-          ? 'Refreshing Repository'
-          : 'Refreshing repository'
+        const refreshTitle = t('appStore.refreshingRepository')
 
         this.updatePushPullFetchProgress(repository, {
           kind: 'generic',
           title: refreshTitle,
-          description: 'Fast-forwarding branches',
+          description: t('appStore.fastForwardingBranches'),
           value: fetchWeight,
         })
 
