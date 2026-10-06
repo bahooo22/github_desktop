@@ -1,26 +1,31 @@
-.language-option {
-  display: flex;
-  flex-direction: column;
-}
-
 .language-option-detail {
   font-size: var(--font-size-sm);
   color: var(--text-secondary-color);
 }
 
-.language-option-badge {
-  margin-left: var(--spacing-half);
-  font-size: var(--font-size-sm);
-  font-style: italic;
-  color: var(--text-secondary-color);
+.language-picker {
+  margin-top: var(--spacing);
+
+  select {
+    max-width: min(32em, 100%);
+  }
 }
 
+// A translated button label is longer than the English one, so the rows have to
+// let the buttons drop below their description instead of clipping them at the
+// edge of the dialog.
 .language-settings-row {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--spacing);
+  gap: var(--spacing-half) var(--spacing);
   margin-top: var(--spacing);
+
+  > :first-child {
+    flex: 1 1 16em;
+    min-width: 0;
+  }
 
   h3 {
     margin: 0 0 var(--spacing-half);
@@ -30,13 +35,14 @@
 
   .settings-description {
     margin: 0;
+    overflow-wrap: anywhere;
   }
 }
 
 .language-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing-half);
-  flex-shrink: 0;
 }
 
 .language-problem {

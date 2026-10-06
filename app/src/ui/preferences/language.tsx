@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Dispatcher } from '../dispatcher'
 import { PopupType } from '../../models/popup'
 import { DialogContent } from '../dialog'
-import { RadioGroup } from '../lib/radio-group'
+import { Select } from '../lib/select'
 import { Button } from '../lib/button'
 import {
   localization,
@@ -69,6 +69,11 @@ export class Language extends React.Component<
     )
   }
 
+  /**
+   * A native drop-down rather than one radio button per language: the list
+   * grows with every translation a user adds, and a closed select scrolls
+   * where a stack of labelled radios would push the rest of the page down.
+   */
   private renderPicker() {
     const tags = localization.getAvailableTags().filter(tag => tag !== 'en')
     const requested = localization.getRequestedLocale()
@@ -77,28 +82,40 @@ export class Language extends React.Component<
     const keys = [SystemOption, 'en', ...tags]
 
     return (
-      <RadioGroup<string>
-        selectedKey={selectedKey}
-        radioButtonKeys={keys}
-        onSelectionChanged={this.onSelectionChanged}
-        renderRadioButtonLabelContents={this.renderOptionLabel}
-      />
+      <div className="language-picker">
+        <Select
+          label={t('settings.language.available')}
+          value={selectedKey}
+          onChange={this.onSelectionChanged}
+        >
+          {keys.map(key => (
+            <option key={key} value={key}>
+              {this.renderOptionLabel(key)}
+            </option>
+          ))}
+        </Select>
+        <p className="language-option-detail">
+          {this.renderDetail(selectedKey)}
+        </p>
+      </div>
     )
   }
 
   private renderOptionLabel = (key: string) => {
     if (key === SystemOption) {
-      return (
-        <div className="language-option">
-          <span>{t('settings.language.systemDefault')}</span>
-          <span className="language-option-detail">
-            {this.renderDetectedLine(localization.getSystemLocales())}
-          </span>
-        </div>
-      )
+      return t('settings.language.systemDefault')
     }
 
-    return this.renderLocaleLabel(key)
+    const locale = localization.getLocale(key)
+    if (locale === undefined) {
+      return key
+    }
+
+    const label = `${locale.name} (${locale.nativeName})`
+
+    return locale.source === 'user'
+      ? `${label} - ${t('settings.language.yours')}`
+      : label
   }
 
   private renderDetectedLine(system: ReadonlyArray<string>) {
@@ -116,38 +133,28 @@ export class Language extends React.Component<
       : t('settings.language.noMatch', { languages })
   }
 
-  private renderLocaleLabel(tag: string) {
-    const locale = localization.getLocale(tag)
+  /** How much of the interface the current selection actually covers. */
+  private renderDetail(key: string) {
+    if (key === SystemOption) {
+      return this.renderDetectedLine(localization.getSystemLocales())
+    }
+
+    const locale = localization.getLocale(key)
     if (locale === undefined) {
-      return tag
+      return null
     }
 
     const total = localization.getBuiltInKeys().length
     const missing =
-      tag === 'en'
+      key === 'en'
         ? 0
-        : localization.getBuiltInKeys().filter(key => !locale.messages.has(key))
-            .length
+        : localization
+            .getBuiltInKeys()
+            .filter(builtInKey => !locale.messages.has(builtInKey)).length
 
-    const isYours = locale.source === 'user'
-
-    return (
-      <div className="language-option">
-        <span>
-          {locale.name} ({locale.nativeName})
-          {isYours && (
-            <span className="language-option-badge">
-              {t('settings.language.yours')}
-            </span>
-          )}
-        </span>
-        <span className="language-option-detail">
-          {missing === 0
-            ? t('settings.language.complete')
-            : t('settings.language.incomplete', { missing, total })}
-        </span>
-      </div>
-    )
+    return missing === 0
+      ? t('settings.language.complete')
+      : t('settings.language.incomplete', { missing, total })
   }
 
   private renderEditorRow() {
@@ -245,7 +252,10 @@ export class Language extends React.Component<
     )
   }
 
-  private onSelectionChanged = async (key: string) => {
+  private onSelectionChanged = async (
+    ev: React.FormEvent<HTMLSelectElement>
+  ) => {
+    const key = ev.currentTarget.value
     const tag = key === SystemOption ? null : key
 
     const error = await setPreferredLocale(tag)
