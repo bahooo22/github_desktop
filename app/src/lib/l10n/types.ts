@@ -46,6 +46,9 @@ export type LocaleDefinition = {
 
   readonly direction: Direction
 
+  /** Translator credits from the catalog's `meta.authors` block. */
+  readonly authors?: ReadonlyArray<string>
+
   /** Where the catalog came from, which decides whether it is editable. */
   readonly source: 'builtin' | 'user'
 

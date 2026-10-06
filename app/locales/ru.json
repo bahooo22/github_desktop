@@ -644,7 +644,8 @@
     "beta-channel": "Ознакомьтесь с <link>бета-каналом</link>",
     "terms-and-conditions": "Условия использования",
     "license-notices": "Лицензии и уведомления об открытом ПО",
-    "responsible-use-copilot": "Ответственное использование Copilot в GitHub Desktop"
+    "responsible-use-copilot": "Ответственное использование Copilot в GitHub Desktop",
+    "l10nCredit": "Локализация: {authors} (сборка {sha}, {date})"
   },
   "acknowledgements": {
     "title": "Лицензии и уведомления об открытом ПО",

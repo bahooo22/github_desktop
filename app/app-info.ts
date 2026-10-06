@@ -36,6 +36,7 @@ export function getReplacements() {
       process.env.DESKTOP_NON_FATAL_ERROR_REPORTING_ENDPOINT
     ),
     __SHA__: s(getSHA()),
+    __BUILD_DATE__: s(new Date().toISOString().slice(0, 10)),
     'process.platform': s(process.platform),
     'process.env.NODE_ENV': s(process.env.NODE_ENV || 'development'),
     'process.env.TEST_ENV': s(process.env.TEST_ENV),

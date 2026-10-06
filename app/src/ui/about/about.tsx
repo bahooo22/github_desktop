@@ -18,7 +18,7 @@ import { encodePathAsUrl } from '../../lib/path'
 import { isOSNoLongerSupportedByElectron } from '../../lib/get-os'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { formatDate } from '../../lib/format-date'
-import { t, Trans } from '../../lib/l10n'
+import { t, Trans, localization } from '../../lib/l10n'
 
 const logoPath = __DARWIN__
   ? 'static/logo-64x64@2x.png'
@@ -279,6 +279,21 @@ export class About extends React.Component<IAboutProps> {
             </span>{' '}
             ({releaseNotesLink})
           </p>
+          {(() => {
+            const locale = localization.getLocale(localization.getActiveTag())
+            if (locale?.authors && locale.authors.length > 0) {
+              return (
+                <p className="no-padding selectable-text l10n-credit">
+                  {t('about.l10nCredit', {
+                    authors: locale.authors.join(', '),
+                    sha: __SHA__.substring(0, 10),
+                    date: __BUILD_DATE__,
+                  })}
+                </p>
+              )
+            }
+            return null
+          })()}
           {this.renderUpdateDetails()}
           {this.renderUpdateButton()}
           {this.renderBetaLink()}

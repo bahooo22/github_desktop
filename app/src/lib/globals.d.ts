@@ -40,6 +40,9 @@ declare const __APP_VERSION__: string
  */
 declare const __SHA__: string
 
+/** The date of the build in ISO format (YYYY-MM-DD). */
+declare const __BUILD_DATE__: string
+
 /** The channel for which the release was created. */
 declare const __RELEASE_CHANNEL__:
   | 'production'

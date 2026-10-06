@@ -18,6 +18,7 @@ type CatalogLayer = {
   readonly name: string
   readonly nativeName: string
   readonly direction: Direction
+  readonly authors?: ReadonlyArray<string>
   readonly messages: ReadonlyMap<string, Message>
 }
 
@@ -68,6 +69,7 @@ class LocalizationManager {
       name: meta.name ?? existing?.name ?? tag,
       nativeName: meta.nativeName ?? existing?.nativeName ?? tag,
       direction: meta.direction ?? existing?.direction ?? 'ltr',
+      authors: meta.authors ?? existing?.authors,
       messages:
         existing === undefined
           ? messages
@@ -153,6 +155,7 @@ class LocalizationManager {
       name: layer.name,
       nativeName: layer.nativeName,
       direction: layer.direction,
+      ...(layer.authors !== undefined ? { authors: layer.authors } : {}),
       source: this.userLayers.has(tag) ? 'user' : 'builtin',
       messages: layer.messages,
       userMessages: this.userLayers.get(tag)?.messages ?? noMessages,
