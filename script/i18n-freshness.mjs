@@ -1019,7 +1019,13 @@ export function runBundles() {
     return 1
   }
 
-  const built = readdirSync(buildDir).filter(name => name.endsWith('.js'))
+  // Stylesheets and the html shell belong to the same build: a copy that kept
+  // the dev-mode `index.html` renders the whole interface without CSS, and
+  // comparing bundles alone reports it as up to date. The analyzer reports are
+  // build diagnostics, not shipped files, so they stay out of the comparison.
+  const built = readdirSync(buildDir).filter(
+    name => /\.(?:js|css|html)$/.test(name) && !name.endsWith('.report.html')
+  )
   if (built.length === 0) {
     console.error('out/ contains no bundles')
     return 1
@@ -1068,7 +1074,7 @@ export function runBundles() {
 
     problems++
     console.log(
-      `${label}: ${stale.length} bundle(s) differ from out/` +
+      `${label}: ${stale.length} build file(s) differ from out/` +
         (missingLanguages.length > 0
           ? `, missing language(s): ${missingLanguages
               .map(language => language.tag)
