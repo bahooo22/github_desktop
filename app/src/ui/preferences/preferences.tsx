@@ -391,6 +391,7 @@ export class Preferences extends React.Component<
         title={t('settings.title')}
         onDismissed={this.onCancel}
         onSubmit={this.onSave}
+        resizable={true}
       >
         {this.renderDisallowedCharactersError()}
         <div className="preferences-container">

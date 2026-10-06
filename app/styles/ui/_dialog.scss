@@ -161,6 +161,47 @@ dialog {
     }
   }
 
+  // Opt-in resizing, driven by the `resizable` prop on the Dialog component.
+  // The global max-width is what keeps a dialog a comfortable reading measure,
+  // so a dialog the user may grow has to give that up and pass the extra room
+  // down to the content instead of letting it spill out of the box.
+  &.resizable {
+    max-width: none;
+    max-height: none;
+
+    & > form {
+      // The form is sized to the whole dialog otherwise, which is invisible
+      // while everything is content driven but pushes the footer out of a
+      // dialog with a height of its own.
+      flex: 1 1 auto;
+      height: auto;
+      min-height: 0;
+      overflow: hidden;
+    }
+  }
+
+  .dialog-resize-handle {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 14px;
+    height: 14px;
+    cursor: nwse-resize;
+
+    // The classic corner grip, drawn rather than shipped as an icon so it
+    // picks up the theme like the rest of the dialog does.
+    &::after {
+      content: '';
+      position: absolute;
+      right: 3px;
+      bottom: 3px;
+      border-style: solid;
+      border-width: 0 0 7px 7px;
+      border-color: transparent transparent var(--text-secondary-color) transparent;
+      opacity: 0.5;
+    }
+  }
+
   .dialog-header {
     height: 50px;
     border-bottom: var(--base-border);
@@ -558,6 +599,32 @@ dialog {
           max-height: $default-tab-height;
           overflow: hidden;
         }
+      }
+    }
+
+    // Everything between the dialog box and the tab's content has to hand its
+    // height on for a resized window to reach the scrollable content, and the
+    // tab's own minimum height has to stop competing with the size the user
+    // picked once they've dragged the dialog smaller than it.
+    &.resizable {
+      .preferences-container {
+        flex: 1 1 auto;
+        min-height: 0;
+      }
+
+      .tab-container {
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+
+      .dialog-content {
+        flex: 1 1 auto;
+        overflow-y: auto;
+      }
+
+      &.user-sized .dialog-content {
+        min-height: 0;
       }
     }
   }

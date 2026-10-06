@@ -56,6 +56,16 @@ const DisableClickDismissalDelay = 500
  */
 const titleBarHeight = getTitleBarHeight()
 
+/**
+ * The smallest a resizable dialog can be dragged. Below this the footers and
+ * the tightly packed rows of a busy tab start overlapping.
+ */
+const minResizableWidth = 400
+const minResizableHeight = 300
+
+/** Backdrop kept visible when a dialog is dragged against the window edge. */
+const resizableViewportMargin = 20
+
 interface IDialogProps {
   /**
    * An optional dialog title. Most, if not all dialogs should have
@@ -163,6 +173,15 @@ interface IDialogProps {
   readonly focusCloseButtonOnOpen?: boolean
 
   readonly onDialogRef?: (ref: HTMLDialogElement | null) => void
+
+  /**
+   * Whether the user may drag the bottom right corner to resize the dialog.
+   * Off by default: almost every dialog is sized for its content, and a resize
+   * handle would only invite awkward shapes. Long lived screens such as the
+   * preferences open it up so that hints and descriptions can be read without
+   * scrolling.
+   */
+  readonly resizable?: boolean
 }
 
 /**
@@ -275,6 +294,19 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
 
   private disableClickDismissalTimeoutId: number | null = null
   private disableClickDismissal = false
+
+  /**
+   * Where the pointer was and how big the dialog was when a resize drag
+   * started, or undefined while no drag is in flight.
+   */
+  private resizeOrigin:
+    | {
+        readonly x: number
+        readonly y: number
+        readonly width: number
+        readonly height: number
+      }
+    | undefined
 
   /**
    * Resize observer used for tracking width changes and
@@ -455,6 +487,7 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
 
     window.removeEventListener('focus', this.onWindowFocus)
     document.removeEventListener('mouseup', this.onDocumentMouseUp)
+    this.onResizeMouseUp()
 
     this.resizeObserver.disconnect()
     window.removeEventListener('resize', this.scheduleResizeEvent)
@@ -763,6 +796,62 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
     }
   }
 
+  private onResizeMouseDown = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault()
+
+    if (this.dialogElement === null) {
+      return
+    }
+
+    const { width, height } = this.dialogElement.getBoundingClientRect()
+    this.resizeOrigin = { x: e.clientX, y: e.clientY, width, height }
+
+    document.addEventListener('mousemove', this.onResizeMouseMove)
+    document.addEventListener('mouseup', this.onResizeMouseUp, { once: true })
+  }
+
+  /**
+   * Sizes the dialog while the pointer is dragged, which happens outside of
+   * React on purpose: re-rendering a whole preferences tab per mouse move
+   * would be slow and would lose the scroll position of the content.
+   */
+  private onResizeMouseMove = (e: MouseEvent) => {
+    const origin = this.resizeOrigin
+
+    if (origin === undefined || this.dialogElement === null) {
+      return
+    }
+
+    // The browser centres a modal dialog, so half of any growth lands on the
+    // opposite edge. Doubling the pointer travel is what keeps the corner we
+    // grabbed under the pointer instead of lagging at half speed.
+    const maxWidth = window.innerWidth - resizableViewportMargin * 2
+    const maxHeight =
+      window.innerHeight - titleBarHeight - resizableViewportMargin * 2
+    const width = Math.min(
+      Math.max(origin.width + (e.clientX - origin.x) * 2, minResizableWidth),
+      maxWidth
+    )
+    const height = Math.min(
+      Math.max(origin.height + (e.clientY - origin.y) * 2, minResizableHeight),
+      maxHeight
+    )
+
+    const style = this.dialogElement.style
+    style.width = `${width}px`
+    style.height = `${height}px`
+
+    // The content's own minimum height sizes the dialog until the user says
+    // otherwise; from now on the inline height above is the only size that
+    // matters and it has to be allowed to shrink below that minimum.
+    this.dialogElement.classList.add('user-sized')
+  }
+
+  private onResizeMouseUp = () => {
+    this.resizeOrigin = undefined
+    document.removeEventListener('mousemove', this.onResizeMouseMove)
+  }
+
   private onDialogRef = (e: HTMLDialogElement | null) => {
     // We need to explicitly subscribe to and unsubscribe from the dialog
     // element as react doesn't yet understand the element and which events
@@ -918,11 +1007,28 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
     }
   }
 
+  private renderResizeHandle() {
+    if (this.props.resizable !== true) {
+      return null
+    }
+
+    return (
+      // Mouse-only affordance, redundant for assistive technology.
+      // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+      <div
+        className="dialog-resize-handle"
+        aria-hidden={true}
+        onMouseDown={this.onResizeMouseDown}
+      />
+    )
+  }
+
   public render() {
     const className = classNames(
       {
         error: this.props.type === 'error',
         warning: this.props.type === 'warning',
+        resizable: this.props.resizable === true,
       },
       this.props.className,
       'tooltip-host'
@@ -951,6 +1057,8 @@ export class Dialog extends React.Component<DialogProps, IDialogState> {
             {this.props.children}
           </fieldset>
         </form>
+
+        {this.renderResizeHandle()}
       </dialog>
     )
   }
