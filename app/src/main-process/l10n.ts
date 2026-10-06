@@ -18,6 +18,21 @@ export function getLocalizationsDirectory(): string {
 }
 
 /**
+ * Electron can report an empty preferred-language list while still knowing the
+ * single locale the session runs in (headless Linux being the common case), so
+ * fall back to that instead of silently dropping to the default language.
+ */
+function getSystemLocales(): ReadonlyArray<string> {
+  const preferred = app.getPreferredSystemLanguages()
+  if (preferred.length > 0) {
+    return preferred
+  }
+
+  const single = app.getLocale()
+  return single === '' ? [] : [single]
+}
+
+/**
  * Where the chosen language is stored. It lives next to the catalogs rather
  * than in localStorage so the main process can honour it when building the
  * native menu, long before any renderer exists.
@@ -126,7 +141,7 @@ export function initializeMainProcessLocalization(): void {
     // No preference yet, so follow the operating system.
   }
 
-  localization.setSystemLocales(app.getPreferredSystemLanguages())
+  localization.setSystemLocales(getSystemLocales())
   localization.setRequestedLocale(preferredLocale)
 }
 
@@ -168,7 +183,7 @@ export async function getLocalizationState(): Promise<LocalizationState> {
   }
 
   return {
-    systemLocales: app.getPreferredSystemLanguages(),
+    systemLocales: getSystemLocales(),
     preferredLocale,
     directory,
     files,

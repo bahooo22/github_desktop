@@ -60,10 +60,13 @@ export async function initializeLocalization(): Promise<void> {
 }
 
 function applyState(next: LocalizationState | undefined) {
+  // An empty list from the main process means "nothing detected", not "the
+  // user speaks no language", so the renderer's own view still gets a say.
+  const fromMain = next?.systemLocales ?? []
   localization.setSystemLocales(
-    next?.systemLocales ??
-      (typeof navigator === 'undefined' ? [] : navigator.languages) ??
-      []
+    fromMain.length > 0
+      ? fromMain
+      : (typeof navigator === 'undefined' ? [] : navigator.languages) ?? []
   )
 
   localization.setRequestedLocale(next?.preferredLocale ?? null)
