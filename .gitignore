@@ -23,3 +23,6 @@ playwright-videos/
 
 # Electron win32 cross-build output (unpacked app, ~1.2GB)
 bin/
+
+# Рабочие артефакты аудита локализации (скрипты/дампы), не часть приложения
+tmp/
