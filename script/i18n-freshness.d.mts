@@ -37,6 +37,10 @@ export function extractPlaceholders(text: string): ReadonlyArray<string>
 export function isVisibleContextName(rawName: string): boolean
 export function isLegalVisibleLiteral(text: string): boolean
 export function isUserFacingLiteral(text: string): boolean
+/** Callee of the innermost still-open bracket in a piece of source text. */
+export function innermostCallee(text: string): string
+/** True for logger/`throw new Error` calls, whose text never reaches the UI. */
+export function isDiagnosticCallee(callee: string): boolean
 export function extractVisibleLiteralsFromSource(
   code: string,
   fileName: string
@@ -53,3 +57,4 @@ export function compareCatalogParity(
 export function runAudit(): number
 export function runUpstream(ref: string | undefined): number
 export function runParity(): number
+export function runBundles(): number

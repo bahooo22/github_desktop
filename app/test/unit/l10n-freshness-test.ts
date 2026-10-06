@@ -9,6 +9,8 @@ import {
   compareCatalogParity,
   extractPlaceholders,
   extractVisibleLiteralsFromSource,
+  innermostCallee,
+  isDiagnosticCallee,
   isLegalVisibleLiteral,
   isUserFacingLiteral,
 } from '../../../script/i18n-freshness.mjs'
@@ -140,6 +142,42 @@ describe('l10n freshness', () => {
       },
     ])
     assert.deepEqual(legal.issues, [])
+  })
+
+  it('tells log and throw text apart from interface text', () => {
+    assert.equal(
+      innermostCallee(`    log.warn(`),
+      'log.warn',
+      'the callee of an open logger call must be found'
+    )
+    assert.equal(
+      innermostCallee(`  throw new Error(`),
+      'throw new Error',
+      'an exception constructor must be found'
+    )
+    assert.equal(
+      innermostCallee(`  const label = 'Current branch`),
+      '',
+      'a line with no open call has no callee'
+    )
+    assert.equal(
+      innermostCallee(`log.info('Already logged up')`),
+      '',
+      'a balanced call must not leak into the next line'
+    )
+    assert.equal(
+      innermostCallee(`  // the user's own catalog\n  console.error(`),
+      'console.error',
+      'an apostrophe in a comment must not open a string'
+    )
+
+    assert.equal(isDiagnosticCallee('log.warn'), true)
+    assert.equal(isDiagnosticCallee('console.error'), true)
+    assert.equal(isDiagnosticCallee('throw new Error'), true)
+    assert.equal(isDiagnosticCallee('new TypeError'), true)
+    assert.equal(isDiagnosticCallee('showPopup'), false)
+    assert.equal(isDiagnosticCallee('showErrorDialog'), false)
+    assert.equal(isDiagnosticCallee(''), false)
   })
 
   it('treats product names and technical strings as legal', () => {

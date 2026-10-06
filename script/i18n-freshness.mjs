@@ -734,10 +734,13 @@ function addedLineLiterals(line) {
   }
 
   for (const match of content.matchAll(/(['"])((?:\\.|(?!\1)[^\\])*)\1/g)) {
-    out.push(match[2].replace(/\\(["'\\])/g, '$1'))
+    out.push({
+      text: match[2].replace(/\\(["'\\])/g, '$1'),
+      before: content.slice(0, match.index),
+    })
   }
   for (const match of content.matchAll(/`([^`$]*)`/g)) {
-    out.push(match[1])
+    out.push({ text: match[1], before: content.slice(0, match.index) })
   }
 
   // JSX children appear as bare text lines between tags.
@@ -748,9 +751,92 @@ function addedLineLiterals(line) {
     /\s/.test(bare) &&
     !/[<>/{}=|;().,[\]'"`]/.test(bare)
   ) {
-    out.push(bare)
+    out.push({ text: bare, before: content.slice(0, content.indexOf(bare)) })
   }
   return out
+}
+
+const DIAGNOSTIC_METHODS =
+  /^(?:log|logger|console|winreg)\.(?:debug|info|log|warn|error|trace|exception|critical|record)/
+
+/** How much added code above a literal to look at to find the call it lands in. */
+const CONTEXT_LINES = 6
+
+/**
+ * Is this the head of a call that writes to the log or raises, rather than
+ * something the user can see? Message text for `log.warn(...)` or a string
+ * passed to `new Error(...)` has no catalog entry and never needs one.
+ */
+export function isDiagnosticCallee(callee) {
+  const name = callee.trim()
+  if (name === '') {
+    return false
+  }
+  if (DIAGNOSTIC_METHODS.test(name.replace(/\s+/g, ''))) {
+    return true
+  }
+  return /^(?:throw\s+)?new\s+[\w$.]*(?:Error|Exception)$/.test(name)
+}
+
+/** Quote aware scan that returns the innermost open bracket's callee. */
+export function innermostCallee(text) {
+  const stack = []
+  for (let i = 0; i < text.length; i++) {
+    const char = text[i]
+    if (char === '/' && (text[i + 1] === '/' || text[i + 1] === '*')) {
+      // Prose carries apostrophes (`user's`), which would otherwise open a
+      // string and unbalance every bracket that follows it.
+      i =
+        text[i + 1] === '/'
+          ? text.indexOf('\n', i) === -1
+            ? text.length
+            : text.indexOf('\n', i) - 1
+          : text.indexOf('*/', i) + 1
+      continue
+    }
+    if (char === '"' || char === "'" || char === '`') {
+      i = skipQuoted(text, i)
+      continue
+    }
+    if (char === '(' || char === '[' || char === '{') {
+      stack.push(calleeBefore(text, i))
+      continue
+    }
+    if (char === ')' || char === ']' || char === '}') {
+      stack.pop()
+    }
+  }
+  return stack.length === 0 ? '' : stack[stack.length - 1]
+}
+
+/** Returns the index of the closing quote, or the end when the line cuts it off. */
+function skipQuoted(text, start) {
+  const quote = text[start]
+  for (let i = start + 1; i < text.length; i++) {
+    if (text[i] === '\\') {
+      i++
+    } else if (text[i] === quote) {
+      return i
+    }
+  }
+  return text.length
+}
+
+/** Walks backwards from an opening bracket over `a.b.c` style names and `new`. */
+function calleeBefore(text, openIndex) {
+  let i = openIndex - 1
+  while (i >= 0 && /\s/.test(text[i])) {
+    i--
+  }
+  const end = i + 1
+  while (i >= 0 && /[\w$.]/.test(text[i])) {
+    i--
+  }
+  const name = text.slice(i + 1, end)
+  const prefix = text.slice(0, i + 1)
+  return /(?:^|[^\w])(?:throw|new)\s*$/.test(prefix)
+    ? `${prefix.trim()} ${name}`
+    : name
 }
 
 /**
@@ -790,20 +876,46 @@ export function runUpstream(ref) {
   const coverage = collectCatalogStrings(loadCatalogs()[0].tree)
   const missing = new Set()
   let currentFile = ''
+  // A logger call split over lines still has its string on a line of its own,
+  // so the enclosing call is resolved against the added context above it.
+  let context = []
 
   for (const line of diff.stdout.split('\n')) {
     if (line.startsWith('+++ b/')) {
       currentFile = line.slice('+++ b/'.length)
+      context = []
       continue
     }
+    if (line.startsWith('--- ') || line.startsWith('+++ ')) {
+      continue
+    }
+    const body = line.slice(1)
     if (!line.startsWith('+') || line.startsWith('+++')) {
+      if (line.startsWith('-')) {
+        continue
+      }
+      context.push(body)
+      if (context.length > CONTEXT_LINES) {
+        context.shift()
+      }
       continue
     }
+
     for (const literal of addedLineLiterals(line)) {
-      const text = normalizePhrase(literal)
-      if (isPlausibleNewUiString(text) && !coverage.has(text)) {
-        missing.add(`${currentFile} ${text}`)
+      const text = normalizePhrase(literal.text)
+      if (!isPlausibleNewUiString(text) || coverage.has(text)) {
+        continue
       }
+      const head = `${context.join('\n')}\n${literal.before}`
+      if (isDiagnosticCallee(innermostCallee(head))) {
+        continue
+      }
+      missing.add(`${currentFile} ${text}`)
+    }
+
+    context.push(body)
+    if (context.length > CONTEXT_LINES) {
+      context.shift()
     }
   }
 
@@ -901,7 +1013,7 @@ function bundleContains(path, text) {
   return escaped !== text && contents.includes(escaped, 'utf8')
 }
 
-function runBundles() {
+export function runBundles() {
   if (!existsSync(buildDir)) {
     console.error('no out/ directory: build the app first (yarn build:dev)')
     return 1
