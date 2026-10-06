@@ -13,9 +13,13 @@
     "add": "Добавить",
     "remove": "Удалить",
     "retry": "Повторить",
+    "invalidDate": "Некорректная дата",
     "discard": "Отменить",
     "done": "Готово",
-    "learnMore": "Подробнее"
+    "learnMore": "Подробнее",
+    "do-not-show-again": "Больше не показывать это сообщение",
+    "email": "Эл. почта",
+    "name": "Имя"
   },
   "app": {
     "select-repository": {
@@ -348,7 +352,8 @@
       "_one": "Переведено {translated:number} строка из {total:number}",
       "_other": "Переведено {translated:number} строки из {total:number}"
     },
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "languageExample": "Португальский (Бразилия)"
   },
   "menu": {
     "about": "О GitHub Desktop",
@@ -685,7 +690,8 @@
     "recent-branches-group": "Недавние ветки",
     "rename": "Переименовать",
     "view-on-github": "Показать на GitHub",
-    "view-pr-on-github": "Показать PR на GitHub"
+    "view-pr-on-github": "Показать PR на GitHub",
+    "noBranchFound": "Не удаётся найти эту ветку."
   },
   "canvas": "Холст",
   "changes": {
@@ -1661,14 +1667,17 @@
     "noItemsFound": "Рабочие деревья не найдены"
   },
   "tutorialPanel": {
-    "getStarted": "Начать работу"
+    "getStarted": "Начать работу",
+    "altChecklist": "Частично выполненный чек-лист"
   },
   "testNotifications": {
     "noPullRequests": "Pull request'ы не найдены",
     "noReviews": "Ревью не найдены",
     "noComments": "Комментарии не найдены",
     "reviewWithoutBody": "Ревью без текста",
-    "selectType": "Выберите тип уведомления для отображения:"
+    "selectType": "Выберите тип уведомления для отображения:",
+    "done": "Готово!",
+    "title": "Тестовые уведомления"
   },
   "copilotByok": {
     "authentication": "Аутентификация",
@@ -1687,7 +1696,13 @@
   },
   "appError": {
     "filesExceedLimit": "Файлы, превышающие лимит",
-    "seeLfs": "См. <link>https://gh.io/lfs</link> для получения дополнительной информации об управлении большими файлами на GitHub"
+    "seeLfs": "См. <link>https://gh.io/lfs</link> для получения дополнительной информации об управлении большими файлами на GitHub",
+    "fileSizeLimitExceeded": "Превышен лимит размера файла",
+    "cloneFailed": "Ошибка клонирования",
+    "pushFailed": "Не удалось отправить",
+    "createRepositoryFailed": "Не удалось создать репозиторий",
+    "commitFailed": "Коммит не выполнен",
+    "generic": "Ошибка"
   },
   "selectedCommits": {
     "noFilesInCommit": "В коммите нет файлов",
@@ -1696,11 +1711,13 @@
     "selectSingleOrRange": "Выберите один коммит или диапазон последовательных коммитов, чтобы увидеть diff.",
     "dragToCherryPick": "Перетащите коммиты в меню веток для cherry-pick.",
     "dragToSquashOrReorder": "Перетащите коммиты для объединения (squash) или изменения порядка.",
-    "rightClickForOptions": "Нажмите правой кнопкой на нескольких коммитах, чтобы увидеть параметры."
+    "rightClickForOptions": "Нажмите правой кнопкой на нескольких коммитах, чтобы увидеть параметры.",
+    "fileListDescription": "Список файлов выбранного коммита"
   },
   "pullRequestQuickView": {
     "reviewRequested": "Запрошено ревью",
-    "viewOnGitHub": "Посмотреть на GitHub"
+    "viewOnGitHub": "Посмотреть на GitHub",
+    "markdownBody": "Тело pull request в markdown"
   },
   "commitDragElement": {
     "copyTo": "Копировать в"
@@ -1708,10 +1725,16 @@
   "conflicts": {
     "allResolved": "Все конфликты разрешены",
     "oneConflictedFile": "1 конфликтующий файл",
-    "manyConflictedFiles": "{count} конфликтующих файлов"
+    "manyConflictedFiles": "{count} конфликтующих файлов",
+    "fileDoesNotExistOn": "Файл не существует в {branch}.",
+    "fileResolutionOptions": "Варианты разрешения конфликта"
   },
   "configureGitUser": {
-    "exampleCommit": "Пример коммита"
+    "exampleCommit": "Пример коммита",
+    "exampleCommitSummary": "Исправить все проблемы"
+  },
+  "relativeTime": {
+    "justNow": "только что"
   },
   "repositoryTabs": {
     "changes": "Изменения",
@@ -1741,7 +1764,10 @@
     "intro": "Это руководство поможет вам освоиться с Git, GitHub и GitHub Desktop.",
     "gitDefinition": "<strong>Git</strong> — это система контроля версий.",
     "githubDefinition": "<strong>GitHub</strong> — место, где вы храните код и сотрудничаете с другими.",
-    "desktopDefinition": "<strong>GitHub Desktop</strong> помогает работать с GitHub локально."
+    "desktopDefinition": "<strong>GitHub Desktop</strong> помогает работать с GitHub локально.",
+    "altCode": "Значок синтаксиса HTML",
+    "altTeam": "Люди с облачками обсуждения над головой",
+    "altCloud": "Стопка серверов с облаком"
   },
   "copilotByokProvider": {
     "providerLegend": "Провайдер",
@@ -1784,7 +1810,9 @@
   "copilotByokModel": {
     "reasoningHint": "Модели с рассуждением (o1, o3, варианты GPT-5 reasoning и т.д.) думают перед ответом. Более высокие уровни медленнее, но дают лучшие ответы на сложные задачи. Оставьте <em>Default</em> для моделей без рассуждения или чтобы провайдер выбрал сам.",
     "save": "Сохранить",
-    "add": "Добавить"
+    "add": "Добавить",
+    "identifierRequired": "Укажите идентификатор модели.",
+    "identifierExists": "Модель с идентификатором «{id}» уже существует."
   },
   "ciCheckRunRerun": {
     "titleSingle": "Перезапустить одну проверку",
@@ -1806,7 +1834,9 @@
     "nonRerunnableReason": "Проверку нельзя перезапустить, если ей больше месяца, она или её зависимая проверка не завершена, или повторный запуск не настроен."
   },
   "localChangesOverwritten": {
-    "stashAndRecover": "Вы можете спрятать изменения сейчас и восстановить их позже."
+    "stashAndRecover": "Вы можете спрятать изменения сейчас и восстановить их позже.",
+    "stashAndContinue": "Спрятать изменения и продолжить",
+    "stashHintTitle": "Будет создан stash с текущими изменениями. Их можно вернуть, восстановив stash позже."
   },
   "copilotModelPicker": {
     "noModelsFound": "Модели не найдены."
@@ -1822,6 +1852,144 @@
   },
   "repositoryPath": {
     "willBeCreatedAs": "Будет создано как {{sanitizedName}}",
-    "invalidCharsReplaced": "Недопустимые символы заменены дефисами."
+    "invalidCharsReplaced": "Недопустимые символы заменены дефисами.",
+    "sanitizedLive": "Будет создано как {sanitizedName}. Недопустимые символы заменены дефисами."
+  },
+  "missingRepository": {
+    "checkAgain": "Проверить снова."
+  },
+  "repository": {
+    "sidebar": "Боковая панель репозитория"
+  },
+  "commitMessageOverride": {
+    "title": "Переопределение сообщения коммита"
+  },
+  "history": {
+    "dateLabel": "Дата:",
+    "cannotReorder": "Не удалось выполнить перестановку. При перестановке заново применяются все коммиты до последнего необходимого. Среди них не должно быть merge-коммита.",
+    "cannotSquash": "Не удалось объединить коммиты. При объединении заново применяются все коммиты до последнего необходимого. Среди них не должно быть merge-коммита.",
+    "copyFullSha": "Скопировать полный SHA"
+  },
+  "gitUser": {
+    "configureManually": "Настроить вручную",
+    "yourNamePlaceholder": "Ваше имя",
+    "useGitHubAccount": "Использовать имя и адрес электронной почты учётной записи {account}"
+  },
+  "enterprise": {
+    "addressLabel": "Адрес Enterprise"
+  },
+  "password": {
+    "toggleVisibility": "Показать или скрыть пароль",
+    "toggleVisibilityAria": "Показать или скрыть пароль"
+  },
+  "iconPreview": {
+    "title": "Предпросмотр иконок"
+  },
+  "openWithEditor": {
+    "selectEditor": "Выберите редактор"
+  },
+  "releaseNotes": {
+    "markdownGenerated": "Примечания к выпуску, созданные из markdown"
+  },
+  "repositoriesList": {
+    "fullNameLabel": "Полное имя:",
+    "pathLabel": "Путь:",
+    "noRepositoryFound": "Не удаётся найти этот репозиторий.",
+    "uncommittedChanges": "В этом репозитории есть незакоммиченные изменения."
+  },
+  "resizable": {
+    "resizeHandle": "Перетащите, чтобы изменить размер"
+  },
+  "stash": {
+    "fileListDescription": "Список файлов stash"
+  },
+  "toolbar": {
+    "currentBranchButton": "Кнопка списка текущей ветки",
+    "fetchFrom": "Запросить из {branch}",
+    "fetchFromDescription": "Запросить последние изменения из {branch}",
+    "warningTitle": "Внимание:",
+    "forcePushWarning": "Принудительный push перезапишет историю на удалённом сервере. Всем, кто работает с этой веткой, придётся сбросить свою локальную ветку до состояния удалённой истории.",
+    "forcePushTo": "Принудительный push в {branch}",
+    "overwriteOn": "Заменить все изменения в {branch} вашими локальными изменениями",
+    "pushPullButton": "Кнопка push/pull",
+    "publishRepository": "Опубликовать репозиторий",
+    "publishRepositoryDescription": "Опубликовать этот репозиторий на GitHub",
+    "publishBranch": "Опубликовать ветку",
+    "currentWorktreeButton": "Кнопка списка текущего worktree"
+  },
+  "revertProgress": {
+    "title": "Идёт откат…",
+    "button": "Кнопка хода отката"
+  },
+  "tutorial": {
+    "doneTitle": "Готово!",
+    "exploreTitle": "Изучайте проекты на GitHub",
+    "exploreDescription": "Участвуйте в интересном вам проекте",
+    "createTitle": "Создать новый репозиторий",
+    "createDescription": "Начните совершенно новый проект",
+    "addTitle": "Добавить локальный репозиторий",
+    "addDescription": "Работайте с существующим проектом в GitHub Desktop",
+    "openAtomSite": "Открыть сайт Atom"
+  },
+  "pushBranchCommits": {
+    "publishTitle": "Ветку нужно опубликовать перед созданием pull request.",
+    "publishMessage": "Опубликовать <ref/> сейчас и открыть pull request?",
+    "pushTitle": {
+      "_one": "У вас есть 1 локальный коммит, который ещё не отправлен на удалённый сервер.",
+      "_few": "У вас есть {count} локальных коммита, которые ещё не отправлены на удалённый сервер.",
+      "_many": "У вас есть {count} локальных коммитов, которые ещё не отправлены на удалённый сервер.",
+      "_other": "У вас есть {count} локальных коммита, которые ещё не отправлены на удалённый сервер."
+    },
+    "pushMessage": "Отправить изменения в <ref/> перед созданием pull request?",
+    "publishTitleQ": "Опубликовать ветку?",
+    "pushTitleQ": "Отправить локальные изменения?",
+    "publishButton": "Опубликовать ветку",
+    "pushButton": "Отправить коммиты",
+    "createWithoutPushing": "Создать без отправки"
+  },
+  "commitList": {
+    "beforeCommit": "перед коммитом {row}",
+    "afterCommit": "после коммита {row}",
+    "pressEnterToInsert": {
+      "_one": "Нажмите Ввод, чтобы вставить выбранный коммит {insertionPoint}, или Esc, чтобы отменить.",
+      "_few": "Нажмите Ввод, чтобы вставить выбранные коммита {insertionPoint}, или Esc, чтобы отменить.",
+      "_many": "Нажмите Ввод, чтобы вставить выбранные коммиты {insertionPoint}, или Esc, чтобы отменить.",
+      "_other": "Нажмите Ввод, чтобы вставить выбранные коммита {insertionPoint}, или Esc, чтобы отменить."
+    },
+    "chooseLocation": {
+      "_one": "Стрелками вверх и вниз выберите новое положение выбранного коммита, затем нажмите Ввод для подтверждения или Esc для отмены.",
+      "_few": "Стрелками вверх и вниз выберите новое положение выбранных коммита, затем нажмите Ввод для подтверждения или Esc для отмены.",
+      "_many": "Стрелками вверх и вниз выберите новое положение выбранных коммитов, затем нажмите Ввод для подтверждения или Esc для отмены.",
+      "_other": "Стрелками вверх и вниз выберите новое положение выбранных коммита, затем нажмите Ввод для подтверждения или Esc для отмены."
+    }
+  },
+  "authentication": {
+    "browserRedirect": "После входа браузер вернёт вас в GitHub Desktop. Если браузер запросит разрешение на запуск GitHub Desktop, разрешите его."
+  },
+  "branchName": {
+    "rulesRestricted": "Имя ветки «{branchName}» запрещено правилами репозитория.",
+    "rulesBypassable": "Имя ветки «{branchName}» запрещено правилами репозитория, но их можно обойти. Действуйте осторожно!"
+  },
+  "gitEmail": {
+    "learnMoreAria": "Подробнее о привязке коммитов",
+    "learnMore": "Подробнее.",
+    "notAttributable": "Этот адрес электронной почты не совпадает с {accountType}. Коммиты будут приписаны не тому автору.",
+    "matchesAccount": "Этот адрес электронной почты совпадает с {accountType}.",
+    "accountSingle": "вашей учётной записью {accountType}",
+    "accountMultiple": "вашими учётными записями GitHub.com или GitHub Enterprise"
+  },
+  "openFile": {
+    "noExternalProgram": "Не удалось открыть файл {fullPath} во внешней программе. Проверьте, что для этого расширения связана программа."
+  },
+  "authorInput": {
+    "userNotFound": "Не удалось найти пользователя с именем {username}",
+    "searching": "Поиск @{username}"
+  },
+  "suggestedActions": {
+    "branchAria": "Предложенные действия для этой ветки"
+  },
+  "avatar": {
+    "forUser": "Аватар {name}",
+    "unknown": "Аватар неизвестного пользователя"
   }
 }

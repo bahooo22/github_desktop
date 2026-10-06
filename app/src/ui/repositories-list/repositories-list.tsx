@@ -27,6 +27,7 @@ import { enableWorktreeSupport } from '../../lib/feature-flag'
 import { SectionFilterList } from '../lib/section-filter-list'
 import { assertNever } from '../../lib/fatal-error'
 import { IAheadBehind } from '../../models/branch'
+import { t } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(__dirname, 'static/empty-no-repo.svg')
 
@@ -198,7 +199,7 @@ export class RepositoriesList extends React.Component<
     const aheadBehindTooltip = this.getAheadBehindTooltip(aheadBehind)
     const hasChanges = changedFilesCount > 0
     const uncommittedChangesTooltip = hasChanges
-      ? `There are uncommitted changes in this repository.`
+      ? t('repositoriesList.uncommittedChanges')
       : null
 
     const ahead = aheadBehind?.ahead ?? 0
@@ -207,12 +208,12 @@ export class RepositoriesList extends React.Component<
     return (
       <div className="repository-list-item-tooltip list-item-tooltip">
         <div>
-          <div className="label">Full Name: </div>
+          <div className="label">{t('repositoriesList.fullNameLabel')}</div>
           {realName}
           {alias && <> ({alias})</>}
         </div>
         <div>
-          <div className="label">Path: </div>
+          <div className="label">{t('repositoriesList.pathLabel')}</div>
           {repository.path}
         </div>
         {aheadBehindTooltip && (
@@ -394,7 +395,7 @@ export class RepositoriesList extends React.Component<
     return (
       <div className="no-items no-results-found">
         <img src={BlankSlateImage} className="blankslate-image" alt="" />
-        <div className="title">Sorry, I can't find that repository</div>
+        <div className="title">{t('repositoriesList.noRepositoryFound')}</div>
 
         <div className="protip">
           ProTip! Press{' '}

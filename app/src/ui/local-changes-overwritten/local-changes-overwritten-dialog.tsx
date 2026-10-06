@@ -125,13 +125,9 @@ export class LocalChangesOverwrittenDialog extends React.Component<
     return (
       <DialogFooter>
         <OkCancelButtonGroup
-          okButtonText={
-            __DARWIN__
-              ? 'Stash Changes and Continue'
-              : 'Stash changes and continue'
-          }
-          okButtonTitle="This will create a stash with your current changes. You can recover them by restoring the stash afterwards."
-          cancelButtonText="Close"
+          okButtonText={t('localChangesOverwritten.stashAndContinue')}
+          okButtonTitle={t('localChangesOverwritten.stashHintTitle')}
+          cancelButtonText={t('common.close')}
         />
       </DialogFooter>
     )

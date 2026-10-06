@@ -6,6 +6,7 @@ import { Row } from '../lib/row'
 import { IStashEntry } from '../../models/stash-entry'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
+import { t } from '../../lib/l10n'
 
 interface IConfirmDiscardStashProps {
   readonly dispatcher: Dispatcher
@@ -56,7 +57,7 @@ export class ConfirmDiscardStashDialog extends React.Component<
           </Row>
           <Row>
             <Checkbox
-              label="Do not show this message again"
+              label={t('common.do-not-show-again')}
               value={
                 this.state.confirmDiscardStash
                   ? CheckboxValue.Off

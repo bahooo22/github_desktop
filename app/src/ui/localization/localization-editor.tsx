@@ -168,7 +168,7 @@ export class LocalizationEditor extends React.Component<
         />
         <TextBox
           label={t('localizationEditor.displayName')}
-          placeholder="Portuguese (Brazil)"
+          placeholder={t('localizationEditor.languageExample')}
           value={this.state.newName}
           onValueChanged={this.onNewNameChanged}
         />

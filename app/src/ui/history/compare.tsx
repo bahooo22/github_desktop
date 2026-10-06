@@ -34,6 +34,7 @@ import { KeyboardInsertionData } from '../lib/list'
 import { Account } from '../../models/account'
 import { Emoji } from '../../lib/emoji'
 import { formatNumber } from '../../lib/format-number'
+import { t } from '../../lib/l10n'
 
 interface ICompareSidebarProps {
   readonly repository: Repository
@@ -309,9 +310,7 @@ export class CompareSidebar extends React.Component<
       )
     ) {
       defaultErrorHandler(
-        new Error(
-          `Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits.`
-        ),
+        new Error(t('history.cannotReorder')),
         this.props.dispatcher
       )
       return
@@ -689,9 +688,7 @@ export class CompareSidebar extends React.Component<
       )
     ) {
       defaultErrorHandler(
-        new Error(
-          `Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits.`
-        ),
+        new Error(t('history.cannotSquash')),
         this.props.dispatcher
       )
       return

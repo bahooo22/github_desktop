@@ -10,6 +10,7 @@ import { LinkButton } from './lib/link-button'
 import { addSafeDirectory, getRepositoryType } from '../lib/git'
 import { Ref } from './lib/ref'
 import { Loading } from './lib/loading'
+import { t } from '../lib/l10n'
 
 interface IMissingRepositoryProps {
   readonly dispatcher: Dispatcher
@@ -143,7 +144,9 @@ export class MissingRepository extends React.Component<
           <div className="details">
             It was last seen at{' '}
             <span className="path">{this.props.repository.path}</span>.{' '}
-            <LinkButton onClick={this.checkAgain}>Check&nbsp;again.</LinkButton>
+            <LinkButton onClick={this.checkAgain}>
+              {t('missingRepository.checkAgain')}
+            </LinkButton>
           </div>
         </div>
 

@@ -7,6 +7,7 @@ import { MenuIDs } from '../../models/menu-ids'
 import { executeMenuItemById } from '../main-process-proxy'
 import { sendNonFatalException } from '../../lib/helpers/non-fatal-exception'
 import classNames from 'classnames'
+import { t } from '../../lib/l10n'
 
 export interface IDropdownSuggestedActionOption
   extends IDropdownSelectButtonOption {
@@ -154,7 +155,7 @@ export class DropdownSuggestedAction extends React.Component<
             id,
           }))}
           disabled={disabled}
-          dropdownAriaLabel="Suggested actions for this branch"
+          dropdownAriaLabel={t('suggestedActions.branchAria')}
           onCheckedOptionChange={this.onActionSelectionChange}
           onSubmit={this.onActionSubmitted}
         />

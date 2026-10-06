@@ -3,10 +3,7 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Form } from './form'
 import { Button } from './button'
-
-/** Text to let the user know their browser will send them back to GH Desktop */
-export const BrowserRedirectMessage =
-  "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop please allow it to."
+import { t } from '../../lib/l10n'
 
 interface IAuthenticationFormProps {
   /**
@@ -39,7 +36,7 @@ export class AuthenticationForm extends React.Component<IAuthenticationFormProps
   private renderEndpointRequiresWebFlow() {
     return (
       <>
-        {BrowserRedirectMessage}
+        {t('authentication.browserRedirect')}
         <Button
           type="submit"
           className="button-with-icon"

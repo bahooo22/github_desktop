@@ -29,6 +29,7 @@ import {
 } from '../../../lib/status'
 import { revealInFileManager } from '../../../lib/app-shell'
 import { DialogPreferredFocusClassName } from '../../dialog'
+import { t } from '../../../lib/l10n'
 
 const defaultConflictsResolvedMessage = 'No conflicts remaining'
 
@@ -213,7 +214,9 @@ const renderManualConflictedFile: React.FunctionComponent<{
     if (entry.them === GitStatusEntry.Deleted && theirBranch !== undefined) {
       targetBranch = theirBranch
     }
-    conflictTypeString = `File does not exist on ${targetBranch}.`
+    conflictTypeString = t('conflicts.fileDoesNotExistOn', {
+      branch: targetBranch,
+    })
   }
 
   const resolveButtonClassName = props.isFirstConflictedFile
@@ -321,7 +324,7 @@ const renderConflictedFileWithConflictMarkers: React.FunctionComponent<{
           onClick={onDropdownClick}
           onKeyDown={onDropdownKeyDown}
           className="small-button button-group-item arrow-menu"
-          ariaLabel="File resolution options"
+          ariaLabel={t('conflicts.fileResolutionOptions')}
           ariaHaspopup="menu"
           ariaExpanded={props.isFileResolutionOptionsMenuOpen}
         >

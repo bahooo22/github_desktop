@@ -5,6 +5,7 @@ import { isAttributableEmailFor } from '../../lib/email'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
+import { t } from '../../lib/l10n'
 
 interface IGitEmailNotFoundWarningProps {
   /** The account the commit should be attributed to. */
@@ -30,10 +31,10 @@ export class GitEmailNotFoundWarning extends React.Component<IGitEmailNotFoundWa
 
     const learnMore = !isAttributableEmail ? (
       <LinkButton
-        ariaLabel="Learn more about commit attribution"
+        ariaLabel={t('gitEmail.learnMoreAria')}
         uri="https://docs.github.com/en/github/committing-changes-to-your-project/why-are-my-commits-linked-to-the-wrong-user"
       >
-        Learn more.
+        {t('gitEmail.learnMore')}
       </LinkButton>
     ) : null
 
@@ -47,11 +48,10 @@ export class GitEmailNotFoundWarning extends React.Component<IGitEmailNotFoundWa
   }
 
   private buildScreenReaderMessage(isAttributableEmail: boolean) {
-    const verb = !isAttributableEmail ? 'does not match' : 'matches'
-    const info = !isAttributableEmail
-      ? 'Your commits will be wrongly attributed. '
-      : ''
-    return `This email address ${verb} ${this.getAccountTypeDescription()}. ${info}`
+    const accountType = this.getAccountTypeDescription()
+    return !isAttributableEmail
+      ? t('gitEmail.notAttributable', { accountType })
+      : t('gitEmail.matchesAccount', { accountType })
   }
 
   public render() {
@@ -91,9 +91,9 @@ export class GitEmailNotFoundWarning extends React.Component<IGitEmailNotFoundWa
         ? 'GitHub'
         : 'GitHub Enterprise'
 
-      return `your ${accountType} account`
+      return t('gitEmail.accountSingle', { accountType })
     }
 
-    return 'either of your GitHub.com nor GitHub Enterprise accounts'
+    return t('gitEmail.accountMultiple')
   }
 }

@@ -10,6 +10,7 @@ import { StashDiffHeader } from './stash-diff-header'
 import { SeamlessDiffSwitcher } from '../diff/seamless-diff-switcher'
 import { IConstrainedValue } from '../../lib/app-state'
 import { clamp } from '../../lib/clamp'
+import { t } from '../../lib/l10n'
 
 interface IStashDiffViewerProps {
   /** The stash in question. */
@@ -142,7 +143,7 @@ export class StashDiffViewer extends React.PureComponent<IStashDiffViewerProps> 
             maximumWidth={fileListWidth.max}
             onResize={this.onResize}
             onReset={this.onReset}
-            description="Stash file list"
+            description={t('stash.fileListDescription')}
           >
             <FileList
               files={files}

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { encodePathAsUrl } from '../../lib/path'
 import { Button } from '../lib/button'
 import { KeyboardShortcut } from '../keyboard-shortcut/keyboard-shortcut'
+import { t } from '../../lib/l10n'
 
 const BlankSlateImage = encodePathAsUrl(
   __dirname,
@@ -24,7 +25,7 @@ export class NoBranches extends React.Component<INoBranchesProps> {
         <div className="no-branches">
           <img src={BlankSlateImage} className="blankslate-image" alt="" />
 
-          <div className="title">Sorry, I can't find that branch</div>
+          <div className="title">{t('branches.noBranchFound')}</div>
 
           <div className="subtitle">
             Do you want to create a new branch instead?
@@ -52,7 +53,7 @@ export class NoBranches extends React.Component<INoBranchesProps> {
 
     return (
       <div className="no-branches">
-        {this.props.noBranchesMessage ?? "Sorry, I can't find that branch"}
+        {this.props.noBranchesMessage ?? t('branches.noBranchFound')}
       </div>
     )
   }

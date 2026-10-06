@@ -29,6 +29,7 @@ import { formatDate } from '../../lib/format-date'
 import { Avatar } from '../lib/avatar'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
+import { t } from '../../lib/l10n'
 
 const RowHeight = 50
 
@@ -219,24 +220,27 @@ export class CommitList extends React.Component<
         return
       }
 
-      const plural = keyboardReorderData.commits.length === 1 ? '' : 's'
+      const count = keyboardReorderData.commits.length
 
       if (insertionIndexPath !== null) {
         const { row } = insertionIndexPath
 
         const insertionPoint =
           row < this.props.commitSHAs.length
-            ? `before commit ${row + 1}`
-            : `after commit ${row}`
+            ? t('commitList.beforeCommit', { row: row + 1 })
+            : t('commitList.afterCommit', { row })
 
         this.setState({
-          reorderingMessage: `Press Enter to insert the selected commit${plural} ${insertionPoint} or Escape to cancel.`,
+          reorderingMessage: t('commitList.pressEnterToInsert', {
+            count,
+            insertionPoint,
+          }),
         })
         return
       }
 
       this.setState({
-        reorderingMessage: `Use the Up and Down arrow keys to choose a new location for the selected commit${plural}, then press Enter to confirm or Escape to cancel.`,
+        reorderingMessage: t('commitList.chooseLocation', { count }),
       })
     },
     500
@@ -532,7 +536,7 @@ export class CommitList extends React.Component<
       <div className="commit-list-item-tooltip list-item-tooltip">
         {authorList}
         <div>
-          <div className="label">Date: </div>
+          <div className="label">{t('history.dateLabel')}</div>
           {absoluteDate}
         </div>
         {showUnpushedIndicator ? (

@@ -8,6 +8,7 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { SuggestedAction } from '../suggested-actions'
 import { SuggestedActionGroup } from '../suggested-actions'
+import { t } from '../../lib/l10n'
 
 const ClappingHandsImage = encodePathAsUrl(
   __dirname,
@@ -60,7 +61,7 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
         <div className="content">
           <div className="header">
             <div className="text">
-              <h1 ref={this.header}>You're done!</h1>
+              <h1 ref={this.header}>{t('tutorial.doneTitle')}</h1>
               <p>
                 You’ve learned the basics on how to use GitHub Desktop. Here are
                 some suggestions for what to do next.
@@ -74,16 +75,16 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
           </div>
           <SuggestedActionGroup>
             <SuggestedAction
-              title="Explore projects on GitHub"
-              description="Contribute to a project that interests you"
+              title={t('tutorial.exploreTitle')}
+              description={t('tutorial.exploreDescription')}
               buttonText={__DARWIN__ ? 'Open in Browser' : 'Open in browser'}
               onClick={this.openDotcomExplore}
               type="normal"
               image={TelescopeOcticon}
             />
             <SuggestedAction
-              title="Create a new repository"
-              description="Get started on a brand new project"
+              title={t('tutorial.createTitle')}
+              description={t('tutorial.createDescription')}
               buttonText={
                 __DARWIN__ ? 'Create Repository' : 'Create repository'
               }
@@ -92,8 +93,8 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
               image={PlusOcticon}
             />
             <SuggestedAction
-              title="Add a local repository"
-              description="Work on an existing project in GitHub Desktop"
+              title={t('tutorial.addTitle')}
+              description={t('tutorial.addDescription')}
               buttonText={__DARWIN__ ? 'Add Repository' : 'Add repository'}
               onClick={this.onAddExistingRepository}
               type="normal"

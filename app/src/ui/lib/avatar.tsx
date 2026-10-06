@@ -20,6 +20,7 @@ import { offsetFrom } from '../../lib/offset-from'
 import { ExpiringOperationCache } from './expiring-operation-cache'
 import { forceUnwrap } from '../../lib/fatal-error'
 import { IKnownBot, knownDotComBots } from '../../models/dot-com-bots'
+import { t } from '../../lib/l10n'
 
 const avatarTokenCache = new ExpiringOperationCache<
   { endpoint: string; accounts: ReadonlyArray<Account> },
@@ -390,8 +391,8 @@ export class Avatar extends React.Component<IAvatarProps, IAvatarState> {
   private renderAvatar = () => {
     const { imageError, user } = this.state
     const alt = user
-      ? `Avatar for ${user.name || user.email}`
-      : `Avatar for unknown user`
+      ? t('avatar.forUser', { name: user.name || user.email })
+      : t('avatar.unknown')
     const now = Date.now()
     const src = this.state.candidates.find(c => {
       const lastFailed = FailingAvatars.get(c)

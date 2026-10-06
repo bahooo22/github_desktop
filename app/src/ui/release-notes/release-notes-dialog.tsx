@@ -11,6 +11,7 @@ import { DesktopFakeRepository } from '../../lib/desktop-fake-repository'
 import { SandboxedMarkdown } from '../lib/sandboxed-markdown'
 import { Button } from '../lib/button'
 import { Emoji } from '../../lib/emoji'
+import { t } from '../../lib/l10n'
 
 interface IReleaseNotesProps {
   readonly onDismissed: () => void
@@ -121,7 +122,7 @@ export class ReleaseNotes extends React.Component<IReleaseNotesProps, {}> {
         emoji={this.props.emoji}
         onMarkdownLinkClicked={this.onMarkdownLinkClicked}
         underlineLinks={this.props.underlineLinks}
-        title="Release notes generated from markdown"
+        title={t('releaseNotes.markdownGenerated')}
       />
     )
   }

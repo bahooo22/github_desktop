@@ -6,7 +6,6 @@ import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Button } from '../lib/button'
 import { Loading } from '../lib/loading'
-import { BrowserRedirectMessage } from '../lib/authentication-form'
 import { SamplesURL } from '../../lib/stats'
 import { t, Trans } from '../../lib/l10n'
 
@@ -43,7 +42,7 @@ export class Start extends React.Component<IStartProps, {}> {
               </p>
             </>
           ) : (
-            <p>{BrowserRedirectMessage}</p>
+            <p>{t('authentication.browserRedirect')}</p>
           )}
 
           <div className="welcome-main-buttons">

@@ -11,6 +11,7 @@ import { parseRepoRules, useRepoRulesLogic } from '../../lib/helpers/repo-rules'
 import { InputError } from './input-description/input-error'
 import { InputWarning } from './input-description/input-warning'
 import { Row } from './row'
+import { t } from '../../lib/l10n'
 
 /** The result of a branch name rule check. */
 export interface IBranchRuleError {
@@ -97,17 +98,13 @@ export async function checkBranchNameRules(
 
   if (cannotBypass) {
     return {
-      error: new Error(
-        `Branch name '${branchName}' is restricted by repo rules.`
-      ),
+      error: new Error(t('branchName.rulesRestricted', { branchName })),
       isWarning: false,
     }
   }
 
   return {
-    error: new Error(
-      `Branch name '${branchName}' is restricted by repo rules, but you can bypass them. Proceed with caution!`
-    ),
+    error: new Error(t('branchName.rulesBypassable', { branchName })),
     isWarning: true,
   }
 }

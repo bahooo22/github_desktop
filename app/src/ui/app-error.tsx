@@ -172,27 +172,27 @@ export class AppError extends React.Component<IAppErrorProps, IAppErrorState> {
 
     switch (getDugiteError(error)) {
       case DugiteError.PushWithFileSizeExceedingLimit:
-        return 'File size limit exceeded'
+        return t('appError.fileSizeLimitExceeded')
     }
 
     switch (getRetryActionType(error)) {
       case RetryActionType.Clone:
-        return 'Clone failed'
+        return t('appError.cloneFailed')
       case RetryActionType.Push:
-        return 'Failed to push'
+        return t('appError.pushFailed')
     }
 
     if (isErrorWithMetaData(error)) {
       const { gitContext } = error.metadata
       switch (gitContext?.kind) {
         case 'create-repository':
-          return `Failed creating repository`
+          return t('appError.createRepositoryFailed')
         case 'commit':
-          return `Commit failed`
+          return t('appError.commitFailed')
       }
     }
 
-    return 'Error'
+    return t('appError.generic')
   }
 
   private renderContentAfterErrorMessage(error: Error) {

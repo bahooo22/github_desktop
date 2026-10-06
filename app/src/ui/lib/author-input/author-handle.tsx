@@ -6,6 +6,7 @@ import * as octicons from '../../octicons/octicons.generated'
 import { getFullTextForAuthor, getDisplayTextForAuthor } from './author-text'
 import { Tooltip } from '../tooltip'
 import { createObservableRef } from '../observable-ref'
+import { t } from '../../../lib/l10n'
 
 interface IAuthorHandleProps {
   /** Author to render */
@@ -88,8 +89,8 @@ export class AuthorHandle extends React.Component<IAuthorHandleProps> {
     }
 
     return author.state === 'error'
-      ? `Could not find user with username ${author.username}`
-      : `Searching for @${author.username}`
+      ? t('authorInput.userNotFound', { username: author.username })
+      : t('authorInput.searching', { username: author.username })
   }
 
   private getTabIndex() {

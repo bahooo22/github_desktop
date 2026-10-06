@@ -73,7 +73,7 @@ export class WarnLocalChangesBeforeUndo extends React.Component<
         </Row>
         <Row>
           <Checkbox
-            label="Do not show this message again"
+            label={t('common.do-not-show-again')}
             value={
               this.state.confirmUndoCommit
                 ? CheckboxValue.Off

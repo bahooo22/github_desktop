@@ -223,7 +223,7 @@ export class PullRequestQuickView extends React.Component<
           onMarkdownLinkClicked={this.onMarkdownLinkClicked}
           onMarkdownParsed={this.onMarkdownParsed}
           underlineLinks={this.props.underlineLinks}
-          title="Pull request markdown body"
+          title={t('pullRequestQuickView.markdownBody')}
         />
       </div>
     )

@@ -11,6 +11,7 @@ import { Dispatcher } from '../dispatcher'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { LinkButton } from '../lib/link-button'
 import { Row } from '../lib/row'
+import { t } from '../../lib/l10n'
 
 interface IGenerateCommitMessageOverrideWarningProps {
   readonly dispatcher: Dispatcher
@@ -47,7 +48,7 @@ export class GenerateCommitMessageOverrideWarning extends React.Component<
 
     return (
       <Dialog
-        title="Commit message override"
+        title={t('commitMessageOverride.title')}
         id="generate-commit-message-override-warning"
         type="warning"
         onDismissed={this.props.onDismissed}
@@ -73,7 +74,7 @@ export class GenerateCommitMessageOverrideWarning extends React.Component<
           ) : null}
           <Row>
             <Checkbox
-              label="Do not show this message again"
+              label={t('common.do-not-show-again')}
               value={
                 this.state.confirmCommitMessageOverride
                   ? CheckboxValue.Off

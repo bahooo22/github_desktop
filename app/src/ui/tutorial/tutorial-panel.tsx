@@ -111,7 +111,7 @@ export class TutorialPanel extends React.Component<
       <div className="tutorial-panel-component panel">
         <div className="titleArea">
           <h3>{t('tutorialPanel.getStarted')}</h3>
-          <img src={TutorialPanelImage} alt="Partially checked check list" />
+          <img src={TutorialPanelImage} alt={t('tutorialPanel.altChecklist')} />
         </div>
         <ol>
           <TutorialStepInstructions
@@ -137,7 +137,7 @@ export class TutorialPanel extends React.Component<
                   {` or `}
                   <LinkButton
                     uri="https://atom.io"
-                    title="Open the Atom website"
+                    title={t('tutorial.openAtomSite')}
                   >
                     Atom
                   </LinkButton>

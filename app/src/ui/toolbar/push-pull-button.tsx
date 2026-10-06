@@ -31,6 +31,7 @@ import { PushPullButtonDropDown } from './push-pull-button-dropdown'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { enableResizingToolbarButtons } from '../../lib/feature-flag'
 import { formatCompactNumber } from '../../lib/format-number'
+import { t } from '../../lib/l10n'
 
 export const DropdownItemClassName = 'push-pull-dropdown-item'
 
@@ -421,7 +422,7 @@ export class PushPullButton extends React.Component<
           onResize={this.onResize}
           maximumWidth={this.props.pushPullButtonWidth.max}
           minimumWidth={this.props.pushPullButtonWidth.min}
-          description="Push pull button"
+          description={t('toolbar.pushPullButton')}
         >
           {this.renderButton()}
           <span id="push-pull-button-state">
@@ -528,8 +529,8 @@ export class PushPullButton extends React.Component<
     return (
       <ToolbarButton
         {...this.defaultButtonProps()}
-        title="Publish repository"
-        description="Publish this repository to GitHub"
+        title={t('toolbar.publishRepository')}
+        description={t('toolbar.publishRepositoryDescription')}
         className="push-pull-button"
         icon={octicons.upload}
         style={ToolbarButtonStyle.Subtitle}
@@ -546,7 +547,7 @@ export class PushPullButton extends React.Component<
     return (
       <ToolbarButton
         {...this.defaultButtonProps()}
-        title="Publish branch"
+        title={t('toolbar.publishBranch')}
         description={description}
         icon={octicons.upload}
         disabled={true}
@@ -574,7 +575,7 @@ export class PushPullButton extends React.Component<
     return (
       <ToolbarDropdown
         {...this.defaultDropdownProps()}
-        title="Publish branch"
+        title={t('toolbar.publishBranch')}
         description={description}
         icon={octicons.upload}
         onClick={onClick}

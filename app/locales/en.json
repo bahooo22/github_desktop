@@ -12,9 +12,13 @@
     "add": "Add",
     "remove": "Remove",
     "retry": "Retry",
+    "invalidDate": "Invalid date",
     "discard": "Discard",
     "done": "Done",
-    "learnMore": "Learn more"
+    "learnMore": "Learn more",
+    "do-not-show-again": "Do not show this message again",
+    "email": "Email",
+    "name": "Name"
   },
   "app": {
     "select-repository": {
@@ -376,7 +380,8 @@
       "_one": "{translated:number} of {total:number} string translated",
       "_other": "{translated:number} of {total:number} strings translated"
     },
-    "close": "Close"
+    "close": "Close",
+    "languageExample": "Portuguese (Brazil)"
   },
   "menu": {
     "about": "About GitHub Desktop",
@@ -812,7 +817,8 @@
     "recent-branches-group": "Recent Branches",
     "rename": "Rename…",
     "view-on-github": "View Branch on GitHub",
-    "view-pr-on-github": "View Pull Request on GitHub"
+    "view-pr-on-github": "View Pull Request on GitHub",
+    "noBranchFound": "Sorry, I can't find that branch"
   },
   "canvas": "Canvas",
   "changes": {
@@ -1814,14 +1820,17 @@
     "noItemsFound": "No worktrees found"
   },
   "tutorialPanel": {
-    "getStarted": "Get started"
+    "getStarted": "Get started",
+    "altChecklist": "Partially checked check list"
   },
   "testNotifications": {
     "noPullRequests": "No pull requests found",
     "noReviews": "No reviews found",
     "noComments": "No comments found",
     "reviewWithoutBody": "Review without body",
-    "selectType": "Select the type of notification to display:"
+    "selectType": "Select the type of notification to display:",
+    "done": "Done!",
+    "title": "Test Notifications"
   },
   "copilotByok": {
     "authentication": "Authentication",
@@ -1840,7 +1849,13 @@
   },
   "appError": {
     "filesExceedLimit": "Files that exceed the limit",
-    "seeLfs": "See <link>https://gh.io/lfs</link> for more information on managing large files on GitHub"
+    "seeLfs": "See <link>https://gh.io/lfs</link> for more information on managing large files on GitHub",
+    "fileSizeLimitExceeded": "File size limit exceeded",
+    "cloneFailed": "Clone failed",
+    "pushFailed": "Failed to push",
+    "createRepositoryFailed": "Failed creating repository",
+    "commitFailed": "Commit failed",
+    "generic": "Error"
   },
   "selectedCommits": {
     "noFilesInCommit": "No files in commit",
@@ -1849,11 +1864,13 @@
     "selectSingleOrRange": "Select a single commit or a range of consecutive commits to view a diff.",
     "dragToCherryPick": "Drag the commits to the branch menu to cherry-pick them.",
     "dragToSquashOrReorder": "Drag the commits to squash or reorder them.",
-    "rightClickForOptions": "Right click on multiple commits to see options."
+    "rightClickForOptions": "Right click on multiple commits to see options.",
+    "fileListDescription": "Selected commit file list"
   },
   "pullRequestQuickView": {
     "reviewRequested": "Review requested",
-    "viewOnGitHub": "View on GitHub"
+    "viewOnGitHub": "View on GitHub",
+    "markdownBody": "Pull request markdown body"
   },
   "commitDragElement": {
     "copyTo": "Copy to"
@@ -1861,10 +1878,16 @@
   "conflicts": {
     "allResolved": "All conflicts resolved",
     "oneConflictedFile": "1 conflicted file",
-    "manyConflictedFiles": "{count} conflicted files"
+    "manyConflictedFiles": "{count} conflicted files",
+    "fileDoesNotExistOn": "File does not exist on {branch}.",
+    "fileResolutionOptions": "File resolution options"
   },
   "configureGitUser": {
-    "exampleCommit": "Example commit"
+    "exampleCommit": "Example commit",
+    "exampleCommitSummary": "Fix all the things"
+  },
+  "relativeTime": {
+    "justNow": "just now"
   },
   "repositoryTabs": {
     "changes": "Changes",
@@ -1894,7 +1917,10 @@
     "intro": "Use this tutorial to get comfortable with Git, GitHub, and GitHub Desktop.",
     "gitDefinition": "<strong>Git</strong> is the version control system.",
     "githubDefinition": "<strong>GitHub</strong> is where you store your code and collaborate with others.",
-    "desktopDefinition": "<strong>GitHub Desktop</strong> helps you work with GitHub locally."
+    "desktopDefinition": "<strong>GitHub Desktop</strong> helps you work with GitHub locally.",
+    "altCode": "Html syntax icon",
+    "altTeam": "People with discussion bubbles overhead",
+    "altCloud": "Server stack with cloud"
   },
   "copilotByokProvider": {
     "providerLegend": "Provider",
@@ -1937,7 +1963,9 @@
   "copilotByokModel": {
     "reasoningHint": "Reasoning models (o1, o3, GPT-5 reasoning variants, etc.) think before responding. Higher levels are slower but produce better answers on complex tasks. Leave on <em>Default</em> for non-reasoning models or to let the provider pick.",
     "save": "Save",
-    "add": "Add"
+    "add": "Add",
+    "identifierRequired": "Please enter a model identifier.",
+    "identifierExists": "Another model with the identifier '{id}' already exists."
   },
   "ciCheckRunRerun": {
     "titleSingle": "Re-run Single check",
@@ -1959,7 +1987,12 @@
     "nonRerunnableReason": "A check run cannot be re-run if the check is more than one month old, the check or its dependent has not completed, or the check is not configured to be re-run."
   },
   "localChangesOverwritten": {
-    "stashAndRecover": "You can stash your changes now and recover them afterwards."
+    "stashAndRecover": "You can stash your changes now and recover them afterwards.",
+    "stashAndContinue": {
+      "@darwin": "Stash Changes and Continue",
+      "@other": "Stash changes and continue"
+    },
+    "stashHintTitle": "This will create a stash with your current changes. You can recover them by restoring the stash afterwards."
   },
   "copilotModelPicker": {
     "noModelsFound": "No models found."
@@ -1975,6 +2008,153 @@
   },
   "repositoryPath": {
     "willBeCreatedAs": "Will be created as {{sanitizedName}}",
-    "invalidCharsReplaced": "Invalid characters have been replaced by hyphens."
+    "invalidCharsReplaced": "Invalid characters have been replaced by hyphens.",
+    "sanitizedLive": "Will be created as {sanitizedName}. Invalid characters have been replaced by hyphens."
+  },
+  "missingRepository": {
+    "checkAgain": "Check again."
+  },
+  "repository": {
+    "sidebar": "Repository sidebar"
+  },
+  "commitMessageOverride": {
+    "title": "Commit message override"
+  },
+  "history": {
+    "dateLabel": "Date:",
+    "cannotReorder": "Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits.",
+    "cannotSquash": "Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits.",
+    "copyFullSha": "Copy the full SHA"
+  },
+  "gitUser": {
+    "configureManually": "Configure manually",
+    "yourNamePlaceholder": "Your Name",
+    "useGitHubAccount": "Use my {account} account name and email address"
+  },
+  "enterprise": {
+    "addressLabel": "Enterprise address"
+  },
+  "password": {
+    "toggleVisibility": "Toggle password visibility",
+    "toggleVisibilityAria": "Toggle password visibility"
+  },
+  "iconPreview": {
+    "title": "Icon Preview"
+  },
+  "openWithEditor": {
+    "selectEditor": "Select an editor"
+  },
+  "releaseNotes": {
+    "markdownGenerated": "Release notes generated from markdown"
+  },
+  "repositoriesList": {
+    "fullNameLabel": "Full Name:",
+    "pathLabel": "Path:",
+    "noRepositoryFound": "Sorry, I can't find that repository",
+    "uncommittedChanges": "There are uncommitted changes in this repository"
+  },
+  "resizable": {
+    "resizeHandle": "Resize handle"
+  },
+  "stash": {
+    "fileListDescription": "Stash file list"
+  },
+  "toolbar": {
+    "currentBranchButton": "Current branch dropdown button",
+    "fetchFrom": "Fetch {branch}",
+    "fetchFromDescription": "Fetch the latest changes from {branch}",
+    "warningTitle": "Warning:",
+    "forcePushWarning": "A force push will rewrite history on the remote. Any collaborators working on this branch will need to reset their own local branch to match the history of the remote.",
+    "forcePushTo": "Force push {branch}",
+    "overwriteOn": "Overwrite any changes on {branch} with your local changes",
+    "pushPullButton": "Push pull button",
+    "publishRepository": "Publish repository",
+    "publishRepositoryDescription": "Publish this repository to GitHub",
+    "publishBranch": "Publish branch",
+    "currentWorktreeButton": "Current worktree dropdown button"
+  },
+  "revertProgress": {
+    "title": "Reverting…",
+    "button": "Revert progress button"
+  },
+  "tutorial": {
+    "doneTitle": "You're done!",
+    "exploreTitle": "Explore projects on GitHub",
+    "exploreDescription": "Contribute to a project that interests you",
+    "createTitle": "Create a new repository",
+    "createDescription": "Get started on a brand new project",
+    "addTitle": "Add a local repository",
+    "addDescription": "Work on an existing project in GitHub Desktop",
+    "openAtomSite": "Open the Atom website"
+  },
+  "pushBranchCommits": {
+    "publishTitle": "Your branch must be published before opening a pull request.",
+    "publishMessage": "Would you like to publish <ref/> now and open a pull request?",
+    "pushTitle": {
+      "_one": "You have 1 local commit that hasn't been pushed to the remote yet.",
+      "_other": "You have {count} local commits that haven't been pushed to the remote yet."
+    },
+    "pushMessage": "Would you like to push your changes to <ref/> before creating your pull request?",
+    "publishTitleQ": {
+      "@darwin": "Publish Branch?",
+      "@other": "Publish branch?"
+    },
+    "pushTitleQ": {
+      "@darwin": "Push Local Changes?",
+      "@other": "Push local changes?"
+    },
+    "publishButton": {
+      "@darwin": "Publish Branch",
+      "@other": "Publish branch"
+    },
+    "pushButton": {
+      "@darwin": "Push Commits",
+      "@other": "Push commits"
+    },
+    "createWithoutPushing": {
+      "@darwin": "Create Without Pushing",
+      "@other": "Create without pushing"
+    }
+  },
+  "commitList": {
+    "beforeCommit": "before commit {row}",
+    "afterCommit": "after commit {row}",
+    "pressEnterToInsert": {
+      "_one": "Press Enter to insert the selected commit {insertionPoint} or Escape to cancel.",
+      "_other": "Press Enter to insert the selected commits {insertionPoint} or Escape to cancel."
+    },
+    "chooseLocation": {
+      "_one": "Use the Up and Down arrow keys to choose a new location for the selected commit, then press Enter to confirm or Escape to cancel.",
+      "_other": "Use the Up and Down arrow keys to choose a new location for the selected commits, then press Enter to confirm or Escape to cancel."
+    }
+  },
+  "authentication": {
+    "browserRedirect": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop please allow it to."
+  },
+  "branchName": {
+    "rulesRestricted": "Branch name '{branchName}' is restricted by repo rules.",
+    "rulesBypassable": "Branch name '{branchName}' is restricted by repo rules, but you can bypass them. Proceed with caution!"
+  },
+  "gitEmail": {
+    "learnMoreAria": "Learn more about commit attribution",
+    "learnMore": "Learn more.",
+    "notAttributable": "This email address does not match {accountType}. Your commits will be wrongly attributed.",
+    "matchesAccount": "This email address matches {accountType}.",
+    "accountSingle": "your {accountType} account",
+    "accountMultiple": "either of your GitHub.com nor GitHub Enterprise accounts"
+  },
+  "openFile": {
+    "noExternalProgram": "Unable to open file {fullPath} in an external program. Please check you have a program associated with this file extension"
+  },
+  "authorInput": {
+    "userNotFound": "Could not find user with username {username}",
+    "searching": "Searching for @{username}"
+  },
+  "suggestedActions": {
+    "branchAria": "Suggested actions for this branch"
+  },
+  "avatar": {
+    "forUser": "Avatar for {name}",
+    "unknown": "Avatar for unknown user"
   }
 }

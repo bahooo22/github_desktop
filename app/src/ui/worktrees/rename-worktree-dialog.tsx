@@ -6,6 +6,7 @@ import { Dispatcher } from '../dispatcher'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { TextBox } from '../lib/text-box'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
+import { t } from '../../lib/l10n'
 
 interface IRenameWorktreeDialogProps {
   readonly repository: Repository
@@ -73,7 +74,7 @@ export class RenameWorktreeDialog extends React.Component<
       >
         <DialogContent>
           <TextBox
-            label="Name"
+            label={t('common.name')}
             value={this.state.newName}
             onValueChanged={this.onNameChanged}
           />

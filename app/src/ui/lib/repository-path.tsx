@@ -165,7 +165,7 @@ export class RepositoryPath extends React.Component<
       <InputWarning
         id="repo-sanitized-name-warning"
         trackedUserInput={this.state.name}
-        ariaLiveMessage={`Will be created as ${sanitizedName}. Invalid characters have been replaced by hyphens.`}
+        ariaLiveMessage={t('repositoryPath.sanitizedLive', { sanitizedName })}
       >
         <p>{t('repositoryPath.willBeCreatedAs', { sanitizedName })}</p>
         <span className="sr-only">

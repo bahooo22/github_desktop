@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { clamp } from '../../lib/clamp'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
+import { t } from '../../lib/l10n'
 
 export const DefaultMaxWidth = 350
 export const DefaultMinWidth = 200
@@ -208,7 +209,7 @@ export class Resizable extends React.Component<
           onMouseDown={this.handleDragStart}
           onDoubleClick={this.props.onReset}
           className="resize-handle"
-          aria-label="Resize handle"
+          aria-label={t('resizable.resizeHandle')}
         />
         <AriaLiveContainer
           message={this.state.resizeMessage}

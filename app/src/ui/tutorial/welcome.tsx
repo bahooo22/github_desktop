@@ -23,22 +23,19 @@ export class TutorialWelcome extends React.Component {
         </div>
         <ul className="definitions">
           <li>
-            <img src={CodeImage} alt="Html syntax icon" />
+            <img src={CodeImage} alt={t('tutorialWelcome.altCode')} />
             <p>
               <Trans k="tutorialWelcome.gitDefinition" />
             </p>
           </li>
           <li>
-            <img
-              src={TeamDiscussionImage}
-              alt="People with discussion bubbles overhead"
-            />
+            <img src={TeamDiscussionImage} alt={t('tutorialWelcome.altTeam')} />
             <p>
               <Trans k="tutorialWelcome.githubDefinition" />
             </p>
           </li>
           <li>
-            <img src={CloudServerImage} alt="Server stack with cloud" />
+            <img src={CloudServerImage} alt={t('tutorialWelcome.altCloud')} />
             <p>
               <Trans k="tutorialWelcome.desktopDefinition" />
             </p>

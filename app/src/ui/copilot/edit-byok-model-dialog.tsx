@@ -169,10 +169,10 @@ export class EditCopilotBYOKModelDialog extends React.Component<
   private validate(): string | null {
     const id = this.state.id.trim()
     if (id === '') {
-      return 'Please enter a model identifier.'
+      return t('copilotByokModel.identifierRequired')
     }
     if (this.props.otherModelIds.includes(id)) {
-      return `Another model with the identifier '${id}' already exists.`
+      return t('copilotByokModel.identifierExists', { id })
     }
     return null
   }

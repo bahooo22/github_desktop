@@ -10,6 +10,7 @@ import { Select } from './select'
 import { GitEmailNotFoundWarning } from './git-email-not-found-warning'
 import { getStealthEmailForAccount } from '../../lib/email'
 import memoizeOne from 'memoize-one'
+import { t } from '../../lib/l10n'
 
 const OtherEmailSelectValue = 'Other'
 
@@ -146,7 +147,7 @@ export class GitConfigUserForm extends React.Component<
       <div>
         <Row>
           <TextBox
-            label="Name"
+            label={t('common.name')}
             value={this.props.name}
             disabled={this.props.disabled}
             onValueChanged={this.props.onNameChanged}
@@ -181,7 +182,7 @@ export class GitConfigUserForm extends React.Component<
     return (
       <Row>
         <Select
-          label="Email"
+          label={t('common.email')}
           value={
             this.state.emailIsOther ? OtherEmailSelectValue : this.props.email
           }

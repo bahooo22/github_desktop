@@ -2,6 +2,7 @@ import * as React from 'react'
 import { TooltippedContent } from './lib/tooltipped-content'
 import { formatDate } from '../lib/format-date'
 import { formatRelative } from '../lib/format-relative'
+import { t } from '../lib/l10n'
 
 interface IRelativeTimeProps {
   /**
@@ -72,7 +73,7 @@ export function getRelativeTimeInfoFromDate(
   } else if (duration < MINUTE) {
     return {
       absoluteText,
-      relativeText: 'just now',
+      relativeText: t('relativeTime.justNow'),
       duration: MINUTE - duration,
     }
   } else if (duration < HOUR) {

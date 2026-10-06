@@ -11,6 +11,7 @@ import {
 } from '../../lib/custom-integration'
 import { getAvailableEditors } from '../../lib/editors/lookup'
 import { enableCustomIntegration } from '../../lib/feature-flag'
+import { t } from '../../lib/l10n'
 
 const CustomIntegrationValue = 'other'
 
@@ -105,7 +106,7 @@ export class OpenWithExternalEditor extends React.Component<
 
     return (
       <Select
-        label="Select an editor"
+        label={t('openWithEditor.selectEditor')}
         value={
           this.state.useCustomEditor
             ? CustomIntegrationValue

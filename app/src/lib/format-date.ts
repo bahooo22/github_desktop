@@ -6,6 +6,7 @@ import {
 import { enableFormattingPreferences } from './feature-flag'
 import mem from 'mem'
 import QuickLRU from 'quick-lru'
+import { localization, t } from './l10n/core'
 
 // Initializing a date formatter is expensive but formatting is relatively cheap
 // so we cache them based on the locale and their options. The maxSize of a 100
@@ -52,11 +53,14 @@ export function formatDate(
   { date = true, time = true, dateStyle, timeStyle }: IFormatDateOptions = {}
 ): string {
   if (isNaN(value.valueOf())) {
-    return 'Invalid date'
+    return t('common.invalidDate')
   }
 
   if (!enableFormattingPreferences()) {
-    return getDateFormatter('en-US', { dateStyle, timeStyle }).format(value)
+    return getDateFormatter(localization.getActiveTag(), {
+      dateStyle,
+      timeStyle,
+    }).format(value)
   }
 
   let formatString: string

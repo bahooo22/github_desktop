@@ -7,6 +7,7 @@ import {
   DropdownItemType,
   forcePushIcon,
 } from './push-pull-button'
+import { t } from '../../lib/l10n'
 
 interface IPushPullButtonDropDownProps {
   readonly itemTypes: ReadonlyArray<DropdownItemType>
@@ -67,12 +68,13 @@ export class PushPullButtonDropDown extends React.Component<IPushPullButtonDropD
 
   private getDropdownItemWithType(type: DropdownItemType): DropdownItem {
     const { remoteName } = this.props
+    const branch = remoteName ?? ''
 
     switch (type) {
       case DropdownItemType.Fetch:
         return {
-          title: `Fetch ${remoteName}`,
-          description: `Fetch the latest changes from ${remoteName}`,
+          title: t('toolbar.fetchFrom', { branch }),
+          description: t('toolbar.fetchFromDescription', { branch }),
           action: this.props.fetch,
           icon: syncClockwise,
         }
@@ -80,17 +82,15 @@ export class PushPullButtonDropDown extends React.Component<IPushPullButtonDropD
         const forcePushWarning = this.props
           .askForConfirmationOnForcePush ? null : (
           <div className="warning">
-            <span className="warning-title">Warning:</span> A force push will
-            rewrite history on the remote. Any collaborators working on this
-            branch will need to reset their own local branch to match the
-            history of the remote.
+            <span className="warning-title">{t('toolbar.warningTitle')}</span>
+            {t('toolbar.forcePushWarning')}
           </div>
         )
         return {
-          title: `Force push ${remoteName}`,
+          title: t('toolbar.forcePushTo', { branch }),
           description: (
             <>
-              Overwrite any changes on {remoteName} with your local changes
+              {t('toolbar.overwriteOn', { branch })}
               {forcePushWarning}
             </>
           ),

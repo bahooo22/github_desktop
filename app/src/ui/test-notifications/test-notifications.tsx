@@ -493,7 +493,7 @@ export class TestNotifications extends React.Component<
     )
 
     if (currentStep === undefined) {
-      return <p>Done!</p>
+      return <p>{t('testNotifications.done')}</p>
     }
 
     switch (currentStep) {
@@ -733,7 +733,7 @@ export class TestNotifications extends React.Component<
     return (
       <Dialog
         id="test-notifications"
-        title="Test Notifications"
+        title={t('testNotifications.title')}
         onSubmit={this.props.onDismissed}
         onDismissed={this.props.onDismissed}
       >

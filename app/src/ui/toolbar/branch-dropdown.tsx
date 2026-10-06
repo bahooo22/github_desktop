@@ -30,6 +30,7 @@ import { generateBranchContextMenuItems } from '../branches/branch-list-item-con
 import { showContextualMenu } from '../../lib/menu-item'
 import { Emoji } from '../../lib/emoji'
 import { enableResizingToolbarButtons } from '../../lib/feature-flag'
+import { t } from '../../lib/l10n'
 
 interface IBranchDropdownProps {
   readonly dispatcher: Dispatcher
@@ -247,7 +248,7 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
           onResize={this.onResize}
           maximumWidth={this.props.branchDropdownWidth.max}
           minimumWidth={this.props.branchDropdownWidth.min}
-          description="Current branch dropdown button"
+          description={t('toolbar.currentBranchButton')}
         >
           <ToolbarDropdown
             className="branch-button"
