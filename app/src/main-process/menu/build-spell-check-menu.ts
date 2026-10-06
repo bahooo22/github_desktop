@@ -1,4 +1,5 @@
 import { app, BrowserWindow, MenuItem } from 'electron'
+import { t } from '../../lib/l10n/core'
 
 export async function buildSpellCheckMenu(
   window: BrowserWindow | undefined
@@ -61,7 +62,7 @@ function getSpellCheckMenuItems(
   if (misspelledWord) {
     items.push(
       new MenuItem({
-        label: __DARWIN__ ? 'Add to Dictionary' : 'Add to dictionary',
+        label: t('menu.add-to-dictionary'),
         click: () =>
           webContents.session.addWordToSpellCheckerDictionary(misspelledWord),
       })

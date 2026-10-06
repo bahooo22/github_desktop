@@ -21,9 +21,7 @@ export function generatePullRequestContextMenuItems(
 
   if (onCheckoutInNewWorktree !== undefined) {
     items.push({
-      label: __DARWIN__
-        ? 'Checkout in New Worktree…'
-        : 'Checkout in new worktree…',
+      label: t('branches.checkout-in-new-worktree'),
       action: () => onCheckoutInNewWorktree(),
     })
   }

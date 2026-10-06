@@ -72,10 +72,12 @@ class ModelRow extends React.Component<IModelRowProps> {
         ? model.name
         : model.id !== ''
         ? model.id
-        : 'Untitled model'
+        : t('copilotByokProvider.untitledModel')
     const reasoningLabel =
       model.reasoningEffort !== undefined
-        ? `Reasoning: ${formatReasoningEffort(model.reasoningEffort)}`
+        ? t('copilotByokProvider.reasoningMeta', {
+            effort: formatReasoningEffort(model.reasoningEffort),
+          })
         : null
     return (
       <li className="copilot-byok-entry">
@@ -89,10 +91,16 @@ class ModelRow extends React.Component<IModelRowProps> {
           </span>
         </div>
         <div className="copilot-byok-entry-actions">
-          <Button onClick={this.onEdit} ariaLabel={`Edit ${heading}`}>
+          <Button
+            onClick={this.onEdit}
+            ariaLabel={t('copilotByokProvider.editModelAria', { heading })}
+          >
             <Octicon symbol={octicons.pencil} />
           </Button>
-          <Button onClick={this.onRemove} ariaLabel={`Remove ${heading}`}>
+          <Button
+            onClick={this.onRemove}
+            ariaLabel={t('copilotByokProvider.removeModelAria', { heading })}
+          >
             <Octicon symbol={octicons.trash} />
           </Button>
         </div>
@@ -147,12 +155,8 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
   public render() {
     const isEditing = this.props.provider !== null
     const title = isEditing
-      ? __DARWIN__
-        ? 'Edit Custom Provider'
-        : 'Edit custom provider'
-      : __DARWIN__
-      ? 'Add Custom Provider'
-      : 'Add custom provider'
+      ? t('copilotByokProvider.editTitle')
+      : t('copilotByokProvider.addTitle')
 
     return (
       <Dialog
@@ -170,7 +174,13 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
           {this.renderModelsSection()}
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText={isEditing ? 'Save' : 'Add'} />
+          <OkCancelButtonGroup
+            okButtonText={
+              isEditing
+                ? t('copilotByokModel.save')
+                : t('copilotByokModel.add')
+            }
+          />
         </DialogFooter>
       </Dialog>
     )
@@ -207,7 +217,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
         </Row>
         <Row>
           <TextBox
-            label={__DARWIN__ ? 'Base URL' : 'Base URL'}
+            label={t('copilotByokProvider.baseUrlLabel')}
             value={this.state.baseUrl}
             onValueChanged={this.onBaseUrlChanged}
             placeholder={getBaseUrlPlaceholder(this.state.type)}
@@ -217,7 +227,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
         {this.state.type === 'openai' && (
           <Row>
             <Select
-              label={__DARWIN__ ? 'API Format' : 'API format'}
+              label={t('copilotByokProvider.apiFormatLabel')}
               value={this.state.wireApi}
               onChange={this.onWireApiChanged}
             >
@@ -233,7 +243,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
         {this.state.type === 'azure' && (
           <Row>
             <TextBox
-              label={__DARWIN__ ? 'Azure API Version' : 'Azure API version'}
+              label={t('copilotByokProvider.azureApiVersionLabel')}
               value={this.state.azureApiVersion}
               onValueChanged={this.onAzureApiVersionChanged}
               placeholder="2024-10-21"
@@ -242,11 +252,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
         )}
         <Row>
           <TextBox
-            label={
-              __DARWIN__
-                ? 'Request Timeout (seconds)'
-                : 'Request timeout (seconds)'
-            }
+            label={t('copilotByokProvider.requestTimeoutLabel')}
             value={this.state.requestTimeoutSeconds}
             onValueChanged={this.onRequestTimeoutChanged}
             placeholder="60"
@@ -281,7 +287,9 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
               type="password"
               value={this.state.secret}
               onValueChanged={this.onSecretChanged}
-              placeholder={isEditing ? '(unchanged)' : ''}
+              placeholder={
+                isEditing ? t('copilotByokProvider.unchangedSecret') : ''
+              }
             />
           </Row>
         )}
@@ -319,7 +327,7 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
           </ul>
         )}
         <Button onClick={this.onAddModel}>
-          {__DARWIN__ ? 'Add Model…' : 'Add model…'}
+          {t('copilotByokProvider.addModel')}
         </Button>
       </fieldset>
     )
@@ -443,20 +451,20 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
 
   private validate(): string | null {
     if (this.state.name.trim() === '') {
-      return 'Please enter a name.'
+      return t('copilotByokProvider.nameRequired')
     }
 
     const trimmedUrl = this.state.baseUrl.trim()
     if (trimmedUrl === '') {
-      return 'Please enter a base URL.'
+      return t('copilotByokProvider.baseUrlRequired')
     }
     if (!isValidBYOKBaseUrl(trimmedUrl)) {
-      return 'Base URL must be an https URL, or an http URL pointing at the local machine.'
+      return t('copilotByokProvider.baseUrlInvalid')
     }
 
     const trimmedModels = this.state.models.filter(m => m.id.trim() !== '')
     if (trimmedModels.length === 0) {
-      return 'Please add at least one model.'
+      return t('copilotByokProvider.modelsRequired')
     }
 
     const ids = new Set<string>()
@@ -474,15 +482,15 @@ export class EditCopilotBYOKProviderDialog extends React.Component<
       requiresNewBYOKSecret(this.state.authKind, existing)
     ) {
       return this.state.authKind === 'bearer'
-        ? 'Please enter a bearer token.'
-        : 'Please enter an API key.'
+        ? t('copilotByokProvider.bearerRequired')
+        : t('copilotByokProvider.apiKeyRequired')
     }
 
     const trimmedTimeout = this.state.requestTimeoutSeconds.trim()
     if (trimmedTimeout !== '') {
       const timeout = Number(trimmedTimeout)
       if (!Number.isFinite(timeout) || timeout <= 0) {
-        return 'Request timeout must be a positive number of seconds.'
+        return t('copilotByokProvider.timeoutInvalid')
       }
     }
 

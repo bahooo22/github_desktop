@@ -43,7 +43,7 @@ export class RevertProgress extends React.Component<IRevertProgressProps, {}> {
 
   public render() {
     const progress = this.props.progress
-    const title = progress.title || 'Hang on…'
+    const title = progress.title || t('common.hangOn')
 
     if (!enableResizingToolbarButtons()) {
       return (

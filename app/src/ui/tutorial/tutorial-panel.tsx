@@ -149,7 +149,7 @@ export class TutorialPanel extends React.Component<
                 />
                 <div className="action">
                   <LinkButton onClick={this.skipEditorInstall}>
-                    I have an editor
+                    {t('tutorialPanel.iHaveEditor')}
                   </LinkButton>
                 </div>
               </>

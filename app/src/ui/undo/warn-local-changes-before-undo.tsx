@@ -39,7 +39,7 @@ export class WarnLocalChangesBeforeUndo extends React.Component<
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Undo Commit' : 'Undo commit'
+    const title = t('warnLocalChanges.undoCommitTitle')
 
     return (
       <Dialog

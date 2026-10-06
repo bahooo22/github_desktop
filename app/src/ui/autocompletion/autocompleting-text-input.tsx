@@ -10,6 +10,7 @@ import { fatalError } from '../../lib/fatal-error'
 import classNames from 'classnames'
 import getCaretCoordinates from 'textarea-caret'
 import { showContextualMenu } from '../../lib/menu-item'
+import { t } from '../../lib/l10n'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { createUniqueId, releaseUniqueId } from '../lib/id-pool'
 import {
@@ -573,9 +574,11 @@ export abstract class AutocompletingTextInput<
     const autoCompleteItems = this.state.autocompletionState?.items ?? []
 
     const suggestionsMessage =
-      autoCompleteItems.length === 1
-        ? '1 suggestion'
-        : `${autoCompleteItems.length} suggestions`
+      autoCompleteItems.length > 0
+        ? t('userAutocompletion.suggestions', {
+            count: autoCompleteItems.length,
+          })
+        : ''
 
     return (
       <div className={className}>

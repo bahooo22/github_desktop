@@ -37,7 +37,7 @@ export class ConfirmDiscardStashDialog extends React.Component<
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Discard Stash?' : 'Discard stash?'
+    const title = t('confirmDiscardStash.title')
 
     return (
       <Dialog

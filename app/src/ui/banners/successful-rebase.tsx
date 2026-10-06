@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { SuccessBanner } from './success-banner'
+import { Trans } from '../../lib/l10n'
 
 export function SuccessfulRebase({
   baseBranch,
@@ -12,17 +13,20 @@ export function SuccessfulRebase({
 }) {
   const message =
     baseBranch !== undefined ? (
-      <span>
-        {'Successfully rebased '}
-        <strong>{targetBranch}</strong>
-        {' onto '}
-        <strong>{baseBranch}</strong>
-      </span>
+      <Trans
+        as="span"
+        k="banners.successfulRebaseOnto"
+        components={{
+          target: <strong>{targetBranch}</strong>,
+          base: <strong>{baseBranch}</strong>,
+        }}
+      />
     ) : (
-      <span>
-        {'Successfully rebased '}
-        <strong>{targetBranch}</strong>
-      </span>
+      <Trans
+        as="span"
+        k="banners.successfulRebase"
+        components={{ target: <strong>{targetBranch}</strong> }}
+      />
     )
 
   return (

@@ -74,7 +74,7 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
             <SuggestedAction
               title={t('tutorial.exploreTitle')}
               description={t('tutorial.exploreDescription')}
-              buttonText={__DARWIN__ ? 'Open in Browser' : 'Open in browser'}
+              buttonText={t('tutorial.openInBrowserButton')}
               onClick={this.openDotcomExplore}
               type="normal"
               image={TelescopeOcticon}
@@ -82,9 +82,7 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
             <SuggestedAction
               title={t('tutorial.createTitle')}
               description={t('tutorial.createDescription')}
-              buttonText={
-                __DARWIN__ ? 'Create Repository' : 'Create repository'
-              }
+              buttonText={t('tutorial.createRepositoryButton')}
               onClick={this.onCreateNewRepository}
               type="normal"
               image={PlusOcticon}
@@ -92,7 +90,7 @@ export class TutorialDone extends React.Component<ITutorialDoneProps, {}> {
             <SuggestedAction
               title={t('tutorial.addTitle')}
               description={t('tutorial.addDescription')}
-              buttonText={__DARWIN__ ? 'Add Repository' : 'Add repository'}
+              buttonText={t('tutorial.addRepositoryButton')}
               onClick={this.onAddExistingRepository}
               type="normal"
               image={FileDirectoryOcticon}

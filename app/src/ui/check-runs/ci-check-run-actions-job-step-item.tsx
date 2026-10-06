@@ -47,9 +47,11 @@ export class CICheckRunActionsJobStepListItem extends React.PureComponent<ICIChe
       <li
         className="ci-check-run-job-step"
         ref={this.onStepHeaderRef(step)}
-        aria-label={`${step.name}, ${getFormattedCheckRunLongDuration(
-          step
-        )}, ${getClassNameForCheck(step)}`}
+        aria-label={t('checkRuns.jobStepAria', {
+          stepName: step.name,
+          duration: getFormattedCheckRunLongDuration(step),
+          status: getClassNameForCheck(step),
+        })}
       >
         <div className="job-step-status-symbol">
           <Octicon

@@ -149,7 +149,7 @@ export class OpenWithExternalEditor extends React.Component<
   }
 
   public render() {
-    const title = __DARWIN__ ? 'Open With…' : 'Open with…'
+    const title = t('openWithEditor.dialogTitle')
     const disabled =
       (!this.state.useCustomEditor && this.state.selectedEditor === null) ||
       (this.state.useCustomEditor && !this.state.customEditor.path)

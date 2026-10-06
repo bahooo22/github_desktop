@@ -6,7 +6,7 @@ import {
 } from '../../models/repo-rules'
 import { RepoRulesetsForBranchLink } from './repo-rulesets-for-branch-link'
 import { RepoRulesetLink } from './repo-ruleset-link'
-import { Trans } from '../../lib/l10n'
+import { Trans, t } from '../../lib/l10n'
 
 interface IRepoRulesMetadataFailureListProps {
   readonly repository: GitHubRepository
@@ -51,25 +51,28 @@ export class RepoRulesMetadataFailureList extends React.Component<IRepoRulesMeta
             }}
           />
         </p>
-        {this.renderRuleFailureList(failures.failed, 'Failed')}
-        {this.renderRuleFailureList(failures.bypassed, 'Bypassed')}
+        {this.renderRuleFailureList(failures.failed, 'failed')}
+        {this.renderRuleFailureList(failures.bypassed, 'bypassed')}
       </div>
     )
   }
 
   private renderRuleFailureList(
     failures: RepoRulesMetadataFailure[],
-    label: string
+    kind: 'failed' | 'bypassed'
   ) {
     if (failures.length === 0) {
       return null
     }
-    const rulesText = __DARWIN__ ? 'Rules' : 'rules'
-    const labelId = `repo-rule-list-label-${label.toLowerCase()}`
+    const labelId = `repo-rule-list-label-${kind}`
     return (
       <div className="repo-rule-list">
         <label id={labelId}>
-          {label} {rulesText}:
+          {t(
+            kind === 'failed'
+              ? 'repoRules.failedGroupLabel'
+              : 'repoRules.bypassedGroupLabel'
+          )}
         </label>
         <ul aria-labelledby={labelId}>
           {failures.map(f => (

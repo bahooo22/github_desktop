@@ -7,8 +7,6 @@ import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { SignInResult } from '../../lib/stores'
 import { t, Trans } from '../../lib/l10n'
 
-const okButtonText = __DARWIN__ ? 'Continue in Browser' : 'Continue in browser'
-
 interface IWorkflowPushRejectedDialogProps {
   readonly rejectedPath: string
   readonly repository: RepositoryWithGitHubRepository
@@ -35,7 +33,7 @@ export class WorkflowPushRejectedDialog extends React.Component<
     return (
       <Dialog
         id="workflow-push-rejected"
-        title={__DARWIN__ ? 'Push Rejected' : 'Push rejected'}
+        title={t('workflowPushRejected.title')}
         loading={this.state.loading}
         onDismissed={this.props.onDismissed}
         onSubmit={this.onSignIn}
@@ -50,7 +48,9 @@ export class WorkflowPushRejectedDialog extends React.Component<
           <p>{t('workflowPushRejected.grantPermission')}</p>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText={okButtonText} />
+          <OkCancelButtonGroup
+            okButtonText={t('workflowPushRejected.continueInBrowser')}
+          />
         </DialogFooter>
       </Dialog>
     )

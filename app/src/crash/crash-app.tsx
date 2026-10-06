@@ -11,7 +11,7 @@ import { getVersion } from '../ui/lib/app-proxy'
 import { getOS } from '../lib/get-os'
 import * as ipcRenderer from '../lib/ipc-renderer'
 import { getCurrentWindowState } from '../ui/main-process-proxy'
-import { Trans, localization, registerBuiltInLocales } from '../lib/l10n'
+import { Trans, localization, registerBuiltInLocales, t } from '../lib/l10n'
 
 // The crash window is a standalone renderer entry that never runs the main
 // renderer's localization bootstrap. Registering the shipped catalogs and
@@ -149,8 +149,8 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
   private renderTitle() {
     const message =
       this.state.type === 'launch'
-        ? 'GitHub Desktop failed to launch'
-        : 'GitHub Desktop encountered an error'
+        ? t('crash.launchTitle')
+        : t('crash.errorTitle')
 
     return (
       <header>
@@ -189,14 +189,11 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
   }
 
   private renderQuitButton() {
-    let quitText
     // We don't support restarting in dev mode since we can't
     // control the life time of the dev server.
-    if (__DEV__) {
-      quitText = __DARWIN__ ? 'Quit' : 'Exit'
-    } else {
-      quitText = __DARWIN__ ? 'Quit and Restart' : 'Exit and restart'
-    }
+    const quitText = __DEV__
+      ? t('crash.quit')
+      : t('crash.quitAndRestart')
 
     return (
       <Button type="submit" onClick={this.onQuitButtonClicked}>

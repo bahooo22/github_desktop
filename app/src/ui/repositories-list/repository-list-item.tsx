@@ -137,11 +137,18 @@ const renderAheadBehindIndicator = (aheadBehind: IAheadBehind) => {
   }
 
   const aheadBehindTooltip =
-    'The currently checked out branch is' +
-    (behind ? ` ${commitGrammar(behind)} behind ` : '') +
-    (behind && ahead ? 'and' : '') +
-    (ahead ? ` ${commitGrammar(ahead)} ahead of ` : '') +
-    'its tracked branch.'
+    behind > 0 && ahead > 0
+      ? t('repositoriesList.aheadBehindBothTooltip', {
+          behind: commitGrammar(behind),
+          ahead: commitGrammar(ahead),
+        })
+      : behind > 0
+      ? t('repositoriesList.behindTooltip', {
+          commits: commitGrammar(behind),
+        })
+      : t('repositoriesList.aheadTooltip', {
+          commits: commitGrammar(ahead),
+        })
 
   return (
     <TooltippedContent

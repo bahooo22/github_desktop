@@ -11,6 +11,7 @@ import {
   IRefCheck,
 } from '../../lib/ci-checks/ci-checks'
 import { IAPIWorkflowJobStep } from '../../lib/api'
+import { t } from '../../lib/l10n'
 
 interface ICIStatusProps {
   /** The classname for the underlying element. */
@@ -115,7 +116,9 @@ export class CIStatus extends React.PureComponent<
           this.props.className
         )}
         symbol={getSymbolForCheck(check)}
-        title={`Checks: ${getCheckRunConclusionAdjective(check.conclusion)}`}
+        title={t('checkRuns.statusTooltip', {
+          conclusion: getCheckRunConclusionAdjective(check.conclusion),
+        })}
       />
     )
   }

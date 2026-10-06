@@ -13,7 +13,7 @@ import memoizeOne from 'memoize-one'
 import { RepositoryPath } from '../lib/repository-path'
 import { Ref } from '../lib/ref'
 import { sanitizedRefName } from '../../lib/sanitize-ref-name'
-import { Trans } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IAddWorktreeDialogProps {
   readonly repository: Repository
@@ -195,7 +195,7 @@ export class AddWorktreeDialog extends React.Component<
     return (
       <Dialog
         id="add-worktree"
-        title={__DARWIN__ ? 'Add Worktree' : 'Add worktree'}
+        title={t('addWorktreeDialog.title')}
         loading={this.state.creating}
         onSubmit={this.onSubmit}
         onDismissed={this.props.onDismissed}
@@ -207,14 +207,14 @@ export class AddWorktreeDialog extends React.Component<
             }
             onFullPathChanged={this.onFullPathChanged}
             onNameChanged={this.onWorktreeNameChanged}
-            nameLabel={__DARWIN__ ? 'Worktree Name' : 'Worktree name'}
+            nameLabel={t('addWorktreeDialog.worktreeNameLabel')}
             namePlaceholder="worktree name"
             pathPlaceholder="worktree path"
           />
 
           <Row>
             <RefNameTextBox
-              label={__DARWIN__ ? 'Branch Name' : 'Branch name'}
+              label={t('addWorktreeDialog.branchNameLabel')}
               placeholder={branchPlaceholder}
               initialValue={this.state.branchName}
               onValueChange={this.onBranchNameChanged}
@@ -229,7 +229,7 @@ export class AddWorktreeDialog extends React.Component<
         <DialogFooter>
           {this.renderPathMessage()}
           <OkCancelButtonGroup
-            okButtonText={__DARWIN__ ? 'Create Worktree' : 'Create worktree'}
+            okButtonText={t('addWorktreeDialog.createWorktree')}
             okButtonDisabled={disabled}
           />
         </DialogFooter>

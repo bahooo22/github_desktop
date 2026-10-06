@@ -211,7 +211,7 @@ const getCopilotModelTitle = (item: ICopilotModelListItem) => {
     ? ''
     : getPremiumRequestsBillingLabel(item.billing)
   return item.isDefault
-    ? `${item.name} (default)`
+    ? t('copilotModelPicker.defaultSuffix', { name: item.name })
     : `${item.name}${billingLabel}`
 }
 
@@ -219,7 +219,9 @@ const getCopilotModelAriaLabel = (item: ICopilotModelListItem) => {
   const title = getCopilotModelTitle(item)
   const subtitle = getListItemSubtitle(item)
 
-  return subtitle === null ? title : `${title}, ${subtitle}`
+  return subtitle === null
+    ? title
+    : t('copilotModelPicker.itemAria', { title, subtitle })
 }
 
 const getCopilotModelGroups = (

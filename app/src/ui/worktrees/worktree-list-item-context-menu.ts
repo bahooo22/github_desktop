@@ -2,6 +2,7 @@ import * as Path from 'path'
 
 import { IMenuItem } from '../../lib/menu-item'
 import { writeClipboardText } from '../main-process-proxy'
+import { t } from '../../lib/l10n'
 
 interface IWorktreeContextMenuConfig {
   readonly path: string
@@ -28,12 +29,12 @@ export function generateWorktreeContextMenuItems(
   }
 
   items.push({
-    label: __DARWIN__ ? 'Copy Worktree Name' : 'Copy worktree name',
+    label: t('worktreeList.copyWorktreeName'),
     action: () => writeClipboardText(name),
   })
 
   items.push({
-    label: __DARWIN__ ? 'Copy Worktree Path' : 'Copy worktree path',
+    label: t('worktreeList.copyWorktreePath'),
     action: () => writeClipboardText(path),
   })
 

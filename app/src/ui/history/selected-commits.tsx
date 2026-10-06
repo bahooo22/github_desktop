@@ -147,7 +147,9 @@ export class SelectedCommits extends React.Component<
     if (file == null) {
       // don't show both 'empty' messages
       const message =
-        this.props.changesetData.files.length === 0 ? '' : 'No file selected'
+        this.props.changesetData.files.length === 0
+          ? ''
+          : t('selectedCommits.noFileSelected')
 
       return (
         <div className="panel blankslate" id="diff">
@@ -386,9 +388,7 @@ export class SelectedCommits extends React.Component<
     if (!fileExistsOnDisk) {
       showContextualMenu([
         {
-          label: __DARWIN__
-            ? 'File Does Not Exist on Disk'
-            : 'File does not exist on disk',
+          label: t('selectedCommits.fileDoesNotExistOnDisk'),
           enabled: false,
         },
       ])

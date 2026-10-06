@@ -6464,14 +6464,15 @@ export class AppStore extends TypedBaseStore<IAppState> {
       return {
         ourLabel: conflictState.currentBranch,
         ourRef: conflictState.currentBranch,
-        theirLabel: theirBranch ?? 'incoming branch',
+        theirLabel: theirBranch ?? t('multiCommit.incomingBranchLabel'),
         theirRef: theirBranch,
       }
     }
 
     if (isRebaseConflictState(conflictState)) {
       return {
-        ourLabel: conflictState.baseBranch ?? 'current branch',
+        ourLabel:
+          conflictState.baseBranch ?? t('multiCommit.currentBranchLabel'),
         ourRef: conflictState.baseBranch,
         theirLabel: conflictState.targetBranch,
         theirRef: conflictState.targetBranch,
@@ -6490,7 +6491,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
       return {
         ourLabel: conflictState.targetBranchName,
         ourRef: conflictState.targetBranchName,
-        theirLabel: sourceBranch ?? 'cherry-picked commit',
+        theirLabel: sourceBranch ?? t('multiCommit.cherryPickedCommitLabel'),
         theirRef: sourceBranch,
       }
     }

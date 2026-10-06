@@ -67,7 +67,7 @@ export class RenameWorktreeDialog extends React.Component<
     return (
       <Dialog
         id="rename-worktree"
-        title={__DARWIN__ ? 'Rename Worktree' : 'Rename worktree'}
+        title={t('renameWorktreeDialog.title')}
         loading={this.state.renaming}
         onSubmit={this.onSubmit}
         onDismissed={this.props.onDismissed}
@@ -82,7 +82,9 @@ export class RenameWorktreeDialog extends React.Component<
 
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText={`Rename ${currentName}`}
+            okButtonText={t('renameWorktreeDialog.renameButton', {
+              name: currentName,
+            })}
             okButtonDisabled={disabled}
           />
         </DialogFooter>

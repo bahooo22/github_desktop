@@ -6,6 +6,7 @@ import { Octicon } from './octicons'
 import * as octicons from './octicons/octicons.generated'
 import { UiView } from './ui-view'
 import { TooltippedContent } from './lib/tooltipped-content'
+import { t } from '../lib/l10n'
 
 interface ICloningRepositoryProps {
   readonly repository: CloningRepository
@@ -26,7 +27,11 @@ export class CloningRepositoryView extends React.Component<
       <UiView id="cloning-repository-view">
         <div className="title-container">
           <Octicon symbol={octicons.desktopDownload} />
-          <div className="title">Cloning {this.props.repository.name}</div>
+          <div className="title">
+            {t('cloningRepository.title', {
+              repository: this.props.repository.name,
+            })}
+          </div>
         </div>
         <progress value={progressValue} />
         <TooltippedContent

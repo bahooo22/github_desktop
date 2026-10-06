@@ -11,6 +11,7 @@ import { promisify } from 'util'
 import memoizeOne from 'memoize-one'
 import which from 'which'
 import { createWriteStream } from 'fs'
+import { t } from '../l10n/core'
 
 const execFileAsync = promisify(execFile)
 
@@ -263,11 +264,15 @@ export const createHooksProxy = (
       conn.stdin.pipe(child.stdin).on('error', reject)
     })
 
-    const dur = `after ${((Date.now() - startTime) / 1000).toFixed(2)}s`
-    const prefix = `${hookName} hook`
+    // Строка статуса попадает в терминальный вывод диалога ошибки хука,
+    // то есть видна человеку, поэтому она переводится через каталог;
+    // длительность передаётся параметром, а оформляется уже шаблоном.
+    const seconds = ((Date.now() - startTime) / 1000).toFixed(2)
     const terminationMessage = signal
-      ? `${prefix} killed by signal ${signal} ${dur}`
-      : `${prefix} ${code ? `failed with code ${code}` : 'done'} ${dur}`
+      ? t('hooks.killedBySignal', { hookName, signal, duration: seconds })
+      : code
+      ? t('hooks.failedWithCode', { hookName, code, duration: seconds })
+      : t('hooks.done', { hookName, duration: seconds })
 
     debug(terminationMessage)
 

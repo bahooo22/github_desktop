@@ -103,7 +103,7 @@ export class WorktreeDropdown extends React.Component<
     })
 
     const newWorktreeItem: IMenuItem = {
-      label: __DARWIN__ ? 'New Worktree…' : 'New worktree…',
+      label: t('menu.create-worktree'),
       action: this.onCreateNewWorktree,
     }
 
@@ -151,7 +151,7 @@ export class WorktreeDropdown extends React.Component<
     const title = currentWorktree
       ? Path.basename(currentWorktree.path)
       : this.props.repository.name
-    const description = __DARWIN__ ? 'Current Worktree' : 'Current worktree'
+    const description = t('worktreeDropdown.currentWorktree')
 
     const toolbarDropdown = (
       <ToolbarDropdown

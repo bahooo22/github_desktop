@@ -3,7 +3,7 @@ import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Ref } from '../lib/ref'
 import { IBYOKProvider } from '../../lib/copilot/byok'
-import { Trans } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IConfirmDeleteCopilotBYOKProviderDialogProps {
   readonly provider: IBYOKProvider
@@ -21,7 +21,7 @@ export class ConfirmDeleteCopilotBYOKProviderDialog extends React.Component<ICon
     return (
       <Dialog
         id="confirm-delete-copilot-byok-provider"
-        title={__DARWIN__ ? 'Remove Custom Provider' : 'Remove custom provider'}
+        title={t('copilotByokProvider.removeTitle')}
         type="warning"
         onSubmit={this.onConfirm}
         onDismissed={this.props.onDismissed}
@@ -40,7 +40,7 @@ export class ConfirmDeleteCopilotBYOKProviderDialog extends React.Component<ICon
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText={__DARWIN__ ? 'Remove' : 'Remove'}
+            okButtonText={t('copilotByokProvider.remove')}
           />
         </DialogFooter>
       </Dialog>
@@ -50,11 +50,11 @@ export class ConfirmDeleteCopilotBYOKProviderDialog extends React.Component<ICon
   private renderSecretConsequence() {
     switch (this.props.provider.authKind) {
       case 'apiKey':
-        return 'Its API key will also be removed from your keychain.'
+        return t('copilotByokProvider.removeApiKeyConsequence')
       case 'bearer':
-        return 'Its bearer token will also be removed from your keychain.'
+        return t('copilotByokProvider.removeBearerConsequence')
       case 'none':
-        return 'Any models you have configured for it will no longer be available.'
+        return t('copilotByokProvider.removeNoAuthConsequence')
     }
   }
 

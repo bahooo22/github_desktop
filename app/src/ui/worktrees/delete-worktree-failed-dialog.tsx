@@ -8,7 +8,7 @@ import { Repository } from '../../models/repository'
 import { getUnderlyingError, isRawGitError } from '../app-error'
 import { Terminal } from '../terminal'
 import { WorktreeEntry } from '../../models/worktree'
-import { Trans } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 interface IDeleteWorktreeFailedDialogProps {
   readonly repository: Repository
@@ -49,7 +49,7 @@ export class DeleteWorktreeFailedDialog extends React.Component<
     return (
       <Dialog
         id="delete-worktree-failed"
-        title={__DARWIN__ ? 'Delete Worktree Failed' : 'Delete worktree failed'}
+        title={t('deleteWorktreeFailed.title')}
         type="error"
         onSubmit={this.onSubmit}
         onDismissed={this.onDismissed}

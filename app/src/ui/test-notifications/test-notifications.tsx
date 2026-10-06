@@ -562,7 +562,7 @@ export class TestNotifications extends React.Component<
 
     return (
       <div>
-        Reviews:
+        {t('testNotifications.reviewsLabel')}
         <SectionList
           rowHeight={40}
           rowCount={[reviews.length]}
@@ -612,7 +612,7 @@ export class TestNotifications extends React.Component<
 
     return (
       <div>
-        Comments:
+        {t('testNotifications.commentsLabel')}
         <SectionList
           rowHeight={40}
           rowCount={[comments.length]}
@@ -650,7 +650,9 @@ export class TestNotifications extends React.Component<
       <TestNotificationItemRowContent
         dispatcher={this.props.dispatcher}
         html_url={comment.html_url}
-        linkButtonDescription={`Open in browser: ${comment.body}`}
+        linkButtonDescription={t('testNotifications.openInBrowser', {
+          body: comment.body,
+        })}
         leftAccessory={this.renderReviewStateIcon('COMMENTED')}
       >
         {comment.body}
@@ -667,7 +669,9 @@ export class TestNotifications extends React.Component<
       <TestNotificationItemRowContent
         dispatcher={this.props.dispatcher}
         html_url={review.html_url}
-        linkButtonDescription={`Open in browser: ${review.body}`}
+        linkButtonDescription={t('testNotifications.openInBrowser', {
+          body: review.body ?? '',
+        })}
         leftAccessory={this.renderReviewStateIcon(review.state)}
       >
         {review.body || <i>{t('testNotifications.reviewWithoutBody')}</i>}

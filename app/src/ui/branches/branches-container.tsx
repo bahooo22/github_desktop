@@ -320,7 +320,7 @@ export class BranchesContainer extends React.Component<
       return null
     }
 
-    const label = __DARWIN__ ? 'New Branch' : 'New branch'
+    const label = t('branches.new-branch')
 
     return (
       /**

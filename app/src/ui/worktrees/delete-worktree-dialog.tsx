@@ -44,7 +44,7 @@ export class DeleteWorktreeDialog extends React.Component<
     return (
       <Dialog
         id="delete-worktree"
-        title={__DARWIN__ ? 'Delete Worktree' : 'Delete worktree'}
+        title={t('deleteWorktreeDialog.title')}
         type="warning"
         onSubmit={this.onSubmit}
         onDismissed={this.props.onDismissed}

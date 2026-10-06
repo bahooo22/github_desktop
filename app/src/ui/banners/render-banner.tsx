@@ -122,14 +122,13 @@ export function renderBanner(
         />
       )
     case BannerType.SquashUndone: {
-      const pluralized = banner.commitsCount === 1 ? 'commit' : 'commits'
       return (
         <SuccessBanner
           key="squash-undone"
           timeout={5000}
           onDismissed={onDismissed}
         >
-          Squash of {banner.commitsCount} {pluralized} undone.
+          {t('banners.squashUndone', { count: banner.commitsCount })}
         </SuccessBanner>
       )
     }
@@ -146,14 +145,13 @@ export function renderBanner(
       )
     }
     case BannerType.ReorderUndone: {
-      const pluralized = banner.commitsCount === 1 ? 'commit' : 'commits'
       return (
         <SuccessBanner
           key="reorder-undone"
           timeout={5000}
           onDismissed={onDismissed}
         >
-          Reorder of {banner.commitsCount} {pluralized} undone.
+          {t('banners.reorderUndone', { count: banner.commitsCount })}
         </SuccessBanner>
       )
     }

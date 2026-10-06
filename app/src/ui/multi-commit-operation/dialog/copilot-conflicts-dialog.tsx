@@ -684,7 +684,10 @@ export class CopilotConflictsDialog extends React.Component<
 
     const modelLabel =
       model.reasoningEffort !== undefined
-        ? `${model.modelName} · ${formatReasoningEffort(model.reasoningEffort)}`
+        ? t('multiCommit.copilotModelLabel', {
+            model: model.modelName,
+            effort: formatReasoningEffort(model.reasoningEffort),
+          })
         : model.modelName
 
     return (

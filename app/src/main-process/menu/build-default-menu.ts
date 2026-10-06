@@ -292,22 +292,22 @@ export function buildDefaultMenuTemplate({
         click: emit('toggle-changes-filter'),
       },
       {
-        label: __DARWIN__ ? 'Toggle Full Screen' : 'Toggle &full screen',
+        label: t('menu.toggle-full-screen'),
         role: 'togglefullscreen',
       },
       separator,
       {
-        label: __DARWIN__ ? 'Reset Zoom' : 'Reset zoom',
+        label: t('menu.reset-zoom'),
         accelerator: 'CmdOrCtrl+0',
         click: zoom(ZoomDirection.Reset),
       },
       {
-        label: __DARWIN__ ? 'Zoom In' : 'Zoom in',
+        label: t('menu.zoom-in'),
         accelerator: 'CmdOrCtrl+=',
         click: zoom(ZoomDirection.In),
       },
       {
-        label: __DARWIN__ ? 'Zoom Out' : 'Zoom out',
+        label: t('menu.zoom-out'),
         accelerator: 'CmdOrCtrl+-',
         click: zoom(ZoomDirection.Out),
       },
@@ -397,9 +397,9 @@ export function buildDefaultMenuTemplate({
         click: emit('view-repository-on-github'),
       },
       {
-        label: __DARWIN__
-          ? `Open in ${selectedShell ?? 'Shell'}`
-          : `O&pen in ${selectedShell ?? 'shell'}`,
+        label: t('menu.open-in-shell', {
+          shell: selectedShell ?? t('menu.open-in-shell-default'),
+        }),
         id: 'open-in-shell',
         accelerator: 'Ctrl+`',
         click: emit('open-in-shell'),
@@ -411,9 +411,9 @@ export function buildDefaultMenuTemplate({
         click: emit('open-working-directory'),
       },
       {
-        label: __DARWIN__
-          ? `Open in ${selectedExternalEditor ?? 'External Editor'}`
-          : `&Open in ${selectedExternalEditor ?? 'external editor'}`,
+        label: t('menu.open-in-editor', {
+          editor: selectedExternalEditor ?? t('menu.open-in-editor-default'),
+        }),
         id: 'open-external-editor',
         accelerator: 'CmdOrCtrl+Shift+A',
         click: emit('open-external-editor'),
@@ -494,9 +494,9 @@ export function buildDefaultMenuTemplate({
     },
     separator,
     {
-      label: __DARWIN__
-        ? `Update from ${contributionTargetDefaultBranch}`
-        : `&Update from ${contributionTargetDefaultBranch}`,
+      label: t('menu.update-from', {
+        branch: contributionTargetDefaultBranch,
+      }),
       id: 'update-branch-with-contribution-target-branch',
       accelerator: 'CmdOrCtrl+Shift+U',
       click: emit('update-branch-with-contribution-target-branch'),
@@ -574,7 +574,7 @@ export function buildDefaultMenuTemplate({
   }
 
   const submitIssueItem: Electron.MenuItemConstructorOptions = {
-    label: __DARWIN__ ? 'Report Issue…' : 'Report issue…',
+    label: t('menu.report-issue'),
     click() {
       shell
         .openExternal('https://github.com/desktop/desktop/issues/new/choose')
@@ -583,7 +583,7 @@ export function buildDefaultMenuTemplate({
   }
 
   const contactSupportItem: Electron.MenuItemConstructorOptions = {
-    label: __DARWIN__ ? 'Contact GitHub Support…' : '&Contact GitHub support…',
+    label: t('menu.contact-support'),
     click() {
       shell
         .openExternal(

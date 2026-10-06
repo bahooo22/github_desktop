@@ -636,9 +636,7 @@ export class CommitList extends React.Component<
     }
 
     const containerWidth = this.containerRef.current?.clientWidth ?? 0
-    const reorderCommitsHintTitle = __DARWIN__
-      ? 'Reorder Commits'
-      : 'Reorder commits'
+    const reorderCommitsHintTitle = t('commitList.reorderCommitsHintTitle')
 
     return (
       <Popover
@@ -661,9 +659,13 @@ export class CommitList extends React.Component<
             down: <KeyboardShortcut darwinKeys={['↓']} keys={['↓']} />,
           }}
         />
-        <p>
-          Press <KeyboardShortcut darwinKeys={['⏎']} keys={['⏎']} /> to confirm.
-        </p>
+        <Trans
+          as="p"
+          k="commitList.pressEnterToConfirm"
+          components={{
+            enter: <KeyboardShortcut darwinKeys={['⏎']} keys={['⏎']} />,
+          }}
+        />
       </Popover>
     )
   }
@@ -744,28 +746,28 @@ export class CommitList extends React.Component<
       this.props.canResetToCommits === true && isResettableCommit
     const canBeCheckedOut = row > 0 //Cannot checkout the current commit
 
-    let viewOnGitHubLabel = 'View on GitHub'
+    let viewOnGitHubLabel = t('commitList.viewOnGitHub')
     const gitHubRepository = this.props.gitHubRepository
 
     if (
       gitHubRepository &&
       gitHubRepository.endpoint !== getDotComAPIEndpoint()
     ) {
-      viewOnGitHubLabel = 'View on GitHub Enterprise'
+      viewOnGitHubLabel = t('commitList.viewOnGitHubEnterprise')
     }
 
     const items: IMenuItem[] = []
 
     if (canBeAmended) {
       items.push({
-        label: __DARWIN__ ? 'Amend Commit…' : 'Amend commit…',
+        label: t('commitList.amendCommit'),
         action: () => this.props.onAmendCommit?.(commit, isLocal),
       })
     }
 
     if (canBeUndone) {
       items.push({
-        label: __DARWIN__ ? 'Undo Commit…' : 'Undo commit…',
+        label: t('commitList.undoCommit'),
         action: () => {
           if (this.props.onUndoCommit) {
             this.props.onUndoCommit(commit)
@@ -776,7 +778,7 @@ export class CommitList extends React.Component<
     }
 
     items.push({
-      label: __DARWIN__ ? 'Reset to Commit…' : 'Reset to commit…',
+      label: t('commitList.resetToCommit'),
       action: () => {
         if (this.props.onResetToCommit) {
           this.props.onResetToCommit(commit)
@@ -786,7 +788,7 @@ export class CommitList extends React.Component<
     })
 
     items.push({
-      label: __DARWIN__ ? 'Checkout Commit' : 'Checkout commit',
+      label: t('commitList.checkoutCommit'),
       action: () => {
         this.props.onCheckoutCommit?.(commit)
       },
@@ -794,7 +796,7 @@ export class CommitList extends React.Component<
     })
 
     items.push({
-      label: __DARWIN__ ? 'Reorder Commit' : 'Reorder commit',
+      label: t('commitList.reorderCommit'),
       action: () => {
         this.props.onKeyboardReorder?.([commit])
       },
@@ -803,9 +805,7 @@ export class CommitList extends React.Component<
 
     items.push(
       {
-        label: __DARWIN__
-          ? 'Revert Changes in Commit'
-          : 'Revert changes in commit',
+        label: t('commitList.revertChangesInCommit'),
         action: () => {
           if (this.props.onRevertCommit) {
             this.props.onRevertCommit(commit)
@@ -815,9 +815,7 @@ export class CommitList extends React.Component<
       },
       { type: 'separator' },
       {
-        label: __DARWIN__
-          ? 'Create Branch from Commit'
-          : 'Create branch from commit',
+        label: t('commitList.createBranchFromCommit'),
         action: () => {
           if (this.props.onCreateBranch) {
             this.props.onCreateBranch(commit)
@@ -841,21 +839,20 @@ export class CommitList extends React.Component<
         deleteTagsMenuItem
       )
     }
-    const darwinTagsLabel = commit.tags.length > 1 ? 'Copy Tags' : 'Copy Tag'
-    const windowTagsLabel = commit.tags.length > 1 ? 'Copy tags' : 'Copy tag'
+    const tagCopyCount = commit.tags.length
     items.push(
       {
-        label: __DARWIN__ ? 'Cherry-pick Commit…' : 'Cherry-pick commit…',
+        label: t('commitList.cherryPickCommit'),
         action: () => this.props.onCherryPick?.(this.selectedCommits),
         enabled: this.canCherryPick(),
       },
       { type: 'separator' },
       {
-        label: 'Copy SHA',
+        label: t('commitList.copySha'),
         action: () => writeClipboardText(commit.sha),
       },
       {
-        label: __DARWIN__ ? darwinTagsLabel : windowTagsLabel,
+        label: t('commitList.copyTags', { count: tagCopyCount }),
         action: () => writeClipboardText(commit.tags.join(' ')),
         enabled: commit.tags.length > 0,
       },

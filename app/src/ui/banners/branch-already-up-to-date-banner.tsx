@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Banner } from './banner'
+import { Trans } from '../../lib/l10n'
 
 export function BranchAlreadyUpToDate({
   ourBranch,
@@ -14,16 +15,20 @@ export function BranchAlreadyUpToDate({
 }) {
   const message =
     theirBranch !== undefined ? (
-      <span>
-        <strong>{ourBranch}</strong>
-        {' is already up to date with '}
-        <strong>{theirBranch}</strong>
-      </span>
+      <Trans
+        as="span"
+        k="banners.branchAlreadyUpToDateWith"
+        components={{
+          ours: <strong>{ourBranch}</strong>,
+          theirs: <strong>{theirBranch}</strong>,
+        }}
+      />
     ) : (
-      <span>
-        <strong>{ourBranch}</strong>
-        {' is already up to date'}
-      </span>
+      <Trans
+        as="span"
+        k="banners.branchAlreadyUpToDate"
+        components={{ ours: <strong>{ourBranch}</strong> }}
+      />
     )
 
   return (

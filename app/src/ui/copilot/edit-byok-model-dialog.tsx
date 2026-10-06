@@ -55,12 +55,8 @@ export class EditCopilotBYOKModelDialog extends React.Component<
   public render() {
     const isEditing = this.props.model !== null
     const title = isEditing
-      ? __DARWIN__
-        ? 'Edit Model'
-        : 'Edit model'
-      : __DARWIN__
-      ? 'Add Model'
-      : 'Add model'
+      ? t('copilotByokModel.editTitle')
+      : t('copilotByokModel.addTitle')
 
     return (
       <Dialog
@@ -75,7 +71,7 @@ export class EditCopilotBYOKModelDialog extends React.Component<
         <DialogContent>
           <Row className="copilot-byok-field">
             <TextBox
-              label={__DARWIN__ ? 'Display Name' : 'Display name'}
+              label={t('copilotByokModel.displayNameLabel')}
               value={this.state.name}
               onValueChanged={this.onNameChanged}
               placeholder="GPT-4o"
@@ -87,7 +83,7 @@ export class EditCopilotBYOKModelDialog extends React.Component<
           </Row>
           <Row className="copilot-byok-field">
             <TextBox
-              label={__DARWIN__ ? 'Model Identifier' : 'Model identifier'}
+              label={t('copilotByokModel.modelIdentifierLabel')}
               value={this.state.id}
               onValueChanged={this.onIdChanged}
               placeholder="gpt-4o"
@@ -102,12 +98,12 @@ export class EditCopilotBYOKModelDialog extends React.Component<
           </Row>
           <Row className="copilot-byok-field">
             <Select
-              label={__DARWIN__ ? 'Reasoning Effort' : 'Reasoning effort'}
+              label={t('copilotByokModel.reasoningEffortLabel')}
               value={this.state.reasoningEffort}
               onChange={this.onReasoningEffortChanged}
             >
               <option value={NoReasoningEffort}>
-                Default (provider's choice)
+                {t('copilotByokModel.defaultReasoningOption')}
               </option>
               {ReasoningEffortOrder.map(effort => (
                 <option key={effort} value={effort}>
