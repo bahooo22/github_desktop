@@ -12,8 +12,7 @@ export const CopyRelativeFilePathLabel = t('contextMenu.copyRelativeFilePath')
 
 export const CopySelectedPathsLabel = t('contextMenu.copyPaths')
 
-export const CopySelectedRelativePathsLabel =
-  t('contextMenu.copyRelativePaths')
+export const CopySelectedRelativePathsLabel = t('contextMenu.copyRelativePaths')
 
 export const DefaultEditorLabel = t('contextMenu.openInExternalEditor')
 

@@ -179,20 +179,18 @@ export class RepositoriesList extends React.Component<
       return null
     }
 
-    return (
-      behind > 0 && ahead > 0
-        ? t('repositoriesList.aheadBehindBothTooltip', {
-            behind: commitGrammar(behind),
-            ahead: commitGrammar(ahead),
-          })
-        : behind > 0
-        ? t('repositoriesList.behindTooltip', {
-            commits: commitGrammar(behind),
-          })
-        : t('repositoriesList.aheadTooltip', {
-            commits: commitGrammar(ahead),
-          })
-    )
+    return behind > 0 && ahead > 0
+      ? t('repositoriesList.aheadBehindBothTooltip', {
+          behind: commitGrammar(behind),
+          ahead: commitGrammar(ahead),
+        })
+      : behind > 0
+      ? t('repositoriesList.behindTooltip', {
+          commits: commitGrammar(behind),
+        })
+      : t('repositoriesList.aheadTooltip', {
+          commits: commitGrammar(ahead),
+        })
   }
 
   private renderRowFocusTooltip = (

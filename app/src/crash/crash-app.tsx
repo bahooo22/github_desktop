@@ -191,9 +191,7 @@ export class CrashApp extends React.Component<ICrashAppProps, ICrashAppState> {
   private renderQuitButton() {
     // We don't support restarting in dev mode since we can't
     // control the life time of the dev server.
-    const quitText = __DEV__
-      ? t('crash.quit')
-      : t('crash.quitAndRestart')
+    const quitText = __DEV__ ? t('crash.quit') : t('crash.quitAndRestart')
 
     return (
       <Button type="submit" onClick={this.onQuitButtonClicked}>

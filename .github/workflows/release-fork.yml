@@ -209,10 +209,13 @@ jobs:
             echo "::error::Ожидался ровно один full-пакет, найдено ${#FULL[@]}"
             exit 1
           fi
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG уже существует — обновляю ассеты"
+          else
           gh release create "$TAG" \
-            --title "Latest Windows $ARCH" \
-            --notes "Auto-updated by release-fork workflow" \
-            || true
+              --title "Latest Windows $ARCH" \
+              --notes "Auto-updated by release-fork workflow"
+          fi
           # Дельта под glob'ом может отсутствовать: первый прогон в свой фид
           # идёт с DESKTOP_SKIP_DELTA=1, и пустой glob не должен ронять
           # публикацию остальных ассетов.
@@ -227,7 +230,7 @@ jobs:
 
   linux:
     name: Linux x64 portable
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     permissions:
       contents: write
     timeout-minutes: 60
@@ -275,9 +278,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
+          if gh release view latest-linux-x64 >/dev/null 2>&1; then
+            echo "Release latest-linux-x64 уже существует — обновляю ассеты"
+          else
           gh release create latest-linux-x64 \
-            --title "Latest Linux x64" \
-            --notes "Auto-updated by release-fork workflow" \
-            || true
+              --title "Latest Linux x64" \
+              --notes "Auto-updated by release-fork workflow"
+          fi
           gh release upload latest-linux-x64 \
             dist/desktop-linux-x64-portable.tar.gz --clobber
