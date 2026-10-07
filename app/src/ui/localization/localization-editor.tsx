@@ -436,7 +436,7 @@ export class LocalizationEditor extends React.Component<
               {displayQualifier(variant.qualifier)}
             </span>
           )}
-          <code>{variant.template}</code>
+          <code className="selectable-text">{variant.template}</code>
         </div>
         <TextBox
           value={value}
