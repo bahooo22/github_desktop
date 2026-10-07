@@ -685,6 +685,7 @@
     "title": "About {name}",
     "build": "Build {version}",
     "version": "Version {version}",
+    "system": "System: {name} {version}, {arch}",
     "release-notes": "release notes",
     "check-for-updates": "Check for Updates",
     "quit-and-install-update": "Quit and Install Update",

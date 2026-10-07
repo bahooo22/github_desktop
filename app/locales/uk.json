@@ -642,6 +642,7 @@
     "title": "Про застосунок {name}",
     "build": "Збірка {version}",
     "version": "Версія {version}",
+    "system": "Система: {name} {version}, {arch}",
     "release-notes": "примітки до випуску",
     "check-for-updates": "Перевірити оновлення",
     "quit-and-install-update": "Завершити й установити оновлення",

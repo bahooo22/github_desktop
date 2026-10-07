@@ -15,7 +15,10 @@ import { RelativeTime } from '../relative-time'
 import { assertNever } from '../../lib/fatal-error'
 import { ReleaseNotesUri } from '../lib/releases'
 import { encodePathAsUrl } from '../../lib/path'
-import { isOSNoLongerSupportedByElectron } from '../../lib/get-os'
+import {
+  getSystemInfo,
+  isOSNoLongerSupportedByElectron,
+} from '../../lib/get-os'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { formatDate } from '../../lib/format-date'
 import { t, Trans, localization } from '../../lib/l10n'
@@ -334,6 +337,9 @@ export class About extends React.Component<IAboutProps, IAboutState> {
               {versionText} ({this.props.applicationArchitecture})
             </span>{' '}
             ({releaseNotesLink})
+          </p>
+          <p className="no-padding selectable-text">
+            {t('about.system', getSystemInfo())}
           </p>
           {(() => {
             const locale = localization.getLocale(localization.getActiveTag())

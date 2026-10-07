@@ -107,3 +107,60 @@ export const isOSNoLongerSupportedByElectron = memoizeOne(
     isMacOSAndNoLongerSupportedByElectron() ||
     isWindowsAndNoLongerSupportedByElectron()
 )
+
+/**
+ * A type alias, not an interface: only the former gets an implicit index
+ * signature, which is what lets it be passed straight to `t()` as translation
+ * parameters.
+ */
+export type ISystemInfo = {
+  /** OS family, spelled the way the user sees it in their own settings. */
+  readonly name: string
+  /** OS version, including the marketing name where the raw one lacks it. */
+  readonly version: string
+  /** Instruction set of the machine, not of this process. */
+  readonly arch: string
+}
+
+function getSystemArchitecture(): string {
+  const machine = (OS.machine() ?? '').toLowerCase()
+
+  if (machine === 'amd64' || machine === 'x86_64' || machine === 'x64') {
+    return 'x64'
+  }
+  if (machine === 'arm64' || machine === 'aarch64') {
+    return 'arm64'
+  }
+  if (machine === 'i386' || machine === 'i686' || machine === 'x86') {
+    return 'x86'
+  }
+
+  return machine
+}
+
+/**
+ * The machine the app runs on, in three parts so a translation can order them
+ * the way its language reads.
+ *
+ * Windows is the awkward one: `os.release()` answers `10.0.<build>` for both
+ * Windows 10 and 11, so the marketing name is derived from the build number
+ * (22000 is the first Windows 11 build) and the raw release is kept next to it
+ * rather than replaced by a guess.
+ */
+export const getSystemInfo = memoizeOne((): ISystemInfo => {
+  const arch = getSystemArchitecture()
+
+  if (__DARWIN__) {
+    return { name: 'macOS', version: getSystemVersionSafe() ?? '', arch }
+  }
+
+  if (__WIN32__) {
+    const release = OS.release()
+    const build = parseInt(release.split('.')[2] ?? '0', 10)
+    const marketing = build >= 22000 ? '11' : '10'
+
+    return { name: 'Windows', version: `${marketing} (${release})`, arch }
+  }
+
+  return { name: 'Linux', version: OS.release(), arch }
+})
