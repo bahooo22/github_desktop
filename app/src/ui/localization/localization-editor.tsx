@@ -1,4 +1,5 @@
 import * as React from 'react'
+import * as Path from 'path'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { Button } from '../lib/button'
 import { TextBox } from '../lib/text-box'
@@ -642,7 +643,10 @@ export class LocalizationEditor extends React.Component<
     this.setState(prev => ({
       dirtyTags: prev.dirtyTags.filter(dirtyTag => dirtyTag !== tag),
       status: t('localizationEditor.saved', {
-        path: `${getLocalizationsDirectory()}${tag.toLowerCase()}.json`,
+        path: Path.join(
+          getLocalizationsDirectory(),
+          `${tag.toLowerCase()}.json`
+        ),
       }),
       statusIsError: false,
     }))
