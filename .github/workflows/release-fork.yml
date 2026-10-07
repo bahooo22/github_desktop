@@ -144,7 +144,38 @@ jobs:
             echo "::error::$ZIP — нет end-of-central-directory (последние блоки: $EOCD, ожидался 504b0506): это не zip"
             exit 1
           fi
-          echo "Portable-архив: zip, $(stat -c %s "$ZIP") байт."
+          # A valid zip container says nothing about its content: an empty
+          # central directory passes both signatures above, and packager could
+          # have produced a bundle without the executable in it. So read the
+          # archive itself. Measured on this archiver: bsdtar writes CRLF line
+          # endings into its listing even under Git bash, and it may separate
+          # path components with backslashes — both have to be normalized before
+          # any line-anchored match, otherwise a perfectly good archive fails.
+          LISTING="$(/c/Windows/System32/tar.exe -t -f "$ZIP" | tr -d '\r' | tr '\\' '/')"
+          ENTRIES="$(printf '%s\n' "$LISTING" | grep -c .)"
+          EXE="GitHubDesktopL10n.exe"
+          for required in "$BUNDLE/$EXE" "$BUNDLE/resources/app/index.html" \
+            "$BUNDLE/resources/app/renderer.js" \
+            "$BUNDLE/resources/app/keytar.node"; do
+            # No `printf | grep -q` here: grep -q closes the pipe early, printf
+            # dies of SIGPIPE and under Actions' default `set -o pipefail` the
+            # pipeline reports 141, which would fail the step on a good archive.
+            # The variable is matched directly instead.
+            case $'\n'"$LISTING"$'\n' in
+              *$'\n'"$required"$'\n'*) ;;
+              *)
+                echo "::error::$ZIP — в архиве нет $required (записей: $ENTRIES)"
+                exit 1
+                ;;
+            esac
+          done
+          # A win32 bundle is ~1000 files; anything far below that means the
+          # glob caught a partial or empty dist directory.
+          if [ "$ENTRIES" -lt 500 ]; then
+            echo "::error::$ZIP — всего $ENTRIES записей: бандл упакован неполностью"
+            exit 1
+          fi
+          echo "Portable-архив: zip, $(stat -c %s "$ZIP") байт, $ENTRIES записей."
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v7
