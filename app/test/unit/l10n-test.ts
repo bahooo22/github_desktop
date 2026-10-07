@@ -215,6 +215,31 @@ describe('l10n manager', () => {
     assert.equal(localization.translate('bye'), 'Goodbye')
   })
 
+  it('remembers which language holds edits that are not on disk', () => {
+    fresh()
+    assert.deepEqual(localization.getUnsavedTags(), [])
+
+    localization.setUserMessage('ru', 'bye', '', 'До свидания')
+    assert.equal(localization.hasUnsavedMessages('ru'), true)
+    assert.equal(localization.hasUnsavedMessages('de'), false)
+    assert.deepEqual(localization.getUnsavedTags(), ['ru'])
+
+    // Rolling an override back is a change of its own: the file on disk still
+    // says something else, so the language stays unsaved.
+    localization.clearUserMessage('ru', 'bye')
+    assert.equal(localization.hasUnsavedMessages('ru'), true)
+
+    // What a save leaves behind is a memory that matches the files, which is
+    // how the editor gets there: reload the user layers from disk.
+    localization.resetUserLayers()
+    assert.deepEqual(localization.getUnsavedTags(), [])
+
+    localization.setUserMessage('de', 'bye', '', 'Auf Wiedersehen')
+    assert.deepEqual(localization.getUnsavedTags(), ['de'])
+    localization.forgetUserLayer('de')
+    assert.deepEqual(localization.getUnsavedTags(), [])
+  })
+
   it('a user-only catalog becomes selectable', () => {
     fresh()
     localization.registerFromJson('tk', { greeting: 'Salam' }, 'user')

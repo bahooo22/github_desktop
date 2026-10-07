@@ -50,6 +50,14 @@ class LocalizationManager {
   private readonly problems = new Array<CatalogProblem>()
   private readonly missingKeys = new Set<string>()
 
+  /**
+   * Languages whose in-memory overrides are not on disk yet. This is not the
+   * editor's bookkeeping: a translation stays in memory until it is saved, and
+   * the editor can be closed and reopened while those edits are still there
+   * (point-and-translate does exactly that), so the flag has to outlive it.
+   */
+  private readonly unsavedTags = new Set<string>()
+
   private requestedTag: string | null = null
   private systemTags = new Array<string>()
   private activeTag = FallbackLocaleTag
@@ -82,12 +90,14 @@ class LocalizationManager {
   /** Drops every user override, restoring the shipped wording. */
   public resetUserLayers(): void {
     this.userLayers.clear()
+    this.unsavedTags.clear()
     this.afterCatalogChange()
   }
 
   /** Drops the user's overrides for one language, keeping the built-in one. */
   public forgetUserLayer(tag: string): void {
     this.userLayers.delete(tag)
+    this.unsavedTags.delete(tag)
     this.afterCatalogChange()
   }
 
@@ -278,6 +288,7 @@ class LocalizationManager {
     })
 
     this.effective.clear()
+    this.unsavedTags.add(tag)
     this.emit()
   }
 
@@ -293,7 +304,21 @@ class LocalizationManager {
     messages.delete(key)
     this.userLayers.set(tag, { ...layer, messages })
     this.effective.clear()
+    this.unsavedTags.add(tag)
     this.emit()
+  }
+
+  /**
+   * The languages holding overrides that have not been written to disk. What
+   * decides whether the editor can save is here rather than in the dialog, so
+   * closing and reopening the dialog cannot strand an edit.
+   */
+  public getUnsavedTags(): ReadonlyArray<string> {
+    return [...this.unsavedTags]
+  }
+
+  public hasUnsavedMessages(tag: string): boolean {
+    return this.unsavedTags.has(tag)
   }
 
   public getUserMessages(tag: string): ReadonlyMap<string, Message> {
