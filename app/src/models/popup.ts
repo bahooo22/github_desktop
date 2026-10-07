@@ -161,7 +161,14 @@ export type PopupDetail =
       selection: DiffSelection
     }
   | { type: PopupType.Preferences; initialSelectedTab?: PreferencesTab }
-  | { type: PopupType.LocalizationEditor }
+  | {
+      type: PopupType.LocalizationEditor
+      /**
+       * What point-and-translate clicked on: a `data-l10n-key` when the label
+       * carries one, otherwise its visible words.
+       */
+      initialKey?: string
+    }
   | {
       type: PopupType.EditCopilotBYOKProvider
       provider: IBYOKProvider | null

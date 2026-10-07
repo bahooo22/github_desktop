@@ -396,7 +396,9 @@
     "reportIssueKey": "**String key:** {key}",
     "reportIssueFilter": "**Filter:** {filter}",
     "reportIssueSearch": "**Search:** {search}",
-    "reportIssueBuild": "**App version:** {version} (build {sha})"
+    "reportIssueBuild": "**App version:** {version} (build {sha})",
+    "pick": "Pick a string",
+    "pickHint": "Click a translated label on the screen to edit it. Escape cancels the pick."
   },
   "menu": {
     "about": "About GitHub Desktop",

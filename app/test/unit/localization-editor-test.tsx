@@ -7,6 +7,12 @@ import {
   LocalizationEditor,
   defaultTarget,
 } from '../../src/ui/localization/localization-editor'
+import {
+  armPickMode,
+  disarmPickMode,
+  isPickModeArmed,
+} from '../../src/ui/localization/pick-mode'
+import { Dispatcher } from '../../src/ui/dispatcher'
 import { localization, t } from '../../src/lib/l10n'
 import { readCatalogMeta } from '../../src/lib/l10n/catalog'
 import {
@@ -68,6 +74,12 @@ const referenceTemplates = () =>
   [...document.querySelectorAll('.translation-variant .reference code')].map(
     e => e.textContent
   )
+
+// The editor only ever needs `showPopup`, and which popup it asks for is the
+// app's business, tested through the real tree rather than a fake dispatcher.
+const fakeDispatcher = {
+  showPopup: () => {},
+} as unknown as Dispatcher
 
 function selectTarget(tag: string) {
   fireEvent.change(targetSelect(), { target: { value: tag } })
@@ -261,6 +273,39 @@ describe('localization editor', () => {
     assert.equal(targetSelect().value, 'uk')
   })
 
+  it('offers to save an edit again after the dialog was reopened', async () => {
+    const view = render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plain')
+    typeInto(variantInputs()[0], 'несохранённыйперевод')
+
+    // Point-and-translate closes the dialog so the interface can be clicked
+    // into, and comes back as a new instance: the edit is still only in memory,
+    // so the new one has to know there is something to save.
+    view.unmount()
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plain')
+
+    assert.ok(screen.queryByText(t('localizationEditor.unsaved')))
+    assert.equal(variantInputs()[0].value, 'несохранённыйперевод')
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: t('localizationEditor.save'),
+        hidden: true,
+      })
+    )
+
+    // The reopened dialog really can write: the flag it acted on came from the
+    // store, not from anything this instance remembered.
+    await waitFor(() =>
+      assert.equal(screen.queryByText(t('localizationEditor.unsaved')), null)
+    )
+  })
+
   it('finds keys by the wording of the translation itself', () => {
     render(<LocalizationEditor onDismissed={() => {}} />)
 
@@ -340,5 +385,225 @@ describe('localization editor', () => {
     assert.ok(block.getByText(t('localizationEditor.unknownKeysTitle')))
     assert.ok(block.getByText('zztest-orphan'))
     assert.ok(block.getByText('broken.mixed'))
+  })
+
+  it('opens a picked string on its own row with the empty form focused', () => {
+    // jsdom has no layout, so scrolling can only be stubbed, not asserted.
+    const scrollIntoView = Element.prototype.scrollIntoView
+    Element.prototype.scrollIntoView = () => {}
+
+    try {
+      render(
+        <LocalizationEditor onDismissed={() => {}} initialKey="zztest.plain" />
+      )
+
+      const rows = [
+        ...document.querySelectorAll('.translation-row .translation-key'),
+      ]
+      assert.deepEqual(
+        rows.map(row => row.textContent),
+        ['zztest.plain'],
+        'the picked row should be the only one on screen'
+      )
+      assert.equal(searchBox().value, 'zztest.plain')
+      assert.equal(document.activeElement, variantInputs()[0])
+    } finally {
+      Element.prototype.scrollIntoView = scrollIntoView
+    }
+  })
+
+  it('offers the pick only where the editor can be reopened', () => {
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    // Without a dispatcher the pick could only close the dialog for good, so
+    // the button that does it is left out rather than shown broken.
+    assert.equal(
+      screen.queryByRole('button', {
+        name: t('localizationEditor.pick'),
+        hidden: true,
+      }),
+      null
+    )
+
+    render(
+      <LocalizationEditor onDismissed={() => {}} dispatcher={fakeDispatcher} />
+    )
+
+    assert.ok(
+      screen.getByRole('button', {
+        name: t('localizationEditor.pick'),
+        hidden: true,
+      })
+    )
+  })
+})
+
+describe('pick mode', () => {
+  afterEach(() => {
+    disarmPickMode()
+    document.body.innerHTML = ''
+  })
+
+  function pickedNode(key: string): HTMLElement {
+    const span = document.createElement('span')
+    span.setAttribute('data-l10n-key', key)
+    span.textContent = 'hello'
+
+    const wrapper = document.createElement('div')
+    wrapper.appendChild(span)
+    document.body.appendChild(wrapper)
+
+    return span
+  }
+
+  function dispatchClick(target: HTMLElement): MouseEvent {
+    const click = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+    })
+    target.dispatchEvent(click)
+    return click
+  }
+
+  it('picks the key off the closest ancestor and leaves nothing behind', () => {
+    const span = pickedNode('zztest.plain')
+    const picked: Array<string> = []
+
+    armPickMode(
+      key => picked.push(key),
+      () => {}
+    )
+
+    assert.ok(document.body.classList.contains('l10n-pick-mode'))
+
+    // The app must not see the pick: a listener that would catch the click
+    // while it bubbles out of the labelled element stays silent.
+    let reachedTheApp = false
+    const appListener = () => (reachedTheApp = true)
+    document.body.addEventListener('click', appListener)
+
+    const click = dispatchClick(span)
+
+    document.body.removeEventListener('click', appListener)
+
+    assert.deepEqual(picked, ['zztest.plain'])
+    assert.equal(click.defaultPrevented, true)
+    assert.equal(reachedTheApp, false, 'the app must not see the pick click')
+    assert.equal(isPickModeArmed(), false)
+    assert.ok(!document.body.classList.contains('l10n-pick-mode'))
+
+    // After the pick the page behaves normally again: clicks travel and are
+    // not prevented, so a missed hover cannot disable the interface.
+    const afterwards = dispatchClick(span)
+    assert.equal(afterwards.defaultPrevented, false)
+    assert.deepEqual(picked, ['zztest.plain'])
+  })
+
+  it('falls back to the visible words when no key is on the element', () => {
+    const label = document.createElement('span')
+    label.textContent = 'Fetch   origin'
+    const wrapper = document.createElement('div')
+    wrapper.appendChild(label)
+    document.body.appendChild(wrapper)
+
+    const picked: Array<string> = []
+    armPickMode(
+      query => picked.push(query),
+      () => {}
+    )
+
+    // The editor searches by text too, so the collapsed words are a usable
+    // query even though nothing in the DOM names the catalog entry.
+    dispatchClick(label)
+    assert.deepEqual(picked, ['Fetch origin'])
+    assert.equal(isPickModeArmed(), false)
+  })
+
+  it('leaves a click on a paragraph unreported and the mode armed', () => {
+    const paragraph = document.createElement('p')
+    paragraph.textContent = `word `.repeat(20)
+
+    const picked: Array<string> = []
+    armPickMode(
+      query => picked.push(query),
+      () => {}
+    )
+
+    dispatchClick(paragraph)
+    assert.deepEqual(picked, [])
+    assert.equal(
+      isPickModeArmed(),
+      true,
+      'a pick that found nothing must stay armed'
+    )
+
+    disarmPickMode()
+  })
+
+  it('highlights the row under the cursor while armed', () => {
+    const span = pickedNode('app.title')
+    armPickMode(
+      () => {},
+      () => {}
+    )
+
+    fireEvent.mouseOver(span)
+    assert.ok(span.classList.contains('l10n-pick-target'))
+
+    fireEvent.mouseOut(span)
+    assert.ok(!span.classList.contains('l10n-pick-target'))
+
+    disarmPickMode()
+  })
+
+  it('re-arming swaps the session instead of stacking a second one', () => {
+    const span = pickedNode('changes.show-changes')
+    const first: Array<string> = []
+    const second: Array<string> = []
+
+    armPickMode(
+      key => first.push(key),
+      () => {}
+    )
+    armPickMode(
+      key => second.push(key),
+      () => {}
+    )
+
+    dispatchClick(span)
+
+    // Stacked listeners would deliver the same click to both sessions.
+    assert.deepEqual(first, [])
+    assert.deepEqual(second, ['changes.show-changes'])
+    assert.equal(isPickModeArmed(), false)
+
+    // And one click must not fire the callback twice through leftover
+    // listeners from the replaced session.
+    dispatchClick(span)
+    assert.deepEqual(second, ['changes.show-changes'])
+  })
+
+  it('Escape cancels the pick and tears everything down', () => {
+    let cancelled = 0
+    armPickMode(
+      () => assert.fail('a cancelled pick must not report a string'),
+      () => cancelled++
+    )
+
+    const escape = new KeyboardEvent('keydown', {
+      key: 'Escape',
+      bubbles: true,
+      cancelable: true,
+    })
+    document.body.dispatchEvent(escape)
+
+    // The editor was closed to make the interface clickable, so the cancel
+    // callback is the only thing that gives it back.
+    assert.equal(cancelled, 1)
+    assert.equal(isPickModeArmed(), false)
+    assert.ok(!document.body.classList.contains('l10n-pick-mode'))
+
+    const click = dispatchClick(pickedNode('zztest.plain'))
+    assert.equal(click.defaultPrevented, false)
   })
 })

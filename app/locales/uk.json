@@ -365,7 +365,9 @@
     "reportIssueKey": "**Ключ рядка:** {key}",
     "reportIssueFilter": "**Фільтр:** {filter}",
     "reportIssueSearch": "**Пошук:** {search}",
-    "reportIssueBuild": "**Версія застосунку:** {version} (збірка {sha})"
+    "reportIssueBuild": "**Версія застосунку:** {version} (збірка {sha})",
+    "pick": "Вибрати рядок",
+    "pickHint": "Клацніть перекладений напис на екрані, щоб редагувати його. Escape скасовує вибір."
   },
   "menu": {
     "about": "Про GitHub Desktop",

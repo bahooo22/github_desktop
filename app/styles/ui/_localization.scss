@@ -50,6 +50,24 @@
   font-size: var(--font-size-sm);
 }
 
+// Point-and-translate runs over the whole interface, not just this dialog, so
+// these two live outside `#localization-editor`. The crosshair has to win over
+// every widget's own cursor or the mode looks switchable when it isn't.
+body.l10n-pick-mode {
+  cursor: crosshair;
+
+  * {
+    cursor: crosshair !important;
+  }
+}
+
+.l10n-pick-target {
+  outline: 2px solid var(--focus-color);
+  outline-offset: -1px;
+  border-radius: var(--border-radius);
+  background-color: var(--box-selected-background-color);
+}
+
 #localization-editor {
   .dialog-content {
     display: flex;

@@ -22,10 +22,13 @@ import { getPluralCategories } from '../../lib/l10n/format'
 import { PluralQualifierPrefix, PluralQualifiers } from '../../lib/l10n/catalog'
 import { LinkButton } from '../lib/link-button'
 import { getVersion } from '../lib/app-proxy'
+import { Dispatcher } from '../dispatcher'
+import { PopupType } from '../../models/popup'
 import {
   buildTranslationIssueUrl,
   TranslationIssueLabel,
 } from './translation-issue'
+import { armPickMode, disarmPickMode } from './pick-mode'
 
 export type Filter = 'all' | 'missing' | 'translated'
 
@@ -82,6 +85,17 @@ export function buildEditorTranslationIssueUrl(
 }
 
 interface ILocalizationEditorProps {
+  /**
+   * Only the popup rendered by the app has one; without it there is no way to
+   * reopen the editor after the pick flow closed it, so the pick button is
+   * left out.
+   */
+  readonly dispatcher?: Dispatcher
+  /**
+   * Whatever point-and-translate clicked on: a `data-l10n-key`, or the visible
+   * words of a label that has none. Both end up in the search box.
+   */
+  readonly initialKey?: string
   readonly onDismissed: () => void
 }
 
@@ -94,8 +108,6 @@ interface ILocalizationEditorState {
   readonly newTag: string
   readonly newName: string
   readonly newLanguageError: string | undefined
-  /** Languages holding edits that have not been written to disk yet. */
-  readonly dirtyTags: ReadonlyArray<string>
   readonly status: string | undefined
   readonly statusIsError: boolean
 }
@@ -114,10 +126,21 @@ export class LocalizationEditor extends React.Component<
 > {
   private unsubscribe: (() => void) | undefined
 
+  /** Set when this instance started the pick flow, see componentWillUnmount. */
+  private picked = false
+
+  /** The catalog row `initialKey` points at, once it can be named. */
+  private readonly pickedKey: string | undefined
+
   public constructor(props: ILocalizationEditorProps) {
     super(props)
 
     const target = defaultTarget(this.targetTags(), localization.getActiveTag())
+
+    this.pickedKey =
+      props.initialKey === undefined
+        ? undefined
+        : resolvePickedKey(props.initialKey)
 
     this.state = {
       target: target ?? '',
@@ -126,11 +149,13 @@ export class LocalizationEditor extends React.Component<
       // a tag the picker doesn't offer.
       addingLanguage: target === undefined,
       filter: 'all',
-      search: '',
+      // Searching for the picked key is what makes its row the only thing the
+      // list shows; an unpickable key stays in the search box as-is, which
+      // reads as "no results" rather than hiding the failure.
+      search: this.pickedKey ?? props.initialKey ?? '',
       newTag: '',
       newName: '',
       newLanguageError: undefined,
-      dirtyTags: [],
       status: undefined,
       statusIsError: false,
     }
@@ -138,10 +163,22 @@ export class LocalizationEditor extends React.Component<
 
   public componentDidMount() {
     this.unsubscribe = localization.subscribe(() => this.forceUpdate())
+
+    if (this.pickedKey !== undefined) {
+      this.revealPickedKey(this.pickedKey)
+    }
   }
 
   public componentWillUnmount() {
     this.unsubscribe?.()
+
+    // The pick flow closes the popup in the very click that arms the mode, so
+    // this unmount must not cancel the pick that caused it; every other way
+    // of leaving the editor (including the app quitting mid-pick through the
+    // Close button) tears the session down here instead.
+    if (!this.picked) {
+      disarmPickMode()
+    }
   }
 
   public render() {
@@ -412,11 +449,11 @@ export class LocalizationEditor extends React.Component<
   }
 
   private renderFooter() {
-    const { target, dirtyTags } = this.state
+    const { target } = this.state
     const locale = localization.getLocale(target)
     const isUserFile =
       locale !== undefined && localization.getUserMessages(target).size > 0
-    const dirty = dirtyTags.includes(target)
+    const dirty = localization.hasUnsavedMessages(target)
 
     return (
       <DialogFooter>
@@ -440,6 +477,14 @@ export class LocalizationEditor extends React.Component<
         >
           {t('localizationEditor.reportIssue')}
         </LinkButton>
+        {this.props.dispatcher !== undefined && (
+          <Button
+            tooltip={t('localizationEditor.pickHint')}
+            onClick={this.onPickString}
+          >
+            {t('localizationEditor.pick')}
+          </Button>
+        )}
         <Button type="submit" disabled={!dirty}>
           {t('localizationEditor.save')}
         </Button>
@@ -509,13 +554,10 @@ export class LocalizationEditor extends React.Component<
 
   private onVariantValueChanged =
     (key: string, qualifier: string) => (value: string) => {
-      const tag = this.state.target
-      localization.setUserMessage(tag, key, qualifier, value)
-      this.setState(prev => ({
-        dirtyTags: prev.dirtyTags.includes(tag)
-          ? prev.dirtyTags
-          : [...prev.dirtyTags, tag],
-      }))
+      // The store keeps the override and remembers that its language has
+      // something to save; the subscribe in componentDidMount redraws the
+      // footer, so there is nothing to mirror in local state.
+      localization.setUserMessage(this.state.target, key, qualifier, value)
     }
 
   private onNewTagChanged = (newTag: string) => this.setState({ newTag })
@@ -535,9 +577,13 @@ export class LocalizationEditor extends React.Component<
 
   private onTargetChanged = (e: React.FormEvent<HTMLSelectElement>) => {
     const value = e.currentTarget.value
-    const { target, dirtyTags } = this.state
+    const { target } = this.state
 
-    if (value !== target && target !== '' && dirtyTags.includes(target)) {
+    if (
+      value !== target &&
+      target !== '' &&
+      localization.hasUnsavedMessages(target)
+    ) {
       // Leaving with unsaved edits would lose them for good: the in-memory
       // overrides of the abandoned language have no other path to disk, and
       // the next save reloads every user layer from the files. Put the
@@ -562,6 +608,52 @@ export class LocalizationEditor extends React.Component<
   private onSearchChanged = (search: string) => this.setState({ search })
 
   private onFilterChanged = (filter: Filter) => this.setState({ filter })
+
+  /**
+   * Point-and-translate: close this dialog, then let the interface itself
+   * choose the row. The dialog goes first because it covers most of what the
+   * translator would want to click on, and the pick reopens it on the row.
+   */
+  private onPickString = () => {
+    const { dispatcher } = this.props
+
+    if (dispatcher === undefined) {
+      return
+    }
+
+    this.picked = true
+
+    armPickMode(
+      key =>
+        dispatcher.showPopup({
+          type: PopupType.LocalizationEditor,
+          initialKey: key,
+        }),
+      // Escape gives the dialog back rather than silently swallowing the
+      // editor the user was just working in.
+      () => dispatcher.showPopup({ type: PopupType.LocalizationEditor })
+    )
+
+    this.props.onDismissed()
+  }
+
+  private revealPickedKey(key: string) {
+    const row = [...document.querySelectorAll('.translation-row')].find(
+      candidate =>
+        candidate.querySelector('.translation-key')?.textContent === key
+    )
+
+    if (row === undefined) {
+      return
+    }
+
+    row.scrollIntoView({ block: 'center' })
+
+    const inputs = [...row.querySelectorAll('input')]
+    const firstUntranslated = inputs.find(input => input.value === '')
+
+    ;(firstUntranslated ?? inputs[0])?.focus()
+  }
 
   private onCreateLanguage = async () => {
     const { newTag, newName } = this.state
@@ -629,8 +721,8 @@ export class LocalizationEditor extends React.Component<
     const error = await saveUserLocalization(tag, tree)
 
     if (error !== undefined) {
-      // Keep the language dirty: the edits are still in memory and clearing
-      // the flag here would disable Save with no way to retry.
+      // Nothing was written, so the store still counts this language as
+      // unsaved and Save stays enabled for a retry.
       this.setState({
         status: t('localizationEditor.saveFailed', { error }),
         statusIsError: true,
@@ -640,8 +732,7 @@ export class LocalizationEditor extends React.Component<
 
     await reloadUserLocalizations()
 
-    this.setState(prev => ({
-      dirtyTags: prev.dirtyTags.filter(dirtyTag => dirtyTag !== tag),
+    this.setState({
       status: t('localizationEditor.saved', {
         path: Path.join(
           getLocalizationsDirectory(),
@@ -649,7 +740,7 @@ export class LocalizationEditor extends React.Component<
         ),
       }),
       statusIsError: false,
-    }))
+    })
   }
 
   private onDelete = async () => {
@@ -660,13 +751,12 @@ export class LocalizationEditor extends React.Component<
       await reloadUserLocalizations()
 
       const next = this.targetTags()[0]
-      this.setState(prev => ({
+      this.setState({
         target: next ?? '',
         addingLanguage: next === undefined,
-        dirtyTags: prev.dirtyTags.filter(dirtyTag => dirtyTag !== tag),
         status: t('localizationEditor.deleted', { tag }),
         statusIsError: false,
-      }))
+      })
     }
   }
 }
@@ -690,6 +780,31 @@ export function defaultTarget(
 }
 
 const PluralKindPrefix = 'plural:'
+
+/**
+ * The catalog row a picked `data-l10n-key` names. A key can arrive with a
+ * variant qualifier glued on after `:` or `${`, and the search box matches
+ * whole texts, so the qualifier has to come off before there is anything to
+ * match; a key the reference catalog doesn't have resolves to nothing and
+ * simply shows up in the search box.
+ */
+function resolvePickedKey(picked: string): string | undefined {
+  const keys = localization.getBuiltInKeys()
+
+  if (keys.includes(picked)) {
+    return picked
+  }
+
+  const qualifiers = [picked.indexOf(':'), picked.indexOf('${')].filter(
+    index => index !== -1
+  )
+  const base =
+    qualifiers.length === 0
+      ? picked
+      : picked.substring(0, Math.min(...qualifiers))
+
+  return keys.includes(base) ? base : undefined
+}
 
 const CanonicalPluralQualifiers = PluralQualifiers.map(
   qualifier => `${PluralKindPrefix}${PluralQualifierPrefix}${qualifier}`

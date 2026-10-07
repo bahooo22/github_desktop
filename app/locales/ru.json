@@ -365,7 +365,9 @@
     "reportIssueKey": "**Ключ строки:** {key}",
     "reportIssueFilter": "**Фильтр:** {filter}",
     "reportIssueSearch": "**Поиск:** {search}",
-    "reportIssueBuild": "**Версия приложения:** {version} (сборка {sha})"
+    "reportIssueBuild": "**Версия приложения:** {version} (сборка {sha})",
+    "pick": "Выбрать строку",
+    "pickHint": "Кликните переведённую надпись на экране, чтобы отредактировать её. Escape отменяет выбор."
   },
   "menu": {
     "about": "О GitHub Desktop",

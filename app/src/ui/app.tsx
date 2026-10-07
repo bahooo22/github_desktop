@@ -1729,6 +1729,8 @@ export class App extends React.Component<IAppProps, IAppState> {
         return (
           <LocalizationEditor
             key="localization-editor"
+            dispatcher={this.props.dispatcher}
+            initialKey={popup.initialKey}
             onDismissed={onPopupDismissedFn}
           />
         )
