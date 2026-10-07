@@ -193,6 +193,17 @@ export function isCentralUpdatesFeed(url: string): boolean {
 export function shouldMakeDelta() {
   // Only production and beta channels include deltas. Test releases aren't
   // necessarily sequential so deltas wouldn't make sense.
+  //
+  // The flag is for the very first release into a fork's own feed: there is no
+  // RELEASES there yet, and electron-winstaller spawns SyncReleases.exe whenever
+  // `remoteReleases` is set (lib/index.js:272-274) and rejects on its non-zero
+  // exit (lib/spawn-promise.js), so the whole `yarn package` run dies. Skipping
+  // the delta keeps the production channel — and with it the app's update
+  // behaviour — intact, which a `RELEASE_CHANNEL=test` bootstrap would not.
+  if (process.env.DESKTOP_SKIP_DELTA === '1') {
+    return false
+  }
+
   return ['production', 'beta'].includes(getChannel())
 }
 
