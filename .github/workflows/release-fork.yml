@@ -1,0 +1,157 @@
+name: Release Fork
+
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: 'Architecture for the Windows release'
+        required: true
+        default: 'x64'
+        type: choice
+        options:
+          - x64
+          - arm64
+
+env:
+  NODE_VERSION: '24'
+  RELEASE_CHANNEL: production
+  # Фид обновлений форка: один тег на архитектуру, потому что в одном релизе
+  # не может быть двух RELEASES-файлов Squirrel.Windows.
+
+jobs:
+  windows:
+    name: Windows ${{ github.event.inputs.arch }}
+    runs-on: windows-2022
+    permissions:
+      contents: write
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+
+      # На windows-раннере build:prod сам упаковывает portable-бандл через
+      # @electron/packager, и нативные модули в нём — под win32. Собрать то же
+      # самое из Linux-контейнера нельзя: в out/ лежат ELF-версии keytar.node,
+      # fs_admin.node, desktop-notifications.node и git/, и renderer падает на
+      # require() них, оставляя пустое белое окно.
+      - name: Build production app
+        run: yarn build:prod
+        env:
+          npm_config_arch: ${{ github.event.inputs.arch }}
+
+      - name: Package Windows installer
+        # Подпись включается в script/package.ts только при
+        # isGitHubActions() && isPublishable() && isCodeSigningConfigured().
+        # Мы намеренно не передаём AZURE_TENANT_ID / AZURE_CLIENT_ID, поэтому
+        # electron-winstaller выпускает неподписанный инсталлер. Когда появится
+        # свой сертификат — добавить setup-windows-signing по образцу ci.yml.
+        run: yarn package
+        env:
+          npm_config_arch: ${{ github.event.inputs.arch }}
+          DESKTOP_UPDATES_URL: https://github.com/${{ github.repository }}/releases/download/latest-win-${{ github.event.inputs.arch }}/
+
+      - name: Zip portable bundle
+        shell: pwsh
+        run: |
+          $bundle = "dist/GitHubDesktopL10n-win32-${{ github.event.inputs.arch }}"
+          if (-not (Test-Path $bundle)) {
+            throw "Portable bundle not found: $bundle"
+          }
+          Compress-Archive -Path $bundle `
+            -DestinationPath "dist/GitHubDesktopL10n-win32-${{ github.event.inputs.arch }}-portable.zip" `
+            -Force
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-${{ github.event.inputs.arch }}
+          path: |
+            dist/GitHubDesktopL10nSetup-${{ github.event.inputs.arch }}.exe
+            dist/GitHubDesktopL10nSetup-${{ github.event.inputs.arch }}.msi
+            dist/GitHubDesktopL10n-*-full.nupkg
+            dist/GitHubDesktopL10n-*-delta.nupkg
+            dist/RELEASES
+          if-no-files-found: error
+
+      - name: Publish to GitHub Release
+        # Фид обновлений = ассеты тега latest-win-<arch>: gh создаёт тег и релиз
+        # при первом запуске, последующие прогоны перезаписывают ассеты.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          TAG="latest-win-${{ github.event.inputs.arch }}"
+          ARCH="${{ github.event.inputs.arch }}"
+          gh release create "$TAG" \
+            --title "Latest Windows $ARCH" \
+            --notes "Auto-updated by release-fork workflow" \
+            || true
+          gh release upload "$TAG" \
+            "dist/GitHubDesktopL10nSetup-$ARCH.exe" \
+            "dist/GitHubDesktopL10nSetup-$ARCH.msi" \
+            dist/GitHubDesktopL10n-*-full.nupkg \
+            dist/GitHubDesktopL10n-*-delta.nupkg \
+            dist/RELEASES \
+            "dist/GitHubDesktopL10n-win32-$ARCH-portable.zip" \
+            --clobber
+
+  linux:
+    name: Linux x64 portable
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    timeout-minutes: 60
+    # Squirrel-инсталлер для linux не делается: script/package.ts завершает
+    # процесс на не-win32. Здесь портативный tar.gz, собранный тем же скриптом,
+    # что и локально в контейнере.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      - run: yarn install --frozen-lockfile
+
+      - name: Build production app
+        # DESKTOP_SKIP_PACKAGE=1 — штатный флаг script/build.ts:73: на linux
+        # packaging всё равно не делает ничего полезнее ручной раскладки рантайма.
+        run: yarn build:prod
+        env:
+          DESKTOP_SKIP_PACKAGE: '1'
+
+      - name: Assemble portable bundle
+        run: bash gdlab/assemble-linux-bundle.sh "$GITHUB_WORKSPACE" "$GITHUB_WORKSPACE/node_modules/electron/dist"
+
+      - name: Create tarball
+        run: tar czf dist/desktop-linux-x64-portable.tar.gz -C dist desktop-linux-x64
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-x64-portable
+          path: dist/desktop-linux-x64-portable.tar.gz
+          if-no-files-found: error
+
+      - name: Publish to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          gh release create latest-linux-x64 \
+            --title "Latest Linux x64" \
+            --notes "Auto-updated by release-fork workflow" \
+            || true
+          gh release upload latest-linux-x64 \
+            dist/desktop-linux-x64-portable.tar.gz --clobber
