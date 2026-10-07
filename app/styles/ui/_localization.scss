@@ -102,6 +102,14 @@
   }
 
   .localization-editor-list {
+    // Every key of the catalog is over a hundred thousand pixels of rows, and
+    // the dialog is sized by its content: unbounded, the footer with Save and
+    // the pick button lands a hundred screens below the window, where no real
+    // click can reach it. Bounded against the viewport like `#release-notes`
+    // does, the list becomes the only thing that scrolls. 400px is the rest of
+    // the dialog — header, toolbar, progress line and footer.
+    max-height: calc(100vh - 400px);
+    min-height: 120px;
     overflow-y: auto;
     margin-top: var(--spacing-half);
     border: var(--base-border);
@@ -173,10 +181,20 @@
     }
   }
 
-  .dialog-footer .localization-editor-unsaved {
-    font-size: var(--font-size-sm);
-    font-style: italic;
-    color: var(--text-secondary-color);
-    margin-left: auto;
+  // The generic footer stacks its buttons because dialogs are narrow. Here there
+  // are four of them and the translator has to reach every one, so they lay out
+  // in a row and wrap rather than building a tower down the page.
+  .dialog-footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-half);
+
+    .localization-editor-unsaved {
+      font-size: var(--font-size-sm);
+      font-style: italic;
+      color: var(--text-secondary-color);
+      margin-left: auto;
+    }
   }
 }
