@@ -139,6 +139,11 @@ class LocalizationManager {
     return fallback === undefined ? [] : [...fallback.messages.keys()].sort()
   }
 
+  /** The shipped catalog of `tag`, without any user overrides. */
+  public getBuiltInMessages(tag: string): ReadonlyMap<string, Message> {
+    return this.builtins.get(tag)?.messages ?? noMessages
+  }
+
   public getAvailableLocales(): ReadonlyArray<LocaleSummary> {
     return this.getAvailableTags().map(tag => this.getLocale(tag)!)
   }
@@ -266,6 +271,9 @@ class LocalizationManager {
       name: layer?.name ?? tag,
       nativeName: layer?.nativeName ?? tag,
       direction: layer?.direction ?? 'ltr',
+      // The rebuild has to restate every metadata field: dropping the credits
+      // here would make editing one string erase the authors of the file.
+      authors: layer?.authors,
       messages,
     })
 

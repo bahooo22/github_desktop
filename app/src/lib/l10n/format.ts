@@ -1,3 +1,4 @@
+import { PluralQualifierPrefix, PluralQualifiers } from './catalog'
 import { Message, TranslationParameters } from './types'
 
 export type Platform = 'darwin' | 'win32' | 'linux'
@@ -49,6 +50,43 @@ export function selectVariant(
   // A message that only knows about other platforms still has to render
   // something, and showing one of its variants beats showing nothing.
   return message.values().next().value
+}
+
+const pluralCategoryCache = new Map<string, ReadonlyArray<string>>()
+
+/**
+ * The plural forms `tag` grammatically distinguishes, as bare qualifier keys
+ * (`_one`, `_few`, ...) in the canonical order of `PluralQualifiers`.
+ *
+ * Asked of `Intl` rather than looked up in a hand kept table so that variant
+ * selection here, the localization editor and the i18n freshness checker
+ * cannot drift apart on which forms a language is required to provide. Cached
+ * because `resolvedOptions` is comparatively slow and the editor asks for
+ * every row it renders.
+ */
+export function getPluralCategories(tag: string): ReadonlyArray<string> {
+  const cached = pluralCategoryCache.get(tag)
+
+  if (cached !== undefined) {
+    return cached
+  }
+
+  let supported: ReadonlyArray<string> = ['other']
+
+  try {
+    supported = new Intl.PluralRules(tag).resolvedOptions().pluralCategories
+  } catch {
+    // A hand written catalog can carry a malformed tag. Falling back to the
+    // one form every language has beats throwing out of a render pass.
+  }
+
+  const names = new Set(supported)
+  const categories = PluralQualifiers.filter(q => names.has(q)).map(
+    q => `${PluralQualifierPrefix}${q}`
+  )
+
+  pluralCategoryCache.set(tag, categories)
+  return categories
 }
 
 function selectPlural(

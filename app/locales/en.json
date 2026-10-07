@@ -366,6 +366,7 @@
     "empty": "Nothing to show.",
     "noResults": "No string matches that search.",
     "unsaved": "You have changes that are not saved yet.",
+    "unsavedSwitch": "Save your changes to {tag} before switching, or the next save will lose them.",
     "save": "Save translations",
     "saved": "Saved to {path}",
     "saveFailed": "Could not write the translation file: {error}",
@@ -381,6 +382,8 @@
     "pluralNote": "This string changes with the number, so it needs one row per form.",
     "platformNote": "This string differs per operating system. The row for this system is the one you see.",
     "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
+    "problemsTitle": "Some catalog entries could not be loaded",
+    "unknownKeysTitle": "These keys aren't part of the original catalog",
     "progress": {
       "_one": "Translated by me: {count:number} string of {total:number}",
       "_other": "Translated by me: {count:number} strings of {total:number}"

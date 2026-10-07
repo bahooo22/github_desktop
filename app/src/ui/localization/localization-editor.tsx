@@ -13,8 +13,12 @@ import {
   getLocalizationsDirectory,
   unflattenMessages,
   findPlaceholders,
+  findUnknownKeys,
+  FallbackLocaleTag,
   Variant,
 } from '../../lib/l10n'
+import { getPluralCategories } from '../../lib/l10n/format'
+import { PluralQualifierPrefix, PluralQualifiers } from '../../lib/l10n/catalog'
 
 type Filter = 'all' | 'missing' | 'translated'
 
@@ -23,6 +27,7 @@ interface ILocalizationEditorProps {
 }
 
 interface ILocalizationEditorState {
+  /** The language being edited, or '' while there is none to edit yet. */
   readonly target: string
   readonly filter: Filter
   readonly search: string
@@ -30,7 +35,8 @@ interface ILocalizationEditorState {
   readonly newTag: string
   readonly newName: string
   readonly newLanguageError: string | undefined
-  readonly dirty: boolean
+  /** Languages holding edits that have not been written to disk yet. */
+  readonly dirtyTags: ReadonlyArray<string>
   readonly status: string | undefined
   readonly statusIsError: boolean
 }
@@ -52,15 +58,20 @@ export class LocalizationEditor extends React.Component<
   public constructor(props: ILocalizationEditorProps) {
     super(props)
 
+    const target = defaultTarget(this.targetTags(), localization.getActiveTag())
+
     this.state = {
-      target: defaultTarget(),
+      target: target ?? '',
+      // With nothing but the reference catalog there is no language to pick,
+      // so the editor starts in the add-a-language flow instead of selecting
+      // a tag the picker doesn't offer.
+      addingLanguage: target === undefined,
       filter: 'all',
       search: '',
-      addingLanguage: false,
       newTag: '',
       newName: '',
       newLanguageError: undefined,
-      dirty: false,
+      dirtyTags: [],
       status: undefined,
       statusIsError: false,
     }
@@ -85,8 +96,13 @@ export class LocalizationEditor extends React.Component<
         <DialogContent>
           {this.renderToolbar()}
           {this.state.addingLanguage && this.renderNewLanguageForm()}
-          {this.renderProgress()}
-          {this.renderList()}
+          {this.state.target !== '' && (
+            <>
+              {this.renderProgress()}
+              {this.renderProblems()}
+              {this.renderList()}
+            </>
+          )}
           {this.state.status !== undefined && (
             <p
               className={
@@ -111,7 +127,7 @@ export class LocalizationEditor extends React.Component<
       <div className="localization-editor-toolbar">
         <Select
           label={t('localizationEditor.target')}
-          value={this.state.target}
+          value={this.state.target === '' ? '__add__' : this.state.target}
           onChange={this.onTargetChanged}
         >
           {tags.map(tag => {
@@ -188,13 +204,78 @@ export class LocalizationEditor extends React.Component<
     )
   }
 
+  /**
+   * Malformed catalog entries and keys the reference catalog doesn't know.
+   * Nothing else surfaces them: loading deliberately skips a broken row
+   * instead of throwing, and without this block the translator would only
+   * notice the missing string when the interface renders it.
+   */
+  private renderProblems() {
+    const problems = localization.getProblems()
+    const unknownKeys = findUnknownKeys(
+      localization.getBuiltInMessages(FallbackLocaleTag),
+      localization.getUserMessages(this.state.target)
+    )
+
+    if (problems.length === 0 && unknownKeys.length === 0) {
+      return null
+    }
+
+    return (
+      <div className="localization-editor-problems">
+        {problems.length > 0 && (
+          <>
+            <p className="problems-title">
+              {t('localizationEditor.problemsTitle')}
+            </p>
+            <ul>
+              {problems.map(problem => (
+                <li key={`${problem.key} ${problem.reason}`}>
+                  {`${problem.key}: ${problem.reason}`}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
+        {unknownKeys.length > 0 && (
+          <>
+            <p className="unknown-keys-title">
+              {t('localizationEditor.unknownKeysTitle')}
+            </p>
+            <ul>
+              {unknownKeys.map(key => (
+                <li key={key}>{key}</li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    )
+  }
+
   private renderProgress() {
-    const total = localization.getBuiltInKeys().length
-    const count = localization.getUserMessages(this.state.target).size
+    const { target } = this.state
+    const user = localization.getUserMessages(target)
+    const categories = getPluralCategories(target)
+
+    let total = 0
+    let translated = 0
+
+    // Progress counts variants, not keys: a plural whose `_few` is still
+    // English is not finished even though the key has an entry.
+    for (const key of localization.getBuiltInKeys()) {
+      const variants = targetVariants(
+        localization.getReference(key),
+        categories
+      )
+
+      total += variants.length
+      translated += countTranslated(variants, user.get(key))
+    }
 
     return (
       <p className="localization-editor-progress">
-        {t('localizationEditor.progress', { count, total })}
+        {t('localizationEditor.progress', { count: translated, total })}
       </p>
     )
   }
@@ -220,13 +301,16 @@ export class LocalizationEditor extends React.Component<
   }
 
   private renderRow(key: string) {
+    const { target } = this.state
     const reference = localization.getReference(key)
-    const user = localization.getUserMessages(this.state.target).get(key)
+    const user = localization.getUserMessages(target).get(key)
 
     return (
       <div key={key} className="translation-row">
         <div className="translation-key">{key}</div>
-        {reference.map(variant => this.renderVariant(key, variant, user))}
+        {targetVariants(reference, getPluralCategories(target)).map(variant =>
+          this.renderVariant(key, variant, user)
+        )}
       </div>
     )
   }
@@ -269,10 +353,11 @@ export class LocalizationEditor extends React.Component<
   }
 
   private renderFooter() {
-    const target = localization.getLocale(this.state.target)
+    const { target, dirtyTags } = this.state
+    const locale = localization.getLocale(target)
     const isUserFile =
-      target !== undefined &&
-      localization.getUserMessages(this.state.target).size > 0
+      locale !== undefined && localization.getUserMessages(target).size > 0
+    const dirty = dirtyTags.includes(target)
 
     return (
       <DialogFooter>
@@ -284,13 +369,13 @@ export class LocalizationEditor extends React.Component<
             {t('localizationEditor.delete')}
           </Button>
         )}
-        {this.state.dirty && (
+        {dirty && (
           <span className="localization-editor-unsaved">
             {t('localizationEditor.unsaved')}
           </span>
         )}
         <div className="spacer" />
-        <Button type="submit" disabled={!this.state.dirty}>
+        <Button type="submit" disabled={!dirty}>
           {t('localizationEditor.save')}
         </Button>
         <Button onClick={this.props.onDismissed}>
@@ -312,12 +397,20 @@ export class LocalizationEditor extends React.Component<
     const { filter, search, target } = this.state
     const user = localization.getUserMessages(target)
     const needle = search.trim().toLowerCase()
+    const categories = getPluralCategories(target)
 
     return localization.getBuiltInKeys().filter(key => {
-      if (filter === 'missing' && user.has(key)) {
+      const variants = targetVariants(
+        localization.getReference(key),
+        categories
+      )
+      const overrides = user.get(key)
+      const complete = countTranslated(variants, overrides) === variants.length
+
+      if (filter === 'missing' && complete) {
         return false
       }
-      if (filter === 'translated' && !user.has(key)) {
+      if (filter === 'translated' && !complete) {
         return false
       }
 
@@ -325,9 +418,13 @@ export class LocalizationEditor extends React.Component<
         return true
       }
 
+      // Searching the translator's own wording matters: by the time they
+      // want to revisit a string they have translated, the English text is
+      // often the least memorable thing about it.
       const texts = [
         key,
-        ...localization.getReference(key).map(v => v.template),
+        ...variants.map(v => v.template),
+        ...(overrides !== undefined ? [...overrides.values()] : []),
       ]
       return texts.some(text => text.toLowerCase().includes(needle))
     })
@@ -335,26 +432,54 @@ export class LocalizationEditor extends React.Component<
 
   private onVariantValueChanged =
     (key: string, qualifier: string) => (value: string) => {
-      localization.setUserMessage(this.state.target, key, qualifier, value)
-      this.setState({ dirty: true })
+      const tag = this.state.target
+      localization.setUserMessage(tag, key, qualifier, value)
+      this.setState(prev => ({
+        dirtyTags: prev.dirtyTags.includes(tag)
+          ? prev.dirtyTags
+          : [...prev.dirtyTags, tag],
+      }))
     }
 
   private onNewTagChanged = (newTag: string) => this.setState({ newTag })
 
   private onNewNameChanged = (newName: string) => this.setState({ newName })
 
-  private onCancelAddLanguage = () =>
+  private onCancelAddLanguage = () => {
+    // With no target language the add form is the only thing to show, so
+    // there is nothing to cancel back to.
+    if (this.state.target === '') {
+      this.setState({ newLanguageError: undefined })
+      return
+    }
+
     this.setState({ addingLanguage: false, newLanguageError: undefined })
+  }
 
   private onTargetChanged = (e: React.FormEvent<HTMLSelectElement>) => {
     const value = e.currentTarget.value
+    const { target, dirtyTags } = this.state
+
+    if (value !== target && target !== '' && dirtyTags.includes(target)) {
+      // Leaving with unsaved edits would lose them for good: the in-memory
+      // overrides of the abandoned language have no other path to disk, and
+      // the next save reloads every user layer from the files. Put the
+      // picker back where it was (React won't restore an unchanged value
+      // prop itself) and make the user settle the language first.
+      e.currentTarget.value = target
+      this.setState({
+        status: t('localizationEditor.unsavedSwitch', { tag: target }),
+        statusIsError: true,
+      })
+      return
+    }
 
     if (value === '__add__') {
       this.setState({ addingLanguage: true })
       return
     }
 
-    this.setState({ target: value, dirty: false, status: undefined })
+    this.setState({ target: value, status: undefined })
   }
 
   private onSearchChanged = (search: string) => this.setState({ search })
@@ -415,14 +540,21 @@ export class LocalizationEditor extends React.Component<
             name: locale.name,
             nativeName: locale.nativeName,
             direction: locale.direction,
+            // A user file that never restated the credits still inherits them
+            // from the catalog it patches; leaving them out here would make
+            // the first save silently drop them from the effective layer.
+            ...(locale.authors !== undefined
+              ? { authors: locale.authors }
+              : {}),
           }
     )
 
     const error = await saveUserLocalization(tag, tree)
 
     if (error !== undefined) {
+      // Keep the language dirty: the edits are still in memory and clearing
+      // the flag here would disable Save with no way to retry.
       this.setState({
-        dirty: false,
         status: t('localizationEditor.saveFailed', { error }),
         statusIsError: true,
       })
@@ -431,13 +563,13 @@ export class LocalizationEditor extends React.Component<
 
     await reloadUserLocalizations()
 
-    this.setState({
-      dirty: false,
+    this.setState(prev => ({
+      dirtyTags: prev.dirtyTags.filter(dirtyTag => dirtyTag !== tag),
       status: t('localizationEditor.saved', {
         path: `${getLocalizationsDirectory()}${tag.toLowerCase()}.json`,
       }),
       statusIsError: false,
-    })
+    }))
   }
 
   private onDelete = async () => {
@@ -446,26 +578,95 @@ export class LocalizationEditor extends React.Component<
 
     if (deleted) {
       await reloadUserLocalizations()
-      const next = this.targetTags()[0] ?? 'en'
-      this.setState({
-        target: next === 'en' ? tag : next,
-        dirty: false,
+
+      const next = this.targetTags()[0]
+      this.setState(prev => ({
+        target: next ?? '',
+        addingLanguage: next === undefined,
+        dirtyTags: prev.dirtyTags.filter(dirtyTag => dirtyTag !== tag),
         status: t('localizationEditor.deleted', { tag }),
         statusIsError: false,
-      })
+      }))
     }
   }
 }
 
-function defaultTarget(): string {
-  const active = localization.getActiveTag()
-  const tags = localization.getAvailableTags().filter(tag => tag !== 'en')
-
-  if (tags.includes(active)) {
-    return active
+/**
+ * The language to open the editor on: whatever the user is currently reading
+ * as long as a translatable catalog for it exists, else the first one. `tags`
+ * is the picker's own list (the reference already taken out), so the answer
+ * can never name a language the picker doesn't offer; `undefined` asks the
+ * editor to start creating one instead.
+ */
+export function defaultTarget(
+  tags: ReadonlyArray<string>,
+  activeTag: string
+): string | undefined {
+  if (tags.length === 0) {
+    return undefined
   }
 
-  return tags[0] ?? 'en'
+  return tags.includes(activeTag) ? activeTag : tags[0]
+}
+
+const PluralKindPrefix = 'plural:'
+
+const CanonicalPluralQualifiers = PluralQualifiers.map(
+  qualifier => `${PluralKindPrefix}${PluralQualifierPrefix}${qualifier}`
+)
+
+/**
+ * Every row a translation of one key needs in `target`: the reference's own
+ * variants plus the plural forms the target's grammar distinguishes beyond
+ * them. The i18n freshness checker requires exactly this set from a shipped
+ * catalog, so without it the missing forms could not be edited at all.
+ */
+function targetVariants(
+  reference: ReadonlyArray<Variant>,
+  categories: ReadonlyArray<string>
+): ReadonlyArray<Variant> {
+  const plurals = reference.filter(v =>
+    v.qualifier.startsWith(PluralKindPrefix)
+  )
+
+  if (plurals.length === 0) {
+    return reference
+  }
+
+  const byQualifier = new Map(reference.map(v => [v.qualifier, v]))
+  const fallbackTemplate =
+    byQualifier.get(`${PluralKindPrefix}${PluralQualifierPrefix}other`)
+      ?.template ?? plurals[0].template
+
+  const wanted = new Set([
+    ...plurals.map(v => v.qualifier),
+    ...categories.map(c => `${PluralKindPrefix}${c}`),
+  ])
+
+  const nonPlurals = reference.filter(
+    v => !v.qualifier.startsWith(PluralKindPrefix)
+  )
+
+  const orderedPlurals = CanonicalPluralQualifiers.filter(q =>
+    wanted.has(q)
+  ).map(
+    qualifier =>
+      byQualifier.get(qualifier) ?? {
+        qualifier,
+        template: fallbackTemplate,
+      }
+  )
+
+  return [...nonPlurals, ...orderedPlurals]
+}
+
+function countTranslated(
+  variants: ReadonlyArray<Variant>,
+  overrides: ReadonlyMap<string, string> | undefined
+): number {
+  return overrides === undefined
+    ? 0
+    : variants.filter(variant => overrides.has(variant.qualifier)).length
 }
 
 function displayQualifier(qualifier: string): string {
