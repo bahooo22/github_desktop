@@ -351,11 +351,12 @@
     "placeholderWarning": "В оригинале есть {placeholders} — сохраните их и в переводе.",
     "problemsTitle": "Часть записей каталога не удалось загрузить",
     "unknownKeysTitle": "Этих ключей нет в исходном каталоге",
-    "progress": {
-      "_few": "Переведено мной {count:number} строки из {total:number}",
-      "_many": "Переведено мной {count:number} строк из {total:number}",
-      "_one": "Переведено мной {count:number} строка из {total:number}",
-      "_other": "Переведено мной {count:number} строки из {total:number}"
+    "progress": "Переведено мной {count:number} из {total:number} форм перевода",
+    "progressStrings": {
+      "_few": "{count:number} строки",
+      "_many": "{count:number} строк",
+      "_one": "{count:number} строка",
+      "_other": "{count:number} строки"
     },
     "close": "Закрыть",
     "languageExample": "Португальский (Бразилия)",

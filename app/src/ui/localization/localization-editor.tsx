@@ -354,12 +354,13 @@ export class LocalizationEditor extends React.Component<
     const user = localization.getUserMessages(target)
     const categories = getPluralCategories(target)
 
+    const keys = localization.getBuiltInKeys()
     let total = 0
     let translated = 0
 
     // Progress counts variants, not keys: a plural whose `_few` is still
     // English is not finished even though the key has an entry.
-    for (const key of localization.getBuiltInKeys()) {
+    for (const key of keys) {
       const variants = targetVariants(
         localization.getReference(key),
         categories
@@ -369,9 +370,16 @@ export class LocalizationEditor extends React.Component<
       translated += countTranslated(variants, user.get(key))
     }
 
+    // `total` is a per language number: a catalog for ru needs four plural
+    // forms of the same key where pt-BR needs three, so it can legitimately
+    // differ from the row count. Naming the unit and showing both numbers is
+    // what keeps that from reading like a broken counter.
     return (
       <p className="localization-editor-progress">
         {t('localizationEditor.progress', { count: translated, total })}
+        {` · ${t('localizationEditor.progressStrings', {
+          count: keys.length,
+        })}`}
       </p>
     )
   }
@@ -813,8 +821,10 @@ const CanonicalPluralQualifiers = PluralQualifiers.map(
 /**
  * Every row a translation of one key needs in `target`: the reference's own
  * variants plus the plural forms the target's grammar distinguishes beyond
- * them. The i18n freshness checker requires exactly this set from a shipped
- * catalog, so without it the missing forms could not be edited at all.
+ * them. The i18n freshness checker only requires a catalog to cover the
+ * variants en defines and permits these extras (`compareVariantShapes`), but
+ * a form the language does distinguish has to be editable here anyway —
+ * otherwise a pt-BR or ru translator could never supply `_many`.
  */
 function targetVariants(
   reference: ReadonlyArray<Variant>,

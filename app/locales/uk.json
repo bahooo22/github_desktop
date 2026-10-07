@@ -351,11 +351,12 @@
     "placeholderWarning": "В оригіналі є {placeholders} — збережіть їх і в перекладі.",
     "problemsTitle": "Частину записів каталогу не вдалося завантажити",
     "unknownKeysTitle": "Цих ключів немає у початковому каталозі",
-    "progress": {
-      "_few": "Перекладено мною {count:number} рядки з {total:number}",
-      "_many": "Перекладено мною {count:number} рядків із {total:number}",
-      "_one": "Перекладено мною {count:number} рядок із {total:number}",
-      "_other": "Перекладено мною {count:number} рядки з {total:number}"
+    "progress": "Перекладено мною {count:number} з {total:number} форм перекладу",
+    "progressStrings": {
+      "_few": "{count:number} рядки",
+      "_many": "{count:number} рядків",
+      "_one": "{count:number} рядок",
+      "_other": "{count:number} рядки"
     },
     "close": "Закрити",
     "languageExample": "Португальська (Бразилія)",

@@ -384,9 +384,10 @@
     "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
     "problemsTitle": "Some catalog entries could not be loaded",
     "unknownKeysTitle": "These keys aren't part of the original catalog",
-    "progress": {
-      "_one": "Translated by me: {count:number} string of {total:number}",
-      "_other": "Translated by me: {count:number} strings of {total:number}"
+    "progress": "Translated by me: {count:number} of {total:number} translation forms",
+    "progressStrings": {
+      "_one": "{count:number} string",
+      "_other": "{count:number} strings"
     },
     "close": "Close",
     "languageExample": "Portuguese (Brazil)",

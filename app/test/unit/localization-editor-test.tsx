@@ -191,7 +191,7 @@ describe('localization editor', () => {
 
     assert.match(
       document.querySelector('.localization-editor-progress')!.textContent!,
-      /Translated by me: 0 strings of/
+      /Translated by me: 0 of [\d,]+ translation forms/
     )
 
     const [first, , , fourth] = variantInputs()
@@ -200,7 +200,7 @@ describe('localization editor', () => {
 
     assert.match(
       document.querySelector('.localization-editor-progress')!.textContent!,
-      /Translated by me: 2 strings of/
+      /Translated by me: 2 of [\d,]+ translation forms/
     )
 
     fireEvent.click(
@@ -226,7 +226,7 @@ describe('localization editor', () => {
 
     assert.match(
       document.querySelector('.localization-editor-progress')!.textContent!,
-      /Translated by me: 4 strings of/
+      /Translated by me: 4 of [\d,]+ translation forms/
     )
 
     fireEvent.click(
