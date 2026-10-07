@@ -23,11 +23,16 @@
 Один тег на архитектуру нужен потому, что в релизе не может лежать два разных
 `RELEASES`: Squirrel.Windows дописывает это имя к адресу фида и читает оттуда
 список пакетов. Переопределить адрес можно сборочной переменной
-`DESKTOP_UPDATES_URL`.
+`DESKTOP_UPDATES_URL`. Тег всегда выбирается win-ный: `getUpdatesURL()` различает
+только x64 и arm64, поэтому для сборки под macOS адрес надо переопределять явно
+(сделанных macOS-релизов у форка нет).
 
 Поведение, специфичное для апстримного `central.github.com` (query
 `?version=&env=`, перезапись пути под arm64), отключено для форк-фида гейтом
-`isCentralUpdatesFeed()` — для статики GitHub-ассетов оно ломало бы загрузку.
+`isCentralFeed()` в рантайме (`app/src/ui/lib/update-store.ts:37`) и
+`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:185`, вызывается из
+`script/package.ts:113` и `:162` для `remoteReleases` и имён пакетов) — для
+статики GitHub-ассетов оно ломало бы загрузку.
 
 **Следствие смены идентификатора:** Windows-установка живёт в
 `%LOCALAPPDATA%\GitHubDesktopL10n`, отдельно от апстримного
@@ -154,11 +159,18 @@ yarn l10n:bundles   # node script/i18n-freshness.mjs --bundles
 
 ## Чего в форке сознательно нет
 
-- Пакетов `.rpm`/`.deb`/`.AppImage`: есть только portable-архив Linux. Сборщик
-  `script/package.ts` на Linux умеет лишь сообщить, что не умеет ничего, а для
-  настоящих пакетов нужны `electron-builder` или `rpmbuild` плюс `.desktop`-файл и
-  иконки; образ контейнера этих инструментов не содержит.
-- Обновлений на Linux и macOS: фид реализован для Squirrel.Windows.
+- Настоящих пакетов для Linux (`.deb`/`.rpm`/`.AppImage`): есть только
+  portable-архив. `script/package.ts` умеет собирать только `.app` (darwin) и
+  Squirrel-инсталлер (win32), а на любой другой платформе завершает процесс; для
+  Linux-пакетов нужны `electron-builder` или `rpmbuild` плюс `.desktop`-файл и
+  иконки, а образ контейнера (`tools/i18n-lab/Dockerfile`) этих инструментов не
+  содержит.
+- Обновлений на Linux: `autoUpdater` (электронный, `app/src/main-process/app-window.ts:6`)
+  на Linux не поддерживается, а фид написан под Squirrel.Windows.
+- macOS-релизов: механизм обновлений для macOS в коде есть (тот же
+  `autoUpdater`), но форк не собирает `.app` и не публикует mac-тег, а
+  `getUpdatesURL()` по умолчанию возвращает всегда win-ный тег. На macOS
+  обновления заработают только при явном `DESKTOP_UPDATES_URL`.
 - Режима «клик по строке интерфейса → правка в редакторе языкового пакета»:
   атрибут `data-l10n-key` проставляется (`app/src/lib/l10n/react.tsx:130`), но
   пока нигде не читается.
