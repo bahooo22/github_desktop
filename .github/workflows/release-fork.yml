@@ -109,18 +109,42 @@ jobs:
             ${{ github.event.inputs.first_run == 'true' && '1' || '0' }}
 
       - name: Zip portable bundle
-        # tar (bsdtar на windows-2022) вместо Compress-Archive: последний
-        # спотыкается о длинные пути внутри resources/app, а -a определяет
-        # формат по расширению .zip.
+        # Archiver here must be bsdtar, addressed by its full path. Under
+        # `shell: bash` the bare `tar` resolves to Git for Windows' GNU tar
+        # 1.35, and `-a` (--auto-compress) only knows gzip/bzip2/xz/zstd: a
+        # `.zip` suffix is no filter at all, so GNU tar exits 0 having written
+        # an uncompressed **tar** under a .zip name — 650 MB of it, which
+        # Windows refuses to open. GitHub labels the asset `application/zip`
+        # from the extension, so nothing downstream noticed. Compress-Archive
+        # is not a fallback either: it fails on the long paths inside
+        # resources/app.
         shell: bash
         run: |
           ARCH="${{ github.event.inputs.arch }}"
           BUNDLE="GitHubDesktopL10n-win32-$ARCH"
+          ZIP="dist/$BUNDLE-portable.zip"
           if [ ! -d "dist/$BUNDLE" ]; then
             echo "::error::Нет portable-бандла dist/$BUNDLE"
             exit 1
           fi
-          tar -a -c -f "dist/$BUNDLE-portable.zip" -C dist "$BUNDLE"
+          /c/Windows/System32/tar.exe -a -c -f "$ZIP" -C dist "$BUNDLE"
+          # The archive must really be a zip. A wrong container format is not
+          # visible in the exit code — that is exactly how the tar-named-.zip
+          # reached the release — so check the container's own signatures and
+          # fail the job rather than the user's machine: a zip starts with the
+          # local file header `PK\3\4` and ends with the end-of-central-directory
+          # record `PK\5\6` at a fixed 22 bytes from the end (bsdtar writes no
+          # zip comment). A tar has neither, and ends with zero blocks instead.
+          head -c 2 "$ZIP" | grep -q 'PK' || {
+            echo "::error::$ZIP — нет заголовка PK\\3\\4 в начале: архиватор написал не zip"
+            exit 1
+          }
+          EOCD="$(tail -c 22 "$ZIP" | head -c 4 | od -An -tx1 | tr -d ' \n')"
+          if [ "$EOCD" != "504b0506" ]; then
+            echo "::error::$ZIP — нет end-of-central-directory (последние блоки: $EOCD, ожидался 504b0506): это не zip"
+            exit 1
+          fi
+          echo "Portable-архив: zip, $(stat -c %s "$ZIP") байт."
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v7
