@@ -69,12 +69,14 @@ bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"  # сама сборка
 
 Цель `gdlab/release.sh win-portable` намеренно запрещена (скрипт печатает
 подсказку и выходит с кодом 2). Причина: `yarn build:prod` внутри Linux-контейнера
-кладёт в `out/` нативные модули, собранные под Linux (`keytar.node`,
-`fs_admin.node`, `desktop-notifications.node`, `desktop-trampoline/*`, `git/`), а
-`@electron/packager` берёт то, что уже лежит в `node_modules` целевой платформы, и
-не подменяет их. На Windows `require()` этих файлов падает, и приложение
-показывает пустое белое окно при живом меню — этот дефект и был причиной
-запрета.
+кладёт в `out/` нативные компоненты, собранные под Linux, а `@electron/packager`
+берёт то, что уже лежит в `node_modules` целевой платформы, и не подменяет их.
+Замер `out/` после production-сборки: четыре `.node` — `keytar.node`,
+`fs_admin.node`, `desktop-notifications.node`,
+`copilot/prebuilds/linux-x64/runtime.node` — все `ELF 64-bit LSB shared object`;
+`desktop-trampoline/desktop-askpass-trampoline` и `git/bin/git` — тоже ELF.
+На Windows `require()` таких модулей падает, и приложение показывает пустое белое
+окно при живом меню — этот дефект и был причиной запрета.
 
 Windows-сборка идёт workflow-файлом `.github/workflows/release-fork.yml`:
 
