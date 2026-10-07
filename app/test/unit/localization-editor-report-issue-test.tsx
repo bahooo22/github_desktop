@@ -3,12 +3,12 @@ import { afterEach, beforeEach, describe, it } from 'node:test'
 import * as React from 'react'
 import { ipcRenderer } from 'electron'
 
+import { LocalizationEditor } from '../../src/ui/localization/localization-editor'
 import {
-  buildEditorTranslationIssueUrl,
-  LocalizationEditor,
-} from '../../src/ui/localization/localization-editor'
+  buildFeedbackIssueUrl,
+  TranslationIssueLabel,
+} from '../../src/ui/localization/translation-issue'
 import { localization, t } from '../../src/lib/l10n'
-import { TranslationIssueLabel } from '../../src/ui/localization/translation-issue'
 import { getVersion } from '../../src/ui/lib/app-proxy'
 import { fireEvent, render } from '../helpers/ui/render'
 
@@ -67,7 +67,7 @@ describe('localization editor - translation issue report', () => {
   })
 
   it('carries language, key, filter, search and build into the body', () => {
-    const url = buildEditorTranslationIssueUrl({
+    const url = buildFeedbackIssueUrl({
       target: 'ru',
       key: 'zztest.plain',
       filter: 'missing',
@@ -77,7 +77,7 @@ describe('localization editor - translation issue report', () => {
     const params = issueParams(url)
     assert.equal(
       params.get('title'),
-      t('localizationEditor.reportIssueTitle', { tag: 'ru' })
+      t('localizationEditor.reportIssueTitleKey', { key: 'zztest.plain' })
     )
     // The tracker's label name, not a translatable string — see
     // TranslationIssueLabel.
@@ -115,9 +115,8 @@ describe('localization editor - translation issue report', () => {
   })
 
   it('leaves out the lines that describe nothing', () => {
-    const url = buildEditorTranslationIssueUrl({
+    const url = buildFeedbackIssueUrl({
       target: 'uk',
-      filter: 'all',
       search: '',
     })
 
@@ -137,6 +136,135 @@ describe('localization editor - translation issue report', () => {
     )
   })
 
+  it('fills in the screen, the wording and the original instead of asking', () => {
+    const url = buildFeedbackIssueUrl({
+      target: 'ru',
+      key: 'zztest.plain',
+      search: '',
+    })
+
+    const body = issueParams(url).get('body')!
+    const blocks = body.split('\n\n')
+
+    // Membership alone would pass for any permutation of the blocks, and the
+    // template is a reading order, not a list of fields.
+    const headings = [
+      'reportIssueScreen',
+      'reportIssueCurrent',
+      'reportIssueReference',
+      'reportIssueSuggested',
+      'reportIssueWhy',
+      'reportIssueContext',
+      'reportIssueOtherLanguage',
+    ]
+
+    let previous = -1
+    for (const key of headings) {
+      const at = blocks.findIndex(block =>
+        block.startsWith(t(`localizationEditor.${key}`))
+      )
+      assert.ok(
+        at > previous,
+        `${key} has to come after ${
+          headings[headings.indexOf(key) - 1]
+        } (found ${at} after ${previous})`
+      )
+      previous = at
+    }
+
+    // The heading and its quote are one block, not two.
+    const current = blocks.find(block =>
+      block.startsWith(t('localizationEditor.reportIssueCurrent'))
+    )!
+    assert.equal(
+      current.split('\n')[1],
+      `> ${t('localizationEditor.reportIssueUntranslated')}`
+    )
+
+    // The en template is what the translator is being asked about, so the
+    // report quotes it rather than describing it.
+    assert.ok(body.includes('Plain llama string'))
+
+    // The build facts come before the string key, the way the template lists
+    // them: language, build, key.
+    const context = blocks.find(block =>
+      block.startsWith(t('localizationEditor.reportIssueContext'))
+    )!
+    assert.ok(
+      context.indexOf(
+        t('localizationEditor.reportIssueBuild', {
+          version: getVersion(),
+          sha: __SHA__.substring(0, 10),
+        })
+      ) <
+        context.indexOf(
+          t('localizationEditor.reportIssueKey', {
+            key: 'zztest.plain',
+          })
+        )
+    )
+  })
+
+  it('keeps an empty shipped form out of the quote', () => {
+    // A catalog can carry a form whose value is still empty; quoting it would
+    // put a line with nothing after the colon into the report.
+    localization.registerFromJson(
+      'zzform',
+      { zztest: { plain: { _one: '', _other: '' } } },
+      'builtin'
+    )
+
+    const body = issueParams(
+      buildFeedbackIssueUrl({
+        target: 'zzform',
+        key: 'zztest.plain',
+        search: '',
+      })
+    ).get('body')!
+
+    assert.ok(!body.includes('> _one:'), 'an empty form is not quoted')
+    assert.ok(
+      body.includes(t('localizationEditor.reportIssueUntranslated')),
+      'the report says the string is not translated instead'
+    )
+  })
+
+  it('quotes the translated forms, naming them when there is more than one', () => {
+    localization.setUserMessage('ru', 'zztest.plain', '', 'Одна сойка')
+
+    const single = issueParams(
+      buildFeedbackIssueUrl({
+        target: 'ru',
+        key: 'zztest.plain',
+        search: '',
+      })
+    )
+      .get('body')!
+      .split('\n')
+
+    assert.ok(single.includes('> Одна сойка'))
+    assert.ok(
+      !single.some(line => line.startsWith('> :')),
+      'a lone form is not given a name'
+    )
+
+    localization.setUserMessage('ru', 'zztest.plain', 'plural:_one', 'одна')
+    localization.setUserMessage('ru', 'zztest.plain', 'plural:_other', 'много')
+
+    const plural = issueParams(
+      buildFeedbackIssueUrl({
+        target: 'ru',
+        key: 'zztest.plain',
+        search: '',
+      })
+    )
+      .get('body')!
+      .split('\n')
+
+    assert.ok(plural.includes('> _one: одна'))
+    assert.ok(plural.includes('> _other: много'))
+  })
+
   it('offers the action even when no single string is in view', () => {
     const view = render(<LocalizationEditor onDismissed={() => {}} />)
 
@@ -153,6 +281,25 @@ describe('localization editor - translation issue report', () => {
         .get('body')!
         .includes(linePrefix('localizationEditor.reportIssueKey', 'key'))
     )
+    // The editor shows everything here, which is not a filter worth reporting:
+    // the mapping of `all` to "no filter" lives in the editor, so this is where
+    // a regression would surface.
+    assert.ok(
+      !params
+        .get('body')!
+        .includes(linePrefix('localizationEditor.reportIssueFilter', 'filter')),
+      'showing every string is not reported as a filter'
+    )
+
+    // The footer is a row of buttons; the report link is what wraps onto the
+    // line under them, so it has to be the last thing in there.
+    const footer = link.parentElement
+    assert.ok(footer !== null)
+    assert.equal(footer.lastElementChild, link)
+    assert.ok(
+      footer.querySelectorAll('button').length >= 2,
+      'the buttons stay in front of the link'
+    )
 
     view.unmount()
   })
@@ -162,7 +309,14 @@ describe('localization editor - translation issue report', () => {
 
     fireEvent.change(searchBox(), { target: { value: 'zztest.plain' } })
 
-    const body = issueParams(reportLink().getAttribute('href')!).get('body')!
+    const href = reportLink().getAttribute('href')!
+    const params = issueParams(href)
+    assert.equal(
+      params.get('title'),
+      t('localizationEditor.reportIssueTitleKey', { key: 'zztest.plain' })
+    )
+
+    const body = params.get('body')!
     assert.ok(
       body.includes(
         t('localizationEditor.reportIssueKey', { key: 'zztest.plain' })

@@ -22,6 +22,7 @@ import {
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { formatDate } from '../../lib/format-date'
 import { t, Trans, localization } from '../../lib/l10n'
+import { buildFeedbackIssueUrl } from '../localization/translation-issue'
 import { getUpstreamStatus, IUpstreamStatus } from '../../lib/upstream-status'
 
 const logoPath = __DARWIN__
@@ -381,6 +382,16 @@ export class About extends React.Component<IAboutProps, IAboutState> {
             <p className="terms-and-license">
               <LinkButton uri="https://gh.io/copilot-for-desktop-transparency">
                 {t('about.responsible-use-copilot')}
+              </LinkButton>
+            </p>
+            <p className="terms-and-license">
+              <LinkButton
+                uri={buildFeedbackIssueUrl({
+                  target: localization.getActiveTag(),
+                  search: '',
+                })}
+              >
+                {t('about.reportTranslationIssue')}
               </LinkButton>
             </p>
           </div>

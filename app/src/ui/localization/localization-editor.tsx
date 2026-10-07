@@ -18,71 +18,18 @@ import {
   FallbackLocaleTag,
   Variant,
 } from '../../lib/l10n'
-import { getPluralCategories } from '../../lib/l10n/format'
+import { getPluralCategories, displayQualifier } from '../../lib/l10n/format'
 import { PluralQualifierPrefix, PluralQualifiers } from '../../lib/l10n/catalog'
 import { LinkButton } from '../lib/link-button'
-import { getVersion } from '../lib/app-proxy'
 import { Dispatcher } from '../dispatcher'
 import { PopupType } from '../../models/popup'
 import {
-  buildTranslationIssueUrl,
-  TranslationIssueLabel,
+  buildFeedbackIssueUrl,
+  ITranslationIssueContext,
 } from './translation-issue'
 import { armPickMode, disarmPickMode } from './pick-mode'
 
 export type Filter = 'all' | 'missing' | 'translated'
-
-export interface ITranslationIssueContext {
-  readonly target: string
-  /** Set when the current filter/search narrows the list down to one string. */
-  readonly key?: string
-  readonly filter: Filter
-  readonly search: string
-}
-
-export function buildEditorTranslationIssueUrl(
-  context: ITranslationIssueContext
-): string {
-  const { target, key, filter, search } = context
-
-  const lines = [t('localizationEditor.reportIssueLanguage', { tag: target })]
-
-  if (key !== undefined) {
-    lines.push(t('localizationEditor.reportIssueKey', { key }))
-  }
-
-  if (filter !== 'all') {
-    const filterName =
-      filter === 'missing'
-        ? t('localizationEditor.filterMissing')
-        : t('localizationEditor.filterTranslated')
-
-    lines.push(
-      t('localizationEditor.reportIssueFilter', { filter: filterName })
-    )
-  }
-
-  const trimmedSearch = search.trim()
-
-  if (trimmedSearch !== '') {
-    lines.push(
-      t('localizationEditor.reportIssueSearch', { search: trimmedSearch })
-    )
-  }
-
-  lines.push(
-    t('localizationEditor.reportIssueBuild', {
-      version: getVersion(),
-      sha: __SHA__.substring(0, 10),
-    })
-  )
-
-  return buildTranslationIssueUrl({
-    title: t('localizationEditor.reportIssueTitle', { tag: target }),
-    body: lines.join('\n\n'),
-    labels: [TranslationIssueLabel],
-  })
-}
 
 interface ILocalizationEditorProps {
   /**
@@ -479,12 +426,6 @@ export class LocalizationEditor extends React.Component<
           </span>
         )}
         <div className="spacer" />
-        <LinkButton
-          className="localization-editor-report-issue"
-          uri={buildEditorTranslationIssueUrl(this.translationIssueContext())}
-        >
-          {t('localizationEditor.reportIssue')}
-        </LinkButton>
         {this.props.dispatcher !== undefined && (
           <Button
             tooltip={t('localizationEditor.pickHint')}
@@ -499,6 +440,12 @@ export class LocalizationEditor extends React.Component<
         <Button onClick={this.props.onDismissed}>
           {t('localizationEditor.close')}
         </Button>
+        <LinkButton
+          className="localization-editor-report-issue"
+          uri={buildFeedbackIssueUrl(this.translationIssueContext())}
+        >
+          {t('localizationEditor.reportIssue')}
+        </LinkButton>
       </DialogFooter>
     )
   }
@@ -510,7 +457,7 @@ export class LocalizationEditor extends React.Component<
     return {
       target,
       key: visible.length === 1 ? visible[0] : undefined,
-      filter,
+      filter: filter === 'all' ? undefined : filter,
       search,
     }
   }
@@ -872,11 +819,6 @@ function countTranslated(
   return overrides === undefined
     ? 0
     : variants.filter(variant => overrides.has(variant.qualifier)).length
-}
-
-function displayQualifier(qualifier: string): string {
-  const colon = qualifier.indexOf(':')
-  return colon === -1 ? qualifier : qualifier.slice(colon + 1)
 }
 
 function missingPlaceholders(

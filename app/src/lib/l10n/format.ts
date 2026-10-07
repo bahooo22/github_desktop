@@ -206,3 +206,13 @@ export function findPlaceholders(template: string): ReadonlyArray<string> {
 
   return [...names]
 }
+
+/**
+ * A qualifier the way a translator reads it: `plural:_one` becomes `_one`,
+ * while a bare `_one` or `@win32` is already readable and stays as it is. An
+ * empty qualifier means the message has a single form and prints as nothing.
+ */
+export function displayQualifier(qualifier: string): string {
+  const colon = qualifier.indexOf(':')
+  return colon === -1 ? qualifier : qualifier.slice(colon + 1)
+}

@@ -214,5 +214,11 @@ body.l10n-pick-mode {
       color: var(--text-secondary-color);
       margin-left: auto;
     }
+
+    // The footer is a wrapping row, so taking the whole width is what puts the
+    // report link on a line under the buttons rather than between them.
+    .localization-editor-report-issue {
+      flex-basis: 100%;
+    }
   }
 }
