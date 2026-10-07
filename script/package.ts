@@ -19,7 +19,7 @@ import {
   getDistArchitecture,
   getIconDirectory,
 } from './dist-info'
-import { isGitHubActions } from './build-platforms'
+import { isCodeSigningConfigured, isGitHubActions } from './build-platforms'
 import { existsSync, rmSync, writeFileSync } from 'fs'
 import { getVersion } from '../app/package-info'
 import { computeBundleHashSync } from '../app/src/lib/compute-bundle-hash'
@@ -123,7 +123,7 @@ function packageWindows() {
     }
   }
 
-  if (isGitHubActions() && isPublishable()) {
+  if (isGitHubActions() && isPublishable() && isCodeSigningConfigured()) {
     assertNonNullable(process.env.RUNNER_TEMP, 'Missing RUNNER_TEMP env var')
 
     const acsPath = join(process.env.RUNNER_TEMP, 'acs')
@@ -154,6 +154,14 @@ function packageWindows() {
       // have to rename them here after the fact.
       const arch = getDistArchitecture()
       const prefix = `${getWindowsIdentifierName()}-${getVersion()}`
+
+      // RELEASES names the packages exactly as electron-winstaller wrote them,
+      // so the rename only works for a feed whose publishing tooling rewrites
+      // RELEASES afterwards. A plain GitHub release-assets feed would 404 on the
+      // original names, and there the architecture is already separated by tag.
+      if (!isCentralUpdatesFeed(getUpdatesURL())) {
+        return
+      }
 
       for (const kind of shouldMakeDelta() ? ['full', 'delta'] : ['full']) {
         const from = join(outputDir, `${prefix}-${kind}.nupkg`)

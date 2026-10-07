@@ -152,9 +152,9 @@ jobs:
           name: ${{matrix.friendlyName}}-${{matrix.arch}}
           path: |
             dist/GitHub Desktop-${{matrix.arch}}.zip
-            dist/GitHubDesktop-*.nupkg
-            dist/GitHubDesktopSetup-${{matrix.arch}}.exe
-            dist/GitHubDesktopSetup-${{matrix.arch}}.msi
+            dist/GitHubDesktop*-*.nupkg
+            dist/GitHubDesktop*Setup-${{matrix.arch}}.exe
+            dist/GitHubDesktop*Setup-${{matrix.arch}}.msi
             dist/bundle-size.json
             dist/bundle-hash.json
           if-no-files-found: error
@@ -229,10 +229,20 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
+          $setupExe = Get-ChildItem "dist/GitHubDesktop*Setup-${{ matrix.arch }}.exe" |
+            Select-Object -First 1 -ExpandProperty FullName
+          if (-not $setupExe) {
+            throw "Unable to locate Windows setup executable in dist/"
+          }
+
+          # Имя каталога Squirrel в %LOCALAPPDATA% совпадает с идентификатором
+          # продукта, который является префиксом имени setup-артефакта.
+          $identifier = ($setupExe | Split-Path -Leaf) -replace 'Setup-[^-]+\.exe$', ''
+
           function Write-SquirrelLogs {
             $logPaths = @(
               "$env:LOCALAPPDATA\SquirrelSetup.log",
-              "$env:LOCALAPPDATA\GitHubDesktop\SquirrelSetup.log"
+              "$env:LOCALAPPDATA\$identifier\SquirrelSetup.log"
             )
 
             foreach ($logPath in $logPaths) {
@@ -243,7 +253,6 @@ jobs:
             }
           }
 
-          $setupExe = "dist/GitHubDesktopSetup-${{ matrix.arch }}.exe"
           $installer = Start-Process -FilePath $setupExe -ArgumentList "/S" -PassThru
 
           try {
@@ -253,11 +262,11 @@ jobs:
             throw "Windows installer timed out after 300 seconds"
           }
 
-          Get-Process GitHubDesktop -ErrorAction SilentlyContinue | Stop-Process -Force
+          Get-Process $identifier -ErrorAction SilentlyContinue | Stop-Process -Force
 
           $installedExe = $null
           for ($attempt = 0; $attempt -lt 30 -and -not $installedExe; $attempt++) {
-            $installedExe = Get-ChildItem "$env:LOCALAPPDATA\GitHubDesktop\app-*\GitHubDesktop.exe" -ErrorAction SilentlyContinue |
+            $installedExe = Get-ChildItem "$env:LOCALAPPDATA\$identifier\app-*\$identifier.exe" -ErrorAction SilentlyContinue |
               Sort-Object FullName -Descending |
               Select-Object -First 1 -ExpandProperty FullName
 
