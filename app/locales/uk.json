@@ -649,7 +649,13 @@
     "terms-and-conditions": "Умови використання",
     "license-notices": "Ліцензії та сповіщення про ПЗ з відкритим кодом",
     "responsible-use-copilot": "Відповідальне використання Copilot у GitHub Desktop",
-    "l10nCredit": "Локалізація: <authors>{authors}</authors> (збірка <sha>{sha}</sha>, {date})"
+    "l10nCredit": "Локалізація: <authors>{authors}</authors> (збірка <sha>{sha}</sha>, {date})",
+    "upstream-behind": {
+      "_one": "Доступна нова версія апстрима: <link>{version}</link> (відстаємо на {count} реліз)",
+      "_few": "Доступна нова версія апстрима: <link>{version}</link> (відстаємо на {count} релізи)",
+      "_many": "Доступна нова версія апстрима: <link>{version}</link> (відстаємо на {count} релізів)",
+      "_other": "Доступна нова версія апстрима: <link>{version}</link> (відстаємо на {count} реліза)"
+    }
   },
   "acknowledgements": {
     "title": "Ліцензії та сповіщення про ПЗ з відкритим кодом",

@@ -19,6 +19,7 @@ import { isOSNoLongerSupportedByElectron } from '../../lib/get-os'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { formatDate } from '../../lib/format-date'
 import { t, Trans, localization } from '../../lib/l10n'
+import { getUpstreamStatus, IUpstreamStatus } from '../../lib/upstream-status'
 
 const logoPath = __DARWIN__
   ? 'static/logo-64x64@2x.png'
@@ -71,6 +72,10 @@ interface IAboutProps {
   readonly allowDevelopment?: boolean
 }
 
+interface IAboutState {
+  readonly upstreamStatus: IUpstreamStatus | null
+}
+
 interface IUpdateInfoProps {
   readonly message: string
   readonly richMessage?: JSX.Element
@@ -94,7 +99,31 @@ class UpdateInfo extends React.Component<IUpdateInfoProps> {
  * A dialog that presents information about the
  * running application such as name and version.
  */
-export class About extends React.Component<IAboutProps> {
+export class About extends React.Component<IAboutProps, IAboutState> {
+  private mounted = false
+
+  public constructor(props: IAboutProps) {
+    super(props)
+
+    this.state = { upstreamStatus: null }
+  }
+
+  public componentDidMount() {
+    this.mounted = true
+
+    getUpstreamStatus()
+      .then(upstreamStatus => {
+        if (this.mounted) {
+          this.setState({ upstreamStatus })
+        }
+      })
+      .catch(e => log.warn(`[about] upstream status check failed`, e))
+  }
+
+  public componentWillUnmount() {
+    this.mounted = false
+  }
+
   private get canCheckForUpdates() {
     return (
       __RELEASE_CHANNEL__ !== 'development' ||
@@ -248,6 +277,27 @@ export class About extends React.Component<IAboutProps> {
     )
   }
 
+  private renderUpstreamStatus() {
+    const status = this.state.upstreamStatus
+
+    if (status === null) {
+      return null
+    }
+
+    return (
+      <p className="no-padding">
+        <Trans
+          k="about.upstream-behind"
+          params={{
+            version: status.latestVersion,
+            count: status.releasesBehind,
+          }}
+          components={{ link: <LinkButton uri={ReleaseNotesUri} /> }}
+        />
+      </p>
+    )
+  }
+
   public render() {
     const name = this.props.applicationName
     const version = this.props.applicationVersion
@@ -307,6 +357,7 @@ export class About extends React.Component<IAboutProps> {
             }
             return null
           })()}
+          {this.renderUpstreamStatus()}
           {this.renderUpdateDetails()}
           {this.renderUpdateButton()}
           {this.renderBetaLink()}
