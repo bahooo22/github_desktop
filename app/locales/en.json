@@ -389,7 +389,14 @@
       "_other": "Translated by me: {count:number} strings of {total:number}"
     },
     "close": "Close",
-    "languageExample": "Portuguese (Brazil)"
+    "languageExample": "Portuguese (Brazil)",
+    "reportIssue": "Report a translation issue",
+    "reportIssueTitle": "Translation: {tag}",
+    "reportIssueLanguage": "**Interface language:** {tag}",
+    "reportIssueKey": "**String key:** {key}",
+    "reportIssueFilter": "**Filter:** {filter}",
+    "reportIssueSearch": "**Search:** {search}",
+    "reportIssueBuild": "**App version:** {version} (build {sha})"
   },
   "menu": {
     "about": "About GitHub Desktop",

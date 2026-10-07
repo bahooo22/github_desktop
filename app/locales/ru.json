@@ -358,7 +358,14 @@
       "_other": "Переведено мной {count:number} строки из {total:number}"
     },
     "close": "Закрыть",
-    "languageExample": "Португальский (Бразилия)"
+    "languageExample": "Португальский (Бразилия)",
+    "reportIssue": "Сообщить о проблеме перевода",
+    "reportIssueTitle": "Перевод: {tag}",
+    "reportIssueLanguage": "**Язык интерфейса:** {tag}",
+    "reportIssueKey": "**Ключ строки:** {key}",
+    "reportIssueFilter": "**Фильтр:** {filter}",
+    "reportIssueSearch": "**Поиск:** {search}",
+    "reportIssueBuild": "**Версия приложения:** {version} (сборка {sha})"
   },
   "menu": {
     "about": "О GitHub Desktop",
