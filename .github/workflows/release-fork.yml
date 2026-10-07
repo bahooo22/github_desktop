@@ -45,13 +45,12 @@ jobs:
 
       - run: yarn install --frozen-lockfile
         env:
-          # Ubuntu-22.04 несёт GCC 11, который сам предопределяет
-          # _FORTIFY_SOURCE при -O2. binding.gyp у printenvz добавляет свой
-          # -D_FORTIFY_SOURCE=2 и собирает с -Werror — redefinition
-          # превращается в фатальную ошибку. Гасим -Werror только на время
-          # install, чтобы не менять поведение остальных шагов.
-          CFLAGS: '-Wno-error -Wno-builtin-macro-redefined'
-          CXXFLAGS: '-Wno-error -Wno-builtin-macro-redefined'
+          # node-gyp читает флаги из переменных с префиксом npm_config_.
+          # -U снимает предустановленный _FORTIFY_SOURCE,
+          # -D задаёт его заново (одно значение, без конфликта),
+          # -Wno-error страхует от других предупреждений.
+          npm_config_cflags: '-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -Wno-error'
+          npm_config_cflags_cc: '-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -Wno-error'
 
       # На windows-раннере build:prod сам упаковывает portable-бандл через
       # @electron/packager, и нативные модули в нём — под win32. Собрать то же
