@@ -177,17 +177,6 @@ jobs:
           fi
           echo "Portable-архив: zip, $(stat -c %s "$ZIP") байт, $ENTRIES записей."
 
-      - name: Upload workflow artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: windows-${{ github.event.inputs.arch }}
-          path: |
-            dist/GitHubDesktopL10nSetup-${{ github.event.inputs.arch }}.exe
-            dist/GitHubDesktopL10nSetup-${{ github.event.inputs.arch }}.msi
-            dist/*.nupkg
-            dist/RELEASES
-          if-no-files-found: error
-
       - name: Publish to GitHub Release
         # Фид обновлений = ассеты тега latest-win-<arch>: gh создаёт тег и релиз
         # при первом запуске, последующие прогоны перезаписывают ассеты.
@@ -212,7 +201,7 @@ jobs:
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "Release $TAG уже существует — обновляю ассеты"
           else
-          gh release create "$TAG" \
+            gh release create "$TAG" \
               --title "Latest Windows $ARCH" \
               --notes "Auto-updated by release-fork workflow"
           fi
@@ -266,13 +255,6 @@ jobs:
           tar czf dist/desktop-linux-x64-portable.tar.gz -C dist
           desktop-linux-x64
 
-      - name: Upload workflow artifact
-        uses: actions/upload-artifact@v7
-        with:
-          name: linux-x64-portable
-          path: dist/desktop-linux-x64-portable.tar.gz
-          if-no-files-found: error
-
       - name: Publish to GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -281,7 +263,7 @@ jobs:
           if gh release view latest-linux-x64 >/dev/null 2>&1; then
             echo "Release latest-linux-x64 уже существует — обновляю ассеты"
           else
-          gh release create latest-linux-x64 \
+            gh release create latest-linux-x64 \
               --title "Latest Linux x64" \
               --notes "Auto-updated by release-fork workflow"
           fi
