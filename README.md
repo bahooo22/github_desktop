@@ -16,6 +16,18 @@ uses [React](https://reactjs.org/).
   />
 </picture>
 
+## Этот форк
+
+Это форк GitHub Desktop: интерфейс полностью локализован (русский и украинский),
+а релизы идут отдельно от апстрима — в тегах `latest-win-x64`, `latest-win-arm64`
+и `latest-linux-x64` этого репозитория. Windows-сборку выпускает workflow
+`Release Fork` (прогон по требованию; на runner'е он ещё не выполнялся),
+Linux-portable собирается одной командой в контейнере стенда.
+
+Как получить, как собрать самому и чем этот выпуск отличается от апстрима (свой
+Squirrel-идентификатор, неподписанный инсталлер, почему Windows нельзя собрать из
+Linux) — в [docs/fork-releases.md](docs/fork-releases.md).
+
 ## Where can I get it?
 
 Download the official installer for your operating system:
