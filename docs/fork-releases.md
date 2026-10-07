@@ -106,8 +106,16 @@ gh workflow run release-fork.yml -f arch=x64 -f first_run=true
    `remoteReleases` вызывает `SyncReleases.exe` (`lib/index.js:272-274`) и падает
    на его ненулевом коде выхода (`lib/spawn-promise.js`) — гибла вся сборка.
    Дельта выключается вместе с этим вызовом, канал сборки остаётся `production`.
-4. Portable-архив собирается `tar -a` (bsdtar), а не `Compress-Archive`: последний
-   спотыкается о длинные пути внутри `resources/app`.
+4. Portable-архив пакует `C:\Windows\System32\tar.exe` (bsdtar 3.7.7) — по
+   полному пути, а не `tar` из PATH. Под `shell: bash` bare `tar` — это GNU tar
+   1.35 из Git for Windows, а `-a` умеет только gzip/bzip2/xz/zstd: `.zip` для
+   него не фильтр, и GNU tar с кодом выхода 0 писал **несжатый tar** под именем
+   `*.zip` (должно было выйти 650 178 560 байт — кратно 512, `ustar` в смещении
+   257, а не `PK\3\4` в нулевом). `Compress-Archive` сам по себе тоже не годится:
+   спотыкается о длинные пути внутри `resources/app`. Теперь шаг после упаковки
+   читает сигнатуры контейнера — `PK\3\4` в начале и `PK\5\6` за 22 байта до
+   конца — и роняет джобу, если их нет: код выхода архиватора о формате не
+   говорит ничего, и именно поэтому битый артефакт доехал до релиза.
 5. Ассеты публикуются в тот же тег два раза: сначала установщики, portable-архив
    и пакеты, и только затем `RELEASES` — чтобы окно «клиент видит новую
    `RELEASES`, а пакет по ссылке ещё не долит» совпадало с самим фактом докачки.
@@ -121,6 +129,30 @@ Azure ACS намеренно не передаются, поэтому `Setup-*.
 Defender строже относится к неподписанным `.nupkg`. Для личного форка это
 приемлемо; когда появится свой сертификат, подпись включается добавлением шага
 `setup-windows-signing` по образцу апстримного `.github/workflows/ci.yml`.
+
+## Какой артефакт устанавливать: `Setup-*.exe`, а не `*.msi`
+
+- `GitHubDesktopL10nSetup-x64.exe` — обычный Squirrel-установщик на одного
+  пользователя: раскладывает приложение в `%LOCALAPPDATA%\GitHubDesktopL10n`,
+  создаёт ярлык и с этого момента сам смотрит фид. Ставить надо именно его.
+- `GitHubDesktopL10nSetup-x64.msi` — машинный «Deployment Tool» для корпоративной
+  раздачи (GPO/SCCM). Замер на win11 x64 24H2: Windows Installer отчитался
+  «Product: GitHub Desktop Deployment Tool -- Installation completed
+  successfully» (состояние 0, версия 3.6.7.0), и на этом всё. Из изменений —
+  ровно один файл `C:\Program Files (x86)\GitHub Desktop Deployment\`
+  `GitHubDesktopL10nDeploymentTool.exe` с sha256 `e716c846ba5186611d083585c3e8dd2bbbf7b706e82052c0f8e634cba3351f81`,
+  то есть байт-в-байт тот же `Setup-x64.exe` из релиза. Каталога
+  `%LOCALAPPDATA%\GitHubDesktopL10n`, ярлыка, записи в `CurrentVersion\Run` и
+  задачи в планировщике MSI не создаёт, `SquirrelSetup.log` не появляется —
+  приложение после MSI не установлено и само не доустановится.
+- Отсюда практический смысл пары: MSI лишь доставляет установщик на машину, а
+  ставят приложение запуском `Setup-x64.exe` (или уже положенного
+  `GitHubDesktopL10nDeploymentTool.exe`) под профилем пользователя. Если MSI
+  уже на машине и приложение им ставить не планируется — удаление через
+  `MsiExec.exe /X{C43DDCCA-ABCF-454E-AF36-FBDB6673A388}` или список «Приложения и
+  возможности».
+- Portable-архив установки не требует вообще: распаковать и запускать
+  `GitHubDesktopL10n.exe`.
 
 ## Сборка Windows локально на своей машине
 
