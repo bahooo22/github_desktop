@@ -2730,6 +2730,11 @@
     "squashDescription": "The commits in the selected branch will be combined into one commit in the current branch.",
     "rebaseDescription": "The commits from the selected branch will be rebased and added to the current branch."
   },
+  "updateErrors": {
+    "missingSquirrel": "GitHub Desktop can't check for updates because it is not running from an installed copy — there is no Update.exe above the folder it was launched from. A portable bundle is replaced by hand: install the GitHubDesktopL10nSetup program to get automatic updates.",
+    "serverUnreachable": "GitHub Desktop was not able to contact the update server. Ensure you have internet connectivity and try again.",
+    "timeout": "GitHub Desktop was not able to check for updates due to a timeout. Ensure you have internet connectivity and try again."
+  },
   "pushPullButton": {
     "lastFetched": "Last fetched <time/>",
     "neverFetched": "Never fetched",

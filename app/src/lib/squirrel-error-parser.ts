@@ -1,9 +1,13 @@
+import { t } from './l10n/core'
+
 // an error that Electron raises when it can't find the installation for the running app
 const squirrelMissingRegex = /^Can not find Squirrel$/
 
-// an error that occurs when Squirrel isn't able to reach the update server
+// an error that occurs when Squirrel isn't able to reach the update server.
+// The host is not part of the pattern: this fork feeds from github.com, while
+// the upstream literal only ever names central.github.com.
 const squirrelDNSRegex =
-  /System\.Net\.WebException: The remote name could not be resolved: 'central\.github\.com'/
+  /System\.Net\.WebException: The remote name could not be resolved/
 
 // an error that occurs when the connection times out during updating
 const squirrelTimeoutRegex =
@@ -17,19 +21,16 @@ const squirrelTimeoutRegex =
  */
 export function parseError(error: Error): Error | null {
   if (squirrelMissingRegex.test(error.message)) {
-    return new Error(
-      'The application is missing a dependency it needs to check and install updates. This is very, very bad.'
-    )
+    // Electron raises this only when there is no Update.exe one level above the
+    // running exe, so the app was launched from a loose bundle, not installed —
+    // which is why the message names that instead of blaming a dependency.
+    return new Error(t('updateErrors.missingSquirrel'))
   }
   if (squirrelDNSRegex.test(error.message)) {
-    return new Error(
-      'GitHub Desktop was not able to contact the update server. Ensure you have internet connectivity and try again.'
-    )
+    return new Error(t('updateErrors.serverUnreachable'))
   }
   if (squirrelTimeoutRegex.test(error.message)) {
-    return new Error(
-      'GitHub Desktop was not able to check for updates due to a timeout. Ensure you have internet connectivity and try again.'
-    )
+    return new Error(t('updateErrors.timeout'))
   }
 
   return null
