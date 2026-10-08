@@ -8,6 +8,7 @@ import {
 } from '../models/release-notes'
 import { getVersion } from '../ui/lib/app-proxy'
 import { formatDate } from './format-date'
+import { getForkReleaseSummaries } from './fork-changelog'
 import { offsetFromNow } from './offset-from'
 import { encodePathAsUrl } from './path'
 import { getUserAgent } from './http'
@@ -129,8 +130,19 @@ export async function generateReleaseSummary(
   // We should only be pulling release notes when a release just happened, so
   // there should be one within the past 90 days. Thus, this is just precaution
   // to ensure we always show at least the last set of release notes.
-  return recentReleases.length > 0
-    ? recentReleases.map(getReleaseSummary)
+  const forkSummaries = getForkReleaseSummaries(__BUILD_DATE__)
+
+  // Запись форка носит уже установленный номер версии, а диалог по первой
+  // записи решает, предлагать ли установку
+  // (`app/src/ui/release-notes/release-notes-dialog.tsx:142`). Поэтому при
+  // наличии апстрим-обновления наши записи идут после него: кнопка остаётся у
+  // того релиза, который действительно можно установить.
+  if (recentReleases.length > 0) {
+    return [...recentReleases.map(getReleaseSummary), ...forkSummaries]
+  }
+
+  return forkSummaries.length > 0
+    ? forkSummaries
     : [getReleaseSummary(lastTenReleases[0])]
 }
 

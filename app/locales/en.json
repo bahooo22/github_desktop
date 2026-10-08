@@ -2368,6 +2368,14 @@
     "installAndRestart": {
       "@darwin": "Install and Restart",
       "@other": "Install and restart"
+    },
+    "fork": {
+      "interfaceLocalization": "The whole interface is localized into Russian and Ukrainian, including menus, dialogs, preferences and error messages",
+      "translationEditor": "The translation editor shows how much of the interface is translated and reports a problematic string without leaving the app",
+      "separateInstall": "The fork installs beside upstream: its own Squirrel identifier, update feed, shortcut name and github-l10n command",
+      "aboutBuildInfo": "The About dialog shows the localization author, the commit the build came from, and a note when upstream has moved ahead",
+      "languageDetection": "The interface language is detected even when the system reports no preferred languages",
+      "translationProgress": "The translation progress counts strings by the plural rules of the interface language"
     }
   },
   "repositoriesList": {
