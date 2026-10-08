@@ -144,6 +144,14 @@ function typeInto(input: HTMLInputElement, value: string) {
   fireEvent.change(input, { target: { value } })
 }
 
+// The banner has to be checked as a boolean: an `assert.equal(node, null)`
+// failing inside `waitFor` makes Node format the node for the message, and
+// following the React fiber hanging off it takes minutes per attempt.
+function assertNotUnsaved() {
+  const banner = screen.queryByText(t('localizationEditor.unsaved'))
+  assert.ok(banner === null, 'The unsaved banner is still visible')
+}
+
 function saveCalls() {
   const calls: Array<{ tag: string; contents: unknown }> = []
   const previous = ipcRenderer.invoke
@@ -429,9 +437,7 @@ describe('localization editor', () => {
       })
     )
 
-    await waitFor(() =>
-      assert.equal(screen.queryByText(t('localizationEditor.unsaved')), null)
-    )
+    await waitFor(() => assertNotUnsaved())
 
     selectTarget('uk')
     assert.equal(targetSelect().value, 'uk')
@@ -465,9 +471,7 @@ describe('localization editor', () => {
 
     // The reopened dialog really can write: the flag it acted on came from the
     // store, not from anything this instance remembered.
-    await waitFor(() =>
-      assert.equal(screen.queryByText(t('localizationEditor.unsaved')), null)
-    )
+    await waitFor(() => assertNotUnsaved())
   })
 
   it('finds keys by the wording of the translation itself', () => {
@@ -517,9 +521,7 @@ describe('localization editor', () => {
     const tree = contents as Record<string, Record<string, string>>
     assert.equal(tree.zztest.plain, 'Hallo')
 
-    await waitFor(() =>
-      assert.ok(screen.queryByText(t('localizationEditor.unsaved')) === null)
-    )
+    await waitFor(() => assertNotUnsaved())
   })
 
   it('surfaces catalog problems and unknown keys', () => {

@@ -45,7 +45,8 @@ describe('CopyButton', () => {
     advanceTimersBy(2000)
 
     await waitFor(() => {
-      assert.equal(screen.queryByText(/^Copied!/, { selector: 'div' }), null)
+      const liveRegion = screen.queryByText(/^Copied!/, { selector: 'div' })
+      assert.ok(liveRegion === null, 'The copied live region never disappeared')
     })
   })
 })
