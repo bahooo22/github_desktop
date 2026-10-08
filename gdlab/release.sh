@@ -7,6 +7,10 @@
 #     yarn build:prod (DESKTOP_SKIP_PACKAGE=1) → gdlab/assemble-linux-bundle.sh
 #     → Release/desktop-linux-x64-portable.tar.gz
 #
+#     Этот же артефакт в тег фида публикует workflow release-fork-linux.yml
+#     (`gh workflow run release-fork-linux.yml`); локальная сборка ничего не
+#     выкладывает и годится только для своей машины.
+#
 #   win-portable — ЗАПРЕЩЕНА: из Linux-дерева получается нерабочий бандл.
 #     В out/ лежат нативные модули и бинарники, собранные под linux
 #     (keytar.node, fs_admin.node, desktop-notifications.node,
@@ -15,6 +19,8 @@
 #     require() нативного модуля, и приложение показывает пустое белое окно с
 #     живым меню. Windows-релиз собирается только на windows-раннере:
 #     gh workflow run release-fork-windows.yml -f arch=x64
+#     (архитектура — входом arch; обе сразу: gh workflow run
+#     release-fork-windows-all.yml, все три фида: release-fork-all.yml).
 set -euo pipefail
 
 TARGET="${1:-linux-portable}"
@@ -26,6 +32,7 @@ log() { printf '[release] %s\n' "$*"; }
 if [ "$TARGET" = win-portable ]; then
   log "win-portable из Linux невозможна (см. комментарий в начале этого скрипта)."
   log "Запусти CI: gh workflow run release-fork-windows.yml -f arch=x64"
+  log "или обе архитектуры: gh workflow run release-fork-windows-all.yml"
   exit 2
 fi
 

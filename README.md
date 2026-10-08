@@ -32,7 +32,7 @@ Electron 44.1.1 на Node 24.19 (`.node-version`).
 | Строки интерфейса | Тексты вынесены в `app/locales/en.json`, из него строятся ru и uk; покрытие меряют `yarn l10n:parity`, `l10n:audit`, `l10n:upstream`, `l10n:menu` |
 | Настройки → Язык | Выбор языка интерфейса, редактор переводов с сохранением в свой каталог и режим «выбрать строку кликом» |
 | Идентификатор Squirrel | `GitHubDesktopL10n` вместо `GitHubDesktop`: отдельный каталог в `%LOCALAPPDATA%` и свой фид, поэтому форк и стоковая сборка не перезаписывают друг друга. Имя ярлыка разводится отдельно (`getWindowsShortcutName()`, `script/dist-info.ts`): Squirrel называет `.lnk` по `FileDescription` exe, и с апстримным значением обе редакции писали бы один `GitHub Desktop.lnk`. CLI ставится как `github-l10n`: каталоги `bin` у редакций разные, а имя команды было общее, так что `github` разыгрывался порядком `PATH` |
-| Релизы | Два workflow-файла, по одному на платформу: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`; каждый прогон трогает только свой тег |
+| Релизы | Четыре workflow: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`, каждый прогон трогает только свой тег; `Release Fork (Windows all arches)` и `Release Fork (All platforms)` вызывают те же файлы матрицей, чтобы все фиды стартовали одной кнопкой. Дешёвая джоба `gate` перед сборкой пропускает уже опубликованный коммит (пишет ссылку на готовый релиз) и не даёт публиковать версию, которая в `RELEASES` уже лежит |
 | Обновления | Squirrel берёт пакеты только из фида форка: адрес вшит в сборку (`getUpdatesURL()`, `script/dist-info.ts:167`), а публикабельную сборку с апстримным фидом сборочный скрипт отвергает |
 | Свежесть сборки | Отдельная проверка по хешу коммита: каждый релиз называет, из чего собран, приложение сравнивает хеш со своим `__SHA__` и показывает баннер со ссылкой на релиз |
 | Отзыв о переводе | Номер сборки в диалоге «О программе» ведёт в заранее заполненную issue этого репозитория |
@@ -69,6 +69,8 @@ Electron 44.1.1 на Node 24.19 (`.node-version`).
 | Dev-сборка | `bash tools/i18n-lab/lab.sh exec "yarn build:dev"` |
 | Linux portable | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"` |
 | Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; пока тег пуст, добавлять `-f first_run=true` |
+| Windows, обе архитектуры | `gh workflow run release-fork-windows-all.yml` |
+| Все три фида | `gh workflow run release-fork-all.yml` — win x64 + win arm64 + linux параллельно |
 | Linux portable в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`, входов нет |
 | Проверить раскатанные бандлы | `yarn l10n:bundles` |
 

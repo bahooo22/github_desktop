@@ -94,8 +94,9 @@ L10n», значение попадает в `win32metadata` (`script/build.ts:2
 2026-10-08T21:29:51Z, Linux — в 21:41:34Z. Именно из-за этой связки джобы
 разделены на два файла (см. «Сборка Windows: только на windows-раннере»). Тега
 `latest-win-arm64` нет: он появится только после прогона `arch=arm64`
-(`gh workflow run release-fork-windows.yml -f arch=arm64 -f first_run=true`), а
-mac-тега форк не публикует вовсе.
+(`gh workflow run release-fork-windows.yml -f arch=arm64 -f first_run=true`, или
+обёрток `release-fork-windows-all.yml` / `release-fork-all.yml` с тем же входом
+`first_run`), а mac-тега форк не публикует вовсе.
 
 - Windows x64: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
   portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES`, пакеты фида и
@@ -144,6 +145,10 @@ gh workflow run release-fork-windows.yml -f arch=x64
 gh workflow run release-fork-windows.yml -f arch=arm64
 # первый релиз в пустой тег — добавить:
 gh workflow run release-fork-windows.yml -f arch=x64 -f first_run=true
+# обе Windows-архитектуры за один запуск:
+gh workflow run release-fork-windows-all.yml
+# все три фида (win x64, win arm64, linux):
+gh workflow run release-fork-all.yml
 ```
 
 Релиз каждой платформы живёт своим workflow-файлом:
@@ -154,16 +159,63 @@ gh workflow run release-fork-windows.yml -f arch=x64 -f first_run=true
 чужую платформу, а linux-артефакт нельзя было обновить, не собрав Windows за
 девять минут. Теперь каждый прогон пишет только свой тег.
 
+Оба файла принимают два способа запуска: `workflow_dispatch` (команды выше) и
+`workflow_call` — вызов из другого workflow. Второй нужен двум обёрткам, где
+сборки стартуют одной кнопкой и при этом идут ровно тем же кодом, что и одиночный
+прогон:
+
+- `Release Fork (Windows all arches)` (`release-fork-windows-all.yml`) — job с
+  матрицей `[x64, arm64]`, каждый элемент которой вызывает
+  `release-fork-windows.yml`;
+- `Release Fork (All platforms)` (`release-fork-all.yml`) — та же матрица плюс
+  linux-job.
+
+Три детали обёрток, без которых они бы не работали:
+
+- `uses:` нельзя параметризовать выражением, поэтому win-джоба с матрицей
+  продублирована в обоих файлах, а не вызывается из обёртки обёртки.
+- `fail-fast: false`: фиды независимы, и успех x64 с linux ценен сам по себе,
+  даже если arm64 упадёт.
+- `permissions: contents: write` на уровне workflow и свой `concurrency`:
+  вызываемый workflow не может расширить права прогона, а публикации релиза
+  нужен write; группа относится к прогону обёртки, поэтому вызов внутри неё
+  отдельного пропуска не получает.
+
+Параллельные прогоны одной платформы не пишут один тег одновременно:
+`concurrency` в `release-fork-windows.yml` сгруппирован по архитектуре, так что
+x64 и arm64 не блокируют друг друга, а `cancel-in-progress` выключен намеренно —
+обрывать начатую публикацию фида хуже, чем дождаться её.
+
 Что делает прогон:
 
-1. `yarn build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
+1. Джоба `Check whether a release is needed` (`gate`) на ubuntu-раннере —
+   дешёвая проверка до всякой сборки: один короткий checkout (`fetch-depth: 1`,
+   без подмодулей) и пара запросов к API релизов. Логика живёт в
+   `.github/actions/release-gate/action.yml`, результат — output `run`, на
+   который сборочная джоба подписана через `needs` + `if`. Возможные исходы
+   такие:
+   - в notes целевого тега лежит блок `fork-build-info` с sha текущего коммита —
+     сборка ничего бы не изменила: `run=false`, сборочная джоба не запускается,
+     прогон считается успешным, а step summary получает `Загрузка: <ссылка на
+     релиз>` и дату той сборки; в log уходит `::notice::` с тем же смыслом;
+   - блока в notes нет (релизы, опубликованные до его появления) или sha
+     отличается — `run=true`;
+   - тега ещё нет: с `first_run=true` это первый релиз фида (`run=true`), без
+     него windows-прогон падает сразу, до сборки, с подсказкой включить вход —
+     `RELEASES` и дельта в пустом фиде не из чего строить. Linux-сборка такого
+     условия не имеет: ей нечего дозастраивать.
+   - отдельно для windows, когда тег есть и `first_run` выключен: gate качает
+     `RELEASES` и роняет прогон, если версия из `app/package.json` там уже
+     перечислена. Squirrel определяет обновление по версии, поэтому прогон с той
+     же версией физически перезаписал бы пакеты, которые никто не увидит.
+     Проверка дешёвая, а обнаруживать бесполезный релиз после девяти минут сборки
+     — дорого: раньше это был шаг `Guard the feed before packaging` сразу после
+     `Build production app`, и он туда больше не возвращается.
+   Для linux gate делает только проверку sha: портативная сборка не публикует
+   `RELEASES`, и спрашивать про версию ей не о чём.
+2. `yarn build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
    архитектуре (без `TARGET_ARCH` arm64-прогон собрал бы x64-нативы — см.
    `script/build.ts:203`).
-2. Шаг `Guard the feed before packaging` (пропускается при `first_run=true`)
-   скачивает `RELEASES` из тега и падает, если версия в `app/package.json` там
-   уже есть: Squirrel определяет обновление по версии, поэтому прогон с той же
-   версией физически перезаписал бы пакеты, которые никто не увидит. Проверка
-   дешёвая, а обнаруживать бесполезный релиз после девяти минут сборки — дорого.
 3. `yarn package` со `DESKTOP_UPDATES_URL`, указывающим на ассеты этого же тега, и
    `DESKTOP_SKIP_DELTA=1` при `first_run=true`. Флаг нужен для самого первого
    релиза: удалённого `RELEASES` ещё нет, а `electron-winstaller` при заданном
@@ -189,6 +241,41 @@ gh workflow run release-fork-windows.yml -f arch=x64 -f first_run=true
    релиз раньше, чем долиты его пакеты, не за чем. Отдельный `edit` нужен ещё и
    потому, что тег переиспользуется прогон за прогоном, а ветка
    `gh release create` при существующем релизе не выполняется.
+
+### Кеши загрузок
+
+Прогон не скачивает зависимости с нуля: шаг `Restore download caches`
+(`actions/cache@v6`) кеширует `${{ runner.temp }}/caches`, куда указывают
+`YARN_CACHE_FOLDER` и `electron_config_cache` в env сборочной джобы. Директории
+заданы явно, а не «обычным путём»: вендорённый yarn 1.21.1 без переменной на
+`yarn cache dir` отдаёт `/usr/local/share/.cache/yarn/v6`, а не `~/.cache/yarn`
+(замер 09.10.2026 в gdlab), так что кеш по угаданному пути молча сохранял бы
+пустую папку; `node_modules/electron/install.js:44` читает
+`electron_config_cache` прямо в `cacheRoot`.
+
+Явный шаг вместо `cache: yarn` у `actions/setup-node` — по двум причинам:
+
+- setup-node хеширует только корневой `yarn.lock`, а тяжёлая часть зависимостей
+  лежит в `app/yarn.lock`: изменение app-лока при неизменном корневом оставляло
+  устаревший слот, а изменение корневого сбрасывало кеш целиком и докачивало
+  всё. Новый ключ считается по всем пяти lock-файлам дерева (`yarn.lock`,
+  `app/yarn.lock` и три в `vendor/`).
+- Архив Electron (порядка ста мегабайт за прогон) в yarn-кеш не попадает вообще:
+  его качает post-install, и теперь он в кеше тем же шагом.
+
+В ключе windows-прогона есть архитектура, потому что actions/cache пишет в слот
+только первым прогоном: arm64-прогон досстанавливает пакеты, которых в x64-кеше
+нет (шаг `Install target-architecture native runtimes`), а без суффикса x64 занял
+бы общий слот — arm64-нативы не кэшировались бы никогда. `restore-keys` оставлен
+префиксом без хеша, чтобы смена одного lock-файла добирала недостающее, а не
+качало гигабайт заново.
+
+Сколько именно экономит, видно только по живому прогону: строки `Cache hit` и
+сохранение кеша в шаге кеша. Кеш держит архивы, а не готовые `node_modules`, —
+yarn 1 всё равно раскладывает дерево локально, поэтому выигрыш в сетевых
+качиваниях, а не в распаковке. У апстримных `ci.yml` и
+`.github/actions/setup-ci-environment/action.yml` тот же `cache: yarn` оставлен
+как есть, чтобы не плодить конфликты при следующем мерже апстрима.
 
 **Подписи нет.** `script/package.ts` включает подпись только при
 `isGitHubActions() && isPublishable() && isCodeSigningConfigured()`, а секреты
