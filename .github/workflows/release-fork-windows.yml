@@ -31,9 +31,54 @@ env:
   # Фид обновлений форка: один тег на архитектуру, потому что в одном релизе
   # не может быть двух RELEASES-файлов Squirrel.Windows.
 
+# Два прогона одной архитектуры писали бы один тег фида одновременно: второй
+# перезаписал бы ассеты в момент, когда клиенты уже докачивают их по ссылке из
+# RELEASES. Группа — по архитектуре, чтобы x64 и arm64 не блокировали друг
+# друга. cancel-in-progress выключен намеренно: обрывать начатую публикацию
+# фида хуже, чем дождаться её.
+concurrency:
+  group: release-fork-windows-${{ github.event.inputs.arch }}
+  cancel-in-progress: false
+
 jobs:
+  # Дешёвая проверка до сборки: ubuntu-latest, один короткий checkout и пара
+  # запросов к API релизов. Она решает две задачи.
+  #
+  # Первая — не собирать то, что уже опубликовано: если в notes целевого тега
+  # лежит sha текущего коммита, прогон ничего не изменил бы, и он завершается
+  # здесь с ссылкой на готовый релиз.
+  #
+  # Вторая — проверка версии из RELEASES. Она всегда была условием «не публикуй
+  # то, что клиенты не увидят», но стояла после `Build production app`, то есть
+  # роняла прогон спустя девять минут сборки; шаг Guard the feed передвинули
+  # сюда, и его текст переехал в .github/actions/release-gate/action.yml.
+  gate:
+    name: Check whether a release is needed
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      # Тело релиза читается через gh, а из дерева нужен только app/package.json
+      # с версией — отсюда fetch-depth и выключенные подмодули.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          submodules: false
+
+      - uses: ./.github/actions/release-gate
+        id: gate
+        with:
+          tag: latest-win-${{ github.event.inputs.arch }}
+          platform: windows
+          first-run: ${{ github.event.inputs.first_run }}
+
   windows:
     name: Windows ${{ github.event.inputs.arch }}
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: windows-2022
     permissions:
       contents: write
@@ -157,33 +202,6 @@ jobs:
           # `yarn install` — уже в out/, и он печатает те же DEP0169/DEP0040,
           # поэтому флаг нужен не только на шаге установки.
           NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
-
-      - name: Guard the feed before packaging
-        # Squirrel.Windows решает «есть ли обновление» по версии в RELEASES.
-        # Прогон с той же версией физически перезапишет пакеты, но клиенты её не
-        # увидят, а дельта построится от того же содержимого. Молча бесполезный
-        # релиз дороже упавшего: падаем здесь, до девяти минут сборки.
-        if: github.event.inputs.first_run != 'true'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          TAG="latest-win-${{ github.event.inputs.arch }}"
-          NEW_VERSION="$(node -p "require('./app/package.json').version")"
-          rm -rf "$RUNNER_TEMP/prev"
-          mkdir -p "$RUNNER_TEMP/prev"
-          if ! gh release download "$TAG" --pattern RELEASES --dir "$RUNNER_TEMP/prev"; then
-            echo "::error::В теге $TAG нет RELEASES — это первый релиз, включи вход first_run"
-            exit 1
-          fi
-          # RELEASES построчный: «имя-пакета sha1 длина», имя пакета содержит
-          # версию. Null-байты снимаются на случай UTF-16 в файле.
-          if tr -d '\000' < "$RUNNER_TEMP/prev/RELEASES" |
-            grep -q -- "-${NEW_VERSION}-full.nupkg"; then
-            echo "::error::Версия $NEW_VERSION уже опубликована в $TAG. Подними version в app/package.json и повтори."
-            exit 1
-          fi
-          echo "Фид $TAG держит другую версию — $NEW_VERSION уйдёт как обновление."
 
       - name: Package Windows installer
         # Подпись включается в script/package.ts только при

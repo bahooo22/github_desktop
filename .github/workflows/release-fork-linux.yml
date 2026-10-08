@@ -10,9 +10,41 @@ env:
   # различается архитектурами в смысле фида (Squirrel на Linux нет), и второй
   # тег только удвоил бы прогон без пользы для клиента.
 
+# См. concurrency в .github/workflows/release-fork-windows.yml: два прогона
+# перезаписывают один и тот же ассет tar.gz. Платформа одна, поэтому группа без
+# суффикса.
+concurrency:
+  group: release-fork-linux
+  cancel-in-progress: false
+
 jobs:
+  # Дешёвый пропуск уже опубликованного коммита: у linux-сборки нет механизма
+  # обновлений вообще, поэтому здесь проверяется только совпадение sha из notes
+  # тега. Проверку версии по RELEASES gate делает лишь для windows.
+  gate:
+    name: Check whether a release is needed
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          submodules: false
+
+      - uses: ./.github/actions/release-gate
+        id: gate
+        with:
+          tag: latest-linux-x64
+          platform: linux
+
   linux:
     name: Linux x64 portable
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
     runs-on: ubuntu-22.04
     permissions:
       contents: write
