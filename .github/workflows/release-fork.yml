@@ -48,6 +48,27 @@ jobs:
         # vendor/printenvz/binding.gyp, и gyp кладёт их в target-атрибут, который
         # никакие npm_config_cflags не перекрывают. Конфликт
         # _FORTIFY_SOURCE решён в самом binding.gyp.
+        #
+        # DeprecationWarning DEP0169 (`url.parse()`) и DEP0040 (`punycode`) в
+        # этом логе — не наши: в script/ и app/src нет ни одного url.parse и ни
+        # одного require('punycode'), а `node --trace-deprecation` указывает на
+        # vendor/yarn-1.21.1.js:38638 (GitResolver.isVersion) — вендоренный yarn
+        # из .yarnrc (`yarn-path`), а не на наш код. url.parse есть и в yarn
+        # 1.22.22 (по 15 вызовов в каждом бандле), поэтому пересъёмка вендоренной
+        # версии предупреждения не сняла бы; punycode же в 1.21.1 отдан webpack'ом
+        # наружу как нативный модуль (`module.exports = require("punycode")`), а
+        # 1.22.22 несёт пользовательский пакет — DEP0040 даёт только вендоренный.
+        #
+        # Гасим ровно эти два кода, чтобы ExperimentalWarning и остальные
+        # DeprecationWarning остались видны. Список кодов передаётся повтором
+        # флага:
+        # `--disable-warning=DEP0169,DEP0040` node принимает, но не применяет
+        # (замер 08.10.2026 в gdlab на node 24.19: с запятой предупреждения
+        # остаются, с двумя флагами — 0 строк при rc=0). Окружение наследуют все
+        # вложенные процессы post-install.ts (yarn --cwd app install,
+        # electron/install.js, compile:script), поэтому достаточно одного шага.
+        env:
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
 
       # На windows-раннере build:prod сам упаковывает portable-бандл через
       # @electron/packager, и нативные модули в нём — под win32. Собрать то же
@@ -62,6 +83,10 @@ jobs:
           # этого arm64-прогон собрал бы x64-нативы (в ci.yml эти две строки идут
           # парой).
           TARGET_ARCH: ${{ github.event.inputs.arch }}
+          # copyDependencies (script/build.ts:87 → :351) запускает ещё один
+          # `yarn install` — уже в out/, и он печатает те же DEP0169/DEP0040,
+          # поэтому флаг нужен не только на шаге установки.
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
 
       - name: Guard the feed before packaging
         # Squirrel.Windows решает «есть ли обновление» по версии в RELEASES.
@@ -276,13 +301,20 @@ jobs:
           cache: yarn
 
       - run: yarn install --frozen-lockfile
+        # Те же два предупреждения вендоренного yarn, что и в win-джобе: источник
+        # и обоснование написания флага — комментарий к шагу установки выше.
+        env:
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
 
       - name: Build production app
         # DESKTOP_SKIP_PACKAGE=1 — штатный флаг script/build.ts:73: на linux
         # packaging всё равно не делает ничего полезнее ручной раскладки рантайма.
-        run: yarn build:prod
         env:
           DESKTOP_SKIP_PACKAGE: '1'
+          # copyDependencies (script/build.ts:87 → :351) зовёт `yarn install` уже
+          # в out/, поэтому флаг нужен и здесь.
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+        run: yarn build:prod
 
       - name: Assemble portable bundle
         run:

@@ -33,6 +33,12 @@ fi
 [ -d "$ROOT/node_modules" ] || { log "нет node_modules — запусти yarn install"; exit 1; }
 
 log "yarn build:prod…"
+# DeprecationWarning DEP0169/DEP0040 печатает вендоренный yarn (.yarnrc →
+# vendor/yarn-1.21.1.js), а не наш код: build:prod вызывает copyDependencies,
+# та — `yarn install` в out/. Коды гасятся повтором флага; запись через запятую
+# node принимает, но игнорирует. Обоснование — комментарий к шагу установки в
+# .github/workflows/release-fork.yml.
+export NODE_OPTIONS="--disable-warning=DEP0169 --disable-warning=DEP0040"
 (cd "$ROOT" && RELEASE_CHANNEL=production DESKTOP_SKIP_PACKAGE=1 yarn build:prod)
 
 log "сборка portable-бандла…"
