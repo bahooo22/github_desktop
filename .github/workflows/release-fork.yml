@@ -147,7 +147,17 @@ jobs:
         # Ожидаемое значение собирается из того же app/package.json, из которого
         # script/dist-info.ts:getWindowsShortcutName берёт productName для
         # production-сборки, чтобы шаг не разъехался с кодом.
-        shell: powershell
+        #
+        # shell — pwsh, не powershell: Actions пишет `run` в .ps1 в UTF-8 без BOM,
+        # а Windows PowerShell 5.1 читает файл без BOM в ANSI-кодировке раннера
+        # (CP1252). Кириллица и em dash тогда разворачиваются в символы CP1252,
+        # среди которых есть «умные кавычки» U+201C/U+201D (em dash = E2 80 94,
+        # 0x94 — это как раз ”) и неопределённый 0x9D. PowerShell считает U+201D
+        # закрывающей кавычкой, и строка вида `Write-Output "… — …"` роняет парсер
+        # ещё до первого выражения: «The string is missing the terminator» плюс
+        # «Missing closing '}'». Прогон 08.10.2026 упал ровно так. ci.yml:230
+        # уже использует pwsh с русскими комментариями внутри `run` — там зелёный.
+        shell: pwsh
         run: |
           $productName = (Get-Content ./app/package.json -Raw | ConvertFrom-Json).productName
           $expected = "$productName L10n"
