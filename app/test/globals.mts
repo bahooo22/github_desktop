@@ -15,6 +15,7 @@ Object.assign(globalThis, {
   __RELEASE_CHANNEL__: 'development',
   __UPDATES_URL__: '',
   __SHA__: 'test',
+  __BUILD_DATE__: '2026-01-01',
   __DARWIN__: process.platform === 'darwin',
   __WIN32__: process.platform === 'win32',
   __LINUX__: process.platform === 'linux',

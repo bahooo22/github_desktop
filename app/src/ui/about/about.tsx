@@ -31,10 +31,9 @@ const logoPath = __DARWIN__
 const DesktopLogo = encodePathAsUrl(__dirname, logoPath)
 
 // This fork's translations are maintained outside the upstream repository, so
-// the credit line points at the translator's profile and at the issue tracker
-// where a build number can be discussed.
+// the credit line names the translator and offers them a way to report on the
+// very build they are looking at.
 const LocalizationAuthorUri = 'https://github.com/bahooo22/'
-const ForkIssuesUri = 'https://github.com/bahooo22/github_desktop/issues'
 
 interface IAboutProps {
   /**
@@ -343,7 +342,8 @@ export class About extends React.Component<IAboutProps, IAboutState> {
             {t('about.system', getSystemInfo())}
           </p>
           {(() => {
-            const locale = localization.getLocale(localization.getActiveTag())
+            const tag = localization.getActiveTag()
+            const locale = localization.getLocale(tag)
             if (locale?.authors && locale.authors.length > 0) {
               return (
                 <p className="no-padding selectable-text l10n-credit">
@@ -356,7 +356,14 @@ export class About extends React.Component<IAboutProps, IAboutState> {
                     }}
                     components={{
                       authors: <LinkButton uri={LocalizationAuthorUri} />,
-                      sha: <LinkButton uri={ForkIssuesUri} />,
+                      sha: (
+                        <LinkButton
+                          uri={buildFeedbackIssueUrl({
+                            target: tag,
+                            search: '',
+                          })}
+                        />
+                      ),
                     }}
                   />
                 </p>
@@ -382,16 +389,6 @@ export class About extends React.Component<IAboutProps, IAboutState> {
             <p className="terms-and-license">
               <LinkButton uri="https://gh.io/copilot-for-desktop-transparency">
                 {t('about.responsible-use-copilot')}
-              </LinkButton>
-            </p>
-            <p className="terms-and-license">
-              <LinkButton
-                uri={buildFeedbackIssueUrl({
-                  target: localization.getActiveTag(),
-                  search: '',
-                })}
-              >
-                {t('about.reportTranslationIssue')}
               </LinkButton>
             </p>
           </div>

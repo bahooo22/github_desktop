@@ -6,10 +6,16 @@ import { ipcRenderer } from 'electron'
 import { About } from '../../src/ui/about/about'
 import { UpdateStatus } from '../../src/ui/lib/update-store'
 import { getVersion } from '../../src/ui/lib/app-proxy'
+import {
+  buildFeedbackIssueUrl,
+  TranslationIssueLabel,
+} from '../../src/ui/localization/translation-issue'
+import { localization, t } from '../../src/lib/l10n'
 import { render, waitFor } from '../helpers/ui/render'
 
 const cacheKey = 'upstream-changelog-check'
 const indicatorSelector = '[data-l10n-key="about.upstream-behind"]'
+const creditSelector = '[data-l10n-key="about.l10nCredit"]'
 
 function seedCache(upstreamVersions: ReadonlyArray<string>) {
   localStorage.setItem(
@@ -128,5 +134,87 @@ describe('about - upstream indicator', () => {
     } finally {
       globalThis.fetch = originalFetch
     }
+  })
+})
+
+/**
+ * The dialog pings the main process when it opens and the test mock has no
+ * `send`.
+ */
+function mockIpcSend(): () => void {
+  const previousSend = ipcRenderer.send as any
+  ipcRenderer.send = () => {}
+
+  return () => {
+    ipcRenderer.send = previousSend
+  }
+}
+
+describe('about - the translation credit line', () => {
+  let restoreIpcSend: (() => void) | null = null
+
+  beforeEach(() => {
+    restoreIpcSend = mockIpcSend()
+
+    // A cached check that says nothing is behind: without it the dialog would
+    // reach central.github.com from a unit test.
+    seedCache([getVersion()])
+
+    // The credit line only exists for a language that credits its translator,
+    // which the built-in catalogs do for Russian and Ukrainian only.
+    localization.setRequestedLocale('ru')
+  })
+
+  afterEach(() => {
+    restoreIpcSend?.()
+    restoreIpcSend = null
+    localization.setRequestedLocale(null)
+    localStorage.removeItem(cacheKey)
+  })
+
+  it('sends the build number straight into the translation report', () => {
+    const view = renderAbout()
+
+    const credit = document.querySelector(creditSelector)
+    assert.ok(credit !== null, 'a credited language shows the credit line')
+
+    const links = credit.querySelectorAll('a')
+    assert.equal(links.length, 2)
+    assert.equal(links[0].getAttribute('href'), 'https://github.com/bahooo22/')
+
+    const sha = links[1]
+    assert.equal(sha.textContent, __SHA__.substring(0, 10))
+
+    const href = sha.getAttribute('href')!
+    assert.equal(
+      href,
+      buildFeedbackIssueUrl({ target: 'ru', search: '' }),
+      'the very report the translation editor offers for this language'
+    )
+
+    const params = new URL(href).searchParams
+    assert.equal(params.get('labels'), TranslationIssueLabel)
+    assert.equal(
+      params.get('title'),
+      t('localizationEditor.reportIssueTitle', { tag: 'ru' })
+    )
+
+    view.unmount()
+  })
+
+  it('does not repeat the report as a separate line at the bottom', () => {
+    const view = renderAbout()
+
+    const bottomLinks = [
+      ...document.querySelectorAll('.terms-and-license-container a'),
+    ].map(a => a.textContent)
+
+    assert.deepEqual(bottomLinks, [
+      t('about.terms-and-conditions'),
+      t('about.license-notices'),
+      t('about.responsible-use-copilot'),
+    ])
+
+    view.unmount()
   })
 })

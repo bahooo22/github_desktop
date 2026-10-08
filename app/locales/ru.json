@@ -671,7 +671,6 @@
     "terms-and-conditions": "Условия использования",
     "license-notices": "Лицензии и уведомления об открытом ПО",
     "responsible-use-copilot": "Ответственное использование Copilot в GitHub Desktop",
-    "reportTranslationIssue": "Сообщить о проблеме перевода",
     "l10nCredit": "Локализация: <authors>{authors}</authors> (сборка <sha>{sha}</sha>, {date})",
     "upstream-behind": {
       "_one": "Доступна новая версия апстрима: <link>{version}</link> (отстаём на {count} релиз)",
