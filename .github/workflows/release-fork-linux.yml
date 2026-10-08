@@ -2,6 +2,9 @@ name: Release Fork (Linux)
 
 on:
   workflow_dispatch:
+  # Вызов из .github/workflows/release-fork-all.yml. Входов нет: у платформы
+  # один тег фида и одна архитектура, поэтому обёртке нечего сюда передавать.
+  workflow_call:
 
 env:
   NODE_VERSION: '24'

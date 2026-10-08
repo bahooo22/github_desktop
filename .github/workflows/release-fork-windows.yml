@@ -24,20 +24,55 @@ on:
         required: false
         default: false
         type: boolean
+  # Тот же набор входов нужен вызову из обёрток
+  # .github/workflows/release-fork-windows-all.yml и release-fork-all.yml:
+  # без workflow_call их `uses:` просто не запустился бы.
+  workflow_call:
+    inputs:
+      arch:
+        description: 'Какой Windows-фид пересобирать: x64 или arm64.'
+        required: true
+        type: string
+      first_run:
+        description: >-
+          Тот же смысл, что у входа first_run ручного прогона: true отключает
+          дельту и обращение к удалённому RELEASES.
+        required: false
+        type: boolean
+        default: false
 
 env:
   NODE_VERSION: '24'
   RELEASE_CHANNEL: production
   # Фид обновлений форка: один тег на архитектуру, потому что в одном релизе
   # не может быть двух RELEASES-файлов Squirrel.Windows.
+  #
+  # Два входа собраны в переменные, чтобы тело прогона читало $ARCH и
+  # $FIRST_RUN вместо одного и того же выражения в пятнадцатом месте.
+  #
+  # Форма `inputs.arch || github.event.inputs.arch` покрывает оба способа
+  # запуска: контекст inputs заполнен только при вызове из другого workflow,
+  # github.event.inputs — только при workflow_dispatch, а обращение к
+  # отсутствующему свойству GitHub отдаёт пустую строку, а не ошибку.
+  ARCH: ${{ inputs.arch || github.event.inputs.arch }}
+  # С first_run так просто нельзя: при dispatch это строка ('true'/'false'),
+  # при вызове — boolean, и полагаться на приведение типа в сравнении с 'true'
+  # мы не стали. Условие положительное: 'true' только когда значение истинно
+  # хотя бы в одном из двух представлений, иначе 'false'.
+  FIRST_RUN:
+    ${{ (inputs.first_run == true || github.event.inputs.first_run == 'true') &&
+    'true' || 'false' }}
 
 # Два прогона одной архитектуры писали бы один тег фида одновременно: второй
 # перезаписал бы ассеты в момент, когда клиенты уже докачивают их по ссылке из
 # RELEASES. Группа — по архитектуре, чтобы x64 и arm64 не блокировали друг
 # друга. cancel-in-progress выключен намеренно: обрывать начатую публикацию
 # фида хуже, чем дождаться её.
+#
+# В group нельзя сослаться на env (контекст env в concurrency недоступен),
+# поэтому выражение повторяется здесь и в name джобы.
 concurrency:
-  group: release-fork-windows-${{ github.event.inputs.arch }}
+  group: release-fork-windows-${{ inputs.arch || github.event.inputs.arch }}
   cancel-in-progress: false
 
 jobs:
@@ -71,12 +106,12 @@ jobs:
       - uses: ./.github/actions/release-gate
         id: gate
         with:
-          tag: latest-win-${{ github.event.inputs.arch }}
+          tag: latest-win-${{ env.ARCH }}
           platform: windows
-          first-run: ${{ github.event.inputs.first_run }}
+          first-run: ${{ env.FIRST_RUN }}
 
   windows:
-    name: Windows ${{ github.event.inputs.arch }}
+    name: Windows ${{ inputs.arch || github.event.inputs.arch }}
     needs: gate
     if: needs.gate.outputs.run == 'true'
     runs-on: windows-2022
@@ -144,7 +179,7 @@ jobs:
       - name: Install target-architecture native runtimes
         shell: bash
         env:
-          TARGET_ARCH: ${{ github.event.inputs.arch }}
+          TARGET_ARCH: ${{ env.ARCH }}
         run: |
           add_target_runtime() {
             parent="$1"
@@ -193,11 +228,11 @@ jobs:
       - name: Build production app
         run: yarn build:prod
         env:
-          npm_config_arch: ${{ github.event.inputs.arch }}
+          npm_config_arch: ${{ env.ARCH }}
           # script/build.ts:203 берёт архитектуру packager'а именно отсюда: без
           # этого arm64-прогон собрал бы x64-нативы (в ci.yml эти две строки идут
           # парой).
-          TARGET_ARCH: ${{ github.event.inputs.arch }}
+          TARGET_ARCH: ${{ env.ARCH }}
           # copyDependencies (script/build.ts:87 → :351) запускает ещё один
           # `yarn install` — уже в out/, и он печатает те же DEP0169/DEP0040,
           # поэтому флаг нужен не только на шаге установки.
@@ -211,19 +246,18 @@ jobs:
         # свой сертификат — добавить setup-windows-signing по образцу ci.yml.
         run: yarn package
         env:
-          npm_config_arch: ${{ github.event.inputs.arch }}
+          npm_config_arch: ${{ env.ARCH }}
           # Одна строка: YAML-«фолдинг» plain-скаляра склеивает переносы через
           # пробел, и URL получил бы пробел внутри пути.
           DESKTOP_UPDATES_URL:
             https://github.com/${{ github.repository
-            }}/releases/download/latest-win-${{ github.event.inputs.arch }}/
+            }}/releases/download/latest-win-${{ env.ARCH }}/
           # Первый прогон: удалённого RELEASES ещё нет, а SyncReleases.exe с
           # ненулевым кодом выхода роняет весь yarn package
           # (electron-winstaller lib/index.js:272-274 плюс reject в
           # lib/spawn-promise.js). Флаг выключает и дельту, и remoteReleases,
           # оставляя канал production.
-          DESKTOP_SKIP_DELTA:
-            ${{ github.event.inputs.first_run == 'true' && '1' || '0' }}
+          DESKTOP_SKIP_DELTA: ${{ env.FIRST_RUN == 'true' && '1' || '0' }}
 
       - name: Guard the shortcut name
         # Squirrel называет .lnk по FileDescription упакованного exe, и другой
@@ -249,7 +283,7 @@ jobs:
         run: |
           $productName = (Get-Content ./app/package.json -Raw | ConvertFrom-Json).productName
           $expected = "$productName L10n"
-          $exe = "dist/GitHubDesktopL10n-win32-${{ github.event.inputs.arch }}/GitHubDesktopL10n.exe"
+          $exe = "dist/GitHubDesktopL10n-win32-${{ env.ARCH }}/GitHubDesktopL10n.exe"
           if (-not (Test-Path $exe)) {
             Write-Output "::error::Нет $exe — проверять нечего"
             exit 1
@@ -280,7 +314,7 @@ jobs:
         # собирается arm64-пакет.
         shell: bash
         env:
-          BUILD_INFO_ARCH: ${{ github.event.inputs.arch }}
+          BUILD_INFO_ARCH: ${{ env.ARCH }}
         run: |
           yarn release-build-info
           # Клиент на битый или отсутствующий блок молчит, то есть молчание
@@ -301,7 +335,7 @@ jobs:
         # resources/app.
         shell: bash
         run: |
-          ARCH="${{ github.event.inputs.arch }}"
+          # ARCH приходит из env прогона (см. env.ARCH в шапке файла).
           BUNDLE="GitHubDesktopL10n-win32-$ARCH"
           ZIP="dist/$BUNDLE-portable.zip"
           if [ ! -d "dist/$BUNDLE" ]; then
@@ -372,8 +406,9 @@ jobs:
         shell: bash
         run: |
           shopt -s nullglob
-          TAG="latest-win-${{ github.event.inputs.arch }}"
-          ARCH="${{ github.event.inputs.arch }}"
+          # Тег и архитектура — из env прогона, шаг больше не различает ручной
+          # запуск и вызов из обёртки.
+          TAG="latest-win-$ARCH"
           FULL=(dist/GitHubDesktopL10n-*-full.nupkg)
           if [ ${#FULL[@]} -ne 1 ]; then
             echo "::error::Ожидался ровно один full-пакет, найдено ${#FULL[@]}"

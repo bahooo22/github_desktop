@@ -1,0 +1,47 @@
+name: Release Fork (All platforms)
+
+# Полная публикация форка за один запуск: оба Windows-фида и linux-фид.
+# Три job'а собираются параллельно, каждый своим workflow — тот же код, что и
+# при одиночных запусках release-fork-windows.yml / release-fork-linux.yml.
+
+on:
+  workflow_dispatch:
+    inputs:
+      first_run:
+        description: >-
+          Относится к обеим Windows-архитектурам (linux-прогону не нужен: у
+          портативной сборки нет ни RELEASES, ни дельты). true отключает
+          обращение к удалённому RELEASES — ставить только пока тега
+          latest-win-<arch> ещё нет хотя бы по одной архе.
+        required: false
+        default: false
+        type: boolean
+
+# См. concurrency в release-fork-windows-all.yml: группа относится к прогону
+# обёртки, а не к вызываемым файлам.
+concurrency:
+  group: release-fork-all
+  cancel-in-progress: false
+
+# См. комментарии к permissions в release-fork-windows-all.yml: вызываемый
+# workflow не может расширить права прогона, а публикация релиза требует write.
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    strategy:
+      # Ни одна из трёх сборок не должна отменять две другие: фиды независимы,
+      # и успех x64 с linux ценен сам по себе, даже если arm64 упадёт.
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+    name: Windows ${{ matrix.arch }}
+    uses: ./.github/workflows/release-fork-windows.yml
+    with:
+      arch: ${{ matrix.arch }}
+      first_run: ${{ inputs.first_run == true }}
+
+  linux:
+    name: Linux x64 portable
+    uses: ./.github/workflows/release-fork-linux.yml
