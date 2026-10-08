@@ -1,5 +1,6 @@
 import { getSHA } from './git-info'
 import {
+  getForkFeedURL,
   getUpdatesURL,
   getChannel,
   getWindowsIdentifierName,
@@ -34,6 +35,7 @@ export function getReplacements() {
     __RELEASE_CHANNEL__: s(channel),
     __WINDOWS_IDENTIFIER_NAME__: s(getWindowsIdentifierName()),
     __UPDATES_URL__: s(process.env.DESKTOP_E2E_UPDATES_URL ?? getUpdatesURL()),
+    __FORK_FEED_URL__: s(getForkFeedURL()),
     __ERROR_REPORTING_ENDPOINT__: optionalStringReplacement(
       process.env.DESKTOP_ERROR_REPORTING_ENDPOINT
     ),

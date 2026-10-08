@@ -14,6 +14,7 @@ Object.assign(globalThis, {
   __APP_VERSION__: packageInfo.version,
   __RELEASE_CHANNEL__: 'development',
   __UPDATES_URL__: '',
+  __FORK_FEED_URL__: '',
   __SHA__: 'test',
   __BUILD_DATE__: '2026-01-01',
   __DARWIN__: process.platform === 'darwin',

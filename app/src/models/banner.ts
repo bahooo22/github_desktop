@@ -17,6 +17,7 @@ export enum BannerType {
   SuccessfulReorder = 'SuccessfulReorder',
   ConflictsFound = 'ConflictsFound',
   OSVersionNoLongerSupported = 'OSVersionNoLongerSupported',
+  ForkReleaseAvailable = 'ForkReleaseAvailable',
 }
 
 export type Banner =
@@ -122,3 +123,12 @@ export type Banner =
       readonly onOpenConflictsDialog: () => void
     }
   | { readonly type: BannerType.OSVersionNoLongerSupported }
+  | {
+      readonly type: BannerType.ForkReleaseAvailable
+      /** The commit the fork's newest release was built from. */
+      readonly releaseSha: string
+      /** How many commits that release carries on top of this build. */
+      readonly aheadBy: number
+      /** Where to get it — a portable build has no installer to run. */
+      readonly releasePageUrl: string
+    }

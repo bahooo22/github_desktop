@@ -718,6 +718,10 @@
     "upstream-behind": {
       "_one": "A new upstream version is available: <link>{version}</link> ({count} release behind)",
       "_other": "A new upstream version is available: <link>{version}</link> ({count} releases behind)"
+    },
+    "forkRelease": {
+      "_one": "A newer build of this fork is available: <link>{sha}</link> ({date}), {count} commit ahead of this one",
+      "_other": "A newer build of this fork is available: <link>{sha}</link> ({date}), {count} commits ahead of this one"
     }
   },
   "acknowledgements": {
@@ -1858,6 +1862,10 @@
       "_other": "Successfully squashed {count} commits."
     },
     "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>",
+    "forkReleaseAvailable": {
+      "_one": "A newer build of this fork is available: {count} commit ahead. <link>Release page</link>",
+      "_other": "A newer build of this fork is available: {count} commits ahead. <link>Release page</link>"
+    },
     "branchAlreadyUpToDateWith": "<ours></ours> is already up to date with <theirs></theirs>",
     "branchAlreadyUpToDate": "<ours></ours> is already up to date",
     "squashUndone": {

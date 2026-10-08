@@ -11,6 +11,7 @@ import {
   TranslationIssueLabel,
 } from '../../src/ui/localization/translation-issue'
 import { localization, t } from '../../src/lib/l10n'
+import { formatDate } from '../../src/lib/format-date'
 import { render, waitFor } from '../helpers/ui/render'
 
 const cacheKey = 'upstream-changelog-check'
@@ -216,5 +217,151 @@ describe('about - the translation credit line', () => {
     ])
 
     view.unmount()
+  })
+})
+
+const forkCacheKey = 'fork-release-check'
+const forkReleaseSelector = '[data-l10n-key="about.forkRelease"]'
+
+const releaseSha = 'df4b3a9c1e7f52a8d6c0b4f9a3e1c7d5b9f2a8c6'
+const releasePageUrl =
+  'https://github.com/bahooo22/github_desktop/releases/tag/latest-win-x64'
+
+/**
+ * A cached check is the only way to reach this line from a unit test: the feed
+ * URL is empty in `globals.mts`, which switches the whole check off, and the
+ * tests must not reach api.github.com either.
+ */
+function seedForkCache(status: object | null) {
+  localStorage.setItem(
+    forkCacheKey,
+    JSON.stringify({ checkedAt: Date.now(), status })
+  )
+}
+
+function seedForkStatus(aheadBy: number) {
+  seedForkCache({
+    releaseSha,
+    aheadBy,
+    releasePageUrl,
+    version: '3.7.0',
+    builtAt: '2026-10-05T12:00:00.000Z',
+  })
+}
+
+describe('about - the fork release line', () => {
+  let restoreIpcSend: (() => void) | null = null
+  let restoreFeedUrl: (() => void) | null = null
+
+  beforeEach(() => {
+    restoreIpcSend = mockIpcSend()
+
+    // The upstream line would otherwise reach desktop.github.com, and this
+    // suite is only about the fork's own release.
+    seedCache([getVersion()])
+
+    const previous = (globalThis as any).__FORK_FEED_URL__
+    ;(globalThis as any).__FORK_FEED_URL__ =
+      'https://api.github.com/repos/bahooo22/github_desktop/releases/tags/latest-win-x64'
+    restoreFeedUrl = () => {
+      ;(globalThis as any).__FORK_FEED_URL__ = previous
+    }
+  })
+
+  afterEach(() => {
+    restoreIpcSend?.()
+    restoreIpcSend = null
+    restoreFeedUrl?.()
+    restoreFeedUrl = null
+    localStorage.removeItem(forkCacheKey)
+  })
+
+  it('names the newer build, its commit and where to get it', async () => {
+    seedForkStatus(1)
+
+    const view = renderAbout()
+
+    await waitFor(() => assert.ok(document.querySelector(forkReleaseSelector)))
+
+    const line = document.querySelector(forkReleaseSelector)!
+    const text = line.textContent!
+
+    assert.ok(text.includes(releaseSha.substring(0, 10)), text)
+    assert.ok(
+      text.includes(
+        formatDate(new Date('2026-10-05T12:00:00.000Z'), { dateStyle: 'long' })
+      ),
+      text
+    )
+    // One commit must read as one commit, not "1 commits".
+    assert.ok(text.includes('1 commit ahead'), text)
+    assert.ok(!text.includes('commits ahead'), text)
+
+    assert.equal(line.querySelector('a')!.getAttribute('href'), releasePageUrl)
+
+    view.unmount()
+  })
+
+  it('counts every commit the release carries on top of this build', async () => {
+    seedForkStatus(4)
+
+    const view = renderAbout()
+
+    await waitFor(() => assert.ok(document.querySelector(forkReleaseSelector)))
+
+    assert.ok(
+      document
+        .querySelector(forkReleaseSelector)!
+        .textContent!.includes('4 commits ahead')
+    )
+
+    view.unmount()
+  })
+
+  it('stays silent when the cached check found nothing to offer', async () => {
+    seedForkCache(null)
+
+    const view = renderAbout()
+    await flushAsyncWork()
+
+    assert.equal(document.querySelector(forkReleaseSelector), null)
+
+    view.unmount()
+  })
+
+  it('stays silent when the feed cannot be reached', async () => {
+    localStorage.removeItem(forkCacheKey)
+
+    const originalFetch = globalThis.fetch as any
+    globalThis.fetch = (() => Promise.reject(new Error('offline'))) as any
+
+    try {
+      const view = renderAbout()
+      await flushAsyncWork()
+
+      assert.equal(document.querySelector(forkReleaseSelector), null)
+
+      view.unmount()
+    } finally {
+      globalThis.fetch = originalFetch
+    }
+  })
+
+  it('ignores a cached entry from a build that wrote different fields', async () => {
+    seedForkCache({ releaseSha: 'df4b3a9' })
+
+    const originalFetch = globalThis.fetch as any
+    globalThis.fetch = (() => Promise.reject(new Error('offline'))) as any
+
+    try {
+      const view = renderAbout()
+      await flushAsyncWork()
+
+      assert.equal(document.querySelector(forkReleaseSelector), null)
+
+      view.unmount()
+    } finally {
+      globalThis.fetch = originalFetch
+    }
   })
 })

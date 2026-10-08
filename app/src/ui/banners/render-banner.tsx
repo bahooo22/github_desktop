@@ -19,6 +19,7 @@ import { SuccessfulSquash } from './successful-squash'
 import { SuccessBanner } from './success-banner'
 import { ConflictsFoundBanner } from './conflicts-found-banner'
 import { OSVersionNoLongerSupportedBanner } from './os-version-no-longer-supported-banner'
+import { ForkReleaseAvailable } from './fork-release-available'
 import { t } from '../../lib/l10n'
 
 export function renderBanner(
@@ -166,6 +167,16 @@ export function renderBanner(
       )
     case BannerType.OSVersionNoLongerSupported:
       return <OSVersionNoLongerSupportedBanner onDismissed={onDismissed} />
+    case BannerType.ForkReleaseAvailable:
+      return (
+        <ForkReleaseAvailable
+          key="fork-release-available"
+          releaseSha={banner.releaseSha}
+          aheadBy={banner.aheadBy}
+          releasePageUrl={banner.releasePageUrl}
+          onDismissed={onDismissed}
+        />
+      )
     default:
       return assertNever(banner, `Unknown popup type: ${banner}`)
   }

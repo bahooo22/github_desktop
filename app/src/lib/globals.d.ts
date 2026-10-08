@@ -54,6 +54,14 @@ declare const __RELEASE_CHANNEL__:
 declare const __UPDATES_URL__: string
 
 /**
+ * The GitHub API URL of this fork's own release, or an empty string when the
+ * platform publishes none. Read by `app/src/lib/fork-release.ts`; it is the API
+ * rather than the download URL because only the API lets the renderer fetch a
+ * release asset (see `getForkFeedURL` in script/dist-info.ts).
+ */
+declare const __FORK_FEED_URL__: string
+
+/**
  * The Squirrel identifier this build installs under (Windows). Everything that
  * has to match a real install – executable name, App User Model Id – derives it
  * from here instead of repeating the literal.

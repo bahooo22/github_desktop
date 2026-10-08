@@ -24,6 +24,10 @@ import { formatDate } from '../../lib/format-date'
 import { t, Trans, localization } from '../../lib/l10n'
 import { buildFeedbackIssueUrl } from '../localization/translation-issue'
 import { getUpstreamStatus, IUpstreamStatus } from '../../lib/upstream-status'
+import {
+  getForkReleaseStatus,
+  IForkReleaseStatus,
+} from '../../lib/fork-release'
 
 const logoPath = __DARWIN__
   ? 'static/logo-64x64@2x.png'
@@ -77,6 +81,7 @@ interface IAboutProps {
 
 interface IAboutState {
   readonly upstreamStatus: IUpstreamStatus | null
+  readonly forkReleaseStatus: IForkReleaseStatus | null
 }
 
 interface IUpdateInfoProps {
@@ -108,7 +113,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
   public constructor(props: IAboutProps) {
     super(props)
 
-    this.state = { upstreamStatus: null }
+    this.state = { upstreamStatus: null, forkReleaseStatus: null }
   }
 
   public componentDidMount() {
@@ -121,6 +126,14 @@ export class About extends React.Component<IAboutProps, IAboutState> {
         }
       })
       .catch(e => log.warn(`[about] upstream status check failed`, e))
+
+    getForkReleaseStatus()
+      .then(forkReleaseStatus => {
+        if (this.mounted) {
+          this.setState({ forkReleaseStatus })
+        }
+      })
+      .catch(e => log.warn(`[about] fork release check failed`, e))
   }
 
   public componentWillUnmount() {
@@ -301,6 +314,34 @@ export class About extends React.Component<IAboutProps, IAboutState> {
     )
   }
 
+  /**
+   * This fork's own release, when it was built from a commit ahead of the
+   * installed one. Unlike the upstream line above, a fork release carries the
+   * version it merged from, so the version says nothing — what identifies the
+   * newer build is the commit it was made from.
+   */
+  private renderForkRelease() {
+    const status = this.state.forkReleaseStatus
+
+    if (status === null) {
+      return null
+    }
+
+    return (
+      <p className="no-padding">
+        <Trans
+          k="about.forkRelease"
+          params={{
+            sha: status.releaseSha.substring(0, 10),
+            date: formatDate(new Date(status.builtAt), { dateStyle: 'long' }),
+            count: status.aheadBy,
+          }}
+          components={{ link: <LinkButton uri={status.releasePageUrl} /> }}
+        />
+      </p>
+    )
+  }
+
   public render() {
     const name = this.props.applicationName
     const version = this.props.applicationVersion
@@ -372,6 +413,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
             return null
           })()}
           {this.renderUpstreamStatus()}
+          {this.renderForkRelease()}
           {this.renderUpdateDetails()}
           {this.renderUpdateButton()}
           {this.renderBetaLink()}

@@ -191,6 +191,10 @@ import { NotificationsDebugStore } from '../lib/stores/notifications-debug-store
 import { PullRequestComment } from './notifications/pull-request-comment'
 import { UnknownAuthors } from './unknown-authors/unknown-authors-dialog'
 import { UnsupportedOSBannerDismissedAtKey } from './banners/os-version-no-longer-supported-banner'
+import {
+  getForkReleaseStatus,
+  isForkReleaseDismissed,
+} from '../lib/fork-release'
 import { offsetFromNow } from '../lib/offset-from'
 import { getNumber } from '../lib/local-storage'
 import { IconPreviewDialog } from './octicons/icon-preview-dialog'
@@ -434,8 +438,9 @@ export class App extends React.Component<IAppProps, IAppState> {
    *
    * Priority:
    * 1. OS Not Supported by Electron
-   * 2. Accessibility Settings Banner
-   * 3. Thank you banner
+   * 2. Fork release available
+   * 3. Accessibility Settings Banner
+   * 4. Thank you banner
    */
   private setOnOpenBanner() {
     if (isOSNoLongerSupportedByElectron()) {
@@ -448,7 +453,49 @@ export class App extends React.Component<IAppProps, IAppState> {
       }
     }
 
-    this.checkIfThankYouIsInOrder()
+    // Awaited only so the thank you card doesn't take the single banner slot
+    // before the fork check has had its say; nothing else here depends on it.
+    this.showForkReleaseBanner().then(hasShown => {
+      if (!hasShown) {
+        this.checkIfThankYouIsInOrder()
+      }
+    })
+  }
+
+  /**
+   * Offers this fork's newest build when it was made from a commit ahead of
+   * the running one, and returns whether it took the banner slot.
+   *
+   * Squirrel, the updater this fork kept, compares versions and a fork release
+   * carries the version it merged from, so a rebuild of the same version is
+   * invisible to it. Where Squirrel does have something to offer we stay out of
+   * its way — its banner installs the update, ours only links to the release
+   * page.
+   */
+  private async showForkReleaseBanner(): Promise<boolean> {
+    const status = await getForkReleaseStatus()
+
+    if (status === null || isForkReleaseDismissed(status.releaseSha)) {
+      return false
+    }
+
+    const updateStatus = updateStore.state.status
+
+    if (
+      updateStatus === UpdateStatus.UpdateReady ||
+      updateStatus === UpdateStatus.UpdateAvailable
+    ) {
+      return false
+    }
+
+    this.setBanner({
+      type: BannerType.ForkReleaseAvailable,
+      releaseSha: status.releaseSha,
+      aheadBy: status.aheadBy,
+      releasePageUrl: status.releasePageUrl,
+    })
+
+    return true
   }
 
   private onMenuEvent(name: MenuEvent): any {
@@ -3870,17 +3917,34 @@ export class App extends React.Component<IAppProps, IAppState> {
     }
 
     let banner = null
-    if (this.state.currentBanner !== null) {
+
+    // The fork's "there's a newer build" reminder is the one banner that steps
+    // aside for Squirrel's: by the time the update banner appears the update is
+    // already downloaded, and "restart to install" beats a link to the release
+    // page. Every other banner keeps the slot it was given, as before.
+    const updateBannerVisible =
+      this.state.isUpdateAvailableBannerVisible ||
+      this.state.isUpdateShowcaseVisible
+    const forkReleaseBanner =
+      this.state.currentBanner !== null &&
+      this.state.currentBanner.type === BannerType.ForkReleaseAvailable
+        ? this.state.currentBanner
+        : null
+
+    if (this.state.currentBanner !== null && forkReleaseBanner === null) {
       banner = renderBanner(
         this.state.currentBanner,
         this.props.dispatcher,
         this.onBannerDismissed
       )
-    } else if (
-      this.state.isUpdateAvailableBannerVisible ||
-      this.state.isUpdateShowcaseVisible
-    ) {
+    } else if (updateBannerVisible) {
       banner = this.renderUpdateBanner()
+    } else if (forkReleaseBanner !== null) {
+      banner = renderBanner(
+        forkReleaseBanner,
+        this.props.dispatcher,
+        this.onBannerDismissed
+      )
     }
     return (
       <div role="alert" aria-atomic="false">

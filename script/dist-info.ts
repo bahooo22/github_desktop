@@ -176,6 +176,41 @@ export function getUpdatesURL() {
 }
 
 /**
+ * This fork's releases addressed through the GitHub API, for the client-side
+ * check of "has the fork rebuilt since I installed this" (`app/src/lib/
+ * fork-release.ts`).
+ *
+ * Why not the asset URL Squirrel uses: `https://github.com/<owner>/<repo>/
+ * releases/download/<tag>/<asset>` answers with a 302 to
+ * release-assets.githubusercontent.com and neither hop sends
+ * `Access-Control-Allow-Origin`, so a renderer `fetch` of `build-info.json`
+ * would be blocked. The API answers the same asset with
+ * `Access-Control-Allow-Origin: *` and no cross-origin redirect (measured on
+ * bahooo22/github_desktop, 2026-10-08), which is the transport that works.
+ *
+ * Empty string means "there is nothing to ask": the fork publishes no macOS
+ * builds, so a mac build has no release tag of its own and the check stays off.
+ */
+export function getForkFeedURL() {
+  if (process.env.DESKTOP_FORK_FEED_URL !== undefined) {
+    return process.env.DESKTOP_FORK_FEED_URL
+  }
+
+  if (process.platform === 'darwin') {
+    return ''
+  }
+
+  const tag =
+    process.platform === 'linux'
+      ? 'latest-linux-x64'
+      : getDistArchitecture() === 'arm64'
+      ? 'latest-win-arm64'
+      : 'latest-win-x64'
+
+  return `https://api.github.com/repos/bahooo22/github_desktop/releases/tags/${tag}`
+}
+
+/**
  * Whether the feed is upstream's Central endpoint rather than this fork's
  * release assets. Central-specific behaviour (the staggered-release query
  * parameters and the `/desktop/desktop/arm64/latest` path rewrite) is
