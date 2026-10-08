@@ -165,14 +165,30 @@ const centralUpdatesHost = 'central.github.com'
  * concrete asset.
  */
 export function getUpdatesURL() {
-  if (process.env.DESKTOP_UPDATES_URL !== undefined) {
-    return process.env.DESKTOP_UPDATES_URL
+  const updatesUrl =
+    process.env.DESKTOP_UPDATES_URL ??
+    `https://github.com/bahooo22/github_desktop/releases/download/${
+      getDistArchitecture() === 'arm64' ? 'latest-win-arm64' : 'latest-win-x64'
+    }/`
+
+  // A publishable build must not subscribe to upstream's feed, whatever the
+  // machine it is built on says. Squirrel.Windows installs exactly the package
+  // its feed's `RELEASES` names, and Central names `GitHubDesktop-*.nupkg` — a
+  // different Squirrel identifier, so the localized app would silently turn
+  // into the stock one on the next update check. Reaching Central is only
+  // possible by overriding `DESKTOP_UPDATES_URL` by hand (the default above is
+  // this fork's own release tag), so failing here puts that mistake in a build
+  // log instead of on a user's machine. Non-publishable channels are exempt: a
+  // development build reads `__UPDATES_URL__` but never ships.
+  if (isPublishable() && isCentralUpdatesFeed(updatesUrl)) {
+    throw new Error(
+      `DESKTOP_UPDATES_URL points at upstream's Central feed (${updatesUrl}). ` +
+        `The auto updater would replace this fork's build with the stock ` +
+        `GitHub Desktop package. Unset it to use this fork's own release tag.`
+    )
   }
 
-  const tag =
-    getDistArchitecture() === 'arm64' ? 'latest-win-arm64' : 'latest-win-x64'
-
-  return `https://github.com/bahooo22/github_desktop/releases/download/${tag}/`
+  return updatesUrl
 }
 
 /**
