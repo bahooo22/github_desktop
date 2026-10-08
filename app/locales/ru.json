@@ -359,6 +359,7 @@
       "_other": "{count:number} строки"
     },
     "close": "Закрыть",
+    "exampleCaption": "Пример",
     "languageExample": "Португальский (Бразилия)",
     "reportIssue": "Сообщить о проблеме перевода",
     "reportIssueTitle": "Перевод: {tag} — <что не так, одной фразой>",

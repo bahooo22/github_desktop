@@ -37,6 +37,20 @@ localization.registerFromJson(
   'builtin'
 )
 
+// The hint under the cursor and the example line come from the language the
+// interface is actually read in, so the fixture needs a Russian side too; the
+// shipped ru catalog has never seen the key above.
+localization.registerFromJson(
+  'ru',
+  {
+    zztest: {
+      plural: { _one: '{count} виджет', _other: '{count} виджетов' },
+      plain: 'Обычная строка ламы',
+    },
+  },
+  'builtin'
+)
+
 // A catalog with translator credits, for the save round trip: `de` has no
 // shipped catalog, so the file below stands in for one created through the
 // add-a-language flow.
@@ -73,6 +87,16 @@ const qualifierLabels = () =>
 const referenceTemplates = () =>
   [...document.querySelectorAll('.translation-variant .reference code')].map(
     e => e.textContent
+  )
+
+const placeholders = () => variantInputs().map(input => input.placeholder)
+
+// One entry per rendered variant: the example's wording, or `undefined` where
+// the row has no example line at all. Which rows have none is as much a part of
+// the behaviour as what the others show.
+const exampleVariants = () =>
+  [...document.querySelectorAll('.translation-variant')].map(
+    variant => variant.querySelector('.example code')?.textContent
   )
 
 // The editor only ever needs `showPopup`, and which popup it asks for is the
@@ -180,6 +204,87 @@ describe('localization editor', () => {
       '{count} widgets',
       '{count} widgets',
       '{count} widgets',
+    ])
+  })
+
+  it('hints in the language on screen when translating into another one', () => {
+    localization.setRequestedLocale('ru')
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+    selectTarget('uk')
+    searchFor('zztest.plain')
+
+    // The ghost text speaks Russian (the language being read) while the line
+    // above stays the English source the `{count}`s and `&`s come from.
+    assert.deepEqual(placeholders(), ['Обычная строка ламы'])
+    assert.deepEqual(exampleVariants(), ['Обычная строка ламы'])
+    assert.deepEqual(referenceTemplates(), ['Plain llama string'])
+    assert.equal(
+      document.querySelector('.translation-variant .example .caption')!
+        .textContent,
+      t('localizationEditor.exampleCaption')
+    )
+  })
+
+  it('keeps the original as the hint when translating the language on screen', () => {
+    localization.setRequestedLocale('ru')
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+    selectTarget('ru')
+    searchFor('zztest.plain')
+
+    // The row would otherwise repeat itself and push the source off it: the
+    // language being edited is the one the example would be taken from.
+    assert.deepEqual(placeholders(), ['Plain llama string'])
+    assert.deepEqual(exampleVariants(), [undefined])
+  })
+
+  it('falls back to the original for a plural form the interface lacks', () => {
+    // A two form language asked to help with a four form one: `de` can supply
+    // `_other` and nothing else, so only that row gets an example.
+    localization.registerFromJson(
+      'de',
+      { zztest: { plural: { _other: '{count} Widgets' } } },
+      'user'
+    )
+    localization.setRequestedLocale('de')
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+    selectTarget('ru')
+    searchFor('zztest.plural')
+
+    assert.deepEqual(qualifierLabels(), ['_one', '_few', '_many', '_other'])
+    assert.deepEqual(placeholders(), [
+      '{count} widget',
+      '{count} widgets',
+      '{count} widgets',
+      '{count} Widgets',
+    ])
+    assert.deepEqual(exampleVariants(), [
+      undefined,
+      undefined,
+      undefined,
+      '{count} Widgets',
+    ])
+  })
+
+  it('has no examples at all while the interface is English', () => {
+    localization.setRequestedLocale('en')
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+    selectTarget('uk')
+    searchFor('zztest')
+
+    // Both fixture keys at once: an English interface has no other wording to
+    // offer for any of the rows, plural forms included.
+    assert.equal(variantInputs().length, 5)
+    assert.deepEqual(placeholders(), referenceTemplates())
+    assert.deepEqual(exampleVariants(), [
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
     ])
   })
 

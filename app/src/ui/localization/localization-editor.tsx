@@ -360,7 +360,7 @@ export class LocalizationEditor extends React.Component<
       <div key={key} className="translation-row">
         <div className="translation-key">{key}</div>
         {targetVariants(reference, getPluralCategories(target)).map(variant =>
-          this.renderVariant(key, variant, user)
+          this.renderVariant(key, target, variant, user)
         )}
       </div>
     )
@@ -368,12 +368,20 @@ export class LocalizationEditor extends React.Component<
 
   private renderVariant(
     key: string,
+    target: string,
     variant: Variant,
     user: ReadonlyMap<string, string> | undefined
   ) {
     const value = user?.get(variant.qualifier) ?? ''
     const missing = missingPlaceholders(variant.template, value)
     const onValueChanged = this.onVariantValueChanged(key, variant.qualifier)
+
+    // The hint under the cursor speaks the language the translator is reading
+    // the interface in, while the line above stays the English original: the
+    // example cannot double as the source, because `{count}` and the `&`
+    // mnemonics are checked against it below.
+    const example = exampleOf(target, key, variant)
+    const showExample = example !== variant.template
 
     return (
       <div key={variant.qualifier} className="translation-variant">
@@ -385,9 +393,17 @@ export class LocalizationEditor extends React.Component<
           )}
           <code className="selectable-text">{variant.template}</code>
         </div>
+        {showExample && (
+          <div className="example">
+            <span className="caption">
+              {t('localizationEditor.exampleCaption')}
+            </span>
+            <code className="selectable-text">{example}</code>
+          </div>
+        )}
         <TextBox
           value={value}
-          placeholder={variant.template}
+          placeholder={example}
           displayInvalidState={missing.length > 0}
           onValueChanged={onValueChanged}
           ariaLabel={key}
@@ -833,4 +849,29 @@ function missingPlaceholders(
   const present = new Set(findPlaceholders(value))
 
   return [...expected].filter(name => !present.has(name))
+}
+
+/**
+ * The wording the interface itself uses for this form, so the hint under the
+ * cursor is in a language the translator reads rather than always English.
+ *
+ * Two cases keep the reference instead: an English interface, where the
+ * reference is the only wording there is, and translating into the language
+ * currently on screen — there the example would echo the very text being
+ * edited and push the source it comes from off the row.
+ */
+function exampleOf(target: string, key: string, variant: Variant): string {
+  const active = localization.getActiveTag()
+
+  if (active === target || active === FallbackLocaleTag) {
+    return variant.template
+  }
+
+  const form = localization
+    .getCurrent(key)
+    .find(current => current.qualifier === variant.qualifier)
+
+  return form === undefined || form.template === ''
+    ? variant.template
+    : form.template
 }

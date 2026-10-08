@@ -390,6 +390,7 @@
       "_other": "{count:number} strings"
     },
     "close": "Close",
+    "exampleCaption": "Example",
     "languageExample": "Portuguese (Brazil)",
     "reportIssue": "Report a translation issue",
     "reportIssueTitle": "Translation: {tag} — <what is wrong>",

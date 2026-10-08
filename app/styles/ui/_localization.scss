@@ -177,6 +177,30 @@ body.l10n-pick-mode {
         color: white;
       }
     }
+
+    // The wording the interface itself uses for this form, shown right under
+    // the English original it stands in for, so it lays out like `.reference`
+    // and the two read as a pair.
+    .example {
+      display: flex;
+      align-items: baseline;
+      gap: var(--spacing-half);
+
+      code {
+        font-size: var(--font-size-sm);
+        color: var(--text-secondary-color);
+        overflow-wrap: anywhere;
+      }
+
+      // A plain label, not a badge: unlike `.qualifier` it qualifies nothing,
+      // it only names which language the example is in.
+      .caption {
+        flex-shrink: 0;
+        font-family: var(--font-family-monospace);
+        font-size: var(--font-size-sm);
+        color: var(--text-secondary-color);
+      }
+    }
   }
 
   .placeholder-warning {
