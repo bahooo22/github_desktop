@@ -75,6 +75,71 @@ jobs:
         env:
           NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
 
+      # Нативные пакеты целевой архитектуры. Yarn 1 выбирает optionalDependencies
+      # по хосту: он смотрит на process.platform/process.arch машины-раннера, а не
+      # на npm_config_arch — то же ограничение и тот же обход, что в апстримном
+      # .github/actions/setup-ci-environment/action.yml:41-53, где так досстанавливают
+      # @github/copilot-sdk-win32-arm64. На windows-2022 (x64) поэтому никогда не
+      # появляется платформенный пакет для arm64, а сборка на него опирается:
+      # app/webpack.common.ts:72 просит script/webpack-koffi.ts собрать целевой
+      # @koromix/koffi-<platform>-<arch> и резолвит его заранее — в файле это
+      # названо прямо: отсутствующая цель должна ронять сборку, а не давать
+      # приложение без SDK. Прогон arch=arm64 09.10.2026 упал ровно здесь:
+      # «Cannot find module '@koromix/koffi-win32-arm64'» с rc=2, ещё до первого
+      # webpack-компилята.
+      #
+      # Версии берутся из optionalDependencies уже установленных родителей
+      # (koffi@3.2.1 → @koromix/koffi-win32-arm64@3.2.1,
+      # @github/copilot-sdk@1.0.13 → …-win32-arm64@1.0.13), поэтому состав
+      # node_modules не уезжает от app/yarn.lock: пакет берётся ровно той версии,
+      # которую lock уже зафиксировал. --ignore-platform отключает фильтрацию по
+      # хосту, --optional не переводит пакет в обязательные зависимости,
+      # --ignore-scripts не даёт нативным пакетам ничего собирать.
+      # Для x64-прогона шаг — no-op: его пакет ставится обычным install.
+      - name: Install target-architecture native runtimes
+        shell: bash
+        env:
+          TARGET_ARCH: ${{ github.event.inputs.arch }}
+        run: |
+          add_target_runtime() {
+            parent="$1"
+            prefix="$2"
+            pkg="$prefix-$(node -p 'process.platform')-$TARGET_ARCH"
+            version="$(cd app && node -p "require('./node_modules/$parent/package.json').optionalDependencies['$pkg']")"
+            if [ -z "$version" ] || [ "$version" = "undefined" ]; then
+              echo "::error::В $parent нет optionalDependencies для $pkg: целевая архитектура $TARGET_ARCH этим пакетом не поддерживается"
+              exit 1
+            fi
+            if [ -d "app/node_modules/$pkg" ]; then
+              echo "$pkg@$version уже установлен этим install"
+              return
+            fi
+            echo "Досстанавливаю $pkg@$version (целевая архитектура $TARGET_ARCH)"
+            (cd app && yarn add --optional --ignore-platform --ignore-scripts "$pkg@$version")
+          }
+
+          add_target_runtime "koffi" "@koromix/koffi"
+          add_target_runtime "@github/copilot-sdk" "@github/copilot-sdk"
+
+          # Проверка вместо доверия выводу yarn add. Koffi резолвится ровно тем
+          # вызовом, на котором падает сборка (script/webpack-koffi.ts:12 зовёт
+          # require.resolve из app/node_modules), поэтому шаг подтверждает прохождение
+          # будущего сбоя, а не наличие папки. Пакет SDK проверяется директорией: у
+          # @github/copilot-sdk-<os>-<arch> нет поля main, и require.resolve на нём
+          # падает даже когда пакет на месте — замер 09.10.2026 в gdlab:
+          # @koromix/koffi-linux-x64 резолвится, @github/copilot-sdk-linux-x64 нет, и
+          # если бы проверка была общей, шаг ломал бы даже рабочий x64-прогон.
+          PLATFORM="$(node -p 'process.platform')"
+          if ! node -e "console.log(require.resolve('@koromix/koffi-$PLATFORM-$TARGET_ARCH', { paths: ['./app/node_modules'] }))" >/dev/null; then
+            echo "::error::@koromix/koffi-$PLATFORM-$TARGET_ARCH не резолвится из app/node_modules — build:prod упадёт на нём"
+            exit 1
+          fi
+          if [ ! -d "app/node_modules/@github/copilot-sdk-$PLATFORM-$TARGET_ARCH" ]; then
+            echo "::error::@github/copilot-sdk-$PLATFORM-$TARGET_ARCH отсутствует в app/node_modules"
+            exit 1
+          fi
+          echo "Целевые нативные пакеты для $PLATFORM/$TARGET_ARCH на месте."
+
       # На windows-раннере build:prod сам упаковывает portable-бандл через
       # @electron/packager, и нативные модули в нём — под win32. Собрать то же
       # самое из Linux-контейнера нельзя: в out/ лежат ELF-версии keytar.node,
