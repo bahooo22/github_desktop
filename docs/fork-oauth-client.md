@@ -3,15 +3,15 @@
 Code Scanning держит четыре открытых алерта «Storage of sensitive information in
 build artifact» (High) с одним и тем же потоком:
 `process.env.DESKTOP_OAUTH_CLIENT_ID` / `DESKTOP_OAUTH_CLIENT_SECRET`
-(`app/app-info.ts:24-27`) → `export const replacements = getReplacements()`
-(`app/webpack.common.ts:10`) → объект опций `new webpack.DefinePlugin(...)`
-(указывает на `app/webpack.common.ts:176`, конфиг `target: 'webworker'`).
+(`app/app-info.ts:42-44`) → `export const replacements = getReplacements()`
+(`app/webpack.common.ts:12`) → объект опций `new webpack.DefinePlugin(...)`
+(указывает на `app/webpack.common.ts:190`, конфиг `target: 'webworker'`).
 Документ фиксирует, что поток реален, почему он не утечка реквизитов и что именно
 было измерено, а не выведено.
 
 ## Что за значения и что из них попадает в сборку форка
 
-`app/app-info.ts:10-11` — `devClientId` и `devClientSecret` лежат в репозитории
+`app/app-info.ts:28-29` — `devClientId` и `devClientSecret` лежат в репозитории
 открытым текстом. Это не заглушки вида `xxx`: формат 20 hex + 40 hex — старый
 формат реквизитов GitHub OAuth App, и в апстриме (`desktop/desktop`,
 `app/app-info.ts`, SHA файла `382bb720b1`) те же две строки байт в байт. Апстрим же
@@ -20,16 +20,17 @@ contributors, we have bundled a developer OAuth application…» и «**DO NOT T
 THIS CLIENT ID AND SECRET! THIS IS ONLY FOR TESTING PURPOSES!!**», с оговоркой, что
 с ними не работает GitHub Enterprise.
 
-Подстановка выбора значения — `app/app-info.ts:24-27`
+Подстановка выбора значения — `app/app-info.ts:42-44`
 (`process.env.DESKTOP_OAUTH_* || dev*`). В этом форке эти переменные не задаёт ни
-один workflow: `grep` по `.github/` находит их только в `ci.yml:34-38`, а это
+один workflow: `grep` по `.github/` находит их только в `ci.yml:37-38` (объявление
+входов) и `ci.yml:116-118` / `196-198` (передача), а это
 reusable-workflow (`on: workflow_call`), который в форке никем не вызывается
 (`grep -rn "workflows/ci.yml" .github/workflows` — пусто).
 `release-fork.yml:25` задаёт только `RELEASE_CHANNEL: production`. Поэтому в
 опубликованные ассеты форка по этому источнику едут публичные тестовые значения, а
 не секрет.
 
-`__DEV_SECRETS__` (`app/app-info.ts:34`) — не «dev-сборка против prod»: его
+`__DEV_SECRETS__` (`app/app-info.ts:52`) — не «dev-сборка против prod»: его
 единственный читатель, `app/src/main-process/main.ts:121-125`, выбирает из двух
 кастомных схем — `x-github-desktop-dev-auth` или `x-github-desktop-auth`. Флаг
 отвечает на вопрос «какие реквизиты вшиты, под какую из них зарегистрирован
@@ -47,7 +48,7 @@ using Dev secrets» (28.02.2025). В сборках форка он `true` и п
 | `app/src/lib/oauth-token.ts:4-5` | те же значения для обмена и ротации |
 | `app/src/lib/api.ts:2416` | `/login/oauth/authorize?client_id=…&scope=…&state=…` |
 | `app/src/lib/oauth-token.ts:146-158` | POST `login/oauth/access_token` телом `{client_id, client_secret, …}` |
-| `app/src/lib/api.ts:2258-2265` | отзыв токена: `Authorization: Basic base64(client_id:client_secret)` на `DELETE applications/{client_id}/token` |
+| `app/src/lib/api.ts:2263-2265` | отзыв токена: `Authorization: Basic base64(client_id:client_secret)` на `DELETE applications/{client_id}/token` |
 
 `code_challenge` в `app/src` не встречается (`grep` находит только `grant_type` в
 `oauth-token.ts:122`), то есть это web application flow без PKCE, а возврат кода
@@ -107,9 +108,9 @@ using Dev secrets» (28.02.2025). В сборках форка он `true` и п
 `__OAUTH_SECRET__`, а не подставленное значение.
 
 Отсюда два вывода, важных для разбора алерта. Sink указан на конфиг
-`target: 'webworker'` (`webpack.common.ts:176`), но `DefinePlugin` в `common`
-один (`webpack.common.ts:10`) и кладётся во все пять конфигов
-(`:59-63`, `:96-100`, `:117-121`, `:129-133`, `:175-179`), а CodeQL моделирует его
+`target: 'webworker'` (`webpack.common.ts:190`), но `DefinePlugin` в `common`
+один (`webpack.common.ts:12`) и кладётся во все пять конфигов
+(`:61-65`, `:109-113`, `:131-135`, `:143-147`, `:189-193`), а CodeQL моделирует его
 объект опций как запись в артефакт и не проверяет граф модулей: в
 `out/highlighter.js` значений нет. И наоборот — в `renderer.js` они есть, и это
 необходимое условие работы входа в аккаунт.
@@ -133,7 +134,7 @@ using Dev secrets» (28.02.2025). В сборках форка он `true` и п
 RFC 8252 §8.4/§8.5; в сборки форка ни один workflow не передаёт
 `DESKTOP_OAUTH_CLIENT_SECRET`, поэтому в артефакты попадает только публичный
 тестовый client id; отказ от вшитого секрета ломает обмен кода
-(`oauth-token.ts:146-158`) и отзыв токена (`api.ts:2258-2265`).
+(`oauth-token.ts:146-158`) и отзыв токена (`api.ts:2263-2265`).
 
 ## Границы мерки
 

@@ -142,7 +142,7 @@ export function parseBuildInfoFromRelease(
 
   try {
     raw = JSON.parse(block[1])
-  } catch (e) {
+  } catch {
     return null
   }
 
@@ -198,7 +198,7 @@ export function repositoryApiUrl(feedUrl: string): string | null {
     }
 
     return `${url.origin}${url.pathname.substring(0, releasesIndex)}`
-  } catch (e) {
+  } catch {
     return null
   }
 }
