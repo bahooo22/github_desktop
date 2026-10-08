@@ -8,11 +8,14 @@
       ],
       "include_dirs": [],
       'cflags': [
+          # Ubuntu's gcc predefines _FORTIFY_SOURCE=2 as soon as the build
+          # optimizes, so our own -D_FORTIFY_SOURCE=1 collided with it and
+          # -Werror turned that collision into a fatal error. The level the
+          # distribution ships is kept instead.
           '-Wall',
           '-Werror',
           '-fPIC',
           '-pie',
-          '-D_FORTIFY_SOURCE=1',
           '-fstack-protector-strong',
           '-Werror=format-security',
         ],

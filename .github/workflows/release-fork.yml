@@ -44,13 +44,10 @@ jobs:
           cache: yarn
 
       - run: yarn install --frozen-lockfile
-        env:
-          # node-gyp читает флаги из переменных с префиксом npm_config_.
-          # -U снимает предустановленный _FORTIFY_SOURCE,
-          # -D задаёт его заново (одно значение, без конфликта),
-          # -Wno-error страхует от других предупреждений.
-          npm_config_cflags: '-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -Wno-error'
-          npm_config_cflags_cc: '-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 -Wno-error'
+        # Флаги компилятора сюда не передаются: printenvz задаёт свои cflags в
+        # vendor/printenvz/binding.gyp, и gyp кладёт их в target-атрибут, который
+        # никакие npm_config_cflags не перекрывают. Конфликт
+        # _FORTIFY_SOURCE решён в самом binding.gyp.
 
       # На windows-раннере build:prod сам упаковывает portable-бандл через
       # @electron/packager, и нативные модули в нём — под win32. Собрать то же
