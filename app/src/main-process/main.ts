@@ -42,6 +42,7 @@ import { showUncaughtException } from './show-uncaught-exception'
 import { buildContextMenu } from './menu/build-context-menu'
 import { OrderedWebRequest } from './ordered-webrequest'
 import { installAuthenticatedImageFilter } from './authenticated-image-filter'
+import { createAuthenticatedImageTokenResolver } from './authenticated-image-token-resolver'
 import { installAliveOriginFilter } from './alive-origin-filter'
 import { installSameOriginFilter } from './same-origin-filter'
 import * as ipcMain from './ipc-main'
@@ -362,7 +363,13 @@ app.on('ready', () => {
 
   // Adds an authorization header for requests of avatars on GHES and private
   // repo assets
-  const updateAccounts = installAuthenticatedImageFilter(orderedWebRequest)
+  const imageTokenResolver = createAuthenticatedImageTokenResolver(
+    () => mainWindow?.webContents
+  )
+  const updateAccounts = installAuthenticatedImageFilter(
+    orderedWebRequest,
+    imageTokenResolver.resolveToken
+  )
 
   // The menu translates while it's being built, so this has to happen first
   // or the very first menu is English no matter what the user picked.
@@ -377,7 +384,16 @@ app.on('ready', () => {
     })
   )
 
-  ipcMain.on('update-accounts', (_, accounts) => updateAccounts(accounts))
+  ipcMain.on('update-accounts', (event, accounts) => {
+    if (event.sender !== mainWindow?.webContents) {
+      return
+    }
+    imageTokenResolver.updateAccounts(accounts)
+    updateAccounts(accounts)
+  })
+  ipcMain.on('resolved-image-token', (event, requestId, token) => {
+    imageTokenResolver.acceptResponse(event.sender, requestId, token)
+  })
 
   /**
    * Rebuilds the default menu from the state the renderer reports.
