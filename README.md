@@ -18,15 +18,68 @@ uses [React](https://reactjs.org/).
 
 ## Этот форк
 
-Это форк GitHub Desktop: интерфейс полностью локализован (русский и украинский),
-а релизы идут отдельно от апстрима — в тегах `latest-win-x64`, `latest-win-arm64`
-и `latest-linux-x64` этого репозитория. Windows-сборку выпускает workflow
-`Release Fork` (прогон по требованию; на runner'е он ещё не выполнялся),
-Linux-portable собирается одной командой в контейнере стенда.
+Форк GitHub Desktop с полностью локализованным интерфейсом: русский и
+украинский языки (`app/locales/ru.json`, `app/locales/uk.json`) и редактор
+переводов, встроенный в само приложение. Остальное — апстрим: номер версии в
+`app/package.json` совпадает с апстримным (сейчас `3.6.7-beta3`), а после мержа
+апстрима 08.10.2026 тулчейн форка — TypeScript 6.0.3, webpack 5.111,
+Electron 44.1.1 на Node 24.19 (`.node-version`).
 
-Как получить, как собрать самому и чем этот выпуск отличается от апстрима (свой
-Squirrel-идентификатор, неподписанный инсталлер, почему Windows нельзя собрать из
-Linux) — в [docs/fork-releases.md](docs/fork-releases.md).
+### Что здесь своё
+
+| Область | Отличие от апстрима |
+| --- | --- |
+| Строки интерфейса | Тексты вынесены в `app/locales/en.json`, из него строятся ru и uk; покрытие меряют `yarn l10n:parity`, `l10n:audit`, `l10n:upstream`, `l10n:menu` |
+| Настройки → Язык | Выбор языка интерфейса, редактор переводов с сохранением в свой каталог и режим «выбрать строку кликом» |
+| Идентификатор Squirrel | `GitHubDesktopL10n` вместо `GitHubDesktop`: отдельный каталог в `%LOCALAPPDATA%`, свои ярлыки и свой фид — поэтому форк и стоковая сборка не перезаписывают друг друга |
+| Релизы | Workflow `Release Fork` публикует ассеты в теги `latest-win-x64`, `latest-win-arm64` и `latest-linux-x64` этого репозитория |
+| Обновления | Squirrel берёт пакеты только из фида форка: адрес вшит в сборку (`getUpdatesURL()`, `script/dist-info.ts:167`), а публикабельную сборку с апстримным фидом сборочный скрипт отвергает |
+| Свежесть сборки | Отдельная проверка по хешу коммита: каждый релиз называет, из чего собран, приложение сравнивает хеш со своим `__SHA__` и показывает баннер со ссылкой на релиз |
+| Отзыв о переводе | Номер сборки в диалоге «О программе» ведёт в заранее заполненную issue этого репозитория |
+
+### Где взять
+
+- **Windows x64:**
+  [latest-win-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-win-x64) —
+  ставить `GitHubDesktopL10nSetup-x64.exe`, а не `.msi`: второй лишь доставляет
+  установщик на машину. Есть и portable-архив `…-portable.zip`.
+- **Linux x64:**
+  [latest-linux-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-linux-x64) —
+  `desktop-linux-x64-portable.tar.gz`: распаковать и запустить `desktop`.
+- **Windows arm64:** тега `latest-win-arm64` пока нет — его создаст первый
+  прогон workflow с `arch=arm64`.
+- **macOS:** сборок нет; `getUpdatesURL()` по умолчанию возвращает win-ный тег,
+  поэтому на macOS фид надо задавать явно.
+
+Самообновление работает только на Windows (Squirrel.Windows): там приложение
+само ходит в свой тег. Linux-portable пересобирается и перескачивается вручную,
+а о том, что вышли новые сборки, он узнаёт по хешу релиза и говорит это
+баннером.
+
+### Как собрать
+
+| Задача | Команда |
+| --- | --- |
+| Поднять контейнер стенда | `bash tools/i18n-lab/lab.sh up` |
+| Dev-сборка | `bash tools/i18n-lab/lab.sh exec "yarn build:dev"` |
+| Linux portable | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"` |
+| Windows | `gh workflow run release-fork.yml -f arch=x64` — только на windows-раннере; пока тег пуст, добавлять `-f first_run=true` |
+| Проверить раскатанные бандлы | `yarn l10n:bundles` |
+
+Подробности — в [docs/fork-releases.md](docs/fork-releases.md): почему из Linux
+не получается рабочая Windows-сборка, зачем один тег на архитектуру, что делает
+каждый шаг релизного workflow, как приложение читает хеш сборки и чем
+отличаются `.exe` от `.msi`. Про встроенные реквизиты тестового
+OAuth-приложения —
+[docs/fork-oauth-client.md](docs/fork-oauth-client.md). Общая настройка сборки
+для разработки — апстримная [`setup.md`](./docs/contributing/setup.md).
+
+### Чего в форке сознательно нет
+
+- Подписи Windows-инсталлера: секреты Azure ACS не передаются, поэтому
+  SmartScreen покажет предупреждение при первом запуске.
+- Настоящих пакетов для Linux (`.deb`/`.rpm`/`.AppImage`) — только portable.
+- macOS-сборок и, соответственно, обновлений на macOS.
 
 ## Where can I get it?
 

@@ -30,9 +30,21 @@
 Поведение, специфичное для апстримного `central.github.com` (query
 `?version=&env=`, перезапись пути под arm64), отключено для форк-фида гейтом
 `isCentralFeed()` в рантайме (`app/src/ui/lib/update-store.ts:37`) и
-`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:185`, вызывается из
+`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:236`, вызывается из
 `script/package.ts:113` и `:162` для `remoteReleases` и имён пакетов) — для
 статики GitHub-ассетов оно ломало бы загрузку.
+
+**Обратная сторона: сборка не может подписаться на апстрим.** Squirrel.Windows
+ставит ровно тот пакет, который назван в `RELEASES` его фида, а в апстримном
+`RELEASES` назван `GitHubDesktop-*.nupkg` — другое имя, другой каталог установки.
+То есть установленная локализация, указывающая на central, на первой же
+проверке обновлений перестала бы быть локализацией. Дефолт `getUpdatesURL()`
+(`script/dist-info.ts:167`) — тег этого репозитория, так что central достижим
+только ручным `DESKTOP_UPDATES_URL`; на этом пути `getUpdatesURL()` бросает
+исключение, если канал публикабельный (`production`/`beta`/`test`), — ошибка
+получается в логе сборки, а не на машине пользователя. Непубликуемые каналы
+исключение не затрагивает. Проверка покрыта тестом `script/dist-info-test.ts`
+(`yarn test:script`).
 
 **Следствие смены идентификатора:** Windows-установка живёт в
 `%LOCALAPPDATA%\GitHubDesktopL10n`, отдельно от апстримного
@@ -42,13 +54,18 @@
 
 ## Где взять собранное
 
-Теги создаёт первый прогон workflow (см. ниже), до него этих тегов в репозитории
-нет:
+Теги создаёт прогон workflow (см. ниже); на 08.10.2026 опубликованы и
+перезаписываются новыми прогонами `latest-win-x64` и `latest-linux-x64` — оба
+собраны из коммита `6075cf5da8` версией `3.6.7-beta3`. Тега
+`latest-win-arm64` нет: он появится только после прогона с `arch=arm64`, а
+mac-тега форк не публикует вовсе.
 
-- Windows: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
-  portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES` и пакеты фида.
-- Linux: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
-  (распаковать и запустить `desktop`). Обновлений Squirrel на Linux нет.
+- Windows x64: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
+  portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES`, пакеты фида и
+  `build-info.json`.
+- Linux x64: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
+  (распаковать и запустить `desktop`) и `build-info.json`. Обновлений Squirrel на
+  Linux нет.
 
 ## Сборка одной командой в контейнере (Linux)
 
@@ -226,7 +243,7 @@ yarn l10n:bundles   # node script/i18n-freshness.mjs --bundles
 ## Проверка свежести сборки по хешу коммита
 
 Squirrel сравнивает только номера версий, а форк пересобирается чаще, чем
-бампит версию: один и тот же `3.6.7-beta2` может означать и сборку недельной
+бампит версию: один и тот же `3.6.7-beta3` может означать и сборку недельной
 давности, и сегодняшнюю. Чтобы установленное приложение всё равно узнавало о
 новой сборке, каждый релиз называет хеш коммита, из которого он собран, а
 приложение сравнивает этот хеш со своим собственным (`__SHA__` из
