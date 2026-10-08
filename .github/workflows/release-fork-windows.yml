@@ -118,15 +118,53 @@ jobs:
     permissions:
       contents: write
     timeout-minutes: 90
+    env:
+      # Директорию кешей задаём явно, а не угадываем «обычный» путь: замер
+      # 09.10.2026 в gdlab — вендорённый yarn 1.21.1 без переменной отдаёт
+      # `yarn cache dir` = /usr/local/share/.cache/yarn/v6, а не ~/.cache/yarn,
+      # так что кеш по угаданному пути молча сохранял бы пустую папку.
+      # YARN_CACHE_FOLDER вендорённый yarn уважает (тот же замер: с переменной
+      # cache dir = /tmp/yc-probe/v6), а node_modules/electron/install.js:44
+      # читает electron_config_cache прямо в cacheRoot.
+      YARN_CACHE_FOLDER: ${{ runner.temp }}/caches/yarn
+      electron_config_cache: ${{ runner.temp }}/caches/electron
     steps:
       - uses: actions/checkout@v7
         with:
           submodules: recursive
 
+      # `cache: yarn` у setup-node тут заменён явным actions/cache по двум
+      # причинам. Первая: setup-node кеширует только yarn-кеш и только по хешу
+      # КОРНЕВОГО yarn.lock, а тяжёлая часть зависимостей лежит в app/yarn.lock
+      # — промах по корню сбрасывал кеш целиком и докачивал всё заново. Здесь
+      # ключ считается по всем lock-файлам дерева: `git ls-files | grep
+      # yarn.lock` даёт пять (корень, app и три в vendor/*). Список явный, а не
+      # `**/yarn.lock`, потому что матчить ли `**/` файл в корне зависит от
+      # реализации glob в @actions/glob — а недокументированное поведение, от
+      # которого зависит инвалидация кеша, нам не нужно.
+      #
+      # Вторая причина: кешу нужен и electron-архив (~100 МБ за прогон), который
+      # в yarn-кеш не попадает вообще.
+      #
+      # Архитектура в ключевом имени обязательна: arm64-прогон досстанавливает
+      # пакеты, которых в x64-кеше нет (шаг Install target-architecture native
+      # runtimes), а actions/cache пишет в слот только первым прогоном — без
+      # суффикса x64 занял бы слот, и arm64-нативы не кэшировались бы никогда.
+      #
+      # restore-keys остаётся префиксом без хеша: смена одного lock-файла
+      # тогда добирает недостающее, а не качает гигабайт заново.
+      - name: Restore download caches
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/caches
+          key:
+            ${{ runner.os }}-deps-${{ env.ARCH }}-${{ hashFiles('yarn.lock',
+            'app/yarn.lock', 'vendor/**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-deps-${{ env.ARCH }}-
+
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
 
       - run: yarn install --frozen-lockfile
         # Флаги компилятора сюда не передаются: printenvz задаёт свои cflags в

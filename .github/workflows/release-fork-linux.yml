@@ -52,6 +52,13 @@ jobs:
     permissions:
       contents: write
     timeout-minutes: 60
+    env:
+      # Тот же смысл, что в job windows: явные директории вместо угадывания
+      # (замеры 09.10.2026 в gdlab — `yarn cache dir` без YARN_CACHE_FOLDER даёт
+      # /usr/local/share/.cache/yarn/v6, а node_modules/electron/install.js:44
+      # читает electron_config_cache прямо).
+      YARN_CACHE_FOLDER: ${{ runner.temp }}/caches/yarn
+      electron_config_cache: ${{ runner.temp }}/caches/electron
     # Squirrel-инсталлер для linux не делается: script/package.ts завершает
     # процесс на не-win32. Здесь портативный tar.gz, собранный тем же скриптом,
     # что и локально в контейнере.
@@ -60,10 +67,22 @@ jobs:
         with:
           submodules: recursive
 
+      # Кеш по тем же причинам, что в windows-прогоне
+      # (.github/workflows/release-fork-windows.yml): `cache: yarn` у setup-node
+      # смотрит только на корневой yarn.lock, а тяжелое лежит в app/yarn.lock.
+      # Суффикса архитектуры здесь нет: у linux один фид и одна архитектура.
+      - name: Restore download caches
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/caches
+          key:
+            ${{ runner.os }}-deps-${{ hashFiles('yarn.lock', 'app/yarn.lock',
+            'vendor/**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-deps-
+
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
 
       - run: yarn install --frozen-lockfile
         # Гасим ровно DEP0169 и DEP0040 вендоренного yarn, чтобы ExperimentalWarning
