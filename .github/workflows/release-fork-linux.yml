@@ -52,13 +52,6 @@ jobs:
     permissions:
       contents: write
     timeout-minutes: 60
-    env:
-      # Тот же смысл, что в job windows: явные директории вместо угадывания
-      # (замеры 09.10.2026 в gdlab — `yarn cache dir` без YARN_CACHE_FOLDER даёт
-      # /usr/local/share/.cache/yarn/v6, а node_modules/electron/install.js:44
-      # читает electron_config_cache прямо).
-      YARN_CACHE_FOLDER: ${{ runner.temp }}/caches/yarn
-      electron_config_cache: ${{ runner.temp }}/caches/electron
     # Squirrel-инсталлер для linux не делается: script/package.ts завершает
     # процесс на не-win32. Здесь портативный tar.gz, собранный тем же скриптом,
     # что и локально в контейнере.
@@ -66,6 +59,17 @@ jobs:
       - uses: actions/checkout@v7
         with:
           submodules: recursive
+
+      # Тот же обход, что в job windows: контекст runner в jobs.<id>.env
+      # недоступен, и GitHub отвергает файл на компиляции (прогон #1 от
+      # 09.10.2026), поэтому кешевые директории пишет в GITHUB_ENV отдельный
+      # шаг. Смысл значений — в комментарии там же.
+      - name: Point the download caches at the runner temp
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/caches"
+          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP/caches/yarn" >> "$GITHUB_ENV"
+          echo "electron_config_cache=$RUNNER_TEMP/caches/electron" >> "$GITHUB_ENV"
 
       # Кеш по тем же причинам, что в windows-прогоне
       # (.github/workflows/release-fork-windows.yml): `cache: yarn` у setup-node

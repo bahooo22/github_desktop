@@ -246,11 +246,14 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
 
 Прогон не скачивает зависимости с нуля: шаг `Restore download caches`
 (`actions/cache@v6`) кеширует `${{ runner.temp }}/caches`, куда указывают
-`YARN_CACHE_FOLDER` и `electron_config_cache` в env сборочной джобы. Директории
-заданы явно, а не «обычным путём»: вендорённый yarn 1.21.1 без переменной на
-`yarn cache dir` отдаёт `/usr/local/share/.cache/yarn/v6`, а не `~/.cache/yarn`
-(замер 09.10.2026 в gdlab), так что кеш по угаданному пути молча сохранял бы
-пустую папку; `node_modules/electron/install.js:44` читает
+`YARN_CACHE_FOLDER` и `electron_config_cache`. Задаёт их отдельный первый шаг —
+`Point the download caches at the runner temp` через `$GITHUB_ENV`, а не `env`
+джобы: контекст `runner` вне шагов недоступен, и GitHub отвергает весь файл ещё
+на компиляции (прогоны #1 от 09.10.2026 упали именно так, без единого job).
+Директории заданы явно, а не «обычным путём»: вендорённый yarn 1.21.1 без
+переменной на `yarn cache dir` отдаёт `/usr/local/share/.cache/yarn/v6`, а не
+`~/.cache/yarn` (замер 09.10.2026 в gdlab), так что кеш по угаданному пути молча
+сохранял бы пустую папку; `node_modules/electron/install.js:44` читает
 `electron_config_cache` прямо в `cacheRoot`.
 
 Явный шаг вместо `cache: yarn` у `actions/setup-node` — по двум причинам:

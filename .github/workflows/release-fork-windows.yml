@@ -118,20 +118,35 @@ jobs:
     permissions:
       contents: write
     timeout-minutes: 90
-    env:
-      # Директорию кешей задаём явно, а не угадываем «обычный» путь: замер
-      # 09.10.2026 в gdlab — вендорённый yarn 1.21.1 без переменной отдаёт
-      # `yarn cache dir` = /usr/local/share/.cache/yarn/v6, а не ~/.cache/yarn,
-      # так что кеш по угаданному пути молча сохранял бы пустую папку.
-      # YARN_CACHE_FOLDER вендорённый yarn уважает (тот же замер: с переменной
-      # cache dir = /tmp/yc-probe/v6), а node_modules/electron/install.js:44
-      # читает electron_config_cache прямо в cacheRoot.
-      YARN_CACHE_FOLDER: ${{ runner.temp }}/caches/yarn
-      electron_config_cache: ${{ runner.temp }}/caches/electron
     steps:
       - uses: actions/checkout@v7
         with:
           submodules: recursive
+
+      # Директории кешей задаёт этот шаг, а не `env` джобы, и это не стиль:
+      # контекст runner в jobs.<id>.env недоступен, и GitHub отвергает весь
+      # файл ещё на компиляции — «Invalid workflow file: Unrecognized
+      # named-value: 'runner'» (аннотация прогона #1 от 09.10.2026), джоба при
+      # этом не стартует вообще. GITHUB_ENV живёт до конца прогона и действует
+      # на все последующие шаги.
+      #
+      # Смысл значений прежний: вендорённый yarn 1.21.1 без YARN_CACHE_FOLDER
+      # отдаёт `yarn cache dir` = /usr/local/share/.cache/yarn/v6 (замер
+      # 09.10.2026 в gdlab), то есть кеш по угаданному пути молча сохранял бы
+      # пустую папку, а node_modules/electron/install.js:44 читает
+      # electron_config_cache прямо в cacheRoot.
+      #
+      # Разделители — обратные слэши: RUNNER_TEMP на windows-раннере сам по
+      # себе вида D:\a\_temp, и смешивать их в значении, которое уйдёт в yarn и
+      # @electron/get, не стали. mkdir при этом ходит через bash, а он прямые
+      # слэши понимает; сам шаг явно объявлен bash, потому что без defaults на
+      # windows-раннере дефолтный shell — pwsh.
+      - name: Point the download caches at the runner temp
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/caches"
+          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP\\caches\\yarn" >> "$GITHUB_ENV"
+          echo "electron_config_cache=$RUNNER_TEMP\\caches\\electron" >> "$GITHUB_ENV"
 
       # `cache: yarn` у setup-node тут заменён явным actions/cache по двум
       # причинам. Первая: setup-node кеширует только yarn-кеш и только по хешу
