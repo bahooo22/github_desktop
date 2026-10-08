@@ -132,6 +132,19 @@ export function getWindowsShortcutName() {
   return `${productName} L10n`
 }
 
+/**
+ * The name of the command line entry point written into `<install>\bin`.
+ * Upstream writes `github.bat`/`github` into its own `bin` as well, and each
+ * edition appends that directory to `PATH`, so with one shared name `github`
+ * resolves to whichever directory `PATH` lists first - measured 2026-10-08 on a
+ * machine with both installs, where `GitHubDesktop\bin` sits at position 22 and
+ * `GitHubDesktopL10n\bin` at 30, so the stock app answered `github` while the
+ * fork was the edition in use. A distinct name keeps both callable.
+ */
+export function getWindowsCliCommandName() {
+  return 'github-l10n'
+}
+
 export function getBundleSizes() {
   const outPath = Path.join(projectRoot, 'out')
   return {

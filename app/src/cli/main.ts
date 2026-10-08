@@ -37,13 +37,24 @@ const args = parse(process.argv.slice(2), {
 })
 
 const usage = (exitCode = 1): never => {
+  // On Windows the fork's entry point is installed under its own name, because
+  // upstream writes `github` into its own `bin` and both directories are on
+  // PATH (see `getWindowsCliCommandName`). Elsewhere the historical name stands.
+  const command = __WIN32__ ? __WINDOWS_CLI_COMMAND_NAME__ : 'github'
+  const row = (args: string, description: string) =>
+    `  ${command}${args}`.padEnd(36) + description + '\n'
+  const indent = ' '.repeat(36)
+
   process.stderr.write(
     'GitHub Desktop CLI usage: \n' +
-      '  github                            Open the current directory\n' +
-      '  github open [path]                Open the provided path\n' +
-      '  github clone [-b branch] <url>    Clone the repository by url or name/owner\n' +
-      '                                    (ex torvalds/linux), optionally checking out\n' +
-      '                                    the branch\n'
+      row('', 'Open the current directory') +
+      row(' open [path]', 'Open the provided path') +
+      row(
+        ' clone [-b branch] <url>',
+        'Clone the repository by url or name/owner'
+      ) +
+      `${indent}(ex torvalds/linux), optionally checking out\n` +
+      `${indent}the branch\n`
   )
   process.exit(exitCode)
 }

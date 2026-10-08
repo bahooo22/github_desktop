@@ -77,6 +77,15 @@ declare const __WINDOWS_IDENTIFIER_NAME__: string
  */
 declare const __WINDOWS_SHORTCUT_NAME__: string
 
+/**
+ * The command line entry point this fork installs into its `bin` directory
+ * (Windows). Upstream installs the same `github` name into its own `bin`, and
+ * both directories go on `PATH`, so sharing the name would make `github`
+ * resolve by `PATH` order rather than by which edition the user runs. See
+ * `getWindowsCliCommandName` in script/dist-info.ts.
+ */
+declare const __WINDOWS_CLI_COMMAND_NAME__: string
+
 /** The URL for fatal exception reports. */
 declare const __ERROR_REPORTING_ENDPOINT__: string | undefined
 

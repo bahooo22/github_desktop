@@ -3,6 +3,7 @@ import { afterEach, describe, it } from 'node:test'
 
 import {
   getUpdatesURL,
+  getWindowsCliCommandName,
   getWindowsShortcutName,
   isCentralUpdatesFeed,
 } from './dist-info'
@@ -107,6 +108,25 @@ describe('the Windows shortcut label of a fork build', () => {
     assert.ok(
       getWindowsShortcutName().startsWith(stock),
       `a user must still find the app they know in the Start Menu`
+    )
+  })
+})
+
+/**
+ * Both editions drop a `github` trampoline into their own `bin` and append that
+ * directory to `PATH`, so a shared command name is won by PATH order, not by
+ * which app the user is running (measured 2026-10-08: `GitHubDesktop\bin` at
+ * position 22, `GitHubDesktopL10n\bin` at 30). The fork therefore installs its
+ * own name.
+ */
+describe('the Windows CLI command of a fork build', () => {
+  it('does not collide with the command upstream installs', () => {
+    const command = getWindowsCliCommandName()
+
+    assert.notEqual(command, 'github', 'one name on PATH means one winner')
+    assert.ok(
+      /^[a-z0-9_-]+$/.test(command),
+      `${command} must be callable from cmd, PowerShell and WSL alike`
     )
   })
 })

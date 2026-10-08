@@ -1,7 +1,7 @@
 import * as Path from 'path'
 import * as Os from 'os'
 
-import { mkdir, writeFile } from 'fs/promises'
+import { mkdir, rm, writeFile } from 'fs/promises'
 import { spawn, getPathSegments, setPathSegments } from '../lib/process/win32'
 import { pathExists } from '../lib/path-exists'
 
@@ -51,6 +51,7 @@ export async function installWindowsCLI(): Promise<void> {
   await mkdir(binPath, { recursive: true })
   await writeBatchScriptCLITrampoline(binPath)
   await writeShellScriptCLITrampoline(binPath)
+  await removeLegacyTrampolines(binPath)
   try {
     const paths = getPathSegments()
     if (paths.indexOf(binPath) < 0) {
@@ -69,6 +70,37 @@ export async function uninstallWindowsCLI() {
     return setPathSegments(pathsWithoutBinPath)
   } catch (e) {
     log.error('Failed removing bin path from PATH environment variable', e)
+  }
+}
+
+/**
+ * Trampoline names written by builds that shared upstream's `github` command
+ * name (see `getWindowsCliCommandName`). `installWindowsCLI` rewrites the
+ * trampoline at every install and update, so the moment the fork writes a
+ * differently named one the old file stops being maintained: it keeps pointing
+ * at an `app-<version>` folder that `cleanDeadVersions` deletes, and the user
+ * gets a confusing error from a command they never asked to keep. `bin` lives
+ * inside this fork's own install directory, so anything here named like a
+ * trampoline was written by an earlier build of this fork.
+ */
+const legacyTrampolineNames = ['github.bat', 'github']
+
+async function removeLegacyTrampolines(binPath: string): Promise<void> {
+  const currentNames = [
+    __WINDOWS_CLI_COMMAND_NAME__,
+    `${__WINDOWS_CLI_COMMAND_NAME__}.bat`,
+  ]
+
+  for (const name of legacyTrampolineNames) {
+    if (currentNames.includes(name)) {
+      continue
+    }
+
+    try {
+      await rm(Path.join(binPath, name), { force: true })
+    } catch (e) {
+      log.warn(`Failed removing legacy CLI trampoline ${name}`, e)
+    }
   }
 }
 
@@ -103,7 +135,10 @@ function writeBatchScriptCLITrampoline(binPath: string): Promise<void> {
   )
 
   const trampoline = `@echo off\n"%~dp0\\${versionedPath}" %*`
-  const trampolinePath = Path.join(binPath, 'github.bat')
+  const trampolinePath = Path.join(
+    binPath,
+    `${__WINDOWS_CLI_COMMAND_NAME__}.bat`
+  )
 
   return writeFile(trampolinePath, trampoline)
 }
@@ -121,7 +156,7 @@ function writeShellScriptCLITrampoline(binPath: string): Promise<void> {
   const trampoline = `#!/usr/bin/env bash
   DIR="$( cd "$( dirname "\$\{BASH_SOURCE[0]\}" )" && pwd )"
   sh "$DIR/${versionedPath}" "$@"`
-  const trampolinePath = Path.join(binPath, 'github')
+  const trampolinePath = Path.join(binPath, __WINDOWS_CLI_COMMAND_NAME__)
 
   return writeFile(trampolinePath, trampoline, { encoding: 'utf8', mode: 755 })
 }
