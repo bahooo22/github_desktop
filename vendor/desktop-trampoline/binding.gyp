@@ -18,11 +18,14 @@
           ]
         },
         'cflags': [
+          # No -D_FORTIFY_SOURCE here: Ubuntu's gcc already predefines it at
+          # level 2 once the build optimizes, and redefining it is a warning
+          # that -Werror below turns into a failed build. The distribution's
+          # own level is kept instead. See vendor/printenvz/binding.gyp.
           '-Wall',
           '-Werror',
           '-fPIC',
           '-pie',
-          '-D_FORTIFY_SOURCE=1',
           '-fstack-protector-strong',
           '-Werror=format-security',
         ],
