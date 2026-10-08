@@ -30,3 +30,5 @@ Release/
 
 # Лог супервизора стенда в контейнере (gdlab/start-lab.sh --watch)
 gdlab/app.log
+/agents
+/.qoder
