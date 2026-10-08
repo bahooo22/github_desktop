@@ -376,10 +376,10 @@ export class LocalizationEditor extends React.Component<
     const missing = missingPlaceholders(variant.template, value)
     const onValueChanged = this.onVariantValueChanged(key, variant.qualifier)
 
-    // The hint under the cursor speaks the language the translator is reading
-    // the interface in, while the line above stays the English original: the
-    // example cannot double as the source, because `{count}` and the `&`
-    // mnemonics are checked against it below.
+    // Подсказка под курсором говорит языком, в который переводят (а если его
+    // ещё нет — языком интерфейса), а строка выше остаётся английским
+    // оригиналом: пример не может быть источником, потому что `{count}` и `&`
+    // сверяются ниже именно с оригиналом.
     const example = exampleOf(target, key, variant)
     const showExample = example !== variant.template
 
@@ -403,7 +403,7 @@ export class LocalizationEditor extends React.Component<
         )}
         <TextBox
           value={value}
-          placeholder={example}
+          placeholder={withoutMarkup(example)}
           displayInvalidState={missing.length > 0}
           onValueChanged={onValueChanged}
           ariaLabel={key}
@@ -852,15 +852,30 @@ function missingPlaceholders(
 }
 
 /**
- * The wording the interface itself uses for this form, so the hint under the
- * cursor is in a language the translator reads rather than always English.
+ * Формулировка-образец для строки: прежде всего та же форма в языке, в который
+ * переводят, и только потом — в языке интерфейса.
  *
- * Two cases keep the reference instead: an English interface, where the
- * reference is the only wording there is, and translating into the language
- * currently on screen — there the example would echo the very text being
- * edited and push the source it comes from off the row.
+ * Каталог цели отвечает первым, потому что он и есть готовый перевод этой
+ * строки: при редактировании русского поля пример показывает русскую форму, а
+ * не английский оригинал (замер 08.10.2026: на русском таргете ghost-текст
+ * был английским). Язык интерфейса остаётся подстановкой для каталога, который
+ * ещё пуст, — языка, созданного через «Добавить язык», где переводить надо с
+ * нуля.
+ *
+ * В остальных случаях возвращается оригинал: английскому интерфейсу и ключу
+ * без формы ни в одном из каталогов предложить нечего, а `{count}` и `&`
+ * сверяются ниже по строки именно с оригиналом.
  */
 function exampleOf(target: string, key: string, variant: Variant): string {
+  const inTarget = localization
+    .getBuiltInMessages(target)
+    .get(key)
+    ?.get(variant.qualifier)
+
+  if (inTarget !== undefined && inTarget !== '') {
+    return inTarget
+  }
+
   const active = localization.getActiveTag()
 
   if (active === target || active === FallbackLocaleTag) {
@@ -874,4 +889,26 @@ function exampleOf(target: string, key: string, variant: Variant): string {
   return form === undefined || form.template === ''
     ? variant.template
     : form.template
+}
+
+/**
+ * Тот же текст так, как он читается на экране: без разметки, которой `Trans`
+ * оборачивает ссылку или кнопку.
+ *
+ * Призрачный текст в пустом поле — подсказка, а не источник копирования: его
+ * нельзя выделить, поэтому `<link>` в нём только шум. Саму строку примера
+ * над полем разметку сохраняет, потому что её копируют в поле, и вставленный
+ * без `<link>` перевод молча теряет ссылку в интерфейсе.
+ *
+ * Закрытие и открывающий тег вырезаются вместе со скобками, а текст между
+ * ними остаётся — ровно то, что делает `renderTemplate` с неизвестным тегом.
+ * Самозакрывающийся (`<time />`, `<shortcut/>`) подстановкой элемента, а не
+ * текста, поэтому исчезает вместе с пробелом перед ним: `(проверено )` с
+ * висячим пробелом читается хуже, чем `(проверено)`.
+ */
+function withoutMarkup(text: string): string {
+  return text
+    .replace(/ ?<[^>]*\/>/g, '')
+    .replace(/<\/?[^>]*>/g, '')
+    .trim()
 }
