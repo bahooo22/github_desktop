@@ -26,9 +26,9 @@ THIS CLIENT ID AND SECRET! THIS IS ONLY FOR TESTING PURPOSES!!**», с огов�
 входов) и `ci.yml:116-118` / `196-198` (передача), а это
 reusable-workflow (`on: workflow_call`), который в форке никем не вызывается
 (`grep -rn "workflows/ci.yml" .github/workflows` — пусто).
-`release-fork.yml:25` задаёт только `RELEASE_CHANNEL: production`. Поэтому в
-опубликованные ассеты форка по этому источнику едут публичные тестовые значения, а
-не секрет.
+`release-fork-windows.yml:30` и `release-fork-linux.yml:7` задают только
+`RELEASE_CHANNEL: production`. Поэтому в опубликованные ассеты форка по этому
+источнику едут публичные тестовые значения, а не секрет.
 
 `__DEV_SECRETS__` (`app/app-info.ts:52`) — не «dev-сборка против prod»: его
 единственный читатель, `app/src/main-process/main.ts:121-125`, выбирает из двух
@@ -81,7 +81,8 @@ using Dev secrets» (28.02.2025). В сборках форка он `true` и п
 
 Мерка 08.10.2026 в контейнере `gdlab`: `grep -oF | wc -l` по готовым бандлам из
 `/work/out` (сборка 06-07.10, минифицированная; `DESKTOP_OAUTH_CLIENT_SECRET` в
-окружении не задан — то есть значения те же, что и в прогоне `release-fork.yml`).
+окружении не задан — то есть значения те же, что и в прогонах
+`release-fork-windows.yml` / `release-fork-linux.yml`).
 Счётчики снимала по уже собранному `out/`, нового прогона webpack не делала.
 
 | Бандл | Вхождений `22c34d87…9d54` |
@@ -138,8 +139,9 @@ RFC 8252 §8.4/§8.5; в сборки форка ни один workflow не п�
 
 ## Границы мерки
 
-`out/` в `gdlab` — минифицированная сборка 06-07.10, а не артефакт из
-`release-fork.yml`: они могут отличаться каналом (`RELEASE_CHANNEL`) и наличием
+`out/` в `gdlab` — минифицированная сборка 06-07.10, а не артефакт из релизных
+workflow (`release-fork-windows.yml`, `release-fork-linux.yml`): они могут
+отличаться каналом (`RELEASE_CHANNEL`) и наличием
 `DESKTOP_OAUTH_*` в окружении прогона. Что в замеренной сборке литералы именно
 тестовые, следует из самого замера — значение из переменной не подставилось. На
 вывод «литералы в `renderer.js`, их нет в `highlighter.js`/`main.js`/`crash.js`/

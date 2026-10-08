@@ -64,7 +64,7 @@ L10n», значение попадает в `win32metadata` (`script/build.ts:2
 `Start Menu\Programs\GitHub, Inc.\GitHub Desktop.lnk`, и какая последней обновилась —
 та чужой иконкой и владеет. Каталог «GitHub, Inc» остаётся общим, в нём просто
 лежат два разных ярлыка. Механизм проверяется только на windows-раннере, поэтому
-прогон `Release Fork` сравнивает `FileDescription` собранного exe с ожидаемым
+прогон `Release Fork (Windows)` сравнивает `FileDescription` собранного exe с ожидаемым
 (шаг `Guard the shortcut name`) и падает до публикации релиза.
 
 **CLI-команда — тот же класс конфликта.** `installWindowsCLI` кладёт трамплин в
@@ -115,6 +115,11 @@ bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"  # сама сборка
 Получится `Release/desktop-linux-x64-portable.tar.gz`. Каталог `Release/`
 исключён из git: в него складываются бинарные артефакты на гигабайты.
 
+Тот же артефакт в тег фида публикует отдельный workflow
+`.github/workflows/release-fork-linux.yml` (`gh workflow run
+release-fork-linux.yml`, входов у него нет). Локальная сборка в контейнере
+ничего не публикует — она годится для проверки на своей машине.
+
 ## Сборка Windows: только на windows-раннере
 
 Цель `gdlab/release.sh win-portable` намеренно запрещена (скрипт печатает
@@ -128,17 +133,22 @@ bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"  # сама сборка
 На Windows `require()` таких модулей падает, и приложение показывает пустое белое
 окно при живом меню — этот дефект и был причиной запрета.
 
-Windows-сборка идёт workflow-файлом `.github/workflows/release-fork.yml`:
+Windows-сборка идёт workflow-файлом `.github/workflows/release-fork-windows.yml`:
 
 ```bash
-gh workflow run release-fork.yml -f arch=x64
+gh workflow run release-fork-windows.yml -f arch=x64
+gh workflow run release-fork-windows.yml -f arch=arm64
 # первый релиз в пустой тег — добавить:
-gh workflow run release-fork.yml -f arch=x64 -f first_run=true
+gh workflow run release-fork-windows.yml -f arch=x64 -f first_run=true
 ```
 
-Прогон делает две джобы: Windows выбранной архитектуры и Linux x64 portable
-(джоба `linux` не гейтится входом, поэтому артефакты обоих тегов обновляются
-сразу).
+Релиз каждой платформы живёт своим workflow-файлом:
+`release-fork-windows.yml` (архитектура — входом `arch`) и
+`release-fork-linux.yml` (x64 portable, входов нет). Раньше обе джобы были в
+одном файле `release-fork.yml`, и запуск любой Windows-архитектуры пересобирал и
+перезаписывал ещё тег `latest-linux-x64` — то есть прогон `arch=arm64` трогал
+чужую платформу, а linux-артефакт нельзя было обновить, не собрав Windows за
+девять минут. Теперь каждый прогон пишет только свой тег.
 
 Что делает прогон:
 
@@ -300,8 +310,9 @@ notes, и вот почему: содержимое ассета GitHub отда
 
 ### Схема блока
 
-Workflow `.github/workflows/release-fork.yml` загружает оба представления в
-каждый тег фида (`latest-win-x64`, `latest-win-arm64`, `latest-linux-x64`;
+Каждый релизный workflow (`.github/workflows/release-fork-windows.yml`,
+`.github/workflows/release-fork-linux.yml`) загружает оба представления в свой
+тег фида (`latest-win-x64`, `latest-win-arm64`, `latest-linux-x64`;
 mac-тега у форка нет). В notes блок выглядит как
 `<!--fork-build-info {…}-->` — одна строка компактного JSON, тот же формат
 ловится парсером из ассета. Объект содержит:

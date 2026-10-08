@@ -32,7 +32,7 @@ Electron 44.1.1 на Node 24.19 (`.node-version`).
 | Строки интерфейса | Тексты вынесены в `app/locales/en.json`, из него строятся ru и uk; покрытие меряют `yarn l10n:parity`, `l10n:audit`, `l10n:upstream`, `l10n:menu` |
 | Настройки → Язык | Выбор языка интерфейса, редактор переводов с сохранением в свой каталог и режим «выбрать строку кликом» |
 | Идентификатор Squirrel | `GitHubDesktopL10n` вместо `GitHubDesktop`: отдельный каталог в `%LOCALAPPDATA%` и свой фид, поэтому форк и стоковая сборка не перезаписывают друг друга. Имя ярлыка разводится отдельно (`getWindowsShortcutName()`, `script/dist-info.ts`): Squirrel называет `.lnk` по `FileDescription` exe, и с апстримным значением обе редакции писали бы один `GitHub Desktop.lnk`. CLI ставится как `github-l10n`: каталоги `bin` у редакций разные, а имя команды было общее, так что `github` разыгрывался порядком `PATH` |
-| Релизы | Workflow `Release Fork` публикует ассеты в теги `latest-win-x64`, `latest-win-arm64` и `latest-linux-x64` этого репозитория |
+| Релизы | Два workflow-файла, по одному на платформу: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`; каждый прогон трогает только свой тег |
 | Обновления | Squirrel берёт пакеты только из фида форка: адрес вшит в сборку (`getUpdatesURL()`, `script/dist-info.ts:167`), а публикабельную сборку с апстримным фидом сборочный скрипт отвергает |
 | Свежесть сборки | Отдельная проверка по хешу коммита: каждый релиз называет, из чего собран, приложение сравнивает хеш со своим `__SHA__` и показывает баннер со ссылкой на релиз |
 | Отзыв о переводе | Номер сборки в диалоге «О программе» ведёт в заранее заполненную issue этого репозитория |
@@ -68,7 +68,8 @@ Electron 44.1.1 на Node 24.19 (`.node-version`).
 | Поднять контейнер стенда | `bash tools/i18n-lab/lab.sh up` |
 | Dev-сборка | `bash tools/i18n-lab/lab.sh exec "yarn build:dev"` |
 | Linux portable | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"` |
-| Windows | `gh workflow run release-fork.yml -f arch=x64` — только на windows-раннере; пока тег пуст, добавлять `-f first_run=true` |
+| Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; пока тег пуст, добавлять `-f first_run=true` |
+| Linux portable в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`, входов нет |
 | Проверить раскатанные бандлы | `yarn l10n:bundles` |
 
 Подробности — в [docs/fork-releases.md](docs/fork-releases.md): почему из Linux

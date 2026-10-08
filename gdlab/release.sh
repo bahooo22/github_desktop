@@ -14,7 +14,7 @@
 #     уже лежит в node_modules целевой платформы. На Windows renderer падает на
 #     require() нативного модуля, и приложение показывает пустое белое окно с
 #     живым меню. Windows-релиз собирается только на windows-раннере:
-#     gh workflow run release-fork.yml -f arch=x64
+#     gh workflow run release-fork-windows.yml -f arch=x64
 set -euo pipefail
 
 TARGET="${1:-linux-portable}"
@@ -25,7 +25,7 @@ log() { printf '[release] %s\n' "$*"; }
 
 if [ "$TARGET" = win-portable ]; then
   log "win-portable из Linux невозможна (см. комментарий в начале этого скрипта)."
-  log "Запусти CI: gh workflow run release-fork.yml -f arch=x64"
+  log "Запусти CI: gh workflow run release-fork-windows.yml -f arch=x64"
   exit 2
 fi
 
@@ -37,7 +37,7 @@ log "yarn build:prod…"
 # vendor/yarn-1.21.1.js), а не наш код: build:prod вызывает copyDependencies,
 # та — `yarn install` в out/. Коды гасятся повтором флага; запись через запятую
 # node принимает, но игнорирует. Обоснование — комментарий к шагу установки в
-# .github/workflows/release-fork.yml.
+# .github/workflows/release-fork-windows.yml.
 export NODE_OPTIONS="--disable-warning=DEP0169 --disable-warning=DEP0040"
 (cd "$ROOT" && RELEASE_CHANNEL=production DESKTOP_SKIP_PACKAGE=1 yarn build:prod)
 
