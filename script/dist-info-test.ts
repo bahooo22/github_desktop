@@ -1,7 +1,11 @@
 import assert from 'node:assert/strict'
 import { afterEach, describe, it } from 'node:test'
 
-import { getUpdatesURL, isCentralUpdatesFeed } from './dist-info'
+import {
+  getUpdatesURL,
+  getWindowsShortcutName,
+  isCentralUpdatesFeed,
+} from './dist-info'
 
 const centralFeed =
   'https://central.github.com/deployments/desktop/desktop/latest/win32'
@@ -76,5 +80,33 @@ describe('the updates feed of a fork build', () => {
     process.env.RELEASE_CHANNEL = 'production'
 
     assert.equal(getUpdatesURL(), forkFeed)
+  })
+})
+
+/**
+ * Squirrel names the Start Menu / Desktop `.lnk` after the packaged exe's
+ * `FileDescription`, and `script/build.ts` sets that from
+ * `getWindowsShortcutName`. With upstream's label both editions write the very
+ * same `Programs\GitHub, Inc.\GitHub Desktop.lnk` and the edition that updated
+ * last owns the other one's icon (measured 2026-10-08 in `Squirrel-Shortcut.log`
+ * of two installs on one machine), so the fork's label has to differ from the
+ * stock one while still being recognizable as the same app.
+ */
+describe('the Windows shortcut label of a fork build', () => {
+  const stock = 'GitHub Desktop'
+
+  it('is distinct from the label upstream installs under', () => {
+    assert.notEqual(
+      getWindowsShortcutName(),
+      stock,
+      'the same label means the same .lnk, which the two editions then overwrite'
+    )
+  })
+
+  it('stays recognizable as GitHub Desktop', () => {
+    assert.ok(
+      getWindowsShortcutName().startsWith(stock),
+      `a user must still find the app they know in the Start Menu`
+    )
   })
 })

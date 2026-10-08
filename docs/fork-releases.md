@@ -52,6 +52,21 @@
 не обновляется и не перезаписывается — раздельность и является целью, но
 обновляться придётся дважды, если установлены обе редакции.
 
+**Имя ярлыка — отдельный рычаг.** Каталог установки и `AppUserModelId` разъезжаются
+сами, а `.lnk` Squirrel называет по `FileDescription` исполняемого файла:
+`getWindowsShortcutName()` (`script/dist-info.ts:131`) даёт сборке «GitHub Desktop
+L10n», значение попадает в `win32metadata` (`script/build.ts:264`) и в рантайм как
+`__WINDOWS_SHORTCUT_NAME__` (`app/app-info.ts:56`), по которому main-process и свой
+ярлык находит (`app/src/main-process/squirrel-updater.ts:162`,
+`app/src/lib/find-toast-activator-clsid.ts:10`). Без этого замера обе редакции
+писали один файл: в `Squirrel-Shortcut.log` двух установок на одной машине
+(08.10.2026) обе создают
+`Start Menu\Programs\GitHub, Inc.\GitHub Desktop.lnk`, и какая последней обновилась —
+та чужой иконкой и владеет. Каталог «GitHub, Inc» остаётся общим, в нём просто
+лежат два разных ярлыка. Механизм проверяется только на windows-раннере, поэтому
+прогон `Release Fork` сравнивает `FileDescription` собранного exe с ожидаемым
+(шаг `Guard the shortcut name`) и падает до публикации релиза.
+
 ## Где взять собранное
 
 Теги создаёт прогон workflow (см. ниже); на 08.10.2026 опубликованы и

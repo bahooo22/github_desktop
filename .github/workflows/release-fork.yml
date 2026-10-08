@@ -137,6 +137,32 @@ jobs:
           DESKTOP_SKIP_DELTA:
             ${{ github.event.inputs.first_run == 'true' && '1' || '0' }}
 
+      - name: Guard the shortcut name
+        # Squirrel называет .lnk по FileDescription упакованного exe, и другой
+        # точки, где это видно, нет: из Linux не проверить совсем, а тихо неверное
+        # значение означает, что форк снова пишет «GitHub Desktop.lnk» апстрима и
+        # перезаписывает его ярлык (замерено 08.10.2026 по Squirrel-Shortcut.log
+        # обеих установок на одной машине). Поэтому сравниваем строку в строку уже
+        # готовый exe здесь, до публикации релиза.
+        # Ожидаемое значение собирается из того же app/package.json, из которого
+        # script/dist-info.ts:getWindowsShortcutName берёт productName для
+        # production-сборки, чтобы шаг не разъехался с кодом.
+        shell: powershell
+        run: |
+          $productName = (Get-Content ./app/package.json -Raw | ConvertFrom-Json).productName
+          $expected = "$productName L10n"
+          $exe = "dist/GitHubDesktopL10n-win32-${{ github.event.inputs.arch }}/GitHubDesktopL10n.exe"
+          if (-not (Test-Path $exe)) {
+            Write-Output "::error::Нет $exe — проверять нечего"
+            exit 1
+          }
+          $actual = (Get-Item $exe).VersionInfo.FileDescription
+          Write-Output "FileDescription='$actual', ожидалось '$expected'"
+          if ($actual -ne $expected) {
+            Write-Output "::error::FileDescription не '$expected': Squirrel напишет чужой ярлык"
+            exit 1
+          }
+
       - name: Write build info and release notes
         # Приложение форка решает «есть ли обновление» по хешу собранного
         # коммита, а не по версии: Squirrel при равных версиях обновления не

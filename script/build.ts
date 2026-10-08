@@ -49,6 +49,7 @@ import {
   getDistRoot,
   getExecutableName,
   getIconDirectory,
+  getWindowsShortcutName,
   isPublishable,
 } from './dist-info'
 
@@ -258,7 +259,9 @@ async function packageApp() {
     // Windows
     win32metadata: {
       CompanyName: getCompanyName(),
-      FileDescription: '',
+      // Squirrel names the Start Menu/Desktop .lnk after this value, so it has
+      // to differ from upstream's - see `getWindowsShortcutName`.
+      FileDescription: getWindowsShortcutName(),
       OriginalFilename: '',
       ProductName: getProductName(),
       InternalName: getProductName(),

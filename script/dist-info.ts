@@ -97,11 +97,11 @@ export function getWindowsDeltaNugetPackagePath() {
 /**
  * This fork ships under its own Squirrel identifier instead of the upstream
  * 'GitHubDesktop' one. Two builds with the same identifier share
- * %LOCALAPPDATA%\<identifier>, the Start/Desktop shortcuts and – most
- * importantly – the auto-update feed, so an upstream install would happily
- * replace itself with a fork build and vice versa. A distinct identifier keeps
- * the fork and upstream Desktop side by side and makes the fork's feed the only
- * thing the fork can update from.
+ * %LOCALAPPDATA%\<identifier> and - most importantly - the auto-update feed, so
+ * an upstream install would happily replace itself with a fork build and vice
+ * versa. A distinct identifier keeps the fork and upstream Desktop side by side
+ * and makes the fork's feed the only thing the fork can update from. The
+ * shortcut names are a separate lever, see `getWindowsShortcutName`.
  */
 export function getWindowsIdentifierName() {
   return 'GitHubDesktopL10n'
@@ -115,6 +115,21 @@ export function getWindowsIdentifierName() {
 export function getWindowsAppUserModelId() {
   const identifier = getWindowsIdentifierName()
   return `com.squirrel.${identifier}.${identifier}`
+}
+
+/**
+ * The label Squirrel puts on the Start Menu and Desktop shortcut. It names the
+ * `.lnk` after the packaged exe's `FileDescription`, and upstream leaves that
+ * empty, so the version resource answers with `ProductName` - 'GitHub Desktop' -
+ * and a fork build ends up writing exactly the file the stock app writes,
+ * `Programs\GitHub, Inc.\GitHub Desktop.lnk`. Measured on 2026-10-08 in the
+ * `Squirrel-Shortcut.log` of both installs on one machine: whichever edition
+ * updated last owns the icon, and the other one silently loses it. A distinct
+ * description gives each edition its own shortcut. The main process looks the
+ * `.lnk` up by name, so the value travels to it as `__WINDOWS_SHORTCUT_NAME__`.
+ */
+export function getWindowsShortcutName() {
+  return `${productName} L10n`
 }
 
 export function getBundleSizes() {
