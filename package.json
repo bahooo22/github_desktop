@@ -29,6 +29,7 @@
     "build:dev": "yarn compile:dev && cross-env NODE_ENV=development ts-node -P script/tsconfig.json script/build.ts",
     "build:prod": "yarn compile:prod && cross-env NODE_ENV=production ts-node -P script/tsconfig.json script/build.ts",
     "package": "ts-node -P script/tsconfig.json script/package.ts",
+    "release-build-info": "ts-node -P script/tsconfig.json script/build-info.ts",
     "generate-octicons": "ts-node -P script/tsconfig.json script/generate-octicons.ts",
     "l10n:menu": "ts-node -P script/tsconfig.json script/l10n/extract-menu.ts",
     "l10n:parity": "node script/i18n-freshness.mjs --parity",

@@ -115,6 +115,24 @@ jobs:
           DESKTOP_SKIP_DELTA:
             ${{ github.event.inputs.first_run == 'true' && '1' || '0' }}
 
+      - name: Write build-info.json
+        # Приложение форка решает «есть ли обновление» по хешу собранного
+        # коммита, а не по версии: Squirrel при равных версиях обновления не
+        # покажет (UpdateInfo.Create отдаёт пустой releasesToApply), а в объекте
+        # релиза хеш сборки не записан. Squirrel читает из тега только RELEASES,
+        # поэтому лишний ассет фиду не вредит.
+        #
+        # Архитектуру передаём явно: node на раннере всегда x64, даже когда
+        # собирается arm64-пакет.
+        shell: bash
+        env:
+          BUILD_INFO_ARCH: ${{ github.event.inputs.arch }}
+        run: |
+          yarn release-build-info
+          # Клиент на битый или отсутствующий файл молчит, то есть молчание
+          # стало бы тихой регрессией проверки — убеждаемся, что файл на диске.
+          test -s dist/build-info.json
+
       - name: Zip portable bundle
         # Archiver here must be bsdtar, addressed by its full path. Under
         # `shell: bash` the bare `tar` resolves to Git for Windows' GNU tar
@@ -221,6 +239,7 @@ jobs:
             "${FULL[@]}" \
             dist/GitHubDesktopL10n-*-delta.nupkg \
             "dist/GitHubDesktopL10n-win32-$ARCH-portable.zip" \
+            dist/build-info.json \
             --clobber
           gh release upload "$TAG" dist/RELEASES --clobber
 
@@ -262,6 +281,17 @@ jobs:
           tar czf dist/desktop-linux-x64-portable.tar.gz -C dist
           desktop-linux-x64
 
+      - name: Write build-info.json
+        # Тот же ассет, что в win-джобе: у портативной linux-сборки нет вообще
+        # никакого механизма обновлений, поэтому хеш релиза — единственный
+        # способ сказать пользователю «то, что ты скачал, уже не последнее».
+        shell: bash
+        env:
+          BUILD_INFO_ARCH: x64
+        run: |
+          yarn release-build-info
+          test -s dist/build-info.json
+
       - name: Publish to GitHub Release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -275,4 +305,6 @@ jobs:
               --notes "Auto-updated by release-fork workflow"
           fi
           gh release upload latest-linux-x64 \
-            dist/desktop-linux-x64-portable.tar.gz --clobber
+            dist/desktop-linux-x64-portable.tar.gz \
+            dist/build-info.json \
+            --clobber
