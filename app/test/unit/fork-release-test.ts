@@ -3,7 +3,7 @@ import assert from 'node:assert'
 
 import {
   parseBuildInfo,
-  selectBuildInfoAsset,
+  parseBuildInfoFromRelease,
   evaluateForkRelease,
   repositoryApiUrl,
 } from '../../src/lib/fork-release'
@@ -105,53 +105,86 @@ describe('parseBuildInfo', () => {
   })
 })
 
-describe('selectBuildInfoAsset', () => {
-  it('finds the build-info.json asset url', () => {
+describe('parseBuildInfoFromRelease', () => {
+  const notes = (info: unknown) =>
+    `Release text\n\n<!--fork-build-info ${JSON.stringify(info)}-->\n`
+
+  const buildInfo = {
+    schema: 1,
+    platform: 'win32',
+    arch: 'x64',
+    sha: validSha,
+    version: '3.6.7-beta2',
+    builtAt: '2026-10-08T00:00:00Z',
+  }
+
+  it('reads the block the release states about its own build', () => {
+    const parsed = parseBuildInfoFromRelease({
+      body: notes(buildInfo),
+      html_url: 'https://github.com/o/r/releases/tag/latest-win-x64',
+    })
+
+    assert.ok(parsed !== null)
+    assert.strictEqual(parsed.sha, validSha)
+    assert.strictEqual(parsed.version, '3.6.7-beta2')
+  })
+
+  it('finds the block regardless of the text around it', () => {
+    const parsed = parseBuildInfoFromRelease({
+      body: `## Changelog\n\n- one thing\n\n${notes(buildInfo)}\n- more text`,
+    })
+
+    assert.ok(parsed !== null)
+    assert.strictEqual(parsed.sha, validSha)
+  })
+
+  it('returns null when the notes name no commit', () => {
+    assert.strictEqual(parseBuildInfoFromRelease({ body: 'plain notes' }), null)
+    assert.strictEqual(parseBuildInfoFromRelease({ body: '' }), null)
+    assert.strictEqual(parseBuildInfoFromRelease({}), null)
+    assert.strictEqual(parseBuildInfoFromRelease({ body: null }), null)
+    assert.strictEqual(parseBuildInfoFromRelease(null), null)
+  })
+
+  it('returns null when the block is not readable', () => {
+    assert.strictEqual(
+      parseBuildInfoFromRelease({
+        body: 'Release text\n\n<!--fork-build-info {"schema":1,} -->\n',
+      }),
+      null
+    )
+
+    assert.strictEqual(
+      parseBuildInfoFromRelease({
+        body: notes({ ...buildInfo, schema: 2 }),
+      }),
+      null
+    )
+
+    assert.strictEqual(
+      parseBuildInfoFromRelease({
+        body: notes({ ...buildInfo, sha: 'abc' }),
+      }),
+      null
+    )
+  })
+
+  it('only accepts the commit the notes themselves state', () => {
+    // An asset record describes a file rather than the build, and a release that
+    // carries one without naming its commit in the notes has no commit to offer.
     const release = {
+      body: 'Release text',
       assets: [
-        { name: 'Setup-x64.exe', url: 'https://example.com/setup.exe' },
         {
           name: 'build-info.json',
-          url: 'https://api.github.com/repos/o/r/releases/assets/1',
+          size: 180,
+          digest: 'sha256:3372e043',
+          updated_at: '2026-10-08T02:03:22Z',
         },
       ],
     }
 
-    assert.strictEqual(
-      selectBuildInfoAsset(release),
-      'https://api.github.com/repos/o/r/releases/assets/1'
-    )
-  })
-
-  it('ignores releases without the asset', () => {
-    const release = {
-      assets: [{ name: 'Setup-x64.exe', url: 'https://example.com/setup.exe' }],
-    }
-
-    assert.strictEqual(selectBuildInfoAsset(release), null)
-  })
-
-  it('handles missing or malformed asset lists', () => {
-    assert.strictEqual(selectBuildInfoAsset({}), null)
-    assert.strictEqual(selectBuildInfoAsset({ assets: null }), null)
-    assert.strictEqual(selectBuildInfoAsset({ assets: 'nope' }), null)
-    assert.strictEqual(selectBuildInfoAsset(null), null)
-  })
-
-  it('skips malformed asset entries', () => {
-    const release = {
-      assets: [
-        null,
-        'not-an-object',
-        { name: 'build-info.json' },
-        { name: 'build-info.json', url: 'https://api.github.com/asset' },
-      ],
-    }
-
-    assert.strictEqual(
-      selectBuildInfoAsset(release),
-      'https://api.github.com/asset'
-    )
+    assert.strictEqual(parseBuildInfoFromRelease(release), null)
   })
 })
 

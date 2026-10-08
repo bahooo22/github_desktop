@@ -112,12 +112,20 @@ jobs:
           DESKTOP_SKIP_DELTA:
             ${{ github.event.inputs.first_run == 'true' && '1' || '0' }}
 
-      - name: Write build-info.json
+      - name: Write build info and release notes
         # Приложение форка решает «есть ли обновление» по хешу собранного
         # коммита, а не по версии: Squirrel при равных версиях обновления не
         # покажет (UpdateInfo.Create отдаёт пустой releasesToApply), а в объекте
         # релиза хеш сборки не записан. Squirrel читает из тега только RELEASES,
         # поэтому лишний ассет фиду не вредит.
+        #
+        # Хеш пишется дважды: в ассет — для инструментов, и в notes релиза — для
+        # клиента. Ассет из renderer не прочитать: его байты отдаются только
+        # редиректом на CDN без `Access-Control-Allow-Origin`, а запрос к API с
+        # `Accept: application/vnd.github.raw+json` возвращает метаданные ассета
+        # вместо содержимого (замер против latest-win-x64 08.10.2026). Объект
+        # релиза отвечает с CORS, и notes лежат внутри него — одна замена
+        # `script/build-info.ts` покрывает оба файла, поэтому они не разойдутся.
         #
         # Архитектуру передаём явно: node на раннере всегда x64, даже когда
         # собирается arm64-пакет.
@@ -126,9 +134,11 @@ jobs:
           BUILD_INFO_ARCH: ${{ github.event.inputs.arch }}
         run: |
           yarn release-build-info
-          # Клиент на битый или отсутствующий файл молчит, то есть молчание
-          # стало бы тихой регрессией проверки — убеждаемся, что файл на диске.
+          # Клиент на битый или отсутствующий блок молчит, то есть молчание
+          # стало бы тихой регрессией проверки — убеждаемся, что оба файла на
+          # диске и notes действительно содержат блок.
           test -s dist/build-info.json
+          grep -q 'fork-build-info' dist/release-notes.md
 
       - name: Zip portable bundle
         # Archiver here must be bsdtar, addressed by its full path. Under
@@ -225,7 +235,7 @@ jobs:
           else
             gh release create "$TAG" \
               --title "Latest Windows $ARCH" \
-              --notes "Auto-updated by release-fork workflow"
+              --notes-file dist/release-notes.md
           fi
           # Дельта под glob'ом может отсутствовать: первый прогон в свой фид
           # идёт с DESKTOP_SKIP_DELTA=1, и пустой glob не должен ронять
@@ -239,6 +249,12 @@ jobs:
             dist/build-info.json \
             --clobber
           gh release upload "$TAG" dist/RELEASES --clobber
+          # Notes дописываем последним, после всех ассетов: именно блок в них
+          # включает проверку в клиенте, и пока пакеты не долиты, показывать
+          # релиз рано. Отдельный edit нужен потому, что тег переиспользуется
+          # прогон за прогоном, а gh release create при существующем релизе не
+          # выполняется.
+          gh release edit "$TAG" --notes-file dist/release-notes.md
 
   linux:
     name: Linux x64 portable
@@ -278,16 +294,18 @@ jobs:
           tar czf dist/desktop-linux-x64-portable.tar.gz -C dist
           desktop-linux-x64
 
-      - name: Write build-info.json
-        # Тот же ассет, что в win-джобе: у портативной linux-сборки нет вообще
-        # никакого механизма обновлений, поэтому хеш релиза — единственный
-        # способ сказать пользователю «то, что ты скачал, уже не последнее».
+      - name: Write build info and release notes
+        # Тот же ассет и те же notes, что в win-джобе: у портативной linux-сборки
+        # нет вообще никакого механизма обновлений, поэтому хеш релиза —
+        # единственный способ сказать пользователю «то, что ты скачал, уже не
+        # последнее».
         shell: bash
         env:
           BUILD_INFO_ARCH: x64
         run: |
           yarn release-build-info
           test -s dist/build-info.json
+          grep -q 'fork-build-info' dist/release-notes.md
 
       - name: Publish to GitHub Release
         env:
@@ -299,9 +317,12 @@ jobs:
           else
             gh release create latest-linux-x64 \
               --title "Latest Linux x64" \
-              --notes "Auto-updated by release-fork workflow"
+              --notes-file dist/release-notes.md
           fi
           gh release upload latest-linux-x64 \
             dist/desktop-linux-x64-portable.tar.gz \
             dist/build-info.json \
             --clobber
+          # Блок хеша в notes — то же, что в win-джобе: portable-сборка не
+          # обновляется сама, и «вышли новые сборки» ей сказать больше нечем.
+          gh release edit latest-linux-x64 --notes-file dist/release-notes.md

@@ -4,13 +4,18 @@ import { getObject, setObject } from './local-storage'
  * Squirrel — the updater this fork keeps — compares version numbers, and a fork
  * release carries the upstream version it was merged from, so the version is
  * never enough to tell an installed build that the fork rebuilt. The commit a
- * build came from does, and each release states that commit in a
- * `build-info.json` asset (`script/build-info.ts`). This module reads that
- * asset back and says whether the fork has moved ahead.
+ * build came from does, and each release states that commit (`script/build-info.ts`).
+ * This module reads that statement back and says whether the fork has moved
+ * ahead.
  *
- * The asset is fetched from the GitHub API, not from the release download URL:
- * only the API answers a renderer `fetch` with `Access-Control-Allow-Origin`
- * (see `getForkFeedURL` in `script/dist-info.ts`).
+ * It reads the release's notes, not its `build-info.json` asset, and both the
+ * transport and the content have to be plain API JSON: an asset's own bytes are
+ * only ever served by redirecting to a CDN that answers without
+ * `Access-Control-Allow-Origin`, which a renderer `fetch` cannot follow, while
+ * asking the API for raw content with a `+json` media type returns the asset's
+ * metadata instead of its content (measured against `latest-win-x64` on
+ * 08.10.2026). The release object carries CORS and the notes inside it, so one
+ * request reads both. See `getForkFeedURL` in `script/dist-info.ts`.
  */
 const cacheKey = 'fork-release-check'
 
@@ -19,13 +24,17 @@ const checkInterval = 1000 * 60 * 60 * 24
 /** A Git commit as `git rev-parse` writes it. */
 const fullShaRe = /^[0-9a-f]{40}$/
 
-/** The asset name the release workflow uploads; mirrored from it. */
-const buildInfoAssetName = 'build-info.json'
+/**
+ * The machine block `getForkReleaseNotes` in `script/build-info.ts` writes into
+ * a release's notes: one line of compact JSON, so `.` without `s` is enough and
+ * a hand-written multi-line block simply doesn't match.
+ */
+const buildInfoMarker = /<!--fork-build-info\s*(\{.*?\})-->/
 
 /**
- * The content of `build-info.json`. Declared here rather than imported from
- * `script/build-info.ts`, which belongs to the build tooling and is not part of
- * the renderer's program; `schema` is what keeps the two in step.
+ * What one release says about the build it carries. Declared here rather than
+ * imported from `script/build-info.ts`, which belongs to the build tooling and
+ * is not part of the renderer's program; `schema` is what keeps the two in step.
  */
 export interface IForkBuildInfo {
   readonly schema: number
@@ -49,7 +58,7 @@ export interface IForkReleaseStatus {
   /** The version string of the release, for telling it apart in the UI. */
   readonly version: string
 
-  /** When the release was built, as reported by the asset itself. */
+  /** When the release was built, as the release states it. */
   readonly builtAt: string
 }
 
@@ -65,10 +74,10 @@ interface ICachedCheck {
 }
 
 /**
- * The release's own commit, or null when the asset isn't something we can
- * trust: an unknown schema, a truncated SHA or a missing field. The asset is
- * written by our own workflow, so anything else means it was rebuilt by hand or
- * half-uploaded, and guessing from it is worse than saying nothing.
+ * The release's own commit, or null when the release isn't something we can
+ * trust: an unknown schema, a truncated SHA or a missing field. The block is
+ * written by our own workflow, so anything else means the release was rebuilt by
+ * hand or half-uploaded, and guessing from it is worse than saying nothing.
  */
 export function parseBuildInfo(raw: unknown): IForkBuildInfo | null {
   if (raw === null || typeof raw !== 'object') {
@@ -103,37 +112,41 @@ export function parseBuildInfo(raw: unknown): IForkBuildInfo | null {
 }
 
 /**
- * The API URL of the `build-info.json` asset in a release response, or null
- * when the release doesn't carry one — a release made before the workflow
- * published this asset, say.
+ * What a release response says about the build it carries, or null when the
+ * release names no commit — one published before the workflow wrote this block,
+ * or edited by hand afterwards.
  *
- * The platform and architecture need no matching here: the release tag the feed
- * URL names is already per platform and per architecture.
+ * The release's own commit is trusted only through `parseBuildInfo`, so an
+ * unknown `schema` or a malformed SHA counts as no answer either.
  */
-export function selectBuildInfoAsset(release: unknown): string | null {
+export function parseBuildInfoFromRelease(
+  release: unknown
+): IForkBuildInfo | null {
   if (release === null || typeof release !== 'object') {
     return null
   }
 
-  const assets = (release as Record<string, unknown>).assets
+  const body = (release as Record<string, unknown>).body
 
-  if (!Array.isArray(assets)) {
+  if (typeof body !== 'string') {
     return null
   }
 
-  for (const asset of assets) {
-    if (asset === null || typeof asset !== 'object') {
-      continue
-    }
+  const block = buildInfoMarker.exec(body)
 
-    const value = asset as Record<string, unknown>
-
-    if (value.name === buildInfoAssetName && typeof value.url === 'string') {
-      return value.url
-    }
+  if (block === null) {
+    return null
   }
 
-  return null
+  let raw: unknown
+
+  try {
+    raw = JSON.parse(block[1])
+  } catch (e) {
+    return null
+  }
+
+  return parseBuildInfo(raw)
 }
 
 /**
@@ -233,16 +246,13 @@ async function checkForkRelease(): Promise<IForkReleaseStatus | null> {
       return null
     }
 
-    const assetUrl = selectBuildInfoAsset(release)
     const releasePageUrl = (release as Record<string, unknown>).html_url
 
-    if (assetUrl === null || typeof releasePageUrl !== 'string') {
+    if (typeof releasePageUrl !== 'string') {
       return null
     }
 
-    const buildInfo = parseBuildInfo(
-      await fetchJson(assetUrl, 'application/vnd.github.raw+json')
-    )
+    const buildInfo = parseBuildInfoFromRelease(release)
 
     if (buildInfo === null) {
       return null
@@ -266,8 +276,8 @@ async function checkForkRelease(): Promise<IForkReleaseStatus | null> {
       releasePageUrl
     )
   } catch (e) {
-    // No network, a rate-limited API, a release uploaded before the asset
-    // existed — none of them is something the user can act on, so stay quiet.
+    // No network, a rate-limited API, a release whose notes carry no build block
+    // yet — none of them is something the user can act on, so stay quiet.
     log.debug(`[fork-release] release check failed`, e)
     return null
   }

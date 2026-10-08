@@ -13,8 +13,9 @@ import { getDistRoot } from './dist-info'
  * release that carries the same `app/package.json` version as the installed one
  * is invisible to it. A GitHub Release doesn't record the commit it was built
  * from either — `gh release create` writes `target_commitish` once, from the
- * default branch, and later `gh release upload` runs never move it. So the
- * release states its own commit in this asset and the app reads it back.
+ * default branch, and later `gh release upload` runs never move it. So each
+ * release states its own commit, in the `build-info.json` asset for tooling and
+ * in its notes for the app to read (see `getForkReleaseNotes`).
  */
 export interface IForkBuildInfo {
   readonly schema: 1
@@ -38,6 +39,26 @@ export function getForkBuildInfo(): IForkBuildInfo {
   }
 }
 
+/**
+ * The same object as a machine-readable block in the release notes.
+ *
+ * The app reads this rather than the `build-info.json` asset, because it cannot
+ * reach the asset's content: GitHub serves release assets by redirecting to a
+ * CDN whose response carries no `Access-Control-Allow-Origin`, so a renderer
+ * `fetch` is blocked by CORS, and a `+json` Accept keeps the response on
+ * api.github.com and returns the asset's metadata instead of its content
+ * (measured against `latest-win-x64` on 08.10.2026). The release object itself
+ * is plain API JSON with CORS enabled, and `body` travels inside it.
+ *
+ * The JSON stays on one line and compact: an HTML comment is what the app
+ * matches, and a newline inside it would break the match.
+ */
+export function getForkReleaseNotes(info: IForkBuildInfo): string {
+  return `Auto-updated by release-fork workflow\n\n<!--fork-build-info ${JSON.stringify(
+    info
+  )}-->\n`
+}
+
 async function main() {
   const info = getForkBuildInfo()
 
@@ -52,8 +73,12 @@ async function main() {
   await mkdir(Path.dirname(target), { recursive: true })
   await writeFile(target, `${JSON.stringify(info, null, 2)}\n`)
 
+  // Written from the same object as the asset above, so the two can't disagree.
+  const notes = Path.join(getDistRoot(), 'release-notes.md')
+  await writeFile(notes, getForkReleaseNotes(info))
+
   console.log(
-    `build-info: ${target} — ${info.sha} (${info.version}, ${info.platform}-${info.arch})`
+    `build-info: ${target} — ${info.sha} (${info.version}, ${info.platform}-${info.arch}), notes: ${notes}`
   )
 }
 
