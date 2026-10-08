@@ -7,6 +7,24 @@ import {
 } from '../script/dist-info'
 import { version, productName } from './package.json'
 
+/**
+ * Desktop is installed on the machine of whoever runs it, which makes it a public
+ * client (RFC 6749 §2.1, RFC 8252 §8.4), and RFC 8252 §8.5 says what a secret
+ * carried inside a distributed app is worth: "Secrets that are statically
+ * included as part of an app distributed to multiple users should not be treated
+ * as confidential secrets, as one user may inspect their copy and learn the
+ * shared secret." So this pair lives in source rather than in a build secret, and
+ * the Code Scanning finding `js/build-artifact-leak` about the `DefinePlugin`
+ * sinks of `webpack.common.ts` is an accepted risk: the values are read by code
+ * that ships, and shipping them is what protects nothing. Which bundle actually
+ * carries the literals, and why no code change improves that, is in
+ * `docs/fork-oauth-client.md`.
+ *
+ * These belong to GitHub's bundled test OAuth app — the same two lines are in
+ * upstream's copy, and `docs/technical/oauth.md` labels them "THIS IS ONLY FOR
+ * TESTING PURPOSES". No workflow of this fork sets `DESKTOP_OAUTH_CLIENT_SECRET`,
+ * so every build the fork publishes carries exactly these public values.
+ */
 const devClientId = '3a723b10ac5575cc5bb9'
 const devClientSecret = '22c34d87789a365981ed921352a7b9a8c3f69d54'
 
