@@ -107,7 +107,8 @@ beta channel to get access to early builds of Desktop:
  - [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32?env=beta)
  - [Windows (ARM64)](https://central.github.com/deployments/desktop/desktop/latest/win32-arm64?env=beta)
 
-The release notes for the latest beta versions are available [here](https://desktop.github.com/release-notes/?env=beta).
+The release notes for the latest beta versions are at
+[desktop.github.com/release-notes](https://desktop.github.com/release-notes/?env=beta).
 
 ### Past Releases
 You can find past releases at https://desktop.githubusercontent.com. After installation of a past version, the auto update functionality will attempt to download the latest version. 
