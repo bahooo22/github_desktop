@@ -89,22 +89,27 @@ L10n», значение попадает в `win32metadata` (`script/build.ts:2
 
 Теги создаёт прогон workflow (см. ниже), и какой из них опубликован прямо сейчас —
 это не свойство репозитория, а состояние фида: его показывают `gh release list`
-или `GET /repos/<repo>/releases`. Актуально на 09.10.2026: `latest-linux-x64`
-есть, `latest-win-x64` и `latest-win-arm64` — нет (API отдаёт 404), поэтому
-ближайший windows-прогон обязан идти с `first_run=true`. Версию и коммит каждой
-опубликованной сборки читать из блока `fork-build-info` в notes тега — там же
-лежит `builtAt`, по которому видно, что windows- и linux-прогоны одного выпуска
-заканчиваются в разное время. Именно из-за этой связки джобы разделены на два
-файла (см. «Сборка Windows: только на windows-раннере»). Mac-тега форк не
+или `GET /repos/<repo>/releases`. Снятие 09.10.2026: опубликованы все три тега, и в
+каждом windows-фиде ровно один full-пакет `GitHubDesktopL10n-3.6.7-beta340399-full.nupkg`
+при отсутствии `*-delta.nupkg` — дельту выключил `first_run=true`, который был нужен
+для первого релиза в пустой фид. Поэтому ближайший прогон обязан идти БЕЗ этого
+входа: именно он принесёт дельту, а повторный `first_run` выключил бы её снова, и
+gate пишет об этом `::warning::`. Флаг нужен ровно в одном случае — тег создаётся
+впервые или был удалён.
+
+Версию и коммит каждой опубликованной сборки читать из блока `fork-build-info` в
+notes тега — там же лежит `builtAt`, по которому видно, что windows- и linux-прогоны
+одного выпуска заканчиваются в разное время. Именно из-за этой связки джобы разделены
+на два файла (см. «Сборка Windows: только на windows-раннере»). Mac-тега форк не
 публикует вовсе.
 
 - Windows x64: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
   portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES`, пакеты фида и
   `build-info.json`.
 - Windows arm64: `.../releases/tag/latest-win-arm64` — те же ассеты с суффиксом
-  `arm64`; создаётся прогоном `gh workflow run release-fork-windows.yml -f arch=arm64
-  -f first_run=true` (или обёртками `release-fork-windows-all.yml` /
-  `release-fork-all.yml` с тем же `first_run`).
+  `arm64`; создаётся прогоном `gh workflow run release-fork-windows.yml
+  -f arch=arm64` (или обёртками `release-fork-windows-all.yml` /
+  `release-fork-all.yml`). `first_run=true` добавляется только когда тега ещё нет.
 - Linux x64: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
   (распаковать и запустить `desktop`) и `build-info.json`. Обновлений Squirrel на
   Linux нет.

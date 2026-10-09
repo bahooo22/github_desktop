@@ -46,8 +46,9 @@ Electron 44.1.1 на Node 24.19 (`.node-version`).
 - **Linux x64:**
   [latest-linux-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-linux-x64) —
   `desktop-linux-x64-portable.tar.gz`: распаковать и запустить `desktop`.
-- **Windows arm64:** тега `latest-win-arm64` пока нет — его создаст первый
-  прогон workflow с `arch=arm64`.
+- **Windows arm64:**
+  [latest-win-arm64](https://github.com/bahooo22/github_desktop/releases/tag/latest-win-arm64) —
+  тот же набор ассетов, что у x64, но с суффиксом `arm64`.
 - **macOS:** сборок нет; `getUpdatesURL()` по умолчанию возвращает win-ный тег,
   поэтому на macOS фид надо задавать явно.
 
@@ -68,7 +69,7 @@ Electron 44.1.1 на Node 24.19 (`.node-version`).
 | Поднять контейнер стенда | `bash tools/i18n-lab/lab.sh up` |
 | Dev-сборка | `bash tools/i18n-lab/lab.sh exec "yarn build:dev"` |
 | Linux portable | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"` |
-| Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; пока тег пуст, добавлять `-f first_run=true` |
+| Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; `-f first_run=true` нужен ровно когда тег ещё пуст, иначе он выключит дельту |
 | Windows, обе архитектуры | `gh workflow run release-fork-windows-all.yml` |
 | Все три фида | `gh workflow run release-fork-all.yml` — win x64 + win arm64 + linux параллельно |
 | Linux portable в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`, входов нет |
