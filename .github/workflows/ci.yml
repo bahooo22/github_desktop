@@ -80,14 +80,15 @@ jobs:
       id-token: write
     strategy:
       fail-fast: false
+      # Матрица целиком в JSON, а не списком с include: job-level `if` не
+      # вычёркивает отдельную строку, а include-запись для os, которого нет в
+      # списке, не вычёркивает комбинацию — она её добавляет.
       matrix:
-        os: [macos-14-xlarge, windows-2022]
-        arch: [x64, arm64]
-        include:
-          - os: macos-14-xlarge
-            friendlyName: macOS
-          - os: windows-2022
-            friendlyName: Windows
+        ${{ fromJSON(github.repository == 'desktop/desktop' &&
+        '{"os":["macos-14-xlarge","windows-2022"],"arch":["x64","arm64"],"include":[{"os":"macos-14-xlarge","friendlyName":"macOS"},{"os":"windows-2022","friendlyName":"Windows"}]}'
+        ||
+        '{"os":["windows-2022"],"arch":["x64","arm64"],"include":[{"os":"windows-2022","friendlyName":"Windows"}]}')
+        }}
     timeout-minutes: 60
     environment: ${{ inputs.environment }}
     env:
@@ -167,13 +168,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - os: macos-14-xlarge
-            friendlyName: macOS
-            arch: arm64
-          - os: windows-2022
-            friendlyName: Windows
-            arch: x64
+        ${{ fromJSON(github.repository == 'desktop/desktop' &&
+        '{"include":[{"os":"macos-14-xlarge","friendlyName":"macOS","arch":"arm64"},{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}'
+        ||
+        '{"include":[{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}')
+        }}
     timeout-minutes: 60
     environment: ${{ inputs.environment }}
     env:
