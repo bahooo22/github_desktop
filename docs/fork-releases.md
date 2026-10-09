@@ -87,20 +87,24 @@ L10n», значение попадает в `win32metadata` (`script/build.ts:2
 
 ## Где взять собранное
 
-Теги создаёт прогон workflow (см. ниже); на 09.10.2026 опубликованы и
-перезаписываются новыми прогонами `latest-win-x64` и `latest-linux-x64` — оба
-собраны из коммита `c8dbb984f7` версией `3.6.7-beta3`. По блоку `fork-build-info`
-в их notes видно, что это один и тот же прогон: Windows закончился в
-2026-10-08T21:29:51Z, Linux — в 21:41:34Z. Именно из-за этой связки джобы
-разделены на два файла (см. «Сборка Windows: только на windows-раннере»). Тега
-`latest-win-arm64` нет: он появится только после прогона `arch=arm64`
-(`gh workflow run release-fork-windows.yml -f arch=arm64 -f first_run=true`, или
-обёрток `release-fork-windows-all.yml` / `release-fork-all.yml` с тем же входом
-`first_run`), а mac-тега форк не публикует вовсе.
+Теги создаёт прогон workflow (см. ниже), и какой из них опубликован прямо сейчас —
+это не свойство репозитория, а состояние фида: его показывают `gh release list`
+или `GET /repos/<repo>/releases`. Актуально на 09.10.2026: `latest-linux-x64`
+есть, `latest-win-x64` и `latest-win-arm64` — нет (API отдаёт 404), поэтому
+ближайший windows-прогон обязан идти с `first_run=true`. Версию и коммит каждой
+опубликованной сборки читать из блока `fork-build-info` в notes тега — там же
+лежит `builtAt`, по которому видно, что windows- и linux-прогоны одного выпуска
+заканчиваются в разное время. Именно из-за этой связки джобы разделены на два
+файла (см. «Сборка Windows: только на windows-раннере»). Mac-тега форк не
+публикует вовсе.
 
 - Windows x64: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
   portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES`, пакеты фида и
   `build-info.json`.
+- Windows arm64: `.../releases/tag/latest-win-arm64` — те же ассеты с суффиксом
+  `arm64`; создаётся прогоном `gh workflow run release-fork-windows.yml -f arch=arm64
+  -f first_run=true` (или обёртками `release-fork-windows-all.yml` /
+  `release-fork-all.yml` с тем же `first_run`).
 - Linux x64: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
   (распаковать и запустить `desktop`) и `build-info.json`. Обновлений Squirrel на
   Linux нет.
@@ -404,9 +408,9 @@ yarn l10n:bundles   # node script/i18n-freshness.mjs --bundles
 версии: `src/Squirrel/UpdateInfo.cs:66` отдаёт пустой `releasesToApply`, как
 только `currentVersion.Version >= latestFull.Version`, и равная версия означает
 «Установлена последняя версия» даже когда пакеты в фиде пересобраны из другого
-коммита. Живое подтверждение — три фида 09.10.2026, опубликованные как
-`3.6.7-beta3` из разных коммитов: клиент на установленной `3.6.7-beta3` не видел
-ни одного из них.
+коммита. Живое подтверждение: прогоны 08–09.10.2026 публиковали разные коммиты
+под одной `3.6.7-beta3` (в notes тех релизов версия именно такая), и клиент на
+установленной `3.6.7-beta3` не видел ни одной из этих сборок.
 
 Ставить пакет «по хешу» физически нельзя: `Setup-x64.exe` идёт через тот же
 `UpdateManager` и упирается в ту же проверку. Поэтому хеш решает, нужен ли релиз
