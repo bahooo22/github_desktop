@@ -97,11 +97,11 @@ export function getWindowsDeltaNugetPackagePath() {
 /**
  * This fork ships under its own Squirrel identifier instead of the upstream
  * 'GitHubDesktop' one. Two builds with the same identifier share
- * %LOCALAPPDATA%\<identifier>, the Start/Desktop shortcuts and – most
- * importantly – the auto-update feed, so an upstream install would happily
- * replace itself with a fork build and vice versa. A distinct identifier keeps
- * the fork and upstream Desktop side by side and makes the fork's feed the only
- * thing the fork can update from.
+ * %LOCALAPPDATA%\<identifier> and - most importantly - the auto-update feed, so
+ * an upstream install would happily replace itself with a fork build and vice
+ * versa. A distinct identifier keeps the fork and upstream Desktop side by side
+ * and makes the fork's feed the only thing the fork can update from. The
+ * shortcut names are a separate lever, see `getWindowsShortcutName`.
  */
 export function getWindowsIdentifierName() {
   return 'GitHubDesktopL10n'
@@ -115,6 +115,34 @@ export function getWindowsIdentifierName() {
 export function getWindowsAppUserModelId() {
   const identifier = getWindowsIdentifierName()
   return `com.squirrel.${identifier}.${identifier}`
+}
+
+/**
+ * The label Squirrel puts on the Start Menu and Desktop shortcut. It names the
+ * `.lnk` after the packaged exe's `FileDescription`, and upstream leaves that
+ * empty, so the version resource answers with `ProductName` - 'GitHub Desktop' -
+ * and a fork build ends up writing exactly the file the stock app writes,
+ * `Programs\GitHub, Inc.\GitHub Desktop.lnk`. Measured on 2026-10-08 in the
+ * `Squirrel-Shortcut.log` of both installs on one machine: whichever edition
+ * updated last owns the icon, and the other one silently loses it. A distinct
+ * description gives each edition its own shortcut. The main process looks the
+ * `.lnk` up by name, so the value travels to it as `__WINDOWS_SHORTCUT_NAME__`.
+ */
+export function getWindowsShortcutName() {
+  return `${productName} L10n`
+}
+
+/**
+ * The name of the command line entry point written into `<install>\bin`.
+ * Upstream writes `github.bat`/`github` into its own `bin` as well, and each
+ * edition appends that directory to `PATH`, so with one shared name `github`
+ * resolves to whichever directory `PATH` lists first - measured 2026-10-08 on a
+ * machine with both installs, where `GitHubDesktop\bin` sits at position 22 and
+ * `GitHubDesktopL10n\bin` at 30, so the stock app answered `github` while the
+ * fork was the edition in use. A distinct name keeps both callable.
+ */
+export function getWindowsCliCommandName() {
+  return 'github-l10n'
 }
 
 export function getBundleSizes() {
@@ -165,14 +193,30 @@ const centralUpdatesHost = 'central.github.com'
  * concrete asset.
  */
 export function getUpdatesURL() {
-  if (process.env.DESKTOP_UPDATES_URL !== undefined) {
-    return process.env.DESKTOP_UPDATES_URL
+  const updatesUrl =
+    process.env.DESKTOP_UPDATES_URL ??
+    `https://github.com/bahooo22/github_desktop/releases/download/${
+      getDistArchitecture() === 'arm64' ? 'latest-win-arm64' : 'latest-win-x64'
+    }/`
+
+  // A publishable build must not subscribe to upstream's feed, whatever the
+  // machine it is built on says. Squirrel.Windows installs exactly the package
+  // its feed's `RELEASES` names, and Central names `GitHubDesktop-*.nupkg` — a
+  // different Squirrel identifier, so the localized app would silently turn
+  // into the stock one on the next update check. Reaching Central is only
+  // possible by overriding `DESKTOP_UPDATES_URL` by hand (the default above is
+  // this fork's own release tag), so failing here puts that mistake in a build
+  // log instead of on a user's machine. Non-publishable channels are exempt: a
+  // development build reads `__UPDATES_URL__` but never ships.
+  if (isPublishable() && isCentralUpdatesFeed(updatesUrl)) {
+    throw new Error(
+      `DESKTOP_UPDATES_URL points at upstream's Central feed (${updatesUrl}). ` +
+        `The auto updater would replace this fork's build with the stock ` +
+        `GitHub Desktop package. Unset it to use this fork's own release tag.`
+    )
   }
 
-  const tag =
-    getDistArchitecture() === 'arm64' ? 'latest-win-arm64' : 'latest-win-x64'
-
-  return `https://github.com/bahooo22/github_desktop/releases/download/${tag}/`
+  return updatesUrl
 }
 
 /**

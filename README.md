@@ -18,15 +18,76 @@ uses [React](https://reactjs.org/).
 
 ## Этот форк
 
-Это форк GitHub Desktop: интерфейс полностью локализован (русский и украинский),
-а релизы идут отдельно от апстрима — в тегах `latest-win-x64`, `latest-win-arm64`
-и `latest-linux-x64` этого репозитория. Windows-сборку выпускает workflow
-`Release Fork` (прогон по требованию; на runner'е он ещё не выполнялся),
-Linux-portable собирается одной командой в контейнере стенда.
+Форк GitHub Desktop с полностью локализованным интерфейсом: русский и
+украинский языки (`app/locales/ru.json`, `app/locales/uk.json`) и редактор
+переводов, встроенный в само приложение. Остальное — апстрим: номер версии в
+`app/package.json` совпадает с апстримным (сейчас `3.6.7-beta3`), а после мержа
+апстрима 08.10.2026 тулчейн форка — TypeScript 6.0.3, webpack 5.111,
+Electron 44.1.1 на Node 24.19 (`.node-version`).
 
-Как получить, как собрать самому и чем этот выпуск отличается от апстрима (свой
-Squirrel-идентификатор, неподписанный инсталлер, почему Windows нельзя собрать из
-Linux) — в [docs/fork-releases.md](docs/fork-releases.md).
+### Что здесь своё
+
+| Область | Отличие от апстрима |
+| --- | --- |
+| Строки интерфейса | Тексты вынесены в `app/locales/en.json`, из него строятся ru и uk; покрытие меряют `yarn l10n:parity`, `l10n:audit`, `l10n:upstream`, `l10n:menu` |
+| Настройки → Язык | Выбор языка интерфейса, редактор переводов с сохранением в свой каталог и режим «выбрать строку кликом» |
+| Идентификатор Squirrel | `GitHubDesktopL10n` вместо `GitHubDesktop`: отдельный каталог в `%LOCALAPPDATA%` и свой фид, поэтому форк и стоковая сборка не перезаписывают друг друга. Имя ярлыка разводится отдельно (`getWindowsShortcutName()`, `script/dist-info.ts`): Squirrel называет `.lnk` по `FileDescription` exe, и с апстримным значением обе редакции писали бы один `GitHub Desktop.lnk`. CLI ставится как `github-l10n`: каталоги `bin` у редакций разные, а имя команды было общее, так что `github` разыгрывался порядком `PATH` |
+| Релизы | Четыре workflow: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`, каждый прогон трогает только свой тег; `Release Fork (Windows all arches)` и `Release Fork (All platforms)` вызывают те же файлы матрицей, чтобы все фиды стартовали одной кнопкой. Дешёвая джоба `gate` перед сборкой пропускает уже опубликованный коммит (пишет ссылку на готовый релиз) и не даёт публиковать версию, которая в `RELEASES` уже лежит |
+| Обновления | Squirrel берёт пакеты только из фида форка: адрес вшит в сборку (`getUpdatesURL()`, `script/dist-info.ts:167`), а публикабельную сборку с апстримным фидом сборочный скрипт отвергает |
+| Свежесть сборки | Отдельная проверка по хешу коммита: каждый релиз называет, из чего собран, приложение сравнивает хеш со своим `__SHA__` и показывает баннер со ссылкой на релиз |
+| Отзыв о переводе | Номер сборки в диалоге «О программе» ведёт в заранее заполненную issue этого репозитория |
+
+### Где взять
+
+- **Windows x64:**
+  [latest-win-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-win-x64) —
+  ставить `GitHubDesktopL10nSetup-x64.exe`, а не `.msi`: второй лишь доставляет
+  установщик на машину. Есть и portable-архив `…-portable.zip`.
+- **Linux x64:**
+  [latest-linux-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-linux-x64) —
+  `desktop-linux-x64-portable.tar.gz`: распаковать и запустить `desktop`.
+- **Windows arm64:** тега `latest-win-arm64` пока нет — его создаст первый
+  прогон workflow с `arch=arm64`.
+- **macOS:** сборок нет; `getUpdatesURL()` по умолчанию возвращает win-ный тег,
+  поэтому на macOS фид надо задавать явно.
+
+Самообновление работает только на Windows (Squirrel.Windows): там приложение
+само ходит в свой тег. Linux-portable пересобирается и перескачивается вручную,
+а о том, что вышли новые сборки, он узнаёт по хешу релиза и говорит это
+баннером.
+
+Панель «Примечания к выпуску» показывает и апстримные релизы, и изменения
+форка: свои записи лежат в `changelog-fork.json` (апстримный `changelog.json`
+не трогается), а их тексты — ключи каталога, которые переводятся вместе с
+интерфейсом. Подробности — в [`docs/fork-releases.md`](docs/fork-releases.md).
+
+### Как собрать
+
+| Задача | Команда |
+| --- | --- |
+| Поднять контейнер стенда | `bash tools/i18n-lab/lab.sh up` |
+| Dev-сборка | `bash tools/i18n-lab/lab.sh exec "yarn build:dev"` |
+| Linux portable | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"` |
+| Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; пока тег пуст, добавлять `-f first_run=true` |
+| Windows, обе архитектуры | `gh workflow run release-fork-windows-all.yml` |
+| Все три фида | `gh workflow run release-fork-all.yml` — win x64 + win arm64 + linux параллельно |
+| Linux portable в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`, входов нет |
+| Проверить раскатанные бандлы | `yarn l10n:bundles` |
+
+Подробности — в [docs/fork-releases.md](docs/fork-releases.md): почему из Linux
+не получается рабочая Windows-сборка, зачем один тег на архитектуру, что делает
+каждый шаг релизного workflow, как приложение читает хеш сборки и чем
+отличаются `.exe` от `.msi`. Про встроенные реквизиты тестового
+OAuth-приложения —
+[docs/fork-oauth-client.md](docs/fork-oauth-client.md). Общая настройка сборки
+для разработки — апстримная [`setup.md`](./docs/contributing/setup.md).
+
+### Чего в форке сознательно нет
+
+- Подписи Windows-инсталлера: секреты Azure ACS не передаются, поэтому
+  SmartScreen покажет предупреждение при первом запуске.
+- Настоящих пакетов для Linux (`.deb`/`.rpm`/`.AppImage`) — только portable.
+- macOS-сборок и, соответственно, обновлений на macOS.
 
 ## Where can I get it?
 
@@ -49,7 +110,8 @@ beta channel to get access to early builds of Desktop:
  - [Windows](https://central.github.com/deployments/desktop/desktop/latest/win32?env=beta)
  - [Windows (ARM64)](https://central.github.com/deployments/desktop/desktop/latest/win32-arm64?env=beta)
 
-The release notes for the latest beta versions are available [here](https://desktop.github.com/release-notes/?env=beta).
+The release notes for the latest beta versions are at
+[desktop.github.com/release-notes](https://desktop.github.com/release-notes/?env=beta).
 
 ### Past Releases
 You can find past releases at https://desktop.githubusercontent.com. After installation of a past version, the auto update functionality will attempt to download the latest version. 

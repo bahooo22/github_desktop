@@ -1,0 +1,151 @@
+name: Release Fork (Linux)
+
+on:
+  workflow_dispatch:
+  # Вызов из .github/workflows/release-fork-all.yml. Входов нет: у платформы
+  # один тег фида и одна архитектура, поэтому обёртке нечего сюда передавать.
+  workflow_call:
+
+env:
+  NODE_VERSION: '24'
+  RELEASE_CHANNEL: production
+  # Фид этой платформы — один тег latest-linux-x64: portable-сборка не
+  # различается архитектурами в смысле фида (Squirrel на Linux нет), и второй
+  # тег только удвоил бы прогон без пользы для клиента.
+
+# См. concurrency в .github/workflows/release-fork-windows.yml: два прогона
+# перезаписывают один и тот же ассет tar.gz. Платформа одна, поэтому группа без
+# суффикса.
+concurrency:
+  group: release-fork-linux
+  cancel-in-progress: false
+
+jobs:
+  # Дешёвый пропуск уже опубликованного коммита: у linux-сборки нет механизма
+  # обновлений вообще, поэтому здесь проверяется только совпадение sha из notes
+  # тега. Проверку версии по RELEASES gate делает лишь для windows.
+  gate:
+    name: Check whether a release is needed
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          submodules: false
+
+      - uses: ./.github/actions/release-gate
+        id: gate
+        with:
+          tag: latest-linux-x64
+          platform: linux
+
+  linux:
+    name: Linux x64 portable
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    timeout-minutes: 60
+    # Squirrel-инсталлер для linux не делается: script/package.ts завершает
+    # процесс на не-win32. Здесь портативный tar.gz, собранный тем же скриптом,
+    # что и локально в контейнере.
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      # Тот же обход, что в job windows: контекст runner в jobs.<id>.env
+      # недоступен, и GitHub отвергает файл на компиляции (прогон #1 от
+      # 09.10.2026), поэтому кешевые директории пишет в GITHUB_ENV отдельный
+      # шаг. Смысл значений — в комментарии там же.
+      - name: Point the download caches at the runner temp
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/caches"
+          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP/caches/yarn" >> "$GITHUB_ENV"
+          echo "electron_config_cache=$RUNNER_TEMP/caches/electron" >> "$GITHUB_ENV"
+
+      # Кеш по тем же причинам, что в windows-прогоне
+      # (.github/workflows/release-fork-windows.yml): `cache: yarn` у setup-node
+      # смотрит только на корневой yarn.lock, а тяжелое лежит в app/yarn.lock.
+      # Суффикса архитектуры здесь нет: у linux один фид и одна архитектура.
+      - name: Restore download caches
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/caches
+          key:
+            ${{ runner.os }}-deps-${{ hashFiles('yarn.lock', 'app/yarn.lock',
+            'vendor/**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-deps-
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: yarn install --frozen-lockfile
+        # Гасим ровно DEP0169 и DEP0040 вендоренного yarn, чтобы ExperimentalWarning
+        # и остальные DeprecationWarning остались видны. Источник предупреждений,
+        # почему запись через запятую не работает и где снят замер — комментарий к
+        # шагу установки в .github/workflows/release-fork-windows.yml.
+        env:
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+
+      - name: Build production app
+        # DESKTOP_SKIP_PACKAGE=1 — штатный флаг script/build.ts:73: на linux
+        # packaging всё равно не делает ничего полезнее ручной раскладки рантайма.
+        env:
+          DESKTOP_SKIP_PACKAGE: '1'
+          # copyDependencies (script/build.ts:87 → :351) зовёт `yarn install` уже
+          # в out/, поэтому флаг нужен и здесь.
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+        run: yarn build:prod
+
+      - name: Assemble portable bundle
+        run:
+          bash gdlab/assemble-linux-bundle.sh "$GITHUB_WORKSPACE"
+          "$GITHUB_WORKSPACE/node_modules/electron/dist"
+
+      - name: Create tarball
+        run:
+          tar czf dist/desktop-linux-x64-portable.tar.gz -C dist
+          desktop-linux-x64
+
+      - name: Write build info and release notes
+        # Тот же ассет и те же notes, что в Windows-прогоне
+        # (.github/workflows/release-fork-windows.yml): у портативной linux-сборки
+        # нет вообще никакого механизма обновлений, поэтому хеш релиза —
+        # единственный способ сказать пользователю «то, что ты скачал, уже не
+        # последнее».
+        shell: bash
+        env:
+          BUILD_INFO_ARCH: x64
+        run: |
+          yarn release-build-info
+          test -s dist/build-info.json
+          grep -q 'fork-build-info' dist/release-notes.md
+
+      - name: Publish to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if gh release view latest-linux-x64 >/dev/null 2>&1; then
+            echo "Release latest-linux-x64 уже существует — обновляю ассеты"
+          else
+            gh release create latest-linux-x64 \
+              --title "Latest Linux x64" \
+              --notes-file dist/release-notes.md
+          fi
+          gh release upload latest-linux-x64 \
+            dist/desktop-linux-x64-portable.tar.gz \
+            dist/build-info.json \
+            --clobber
+          # Блок хеша в notes — то же, что в Windows-прогоне: portable-сборка не
+          # обновляется сама, и «вышли новые сборки» ей сказать больше нечем.
+          gh release edit latest-linux-x64 --notes-file dist/release-notes.md

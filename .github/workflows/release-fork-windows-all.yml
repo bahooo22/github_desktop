@@ -1,0 +1,49 @@
+name: Release Fork (Windows all arches)
+
+# Одна кнопка для обоих Windows-фидов: x64 и arm64 собираются параллельно,
+# каждый своим прогоном .github/workflows/release-fork-windows.yml. Тот же
+# workflow в одиночку запускается, когда нужна только одна архитектура.
+
+on:
+  workflow_dispatch:
+    inputs:
+      first_run:
+        description: >-
+          Применяется к обеим архитектурам сразу: true отключает дельту и
+          обращение к удалённому RELEASES (DESKTOP_SKIP_DELTA=1). Ставить true
+          только пока тега latest-win-<arch> ещё нет хотя бы по одной архе —
+          gate прогона иначе не пропустит чужой заполненный фид.
+        required: false
+        default: false
+        type: boolean
+
+# Два прогона этой обёртки не должны пересекаться: они пишут те же теги, что и
+# одиночные запуски release-fork-windows.yml. Группа здесь своя, потому что
+# concurrency относится к прогону, а вызываемый workflow — часть этого прогона,
+# а не отдельный.
+concurrency:
+  group: release-fork-windows-all
+  cancel-in-progress: false
+
+# Вызываемый workflow не может расширить права прогона, поэтому write задаётся
+# здесь: иначе `permissions: contents: write` внутри release-fork-windows.yml
+# получил бы меньше, чем требует публикация релиза.
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    strategy:
+      # Падение arm64 не должно отменять уже начатый x64-прогон: фиды
+      # независимы, и половина работы здесь стоит дороже целой.
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+    name: Windows ${{ matrix.arch }}
+    uses: ./.github/workflows/release-fork-windows.yml
+    with:
+      arch: ${{ matrix.arch }}
+      # Форма `== true` даёт boolean в обоих случаях: при ручном запуске
+      # несогласованный необязательный вход приходит как false, а не как
+      # пустая строка, а вызываемый workflow объявил first_run типом boolean.
+      first_run: ${{ inputs.first_run == true }}

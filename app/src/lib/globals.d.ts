@@ -68,6 +68,24 @@ declare const __FORK_FEED_URL__: string
  */
 declare const __WINDOWS_IDENTIFIER_NAME__: string
 
+/**
+ * The `FileDescription` this build's executable is packaged with, which is the
+ * label Squirrel gives the Start Menu / Desktop shortcut (Windows). Code that
+ * looks the `.lnk` up by name has to use this rather than the stock
+ * 'GitHub Desktop': both editions would otherwise read and rewrite the same
+ * shortcut. See `getWindowsShortcutName` in script/dist-info.ts.
+ */
+declare const __WINDOWS_SHORTCUT_NAME__: string
+
+/**
+ * The command line entry point this fork installs into its `bin` directory
+ * (Windows). Upstream installs the same `github` name into its own `bin`, and
+ * both directories go on `PATH`, so sharing the name would make `github`
+ * resolve by `PATH` order rather than by which edition the user runs. See
+ * `getWindowsCliCommandName` in script/dist-info.ts.
+ */
+declare const __WINDOWS_CLI_COMMAND_NAME__: string
+
 /** The URL for fatal exception reports. */
 declare const __ERROR_REPORTING_ENDPOINT__: string | undefined
 
@@ -164,7 +182,7 @@ declare namespace NodeJS {
       error: Error,
       context?: { [key: string]: string }
     ): this
-    removeListener(event: 'exit', listener: Function): this
+    removeListener(event: 'exit', listener: (code: number) => void): this
   }
 }
 

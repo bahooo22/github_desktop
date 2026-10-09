@@ -3,7 +3,9 @@ import {
   getForkFeedURL,
   getUpdatesURL,
   getChannel,
+  getWindowsCliCommandName,
   getWindowsIdentifierName,
+  getWindowsShortcutName,
 } from '../script/dist-info'
 import { version, productName } from './package.json'
 
@@ -52,6 +54,8 @@ export function getReplacements() {
     __DEV_SECRETS__: isDevBuild || !process.env.DESKTOP_OAUTH_CLIENT_SECRET,
     __RELEASE_CHANNEL__: s(channel),
     __WINDOWS_IDENTIFIER_NAME__: s(getWindowsIdentifierName()),
+    __WINDOWS_SHORTCUT_NAME__: s(getWindowsShortcutName()),
+    __WINDOWS_CLI_COMMAND_NAME__: s(getWindowsCliCommandName()),
     __UPDATES_URL__: s(process.env.DESKTOP_E2E_UPDATES_URL ?? getUpdatesURL()),
     __FORK_FEED_URL__: s(getForkFeedURL()),
     __ERROR_REPORTING_ENDPOINT__: optionalStringReplacement(

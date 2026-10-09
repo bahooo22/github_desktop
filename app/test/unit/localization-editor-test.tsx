@@ -37,15 +37,42 @@ localization.registerFromJson(
   'builtin'
 )
 
-// The hint under the cursor and the example line come from the language the
-// interface is actually read in, so the fixture needs a Russian side too; the
-// shipped ru catalog has never seen the key above.
+// The example comes from the language being edited, and from the language on
+// screen while the target has no row yet, so the fixture needs a Russian side
+// too; the shipped ru catalog has never seen the keys above.
 localization.registerFromJson(
   'ru',
   {
     zztest: {
       plural: { _one: '{count} виджет', _other: '{count} виджетов' },
       plain: 'Обычная строка ламы',
+    },
+  },
+  'builtin'
+)
+
+// Two `Trans` rows, present in both catalogs: markup is the one thing the two
+// previews of the example disagree about, because only one of them can be
+// copied out of the window.
+localization.registerFromJson(
+  'en',
+  {
+    zzmarkup: {
+      link: 'Check out the <link>beta channel</link>',
+      time: 'Committed <time/>',
+      checked: 'last checked <time /> ago',
+    },
+  },
+  'builtin'
+)
+
+localization.registerFromJson(
+  'ru',
+  {
+    zzmarkup: {
+      link: 'Ознакомьтесь с <link>бета-каналом</link>',
+      time: 'Отправлено <time/>',
+      checked: 'проверено <time /> назад',
     },
   },
   'builtin'
@@ -115,6 +142,14 @@ function searchFor(needle: string) {
 
 function typeInto(input: HTMLInputElement, value: string) {
   fireEvent.change(input, { target: { value } })
+}
+
+// The banner has to be checked as a boolean: an `assert.equal(node, null)`
+// failing inside `waitFor` makes Node format the node for the message, and
+// following the React fiber hanging off it takes minutes per attempt.
+function assertNotUnsaved() {
+  const banner = screen.queryByText(t('localizationEditor.unsaved'))
+  assert.ok(banner === null, 'The unsaved banner is still visible')
 }
 
 function saveCalls() {
@@ -207,15 +242,16 @@ describe('localization editor', () => {
     ])
   })
 
-  it('hints in the language on screen when translating into another one', () => {
+  it('falls back to the language on screen while the target has no form yet', () => {
     localization.setRequestedLocale('ru')
 
     render(<LocalizationEditor onDismissed={() => {}} />)
     selectTarget('uk')
     searchFor('zztest.plain')
 
-    // The ghost text speaks Russian (the language being read) while the line
-    // above stays the English source the `{count}`s and `&`s come from.
+    // Ukrainian has no `zztest` row to offer, so the hint is Russian (the
+    // language being read) while the line above stays the English source the
+    // `{count}`s and `&`s come from.
     assert.deepEqual(placeholders(), ['Обычная строка ламы'])
     assert.deepEqual(exampleVariants(), ['Обычная строка ламы'])
     assert.deepEqual(referenceTemplates(), ['Plain llama string'])
@@ -226,22 +262,25 @@ describe('localization editor', () => {
     )
   })
 
-  it('keeps the original as the hint when translating the language on screen', () => {
+  it('shows the target language its own wording when that language is edited', () => {
     localization.setRequestedLocale('ru')
 
     render(<LocalizationEditor onDismissed={() => {}} />)
     selectTarget('ru')
     searchFor('zztest.plain')
 
-    // The row would otherwise repeat itself and push the source off it: the
-    // language being edited is the one the example would be taken from.
-    assert.deepEqual(placeholders(), ['Plain llama string'])
-    assert.deepEqual(exampleVariants(), [undefined])
+    // The case the interface language used to answer for: editing Russian
+    // shows the Russian form of the row, not its English original, and the
+    // original keeps its place on the reference line above.
+    assert.deepEqual(placeholders(), ['Обычная строка ламы'])
+    assert.deepEqual(exampleVariants(), ['Обычная строка ламы'])
+    assert.deepEqual(referenceTemplates(), ['Plain llama string'])
   })
 
-  it('falls back to the original for a plural form the interface lacks', () => {
-    // A two form language asked to help with a four form one: `de` can supply
-    // `_other` and nothing else, so only that row gets an example.
+  it('offers the target forms it has and the original for the forms it lacks', () => {
+    // Russian answers for `_one` and `_other`; the two plural forms it has no
+    // equivalent for fall through to the language on screen, and `de` carries
+    // only `_other` there, so those rows are left with the English original.
     localization.registerFromJson(
       'de',
       { zztest: { plural: { _other: '{count} Widgets' } } },
@@ -255,16 +294,16 @@ describe('localization editor', () => {
 
     assert.deepEqual(qualifierLabels(), ['_one', '_few', '_many', '_other'])
     assert.deepEqual(placeholders(), [
-      '{count} widget',
+      '{count} виджет',
       '{count} widgets',
       '{count} widgets',
-      '{count} Widgets',
+      '{count} виджетов',
     ])
     assert.deepEqual(exampleVariants(), [
+      '{count} виджет',
       undefined,
       undefined,
-      undefined,
-      '{count} Widgets',
+      '{count} виджетов',
     ])
   })
 
@@ -275,8 +314,8 @@ describe('localization editor', () => {
     selectTarget('uk')
     searchFor('zztest')
 
-    // Both fixture keys at once: an English interface has no other wording to
-    // offer for any of the rows, plural forms included.
+    // Both fixture keys at once: an English interface is the original itself,
+    // and a target catalog with no row of its own has nothing to add either.
     assert.equal(variantInputs().length, 5)
     assert.deepEqual(placeholders(), referenceTemplates())
     assert.deepEqual(exampleVariants(), [
@@ -285,6 +324,34 @@ describe('localization editor', () => {
       undefined,
       undefined,
       undefined,
+    ])
+  })
+
+  it('keeps markup out of the ghost text and inside the copyable example', () => {
+    localization.setRequestedLocale('en')
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+    selectTarget('ru')
+    searchFor('zzmarkup')
+
+    // The example line is the row a translator copies, so it stays paste-ready
+    // with the `<link>` wrapper. The placeholder only reads out the sentence,
+    // and the `<time/>` it stands for is an element, not text, so it goes
+    // along with the space before it.
+    assert.deepEqual(referenceTemplates(), [
+      'last checked <time /> ago',
+      'Check out the <link>beta channel</link>',
+      'Committed <time/>',
+    ])
+    assert.deepEqual(exampleVariants(), [
+      'проверено <time /> назад',
+      'Ознакомьтесь с <link>бета-каналом</link>',
+      'Отправлено <time/>',
+    ])
+    assert.deepEqual(placeholders(), [
+      'проверено назад',
+      'Ознакомьтесь с бета-каналом',
+      'Отправлено',
     ])
   })
 
@@ -370,9 +437,7 @@ describe('localization editor', () => {
       })
     )
 
-    await waitFor(() =>
-      assert.equal(screen.queryByText(t('localizationEditor.unsaved')), null)
-    )
+    await waitFor(() => assertNotUnsaved())
 
     selectTarget('uk')
     assert.equal(targetSelect().value, 'uk')
@@ -406,9 +471,7 @@ describe('localization editor', () => {
 
     // The reopened dialog really can write: the flag it acted on came from the
     // store, not from anything this instance remembered.
-    await waitFor(() =>
-      assert.equal(screen.queryByText(t('localizationEditor.unsaved')), null)
-    )
+    await waitFor(() => assertNotUnsaved())
   })
 
   it('finds keys by the wording of the translation itself', () => {
@@ -458,9 +521,7 @@ describe('localization editor', () => {
     const tree = contents as Record<string, Record<string, string>>
     assert.equal(tree.zztest.plain, 'Hallo')
 
-    await waitFor(() =>
-      assert.ok(screen.queryByText(t('localizationEditor.unsaved')) === null)
-    )
+    await waitFor(() => assertNotUnsaved())
   })
 
   it('surfaces catalog problems and unknown keys', () => {

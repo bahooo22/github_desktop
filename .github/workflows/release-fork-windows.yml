@@ -1,0 +1,494 @@
+name: Release Fork (Windows)
+
+# Джоба linux из этого файла вынесена в .github/workflows/release-fork-linux.yml:
+# раньше один workflow собирал обе платформы сразу, и прогон любой Windows-
+# архитектуры перезаписывал ещё и тег latest-linux-x64, хотя он не зависит от
+# входа arch.
+
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: 'Architecture for the Windows release'
+        required: true
+        default: 'x64'
+        type: choice
+        options:
+          - x64
+          - arm64
+      first_run:
+        description: >-
+          Первый релиз в свой фид: в теге ещё нет RELEASES, поэтому дельта и
+          обращение к удалённому RELEASES отключаются (DESKTOP_SKIP_DELTA=1).
+          Ставить true только пока тег пуст; канал сборки остаётся production.
+        required: false
+        default: false
+        type: boolean
+  # Тот же набор входов нужен вызову из обёрток
+  # .github/workflows/release-fork-windows-all.yml и release-fork-all.yml:
+  # без workflow_call их `uses:` просто не запустился бы.
+  workflow_call:
+    inputs:
+      arch:
+        description: 'Какой Windows-фид пересобирать: x64 или arm64.'
+        required: true
+        type: string
+      first_run:
+        description: >-
+          Тот же смысл, что у входа first_run ручного прогона: true отключает
+          дельту и обращение к удалённому RELEASES.
+        required: false
+        type: boolean
+        default: false
+
+env:
+  NODE_VERSION: '24'
+  RELEASE_CHANNEL: production
+  # Фид обновлений форка: один тег на архитектуру, потому что в одном релизе
+  # не может быть двух RELEASES-файлов Squirrel.Windows.
+  #
+  # Два входа собраны в переменные, чтобы тело прогона читало $ARCH и
+  # $FIRST_RUN вместо одного и того же выражения в пятнадцатом месте.
+  #
+  # Форма `inputs.arch || github.event.inputs.arch` покрывает оба способа
+  # запуска: контекст inputs заполнен только при вызове из другого workflow,
+  # github.event.inputs — только при workflow_dispatch, а обращение к
+  # отсутствующему свойству GitHub отдаёт пустую строку, а не ошибку.
+  ARCH: ${{ inputs.arch || github.event.inputs.arch }}
+  # С first_run так просто нельзя: при dispatch это строка ('true'/'false'),
+  # при вызове — boolean, и полагаться на приведение типа в сравнении с 'true'
+  # мы не стали. Условие положительное: 'true' только когда значение истинно
+  # хотя бы в одном из двух представлений, иначе 'false'.
+  FIRST_RUN:
+    ${{ (inputs.first_run == true || github.event.inputs.first_run == 'true') &&
+    'true' || 'false' }}
+
+# Два прогона одной архитектуры писали бы один тег фида одновременно: второй
+# перезаписал бы ассеты в момент, когда клиенты уже докачивают их по ссылке из
+# RELEASES. Группа — по архитектуре, чтобы x64 и arm64 не блокировали друг
+# друга. cancel-in-progress выключен намеренно: обрывать начатую публикацию
+# фида хуже, чем дождаться её.
+#
+# В group нельзя сослаться на env (контекст env в concurrency недоступен),
+# поэтому выражение повторяется здесь и в name джобы.
+concurrency:
+  group: release-fork-windows-${{ inputs.arch || github.event.inputs.arch }}
+  cancel-in-progress: false
+
+jobs:
+  # Дешёвая проверка до сборки: ubuntu-latest, один короткий checkout и пара
+  # запросов к API релизов. Она решает две задачи.
+  #
+  # Первая — не собирать то, что уже опубликовано: если в notes целевого тега
+  # лежит sha текущего коммита, прогон ничего не изменил бы, и он завершается
+  # здесь с ссылкой на готовый релиз.
+  #
+  # Вторая — проверка версии из RELEASES. Она всегда была условием «не публикуй
+  # то, что клиенты не увидят», но стояла после `Build production app`, то есть
+  # роняла прогон спустя девять минут сборки; шаг Guard the feed передвинули
+  # сюда, и его текст переехал в .github/actions/release-gate/action.yml.
+  gate:
+    name: Check whether a release is needed
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      # Тело релиза читается через gh, а из дерева нужен только app/package.json
+      # с версией — отсюда fetch-depth и выключенные подмодули.
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          submodules: false
+
+      - uses: ./.github/actions/release-gate
+        id: gate
+        with:
+          tag: latest-win-${{ env.ARCH }}
+          platform: windows
+          first-run: ${{ env.FIRST_RUN }}
+
+  windows:
+    name: Windows ${{ inputs.arch || github.event.inputs.arch }}
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: windows-2022
+    permissions:
+      contents: write
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      # Директории кешей задаёт этот шаг, а не `env` джобы, и это не стиль:
+      # контекст runner в jobs.<id>.env недоступен, и GitHub отвергает весь
+      # файл ещё на компиляции — «Invalid workflow file: Unrecognized
+      # named-value: 'runner'» (аннотация прогона #1 от 09.10.2026), джоба при
+      # этом не стартует вообще. GITHUB_ENV живёт до конца прогона и действует
+      # на все последующие шаги.
+      #
+      # Смысл значений прежний: вендорённый yarn 1.21.1 без YARN_CACHE_FOLDER
+      # отдаёт `yarn cache dir` = /usr/local/share/.cache/yarn/v6 (замер
+      # 09.10.2026 в gdlab), то есть кеш по угаданному пути молча сохранял бы
+      # пустую папку, а node_modules/electron/install.js:44 читает
+      # electron_config_cache прямо в cacheRoot.
+      #
+      # Разделители — обратные слэши: RUNNER_TEMP на windows-раннере сам по
+      # себе вида D:\a\_temp, и смешивать их в значении, которое уйдёт в yarn и
+      # @electron/get, не стали. mkdir при этом ходит через bash, а он прямые
+      # слэши понимает; сам шаг явно объявлен bash, потому что без defaults на
+      # windows-раннере дефолтный shell — pwsh.
+      - name: Point the download caches at the runner temp
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/caches"
+          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP\\caches\\yarn" >> "$GITHUB_ENV"
+          echo "electron_config_cache=$RUNNER_TEMP\\caches\\electron" >> "$GITHUB_ENV"
+
+      # `cache: yarn` у setup-node тут заменён явным actions/cache по двум
+      # причинам. Первая: setup-node кеширует только yarn-кеш и только по хешу
+      # КОРНЕВОГО yarn.lock, а тяжёлая часть зависимостей лежит в app/yarn.lock
+      # — промах по корню сбрасывал кеш целиком и докачивал всё заново. Здесь
+      # ключ считается по всем lock-файлам дерева: `git ls-files | grep
+      # yarn.lock` даёт пять (корень, app и три в vendor/*). Список явный, а не
+      # `**/yarn.lock`, потому что матчить ли `**/` файл в корне зависит от
+      # реализации glob в @actions/glob — а недокументированное поведение, от
+      # которого зависит инвалидация кеша, нам не нужно.
+      #
+      # Вторая причина: кешу нужен и electron-архив (~100 МБ за прогон), который
+      # в yarn-кеш не попадает вообще.
+      #
+      # Архитектура в ключевом имени обязательна: arm64-прогон досстанавливает
+      # пакеты, которых в x64-кеше нет (шаг Install target-architecture native
+      # runtimes), а actions/cache пишет в слот только первым прогоном — без
+      # суффикса x64 занял бы слот, и arm64-нативы не кэшировались бы никогда.
+      #
+      # restore-keys остаётся префиксом без хеша: смена одного lock-файла
+      # тогда добирает недостающее, а не качает гигабайт заново.
+      - name: Restore download caches
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/caches
+          key:
+            ${{ runner.os }}-deps-${{ env.ARCH }}-${{ hashFiles('yarn.lock',
+            'app/yarn.lock', 'vendor/**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-deps-${{ env.ARCH }}-
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: yarn install --frozen-lockfile
+        # Флаги компилятора сюда не передаются: printenvz задаёт свои cflags в
+        # vendor/printenvz/binding.gyp, и gyp кладёт их в target-атрибут, который
+        # никакие npm_config_cflags не перекрывают. Конфликт
+        # _FORTIFY_SOURCE решён в самом binding.gyp.
+        #
+        # DeprecationWarning DEP0169 (`url.parse()`) и DEP0040 (`punycode`) в
+        # этом логе — не наши: в script/ и app/src нет ни одного url.parse и ни
+        # одного require('punycode'), а `node --trace-deprecation` указывает на
+        # vendor/yarn-1.21.1.js:38638 (GitResolver.isVersion) — вендоренный yarn
+        # из .yarnrc (`yarn-path`), а не на наш код. url.parse есть и в yarn
+        # 1.22.22 (по 15 вызовов в каждом бандле), поэтому пересъёмка вендоренной
+        # версии предупреждения не сняла бы; punycode же в 1.21.1 отдан webpack'ом
+        # наружу как нативный модуль (`module.exports = require("punycode")`), а
+        # 1.22.22 несёт пользовательский пакет — DEP0040 даёт только вендоренный.
+        #
+        # Гасим ровно эти два кода, чтобы ExperimentalWarning и остальные
+        # DeprecationWarning остались видны. Список кодов передаётся повтором
+        # флага:
+        # `--disable-warning=DEP0169,DEP0040` node принимает, но не применяет
+        # (замер 08.10.2026 в gdlab на node 24.19: с запятой предупреждения
+        # остаются, с двумя флагами — 0 строк при rc=0). Окружение наследуют все
+        # вложенные процессы post-install.ts (yarn --cwd app install,
+        # electron/install.js, compile:script), поэтому достаточно одного шага.
+        env:
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+
+      # Нативные пакеты целевой архитектуры. Yarn 1 выбирает optionalDependencies
+      # по хосту: он смотрит на process.platform/process.arch машины-раннера, а не
+      # на npm_config_arch — то же ограничение и тот же обход, что в апстримном
+      # .github/actions/setup-ci-environment/action.yml:41-53, где так досстанавливают
+      # @github/copilot-sdk-win32-arm64. На windows-2022 (x64) поэтому никогда не
+      # появляется платформенный пакет для arm64, а сборка на него опирается:
+      # app/webpack.common.ts:72 просит script/webpack-koffi.ts собрать целевой
+      # @koromix/koffi-<platform>-<arch> и резолвит его заранее — в файле это
+      # названо прямо: отсутствующая цель должна ронять сборку, а не давать
+      # приложение без SDK. Прогон arch=arm64 09.10.2026 упал ровно здесь:
+      # «Cannot find module '@koromix/koffi-win32-arm64'» с rc=2, ещё до первого
+      # webpack-компилята.
+      #
+      # Версии берутся из optionalDependencies уже установленных родителей
+      # (koffi@3.2.1 → @koromix/koffi-win32-arm64@3.2.1,
+      # @github/copilot-sdk@1.0.13 → …-win32-arm64@1.0.13), поэтому состав
+      # node_modules не уезжает от app/yarn.lock: пакет берётся ровно той версии,
+      # которую lock уже зафиксировал. --ignore-platform отключает фильтрацию по
+      # хосту, --optional не переводит пакет в обязательные зависимости,
+      # --ignore-scripts не даёт нативным пакетам ничего собирать.
+      # Для x64-прогона шаг — no-op: его пакет ставится обычным install.
+      - name: Install target-architecture native runtimes
+        shell: bash
+        env:
+          TARGET_ARCH: ${{ env.ARCH }}
+        run: |
+          add_target_runtime() {
+            parent="$1"
+            prefix="$2"
+            pkg="$prefix-$(node -p 'process.platform')-$TARGET_ARCH"
+            version="$(cd app && node -p "require('./node_modules/$parent/package.json').optionalDependencies['$pkg']")"
+            if [ -z "$version" ] || [ "$version" = "undefined" ]; then
+              echo "::error::В $parent нет optionalDependencies для $pkg: целевая архитектура $TARGET_ARCH этим пакетом не поддерживается"
+              exit 1
+            fi
+            if [ -d "app/node_modules/$pkg" ]; then
+              echo "$pkg@$version уже установлен этим install"
+              return
+            fi
+            echo "Досстанавливаю $pkg@$version (целевая архитектура $TARGET_ARCH)"
+            (cd app && yarn add --optional --ignore-platform --ignore-scripts "$pkg@$version")
+          }
+
+          add_target_runtime "koffi" "@koromix/koffi"
+          add_target_runtime "@github/copilot-sdk" "@github/copilot-sdk"
+
+          # Проверка вместо доверия выводу yarn add. Koffi резолвится ровно тем
+          # вызовом, на котором падает сборка (script/webpack-koffi.ts:12 зовёт
+          # require.resolve из app/node_modules), поэтому шаг подтверждает прохождение
+          # будущего сбоя, а не наличие папки. Пакет SDK проверяется директорией: у
+          # @github/copilot-sdk-<os>-<arch> нет поля main, и require.resolve на нём
+          # падает даже когда пакет на месте — замер 09.10.2026 в gdlab:
+          # @koromix/koffi-linux-x64 резолвится, @github/copilot-sdk-linux-x64 нет, и
+          # если бы проверка была общей, шаг ломал бы даже рабочий x64-прогон.
+          PLATFORM="$(node -p 'process.platform')"
+          if ! node -e "console.log(require.resolve('@koromix/koffi-$PLATFORM-$TARGET_ARCH', { paths: ['./app/node_modules'] }))" >/dev/null; then
+            echo "::error::@koromix/koffi-$PLATFORM-$TARGET_ARCH не резолвится из app/node_modules — build:prod упадёт на нём"
+            exit 1
+          fi
+          if [ ! -d "app/node_modules/@github/copilot-sdk-$PLATFORM-$TARGET_ARCH" ]; then
+            echo "::error::@github/copilot-sdk-$PLATFORM-$TARGET_ARCH отсутствует в app/node_modules"
+            exit 1
+          fi
+          echo "Целевые нативные пакеты для $PLATFORM/$TARGET_ARCH на месте."
+
+      # На windows-раннере build:prod сам упаковывает portable-бандл через
+      # @electron/packager, и нативные модули в нём — под win32. Собрать то же
+      # самое из Linux-контейнера нельзя: в out/ лежат ELF-версии keytar.node,
+      # fs_admin.node, desktop-notifications.node и git/, и renderer падает на
+      # require() них, оставляя пустое белое окно.
+      - name: Build production app
+        run: yarn build:prod
+        env:
+          npm_config_arch: ${{ env.ARCH }}
+          # script/build.ts:203 берёт архитектуру packager'а именно отсюда: без
+          # этого arm64-прогон собрал бы x64-нативы (в ci.yml эти две строки идут
+          # парой).
+          TARGET_ARCH: ${{ env.ARCH }}
+          # copyDependencies (script/build.ts:87 → :351) запускает ещё один
+          # `yarn install` — уже в out/, и он печатает те же DEP0169/DEP0040,
+          # поэтому флаг нужен не только на шаге установки.
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+
+      - name: Package Windows installer
+        # Подпись включается в script/package.ts только при
+        # isGitHubActions() && isPublishable() && isCodeSigningConfigured().
+        # Мы намеренно не передаём AZURE_TENANT_ID / AZURE_CLIENT_ID, поэтому
+        # electron-winstaller выпускает неподписанный инсталлер. Когда появится
+        # свой сертификат — добавить setup-windows-signing по образцу ci.yml.
+        run: yarn package
+        env:
+          npm_config_arch: ${{ env.ARCH }}
+          # Одна строка: YAML-«фолдинг» plain-скаляра склеивает переносы через
+          # пробел, и URL получил бы пробел внутри пути.
+          DESKTOP_UPDATES_URL:
+            https://github.com/${{ github.repository
+            }}/releases/download/latest-win-${{ env.ARCH }}/
+          # Первый прогон: удалённого RELEASES ещё нет, а SyncReleases.exe с
+          # ненулевым кодом выхода роняет весь yarn package
+          # (electron-winstaller lib/index.js:272-274 плюс reject в
+          # lib/spawn-promise.js). Флаг выключает и дельту, и remoteReleases,
+          # оставляя канал production.
+          DESKTOP_SKIP_DELTA: ${{ env.FIRST_RUN == 'true' && '1' || '0' }}
+
+      - name: Guard the shortcut name
+        # Squirrel называет .lnk по FileDescription упакованного exe, и другой
+        # точки, где это видно, нет: из Linux не проверить совсем, а тихо неверное
+        # значение означает, что форк снова пишет «GitHub Desktop.lnk» апстрима и
+        # перезаписывает его ярлык (замерено 08.10.2026 по Squirrel-Shortcut.log
+        # обеих установок на одной машине). Поэтому сравниваем строку в строку уже
+        # готовый exe здесь, до публикации релиза.
+        # Ожидаемое значение собирается из того же app/package.json, из которого
+        # script/dist-info.ts:getWindowsShortcutName берёт productName для
+        # production-сборки, чтобы шаг не разъехался с кодом.
+        #
+        # shell — pwsh, не powershell: Actions пишет `run` в .ps1 в UTF-8 без BOM,
+        # а Windows PowerShell 5.1 читает файл без BOM в ANSI-кодировке раннера
+        # (CP1252). Кириллица и em dash тогда разворачиваются в символы CP1252,
+        # среди которых есть «умные кавычки» U+201C/U+201D (em dash = E2 80 94,
+        # 0x94 — это как раз ”) и неопределённый 0x9D. PowerShell считает U+201D
+        # закрывающей кавычкой, и строка вида `Write-Output "… — …"` роняет парсер
+        # ещё до первого выражения: «The string is missing the terminator» плюс
+        # «Missing closing '}'». Прогон 08.10.2026 упал ровно так. ci.yml:230
+        # уже использует pwsh с русскими комментариями внутри `run` — там зелёный.
+        shell: pwsh
+        run: |
+          $productName = (Get-Content ./app/package.json -Raw | ConvertFrom-Json).productName
+          $expected = "$productName L10n"
+          $exe = "dist/GitHubDesktopL10n-win32-${{ env.ARCH }}/GitHubDesktopL10n.exe"
+          if (-not (Test-Path $exe)) {
+            Write-Output "::error::Нет $exe — проверять нечего"
+            exit 1
+          }
+          $actual = (Get-Item $exe).VersionInfo.FileDescription
+          Write-Output "FileDescription='$actual', ожидалось '$expected'"
+          if ($actual -ne $expected) {
+            Write-Output "::error::FileDescription не '$expected': Squirrel напишет чужой ярлык"
+            exit 1
+          }
+
+      - name: Write build info and release notes
+        # Приложение форка решает «есть ли обновление» по хешу собранного
+        # коммита, а не по версии: Squirrel при равных версиях обновления не
+        # покажет (UpdateInfo.Create отдаёт пустой releasesToApply), а в объекте
+        # релиза хеш сборки не записан. Squirrel читает из тега только RELEASES,
+        # поэтому лишний ассет фиду не вредит.
+        #
+        # Хеш пишется дважды: в ассет — для инструментов, и в notes релиза — для
+        # клиента. Ассет из renderer не прочитать: его байты отдаются только
+        # редиректом на CDN без `Access-Control-Allow-Origin`, а запрос к API с
+        # `Accept: application/vnd.github.raw+json` возвращает метаданные ассета
+        # вместо содержимого (замер против latest-win-x64 08.10.2026). Объект
+        # релиза отвечает с CORS, и notes лежат внутри него — одна замена
+        # `script/build-info.ts` покрывает оба файла, поэтому они не разойдутся.
+        #
+        # Архитектуру передаём явно: node на раннере всегда x64, даже когда
+        # собирается arm64-пакет.
+        shell: bash
+        env:
+          BUILD_INFO_ARCH: ${{ env.ARCH }}
+        run: |
+          yarn release-build-info
+          # Клиент на битый или отсутствующий блок молчит, то есть молчание
+          # стало бы тихой регрессией проверки — убеждаемся, что оба файла на
+          # диске и notes действительно содержат блок.
+          test -s dist/build-info.json
+          grep -q 'fork-build-info' dist/release-notes.md
+
+      - name: Zip portable bundle
+        # Archiver here must be bsdtar, addressed by its full path. Under
+        # `shell: bash` the bare `tar` resolves to Git for Windows' GNU tar
+        # 1.35, and `-a` (--auto-compress) only knows gzip/bzip2/xz/zstd: a
+        # `.zip` suffix is no filter at all, so GNU tar exits 0 having written
+        # an uncompressed **tar** under a .zip name — 650 MB of it, which
+        # Windows refuses to open. GitHub labels the asset `application/zip`
+        # from the extension, so nothing downstream noticed. Compress-Archive
+        # is not a fallback either: it fails on the long paths inside
+        # resources/app.
+        shell: bash
+        run: |
+          # ARCH приходит из env прогона (см. env.ARCH в шапке файла).
+          BUNDLE="GitHubDesktopL10n-win32-$ARCH"
+          ZIP="dist/$BUNDLE-portable.zip"
+          if [ ! -d "dist/$BUNDLE" ]; then
+            echo "::error::Нет portable-бандла dist/$BUNDLE"
+            exit 1
+          fi
+          /c/Windows/System32/tar.exe -a -c -f "$ZIP" -C dist "$BUNDLE"
+          # The archive must really be a zip. A wrong container format is not
+          # visible in the exit code — that is exactly how the tar-named-.zip
+          # reached the release — so check the container's own signatures and
+          # fail the job rather than the user's machine: a zip starts with the
+          # local file header `PK\3\4` and ends with the end-of-central-directory
+          # record `PK\5\6` at a fixed 22 bytes from the end (bsdtar writes no
+          # zip comment). A tar has neither, and ends with zero blocks instead.
+          head -c 2 "$ZIP" | grep -q 'PK' || {
+            echo "::error::$ZIP — нет заголовка PK\\3\\4 в начале: архиватор написал не zip"
+            exit 1
+          }
+          EOCD="$(tail -c 22 "$ZIP" | head -c 4 | od -An -tx1 | tr -d ' \n')"
+          if [ "$EOCD" != "504b0506" ]; then
+            echo "::error::$ZIP — нет end-of-central-directory (последние блоки: $EOCD, ожидался 504b0506): это не zip"
+            exit 1
+          fi
+          # A valid zip container says nothing about its content: an empty
+          # central directory passes both signatures above, and packager could
+          # have produced a bundle without the executable in it. So read the
+          # archive itself. Measured on this archiver: bsdtar writes CRLF line
+          # endings into its listing even under Git bash, and it may separate
+          # path components with backslashes — both have to be normalized before
+          # any line-anchored match, otherwise a perfectly good archive fails.
+          LISTING="$(/c/Windows/System32/tar.exe -t -f "$ZIP" | tr -d '\r' | tr '\\' '/')"
+          ENTRIES="$(printf '%s\n' "$LISTING" | grep -c .)"
+          EXE="GitHubDesktopL10n.exe"
+          for required in "$BUNDLE/$EXE" "$BUNDLE/resources/app/index.html" \
+            "$BUNDLE/resources/app/renderer.js" \
+            "$BUNDLE/resources/app/keytar.node"; do
+            # No `printf | grep -q` here: grep -q closes the pipe early, printf
+            # dies of SIGPIPE and under Actions' default `set -o pipefail` the
+            # pipeline reports 141, which would fail the step on a good archive.
+            # The variable is matched directly instead.
+            case $'\n'"$LISTING"$'\n' in
+              *$'\n'"$required"$'\n'*) ;;
+              *)
+                echo "::error::$ZIP — в архиве нет $required (записей: $ENTRIES)"
+                exit 1
+                ;;
+            esac
+          done
+          # A win32 bundle is ~1000 files; anything far below that means the
+          # glob caught a partial or empty dist directory.
+          if [ "$ENTRIES" -lt 500 ]; then
+            echo "::error::$ZIP — всего $ENTRIES записей: бандл упакован неполностью"
+            exit 1
+          fi
+          echo "Portable-архив: zip, $(stat -c %s "$ZIP") байт, $ENTRIES записей."
+
+      - name: Publish to GitHub Release
+        # Фид обновлений = ассеты тега latest-win-<arch>: gh создаёт тег и релиз
+        # при первом запуске, последующие прогоны перезаписывают ассеты.
+        #
+        # Два вызов upload, а не один: RELEASES поднимаем последним, чтобы окно
+        # «клиент уже видит новую RELEASES, а её пакет ещё не долит» совпадало
+        # только с самим фактом долития. Пакеты прежних версий не удаляем
+        # (--clobber заменяет одноимённые), поэтому ссылка из старого RELEASES
+        # остаётся живой до конца докачки.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          shopt -s nullglob
+          # Тег и архитектура — из env прогона, шаг больше не различает ручной
+          # запуск и вызов из обёртки.
+          TAG="latest-win-$ARCH"
+          FULL=(dist/GitHubDesktopL10n-*-full.nupkg)
+          if [ ${#FULL[@]} -ne 1 ]; then
+            echo "::error::Ожидался ровно один full-пакет, найдено ${#FULL[@]}"
+            exit 1
+          fi
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG уже существует — обновляю ассеты"
+          else
+            gh release create "$TAG" \
+              --title "Latest Windows $ARCH" \
+              --notes-file dist/release-notes.md
+          fi
+          # Дельта под glob'ом может отсутствовать: первый прогон в свой фид
+          # идёт с DESKTOP_SKIP_DELTA=1, и пустой glob не должен ронять
+          # публикацию остальных ассетов.
+          gh release upload "$TAG" \
+            "dist/GitHubDesktopL10nSetup-$ARCH.exe" \
+            "dist/GitHubDesktopL10nSetup-$ARCH.msi" \
+            "${FULL[@]}" \
+            dist/GitHubDesktopL10n-*-delta.nupkg \
+            "dist/GitHubDesktopL10n-win32-$ARCH-portable.zip" \
+            dist/build-info.json \
+            --clobber
+          gh release upload "$TAG" dist/RELEASES --clobber
+          # Notes дописываем последним, после всех ассетов: именно блок в них
+          # включает проверку в клиенте, и пока пакеты не долиты, показывать
+          # релиз рано. Отдельный edit нужен потому, что тег переиспользуется
+          # прогон за прогоном, а gh release create при существующем релизе не
+          # выполняется.
+          gh release edit "$TAG" --notes-file dist/release-notes.md

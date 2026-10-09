@@ -1,0 +1,16 @@
+{
+  "releases": [
+    {
+      "version": "3.6.7-beta3",
+      "pub_date": "2026-10-08T00:00:00Z",
+      "notes": [
+        { "kind": "new", "key": "releaseNotes.fork.interfaceLocalization" },
+        { "kind": "new", "key": "releaseNotes.fork.translationEditor" },
+        { "kind": "new", "key": "releaseNotes.fork.separateInstall" },
+        { "kind": "improved", "key": "releaseNotes.fork.aboutBuildInfo" },
+        { "kind": "fixed", "key": "releaseNotes.fork.languageDetection" },
+        { "kind": "fixed", "key": "releaseNotes.fork.translationProgress" }
+      ]
+    }
+  ]
+}

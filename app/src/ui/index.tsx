@@ -181,7 +181,7 @@ const sendErrorWithContext = (
           supportsSystemThemeChanges()
         }`
       }
-    } catch (err) {
+    } catch {
       /* ignore */
     }
 

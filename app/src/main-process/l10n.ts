@@ -90,7 +90,7 @@ function parsePreferredLocale(contents: string): string | null {
   try {
     const language = JSON.parse(contents)?.language
     return language === null || typeof language === 'string' ? language : null
-  } catch (e) {
+  } catch {
     // No file yet, or a corrupt one: automatic detection is the right answer.
     return null
   }
@@ -112,7 +112,7 @@ export function initializeMainProcessLocalization(): void {
   try {
     // eslint-disable-next-line no-sync
     entries = Fs.readdirSync(directory).sort()
-  } catch (e) {
+  } catch {
     // First run: the folder doesn't exist until someone adds a translation.
   }
 
@@ -122,7 +122,7 @@ export function initializeMainProcessLocalization(): void {
     try {
       // eslint-disable-next-line no-sync
       contents = Fs.readFileSync(path, 'utf8')
-    } catch (e) {
+    } catch {
       continue
     }
 
@@ -137,7 +137,7 @@ export function initializeMainProcessLocalization(): void {
     // eslint-disable-next-line no-sync
     const raw = Fs.readFileSync(getPreferencesPath(), 'utf8')
     preferredLocale = parsePreferredLocale(raw)
-  } catch (e) {
+  } catch {
     // No preference yet, so follow the operating system.
   }
 
@@ -156,7 +156,7 @@ export async function getLocalizationState(): Promise<LocalizationState> {
   let entries = new Array<string>()
   try {
     entries = (await FsAsync.readdir(directory)).sort()
-  } catch (e) {
+  } catch {
     // The folder only exists once someone adds a translation.
   }
 
@@ -166,7 +166,7 @@ export async function getLocalizationState(): Promise<LocalizationState> {
         const path = Path.join(directory, name)
         try {
           return toFile(path, await FsAsync.readFile(path, 'utf8'))
-        } catch (e) {
+        } catch {
           return undefined
         }
       })
@@ -178,7 +178,7 @@ export async function getLocalizationState(): Promise<LocalizationState> {
     preferredLocale = parsePreferredLocale(
       await FsAsync.readFile(getPreferencesPath(), 'utf8')
     )
-  } catch (e) {
+  } catch {
     // No preference yet.
   }
 
@@ -249,7 +249,7 @@ export async function deleteUserLocalization(tag: string): Promise<boolean> {
       Path.join(getLocalizationsDirectory(), fileNameForTag(tag))
     )
     return true
-  } catch (e) {
+  } catch {
     return false
   }
 }

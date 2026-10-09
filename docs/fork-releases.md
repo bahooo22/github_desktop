@@ -30,9 +30,21 @@
 Поведение, специфичное для апстримного `central.github.com` (query
 `?version=&env=`, перезапись пути под arm64), отключено для форк-фида гейтом
 `isCentralFeed()` в рантайме (`app/src/ui/lib/update-store.ts:37`) и
-`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:185`, вызывается из
+`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:236`, вызывается из
 `script/package.ts:113` и `:162` для `remoteReleases` и имён пакетов) — для
 статики GitHub-ассетов оно ломало бы загрузку.
+
+**Обратная сторона: сборка не может подписаться на апстрим.** Squirrel.Windows
+ставит ровно тот пакет, который назван в `RELEASES` его фида, а в апстримном
+`RELEASES` назван `GitHubDesktop-*.nupkg` — другое имя, другой каталог установки.
+То есть установленная локализация, указывающая на central, на первой же
+проверке обновлений перестала бы быть локализацией. Дефолт `getUpdatesURL()`
+(`script/dist-info.ts:167`) — тег этого репозитория, так что central достижим
+только ручным `DESKTOP_UPDATES_URL`; на этом пути `getUpdatesURL()` бросает
+исключение, если канал публикабельный (`production`/`beta`/`test`), — ошибка
+получается в логе сборки, а не на машине пользователя. Непубликуемые каналы
+исключение не затрагивает. Проверка покрыта тестом `script/dist-info-test.ts`
+(`yarn test:script`).
 
 **Следствие смены идентификатора:** Windows-установка живёт в
 `%LOCALAPPDATA%\GitHubDesktopL10n`, отдельно от апстримного
@@ -40,15 +52,58 @@
 не обновляется и не перезаписывается — раздельность и является целью, но
 обновляться придётся дважды, если установлены обе редакции.
 
+**Имя ярлыка — отдельный рычаг.** Каталог установки и `AppUserModelId` разъезжаются
+сами, а `.lnk` Squirrel называет по `FileDescription` исполняемого файла:
+`getWindowsShortcutName()` (`script/dist-info.ts:131`) даёт сборке «GitHub Desktop
+L10n», значение попадает в `win32metadata` (`script/build.ts:264`) и в рантайм как
+`__WINDOWS_SHORTCUT_NAME__` (`app/app-info.ts:56`), по которому main-process и свой
+ярлык находит (`app/src/main-process/squirrel-updater.ts:162`,
+`app/src/lib/find-toast-activator-clsid.ts:10`). Без этого замера обе редакции
+писали один файл: в `Squirrel-Shortcut.log` двух установок на одной машине
+(08.10.2026) обе создают
+`Start Menu\Programs\GitHub, Inc.\GitHub Desktop.lnk`, и какая последней обновилась —
+та чужой иконкой и владеет. Каталог «GitHub, Inc» остаётся общим, в нём просто
+лежат два разных ярлыка. Механизм проверяется только на windows-раннере, поэтому
+прогон `Release Fork (Windows)` сравнивает `FileDescription` собранного exe с ожидаемым
+(шаг `Guard the shortcut name`) и падает до публикации релиза.
+
+**CLI-команда — тот же класс конфликта.** `installWindowsCLI` кладёт трамплин в
+`bin` своего каталога установки (`%LOCALAPPDATA%\GitHubDesktopL10n\bin`) и дописывает
+этот каталог в пользовательский `PATH`. Каталог у редакций разный, а имя файла было
+одно (`github.bat` и `github` для WSL), поэтому `github` в терминале разыгрывается
+порядком `PATH`: замер 08.10.2026 на машине с обеими установками —
+`GitHubDesktop\bin` на позиции 22, `GitHubDesktopL10n\bin` на 30, то есть команда
+запускала стоковую сборку, даже когда пользователь работал в форке. Форк ставит
+`github-l10n` (`getWindowsCliCommandName()`, `script/dist-info.ts:144`), имя приходит
+в рантайм литералом `__WINDOWS_CLI_COMMAND_NAME__` и используется и для записи
+трамплинов (`app/src/main-process/squirrel-updater.ts:140`, `:159`), и в справке CLI
+(`app/src/cli/main.ts:43`). Старые `github.bat`/`github` в нашем `bin` удаляются при
+каждой установке/обновке (`removeLegacyTrampolines`,
+`app/src/main-process/squirrel-updater.ts:86-105`): переименованный трамплин больше
+их не перезаписывает, а висящий файл указывал бы на `app-<старая версия>`, которую
+`cleanDeadVersions` вычищает, — команда вышла бы с непонятной ошибкой. Заметим, что
+до следующей установки/обновки форка прежний `github` в этом каталоге продолжает
+работать и никуда не денется.
+
 ## Где взять собранное
 
-Теги создаёт первый прогон workflow (см. ниже), до него этих тегов в репозитории
-нет:
+Теги создаёт прогон workflow (см. ниже); на 09.10.2026 опубликованы и
+перезаписываются новыми прогонами `latest-win-x64` и `latest-linux-x64` — оба
+собраны из коммита `c8dbb984f7` версией `3.6.7-beta3`. По блоку `fork-build-info`
+в их notes видно, что это один и тот же прогон: Windows закончился в
+2026-10-08T21:29:51Z, Linux — в 21:41:34Z. Именно из-за этой связки джобы
+разделены на два файла (см. «Сборка Windows: только на windows-раннере»). Тега
+`latest-win-arm64` нет: он появится только после прогона `arch=arm64`
+(`gh workflow run release-fork-windows.yml -f arch=arm64 -f first_run=true`, или
+обёрток `release-fork-windows-all.yml` / `release-fork-all.yml` с тем же входом
+`first_run`), а mac-тега форк не публикует вовсе.
 
-- Windows: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
-  portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES` и пакеты фида.
-- Linux: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
-  (распаковать и запустить `desktop`). Обновлений Squirrel на Linux нет.
+- Windows x64: `.../releases/tag/latest-win-x64` — `…Setup-x64.exe`, `.msi`,
+  portable-`GitHubDesktopL10n-win32-x64-portable.zip`, `RELEASES`, пакеты фида и
+  `build-info.json`.
+- Linux x64: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
+  (распаковать и запустить `desktop`) и `build-info.json`. Обновлений Squirrel на
+  Linux нет.
 
 ## Сборка одной командой в контейнере (Linux)
 
@@ -65,6 +120,11 @@ bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"  # сама сборка
 Получится `Release/desktop-linux-x64-portable.tar.gz`. Каталог `Release/`
 исключён из git: в него складываются бинарные артефакты на гигабайты.
 
+Тот же артефакт в тег фида публикует отдельный workflow
+`.github/workflows/release-fork-linux.yml` (`gh workflow run
+release-fork-linux.yml`, входов у него нет). Локальная сборка в контейнере
+ничего не публикует — она годится для проверки на своей машине.
+
 ## Сборка Windows: только на windows-раннере
 
 Цель `gdlab/release.sh win-portable` намеренно запрещена (скрипт печатает
@@ -78,28 +138,84 @@ bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"  # сама сборка
 На Windows `require()` таких модулей падает, и приложение показывает пустое белое
 окно при живом меню — этот дефект и был причиной запрета.
 
-Windows-сборка идёт workflow-файлом `.github/workflows/release-fork.yml`:
+Windows-сборка идёт workflow-файлом `.github/workflows/release-fork-windows.yml`:
 
 ```bash
-gh workflow run release-fork.yml -f arch=x64
+gh workflow run release-fork-windows.yml -f arch=x64
+gh workflow run release-fork-windows.yml -f arch=arm64
 # первый релиз в пустой тег — добавить:
-gh workflow run release-fork.yml -f arch=x64 -f first_run=true
+gh workflow run release-fork-windows.yml -f arch=x64 -f first_run=true
+# обе Windows-архитектуры за один запуск:
+gh workflow run release-fork-windows-all.yml
+# все три фида (win x64, win arm64, linux):
+gh workflow run release-fork-all.yml
 ```
 
-Прогон делает две джобы: Windows выбранной архитектуры и Linux x64 portable
-(джоба `linux` не гейтится входом, поэтому артефакты обоих тегов обновляются
-сразу).
+Релиз каждой платформы живёт своим workflow-файлом:
+`release-fork-windows.yml` (архитектура — входом `arch`) и
+`release-fork-linux.yml` (x64 portable, входов нет). Раньше обе джобы были в
+одном файле `release-fork.yml`, и запуск любой Windows-архитектуры пересобирал и
+перезаписывал ещё тег `latest-linux-x64` — то есть прогон `arch=arm64` трогал
+чужую платформу, а linux-артефакт нельзя было обновить, не собрав Windows за
+девять минут. Теперь каждый прогон пишет только свой тег.
+
+Оба файла принимают два способа запуска: `workflow_dispatch` (команды выше) и
+`workflow_call` — вызов из другого workflow. Второй нужен двум обёрткам, где
+сборки стартуют одной кнопкой и при этом идут ровно тем же кодом, что и одиночный
+прогон:
+
+- `Release Fork (Windows all arches)` (`release-fork-windows-all.yml`) — job с
+  матрицей `[x64, arm64]`, каждый элемент которой вызывает
+  `release-fork-windows.yml`;
+- `Release Fork (All platforms)` (`release-fork-all.yml`) — та же матрица плюс
+  linux-job.
+
+Три детали обёрток, без которых они бы не работали:
+
+- `uses:` нельзя параметризовать выражением, поэтому win-джоба с матрицей
+  продублирована в обоих файлах, а не вызывается из обёртки обёртки.
+- `fail-fast: false`: фиды независимы, и успех x64 с linux ценен сам по себе,
+  даже если arm64 упадёт.
+- `permissions: contents: write` на уровне workflow и свой `concurrency`:
+  вызываемый workflow не может расширить права прогона, а публикации релиза
+  нужен write; группа относится к прогону обёртки, поэтому вызов внутри неё
+  отдельного пропуска не получает.
+
+Параллельные прогоны одной платформы не пишут один тег одновременно:
+`concurrency` в `release-fork-windows.yml` сгруппирован по архитектуре, так что
+x64 и arm64 не блокируют друг друга, а `cancel-in-progress` выключен намеренно —
+обрывать начатую публикацию фида хуже, чем дождаться её.
 
 Что делает прогон:
 
-1. `yarn build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
+1. Джоба `Check whether a release is needed` (`gate`) на ubuntu-раннере —
+   дешёвая проверка до всякой сборки: один короткий checkout (`fetch-depth: 1`,
+   без подмодулей) и пара запросов к API релизов. Логика живёт в
+   `.github/actions/release-gate/action.yml`, результат — output `run`, на
+   который сборочная джоба подписана через `needs` + `if`. Возможные исходы
+   такие:
+   - в notes целевого тега лежит блок `fork-build-info` с sha текущего коммита —
+     сборка ничего бы не изменила: `run=false`, сборочная джоба не запускается,
+     прогон считается успешным, а step summary получает `Загрузка: <ссылка на
+     релиз>` и дату той сборки; в log уходит `::notice::` с тем же смыслом;
+   - блока в notes нет (релизы, опубликованные до его появления) или sha
+     отличается — `run=true`;
+   - тега ещё нет: с `first_run=true` это первый релиз фида (`run=true`), без
+     него windows-прогон падает сразу, до сборки, с подсказкой включить вход —
+     `RELEASES` и дельта в пустом фиде не из чего строить. Linux-сборка такого
+     условия не имеет: ей нечего дозастраивать.
+   - отдельно для windows, когда тег есть и `first_run` выключен: gate качает
+     `RELEASES` и роняет прогон, если версия из `app/package.json` там уже
+     перечислена. Squirrel определяет обновление по версии, поэтому прогон с той
+     же версией физически перезаписал бы пакеты, которые никто не увидит.
+     Проверка дешёвая, а обнаруживать бесполезный релиз после девяти минут сборки
+     — дорого: раньше это был шаг `Guard the feed before packaging` сразу после
+     `Build production app`, и он туда больше не возвращается.
+   Для linux gate делает только проверку sha: портативная сборка не публикует
+   `RELEASES`, и спрашивать про версию ей не о чём.
+2. `yarn build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
    архитектуре (без `TARGET_ARCH` arm64-прогон собрал бы x64-нативы — см.
    `script/build.ts:203`).
-2. Шаг `Guard the feed before packaging` (пропускается при `first_run=true`)
-   скачивает `RELEASES` из тега и падает, если версия в `app/package.json` там
-   уже есть: Squirrel определяет обновление по версии, поэтому прогон с той же
-   версией физически перезаписал бы пакеты, которые никто не увидит. Проверка
-   дешёвая, а обнаруживать бесполезный релиз после девяти минут сборки — дорого.
 3. `yarn package` со `DESKTOP_UPDATES_URL`, указывающим на ассеты этого же тега, и
    `DESKTOP_SKIP_DELTA=1` при `first_run=true`. Флаг нужен для самого первого
    релиза: удалённого `RELEASES` ещё нет, а `electron-winstaller` при заданном
@@ -125,6 +241,44 @@ gh workflow run release-fork.yml -f arch=x64 -f first_run=true
    релиз раньше, чем долиты его пакеты, не за чем. Отдельный `edit` нужен ещё и
    потому, что тег переиспользуется прогон за прогоном, а ветка
    `gh release create` при существующем релизе не выполняется.
+
+### Кеши загрузок
+
+Прогон не скачивает зависимости с нуля: шаг `Restore download caches`
+(`actions/cache@v6`) кеширует `${{ runner.temp }}/caches`, куда указывают
+`YARN_CACHE_FOLDER` и `electron_config_cache`. Задаёт их отдельный первый шаг —
+`Point the download caches at the runner temp` через `$GITHUB_ENV`, а не `env`
+джобы: контекст `runner` вне шагов недоступен, и GitHub отвергает весь файл ещё
+на компиляции (прогоны #1 от 09.10.2026 упали именно так, без единого job).
+Директории заданы явно, а не «обычным путём»: вендорённый yarn 1.21.1 без
+переменной на `yarn cache dir` отдаёт `/usr/local/share/.cache/yarn/v6`, а не
+`~/.cache/yarn` (замер 09.10.2026 в gdlab), так что кеш по угаданному пути молча
+сохранял бы пустую папку; `node_modules/electron/install.js:44` читает
+`electron_config_cache` прямо в `cacheRoot`.
+
+Явный шаг вместо `cache: yarn` у `actions/setup-node` — по двум причинам:
+
+- setup-node хеширует только корневой `yarn.lock`, а тяжёлая часть зависимостей
+  лежит в `app/yarn.lock`: изменение app-лока при неизменном корневом оставляло
+  устаревший слот, а изменение корневого сбрасывало кеш целиком и докачивало
+  всё. Новый ключ считается по всем пяти lock-файлам дерева (`yarn.lock`,
+  `app/yarn.lock` и три в `vendor/`).
+- Архив Electron (порядка ста мегабайт за прогон) в yarn-кеш не попадает вообще:
+  его качает post-install, и теперь он в кеше тем же шагом.
+
+В ключе windows-прогона есть архитектура, потому что actions/cache пишет в слот
+только первым прогоном: arm64-прогон досстанавливает пакеты, которых в x64-кеше
+нет (шаг `Install target-architecture native runtimes`), а без суффикса x64 занял
+бы общий слот — arm64-нативы не кэшировались бы никогда. `restore-keys` оставлен
+префиксом без хеша, чтобы смена одного lock-файла добирала недостающее, а не
+качало гигабайт заново.
+
+Сколько именно экономит, видно только по живому прогону: строки `Cache hit` и
+сохранение кеша в шаге кеша. Кеш держит архивы, а не готовые `node_modules`, —
+yarn 1 всё равно раскладывает дерево локально, поэтому выигрыш в сетевых
+качиваниях, а не в распаковке. У апстримных `ci.yml` и
+`.github/actions/setup-ci-environment/action.yml` тот же `cache: yarn` оставлен
+как есть, чтобы не плодить конфликты при следующем мерже апстрима.
 
 **Подписи нет.** `script/package.ts` включает подпись только при
 `isGitHubActions() && isPublishable() && isCodeSigningConfigured()`, а секреты
@@ -226,7 +380,7 @@ yarn l10n:bundles   # node script/i18n-freshness.mjs --bundles
 ## Проверка свежести сборки по хешу коммита
 
 Squirrel сравнивает только номера версий, а форк пересобирается чаще, чем
-бампит версию: один и тот же `3.6.7-beta2` может означать и сборку недельной
+бампит версию: один и тот же `3.6.7-beta3` может означать и сборку недельной
 давности, и сегодняшнюю. Чтобы установленное приложение всё равно узнавало о
 новой сборке, каждый релиз называет хеш коммита, из которого он собран, а
 приложение сравнивает этот хеш со своим собственным (`__SHA__` из
@@ -250,8 +404,9 @@ notes, и вот почему: содержимое ассета GitHub отда
 
 ### Схема блока
 
-Workflow `.github/workflows/release-fork.yml` загружает оба представления в
-каждый тег фида (`latest-win-x64`, `latest-win-arm64`, `latest-linux-x64`;
+Каждый релизный workflow (`.github/workflows/release-fork-windows.yml`,
+`.github/workflows/release-fork-linux.yml`) загружает оба представления в свой
+тег фида (`latest-win-x64`, `latest-win-arm64`, `latest-linux-x64`;
 mac-тега у форка нет). В notes блок выглядит как
 `<!--fork-build-info {…}-->` — одна строка компактного JSON, тот же формат
 ловится парсером из ассета. Объект содержит:
@@ -311,6 +466,55 @@ UI в этом случае молчит: отсутствие информац�
 
 Существующая строка `about.upstream-behind` (сравнение с апстримом по версии)
 остаётся как есть и работает независимо.
+
+## Примечания к выпуску: и апстрим, и форк
+
+Панель «Примечания к выпуску» показывает не только апстримные релизы, но и
+изменения форка.
+
+Апстримный `changelog.json` при этом не правится: `script/validate-changelog.ts`
+требует ровно один top-level ключ и semver-формат версии, а собственные записи
+в этом файле превращают каждый мерж апстрима в конфликт. Поэтому у форка свой
+файл — `changelog-fork.json` в корне:
+
+```json
+{
+  "releases": [
+    {
+      "version": "3.6.7-beta3",
+      "pub_date": "2026-10-08T00:00:00Z",
+      "notes": [{ "kind": "new", "key": "releaseNotes.fork.interfaceLocalization" }]
+    }
+  ]
+}
+```
+
+- `notes.key` — не текст, а ключ каталога: примечания переводятся вместе с
+  интерфейсом (`releaseNotes.fork.*` в `app/locales/{en,ru,uk}.json`), и
+  паритет каталогов за это отвечает (`yarn l10n:parity`).
+- `kind` принимает те же значения, что разбор апстрима: `new`, `added`,
+  `improved`, `fixed`, `removed`, `pretext`; неизвестный уходит в «Прочее».
+- `version` — апстримный номер сборки (`appPackage.version`), а не отдельная
+  форк-версия: диалог решает, показывать «Установить и перезапустить» или
+  «Закрыть», по совпадению `latestVersion` первой записи с `__APP_VERSION__`.
+
+`app/src/lib/fork-changelog.ts` превращает эти записи в те же `ReleaseSummary`,
+что и апстримный фид, и отбирает по `pub_date >= __BUILD_DATE__`: форк
+различается сборками по хешу и дате, а не по SemVer, поэтому `semver.gt` тут
+неприменим. Порядок сборки в `generateReleaseSummary`
+(`app/src/lib/release-notes.ts:133`) — сначала апстримные обновления, затем
+форк: если поставить свои первыми, кнопка установки перестанет появляться.
+Когда апстримных обновлений нет, панель показывает форк-записи.
+
+Держит это `app/test/unit/fork-changelog-test.ts`: запись существует, kinds
+только известные, каждый ключ резолвится в трёх каталогах, фильтр по дате
+отсекает будущее, и каждая заметка попадает ровно в одну корзину.
+
+Видно это только там, где работает Squirrel: панель открывается из баннера
+обновления (`app/src/ui/banners/update-available.tsx:196`), а `newReleases`
+собирает `update-store` на событиях автообновления. На Linux-portable
+автообновления нет (см. «Чего в форке сознательно нет»), и там о новых сборках
+говорит баннер `fork-release-available`, а не эта панель.
 
 ## Чего в форке сознательно нет
 
