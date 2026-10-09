@@ -95,6 +95,8 @@ jobs:
       contents: read
     outputs:
       run: ${{ steps.gate.outputs.run }}
+      build-number: ${{ steps.gate.outputs.build-number }}
+      version: ${{ steps.gate.outputs.version }}
     steps:
       # Тело релиза читается через gh, а из дерева нужен только app/package.json
       # с версией — отсюда fetch-depth и выключенные подмодули.
@@ -102,6 +104,14 @@ jobs:
         with:
           fetch-depth: 1
           submodules: false
+
+      # Gate собирает публикаемую версию тем же кодом, что и шаги упаковки
+      # (script/fork-version.ts), а он требует --experimental-strip-types — то
+      # есть Node 22.6+. Версия node, которая лежит в образе раннера, для нас не
+      # гарантирована, поэтому ставим ту же, что собирает релиз.
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       - uses: ./.github/actions/release-gate
         id: gate
@@ -118,6 +128,12 @@ jobs:
     permissions:
       contents: write
     timeout-minutes: 90
+    # Номер коммита считает gate (у него уже есть ответ API), а шаги упаковки и
+    # записи build-info превращают его в публикаемую версию. Контекст needs в
+    # jobs.<id>.env доступен — в отличие от runner, из-за которого этот файл
+    # однажды не скомпилировался.
+    env:
+      FORK_BUILD_NUMBER: ${{ needs.gate.outputs.build-number }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -300,6 +316,11 @@ jobs:
         run: yarn package
         env:
           npm_config_arch: ${{ env.ARCH }}
+          # Номер коммита из gate: script/package.ts отдаёт его в
+          # electron-winstaller как версию пакета, и именно поэтому перезапуск
+          # прогона на новом коммите становится обновлением, которое Squirrel
+          # ставит (см. script/fork-version.ts).
+          DESKTOP_FORK_BUILD_NUMBER: ${{ env.FORK_BUILD_NUMBER }}
           # Одна строка: YAML-«фолдинг» plain-скаляра склеивает переносы через
           # пробел, и URL получил бы пробел внутри пути.
           DESKTOP_UPDATES_URL:
@@ -368,6 +389,10 @@ jobs:
         shell: bash
         env:
           BUILD_INFO_ARCH: ${{ env.ARCH }}
+          # Тот же номер, что у шага упаковки: build-info и notes должны называть
+          # версию, под которой лежат пакеты этого же прогона, иначе проверка
+          # клиента и RELEASES разойдутся.
+          DESKTOP_FORK_BUILD_NUMBER: ${{ env.FORK_BUILD_NUMBER }}
         run: |
           yarn release-build-info
           # Клиент на битый или отсутствующий блок молчит, то есть молчание
@@ -375,6 +400,18 @@ jobs:
           # диске и notes действительно содержат блок.
           test -s dist/build-info.json
           grep -q 'fork-build-info' dist/release-notes.md
+          # И что версия в них — ровно та, под которой gate собирался publish'ить
+          # пакеты: потерянный по дороге DESKTOP_FORK_BUILD_NUMBER дал бы базовую
+          # версию, а её Squirrel как раз не показывает.
+          GATE_VERSION='${{ needs.gate.outputs.version }}'
+          if [ -z "$GATE_VERSION" ]; then
+            echo "::error::Gate не вернул версию — шаги упаковки идут без номера коммита"
+            exit 1
+          fi
+          grep -q "\"version\":\"$GATE_VERSION\"" dist/build-info.json || {
+            echo "::error::В build-info.json нет версии $GATE_VERSION из gate"
+            exit 1
+          }
 
       - name: Zip portable bundle
         # Archiver here must be bsdtar, addressed by its full path. Under

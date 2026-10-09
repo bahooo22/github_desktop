@@ -1,7 +1,8 @@
 name: Release Gate
 description: >-
   Проверяет до сборки, нужен ли вообще прогон: опубликован ли уже этот коммит в
-  целевом теге фида и не идёт ли релиз той же версии, что уже лежит в RELEASES.
+  целевом теге фида и поднимется ли версия, с которой релиз уходит в RELEASES,
+  выше той, что там уже лежит.
 
 inputs:
   tag:
@@ -25,6 +26,17 @@ outputs:
       'true' — собирать и публиковать; 'false' — релиз из текущего коммита уже
       опубликован, сборка не нужна.
     value: ${{ steps.check.outputs.run }}
+  build-number:
+    description: >-
+      Номер текущего коммита в истории фида — то, чем сборка отличается от
+      сборки предыдущего прогона. Пусто, когда прогон не нужен или платформа не
+      Windows. Шаги упаковки передают его в DESKTOP_FORK_BUILD_NUMBER.
+    value: ${{ steps.check.outputs.build-number }}
+  version:
+    description: >-
+      Версия, под которой прогон опубликует пакеты (версия из app/package.json с
+      номером коммита внутри prerelease). Пусто там же, где пусто build-number.
+    value: ${{ steps.check.outputs.version }}
 
 runs:
   using: composite
@@ -42,13 +54,43 @@ runs:
       run: |
         set -uo pipefail
 
-        # Поле sha из блока <!--fork-build-info {…}--> в notes релиза. Строки
-        # нет в релизах, опубликованных до появления блока, и в чужих тегах —
-        # тогда проверка просто не срабатывает, это не ошибка.
-        read_published_sha() {
+        # Поле из блока <!--fork-build-info {…}--> в notes релиза. Строки нет в
+        # релизах, опубликованных до появления блока, и в чужих тегах — тогда
+        # проверка откатывается на RELEASES, это не ошибка.
+        read_published_field() {
           gh release view "$TAG" --json body --jq .body 2>/dev/null |
             grep -o 'fork-build-info {[^}]*}' | tail -1 |
-            sed -n 's/.*"sha":"\([^"]*\)".*/\1/p'
+            sed -n "s/.*\"$1\":\"\\([^\"]*\\)\".*/\\1/p"
+        }
+
+        # Номер коммита — то, чем одна сборка форка отличается от другой при
+        # неизменной версии в app/package.json. Взято из Link rel="last" одного
+        # запроса к списку коммитов: page последней = сколько коммитов достижимо
+        # от этого sha, то же число, что даёт `git rev-list --count HEAD` (замер
+        # 09.10.2026 на a77daf2ce1: 40382 в обоих). Это важно для дешёвой джобы:
+        # checkout идёт с fetch-depth: 1, и полной истории для rev-list тут нет.
+        #
+        # `page=` ищем только после `?` или `&`: GitHub кладёт в URL rel="last" и
+        # per_page, а `page=[0-9]*>; rel="last"` без этого условия ловит именно
+        # `per_page=1>; rel="last"` — приёмка на стабе с реальным форматом
+        # заголовка дала номер 1 вместо 40382 (09.10.2026).
+        read_commit_number() {
+          gh api -X GET "repos/$REPOSITORY/commits" \
+            -f sha="$CURRENT_SHA" -f per_page=1 -i 2>/dev/null |
+            tr ',' '\n' |
+            grep 'rel="last"' |
+            grep -o '[?&]page=[0-9][0-9]*' |
+            tail -1 |
+            sed 's/.*page=//'
+        }
+
+        # Публикуемая версия — из того же кода, что её собирает (steps упаковки
+        # читают DESKTOP_FORK_BUILD_NUMBER), поэтому gate и сборка не могут
+        # разойтись в формате.
+        published_version_for() {
+          DESKTOP_FORK_BUILD_NUMBER="$1" \
+            node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON \
+              script/fork-version.ts
         }
 
         if ! gh release view "$TAG" >/dev/null 2>&1; then
@@ -61,10 +103,16 @@ runs:
           exit 0
         fi
 
-        PUBLISHED_SHA="$(read_published_sha)"
+        if [ "$FIRST_RUN" = true ]; then
+          # Тег существует, а first_run всё равно включён: дельта и обращение к
+          # удалённому RELEASES отключены, то есть релиз выйдет полным бандлом
+          # без дельты. Проверка версии от этого не зависит и выполняется ниже.
+          echo "::warning::first_run=true, хотя тег $TAG уже существует — дельта выключена без причины"
+        fi
+
+        PUBLISHED_SHA="$(read_published_field sha)"
         if [ -z "$PUBLISHED_SHA" ]; then
           echo "В notes релиза $TAG нет блока fork-build-info — сравнить коммит не с чем, собираем."
-          echo "run=true" >>"$GITHUB_OUTPUT"
         elif [ "$PUBLISHED_SHA" = "$CURRENT_SHA" ]; then
           URL="https://github.com/$REPOSITORY/releases/tag/$TAG"
           echo "::notice::Релиз из коммита $CURRENT_SHA уже опубликован в $TAG — сборка не нужна."
@@ -85,25 +133,74 @@ runs:
 
         # Squirrel.Windows решает «есть ли обновление» по версии в RELEASES:
         # прогон с той же версией физически перезапишет пакеты, но клиенты её не
-        # увидят, а дельта построится от того же содержимого. Молча бесполезный
-        # релиз дороже упавшего, и проверка переехала сюда из шага сборки именно
-        # затем, чтобы падать до девяти минут сборки, а не после них.
-        if [ "$PLATFORM" = windows ] && [ "$FIRST_RUN" != true ]; then
-          NEW_VERSION="$(node -p "require('./app/package.json').version")"
-          rm -rf "$RUNNER_TEMP/gate-releases"
-          mkdir -p "$RUNNER_TEMP/gate-releases"
-          if ! gh release download "$TAG" --pattern RELEASES --dir "$RUNNER_TEMP/gate-releases"; then
-            echo "::error::В теге $TAG нет RELEASES — включи вход first_run"
+        # увидят (UpdateInfo.cs:66 отдаёт пустой releasesToApply), а дельта
+        # построится от того же содержимого. Молча бесполезный релиз дороже
+        # упавшего, и проверка стоит здесь именно затем, чтобы падать до девяти
+        # минут сборки, а не после них.
+        if [ "$PLATFORM" = windows ]; then
+          BUILD_NUMBER="$(read_commit_number)"
+
+          if [ -z "$BUILD_NUMBER" ]; then
+            echo "::error::Не получен номер коммита из $REPOSITORY/commits?sha=$CURRENT_SHA — Link rel=\"last\" не найден в ответе API"
             exit 1
           fi
-          # RELEASES построчный: «имя-пакета sha1 длина», имя пакета содержит
-          # версию. Null-байты снимаются на случай UTF-16 в файле.
-          if tr -d '\000' <"$RUNNER_TEMP/gate-releases/RELEASES" |
-            grep -q -- "-${NEW_VERSION}-full.nupkg"; then
-            echo "::error::Версия $NEW_VERSION уже опубликована в $TAG. Подними version в app/package.json и повтори."
+
+          NEW_VERSION="$(published_version_for "$BUILD_NUMBER" 2>&1)" || {
+            echo "::error::script/fork-version.ts не выполнился: $NEW_VERSION"
+            echo "::error::Нужен Node 22.6+ с --experimental-strip-types (в gate стоит actions/setup-node на env.NODE_VERSION)"
+            exit 1
+          }
+
+          if [ -z "$NEW_VERSION" ]; then
+            echo "::error::Публикуемая версия пуста при номере $BUILD_NUMBER"
             exit 1
           fi
-          echo "Фид $TAG держит другую версию — $NEW_VERSION уйдёт как обновление."
+
+          echo "Коммит $CURRENT_SHA — номер $BUILD_NUMBER, релиз уйдёт под версией $NEW_VERSION."
+          echo "build-number=$BUILD_NUMBER" >>"$GITHUB_OUTPUT"
+          echo "version=$NEW_VERSION" >>"$GITHUB_OUTPUT"
+
+          PUBLISHED_VERSION="$(read_published_field version)"
+
+          if [ -n "$PUBLISHED_VERSION" ]; then
+            # Сравнение — по правилам NuGet, теми же, по которым Squirrel решает
+            # «применять или нет»: порядковое сравнение строк тут обманывает,
+            # потому что версия с prerelease стоит НИЖЕ той же версии без него.
+            # Аргументы в порядке «новая, опубликованная»: 1 означает, что новая
+            # выше, и только тогда релиз имеет смысл.
+            ORDER="$(node --experimental-strip-types --disable-warning=MODULE_TYPELESS_PACKAGE_JSON \
+              script/fork-version.ts --compare "$NEW_VERSION" "$PUBLISHED_VERSION")" || {
+              echo "::error::Не удалось сравнить $NEW_VERSION и $PUBLISHED_VERSION: $ORDER"
+              exit 1
+            }
+
+            if [ "$ORDER" != "1" ]; then
+              echo "::error::Версия $NEW_VERSION не выше опубликованной $PUBLISHED_VERSION в $TAG — Squirrel не покажет её как обновление. Подними version в app/package.json и повтори."
+              exit 1
+            fi
+
+            echo "Фид $TAG держит $PUBLISHED_VERSION — $NEW_VERSION выше и уйдёт как обновление."
+          else
+            # Релиз без блока: читать версию негде, кроме как в самом RELEASES,
+            # и там она может быть в имени пакета с суффиксом архитектуры.
+            rm -rf "$RUNNER_TEMP/gate-releases"
+            mkdir -p "$RUNNER_TEMP/gate-releases"
+
+            if ! gh release download "$TAG" --pattern RELEASES --dir "$RUNNER_TEMP/gate-releases"; then
+              echo "::error::В теге $TAG нет RELEASES и нет блока fork-build-info — включи вход first_run"
+              exit 1
+            fi
+
+            # RELEASES построчный: «имя-пакета sha1 длина», имя пакета содержит
+            # версию. Null-байты снимаются на случай UTF-16 в файле.
+            if tr -d '\000' <"$RUNNER_TEMP/gate-releases/RELEASES" |
+              grep -q -- "-${NEW_VERSION}-full.nupkg"; then
+              echo "::error::Версия $NEW_VERSION уже опубликована в $TAG. Подними version в app/package.json и повтори."
+              exit 1
+            fi
+
+            echo "Фид $TAG держит другую версию — $NEW_VERSION уйдёт как обновление."
+          fi
         fi
 
         echo "run=true" >>"$GITHUB_OUTPUT"
