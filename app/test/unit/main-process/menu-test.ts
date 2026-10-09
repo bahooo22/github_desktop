@@ -7,6 +7,7 @@ import {
 } from '../../../src/main-process/menu'
 import { registerBuiltInLocales } from '../../../src/lib/l10n/builtins'
 import { localization } from '../../../src/lib/l10n/core'
+import { currentPlatform } from '../../../src/lib/l10n/format'
 import type { MenuLabelsEvent } from '../../../src/models/menu-labels'
 import { enableCopilotAppHandoff } from '../../../src/lib/feature-flag'
 
@@ -325,34 +326,59 @@ describe('main-process menu', () => {
     it('has no duplicate access keys in any built-in catalog for any combination of label-affecting parameters', () => {
       const combinationCount = 1 << variantKeys.length
 
-      for (const tag of ['en', 'ru']) {
-        localization.setRequestedLocale(tag)
-        try {
-          for (let bits = 0; bits < combinationCount; bits++) {
-            const variantEntries = variantKeys.map(
-              (key, i) => [key, !!(bits & (1 << i))] as [VariantKey, boolean]
-            )
+      // Platform belongs in the loop because the catalogs carry `@win32`
+      // variants, and a mnemonic that is unique under `@other` can collide with
+      // a sibling once the Windows wording is chosen. Without this the test
+      // passes in a Linux container and fails the Windows job of ci.yml, which
+      // is exactly how the collision in `menu.open-working-directory` reached
+      // CI unnoticed.
+      //
+      // Collisions accumulate instead of failing at the first one: the same key
+      // repeats across the parameter combinations, so the set is keyed by
+      // (platform, locale, submenu, key, labels) and one run reports every
+      // distinct collision rather than one per red run.
+      const found = new Map<string, DuplicateAccessKey>()
 
-            const params: MenuLabelsEvent = {
-              ...baseParams,
-              ...Object.fromEntries(variantEntries),
+      for (const platform of ['win32', 'linux', 'darwin'] as const) {
+        localization.setPlatform(platform)
+        for (const tag of ['en', 'ru', 'uk']) {
+          localization.setRequestedLocale(tag)
+          try {
+            for (let bits = 0; bits < combinationCount; bits++) {
+              const variantEntries = variantKeys.map(
+                (key, i) => [key, !!(bits & (1 << i))] as [VariantKey, boolean]
+              )
+
+              const params: MenuLabelsEvent = {
+                ...baseParams,
+                ...Object.fromEntries(variantEntries),
+              }
+
+              const template = buildDefaultMenuTemplate(params)
+
+              for (const duplicate of findDuplicateAccessKeys(template)) {
+                found.set(
+                  `${platform}/${tag}|${duplicate.menuPath}|${duplicate.accessKey}|${duplicate.firstLabel}|${duplicate.secondLabel}`,
+                  duplicate
+                )
+              }
             }
-
-            const template = buildDefaultMenuTemplate(params)
-            const duplicates = findDuplicateAccessKeys(template)
-
-            assert.deepStrictEqual(
-              duplicates,
-              [],
-              `${tag}: duplicate access keys found with params ${JSON.stringify(
-                params
-              )}: ${JSON.stringify(duplicates)}`
-            )
+          } finally {
+            localization.setRequestedLocale(null)
           }
-        } finally {
-          localization.setRequestedLocale(null)
         }
       }
+      localization.setPlatform(currentPlatform())
+
+      // The key already reads `platform/locale | submenu | key | labels`, so
+      // reporting the keys reports every collision with where to look for it.
+      const report = [...found.keys()]
+
+      assert.deepStrictEqual(
+        report,
+        [],
+        `duplicate access keys found:\n${report.join('\n')}`
+      )
     })
   })
 })

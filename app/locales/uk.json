@@ -399,7 +399,7 @@
     },
     "compare-on-github": {
       "@darwin": "Порівняти на GitHub",
-      "@other": "Порів&няти на GitHub"
+      "@other": "Порівняти на &GitHub"
     },
     "compare-to-branch": {
       "@darwin": "Порівняти з гілкою",
@@ -488,12 +488,12 @@
     },
     "open-with-external-editor": {
       "@darwin": "Відкрити у…",
-      "@other": "Відк&рити у…"
+      "@other": "Відкрити &у…"
     },
     "open-working-directory": {
       "@darwin": "Показати в Finder",
       "@other": "Показати у файлов&ому менеджері",
-      "@win32": "Показати в П&ровіднику"
+      "@win32": "Показати в &Провіднику"
     },
     "paste": {
       "@darwin": "Вставити",
@@ -511,12 +511,12 @@
     },
     "redo": {
       "@darwin": "Повторити",
-      "@other": "По&вторити"
+      "@other": "&Повторити"
     },
-    "reload-window": "&Оновити",
+    "reload-window": "О&новити",
     "remove-repository": {
       "@darwin": "Вилучити",
-      "@other": "&Вилучити"
+      "@other": "Ви&лучити"
     },
     "remove-repository-confirm": {
       "@darwin": "Вилучити…",
@@ -565,11 +565,11 @@
     },
     "show-repository-list": {
       "@darwin": "Список репозиторіїв",
-      "@other": "Список репо&зиторіїв"
+      "@other": "Список &репозиторіїв"
     },
     "show-repository-settings": {
       "@darwin": "Налаштування репозиторію…",
-      "@other": "Налашту&вання репозиторію…"
+      "@other": "Н&алаштування репозиторію…"
     },
     "show-stashed-changes": {
       "@darwin": "Показати відкладені зміни",
@@ -586,11 +586,11 @@
     },
     "stash-all-changes": {
       "@darwin": "Відкласти всі зміни",
-      "@other": "&Відкласти всі зміни"
+      "@other": "Від&класти всі зміни"
     },
     "stash-all-changes-confirm": {
       "@darwin": "Відкласти всі зміни…",
-      "@other": "&Відкласти всі зміни…"
+      "@other": "Від&класти всі зміни…"
     },
     "undo": {
       "@darwin": "Скасувати",
@@ -631,12 +631,12 @@
     "open-in-shell-default": "оболонці за замовчуванням",
     "open-in-editor": {
       "@darwin": "Відкрити в {editor}",
-      "@other": "&Відкрити в {editor}"
+      "@other": "Відкр&ити в {editor}"
     },
     "open-in-editor-default": "редакторі за замовчуванням",
     "update-from": {
       "@darwin": "Оновити з {branch}",
-      "@other": "О&новити з {branch}"
+      "@other": "Онов&ити з {branch}"
     },
     "report-issue": {
       "@darwin": "Повідомити про проблему…",
