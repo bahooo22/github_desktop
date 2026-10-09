@@ -134,6 +134,11 @@ jobs:
     # однажды не скомпилировался.
     env:
       FORK_BUILD_NUMBER: ${{ needs.gate.outputs.build-number }}
+      # Версия, под которой gate видел будущие пакеты. Шаг публикации адресует
+      # файлы по этому имени, а не по glob'у: в dist/ рядом с новым full-пакетом
+      # может лежать скачанный для дельты предыдущий, и glob находит два файла
+      # (прогон 10.10.2026 — «найдено 2»).
+      GATE_VERSION: ${{ needs.gate.outputs.version }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -506,24 +511,45 @@ jobs:
         # Фид обновлений = ассеты тега latest-win-<arch>: gh создаёт тег и релиз
         # при первом запуске, последующие прогоны перезаписывают ассеты.
         #
-        # Два вызов upload, а не один: RELEASES поднимаем последним, чтобы окно
-        # «клиент уже видит новую RELEASES, а её пакет ещё не долит» совпадало
-        # только с самим фактом долития. Пакеты прежних версий не удаляем
-        # (--clobber заменяет одноимённые), поэтому ссылка из старого RELEASES
-        # остаётся живой до конца докачки.
+        # Ассеты адресуются точными именами, а не glob'ом: electron-winstaller
+        # для построения дельты скачивает предыдущий -full.nupkg в dist/, и
+        # старый `GitHubDesktopL10n-*-full.nupkg` матчил бы оба файла. Прогон
+        # 10.10.2026 упал ровно так — «Ожидался ровно один full-пакет,
+        # найдено 2». Имя собирается из GATE_VERSION: теми же двумя частями,
+        # из которых его собирает упаковка — `getWindowsIdentifierName()` и
+        # `getForkPackageVersion()` (script/package.ts:168). Суффикса архитектуры
+        # здесь нет намеренно: переименование пакетов происходит только для
+        # центрального апстримного фида (script/package.ts:174-176), а у нас
+        # архитектуры разведены тегом.
+        #
+        # RELEASES поднимаем последним, чтобы окно «клиент уже видит новую
+        # RELEASES, а её пакет ещё не долит» совпадало только с самим
+        # долитием. Пакеты прежних версий не удаляем (--clobber заменяет
+        # одноимённые), поэтому ссылка из старого RELEASES остаётся живой до
+        # конца докачки.
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          shopt -s nullglob
-          # Тег и архитектура — из env прогона, шаг больше не различает ручной
-          # запуск и вызов из обёртки.
           TAG="latest-win-$ARCH"
-          FULL=(dist/GitHubDesktopL10n-*-full.nupkg)
-          if [ ${#FULL[@]} -ne 1 ]; then
-            echo "::error::Ожидался ровно один full-пакет, найдено ${#FULL[@]}"
+          SETUP_EXE="dist/GitHubDesktopL10nSetup-$ARCH.exe"
+          SETUP_MSI="dist/GitHubDesktopL10nSetup-$ARCH.msi"
+          FULL="dist/GitHubDesktopL10n-${GATE_VERSION}-full.nupkg"
+          DELTA="dist/GitHubDesktopL10n-${GATE_VERSION}-delta.nupkg"
+          PORTABLE="dist/GitHubDesktopL10n-win32-$ARCH-portable.zip"
+
+          if [ ! -f "$FULL" ]; then
+            echo "::error::Нет $FULL — публиковать нечего. Что есть в dist/:"
+            ls -la dist/*.nupkg 2>/dev/null || true
             exit 1
           fi
+          for f in "$SETUP_EXE" "$SETUP_MSI" "$PORTABLE" dist/build-info.json dist/RELEASES; do
+            if [ ! -f "$f" ]; then
+              echo "::error::Нет обязательного ассета $f"
+              exit 1
+            fi
+          done
+
           if gh release view "$TAG" >/dev/null 2>&1; then
             echo "Release $TAG уже существует — обновляю ассеты"
           else
@@ -531,17 +557,14 @@ jobs:
               --title "Latest Windows $ARCH" \
               --notes-file dist/release-notes.md
           fi
-          # Дельта под glob'ом может отсутствовать: первый прогон в свой фид
-          # идёт с DESKTOP_SKIP_DELTA=1, и пустой glob не должен ронять
-          # публикацию остальных ассетов.
-          gh release upload "$TAG" \
-            "dist/GitHubDesktopL10nSetup-$ARCH.exe" \
-            "dist/GitHubDesktopL10nSetup-$ARCH.msi" \
-            "${FULL[@]}" \
-            dist/GitHubDesktopL10n-*-delta.nupkg \
-            "dist/GitHubDesktopL10n-win32-$ARCH-portable.zip" \
-            dist/build-info.json \
-            --clobber
+
+          # Дельта — необязательный ассет: первый прогон в свой фид идёт с
+          # DESKTOP_SKIP_DELTA=1, и дельты на диске не будет вовсе.
+          ASSETS=("$SETUP_EXE" "$SETUP_MSI" "$FULL" "$PORTABLE" dist/build-info.json)
+          if [ -f "$DELTA" ]; then
+            ASSETS+=("$DELTA")
+          fi
+          gh release upload "$TAG" "${ASSETS[@]}" --clobber
           gh release upload "$TAG" dist/RELEASES --clobber
           # Notes дописываем последним, после всех ассетов: именно блок в них
           # включает проверку в клиенте, и пока пакеты не долиты, показывать
