@@ -408,10 +408,30 @@ jobs:
             echo "::error::Gate не вернул версию — шаги упаковки идут без номера коммита"
             exit 1
           fi
-          grep -q "\"version\":\"$GATE_VERSION\"" dist/build-info.json || {
-            echo "::error::В build-info.json нет версии $GATE_VERSION из gate"
+          # Сравниваем разобранное значение, а не подстроку файла: ассет пишется
+          # `JSON.stringify(info, null, 2)`, то есть с пробелом после двоеточия, и
+          # прежний grep `"version":"…"` не совпадал бы никогда — шаг падал бы на
+          # каждом успешном прогоне. Notes-блок наоборот компактный, поэтому оба
+          # источника проверяем одним и тем же разбором.
+          ASSET_VERSION="$(node -p "require('./dist/build-info.json').version")"
+          NOTES_JSON="$(
+            grep -o 'fork-build-info {[^}]*}' dist/release-notes.md |
+              tail -1 | sed 's/^fork-build-info //'
+          )"
+          NOTES_VERSION="$(
+            printf '%s' "$NOTES_JSON" |
+              node -pe 'JSON.parse(require("fs").readFileSync(0, "utf8")).version'
+          )"
+
+          if [ "$ASSET_VERSION" != "$GATE_VERSION" ]; then
+            echo "::error::В build-info.json версия $ASSET_VERSION, а gate собирался publish'ить $GATE_VERSION"
             exit 1
-          }
+          fi
+
+          if [ "$NOTES_VERSION" != "$GATE_VERSION" ]; then
+            echo "::error::В notes-блоке версия $NOTES_VERSION, а пакеты лежат под $GATE_VERSION — клиент будет смотреть не на тот номер"
+            exit 1
+          fi
 
       - name: Zip portable bundle
         # Archiver here must be bsdtar, addressed by its full path. Under
