@@ -93,12 +93,53 @@ runs:
               script/fork-version.ts
         }
 
+        # Публикуемые номер и версия нужны шагам упаковки и записи build-info
+        # всегда, когда прогон уходит в сборку, — в том числе когда фид
+        # заполняется впервые. Раньше этот код стоял после раннего выхода «тега
+        # нет, first_run=true», и первый релиз в фид уходил в сборку с пустыми
+        # FORK_BUILD_NUMBER и GATE_VERSION: build-info писал базовую версию, а
+        # guard в release-fork-windows.yml падал на пустом
+        # needs.gate.outputs.version. Прогон 09.10.2026 упал ровно так
+        # (GATE_VERSION='' при DESKTOP_FORK_BUILD_NUMBER='').
+        #
+        # Отдельно от sha-проверки: при «этот коммит уже опубликован» сборка не
+        # запускается (`if: needs.gate.outputs.run == 'true'`), и outputs там не
+        # читаются, поэтому запрос к API и запуск node для пропуска делать
+        # нечем — иначе недоступный API превращал бы «ничего не делать» в
+        # красный прогон.
+        set_publication_outputs() {
+          BUILD_NUMBER="$(read_commit_number)"
+
+          if [ -z "$BUILD_NUMBER" ]; then
+            echo "::error::Не получен номер коммита из $REPOSITORY/commits?sha=$CURRENT_SHA — Link rel=\"last\" не найден в ответе API"
+            exit 1
+          fi
+
+          NEW_VERSION="$(published_version_for "$BUILD_NUMBER" 2>&1)" || {
+            echo "::error::script/fork-version.ts не выполнился: $NEW_VERSION"
+            echo "::error::Нужен Node 22.6+ с --experimental-strip-types (в gate стоит actions/setup-node на env.NODE_VERSION)"
+            exit 1
+          }
+
+          if [ -z "$NEW_VERSION" ]; then
+            echo "::error::Публикуемая версия пуста при номере $BUILD_NUMBER"
+            exit 1
+          fi
+
+          echo "Коммит $CURRENT_SHA — номер $BUILD_NUMBER, релиз уйдёт под версией $NEW_VERSION."
+          echo "build-number=$BUILD_NUMBER" >>"$GITHUB_OUTPUT"
+          echo "version=$NEW_VERSION" >>"$GITHUB_OUTPUT"
+        }
+
         if ! gh release view "$TAG" >/dev/null 2>&1; then
           if [ "$PLATFORM" = windows ] && [ "$FIRST_RUN" != true ]; then
             echo "::error::Тега $TAG нет — это первый релиз в фид, включи вход first_run"
             exit 1
           fi
           echo "Тега $TAG нет — фид заполняется впервые."
+          if [ "$PLATFORM" = windows ]; then
+            set_publication_outputs
+          fi
           echo "run=true" >>"$GITHUB_OUTPUT"
           exit 0
         fi
@@ -138,27 +179,7 @@ runs:
         # упавшего, и проверка стоит здесь именно затем, чтобы падать до девяти
         # минут сборки, а не после них.
         if [ "$PLATFORM" = windows ]; then
-          BUILD_NUMBER="$(read_commit_number)"
-
-          if [ -z "$BUILD_NUMBER" ]; then
-            echo "::error::Не получен номер коммита из $REPOSITORY/commits?sha=$CURRENT_SHA — Link rel=\"last\" не найден в ответе API"
-            exit 1
-          fi
-
-          NEW_VERSION="$(published_version_for "$BUILD_NUMBER" 2>&1)" || {
-            echo "::error::script/fork-version.ts не выполнился: $NEW_VERSION"
-            echo "::error::Нужен Node 22.6+ с --experimental-strip-types (в gate стоит actions/setup-node на env.NODE_VERSION)"
-            exit 1
-          }
-
-          if [ -z "$NEW_VERSION" ]; then
-            echo "::error::Публикуемая версия пуста при номере $BUILD_NUMBER"
-            exit 1
-          fi
-
-          echo "Коммит $CURRENT_SHA — номер $BUILD_NUMBER, релиз уйдёт под версией $NEW_VERSION."
-          echo "build-number=$BUILD_NUMBER" >>"$GITHUB_OUTPUT"
-          echo "version=$NEW_VERSION" >>"$GITHUB_OUTPUT"
+          set_publication_outputs
 
           PUBLISHED_VERSION="$(read_published_field version)"
 
