@@ -6,6 +6,7 @@ import {
   parseBuildInfoFromRelease,
   evaluateForkRelease,
   repositoryApiUrl,
+  isCacheUsable,
 } from '../../src/lib/fork-release'
 
 const validSha = 'a'.repeat(40)
@@ -243,6 +244,72 @@ describe('evaluateForkRelease', () => {
       'https://r'
     )
     assert.strictEqual(status, null)
+  })
+})
+
+describe('isCacheUsable', () => {
+  const day = 24 * 60 * 60 * 1000
+  const checkedAt = 1_700_000_000_000
+
+  const status = {
+    releaseSha: otherSha,
+    aheadBy: 5,
+    releasePageUrl: 'https://r',
+    version: '3.6.7-beta3',
+    builtAt: '2026-10-08T00:00:00Z',
+  }
+
+  const entry = (overrides: object = {}) => ({
+    checkedAt,
+    checkedSha: validSha,
+    status: null,
+    ...overrides,
+  })
+
+  it('accepts a fresh entry made by this same commit', () => {
+    assert.ok(isCacheUsable(entry(), validSha, checkedAt + 1000))
+    assert.ok(isCacheUsable(entry({ status }), validSha, checkedAt + 1000))
+  })
+
+  it('accepts the interval boundary and rejects a day and a ms over it', () => {
+    assert.ok(isCacheUsable(entry(), validSha, checkedAt + day))
+    assert.ok(!isCacheUsable(entry(), validSha, checkedAt + day + 1))
+  })
+
+  it('rejects an entry made by another commit — the build has moved', () => {
+    // Exactly what happened after updating to the release commit: the cached
+    // 'N commits ahead' was computed against the previous build.
+    assert.ok(!isCacheUsable(entry(), otherSha, checkedAt + 1000))
+  })
+
+  it('rejects an entry written before the commit was recorded', () => {
+    assert.ok(!isCacheUsable({ checkedAt, status: null }, validSha, checkedAt))
+  })
+
+  it('compares commits the same way the check does: trimmed and lowercase', () => {
+    assert.ok(
+      isCacheUsable(entry({ checkedSha: ` ${validSha} ` }), validSha, checkedAt)
+    )
+    assert.ok(
+      isCacheUsable(
+        entry({ checkedSha: validSha }),
+        ` ${validSha.toUpperCase()} `,
+        checkedAt
+      )
+    )
+  })
+
+  it('rejects malformed entries rather than trusting them', () => {
+    assert.ok(!isCacheUsable(undefined, validSha, checkedAt))
+    assert.ok(!isCacheUsable(null, validSha, checkedAt))
+    assert.ok(!isCacheUsable('not-an-entry', validSha, checkedAt))
+    assert.ok(!isCacheUsable(entry({ checkedAt: 'soon' }), validSha, checkedAt))
+    assert.ok(
+      !isCacheUsable(entry({ status: { aheadBy: 5 } }), validSha, checkedAt)
+    )
+    assert.ok(
+      !isCacheUsable({ ...entry(), status: undefined }, validSha, checkedAt)
+    )
   })
 })
 

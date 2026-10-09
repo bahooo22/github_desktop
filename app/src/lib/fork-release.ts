@@ -24,6 +24,11 @@ const checkInterval = 1000 * 60 * 60 * 24
 /** A Git commit as `git rev-parse` writes it. */
 const fullShaRe = /^[0-9a-f]{40}$/
 
+/** Commits reach this module from build constants and from cached JSON. */
+function normalizeSha(value: string): string {
+  return value.trim().toLowerCase()
+}
+
 /**
  * The machine block `getForkReleaseNotes` in `script/build-info.ts` writes into
  * a release's notes: one line of compact JSON, so `.` without `s` is enough and
@@ -64,6 +69,9 @@ export interface IForkReleaseStatus {
 
 interface ICachedCheck {
   readonly checkedAt: number
+
+  /** The commit this build was made from, as the check saw it. */
+  readonly checkedSha: string
 
   /**
    * Null is a result, not a failure to record one: a build that is at the
@@ -164,7 +172,7 @@ export function evaluateForkRelease(
   aheadBy: number,
   releasePageUrl: string
 ): IForkReleaseStatus | null {
-  const current = currentSha.trim().toLowerCase()
+  const current = normalizeSha(currentSha)
 
   if (current === '' || !fullShaRe.test(current)) {
     return null
@@ -235,7 +243,9 @@ async function commitsAhead(
   return typeof aheadBy === 'number' && Number.isFinite(aheadBy) ? aheadBy : 0
 }
 
-async function checkForkRelease(): Promise<IForkReleaseStatus | null> {
+async function checkForkRelease(
+  currentSha: string
+): Promise<IForkReleaseStatus | null> {
   try {
     const release = await fetchJson(
       __FORK_FEED_URL__,
@@ -259,7 +269,7 @@ async function checkForkRelease(): Promise<IForkReleaseStatus | null> {
     }
 
     // Same commit: nothing to ask the compare endpoint about.
-    if (buildInfo.sha === __SHA__.trim().toLowerCase()) {
+    if (buildInfo.sha === currentSha) {
       return null
     }
 
@@ -270,9 +280,9 @@ async function checkForkRelease(): Promise<IForkReleaseStatus | null> {
     }
 
     return evaluateForkRelease(
-      __SHA__,
+      currentSha,
       buildInfo,
-      await commitsAhead(repositoryUrl, __SHA__, buildInfo.sha),
+      await commitsAhead(repositoryUrl, currentSha, buildInfo.sha),
       releasePageUrl
     )
   } catch (e) {
@@ -283,19 +293,39 @@ async function checkForkRelease(): Promise<IForkReleaseStatus | null> {
   }
 }
 
-function readCache(): ICachedCheck | undefined {
-  const cached = getObject<ICachedCheck>(cacheKey)
-
-  if (
-    cached === undefined ||
-    typeof cached.checkedAt !== 'number' ||
-    Date.now() - cached.checkedAt > checkInterval ||
-    (cached.status !== null && !isForkReleaseStatus(cached.status))
-  ) {
-    return undefined
+/**
+ * Whether a cached verdict still describes the build that is reading it.
+ *
+ * Age alone is not enough: an update swaps the installed commit while the
+ * cached 'the release is N commits ahead' was computed against the old one, so
+ * a build that just updated keeps showing a banner about the release it already
+ * has until the entry expires. Measured 09.10.2026 — the banner of
+ * `1c37b25e22`, '38 commits ahead', survived installing `1c37b25e22`.
+ */
+export function isCacheUsable(
+  cached: unknown,
+  currentSha: string,
+  now: number
+): cached is ICachedCheck {
+  if (cached === null || typeof cached !== 'object') {
+    return false
   }
 
-  return cached
+  const entry = cached as Partial<ICachedCheck>
+
+  return (
+    typeof entry.checkedAt === 'number' &&
+    typeof entry.checkedSha === 'string' &&
+    normalizeSha(entry.checkedSha) === normalizeSha(currentSha) &&
+    now - entry.checkedAt <= checkInterval &&
+    (entry.status === null || isForkReleaseStatus(entry.status))
+  )
+}
+
+function readCache(currentSha: string): ICachedCheck | undefined {
+  const cached = getObject<ICachedCheck>(cacheKey)
+
+  return isCacheUsable(cached, currentSha, Date.now()) ? cached : undefined
 }
 
 /**
@@ -328,15 +358,21 @@ export async function getForkReleaseStatus(): Promise<IForkReleaseStatus | null>
     return null
   }
 
-  const cached = readCache()
+  const currentSha = normalizeSha(__SHA__)
+
+  const cached = readCache(currentSha)
 
   if (cached !== undefined) {
     return cached.status
   }
 
-  const status = await checkForkRelease()
+  const status = await checkForkRelease(currentSha)
 
-  setObject(cacheKey, { checkedAt: Date.now(), status })
+  setObject(cacheKey, {
+    checkedAt: Date.now(),
+    checkedSha: currentSha,
+    status,
+  })
 
   return status
 }
