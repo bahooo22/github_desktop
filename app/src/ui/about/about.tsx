@@ -374,7 +374,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           </Row>
           <h1 id={titleId}>{t('about.title', { name })}</h1>
           <p className="no-padding">
-            <span className="selectable-text">
+            <span className="selectable-text about-version">
               {versionText} ({this.props.applicationArchitecture})
             </span>{' '}
             ({releaseNotesLink})

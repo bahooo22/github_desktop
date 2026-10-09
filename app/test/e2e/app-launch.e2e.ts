@@ -295,7 +295,7 @@ test.describe('Auto-update', () => {
       await aboutDialog.waitFor({ state: 'visible', timeout: 5000 })
 
       const versionText = await aboutDialog
-        .locator('.selectable-text')
+        .locator('.selectable-text.about-version')
         .textContent()
       expect(versionText).toMatch(/Version \d+\.\d+\.\d+/)
     })
