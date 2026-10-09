@@ -2,8 +2,7 @@ import { mkdir, writeFile } from 'fs/promises'
 import * as Path from 'path'
 
 import { getSHA } from '../app/git-info'
-import { getVersion } from '../app/package-info'
-import { getDistRoot } from './dist-info'
+import { getDistRoot, getForkPackageVersion } from './dist-info'
 
 /**
  * What the app compares itself against when it decides whether the fork has a
@@ -22,6 +21,13 @@ export interface IForkBuildInfo {
   readonly platform: string
   readonly arch: string
   readonly sha: string
+
+  /**
+   * The version the release's packages are published under — not the one inside
+   * the bundle. It has to be the published one, because that is the number
+   * Squirrel reads in `RELEASES` and the only thing that tells two fork builds
+   * of the same upstream version apart (see `script/fork-version.ts`).
+   */
   readonly version: string
   readonly builtAt: string
 }
@@ -34,7 +40,7 @@ export function getForkBuildInfo(): IForkBuildInfo {
     // an arm64 release is packaged by an x64 node. The workflow passes it.
     arch: process.env.BUILD_INFO_ARCH ?? process.arch,
     sha: process.env.GITHUB_SHA ?? getSHA(),
-    version: getVersion(),
+    version: getForkPackageVersion(),
     builtAt: new Date().toISOString(),
   }
 }

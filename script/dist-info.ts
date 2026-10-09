@@ -2,10 +2,27 @@ import * as Path from 'path'
 import * as Fs from 'fs'
 
 import { getProductName, getVersion } from '../app/package-info'
+import { getPublishedVersion } from './fork-version'
 import { join } from 'path'
 
 const productName = getProductName()
 const version = getVersion()
+
+/**
+ * The version this build is published under: the version in `app/package.json`,
+ * extended with the commit number the release gate computed
+ * (`DESKTOP_FORK_BUILD_NUMBER`), in the form Squirrel writes into `RELEASES`.
+ *
+ * Everything that names a published artifact has to use this rather than
+ * `getVersion()`, and only the release workflow sets the environment variable —
+ * without it a local build is packaged under the version its package file says,
+ * just with NuGet's dot rule applied, which is how it was before this fork started
+ * numbering its releases. See `script/fork-version.ts` for why the number has to
+ * be in the version at all.
+ */
+export function getForkPackageVersion() {
+  return getPublishedVersion(version)
+}
 
 const projectRoot = Path.join(__dirname, '..')
 
@@ -64,7 +81,7 @@ export function getWindowsFullNugetPackageName(
   const architectureInfix = includeArchitecture
     ? `-${getDistArchitecture()}`
     : ''
-  return `${getWindowsIdentifierName()}-${version}${architectureInfix}-full.nupkg`
+  return `${getWindowsIdentifierName()}-${getForkPackageVersion()}${architectureInfix}-full.nupkg`
 }
 
 export function getWindowsFullNugetPackagePath() {
@@ -82,7 +99,7 @@ export function getWindowsDeltaNugetPackageName(
   const architectureInfix = includeArchitecture
     ? `-${getDistArchitecture()}`
     : ''
-  return `${getWindowsIdentifierName()}-${version}${architectureInfix}-delta.nupkg`
+  return `${getWindowsIdentifierName()}-${getForkPackageVersion()}${architectureInfix}-delta.nupkg`
 }
 
 export function getWindowsDeltaNugetPackagePath() {

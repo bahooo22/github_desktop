@@ -18,10 +18,10 @@ import {
   getDistRoot,
   getDistArchitecture,
   getIconDirectory,
+  getForkPackageVersion,
 } from './dist-info'
 import { isCodeSigningConfigured, isGitHubActions } from './build-platforms'
 import { existsSync, rmSync, writeFileSync } from 'fs'
-import { getVersion } from '../app/package-info'
 import { computeBundleHashSync } from '../app/src/lib/compute-bundle-hash'
 import { rename } from 'fs/promises'
 import { join } from 'path'
@@ -95,6 +95,16 @@ function packageWindows() {
   const nugetPkgName = getWindowsIdentifierName()
   const options: electronInstaller.Options = {
     name: nugetPkgName,
+    // The version electron-winstaller writes into the package metadata and into
+    // `RELEASES`. Squirrel compares versions, not commits (`UpdateInfo.cs:66`
+    // returns an empty `releasesToApply` when the feed is not above the installed
+    // version), so a fork rebuild with an unchanged `app/package.json` is never
+    // installed. `Options.version` overrides the package.json found in
+    // `appDirectory` (lib/index.js:203, `Object.assign(metadata, options)`), which
+    // keeps the version inside the bundle - the one the UI shows - at its base
+    // value. Without `DESKTOP_FORK_BUILD_NUMBER` this is that base value, so
+    // local packaging is unchanged.
+    version: getForkPackageVersion(),
     appDirectory: distPath,
     outputDirectory: outputDir,
     authors: getCompanyName(),
@@ -153,7 +163,9 @@ function packageWindows() {
       // the architecture similar to how the setup exe and msi do so we'll just
       // have to rename them here after the fact.
       const arch = getDistArchitecture()
-      const prefix = `${getWindowsIdentifierName()}-${getVersion()}`
+      // The name electron-winstaller actually wrote uses the same published
+      // version as `options.version` above, so the rename has to look for it.
+      const prefix = `${getWindowsIdentifierName()}-${getForkPackageVersion()}`
 
       // RELEASES names the packages exactly as electron-winstaller wrote them,
       // so the rename only works for a feed whose publishing tooling rewrites
