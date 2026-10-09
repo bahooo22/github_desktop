@@ -10,6 +10,8 @@ yarn-error.log
 .eslintcache
 app/coverage
 script/coverage
+tmp
+bin/
 playwright-videos
 app/static/common
 app/test/fixtures
