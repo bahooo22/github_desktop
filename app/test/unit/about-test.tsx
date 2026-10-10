@@ -231,11 +231,19 @@ const releasePageUrl =
  * A cached check is the only way to reach this line from a unit test: the feed
  * URL is empty in `globals.mts`, which switches the whole check off, and the
  * tests must not reach api.github.com either.
+ *
+ * The entry has to carry the commit that wrote it: `isCacheUsable` in
+ * `fork-release.ts` drops anything whose `checkedSha` is not the running build,
+ * which is how the stale banner of an already-installed release was fixed.
  */
 function seedForkCache(status: object | null) {
   localStorage.setItem(
     forkCacheKey,
-    JSON.stringify({ checkedAt: Date.now(), status })
+    JSON.stringify({
+      checkedAt: Date.now(),
+      checkedSha: __SHA__,
+      status,
+    })
   )
 }
 
