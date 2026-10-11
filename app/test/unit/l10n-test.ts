@@ -211,11 +211,13 @@ describe('l10n manager', () => {
     localization.setUserMessage('ru', 'bye', '', 'До свидания')
     assert.equal(localization.translate('bye'), 'До свидания')
 
-    localization.clearUserMessage('ru', 'bye')
+    // Writing an empty value is the revert: the variant goes, and so does the
+    // key once nothing is left in it.
+    localization.setUserMessage('ru', 'bye', '', '')
     assert.equal(localization.translate('bye'), 'Goodbye')
   })
 
-  it('remembers which language holds edits that are not on disk', () => {
+  it('counts an edit that was typed back out as saved', () => {
     fresh()
     assert.deepEqual(localization.getUnsavedTags(), [])
 
@@ -224,10 +226,42 @@ describe('l10n manager', () => {
     assert.equal(localization.hasUnsavedMessages('de'), false)
     assert.deepEqual(localization.getUnsavedTags(), ['ru'])
 
-    // Rolling an override back is a change of its own: the file on disk still
-    // says something else, so the language stays unsaved.
-    localization.clearUserMessage('ru', 'bye')
+    // This language has no user file at all, so erasing the wording again makes
+    // the layer match the disk exactly — and there is nothing left to save. The
+    // editor has to say so, because a warning that survives its own undo is a
+    // warning the user cannot get rid of.
+    localization.setUserMessage('ru', 'bye', '', '')
+    assert.equal(localization.hasUnsavedMessages('ru'), false)
+    assert.deepEqual(localization.getUnsavedTags(), [])
+  })
+
+  it('measures unsaved against what the file already says', () => {
+    fresh()
+    localization.registerFromJson('ru', { bye: 'Прощайте' }, 'user')
+
+    assert.equal(localization.hasUserFile('ru'), true)
+    assert.equal(localization.hasUnsavedMessages('ru'), false)
+
+    localization.setUserMessage('ru', 'bye', '', 'До свидания')
     assert.equal(localization.hasUnsavedMessages('ru'), true)
+
+    // Back to the wording the file holds is clean again, and the file is still
+    // there, so there remains something to delete.
+    localization.setUserMessage('ru', 'bye', '', 'Прощайте')
+    assert.equal(localization.hasUnsavedMessages('ru'), false)
+    assert.equal(localization.hasUserFile('ru'), true)
+
+    // Erasing what the file itself contains is a change of its own: only a save
+    // or a reload settles it.
+    localization.setUserMessage('ru', 'bye', '', '')
+    assert.equal(localization.hasUnsavedMessages('ru'), true)
+  })
+
+  it('clears every unsaved language when the user layers are reloaded', () => {
+    fresh()
+
+    localization.setUserMessage('de', 'bye', '', 'Auf Wiedersehen')
+    assert.deepEqual(localization.getUnsavedTags(), ['de'])
 
     // What a save leaves behind is a memory that matches the files, which is
     // how the editor gets there: reload the user layers from disk.

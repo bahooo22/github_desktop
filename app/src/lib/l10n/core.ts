@@ -51,12 +51,18 @@ class LocalizationManager {
   private readonly missingKeys = new Set<string>()
 
   /**
-   * Languages whose in-memory overrides are not on disk yet. This is not the
-   * editor's bookkeeping: a translation stays in memory until it is saved, and
-   * the editor can be closed and reopened while those edits are still there
-   * (point-and-translate does exactly that), so the flag has to outlive it.
+   * Each user layer exactly as it came off the disk, taken in `registerFromJson`
+   * after the merge. A language is unsaved when its in-memory layer differs from
+   * this snapshot, which is what lets an edit be undone by undoing the edit: a
+   * flag that only ever gets set would keep claiming lost work after the field
+   * has been emptied again.
+   *
+   * This is not the editor's bookkeeping: a translation stays in memory until it
+   * is saved, and the editor can be closed and reopened while those edits are
+   * still there (point-and-translate does exactly that), so the snapshot has to
+   * outlive it.
    */
-  private readonly unsavedTags = new Set<string>()
+  private readonly savedLayers = new Map<string, ReadonlyMap<string, Message>>()
 
   private requestedTag: string | null = null
   private systemTags = new Array<string>()
@@ -73,16 +79,25 @@ class LocalizationManager {
     const messages = flattenCatalog(raw, this.problems)
     const meta = readCatalogMeta(raw)
 
+    const merged =
+      existing === undefined
+        ? messages
+        : mergeMessages(existing.messages, messages)
+
     layers.set(tag, {
       name: meta.name ?? existing?.name ?? tag,
       nativeName: meta.nativeName ?? existing?.nativeName ?? tag,
       direction: meta.direction ?? existing?.direction ?? 'ltr',
       authors: meta.authors ?? existing?.authors,
-      messages:
-        existing === undefined
-          ? messages
-          : mergeMessages(existing.messages, messages),
+      messages: merged,
     })
+
+    // The snapshot is post-merge on purpose: `saveUserLocalization` registers
+    // what it just wrote, and a snapshot of only that write would leave the
+    // keys the file already had looking unsaved forever.
+    if (source === 'user') {
+      this.savedLayers.set(tag, merged)
+    }
 
     this.effective.clear()
   }
@@ -90,14 +105,14 @@ class LocalizationManager {
   /** Drops every user override, restoring the shipped wording. */
   public resetUserLayers(): void {
     this.userLayers.clear()
-    this.unsavedTags.clear()
+    this.savedLayers.clear()
     this.afterCatalogChange()
   }
 
   /** Drops the user's overrides for one language, keeping the built-in one. */
   public forgetUserLayer(tag: string): void {
     this.userLayers.delete(tag)
-    this.unsavedTags.delete(tag)
+    this.savedLayers.delete(tag)
     this.afterCatalogChange()
   }
 
@@ -288,23 +303,6 @@ class LocalizationManager {
     })
 
     this.effective.clear()
-    this.unsavedTags.add(tag)
-    this.emit()
-  }
-
-  /** Drops the user's override for `key` so the shipped wording shows again. */
-  public clearUserMessage(tag: string, key: string): void {
-    const layer = this.userLayers.get(tag)
-
-    if (layer === undefined || !layer.messages.has(key)) {
-      return
-    }
-
-    const messages = new Map(layer.messages)
-    messages.delete(key)
-    this.userLayers.set(tag, { ...layer, messages })
-    this.effective.clear()
-    this.unsavedTags.add(tag)
     this.emit()
   }
 
@@ -314,11 +312,27 @@ class LocalizationManager {
    * closing and reopening the dialog cannot strand an edit.
    */
   public getUnsavedTags(): ReadonlyArray<string> {
-    return [...this.unsavedTags]
+    const tags = new Set([
+      ...this.userLayers.keys(),
+      ...this.savedLayers.keys(),
+    ])
+    return [...tags].filter(tag => this.hasUnsavedMessages(tag))
   }
 
   public hasUnsavedMessages(tag: string): boolean {
-    return this.unsavedTags.has(tag)
+    return !messagesEqual(
+      this.userLayers.get(tag)?.messages ?? noMessages,
+      this.savedLayers.get(tag) ?? noMessages
+    )
+  }
+
+  /**
+   * Whether `tag` has a user catalog on disk. Reverting every edit empties the
+   * in-memory layer but leaves the file, so this is what the editor asks when
+   * it decides whether there is a translation to delete.
+   */
+  public hasUserFile(tag: string): boolean {
+    return this.savedLayers.has(tag)
   }
 
   public getUserMessages(tag: string): ReadonlyMap<string, Message> {
@@ -402,6 +416,44 @@ class LocalizationManager {
 
 function toVariants(message: Message): ReadonlyArray<Variant> {
   return [...message].map(([qualifier, template]) => ({ qualifier, template }))
+}
+
+/**
+ * Whether two layers define the same keys with the same variants. Key order is
+ * deliberately not compared: a save rewrites the file and reading it back
+ * yields catalog order, which would otherwise look like an edit.
+ */
+function messagesEqual(
+  a: ReadonlyMap<string, Message>,
+  b: ReadonlyMap<string, Message>
+): boolean {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  for (const [key, message] of a) {
+    const other = b.get(key)
+
+    if (other === undefined || !sameTemplates(message, other)) {
+      return false
+    }
+  }
+
+  return true
+}
+
+function sameTemplates(a: Message, b: Message): boolean {
+  if (a.size !== b.size) {
+    return false
+  }
+
+  for (const [qualifier, template] of a) {
+    if (b.get(qualifier) !== template) {
+      return false
+    }
+  }
+
+  return true
 }
 
 /**

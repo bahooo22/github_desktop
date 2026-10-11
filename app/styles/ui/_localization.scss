@@ -201,6 +201,13 @@ body.l10n-pick-mode {
         color: var(--text-secondary-color);
       }
     }
+
+    // The variant is a column, so an unstretched control has to ask for its own
+    // width: at full width the revert button reads as a second field of the form
+    // rather than as an action on it.
+    .revert-variant {
+      align-self: flex-start;
+    }
   }
 
   .placeholder-warning {

@@ -118,6 +118,13 @@ const referenceTemplates = () =>
 
 const placeholders = () => variantInputs().map(input => input.placeholder)
 
+// One per variant that currently has an override: the button only exists where
+// there is something to revert.
+const revertButtons = () =>
+  [
+    ...document.querySelectorAll('.translation-variant button.revert-variant'),
+  ] as HTMLButtonElement[]
+
 // One entry per rendered variant: the example's wording, or `undefined` where
 // the row has no example line at all. Which rows have none is as much a part of
 // the behaviour as what the others show.
@@ -441,6 +448,107 @@ describe('localization editor', () => {
 
     selectTarget('uk')
     assert.equal(targetSelect().value, 'uk')
+  })
+
+  it('clears its own warning when the edit is undone', async () => {
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plain')
+    typeInto(variantInputs()[0], 'черновик')
+
+    assert.ok(screen.queryByText(t('localizationEditor.unsaved')))
+
+    selectTarget('uk')
+    const switchWarning = () =>
+      screen.queryByText(t('localizationEditor.unsavedSwitch', { tag: 'ru' }), {
+        exact: false,
+      })
+    assert.ok(switchWarning())
+
+    // Typing the field back empty is undoing the edit, and this language has no
+    // file of its own, so the layer matches the disk again. Both messages are
+    // about work that no longer exists: keeping them up would leave the user
+    // with a warning no button can clear.
+    typeInto(variantInputs()[0], '')
+
+    await waitFor(() => assertNotUnsaved())
+    await waitFor(() => assert.equal(switchWarning(), null))
+
+    // The component disables through `aria-disabled` plus a prevented click,
+    // not the HTML attribute, so that's what has to be measured.
+    const save = screen.getByRole('button', {
+      name: t('localizationEditor.save'),
+      hidden: true,
+    })
+    assert.equal(save.getAttribute('aria-disabled'), 'true')
+
+    selectTarget('uk')
+    assert.equal(targetSelect().value, 'uk')
+  })
+
+  it('reverts one form to the shipped wording', () => {
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plain')
+    typeInto(variantInputs()[0], 'перебивка')
+
+    assert.equal(revertButtons().length, 1)
+    fireEvent.click(revertButtons()[0])
+
+    assert.equal(variantInputs()[0].value, '')
+    assert.equal(revertButtons().length, 0)
+    assert.equal(localization.getUserMessages('ru').has('zztest.plain'), false)
+    assertNotUnsaved()
+  })
+
+  it('discards every unsaved edit back to what the file says', async () => {
+    // A file that already holds wording: discarding has to return to it rather
+    // than empty the row, and the file is still there afterwards, so there is
+    // still something to delete.
+    const disk = {
+      systemLocales: [],
+      preferredLocale: null,
+      directory: '/tmp',
+      files: [
+        {
+          tag: 'ru',
+          path: '/tmp/ru.json',
+          contents: { zztest: { plain: 'Заводской перевод' } },
+        },
+      ],
+    }
+
+    const previous = ipcRenderer.invoke
+    ipcRenderer.invoke = async (channel: string, ...args: any[]) =>
+      channel === 'get-localization-state'
+        ? disk
+        : previous.call(ipcRenderer, channel, ...args)
+
+    try {
+      render(<LocalizationEditor onDismissed={() => {}} />)
+
+      selectTarget('ru')
+      searchFor('zztest.plain')
+
+      assert.equal(variantInputs()[0].value, '')
+      typeInto(variantInputs()[0], 'свой вариант')
+      assert.ok(screen.queryByText(t('localizationEditor.unsaved')))
+
+      fireEvent.click(
+        screen.getByRole('button', {
+          name: t('localizationEditor.revertAll', { tag: 'ru' }),
+          hidden: true,
+        })
+      )
+
+      await waitFor(() => assertNotUnsaved())
+      assert.equal(variantInputs()[0].value, 'Заводской перевод')
+      assert.equal(localization.hasUserFile('ru'), true)
+    } finally {
+      ipcRenderer.invoke = previous
+    }
   })
 
   it('offers to save an edit again after the dialog was reopened', async () => {

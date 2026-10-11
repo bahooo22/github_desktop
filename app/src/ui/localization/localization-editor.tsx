@@ -57,6 +57,13 @@ interface ILocalizationEditorState {
   readonly newLanguageError: string | undefined
   readonly status: string | undefined
   readonly statusIsError: boolean
+  /**
+   * The last switch attempt was refused because the language has edits that
+   * aren't on disk. Kept apart from `status` so the warning can disappear on
+   * its own once those edits are reverted, rather than waiting for a save or a
+   * successful switch that may never come.
+   */
+  readonly switchBlocked: boolean
 }
 
 /**
@@ -105,6 +112,7 @@ export class LocalizationEditor extends React.Component<
       newLanguageError: undefined,
       status: undefined,
       statusIsError: false,
+      switchBlocked: false,
     }
   }
 
@@ -138,6 +146,7 @@ export class LocalizationEditor extends React.Component<
       >
         <DialogContent>
           {this.renderToolbar()}
+          {this.renderSwitchWarning()}
           {this.state.addingLanguage && this.renderNewLanguageForm()}
           {this.state.target !== '' && (
             <>
@@ -160,6 +169,26 @@ export class LocalizationEditor extends React.Component<
         </DialogContent>
         {this.renderFooter()}
       </Dialog>
+    )
+  }
+
+  /**
+   * A refused language switch, shown only while the reason for refusing it
+   * still stands. Reverting the edits clears it by itself, unlike the old
+   * single `status` line, which survived until the next save or a switch that
+   * the user was precisely not able to make.
+   */
+  private renderSwitchWarning() {
+    const { target, switchBlocked } = this.state
+
+    if (!switchBlocked || !localization.hasUnsavedMessages(target)) {
+      return null
+    }
+
+    return (
+      <p className="localization-editor-status error">
+        {t('localizationEditor.unsavedSwitch', { tag: target })}
+      </p>
     )
   }
 
@@ -373,6 +402,7 @@ export class LocalizationEditor extends React.Component<
     user: ReadonlyMap<string, string> | undefined
   ) {
     const value = user?.get(variant.qualifier) ?? ''
+    const hasOverride = user?.get(variant.qualifier) !== undefined
     const missing = missingPlaceholders(variant.template, value)
     const onValueChanged = this.onVariantValueChanged(key, variant.qualifier)
 
@@ -415,6 +445,15 @@ export class LocalizationEditor extends React.Component<
             })}
           </p>
         )}
+        {hasOverride && (
+          <Button
+            className="revert-variant"
+            tooltip={t('localizationEditor.revertHint')}
+            onClick={this.onRevertVariant(key, variant.qualifier)}
+          >
+            {t('localizationEditor.revert')}
+          </Button>
+        )}
       </div>
     )
   }
@@ -422,8 +461,15 @@ export class LocalizationEditor extends React.Component<
   private renderFooter() {
     const { target } = this.state
     const locale = localization.getLocale(target)
+    // Deleting is offered while there is something to delete: either a catalog
+    // file on disk, or in-memory overrides a previous build of this dialog
+    // would have offered to delete too. Reverting every edit empties the layer
+    // without touching the file, which is why the disk half can't be guessed
+    // from the layer's size.
     const isUserFile =
-      locale !== undefined && localization.getUserMessages(target).size > 0
+      locale !== undefined &&
+      (localization.hasUserFile(target) ||
+        localization.getUserMessages(target).size > 0)
     const dirty = localization.hasUnsavedMessages(target)
 
     return (
@@ -437,9 +483,14 @@ export class LocalizationEditor extends React.Component<
           </Button>
         )}
         {dirty && (
-          <span className="localization-editor-unsaved">
-            {t('localizationEditor.unsaved')}
-          </span>
+          <>
+            <span className="localization-editor-unsaved">
+              {t('localizationEditor.unsaved')}
+            </span>
+            <Button onClick={this.onRevertAll}>
+              {t('localizationEditor.revertAll', { tag: target })}
+            </Button>
+          </>
         )}
         <div className="spacer" />
         {this.props.dispatcher !== undefined && (
@@ -525,11 +576,32 @@ export class LocalizationEditor extends React.Component<
 
   private onVariantValueChanged =
     (key: string, qualifier: string) => (value: string) => {
-      // The store keeps the override and remembers that its language has
-      // something to save; the subscribe in componentDidMount redraws the
-      // footer, so there is nothing to mirror in local state.
+      // The store owns the override and works out on its own whether the
+      // language differs from what is on disk; the subscribe in
+      // componentDidMount redraws the footer, so there is nothing to mirror in
+      // local state.
       localization.setUserMessage(this.state.target, key, qualifier, value)
     }
+
+  /**
+   * Puts the shipped wording back for one form of one string. Writing an empty
+   * value is exactly that: `setUserMessage` drops the variant, and a string
+   * left without any variant is dropped with it, so an undone edit also stops
+   * counting as unsaved once it matches the file again.
+   */
+  private onRevertVariant = (key: string, qualifier: string) => () => {
+    localization.setUserMessage(this.state.target, key, qualifier, '')
+  }
+
+  /**
+   * Reloads every user layer from disk, which discards the edits that were
+   * never written. No confirmation: what can be lost here is only what isn't
+   * saved yet, and losing it is the point of the button.
+   */
+  private onRevertAll = async () => {
+    await reloadUserLocalizations()
+    this.setState({ switchBlocked: false })
+  }
 
   private onNewTagChanged = (newTag: string) => this.setState({ newTag })
 
@@ -561,10 +633,7 @@ export class LocalizationEditor extends React.Component<
       // picker back where it was (React won't restore an unchanged value
       // prop itself) and make the user settle the language first.
       e.currentTarget.value = target
-      this.setState({
-        status: t('localizationEditor.unsavedSwitch', { tag: target }),
-        statusIsError: true,
-      })
+      this.setState({ switchBlocked: true })
       return
     }
 
@@ -573,7 +642,11 @@ export class LocalizationEditor extends React.Component<
       return
     }
 
-    this.setState({ target: value, status: undefined })
+    this.setState({
+      target: value,
+      status: undefined,
+      switchBlocked: false,
+    })
   }
 
   private onSearchChanged = (search: string) => this.setState({ search })
