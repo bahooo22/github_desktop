@@ -34,6 +34,22 @@ interface IReleaseEntry {
   readonly length: number
 }
 
+/**
+ * Ядро имени пакета: имя из `RELEASES` и имя файла на диске различаются только
+ * хвостом - фид отдаёт `…-full.nupkg`, скачанный и применённый пакет лежит под
+ * `…beta340409.nupkg`, а дельта сохраняет суффикс `-delta`.
+ *
+ * Сравниваем ядра на равенство, а не через `startsWith`: на живом списке фида
+ * (12.10) префиксное сравнение давало две подмены - полный пакет `…-beta340411`
+ * находился по записи дельты того же релиза (723 325 байт вместо 259 647 455), а
+ * новая сборка `…-beta340410` - по записи прежней `…-beta3`, потому что номер
+ * коммита дописан к той же базе.
+ */
+function packageCore(fileName: string): string {
+  const lowered = fileName.toLowerCase()
+  return lowered.replace(/\.[^.]+$/, '').replace(/-full$/, '')
+}
+
 /** Разбор `RELEASES`: строки вида «sha1 имя-пакета длина». */
 function parseReleases(contents: string): ReadonlyArray<IReleaseEntry> {
   const entries = new Array<IReleaseEntry>()
@@ -102,6 +118,30 @@ export class UpdateDownloadMonitor {
     }
   }
 
+  /**
+   * Заменяет таблицу размеров содержимым `RELEASES` с фида.
+   *
+   * Нужен именно фид, а не локальный файл: `packages\RELEASES` в момент докачки
+   * описывает ПРЕЖНЮЮ сборку. Squirrel перегенерирует локальный список только
+   * после установки пакета в `app-<версия>` - `updateLocalReleasesFile()` стоит
+   * на строке 52 `src/Squirrel/UpdateManager.ApplyReleases.cs`, сразу за
+   * `installPackageToAppDir`, и зовёт `ReleaseEntry.BuildReleasesFile` (строка
+   * 245 `src/Squirrel/ReleaseEntry.cs`), - а всё это наступает уже после того,
+   * как файл докачан. Скачиваемый пакет в локальном списке поэтому быть не
+   * может, и без фида процент либо не считается вовсе, либо считается от размера
+   * прошлой сборки. Оба файла - внешнего `Squirrel/Squirrel.Windows` (коммит
+   * `615753b4`), в этом дереве их нет.
+   *
+   * Пустой текст, как и тот, что не даёт ни одной записи, ничего не меняет: при
+   * недоступном фиде строка остаётся с локальным списком, как и до этой правки.
+   */
+  public setFeedReleases(contents: string): void {
+    const entries = parseReleases(contents)
+    if (entries.length > 0) {
+      this.releases = entries
+    }
+  }
+
   private async tick(): Promise<void> {
     // Медленный диск может не успеть между тиками; накладывающийся опрос
     // показал бы двойной прирост байт.
@@ -166,30 +206,63 @@ export class UpdateDownloadMonitor {
   }
 
   /**
-   * Ожидаемый размер скачиваемого пакета из `RELEASES`, или ноль.
+   * Ожидаемый размер скачиваемого пакета, или ноль.
    *
-   * Имя в `RELEASES` и имя файла на диске различаются хвостом: фид отдаёт
-   * `-full.nupkg`, локально пакет лежит без него, а недокачанный файл
-   * Squirrel подписывает суффиксом. Поэтому сравниваем префикс до расширения,
-   * а живая мерка на бою показывает, какой именно суффикс встречается.
+   * Суффиксы различаются: фид отдаёт `…-full.nupkg`, применённый пакет лежит без
+   * него, а дельта сохраняет `-delta` - у полного и дельта-пакета одного релиза
+   * размеры разные, и смешивать их нельзя.
    */
   private totalFor(fileName: string): number {
-    if (fileName === '') {
+    const core = packageCore(fileName)
+    if (core === '') {
       return 0
     }
 
-    const core = fileName.replace(/\.[^.]+$/, '').replace(/-full$/, '')
-
     for (const entry of this.releases) {
-      const entryCore = entry.fileName
-        .replace(/\.[^.]+$/, '')
-        .replace(/-full$/, '')
-
-      if (core.startsWith(entryCore) || entryCore.startsWith(core)) {
+      if (packageCore(entry.fileName) === core) {
         return entry.length
       }
     }
 
     return 0
+  }
+}
+
+/**
+ * Текст `RELEASES` с фида обновлений, или `null`.
+ *
+ * Единственный источник, где размер скачиваемого пакета объявлен до того, как
+ * пакет применён: локальный список появляется только на применении, см.
+ * `setFeedReleases`. Живая мерка 12.10: `GET` по фиду
+ * `…/releases/download/latest-win-x64/RELEASES` отдаёт 200 и 483 байта с пятью
+ * строками, где у `…-beta340411-full.nupkg` размер 259647455, а у
+ * `…-beta340411-delta.nupkg` - 723325.
+ *
+ * Запрос повторяет то, как имя файла к фиду добавляет сам Squirrel:
+ * `Utility.AppendPathToUri` (`src/Squirrel/Utility.cs:473-482` внешнего
+ * `Squirrel/Squirrel.Windows`, коммит `615753b4`) дописывает слэш, если его нет,
+ * и правит только `Path`, оставляя query нетронутым. В URL проверки обновлений
+ * query - `guid` ступенчатой выдачи, живой вид фида:
+ * `…/releases/download/latest-win-x64/?guid=a1337ada-…`.
+ */
+export async function fetchFeedReleases(
+  feedUrl: string
+): Promise<string | null> {
+  try {
+    const url = new URL(feedUrl)
+    if (!url.pathname.endsWith('/')) {
+      url.pathname += '/'
+    }
+    url.pathname += 'RELEASES'
+
+    const response = await fetch(url.toString(), {
+      signal: AbortSignal.timeout(5000),
+    })
+
+    return response.ok ? await response.text() : null
+  } catch {
+    // Фида нет - офлайн, прокси, portable-сборка: строка остаётся с локальным
+    // списком, то есть без процентов, но со скоростью.
+    return null
   }
 }

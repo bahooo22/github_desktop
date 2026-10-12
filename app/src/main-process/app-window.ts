@@ -30,6 +30,7 @@ import { addTrustedIPCSender } from './trusted-ipc-sender'
 import { getUpdaterGUID } from '../lib/get-updater-guid'
 import { CLIAction } from '../lib/cli-action'
 import {
+  fetchFeedReleases,
   getPackagesDirectory,
   UpdateDownloadMonitor,
 } from './update-download-monitor'
@@ -45,6 +46,9 @@ export class AppWindow {
 
   /** Опрос каталога пакетов, пока Squirrel Windows качает обновление. */
   private downloadMonitor: UpdateDownloadMonitor | null = null
+
+  /** URL фида, установленный последней проверкой обновлений. */
+  private updateFeedUrl: string | null = null
 
   private minWidth = 960
   private minHeight = 660
@@ -488,6 +492,25 @@ export class AppWindow {
       const reason = error instanceof Error ? error.message : String(error)
       log('error', 'Failed to watch the update download: ' + reason)
     })
+
+    // Проценты берутся из `RELEASES` фида: локальный список описывает прежнюю
+    // сборку, а докачанный пакет появляется в нём только после применения. Пока
+    // ответ фида не пришёл, строка считается на локальном списке - байты и
+    // скорость видно, процента может не быть.
+    const feedUrl = this.updateFeedUrl
+    if (feedUrl !== null) {
+      const monitor = this.downloadMonitor
+      fetchFeedReleases(feedUrl)
+        .then(contents => {
+          if (contents !== null) {
+            monitor.setFeedReleases(contents)
+          }
+        })
+        .catch(error => {
+          const reason = error instanceof Error ? error.message : String(error)
+          log('error', 'Failed to read the feed RELEASES: ' + reason)
+        })
+    }
   }
 
   private stopDownloadMonitor() {
@@ -496,7 +519,9 @@ export class AppWindow {
 
   public async checkForUpdates(url: string) {
     try {
-      autoUpdater.setFeedURL({ url: await trySetUpdaterGuid(url) })
+      const feedUrl = await trySetUpdaterGuid(url)
+      this.updateFeedUrl = feedUrl
+      autoUpdater.setFeedURL({ url: feedUrl })
       autoUpdater.checkForUpdates()
     } catch (e) {
       return e
