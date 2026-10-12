@@ -127,8 +127,9 @@ describe('getPublishedVersion', () => {
   it('sorts above the version it extends, which is what Squirrel installs on', () => {
     // Between upstream releases the package file carries a prerelease, and the
     // published form has to be greater than it — the whole point of the scheme is
-    // that `UpdateInfo.cs:66` drops a feed whose version is not above the
-    // installed one.
+    // that lines 66-68 of `src/Squirrel/UpdateInfo.cs`, in the external
+    // `Squirrel/Squirrel.Windows` repository, drop a feed whose version is not
+    // above the installed one.
     for (const base of ['3.6.7-beta3', '3.7.0-beta1', '1.0.0-beta.4']) {
       const published = getPublishedVersion(base, {
         DESKTOP_FORK_BUILD_NUMBER: '40382',

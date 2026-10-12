@@ -96,8 +96,9 @@ function packageWindows() {
   const options: electronInstaller.Options = {
     name: nugetPkgName,
     // The version electron-winstaller writes into the package metadata and into
-    // `RELEASES`. Squirrel compares versions, not commits (`UpdateInfo.cs:66`
-    // returns an empty `releasesToApply` when the feed is not above the installed
+    // `RELEASES`. Squirrel compares versions, not commits (lines 66-68 of
+    // `src/Squirrel/UpdateInfo.cs` in the external `Squirrel/Squirrel.Windows`
+    // return an empty `releasesToApply` when the feed is not above the installed
     // version), so a fork rebuild with an unchanged `app/package.json` is never
     // installed. `Options.version` overrides the package.json found in
     // `appDirectory` (lib/index.js:203, `Object.assign(metadata, options)`), which

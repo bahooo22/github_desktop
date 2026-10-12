@@ -3,8 +3,10 @@
  *
  * Squirrel answers "is there an update" by comparing the version in the feed's
  * `RELEASES` against the version of the installed package, and it refuses to
- * install anything that isn't greater: `src/Squirrel/UpdateInfo.cs:66` returns an
- * empty `releasesToApply` as soon as `currentVersion.Version >= latestFull.Version`.
+ * install anything that isn't greater: lines 66-68 of `src/Squirrel/UpdateInfo.cs`
+ * in the external `Squirrel/Squirrel.Windows` repository - that tree is not part
+ * of this one - return an empty `releasesToApply` as soon as
+ * `currentVersion.Version >= latestFull.Version`.
  * Measured against `latest-win-x64` on 09.10.2026 — a release rebuilt from a new
  * commit while `app/package.json` still said `3.6.7-beta3` left the installed app
  * saying "you have the latest version", because there was nothing for Squirrel to
