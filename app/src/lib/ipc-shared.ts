@@ -18,6 +18,7 @@ import { NotificationCallback } from 'desktop-notifications'
 import { DesktopAliveEvent } from './stores/alive-store'
 import { CLIAction } from './cli-action'
 import { LocalizationState } from './l10n/types'
+import { IUpdateDownloadProgress } from './update-download-progress'
 
 /**
  * Defines the simplex IPC channel names we use from the renderer
@@ -86,6 +87,7 @@ export type RequestChannels = {
   'auto-updater-update-available': () => void
   'auto-updater-update-not-available': () => void
   'auto-updater-update-downloaded': () => void
+  'auto-updater-download-progress': (progress: IUpdateDownloadProgress) => void
   'native-theme-updated': () => void
   'set-native-theme-source': (themeName: ThemeSource) => void
   'update-window-background-color': (color: string) => void

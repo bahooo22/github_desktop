@@ -29,6 +29,11 @@ import {
 import { addTrustedIPCSender } from './trusted-ipc-sender'
 import { getUpdaterGUID } from '../lib/get-updater-guid'
 import { CLIAction } from '../lib/cli-action'
+import {
+  getPackagesDirectory,
+  UpdateDownloadMonitor,
+} from './update-download-monitor'
+import { log } from './log'
 
 export class AppWindow {
   private window: Electron.BrowserWindow
@@ -37,6 +42,9 @@ export class AppWindow {
   private _loadTime: number | null = null
   private _rendererReadyTime: number | null = null
   private isDownloadingUpdate: boolean = false
+
+  /** Опрос каталога пакетов, пока Squirrel Windows качает обновление. */
+  private downloadMonitor: UpdateDownloadMonitor | null = null
 
   private minWidth = 960
   private minHeight = 660
@@ -410,11 +418,13 @@ export class AppWindow {
   public setupAutoUpdater() {
     autoUpdater.on('error', (error: Error) => {
       this.isDownloadingUpdate = false
+      this.stopDownloadMonitor()
       ipcWebContents.send(this.window.webContents, 'auto-updater-error', error)
     })
 
     autoUpdater.on('checking-for-update', () => {
       this.isDownloadingUpdate = false
+      this.stopDownloadMonitor()
       ipcWebContents.send(
         this.window.webContents,
         'auto-updater-checking-for-update'
@@ -423,6 +433,7 @@ export class AppWindow {
 
     autoUpdater.on('update-available', () => {
       this.isDownloadingUpdate = true
+      this.startDownloadMonitor()
       ipcWebContents.send(
         this.window.webContents,
         'auto-updater-update-available'
@@ -431,6 +442,7 @@ export class AppWindow {
 
     autoUpdater.on('update-not-available', () => {
       this.isDownloadingUpdate = false
+      this.stopDownloadMonitor()
       ipcWebContents.send(
         this.window.webContents,
         'auto-updater-update-not-available'
@@ -439,11 +451,47 @@ export class AppWindow {
 
     autoUpdater.on('update-downloaded', () => {
       this.isDownloadingUpdate = false
+      this.stopDownloadMonitor()
       ipcWebContents.send(
         this.window.webContents,
         'auto-updater-update-downloaded'
       )
     })
+  }
+
+  /**
+   * Squirrel Windows запускает качающий процесс снаружи Electron-а, поэтому
+   * родного события `download-progress` у него нет: рост пакета видно только по
+   * диску. На macOS Electron качает сам и отдаёт `download-progress` — там
+   * опрос по файловой системе был бы просто лишней работой.
+   */
+  private startDownloadMonitor() {
+    if (!__WIN32__) {
+      return
+    }
+
+    if (this.downloadMonitor === null) {
+      this.downloadMonitor = new UpdateDownloadMonitor(
+        getPackagesDirectory(),
+        progress =>
+          ipcWebContents.send(
+            this.window.webContents,
+            'auto-updater-download-progress',
+            progress
+          )
+      )
+    }
+
+    // Первый тик берёт снимок каталога, поэтому он и асинхронный, и нужный
+    // сразу: без него строка молчала бы до истечения секунды.
+    this.downloadMonitor.start().catch(error => {
+      const reason = error instanceof Error ? error.message : String(error)
+      log('error', 'Failed to watch the update download: ' + reason)
+    })
+  }
+
+  private stopDownloadMonitor() {
+    this.downloadMonitor?.stop()
   }
 
   public async checkForUpdates(url: string) {

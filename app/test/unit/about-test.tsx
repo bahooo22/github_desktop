@@ -4,8 +4,9 @@ import * as React from 'react'
 import { ipcRenderer } from 'electron'
 
 import { About } from '../../src/ui/about/about'
-import { UpdateStatus } from '../../src/ui/lib/update-store'
+import { IUpdateState, UpdateStatus } from '../../src/ui/lib/update-store'
 import { getVersion } from '../../src/ui/lib/app-proxy'
+import { formatBytes } from '../../src/ui/lib/bytes'
 import {
   buildFeedbackIssueUrl,
   TranslationIssueLabel,
@@ -31,7 +32,10 @@ async function flushAsyncWork() {
   }
 }
 
-function renderAbout() {
+function renderAbout(
+  updateState: Partial<IUpdateState> = {},
+  allowDevelopment: boolean = false
+) {
   return render(
     <About
       onDismissed={() => {}}
@@ -42,6 +46,7 @@ function renderAbout() {
       onShowAcknowledgements={() => {}}
       onShowTermsAndConditions={() => {}}
       onQuitAndInstall={() => {}}
+      allowDevelopment={allowDevelopment}
       updateState={{
         status: UpdateStatus.UpdateNotChecked,
         lastSuccessfulCheck: null,
@@ -49,6 +54,8 @@ function renderAbout() {
         newReleases: null,
         prioritizeUpdate: false,
         prioritizeUpdateInfoUrl: undefined,
+        downloadProgress: null,
+        ...updateState,
       }}
     />
   )
@@ -371,5 +378,152 @@ describe('about - the fork release line', () => {
     } finally {
       globalThis.fetch = originalFetch
     }
+  })
+})
+
+const statusSelector = '.update-status'
+const progressSelector = '.update-status p'
+const ariaSelector = '.update-status .sr-only'
+
+const MiB = 1024 * 1024
+
+/**
+ * Скачивание обновления.
+ *
+ * Строка обновляется раз в секунду, поэтому её цифры идут только в визуальную
+ * часть, а в `aria-live` остаётся постоянная фраза — иначе программа чтения
+ * экрана повторяла бы её каждую секунду.
+ */
+describe('about - the download progress line', () => {
+  let restoreIpcSend: (() => void) | null = null
+  let restoreLinux: (() => void) | null = null
+  let view: ReturnType<typeof render> | null = null
+
+  beforeEach(() => {
+    restoreIpcSend = mockIpcSend()
+
+    // `renderUpdateDetails` на Linux возвращает null, и тогда строки вовсе нет в
+    // DOM. Глобальную константу подменяют и другие тесты этого репозитория, так
+    // что проверка снимается с платформы, а не пропускается на ней.
+    const previous = (globalThis as any).__LINUX__
+    ;(globalThis as any).__LINUX__ = false
+    restoreLinux = () => {
+      ;(globalThis as any).__LINUX__ = previous
+    }
+
+    // Без этого диалог пошёл бы на central.github.com за апстримным changelog.
+    seedCache([getVersion()])
+  })
+
+  afterEach(() => {
+    view?.unmount()
+    view = null
+    restoreIpcSend?.()
+    restoreIpcSend = null
+    restoreLinux?.()
+    restoreLinux = null
+    localStorage.removeItem(cacheKey)
+  })
+
+  function renderProgress(
+    downloadProgress: IUpdateState['downloadProgress']
+  ): Element {
+    view = renderAbout(
+      {
+        status: UpdateStatus.UpdateAvailable,
+        lastSuccessfulCheck: new Date(),
+        downloadProgress,
+      },
+      // В тестовой сборке канал development, и без этого флага диалог показывает
+      // строку «обновления недоступны в dev», а не статус загрузки.
+      true
+    )
+
+    const status = document.querySelector(statusSelector)
+    assert.ok(status !== null, 'the update line renders')
+    return status
+  }
+
+  it('states the percent, both sizes and the speed', () => {
+    const progress = renderProgress({
+      downloadedBytes: 700 * MiB,
+      totalBytes: 2078 * MiB,
+      percent: 33.7,
+      bytesPerSecond: 4 * MiB,
+    })
+
+    const text = progress.querySelector(progressSelector)!.textContent!
+
+    // Дробный процент округлён, а не выведен всеми цифрами.
+    assert.ok(text.includes('34%'), text)
+    assert.ok(!text.includes('33.7'), text)
+
+    // Размеры в тех же IEC-единицах, что и всё приложение, а не голые байты.
+    assert.ok(text.includes(formatBytes(700 * MiB, 1)), text)
+    assert.ok(text.includes(formatBytes(2078 * MiB, 0)), text)
+    assert.ok(text.includes(formatBytes(4 * MiB, 1)), text)
+    assert.ok(!text.includes(`${700 * MiB}`), text)
+  })
+
+  it('drops the percent when the package size is unknown', () => {
+    const progress = renderProgress({
+      downloadedBytes: 12 * MiB,
+      totalBytes: 0,
+      percent: null,
+      bytesPerSecond: MiB,
+    })
+
+    const text = progress.querySelector(progressSelector)!.textContent!
+
+    // Дельта-пакета нет в `RELEASES`, поэтому процент был бы выдумкой;
+    // скачанные байты при этом остаются.
+    assert.ok(
+      text.includes(
+        t('about.downloadingSize', { downloaded: formatBytes(12 * MiB, 1) })
+      ),
+      text
+    )
+    assert.ok(!text.includes('%'), text)
+  })
+
+  it('drops the speed until there are enough reports', () => {
+    const progress = renderProgress({
+      downloadedBytes: 300 * MiB,
+      totalBytes: 600 * MiB,
+      percent: 50,
+      bytesPerSecond: null,
+    })
+
+    const text = progress.querySelector(progressSelector)!.textContent!
+
+    assert.ok(text.includes(formatBytes(300 * MiB, 1)), text)
+    assert.ok(text.includes(formatBytes(600 * MiB, 0)), text)
+    assert.ok(text.includes('50%'), text)
+
+    // Скорости нет целиком: ни числа, ни единицы измерения.
+    assert.ok(!text.includes('/s'), text)
+    assert.equal(text.split(' · ').length, 2, text)
+  })
+
+  it('keeps the plain line while the download has no reports yet', () => {
+    const progress = renderProgress(null)
+
+    // Без отсчётов остаётся обычная строка: ни разделителей, ни цифр.
+    assert.equal(progress.querySelector(progressSelector), null)
+    assert.ok(!progress.textContent!.includes('·'), progress.textContent!)
+  })
+
+  it('keeps the numbers out of the screen reader announcement', () => {
+    const progress = renderProgress({
+      downloadedBytes: 700 * MiB,
+      totalBytes: 2078 * MiB,
+      percent: 33.7,
+      bytesPerSecond: 4 * MiB,
+    })
+
+    const announcement = progress.querySelector(ariaSelector)!.textContent!
+
+    assert.equal(announcement, t('about.downloading'))
+    assert.ok(!/\d/.test(announcement), announcement)
   })
 })

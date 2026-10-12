@@ -6,6 +6,7 @@ import {
   checkForUpdates,
   isRunningUnderARM64Translation,
   onAutoUpdaterCheckingForUpdate,
+  onAutoUpdaterDownloadProgress,
   onAutoUpdaterError,
   onAutoUpdaterUpdateAvailable,
   onAutoUpdaterUpdateDownloaded,
@@ -13,6 +14,7 @@ import {
   quitAndInstallUpdate,
   sendWillQuitSync,
 } from '../main-process-proxy'
+import { IUpdateDownloadProgress } from '../../lib/update-download-progress'
 import { ErrorWithMetadata } from '../../lib/error-with-metadata'
 import { parseError } from '../../lib/squirrel-error-parser'
 
@@ -63,6 +65,13 @@ export interface IUpdateState {
   newReleases: ReadonlyArray<ReleaseSummary> | null
   prioritizeUpdate: boolean
   prioritizeUpdateInfoUrl: string | undefined
+
+  /**
+   * Как далеко ушло скачивание, или `null` вне его. Живёт только между
+   * `update-available` и `update-downloaded`, то есть ровно в том состоянии,
+   * которое интерфейс показывает как «загружается».
+   */
+  downloadProgress: IUpdateDownloadProgress | null
 }
 
 /** A store which contains the current state of the auto updater. */
@@ -72,6 +81,7 @@ class UpdateStore {
   private lastSuccessfulCheck: Date | null = null
   private newReleases: ReadonlyArray<ReleaseSummary> | null = null
   private isX64ToARM64ImmediateAutoUpdate: boolean = false
+  private downloadProgress: IUpdateDownloadProgress | null = null
 
   /** Is the most recent update check user initiated? */
   private userInitiatedUpdate = true
@@ -98,6 +108,7 @@ class UpdateStore {
     onAutoUpdaterUpdateAvailable(this.onUpdateAvailable)
     onAutoUpdaterUpdateNotAvailable(this.onUpdateNotAvailable)
     onAutoUpdaterUpdateDownloaded(this.onUpdateDownloaded)
+    onAutoUpdaterDownloadProgress(this.onDownloadProgress)
   }
 
   private touchLastChecked() {
@@ -108,6 +119,7 @@ class UpdateStore {
 
   private onAutoUpdaterError = (e: Electron.IpcRendererEvent, error: Error) => {
     this.status = UpdateStatus.UpdateNotAvailable
+    this.downloadProgress = null
 
     if (__WIN32__) {
       const parsedError = parseError(error)
@@ -119,12 +131,26 @@ class UpdateStore {
 
   private onCheckingForUpdate = () => {
     this.status = UpdateStatus.CheckingForUpdates
+    this.downloadProgress = null
     this.emitDidChange()
   }
 
   private onUpdateAvailable = () => {
     this.touchLastChecked()
     this.status = UpdateStatus.UpdateAvailable
+    this.downloadProgress = null
+    this.emitDidChange()
+  }
+
+  /**
+   * Отсчёт приходит раз в секунду, пока Squirrel качает пакет, и он же
+   * двигает строку в диалоге «О программе».
+   */
+  private onDownloadProgress = (
+    _event: Electron.IpcRendererEvent,
+    progress: IUpdateDownloadProgress
+  ) => {
+    this.downloadProgress = progress
     this.emitDidChange()
   }
 
@@ -133,6 +159,7 @@ class UpdateStore {
     this.newReleases = await generateReleaseSummary()
     this.touchLastChecked()
     this.status = UpdateStatus.UpdateNotAvailable
+    this.downloadProgress = null
     this.emitDidChange()
   }
 
@@ -149,6 +176,7 @@ class UpdateStore {
       this.newReleases[0].latestVersion === getVersion() &&
       (await isRunningUnderARM64Translation())
     this.status = UpdateStatus.UpdateReady
+    this.downloadProgress = null
     this.emitDidChange()
 
     this.updatePriorityUpdateStatus()
@@ -195,6 +223,7 @@ class UpdateStore {
       isX64ToARM64ImmediateAutoUpdate: this.isX64ToARM64ImmediateAutoUpdate,
       prioritizeUpdate: this.prioritizeUpdate,
       prioritizeUpdateInfoUrl: this.prioritizeUpdateInfoUrl,
+      downloadProgress: this.downloadProgress,
     }
   }
 

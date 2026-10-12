@@ -4,6 +4,7 @@ import * as ipcRenderer from '../lib/ipc-renderer'
 import { stat } from 'fs/promises'
 import { isApplicationBundle } from '../lib/is-application-bundle'
 import { pathExists } from '../lib/path-exists'
+import { IUpdateDownloadProgress } from '../lib/update-download-progress'
 
 /**
  * Creates a strongly typed proxy method for sending a duplex IPC message to the
@@ -269,6 +270,17 @@ export function onAutoUpdaterUpdateNotAvailable(eventHandler: () => void) {
  * main process */
 export function onAutoUpdaterUpdateDownloaded(eventHandler: () => void) {
   ipcRenderer.on('auto-updater-update-downloaded', eventHandler)
+}
+
+/** Subscribes to how far the update has downloaded, measured by the main
+ * process once per second while Squirrel is fetching the package */
+export function onAutoUpdaterDownloadProgress(
+  eventHandler: (
+    evt: Electron.IpcRendererEvent,
+    progress: IUpdateDownloadProgress
+  ) => void
+) {
+  ipcRenderer.on('auto-updater-download-progress', eventHandler)
 }
 
 /** Subscribes to the native theme updated event originating from the main process */

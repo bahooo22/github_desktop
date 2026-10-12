@@ -21,6 +21,7 @@ import {
 } from '../../lib/get-os'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { formatDate } from '../../lib/format-date'
+import { formatBytes } from '../lib/bytes'
 import { t, Trans, localization } from '../../lib/l10n'
 import { buildFeedbackIssueUrl } from '../localization/translation-issue'
 import { getUpstreamStatus, IUpstreamStatus } from '../../lib/upstream-status'
@@ -193,6 +194,67 @@ export class About extends React.Component<IAboutProps, IAboutState> {
     }
   }
 
+  /**
+   * Строка скачивания обновления: проценты и скорость, если main-process их
+   * нашёл.
+   *
+   * Цифры идут в `richMessage`, а в `message` остаётся постоянная фраза: строка
+   * меняется раз в секунду, и отдавать её в `aria-live` значило бы заставлять
+   * программу чтения экрана повторять одно и то же каждую секунду.
+   */
+  private renderDownloadProgress() {
+    const progress = this.props.updateState.downloadProgress
+    const downloading = t('about.downloading')
+
+    if (progress === null) {
+      return <UpdateInfo message={downloading} loading={true} />
+    }
+
+    const details = new Array<string>()
+
+    // Размер всего пакета известен только когда его описывает `RELEASES`: при
+    // дельта-обновлении качают файл, которого в списке нет, и проценты были бы
+    // ложью — тогда показываем только скачанные байты.
+    if (progress.percent !== null) {
+      details.push(
+        t('about.downloadingProgress', {
+          percent: Math.round(progress.percent),
+          downloaded: formatBytes(progress.downloadedBytes, 1),
+          total: formatBytes(progress.totalBytes, 0),
+        })
+      )
+    } else {
+      details.push(
+        t('about.downloadingSize', {
+          downloaded: formatBytes(progress.downloadedBytes, 1),
+        })
+      )
+    }
+
+    if (progress.bytesPerSecond !== null) {
+      details.push(
+        t('about.downloadSpeed', {
+          speed: formatBytes(progress.bytesPerSecond, 1),
+        })
+      )
+    }
+
+    return (
+      <UpdateInfo
+        message={downloading}
+        richMessage={
+          <p>
+            {t('about.downloadingLine', {
+              downloading,
+              details: details.join(' · '),
+            })}
+          </p>
+        }
+        loading={true}
+      />
+    )
+  }
+
   private renderUpdateDetails() {
     if (__LINUX__) {
       return null
@@ -208,7 +270,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
       case UpdateStatus.CheckingForUpdates:
         return <UpdateInfo message={t('about.checking')} loading={true} />
       case UpdateStatus.UpdateAvailable:
-        return <UpdateInfo message={t('about.downloading')} loading={true} />
+        return this.renderDownloadProgress()
       case UpdateStatus.UpdateNotAvailable:
         if (!lastSuccessfulCheck) {
           return null

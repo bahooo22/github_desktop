@@ -61,6 +61,7 @@ describe('IPC channel contract', () => {
     'auto-updater-error',
     'auto-updater-checking-for-update',
     'auto-updater-update-available',
+    'auto-updater-download-progress',
     'auto-updater-update-not-available',
     'auto-updater-update-downloaded',
     'native-theme-updated',
