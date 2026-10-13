@@ -22,6 +22,14 @@ interface IRelativeTimeProps {
 
   /** Whether to show a tooltip with the absolute date on hover - Default = true */
   readonly tooltip?: boolean
+
+  /**
+   * Keep the relative form past a week instead of collapsing to an absolute date,
+   * counted in whole weeks ('1 week ago', '3 weeks ago') and then months. Needs
+   * `numeric: 'always'` under the hood, see `coarseAfterWeek` in
+   * `format-relative.ts`.
+   */
+  readonly coarseAfterWeek?: boolean
 }
 
 interface IRelativeTimeState {
@@ -47,7 +55,8 @@ type RelativeTimeInfo = {
 
 export function getRelativeTimeInfoFromDate(
   then: Date,
-  onlyRelative: boolean = true
+  onlyRelative: boolean = true,
+  coarseAfterWeek: boolean = false
 ): RelativeTimeInfo {
   const diff = then.getTime() - Date.now()
   const duration = Math.abs(diff)
@@ -57,7 +66,7 @@ export function getRelativeTimeInfoFromDate(
     timeStyle: 'short',
   })
 
-  const relativeText = formatRelative(diff)
+  const relativeText = formatRelative(diff, { coarseAfterWeek })
 
   // Future date, let's just show as absolute and reschedule. If it's less
   // than a minute into the future we'll treat it as 'just now'.
@@ -83,7 +92,9 @@ export function getRelativeTimeInfoFromDate(
   } else if (duration < 7 * DAY) {
     return { absoluteText, relativeText, duration: 6 * HOUR }
   } else {
-    if (onlyRelative) {
+    if (onlyRelative || coarseAfterWeek) {
+      // The weekly scale only moves once a week, but the existing 6 hour tick
+      // stays: it is cheaper than tracking week boundaries by hand.
       return { absoluteText, relativeText, duration: 6 * HOUR }
     } else {
       // More than a week ago, just the date will suffice
@@ -139,10 +150,10 @@ export class RelativeTime extends React.Component<
   }
 
   private updateWithDate(then: Date) {
-    const { onlyRelative } = this.props
+    const { onlyRelative, coarseAfterWeek } = this.props
 
     const { absoluteText, relativeText, duration } =
-      getRelativeTimeInfoFromDate(then, onlyRelative)
+      getRelativeTimeInfoFromDate(then, onlyRelative, coarseAfterWeek)
 
     if (duration !== undefined) {
       this.updateAndSchedule(absoluteText, relativeText, duration)
