@@ -10,9 +10,18 @@ import {
   withForkBuildNumber,
 } from '../../../../script/fork-version'
 
-// The shapes a fork release can start from: `3.6.7-beta3` is what upstream keeps
-// in `app/package.json` between releases, `3.6.7` what it holds right after one.
-const baseVersions = ['3.6.7-beta3', '3.6.7', '3.7.0-beta1', '1.0.0-beta.4']
+// The shapes a fork release can start from: `3.6.7-beta3` and `3.6.8-beta2` are what
+// upstream keeps in `app/package.json` between releases, `3.6.7` what it holds right
+// after one. Upstream published `3.6.8-beta1` and `3.6.8-beta2` on the same day,
+// 13.10.2026, and this fork merged into the second one.
+const baseVersions = [
+  '3.6.7-beta3',
+  '3.6.8-beta1',
+  '3.6.8-beta2',
+  '3.6.7',
+  '3.7.0-beta1',
+  '1.0.0-beta.4',
+]
 
 describe('toNuGetVersion', () => {
   // The module copies this rule instead of importing it, because the release gate
@@ -179,6 +188,11 @@ describe('compareVersions', () => {
     ['3.6.7-beta340382', '3.6.7', -1],
     ['3.6.7', '3.6.7-beta340382', 1],
     ['3.7.0', '3.6.7-beta399999', 1],
+    // What an installed build sees when upstream moves the base under the fork:
+    // the new base has to win on the main version alone, or the merged feed would
+    // look like no update at all.
+    ['3.6.7-beta340414', '3.6.8-beta140415', -1],
+    ['3.6.7-beta340414', '3.6.8-beta240415', -1],
     ['3.6.7-beta399999', '3.6.7-beta340382', 1],
     ['1.0.0-beta.4', '1.0.0-beta.5', -1],
     ['1.0.0-beta.4.40382', '1.0.0-beta.4.40383', -1],

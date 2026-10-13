@@ -1,6 +1,14 @@
 {
   "releases": [
     {
+      "version": "3.6.8-beta2",
+      "pub_date": "2026-10-13T00:00:00Z",
+      "notes": [
+        { "kind": "improved", "key": "releaseNotes.fork.upstreamSync" },
+        { "kind": "added", "key": "releaseNotes.fork.missingWorktrees" }
+      ]
+    },
+    {
       "version": "3.6.7-beta3",
       "pub_date": "2026-10-08T00:00:00Z",
       "notes": [
