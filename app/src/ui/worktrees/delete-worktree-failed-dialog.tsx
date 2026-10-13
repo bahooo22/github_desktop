@@ -7,16 +7,17 @@ import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Repository } from '../../models/repository'
 import { getUnderlyingError, isRawGitError } from '../app-error'
 import { Terminal } from '../terminal'
-import { WorktreeEntry } from '../../models/worktree'
+import { IDeleteWorktreeOptions, WorktreeEntry } from '../../models/worktree'
 import { t, Trans } from '../../lib/l10n'
 
 interface IDeleteWorktreeFailedDialogProps {
   readonly repository: Repository
   readonly worktreePath: string
+  readonly options: IDeleteWorktreeOptions
   readonly onDeleteWorktree: (
     repository: Repository,
     worktreePath: string,
-    force: boolean
+    options?: IDeleteWorktreeOptions
   ) => Promise<void>
   readonly onSwitchToWorktree: (
     repository: Repository,
@@ -108,7 +109,7 @@ export class DeleteWorktreeFailedDialog extends React.Component<
     await this.props.onDeleteWorktree(
       this.props.repository,
       this.props.worktreePath,
-      true
+      { ...this.props.options, force: true }
     )
     this.props.onDismissed()
   }

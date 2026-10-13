@@ -2630,7 +2630,10 @@
   },
   "deleteWorktreeDialog": {
     "confirmMessage": "Ви впевнені, що хочете видалити worktree <ref/>?",
-    "title": "Видалити worktree"
+    "confirmMessageMissing": "Папка worktree <ref/> більше не існує. Видалити його з цього репозиторію?",
+    "delete": "Видалити",
+    "title": "Видалити worktree",
+    "titleMissing": "Видалити відсутній worktree"
   },
   "crash": {
     "launchDescription": "GitHub Desktop стикнулася з критичною помилкою, яка не дозволяє їй запуститися. Ми вже повідомили про неї команді, але якщо ця помилка повторюється, будь ласка, повідомте про неї у <link>трекері проблем</link> GitHub Desktop.",

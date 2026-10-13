@@ -2778,9 +2778,15 @@
   },
   "deleteWorktreeDialog": {
     "confirmMessage": "Are you sure you want to delete the worktree <ref/>?",
+    "confirmMessageMissing": "The folder for the worktree <ref/> no longer exists. Remove it from this repository?",
+    "delete": "Delete",
     "title": {
       "@darwin": "Delete Worktree",
       "@other": "Delete worktree"
+    },
+    "titleMissing": {
+      "@darwin": "Remove Missing Worktree",
+      "@other": "Remove missing worktree"
     }
   },
   "crash": {
