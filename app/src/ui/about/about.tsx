@@ -29,6 +29,7 @@ import {
   getForkReleaseStatus,
   IForkReleaseStatus,
 } from '../../lib/fork-release'
+import { getBuildFirstRun } from '../../lib/first-run-of-build'
 
 const logoPath = __DARWIN__
   ? 'static/logo-64x64@2x.png'
@@ -293,8 +294,48 @@ export class About extends React.Component<IAboutProps, IAboutState> {
 
         const upToDateMessage = t('about.up-to-date', { date: absoluteDate })
 
+        // Вторая строка — возраст самой сборки. Его не подмешивать в
+        // `upToDateMessage`: `AriaLiveContainer` озвучивает `message`, а возраст
+        // сборки меняется тиком, значит скринридер повторял бы «три часа назад»,
+        // «четыре часа назад»… Для конкретной сборки её абсолютная дата постоянна.
+        const firstRun = getBuildFirstRun()
+
+        if (firstRun === undefined) {
+          return (
+            <UpdateInfo message={upToDateMessage} richMessage={richMessage} />
+          )
+        }
+
+        const firstRunMessage = t('about.firstRunOfBuild', {
+          date: formatDate(firstRun, {
+            dateStyle: 'full',
+            timeStyle: 'short',
+          }),
+        })
+
         return (
-          <UpdateInfo message={upToDateMessage} richMessage={richMessage} />
+          <>
+            <UpdateInfo message={upToDateMessage} richMessage={richMessage} />
+            <UpdateInfo
+              message={firstRunMessage}
+              richMessage={
+                <p>
+                  <Trans
+                    k="about.firstRunOfBuild-rich"
+                    components={{
+                      time: (
+                        <RelativeTime
+                          date={firstRun}
+                          onlyRelative={true}
+                          coarseAfterWeek={true}
+                        />
+                      ),
+                    }}
+                  />
+                </p>
+              }
+            />
+          </>
         )
       case UpdateStatus.UpdateReady:
         return <UpdateInfo message={t('about.update-ready')} />

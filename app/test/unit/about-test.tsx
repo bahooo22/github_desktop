@@ -527,3 +527,146 @@ describe('about - the download progress line', () => {
     assert.ok(!/\d/.test(announcement), announcement)
   })
 })
+
+const firstRunKey = 'first-run-of-build'
+const HOUR = 60 * 60 * 1000
+const DAY = 24 * HOUR
+
+/**
+ * Вторая строка статуса: возраст самой сборки.
+ *
+ * Единственная дата, которую держит апстримный апдейтер, — возраст последней
+ * удачной проверки, и её обнуляет каждая автопроверка. Поэтому возраст сборки
+ * считается по коммиту сборки (`__SHA__`), а не по статусу обновлений, и в
+ * `aria-live` идёт абсолютная дата: относительную форму счётчик меняет тиком, и
+ * скринридер повторял бы её снова и снова.
+ */
+describe('about - the build age line', () => {
+  let restoreIpcSend: (() => void) | null = null
+  let restoreLinux: (() => void) | null = null
+  let view: ReturnType<typeof render> | null = null
+
+  function seedFirstRun(ageMs: number) {
+    localStorage.setItem(
+      firstRunKey,
+      JSON.stringify({ sha: __SHA__, firstRunAt: Date.now() - ageMs })
+    )
+  }
+
+  beforeEach(() => {
+    restoreIpcSend = mockIpcSend()
+
+    const previous = (globalThis as any).__LINUX__
+    ;(globalThis as any).__LINUX__ = false
+    restoreLinux = () => {
+      ;(globalThis as any).__LINUX__ = previous
+    }
+
+    seedCache([getVersion()])
+    localization.setRequestedLocale('ru')
+
+    // Десять суток — это ровно «1 неделю назад» на недельной шкале.
+    seedFirstRun(10 * DAY)
+  })
+
+  afterEach(() => {
+    view?.unmount()
+    view = null
+    restoreIpcSend?.()
+    restoreIpcSend = null
+    restoreLinux?.()
+    restoreLinux = null
+    localization.setRequestedLocale(null)
+    localStorage.removeItem(cacheKey)
+    localStorage.removeItem(firstRunKey)
+  })
+
+  function renderUpToDate(lastSuccessfulCheck: Date) {
+    view = renderAbout(
+      {
+        status: UpdateStatus.UpdateNotAvailable,
+        lastSuccessfulCheck,
+      },
+      true
+    )
+
+    return [...document.querySelectorAll(statusSelector)]
+  }
+
+  it('shows the age of this build next to the age of the last check', () => {
+    const statuses = renderUpToDate(new Date(Date.now() - 2 * HOUR))
+
+    assert.equal(statuses.length, 2, 'две строки статуса')
+    const buildLine = statuses[1].textContent!
+    assert.ok(
+      buildLine.includes(
+        t('about.firstRunOfBuild-rich').replace('<time />', '').trim()
+      ),
+      `подпись сборки на языке интерфейса: ${buildLine}`
+    )
+    assert.ok(buildLine.includes('1 неделю назад'), buildLine)
+  })
+
+  it('announces an absolute date instead of a ticking number', () => {
+    const statuses = renderUpToDate(new Date(Date.now() - 2 * HOUR))
+
+    const firstRunAt = JSON.parse(localStorage.getItem(firstRunKey)!)
+      .firstRunAt as number
+
+    const announcement = statuses[1].querySelector('.sr-only')!.textContent!
+    assert.ok(
+      announcement.includes(
+        formatDate(new Date(firstRunAt), {
+          dateStyle: 'full',
+          timeStyle: 'short',
+        })
+      ),
+      announcement
+    )
+    assert.ok(!announcement.includes('назад'), announcement)
+
+    // Ни одна озвучиваемая строка не содержит недельной цифры.
+    for (const status of statuses) {
+      const text = status.querySelector('.sr-only')!.textContent!
+      assert.ok(!/недел|месяц/.test(text), text)
+    }
+  })
+
+  it('survives another successful update check', () => {
+    renderUpToDate(new Date(Date.now() - 2 * HOUR))
+    const storedBefore = localStorage.getItem(firstRunKey)
+
+    view?.unmount()
+    view = null
+    renderUpToDate(new Date())
+
+    assert.equal(
+      localStorage.getItem(firstRunKey),
+      storedBefore,
+      'проверка обновлений не трогает возраст сборки'
+    )
+
+    // И строка остаётся недельной, а не обнуляется до «только что».
+    const statuses = [...document.querySelectorAll(statusSelector)]
+    assert.ok(statuses[1].textContent!.includes('1 неделю назад'))
+  })
+
+  it('keeps a single line when this build has no recorded first run', () => {
+    localStorage.removeItem(firstRunKey)
+
+    const statuses = renderUpToDate(new Date(Date.now() - HOUR))
+
+    assert.equal(statuses.length, 1)
+    assert.ok(statuses[0].textContent!.includes('назад'))
+  })
+
+  it('ignores a first run recorded by a different build', () => {
+    localStorage.setItem(
+      firstRunKey,
+      JSON.stringify({ sha: 'другая-сборка', firstRunAt: Date.now() - DAY })
+    )
+
+    const statuses = renderUpToDate(new Date(Date.now() - HOUR))
+    assert.equal(statuses.length, 1, 'чужая запись не показывается')
+  })
+})

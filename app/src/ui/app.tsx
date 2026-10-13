@@ -197,6 +197,7 @@ import {
 } from '../lib/fork-release'
 import { offsetFromNow } from '../lib/offset-from'
 import { getNumber } from '../lib/local-storage'
+import { recordBuildFirstRun } from '../lib/first-run-of-build'
 import { IconPreviewDialog } from './octicons/icon-preview-dialog'
 import { isCertificateErrorSuppressedFor } from '../lib/suppress-certificate-error'
 import { webUtils } from 'electron'
@@ -1151,6 +1152,10 @@ export class App extends React.Component<IAppProps, IAppState> {
     document.addEventListener('focus', this.onDocumentFocus, {
       capture: true,
     })
+
+    // Первый запуск этой сборки считается один раз на старте окна, а не в
+    // диалоге «О программе»: иначе «первый запуск» совпал бы с открытием окна.
+    recordBuildFirstRun()
   }
 
   private onDocumentFocus = (event: FocusEvent) => {

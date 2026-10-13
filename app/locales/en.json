@@ -713,6 +713,8 @@
     "downloadingLine": "{downloading} · {details}",
     "up-to-date": "You have the latest version (last checked {date})",
     "up-to-date-rich": "You have the latest version (last checked <time />)",
+    "firstRunOfBuild": "This build first ran on {date}",
+    "firstRunOfBuild-rich": "This build first ran on <time />",
     "update-ready": "An update has been downloaded and is ready to be installed.",
     "dev-no-updates": "The application is currently running in development and will not receive any updates.",
     "os-unsupported": "This operating system is no longer supported. Software updates have been disabled. <link>Supported operating systems</link>",
