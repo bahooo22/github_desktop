@@ -11,6 +11,7 @@ import { HighlightText } from '../lib/highlight-text'
 import classNames from 'classnames'
 import { TooltippedContent } from '../lib/tooltipped-content'
 import { enableAccessibleListToolTips } from '../../lib/feature-flag'
+import { t } from '../../lib/l10n'
 
 interface IWorktreeListItemProps {
   readonly worktree: WorktreeEntry
@@ -46,7 +47,9 @@ export class WorktreeListItem extends React.Component<IWorktreeListItemProps> {
         >
           <HighlightText text={name} highlight={matches.title} />
         </TooltippedContent>
-        {isMissing && <div className="missing-indicator">(missing)</div>}
+        {isMissing && (
+          <div className="missing-indicator">{t('worktreeList.missing')}</div>
+        )}
         <TooltippedContent
           className="description"
           tooltip={worktree.branch ?? worktree.head}

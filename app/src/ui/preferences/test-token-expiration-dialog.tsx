@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Account } from '../../models/account'
 import { IAccountTokenExpiration } from '../../lib/credential-sessions'
+import { t } from '../../lib/l10n'
 import { Dispatcher } from '../dispatcher'
 import { Dialog, DialogContent, DialogError, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
@@ -39,7 +40,7 @@ function localDateTime(expiresAt: number | undefined): string {
 
 function describeExpiration(expiresAt: number | undefined): string {
   return expiresAt === undefined
-    ? 'Unknown'
+    ? t('testTokenExpirationDialog.unknown')
     : new Date(expiresAt).toLocaleString()
 }
 
@@ -49,13 +50,37 @@ export class TestTokenExpirationDialog extends React.Component<
   ITestTokenExpirationDialogState
 > {
   private requestId = 0
-  private readonly presets = [
-    { label: 'Expired', onClick: () => this.usePreset(-1) },
-    { label: 'In 10 min', onClick: () => this.usePreset(10) },
-    { label: 'In 1h', onClick: () => this.usePreset(60) },
-    { label: 'In 62 min', onClick: () => this.usePreset(62) },
-    { label: 'In 8h', onClick: () => this.usePreset(480) },
-  ]
+
+  /** Built during render so a language change reaches the button labels. */
+  private get presets() {
+    return [
+      {
+        id: 'expired',
+        label: t('testTokenExpirationDialog.presetExpired'),
+        onClick: () => this.usePreset(-1),
+      },
+      {
+        id: 'in-10-min',
+        label: t('testTokenExpirationDialog.presetIn10Min'),
+        onClick: () => this.usePreset(10),
+      },
+      {
+        id: 'in-1-hour',
+        label: t('testTokenExpirationDialog.presetInOneHour'),
+        onClick: () => this.usePreset(60),
+      },
+      {
+        id: 'in-62-min',
+        label: t('testTokenExpirationDialog.presetIn62Min'),
+        onClick: () => this.usePreset(62),
+      },
+      {
+        id: 'in-8-hours',
+        label: t('testTokenExpirationDialog.presetIn8Hours'),
+        onClick: () => this.usePreset(480),
+      },
+    ]
+  }
 
   public constructor(props: ITestTokenExpirationDialogProps) {
     super(props)
@@ -101,27 +126,20 @@ export class TestTokenExpirationDialog extends React.Component<
     return (
       <Dialog
         id="test-token-expiration"
-        title="Test Token Expiration"
+        title={t('testTokenExpirationDialog.title')}
         onSubmit={this.onApply}
         onDismissed={this.props.onDismissed}
       >
         {error !== null && <DialogError>{error}</DialogError>}
         <DialogContent>
-          <p>
-            Change Desktop&apos;s local access-token expiration, not
-            GitHub&apos;s actual token lifetime. Overrides reset on token
-            renewal or app restart. No credentials are displayed or saved by
-            this dialog.
-          </p>
+          <p>{t('testTokenExpirationDialog.intro')}</p>
           {this.props.accounts.length === 0 ? (
-            <p>
-              Sign in to an account with a refreshable token to test expiration.
-            </p>
+            <p>{t('testTokenExpirationDialog.signInHint')}</p>
           ) : (
             <>
               <Row>
                 <Select
-                  label="Account"
+                  label={t('testTokenExpirationDialog.account')}
                   value={this.state.endpoint}
                   disabled={busy}
                   onChange={this.onAccountChanged}
@@ -136,28 +154,27 @@ export class TestTokenExpirationDialog extends React.Component<
               {expiration !== null && (
                 <>
                   <p>
-                    Current local expiry:{' '}
+                    {t('testTokenExpirationDialog.currentExpiry')}{' '}
                     {describeExpiration(expiration.expiresAt)}
-                    {expiration.isOverridden && ' (overridden)'}
+                    {expiration.isOverridden && (
+                      <> {t('testTokenExpirationDialog.overridden')}</>
+                    )}
                   </p>
                   {expiration.isOverridden && (
                     <p>
-                      Original expiry:{' '}
+                      {t('testTokenExpirationDialog.originalExpiry')}{' '}
                       {describeExpiration(expiration.originalExpiresAt)}
                     </p>
                   )}
                   {!expiration.isRefreshable && (
-                    <p>
-                      This account does not have a refreshable token. Sign in
-                      again with short-lived tokens enabled to test expiration.
-                    </p>
+                    <p>{t('testTokenExpirationDialog.notRefreshable')}</p>
                   )}
                 </>
               )}
               <Row>
                 <div className="text-box-component">
                   <label htmlFor="test-token-expiration-date-time">
-                    Expiration (local time)
+                    {t('testTokenExpirationDialog.expirationLabel')}
                   </label>
                   <input
                     id="test-token-expiration-date-time"
@@ -173,7 +190,7 @@ export class TestTokenExpirationDialog extends React.Component<
               <Row className="token-expiration-presets">
                 {this.presets.map(preset => (
                   <Button
-                    key={preset.label}
+                    key={preset.id}
                     type="button"
                     disabled={disabled}
                     onClick={preset.onClick}
@@ -182,25 +199,21 @@ export class TestTokenExpirationDialog extends React.Component<
                   </Button>
                 ))}
               </Row>
-              <p>
-                Ordinary requests refresh within 10 minutes of expiry. Copilot
-                session creation refreshes within 61 minutes and 1 second.
-                Renewal happens when authenticated work next requests a token.
-              </p>
+              <p>{t('testTokenExpirationDialog.refreshHint')}</p>
               <Row>
                 <Button
                   type="button"
                   disabled={busy || expiration?.isOverridden !== true}
                   onClick={this.onReset}
                 >
-                  Reset override
+                  {t('testTokenExpirationDialog.resetOverride')}
                 </Button>
                 <Button
                   type="button"
                   disabled={busy}
                   onClick={this.loadExpiration}
                 >
-                  Reload details
+                  {t('testTokenExpirationDialog.reloadDetails')}
                 </Button>
               </Row>
             </>
@@ -209,11 +222,11 @@ export class TestTokenExpirationDialog extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Apply expiry"
+            okButtonText={t('testTokenExpirationDialog.apply')}
             okButtonDisabled={
               disabled || this.getChosenExpiration() === undefined
             }
-            cancelButtonText="Close"
+            cancelButtonText={t('common.close')}
           />
         </DialogFooter>
       </Dialog>
@@ -258,7 +271,7 @@ export class TestTokenExpirationDialog extends React.Component<
           error:
             error instanceof Error
               ? error.message
-              : 'Unable to read token expiration. See the log for details.',
+              : t('testTokenExpirationDialog.readFailed'),
           busy: false,
         })
       }
@@ -283,7 +296,9 @@ export class TestTokenExpirationDialog extends React.Component<
   private onApply = async () => {
     const expiresAt = this.getChosenExpiration()
     if (expiresAt === undefined) {
-      this.setState({ error: 'Choose a valid token expiration date and time.' })
+      this.setState({
+        error: t('testTokenExpirationDialog.chooseValid'),
+      })
       return
     }
     await this.updateExpiration(expiresAt)
@@ -294,7 +309,7 @@ export class TestTokenExpirationDialog extends React.Component<
   private async updateExpiration(expiresAt: number | undefined) {
     const account = this.getSelectedAccount()
     if (account === undefined) {
-      this.setState({ error: 'Select a signed-in account.' })
+      this.setState({ error: t('testTokenExpirationDialog.selectAccount') })
       return
     }
     const id = ++this.requestId
@@ -312,8 +327,8 @@ export class TestTokenExpirationDialog extends React.Component<
           busy: false,
           message:
             expiresAt === undefined
-              ? 'Original expiration restored.'
-              : 'Expiration override applied.',
+              ? t('testTokenExpirationDialog.restored')
+              : t('testTokenExpirationDialog.overrideApplied'),
         })
       }
     } catch (error) {
@@ -323,7 +338,7 @@ export class TestTokenExpirationDialog extends React.Component<
           error:
             error instanceof Error
               ? error.message
-              : 'Unable to change token expiration. See the log for details.',
+              : t('testTokenExpirationDialog.changeFailed'),
           busy: false,
         })
       }

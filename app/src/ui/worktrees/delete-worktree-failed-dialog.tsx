@@ -77,7 +77,7 @@ export class DeleteWorktreeFailedDialog extends React.Component<
         <DialogFooter>
           <OkCancelButtonGroup
             destructive={true}
-            okButtonText="Forcefully delete"
+            okButtonText={t('deleteWorktreeFailed.forceDeleteButton')}
           />
         </DialogFooter>
       </Dialog>

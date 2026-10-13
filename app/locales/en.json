@@ -1897,6 +1897,8 @@
   },
   "worktreeList": {
     "noItemsFound": "No worktrees found",
+    "missing": "(missing)",
+    "missingAria": "missing",
     "copyWorktreeName": {
       "@darwin": "Copy Worktree Name",
       "@other": "Copy worktree name"
@@ -2382,7 +2384,9 @@
       "separateInstall": "The fork installs beside upstream: its own Squirrel identifier, update feed, shortcut name and github-l10n command",
       "aboutBuildInfo": "The About dialog shows the localization author, the commit the build came from, and a note when upstream has moved ahead",
       "languageDetection": "The interface language is detected even when the system reports no preferred languages",
-      "translationProgress": "The translation progress counts strings by the plural rules of the interface language"
+      "translationProgress": "The translation progress counts strings by the plural rules of the interface language",
+      "upstreamSync": "The interface is rebuilt on top of upstream 3.6.8-beta2, so the fork carries the same fixes as the current GitHub Desktop preview",
+      "missingWorktrees": "Worktree dialogs now point out a worktree whose folder is gone, in the interface language"
     }
   },
   "repositoriesList": {
@@ -2645,6 +2649,7 @@
   "deleteWorktreeFailed": {
     "deletionFailed": "Deleting the worktree <ref/> failed.",
     "forceDeleteQuestion": "Would you like to forcefully delete the worktree <ref/>?",
+    "forceDeleteButton": "Forcefully delete",
     "title": {
       "@darwin": "Delete Worktree Failed",
       "@other": "Delete worktree failed"
@@ -2775,6 +2780,33 @@
     "neverFetched": "Never fetched",
     "pullRemote": "Pull {remoteName}",
     "pullRemoteWithRebase": "Pull {remoteName} with rebase"
+  },
+  "testTokenExpirationDialog": {
+    "title": "Test Token Expiration",
+    "intro": "Change Desktop's local access-token expiration, not GitHub's actual token lifetime. Overrides reset on token renewal or app restart. No credentials are displayed or saved by this dialog.",
+    "signInHint": "Sign in to an account with a refreshable token to test expiration.",
+    "account": "Account",
+    "currentExpiry": "Current local expiry:",
+    "originalExpiry": "Original expiry:",
+    "overridden": "(overridden)",
+    "notRefreshable": "This account does not have a refreshable token. Sign in again with short-lived tokens enabled to test expiration.",
+    "expirationLabel": "Expiration (local time)",
+    "presetExpired": "Expired",
+    "presetIn10Min": "In 10 min",
+    "presetInOneHour": "In 1h",
+    "presetIn62Min": "In 62 min",
+    "presetIn8Hours": "In 8h",
+    "refreshHint": "Ordinary requests refresh within 10 minutes of expiry. Copilot session creation refreshes within 61 minutes and 1 second. Renewal happens when authenticated work next requests a token.",
+    "resetOverride": "Reset override",
+    "reloadDetails": "Reload details",
+    "apply": "Apply expiry",
+    "unknown": "Unknown",
+    "readFailed": "Unable to read token expiration. See the log for details.",
+    "chooseValid": "Choose a valid token expiration date and time.",
+    "selectAccount": "Select a signed-in account.",
+    "restored": "Original expiration restored.",
+    "overrideApplied": "Expiration override applied.",
+    "changeFailed": "Unable to change token expiration. See the log for details."
   },
   "deleteWorktreeDialog": {
     "confirmMessage": "Are you sure you want to delete the worktree <ref/>?",

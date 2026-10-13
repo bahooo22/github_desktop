@@ -101,7 +101,7 @@ export class WorktreeList extends React.Component<IWorktreeListProps> {
   }
 
   private getItemAriaLabel = (item: IWorktreeListItem) =>
-    getWorktreeAriaLabel(item.worktree)
+    getWorktreeAriaLabel(item.worktree, t('worktreeList.missingAria'))
 
   private renderGroupHeader = (identifier: WorktreeGroupIdentifier) => {
     return (
