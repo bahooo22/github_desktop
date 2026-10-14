@@ -90,12 +90,20 @@ interface IUpdateInfoProps {
   readonly message: string
   readonly richMessage?: JSX.Element
   readonly loading?: boolean
+
+  /**
+   * The class of the status element. Defaults to 'update-status', which the
+   * auto-update locators (unit and E2E) expect to match exactly one element.
+   * Extra status lines must replace, not add to it - otherwise those locators
+   * resolve to several elements and Playwright's strict mode fails the run.
+   */
+  readonly className?: string
 }
 
 class UpdateInfo extends React.Component<IUpdateInfoProps> {
   public render() {
     return (
-      <div className="update-status">
+      <div className={this.props.className ?? 'update-status'}>
         <AriaLiveContainer message={this.props.message} />
 
         {this.props.loading && <Loading />}
@@ -307,6 +315,9 @@ export class About extends React.Component<IAboutProps, IAboutState> {
         // «четыре часа назад»… Для конкретной сборки её абсолютная дата постоянна.
         // По той же причине посекундный счёт (`countSeconds`) живёт только в
         // `richMessage`: озвучка остаётся одной и той же абсолютной датой.
+        // Отдельный класс у этой строки (`first-run-status`) обязателен:
+        // апстримный e2e-локатор `#about .update-status` обязан матчить ровно
+        // один элемент, иначе прогон падает на strict mode violation.
         const firstRun = getBuildFirstRun()
 
         if (firstRun === undefined) {
@@ -326,6 +337,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           <>
             <UpdateInfo message={upToDateMessage} richMessage={richMessage} />
             <UpdateInfo
+              className="first-run-status"
               message={firstRunMessage}
               richMessage={
                 <p>

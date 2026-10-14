@@ -534,6 +534,15 @@ const HOUR = 60 * 60 * 1000
 const DAY = 24 * HOUR
 
 /**
+ * Обе строки статуса диалога в порядке вывода: сначала возраст последней
+ * проверки, потом возраст сборки. Первая обязана оставаться единственной, что
+ * матчится под `statusSelector`, — на этом селекторе держится апстримный
+ * e2e-локатор `#about .update-status` (`app/test/e2e/app-launch.e2e.ts:310`).
+ */
+const statusRowsSelector = '.update-status, .first-run-status'
+const firstRunStatusSelector = '.first-run-status'
+
+/**
  * Вторая строка статуса: возраст самой сборки.
  *
  * Единственная дата, которую держит апстримный апдейтер, — возраст последней
@@ -591,7 +600,7 @@ describe('about - the build age line', () => {
       true
     )
 
-    return [...document.querySelectorAll(statusSelector)]
+    return [...document.querySelectorAll(statusRowsSelector)]
   }
 
   it('shows the age of this build next to the age of the last check', () => {
@@ -648,7 +657,7 @@ describe('about - the build age line', () => {
     )
 
     // И строка остаётся недельной, а не обнуляется до «только что».
-    const statuses = [...document.querySelectorAll(statusSelector)]
+    const statuses = [...document.querySelectorAll(statusRowsSelector)]
     assert.ok(statuses[1].textContent!.includes('1 неделю назад'))
   })
 
@@ -690,5 +699,15 @@ describe('about - the build age line', () => {
       const announcement = status.querySelector('.sr-only')!.textContent!
       assert.ok(!/секунд|назад/.test(announcement), announcement)
     }
+  })
+
+  it('leaves exactly one element for the upstream update-status selector', () => {
+    renderUpToDate(new Date(Date.now() - 2 * HOUR))
+
+    // `.update-status` — апстримный e2e-локатор `#about .update-status`, он
+    // обязан матчить одну строку: два совпадения Playwright отвергает в
+    // strict-режиме, и из-за этого падает весь набор E2E.
+    assert.equal(document.querySelectorAll(statusSelector).length, 1)
+    assert.equal(document.querySelectorAll(firstRunStatusSelector).length, 1)
   })
 })

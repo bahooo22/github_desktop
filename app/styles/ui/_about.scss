@@ -60,7 +60,13 @@ dialog#about {
     }
   }
 
-  .update-status {
+  // Both status lines of the dialog share the layout: the age of the last
+  // update check and, in the fork, the age of the running build. The second one
+  // must not carry `.update-status` - the upstream E2E locator for the update
+  // status is `#about .update-status` and Playwright's strict mode rejects a
+  // locator that resolves to more than one element.
+  .update-status,
+  .first-run-status {
     display: flex;
     flex-direction: row;
     justify-content: center;
