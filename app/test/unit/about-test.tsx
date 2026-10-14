@@ -529,6 +529,7 @@ describe('about - the download progress line', () => {
 })
 
 const firstRunKey = 'first-run-of-build'
+const SECOND = 1000
 const HOUR = 60 * 60 * 1000
 const DAY = 24 * HOUR
 
@@ -668,5 +669,26 @@ describe('about - the build age line', () => {
 
     const statuses = renderUpToDate(new Date(Date.now() - HOUR))
     assert.equal(statuses.length, 1, 'чужая запись не показывается')
+  })
+
+  it('counts both lines in seconds during the first minute', () => {
+    // Секунды включены у обеих строк: иначе рядом висят «только что» и
+    // «12 секунд назад», и это читается как поломка счётчика.
+    seedFirstRun(12 * SECOND)
+
+    const statuses = renderUpToDate(new Date(Date.now() - 30 * SECOND))
+
+    assert.equal(statuses.length, 2, 'две строки статуса')
+
+    for (const status of statuses) {
+      const visible = status.textContent!
+      assert.ok(visible.includes('секунд назад'), visible)
+    }
+
+    // Озвучка от посекундного тика не меняется: в `aria-live` абсолютные даты.
+    for (const status of statuses) {
+      const announcement = status.querySelector('.sr-only')!.textContent!
+      assert.ok(!/секунд|назад/.test(announcement), announcement)
+    }
   })
 })

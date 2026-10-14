@@ -25,6 +25,14 @@ export interface IFormatRelativeOptions {
    * показывают «8 дней назад».
    */
   readonly coarseAfterWeek?: boolean
+
+  /**
+   * Досчитывать секунды до 59 включительно, а не сворачивать на 45-й в минуты.
+   * Нужно счётчику в диалоге «О программе», где возраст меньше минуты — рабочая
+   * часть шкалы. Дефолт не меняется: во всём остальном интерфейсе апстримная
+   * граница 45 с (см. `SECONDS_CUTOFF`).
+   */
+  readonly countSeconds?: boolean
 }
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000
@@ -34,6 +42,12 @@ const DAYS_PER_WEEK = 7
 
 /** После 34 суток идёт месяц — четвёртая неделя верхняя граница шкалы. */
 const MAX_COARSE_WEEKS = 4
+
+/** Апстримная граница секунд: с 45 с показываем уже минуты. */
+const SECONDS_CUTOFF = 45
+
+/** На счётчике по секундам минуты начинаются ровно с 60 с. */
+const SECONDS_CUTOFF_COUNTED = 60
 
 export function formatRelative(ms: number, options?: IFormatRelativeOptions) {
   const locale = localization.getActiveTag()
@@ -50,7 +64,10 @@ export function formatRelative(ms: number, options?: IFormatRelativeOptions) {
   const month = Math.round(day / 30)
   const year = Math.round(month / 12)
 
-  if (sec < 45) {
+  const secondsCutoff =
+    options?.countSeconds === true ? SECONDS_CUTOFF_COUNTED : SECONDS_CUTOFF
+
+  if (sec < secondsCutoff) {
     return formatter.format(sec * sign, 'second')
   } else if (min < 45) {
     return formatter.format(min * sign, 'minute')

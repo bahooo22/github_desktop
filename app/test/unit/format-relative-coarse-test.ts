@@ -49,6 +49,46 @@ describe('formatRelative without the coarse scale', () => {
   })
 })
 
+describe('formatRelative on the seconds scale', () => {
+  const SECOND = 1000
+
+  // Дефолт остаётся апстримным: с 45 с показываем уже минуты.
+  it('keeps the upstream 45 second cutoff by default', () => {
+    assert.equal(formatRelative(-40 * SECOND), '40 seconds ago')
+    assert.equal(formatRelative(-50 * SECOND), '1 minute ago')
+  })
+
+  // На счётчике секунды доходят до 59, минуты начинаются ровно с 60 с.
+  it('counts to 59 seconds with the flag', () => {
+    assert.equal(
+      formatRelative(-50 * SECOND, { countSeconds: true }),
+      '50 seconds ago'
+    )
+    assert.equal(
+      formatRelative(-59 * SECOND, { countSeconds: true }),
+      '59 seconds ago'
+    )
+    assert.equal(
+      formatRelative(-60 * SECOND, { countSeconds: true }),
+      '1 minute ago'
+    )
+  })
+
+  it('leaves the russian plurals to Intl', () => {
+    inRussian(() => {
+      assert.equal(
+        formatRelative(-1 * SECOND, { countSeconds: true }),
+        '1 секунду назад'
+      )
+      assert.equal(
+        formatRelative(-5 * SECOND, { countSeconds: true }),
+        '5 секунд назад'
+      )
+      assert.equal(formatRelative(-50 * SECOND), '1 минуту назад')
+    })
+  })
+})
+
 describe('formatRelative on the weekly scale', () => {
   it('counts whole weeks between a week and a month', () => {
     const cases: ReadonlyArray<readonly [number, string]> = [
@@ -123,7 +163,9 @@ describe('RelativeTime past a week on the coarse scale', () => {
 
   it('keeps the relative weekly form and a reschedule tick with the flag', () => {
     const then = new Date(Date.now() - 10 * DAY)
-    const info = getRelativeTimeInfoFromDate(then, false, true)
+    const info = getRelativeTimeInfoFromDate(then, false, {
+      coarseAfterWeek: true,
+    })
 
     assert.equal(info.relativeText, '1 week ago')
     assert.equal(info.duration, 6 * 60 * 60 * 1000)
@@ -133,7 +175,9 @@ describe('RelativeTime past a week on the coarse scale', () => {
     const then = new Date(Date.now() - 24 * DAY)
 
     inRussian(() => {
-      const info = getRelativeTimeInfoFromDate(then, false, true)
+      const info = getRelativeTimeInfoFromDate(then, false, {
+        coarseAfterWeek: true,
+      })
       assert.equal(info.relativeText, '3 недели назад')
     })
   })

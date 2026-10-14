@@ -282,7 +282,14 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           <p>
             <Trans
               k="about.up-to-date-rich"
-              components={{ time: <RelativeTime date={lastSuccessfulCheck} /> }}
+              components={{
+                time: (
+                  <RelativeTime
+                    date={lastSuccessfulCheck}
+                    countSeconds={true}
+                  />
+                ),
+              }}
             />
           </p>
         )
@@ -298,6 +305,8 @@ export class About extends React.Component<IAboutProps, IAboutState> {
         // `upToDateMessage`: `AriaLiveContainer` озвучивает `message`, а возраст
         // сборки меняется тиком, значит скринридер повторял бы «три часа назад»,
         // «четыре часа назад»… Для конкретной сборки её абсолютная дата постоянна.
+        // По той же причине посекундный счёт (`countSeconds`) живёт только в
+        // `richMessage`: озвучка остаётся одной и той же абсолютной датой.
         const firstRun = getBuildFirstRun()
 
         if (firstRun === undefined) {
@@ -328,6 +337,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
                           date={firstRun}
                           onlyRelative={true}
                           coarseAfterWeek={true}
+                          countSeconds={true}
                         />
                       ),
                     }}

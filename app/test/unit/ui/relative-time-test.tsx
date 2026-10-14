@@ -63,6 +63,75 @@ describe('RelativeTime', () => {
     assert.equal(screen.getByText('1 minute ago').textContent, '1 minute ago')
   })
 
+  it('counts in seconds and ticks every second when countSeconds is set', () => {
+    render(
+      <RelativeTime
+        date={new Date(now - 12 * 1000)}
+        countSeconds={true}
+        tooltip={false}
+      />
+    )
+
+    assert.equal(
+      screen.getByText('12 seconds ago').textContent,
+      '12 seconds ago'
+    )
+
+    // The proof of the tick, not just of the wording: one second of fake time
+    // moves the number instead of waiting out the minute.
+    advanceTimersBy(1000)
+
+    assert.equal(
+      screen.getByText('13 seconds ago').textContent,
+      '13 seconds ago'
+    )
+  })
+
+  it('still says just now without countSeconds', () => {
+    render(<RelativeTime date={new Date(now - 12 * 1000)} tooltip={false} />)
+
+    assert.equal(screen.getByText('just now').textContent, 'just now')
+  })
+
+  it('counts up to 59 seconds when counting', () => {
+    render(
+      <RelativeTime
+        date={new Date(now - 59 * 1000)}
+        countSeconds={true}
+        tooltip={false}
+      />
+    )
+
+    assert.equal(
+      screen.getByText('59 seconds ago').textContent,
+      '59 seconds ago'
+    )
+  })
+
+  it('switches to minutes at 60 seconds when counting', () => {
+    render(
+      <RelativeTime
+        date={new Date(now - 60 * 1000)}
+        countSeconds={true}
+        tooltip={false}
+      />
+    )
+
+    assert.equal(screen.getByText('1 minute ago').textContent, '1 minute ago')
+  })
+
+  it('keeps just now for a partial second even when counting', () => {
+    render(
+      <RelativeTime
+        date={new Date(now - 400)}
+        countSeconds={true}
+        tooltip={false}
+      />
+    )
+
+    assert.equal(screen.getByText('just now').textContent, 'just now')
+  })
+
   it('renders an absolute date for older timestamps when onlyRelative is false', () => {
     const then = new Date(now - 8 * 24 * 60 * 60 * 1000)
 

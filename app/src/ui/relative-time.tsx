@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { TooltippedContent } from './lib/tooltipped-content'
 import { formatDate } from '../lib/format-date'
-import { formatRelative } from '../lib/format-relative'
+import { formatRelative, IFormatRelativeOptions } from '../lib/format-relative'
 import { t } from '../lib/l10n'
 
 interface IRelativeTimeProps {
@@ -30,6 +30,14 @@ interface IRelativeTimeProps {
    * `format-relative.ts`.
    */
   readonly coarseAfterWeek?: boolean
+
+  /**
+   * Count in whole seconds for the first minute instead of showing 'just now'
+   * until the minute is up, and re-render on every second boundary while doing
+   * so. Only the age counters in the About dialog use this; everything else
+   * keeps the upstream 'just now' wording.
+   */
+  readonly countSeconds?: boolean
 }
 
 interface IRelativeTimeState {
@@ -56,7 +64,7 @@ type RelativeTimeInfo = {
 export function getRelativeTimeInfoFromDate(
   then: Date,
   onlyRelative: boolean = true,
-  coarseAfterWeek: boolean = false
+  options: IFormatRelativeOptions = {}
 ): RelativeTimeInfo {
   const diff = then.getTime() - Date.now()
   const duration = Math.abs(diff)
@@ -66,7 +74,7 @@ export function getRelativeTimeInfoFromDate(
     timeStyle: 'short',
   })
 
-  const relativeText = formatRelative(diff, { coarseAfterWeek })
+  const relativeText = formatRelative(diff, options)
 
   // Future date, let's just show as absolute and reschedule. If it's less
   // than a minute into the future we'll treat it as 'just now'.
@@ -80,6 +88,18 @@ export function getRelativeTimeInfoFromDate(
       duration,
     }
   } else if (duration < MINUTE) {
+    // 'just now' would hide the counter for the whole first minute, so on
+    // request we keep the seconds and reschedule on the next second boundary.
+    // Under a second `formatRelative` would say 'now' (`numeric: 'auto'` on
+    // zero) so that stays 'just now'.
+    if (options.countSeconds === true && duration >= SECOND) {
+      return {
+        absoluteText,
+        relativeText,
+        duration: SECOND - (duration % SECOND),
+      }
+    }
+
     return {
       absoluteText,
       relativeText: t('relativeTime.justNow'),
@@ -92,7 +112,7 @@ export function getRelativeTimeInfoFromDate(
   } else if (duration < 7 * DAY) {
     return { absoluteText, relativeText, duration: 6 * HOUR }
   } else {
-    if (onlyRelative || coarseAfterWeek) {
+    if (onlyRelative || options.coarseAfterWeek) {
       // The weekly scale only moves once a week, but the existing 6 hour tick
       // stays: it is cheaper than tracking week boundaries by hand.
       return { absoluteText, relativeText, duration: 6 * HOUR }
@@ -150,10 +170,13 @@ export class RelativeTime extends React.Component<
   }
 
   private updateWithDate(then: Date) {
-    const { onlyRelative, coarseAfterWeek } = this.props
+    const { onlyRelative, coarseAfterWeek, countSeconds } = this.props
 
     const { absoluteText, relativeText, duration } =
-      getRelativeTimeInfoFromDate(then, onlyRelative, coarseAfterWeek)
+      getRelativeTimeInfoFromDate(then, onlyRelative, {
+        coarseAfterWeek,
+        countSeconds,
+      })
 
     if (duration !== undefined) {
       this.updateAndSchedule(absoluteText, relativeText, duration)
