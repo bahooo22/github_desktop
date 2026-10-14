@@ -82,12 +82,64 @@ describe('l10n catalog', () => {
   })
 
   it('merges an overlay key by key', () => {
-    const base = flattenCatalog({ a: { b: 'keep', c: 'replace' } })
-    const overlay = new Map([['a.c', message([['', 'replaced']])]])
+    const base = flattenCatalog({
+      a: {
+        b: 'keep',
+        c: 'replace',
+        d: { _one: 'base one', _other: 'base other' },
+      },
+    })
+    const overlay = new Map([
+      ['a.c', message([['', 'replaced']])],
+      ['a.d', message([['plural:_one', 'overlay one']])],
+    ])
     const merged = mergeMessages(base, overlay)
 
     assert.equal(merged.get('a.b')?.get(''), 'keep')
     assert.equal(merged.get('a.c')?.get(''), 'replaced')
+    assert.equal(merged.get('a.d')?.get('plural:_one'), 'overlay one')
+  })
+
+  it('merges an overlay form by form, not message by message', () => {
+    const base = flattenCatalog({
+      files: {
+        _one: '{count} файл',
+        _few: '{count} файла',
+        _many: '{count} файлов',
+        _other: '{count} файла',
+      },
+    })
+    const overlay = new Map([
+      ['files', message([['plural:_one', '{count} файл-ка']])],
+    ])
+
+    const merged = mergeMessages(base, overlay)
+    const files = merged.get('files')!
+
+    assert.equal(files.get('plural:_one'), '{count} файл-ка')
+
+    // The forms the override says nothing about stay shipped: dropping them
+    // would leave the plural categories to whatever variant happens to be
+    // ordered first in the message.
+    assert.equal(files.get('plural:_few'), '{count} файла')
+    assert.equal(files.get('plural:_many'), '{count} файлов')
+    assert.equal(files.get('plural:_other'), '{count} файла')
+  })
+
+  it('keeps the built-in plural forms under a plain-form override', () => {
+    const base = flattenCatalog({
+      files: { _one: 'один', _few: 'мало', _many: 'много', _other: 'прочее' },
+    })
+    const overlay = new Map([['files', message([['', 'своя строка']])]])
+
+    const merged = mergeMessages(base, overlay)
+
+    // A key `en` spells without plurals still counts: the shipped forms of the
+    // language win over a plain override, so the wording agrees with the number.
+    assert.equal(
+      selectVariant(merged.get('files')!, 'ru', { count: 5 }, 'win32'),
+      'много'
+    )
   })
 })
 
@@ -141,6 +193,18 @@ describe('l10n format', () => {
       '{count} файлов'
     )
     assert.equal(selectVariant(m, 'en', { count: 0 }, 'win32'), '{count} файла')
+  })
+
+  it('falls back to the singular text for a plural category nothing has', () => {
+    const m = message([
+      ['plural:_few', '{count} файла'],
+      ['plural:_one', '{count} файл'],
+    ])
+
+    // The forms are stored in the order the translator typed them in, so the
+    // answer has to come from the grammar and not from whichever entry the
+    // message happens to lead with.
+    assert.equal(selectVariant(m, 'ru', { count: 5 }, 'win32'), '{count} файл')
   })
 
   it('falls back to the plain message when no qualifier applies', () => {
@@ -305,6 +369,61 @@ describe('l10n manager', () => {
     localization.setRequestedLocale('de')
     assert.equal(localization.getActiveTag(), 'de')
     assert.equal(localization.translate('greeting'), 'Servus')
+  })
+
+  it('reads readiness from the file and reports nothing for a catalog without it', () => {
+    fresh()
+
+    // A catalog written before readiness existed says nothing about it, and
+    // that is not the same as declaring an empty list: the editor migrates the
+    // first and honors the second.
+    assert.equal(localization.getReadyKeys('ru'), undefined)
+
+    localization.registerFromJson(
+      'de',
+      {
+        meta: { name: 'German', nativeName: 'Deutsch', ready: ['bye'] },
+        greeting: 'Hallo',
+      },
+      'user'
+    )
+
+    assert.deepEqual([...localization.getReadyKeys('de')!], ['bye'])
+    assert.equal(localization.hasUnsavedMessages('de'), false)
+  })
+
+  it('counts a readiness flag as a change of its own', () => {
+    fresh()
+    localization.registerFromJson('ru', { greeting: 'Привет' }, 'user')
+
+    assert.equal(localization.hasUnsavedMessages('ru'), false)
+
+    localization.setKeyReady('ru', 'greeting', true)
+    assert.equal(localization.hasUnsavedMessages('ru'), true)
+    assert.deepEqual(localization.getUnsavedTags(), ['ru'])
+
+    // Marking and unmarking did not return the file to what it says: the file
+    // declares no readiness at all, so writing the section is a save of its own.
+    localization.setKeyReady('ru', 'greeting', false)
+    assert.deepEqual([...localization.getReadyKeys('ru')!], [])
+    assert.equal(localization.hasUnsavedMessages('ru'), true)
+  })
+
+  it('keeps the user layer after the last readiness flag goes', () => {
+    fresh()
+    localization.registerFromJson(
+      'de',
+      { meta: { ready: ['bye'] }, greeting: 'Hallo' },
+      'user'
+    )
+
+    localization.setKeyReady('de', 'bye', false)
+
+    // An empty list still has to reach the disk: if dropping the last flag made
+    // the language look untouched, the save button would go away with it.
+    assert.equal(localization.hasUserFile('de'), true)
+    assert.equal(localization.hasUnsavedMessages('de'), true)
+    assert.deepEqual(localization.getUnsavedTags(), ['de'])
   })
 
   it('notifies subscribers when the language changes', () => {

@@ -133,7 +133,7 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
     return {}
   }
 
-  const { name, nativeName, direction, authors } = meta as Record<
+  const { name, nativeName, direction, authors, ready } = meta as Record<
     string,
     unknown
   >
@@ -145,12 +145,22 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
     ...(Array.isArray(authors) && authors.every(a => typeof a === 'string')
       ? { authors: authors as string[] }
       : {}),
+    ...(Array.isArray(ready) && ready.every(r => typeof r === 'string')
+      ? { ready: ready as string[] }
+      : {}),
   }
 }
 
 /**
  * Messages from `overlay` win over `base`, which is how a user supplied
  * translation replaces one string without restating the whole catalog.
+ *
+ * The merge works form by form, not message by message: an override of
+ * `plural:_one` replaces that one form and leaves the shipped `_few`, `_many`
+ * and `_other` of the language intact. Replacing the whole message instead
+ * would drop those forms out of the effective layer, and a missing category
+ * then falls back to whichever form happens to be ordered first — the wording
+ * depends on the order the translator typed its fields in.
  */
 export function mergeMessages(
   base: ReadonlyMap<string, Message>,
@@ -158,7 +168,19 @@ export function mergeMessages(
 ): Map<string, Message> {
   const merged = new Map(base)
   for (const [key, message] of overlay) {
-    merged.set(key, message)
+    const existing = merged.get(key)
+
+    if (existing === undefined) {
+      merged.set(key, message)
+      continue
+    }
+
+    const forms = new Map<string, string>(existing)
+    for (const [qualifier, template] of message) {
+      forms.set(qualifier, template)
+    }
+
+    merged.set(key, forms)
   }
   return merged
 }

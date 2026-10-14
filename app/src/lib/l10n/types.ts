@@ -27,6 +27,13 @@ export type LocaleMeta = {
   readonly nativeName: string
   readonly direction?: Direction
   readonly authors?: ReadonlyArray<string>
+
+  /**
+   * Keys the translator marked as finished. A row counts as translated because
+   * it is here, not because it has any text: an edit typed halfway stays a
+   * draft until it is declared ready.
+   */
+  readonly ready?: ReadonlyArray<string>
 }
 
 /** A single leaf, indexed by the qualifier it applies under. */

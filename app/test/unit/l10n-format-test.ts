@@ -65,6 +65,27 @@ describe('catalog meta round trip', () => {
     })
   })
 
+  it('writes and reads back the list of ready keys', () => {
+    const tree = unflattenMessages(flattenCatalog({ greeting: 'Hola' }), {
+      name: 'Spanish',
+      nativeName: 'Español',
+      ready: ['greeting'],
+    })
+
+    assert.deepEqual(readCatalogMeta(tree).ready, ['greeting'])
+
+    // A hand written catalog can put anything in this field, and the rule is
+    // the one the other meta fields already follow: ignore what isn't a list.
+    assert.equal(
+      readCatalogMeta({ meta: { ready: 'greeting' } }).ready,
+      undefined
+    )
+    assert.equal(
+      readCatalogMeta({ meta: { ready: ['greeting', 7] } }).ready,
+      undefined
+    )
+  })
+
   it('keeps messages and meta apart through unflatten', () => {
     const flat = flattenCatalog({ greeting: 'Servus' })
     const tree = unflattenMessages(flat, {

@@ -20,6 +20,19 @@ type CatalogLayer = {
   readonly direction: Direction
   readonly authors?: ReadonlyArray<string>
   readonly messages: ReadonlyMap<string, Message>
+
+  /**
+   * The keys the translator declared finished. `undefined` is a value of its
+   * own: the catalog was written before readiness existed and says nothing
+   * about it, which is what the editor migrates from.
+   */
+  readonly ready: ReadonlySet<string> | undefined
+}
+
+/** One user catalog exactly as it sits on disk, flags included. */
+type SavedLayer = {
+  readonly messages: ReadonlyMap<string, Message>
+  readonly ready: ReadonlySet<string> | undefined
 }
 
 /** One message can expand to several rows: a plural or platform per variant. */
@@ -62,7 +75,7 @@ class LocalizationManager {
    * still there (point-and-translate does exactly that), so the snapshot has to
    * outlive it.
    */
-  private readonly savedLayers = new Map<string, ReadonlyMap<string, Message>>()
+  private readonly savedLayers = new Map<string, SavedLayer>()
 
   private requestedTag: string | null = null
   private systemTags = new Array<string>()
@@ -84,19 +97,23 @@ class LocalizationManager {
         ? messages
         : mergeMessages(existing.messages, messages)
 
+    const ready =
+      meta.ready === undefined ? existing?.ready : new Set(meta.ready)
+
     layers.set(tag, {
       name: meta.name ?? existing?.name ?? tag,
       nativeName: meta.nativeName ?? existing?.nativeName ?? tag,
       direction: meta.direction ?? existing?.direction ?? 'ltr',
       authors: meta.authors ?? existing?.authors,
       messages: merged,
+      ready,
     })
 
     // The snapshot is post-merge on purpose: `saveUserLocalization` registers
     // what it just wrote, and a snapshot of only that write would leave the
     // keys the file already had looking unsaved forever.
     if (source === 'user') {
-      this.savedLayers.set(tag, merged)
+      this.savedLayers.set(tag, { messages: merged, ready })
     }
 
     this.effective.clear()
@@ -299,7 +316,50 @@ class LocalizationManager {
       // The rebuild has to restate every metadata field: dropping the credits
       // here would make editing one string erase the authors of the file.
       authors: layer?.authors,
+      ready: layer?.ready,
       messages,
+    })
+
+    this.effective.clear()
+    this.emit()
+  }
+
+  /**
+   * The keys `tag` declares finished, or `undefined` when nothing declares it:
+   * no user layer and no `ready` section in the file on disk. That difference
+   * is what tells the editor a catalog predates readiness, so it can count the
+   * rows it finds complete as ready instead of wiping the translator's progress.
+   */
+  public getReadyKeys(tag: string): ReadonlySet<string> | undefined {
+    return this.userLayers.get(tag)?.ready ?? this.savedLayers.get(tag)?.ready
+  }
+
+  /**
+   * Marks one key ready or drops the mark. Readiness is a decision of the
+   * translator, not a property of the text: a row with every form filled in is
+   * still a draft until it is declared, which is what keeps the first typed
+   * letter from counting as a translation.
+   */
+  public setKeyReady(tag: string, key: string, ready: boolean): void {
+    const layer = this.userLayers.get(tag)
+    const keys = new Set(layer?.ready ?? [])
+
+    if (ready) {
+      keys.add(key)
+    } else {
+      keys.delete(key)
+    }
+
+    this.userLayers.set(tag, {
+      name: layer?.name ?? tag,
+      nativeName: layer?.nativeName ?? tag,
+      direction: layer?.direction ?? 'ltr',
+      authors: layer?.authors,
+      messages: layer?.messages ?? noMessages,
+      // An empty set still keeps the layer: dropping the last flag must not
+      // make the language look untouched, or the save button disappears with
+      // the change the user just made.
+      ready: keys,
     })
 
     this.effective.clear()
@@ -320,9 +380,14 @@ class LocalizationManager {
   }
 
   public hasUnsavedMessages(tag: string): boolean {
-    return !messagesEqual(
-      this.userLayers.get(tag)?.messages ?? noMessages,
-      this.savedLayers.get(tag) ?? noMessages
+    const current = this.userLayers.get(tag)
+    const saved = this.savedLayers.get(tag)
+
+    return (
+      !messagesEqual(
+        current?.messages ?? noMessages,
+        saved?.messages ?? noMessages
+      ) || !readyEqual(current?.ready, saved?.ready)
     )
   }
 
@@ -362,6 +427,7 @@ class LocalizationManager {
       // declares it. Authors fall back to the built-in catalog a user layer
       // patches, like the other metadata it doesn't restate.
       authors: metadata.authors ?? builtin?.authors,
+      ready: metadata.ready ?? builtin?.ready,
       messages:
         builtin === undefined
           ? user!.messages
@@ -456,6 +522,32 @@ function sameTemplates(a: Message, b: Message): boolean {
   return true
 }
 
+/**
+ * Whether two readiness lists say the same thing. `undefined` is compared as a
+ * value of its own: a catalog that predates readiness is not the same as one
+ * that declares an empty list, and treating them alike would hide the very
+ * first save that has to write the section into the file.
+ */
+function readyEqual(
+  a: ReadonlySet<string> | undefined,
+  b: ReadonlySet<string> | undefined
+): boolean {
+  if (a === undefined || b === undefined) {
+    return a === b
+  }
+
+  if (a.size !== b.size) {
+    return false
+  }
+
+  for (const key of a) {
+    if (!b.has(key)) {
+      return false
+    }
+  }
+
+  return true
+}
 /**
  * Maps the language tags the system advertises onto the tags we have a catalog
  * for. Each preferred tag is resolved in turn (BCP-47 lookup style): an exact

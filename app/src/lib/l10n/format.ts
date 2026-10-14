@@ -107,7 +107,14 @@ function selectPlural(
       ? new Intl.PluralRules(locale).select(numeric)
       : 'other'
 
-  return message.get(`plural:_${category}`) ?? message.get('plural:_other')
+  // A category the message doesn't carry takes the singular text rather than
+  // whatever variant happens to be ordered first: the translator who wrote one
+  // form of an inflecting language meant that wording for the whole message.
+  return (
+    message.get(`plural:_${category}`) ??
+    message.get('plural:_one') ??
+    message.get('plural:_other')
+  )
 }
 
 /**
