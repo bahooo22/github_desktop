@@ -70,6 +70,8 @@ jobs:
           mkdir -p "$RUNNER_TEMP/caches"
           echo "YARN_CACHE_FOLDER=$RUNNER_TEMP/caches/yarn" >> "$GITHUB_ENV"
           echo "electron_config_cache=$RUNNER_TEMP/caches/electron" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/dugite"
+          echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
 
       # Кеш по тем же причинам, что в windows-прогоне
       # (.github/workflows/release-fork-windows.yml): `cache: yarn` у setup-node
@@ -83,6 +85,20 @@ jobs:
             ${{ runner.os }}-deps-${{ hashFiles('yarn.lock', 'app/yarn.lock',
             'vendor/**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-deps-
+
+      # Архив встроенного Git — отдельным слотом и без restore-keys: при
+      # несовпадении контрольной суммы
+      # app/node_modules/dugite/script/download-git.js:123-127 удаляет архив и
+      # тут же зовёт unpackFile на уже удалённый путь, установка падает вместо
+      # перескачки. Префиксный фолбэк выше (caches) подсовывал бы архив другой
+      # версии Git. Ключ — по app/yarn.lock, там зафиксирована версия dugite;
+      # hashFiles по embedded-git.json до install невозможен. Подробности — в
+      # .github/workflows/release-fork-windows.yml и .github/workflows/ci.yml.
+      - name: Restore the embedded Git archive
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/dugite
+          key: ${{ runner.os }}-dugite-${{ hashFiles('app/yarn.lock') }}
 
       - uses: actions/setup-node@v6
         with:

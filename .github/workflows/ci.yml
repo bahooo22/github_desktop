@@ -66,7 +66,49 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: yarn
-      - run: yarn
+      # Встроенный Git для dugite качается при каждой установке зависимостей
+      # (script/post-install.ts:47 → yarn --cwd app install → dugite
+      # script/download-git.js), и по умолчанию — в os.tmpdir(), то есть мимо
+      # любого кеша. Переменная DUGITE_CACHE_DIR для этого и есть: config.js:46-56
+      # берёт каталог из неё, а download-git.js:122-130, найдя там архив, не идёт
+      # в сеть вовсе.
+      #
+      # Ключ — ровно по app/yarn.lock: версия dugite зафиксирована там
+      # (app/yarn.lock:714-716), а embedded-git.json приезжает внутри архива
+      # пакета, то есть до install его в дереве нет и hashFiles по нему
+      # невозможен.
+      #
+      # restore-keys здесь нет и быть не может: при несовпадении контрольной
+      # суммы download-git.js:123-127 удаляет архив и тут же зовёт unpackFile
+      # уже на удалённый путь, необработанное отклонение роняет процесс, и
+      # прогон падает вместо перескачки. Отсюда же отдельный каталог — не внутри
+      # runner.temp/caches релизных workflow, где префиксный restore-keys как раз
+      # и подсовывает устаревшее.
+      - name: Cache the embedded Git archive
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/dugite
+          key: ${{ runner.os }}-dugite-${{ hashFiles('app/yarn.lock') }}
+      - name: Point dugite at the cached archive
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/dugite"
+          echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
+      # Скачивание архива и electron-бинаря — единственные места установки,
+      # где прогон зависит от сети. Один DNS-отказ (прогон 38572695088:
+      # getaddrinfo ENOTFOUND release-assets.githubusercontent.com) красил весь
+      # джоб, хотя установка с первой же ошибки ни к чему не приводит: у
+      # download-git.js:74-77 там process.exit(1). Поэтому три попытки с
+      # нарастающей паузой: третья падает по-настоящему.
+      - name: Install dependencies
+        shell: bash
+        run: |
+          for attempt in 1 2 3; do
+            yarn && exit 0
+            echo "::warning::yarn упал (попытка ${attempt}/3)"
+            [ "$attempt" -lt 3 ] && sleep $((attempt * 30))
+          done
+          exit 1
       - run: yarn validate-electron-version
       - run: yarn lint
       - run: yarn validate-changelog

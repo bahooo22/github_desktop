@@ -31,12 +31,48 @@ runs:
       shell: bash
       run: choco install ffmpeg --yes --no-progress
 
+    # Встроенный Git для dugite при каждой установке качается заново: архив
+    # кладётся в os.tmpdir(), если не задан DUGITE_CACHE_DIR
+    # (app/node_modules/dugite/script/config.js:46-56), а tmpdir раннера никто
+    # не кэширует. Тот же приём, что в .github/workflows/ci.yml (джоб lint).
+    #
+    # Архитектура в имени ключа обязательна: ниже yarn идёт с npm_config_arch,
+    # а config.js:20-24 по этой переменной выбирает win32-arm64 вместо
+    # win32-x64 — без суффикса arm64-прогон распаковывал бы x64-архив.
+    #
+    # restore-keys нет намеренно: при несовпадении контрольной суммы
+    # download-git.js:123-127 удаляет архив и тут же зовёт unpackFile на уже
+    # удалённый путь, и прогон падает вместо перескачки.
+    - name: Cache the embedded Git archive
+      uses: actions/cache@v6
+      with:
+        path: ${{ runner.temp }}/dugite
+        key:
+          ${{ runner.os }}-dugite-${{ inputs.arch }}-${{
+          hashFiles('app/yarn.lock') }}
+    - name: Point dugite at the cached archive
+      shell: bash
+      run: |
+        mkdir -p "$RUNNER_TEMP/dugite"
+        echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
+
+    # Первая же сетевая ошибка роняет всю установку (download-git.js:74-77 —
+    # process.exit(1)), а зависимость от сети здесь остаётся даже с кешем:
+    # первый прогон после смены app/yarn.lock обязан скачать архив. Прогон
+    # 38572695088 упал именно так, на getaddrinfo ENOTFOUND. Поэтому три
+    # попытки с нарастающей паузой.
     - name: Install and build dependencies
       shell: bash
-      run: yarn
       env:
         npm_config_arch: ${{ inputs.arch }}
         TARGET_ARCH: ${{ inputs.arch }}
+      run: |
+        for attempt in 1 2 3; do
+          yarn && exit 0
+          echo "::warning::yarn упал (попытка ${attempt}/3)"
+          [ "$attempt" -lt 3 ] && sleep $((attempt * 30))
+        done
+        exit 1
 
     - name: Install cross-compilation Copilot SDK runtime
       shell: bash

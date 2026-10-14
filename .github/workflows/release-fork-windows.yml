@@ -162,12 +162,19 @@ jobs:
       # @electron/get, не стали. mkdir при этом ходит через bash, а он прямые
       # слэши понимает; сам шаг явно объявлен bash, потому что без defaults на
       # windows-раннере дефолтный shell — pwsh.
+      #
+      # Для DUGITE_CACHE_DIR то же правило не действует: переменную читает
+      # только app/node_modules/dugite/script/config.js:46-56 через
+      # path.resolve и fs.mkdirSync, а путь никуда дальше не передаётся, поэтому
+      # смешанные разделители (D:\a\_temp/dugite) здесь безопасны.
       - name: Point the download caches at the runner temp
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/caches"
           echo "YARN_CACHE_FOLDER=$RUNNER_TEMP\\caches\\yarn" >> "$GITHUB_ENV"
           echo "electron_config_cache=$RUNNER_TEMP\\caches\\electron" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/dugite"
+          echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
 
       # `cache: yarn` у setup-node тут заменён явным actions/cache по двум
       # причинам. Первая: setup-node кеширует только yarn-кеш и только по хешу
@@ -197,6 +204,26 @@ jobs:
             ${{ runner.os }}-deps-${{ env.ARCH }}-${{ hashFiles('yarn.lock',
             'app/yarn.lock', 'vendor/**/yarn.lock') }}
           restore-keys: ${{ runner.os }}-deps-${{ env.ARCH }}-
+
+      # Архив встроенного Git (dugite) — в ОТДЕЛЬНОМ каталоге и отдельным слотом,
+      # а не расширением path выше. Причина в restore-keys: при несовпадении
+      # контрольной суммы app/node_modules/dugite/script/download-git.js:123-127
+      # удаляет архив и тут же зовёт unpackFile уже на удалённый путь,
+      # необработанное отклонение роняет установку, и прогон падает вместо
+      # перескачки. Префиксный restore-keys выше как раз подсовывал бы архив
+      # другой версии Git при смене lock-файла, поэтому здесь ключ только точный
+      # и фолбэка нет вовсе.
+      #
+      # Версия dugite зафиксирована в app/yarn.lock (:714-716), а embedded-git.json
+      # приезжает внутри архива пакета — hashFiles по нему до install невозможен,
+      # так что инвалидация идёт по lock-файлу.
+      - name: Restore the embedded Git archive
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/dugite
+          key:
+            ${{ runner.os }}-dugite-${{ env.ARCH }}-${{
+            hashFiles('app/yarn.lock') }}
 
       - uses: actions/setup-node@v6
         with:
