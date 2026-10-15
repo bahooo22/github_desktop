@@ -589,7 +589,7 @@ function readJson(path) {
 }
 
 function loadCatalogs() {
-  return ['en', 'ru', 'uk'].map(tag => ({
+  return ['en', 'ru', 'uk', 'la', 'eo', 'tlh', 'qya'].map(tag => ({
     tag,
     tree: readJson(join(localesDir, `${tag}.json`)),
   }))
@@ -968,6 +968,38 @@ export function runParity() {
   return issues.length > 0 ? 1 : 0
 }
 
+/**
+ * Count leaf values in `<tag>` that are byte-for-byte copies of the English
+ * catalog. A language is "fully translated" when this number reaches zero.
+ */
+export function runUntranslated(tag) {
+  const enTree = readJson(join(localesDir, 'en.json'))
+  const targetPath = join(localesDir, `${tag}.json`)
+
+  if (!existsSync(targetPath)) {
+    console.error(`catalog not found: ${targetPath}`)
+    return 1
+  }
+
+  const targetTree = readJson(targetPath)
+  const enLeaves = flattenCatalogLeaves(enTree)
+  const targetLeaves = flattenCatalogLeaves(targetTree)
+
+  let count = 0
+  for (const [key, value] of targetLeaves) {
+    const en = enLeaves.get(key)
+    if (en === undefined) {
+      continue
+    }
+    if (en === value) {
+      count++
+    }
+  }
+
+  console.log(`${tag}: ${count} untranslated leaves of ${targetLeaves.size}`)
+  return count > 0 ? 1 : 0
+}
+
 // ---------------------------------------------------------------------------
 // Shipped bundles.
 //
@@ -1107,9 +1139,17 @@ function main() {
     process.exitCode = runUpstream(ref)
   } else if (mode === '--bundles') {
     process.exitCode = runBundles()
+  } else if (mode === '--untranslated') {
+    const tag = args[1]
+    if (!tag) {
+      console.error('usage: --untranslated <tag>')
+      process.exitCode = 1
+    } else {
+      process.exitCode = runUntranslated(tag)
+    }
   } else {
     console.log(
-      'usage: node script/i18n-freshness.mjs [--audit | --parity | --upstream [ref] | --bundles]'
+      'usage: node script/i18n-freshness.mjs [--audit | --parity | --upstream [ref] | --bundles | --untranslated <tag>]'
     )
     process.exitCode = mode === undefined ? 1 : 0
   }
