@@ -1,3 +1,5 @@
+import type { TranslitScheme } from './translit'
+
 /**
  * Types for the localization catalogs.
  *
@@ -54,6 +56,15 @@ export type LocaleMeta = {
    * hint is a second catalog rather than a second name for the same tag.
    */
   readonly gloss?: string
+
+  /**
+   * The name of the transcription table that turns this catalog's Latin values
+   * into Cyrillic for the hint: `tlh` or `qya`. A catalog written in Cyrillic
+   * from the start (Russian, Ukrainian) declares nothing and gets no
+   * transcription, and so does a language whose table this code does not ship —
+   * `readCatalogMeta` drops any other value rather than guessing a scheme.
+   */
+  readonly translit?: TranslitScheme
 }
 
 /**
@@ -62,6 +73,10 @@ export type LocaleMeta = {
  * `block` puts it on its own line, `inline` wraps it in parentheses after the
  * text. The second form exists because native menu items cannot hold two
  * lines: Electron's `MenuItem.sublabel` is macOS-only.
+ *
+ * A catalog that declares `meta.translit` contributes its Cyrillic reading to
+ * the same hint, ahead of the glossary text, which is a second line in `block`
+ * and part of the one line in `inline`.
  */
 export type GlossMode = 'off' | 'block' | 'inline'
 

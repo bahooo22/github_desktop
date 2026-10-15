@@ -82,11 +82,15 @@ export class LocalizationProvider extends React.Component<
     // The `block` mode puts a newline into every translated string, and only
     // CSS can turn it into a second line. The class is on the body rather
     // than the active tag because the same language renders with and without
-    // the gloss.
+    // the hint, and buttons are where a two-line label first showed up. Either
+    // half of the hint can be the one that is there: a transliterated catalog
+    // carries a reading without a glossary, and a user file can keep one and
+    // drop the other.
     document.body?.classList.toggle(
       'gloss-enabled',
       localization.getGlossMode() !== 'off' &&
-        localization.getGlossTag() !== undefined
+        (localization.getGlossTag() !== undefined ||
+          localization.getTranslitScheme() !== undefined)
     )
   }
 
@@ -137,21 +141,21 @@ export const Trans = ({
       ? [k]
       : renderTemplate(template, params, tag, components)
 
-  // The gloss goes in as its own element rather than into the template: a
+  // The hint goes in as its own element rather than into the template: a
   // newline inside the markup would be parsed as text and `<link>` frames
   // would shift. `getTemplate` stays untouched, so both paths stay apart.
   // The `key` is what React wants of any element built into a child array.
-  const gloss = localization.getGloss(k, params)
+  const hint = localization.getHint(k, params)
 
   return React.createElement(
     element,
     { ...rest, 'data-l10n-key': k },
-    gloss === undefined
+    hint === undefined
       ? children
       : [
           ...children,
           <span key="gloss" className="l10n-gloss">
-            {gloss}
+            {hint}
           </span>,
         ]
   )

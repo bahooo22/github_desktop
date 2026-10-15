@@ -547,6 +547,97 @@ describe('l10n manager', () => {
     localization.setGlossMode('off')
   })
 
+  // A `tlh` or `qya` row is written in the language's own Latin alphabet, so the
+  // hint answers two different questions at once: how it sounds, and what it
+  // means. The reading comes from the table, the meaning from the glossary
+  // catalog, and the mode decides whether they share a line.
+  it('puts the Cyrillic reading above the translation', () => {
+    fresh()
+    localization.registerFromJson(
+      'tlh',
+      {
+        meta: { name: 'Klingon', gloss: 'ru', translit: 'tlh' },
+        greeting: 'nuqneH',
+      },
+      'builtin'
+    )
+    localization.setRequestedLocale('tlh')
+
+    localization.setGlossMode('block')
+    assert.equal(localization.translate('greeting'), 'nuqneH\nнукнэх\nПривет')
+
+    // The menu path stays one line: `MenuItem.sublabel` does not exist on
+    // Windows, so a second line there would be dropped rather than wrapped.
+    localization.setGlossMode('inline')
+    assert.equal(localization.translate('greeting'), 'nuqneH (нукнэх — Привет)')
+
+    localization.setGlossMode('off')
+    assert.equal(localization.translate('greeting'), 'nuqneH')
+  })
+
+  it('gives no reading to a row that still holds the English', () => {
+    fresh()
+    localization.registerFromJson(
+      'tlh',
+      {
+        meta: { gloss: 'ru', translit: 'tlh' },
+        // The scaffold copies this byte for byte, and `every` letter of it is a
+        // Klingon one, so the alphabet alone cannot tell the two apart.
+        greeting: 'Hello',
+      },
+      'builtin'
+    )
+    localization.setRequestedLocale('tlh')
+    localization.setGlossMode('block')
+
+    assert.equal(
+      localization.getTranscription('greeting'),
+      undefined,
+      'a row nobody translated has no reading'
+    )
+    assert.equal(localization.translate('greeting'), 'Hello\nПривет')
+
+    localization.setGlossMode('off')
+  })
+
+  it('keeps the declared scheme through a user override', () => {
+    fresh()
+    localization.registerFromJson(
+      'tlh',
+      {
+        meta: { gloss: 'ru', translit: 'tlh' },
+        greeting: 'nuqneH',
+      },
+      'builtin'
+    )
+    localization.setRequestedLocale('tlh')
+
+    // The user layer carries no metadata of its own, so rebuilding it for one
+    // edit must not drop the table the shipped catalog declared.
+    localization.setUserMessage('tlh', 'greeting', '', "Qapla'")
+    localization.setGlossMode('block')
+
+    assert.equal(localization.translate('greeting'), "Qapla'\nкхапла'\nПривет")
+  })
+
+  it('ignores a transcription scheme it does not ship', () => {
+    fresh()
+    // `readCatalogMeta` keeps only a table `transliterate` actually has, so an
+    // unknown scheme is dropped where it is read rather than at every call.
+    localization.registerFromJson(
+      'tk',
+      { meta: { gloss: 'ru', translit: 'sjn' }, greeting: 'nuqneH' },
+      'builtin'
+    )
+    localization.setRequestedLocale('tk')
+    localization.setGlossMode('block')
+
+    assert.equal(localization.getTranslitScheme(), undefined)
+    assert.equal(localization.getTranscription('greeting'), undefined)
+
+    localization.setGlossMode('off')
+  })
+
   it('notifies subscribers when the language changes', () => {
     fresh()
     let notifications = 0

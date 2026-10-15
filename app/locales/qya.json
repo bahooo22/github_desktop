@@ -5,6 +5,7 @@
     "direction": "ltr",
     "pluralCategories": ["one", "other"],
     "gloss": "ru",
+    "translit": "qya",
     "authors": ["BaHooo"]
   },
   "common": {

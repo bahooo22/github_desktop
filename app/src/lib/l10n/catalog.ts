@@ -1,4 +1,5 @@
 import { CatalogProblem, CatalogTree, LocaleMeta, Message } from './types'
+import { isTranslitScheme } from './translit'
 
 /** Reserved root entry carrying the catalog's own metadata. */
 export const MetaKey = 'meta'
@@ -141,6 +142,7 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
     ready,
     pluralCategories,
     gloss,
+    translit,
   } = meta as Record<string, unknown>
 
   // A hand written file can name any category; only CLDR's six are usable as
@@ -167,6 +169,10 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
       : {}),
     ...(categories !== undefined ? { pluralCategories: categories } : {}),
     ...(typeof gloss === 'string' ? { gloss } : {}),
+    // Only a table this code actually ships. A catalog naming some other
+    // scheme would otherwise silence nothing and print a wrong reading, so the
+    // unknown name is dropped exactly like an unknown `direction`.
+    ...(isTranslitScheme(translit) ? { translit } : {}),
   }
 }
 

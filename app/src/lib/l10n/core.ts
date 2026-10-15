@@ -7,6 +7,7 @@ import {
   selectVariant,
   withoutMarkup,
 } from './format'
+import { transliterate, TranslitScheme } from './translit'
 import {
   CatalogProblem,
   Direction,
@@ -61,6 +62,13 @@ type CatalogLayer = {
    * catalog under the same key.
    */
   readonly gloss: string | undefined
+
+  /**
+   * The transcription table that gives the Cyrillic reading of this catalog's
+   * own Latin values, or `undefined` when the catalog is written in an alphabet
+   * its readers already sound out.
+   */
+  readonly translit: TranslitScheme | undefined
 }
 
 /** One user catalog exactly as it sits on disk, flags included. */
@@ -133,18 +141,26 @@ class LocalizationManager {
         ? messages
         : mergeMessages(existing.messages, messages)
 
+    // A built-in catalog is a complete document, so its metadata is only ever
+    // what that document says. A user file is a patch over the shipped one and
+    // may restate nothing, which is why re-registering a user layer keeps the
+    // fields the previous patch declared — `getLayer`'s fallback is to the
+    // built-in catalog, not to an earlier version of the same layer.
+    const inherited = source === 'user' ? existing : undefined
+
     const ready =
-      meta.ready === undefined ? existing?.ready : new Set(meta.ready)
+      meta.ready === undefined ? inherited?.ready : new Set(meta.ready)
 
     layers.set(tag, {
-      name: meta.name ?? existing?.name ?? tag,
-      nativeName: meta.nativeName ?? existing?.nativeName ?? tag,
-      direction: meta.direction ?? existing?.direction ?? 'ltr',
-      authors: meta.authors ?? existing?.authors,
+      name: meta.name ?? inherited?.name ?? tag,
+      nativeName: meta.nativeName ?? inherited?.nativeName ?? tag,
+      direction: meta.direction ?? inherited?.direction ?? 'ltr',
+      authors: meta.authors ?? inherited?.authors,
       messages: merged,
       ready,
-      pluralCategories: meta.pluralCategories ?? existing?.pluralCategories,
-      gloss: meta.gloss ?? existing?.gloss,
+      pluralCategories: meta.pluralCategories ?? inherited?.pluralCategories,
+      gloss: meta.gloss ?? inherited?.gloss,
+      translit: meta.translit ?? inherited?.translit,
     })
 
     // The snapshot is post-merge on purpose: `saveUserLocalization` registers
@@ -362,6 +378,97 @@ class LocalizationManager {
       : withoutMarkup(interpolate(template, params, glossTag))
   }
 
+  /**
+   * The transcription table the active catalog declares, or `undefined` when it
+   * is written in an alphabet its readers already sound out. Asked by the
+   * renderer to decide whether a hint exists at all, the same way `getGlossTag`
+   * is asked for the glossary.
+   */
+  public getTranslitScheme(): TranslitScheme | undefined {
+    return this.getLayer(this.activeTag)?.translit
+  }
+
+  /**
+   * The active text as it reads in Cyrillic, or `undefined` when there is
+   * nothing to read: no table declared, the hint is off, or the row was never
+   * translated.
+   *
+   * Two guards answer that last case, and both exist because a masked catalog
+   * holds English. A row nobody wrote yet is byte for byte the reference text,
+   * so it is refused by comparison — the same measure `--untranslated` counts
+   * with. What survives that is then read letter by letter, and a Latin letter
+   * the language does not have ends the transcription instead of passing
+   * through: spelling `Cancel` with a Klingon table would print a plausible
+   * Klingon word over an English one, which is a hint that invents a
+   * pronunciation nobody wrote.
+   */
+  public getTranscription(
+    key: string,
+    params: TranslationParameters = {}
+  ): string | undefined {
+    const scheme = this.getTranslitScheme()
+
+    if (scheme === undefined || this.glossMode === 'off') {
+      return undefined
+    }
+
+    const template = this.getTemplate(key, params)
+
+    if (template === undefined) {
+      return undefined
+    }
+
+    const reference = this.builtins.get(FallbackLocaleTag)?.messages.get(key)
+
+    if (reference !== undefined) {
+      const original = selectVariant(
+        reference,
+        FallbackLocaleTag,
+        params,
+        this.platform
+      )
+
+      if (original === template) {
+        return undefined
+      }
+    }
+
+    // The table runs over the template, before substitution: `{count}` and
+    // `<link>` are not language text, and the value that fills them belongs to
+    // the caller, not to the catalog. So they pass through untouched and the
+    // parameters are interpolated into the transcription as they came.
+    const transcript = transliterate(template, scheme)
+
+    return transcript === undefined
+      ? undefined
+      : withoutMarkup(interpolate(transcript, params, this.activeTag))
+  }
+
+  /**
+   * Everything shown under the translated text: the Cyrillic reading of the
+   * catalog's own Latin value first, then the glossary language. Which of the
+   * two exist depends on the catalog, and a language that declares both is
+   * exactly the case this hint is for — `tlhIngan Hol` read aloud, then meant.
+   *
+   * The mode decides the shape: a line each for `block`, one joined line for
+   * `inline`, because a native menu label cannot hold a second one.
+   */
+  public getHint(
+    key: string,
+    params: TranslationParameters = {}
+  ): string | undefined {
+    const parts = [
+      this.getTranscription(key, params),
+      this.getGloss(key, params),
+    ].filter(part => part !== undefined && part !== '')
+
+    if (parts.length === 0) {
+      return undefined
+    }
+
+    return parts.join(this.glossMode === 'inline' ? ' — ' : '\n')
+  }
+
   public translate(key: string, params: TranslationParameters = {}): string {
     const template = this.getTemplate(key, params)
 
@@ -371,9 +478,9 @@ class LocalizationManager {
     }
 
     const text = interpolate(template, params, this.activeTag)
-    const gloss = this.getGloss(key, params)
+    const hint = this.getHint(key, params)
 
-    if (gloss === undefined) {
+    if (hint === undefined) {
       return text
     }
 
@@ -382,8 +489,8 @@ class LocalizationManager {
     // shipped Russian catalog marks its own mnemonics, and a label may carry
     // exactly one of them, so the hint is stripped on that path.
     return this.glossMode === 'inline'
-      ? `${text} (${withoutMnemonics(gloss)})`
-      : `${text}\n${gloss}`
+      ? `${text} (${withoutMnemonics(hint)})`
+      : `${text}\n${hint}`
   }
 
   /**
@@ -459,6 +566,7 @@ class LocalizationManager {
       ready: layer?.ready,
       pluralCategories: layer?.pluralCategories,
       gloss: layer?.gloss,
+      translit: layer?.translit,
       messages,
     })
 
@@ -522,6 +630,7 @@ class LocalizationManager {
       ready: keys,
       pluralCategories: layer?.pluralCategories,
       gloss: layer?.gloss,
+      translit: layer?.translit,
     })
 
     this.effective.clear()
@@ -547,6 +656,7 @@ class LocalizationManager {
       ready: new Set(keys),
       pluralCategories: layer?.pluralCategories,
       gloss: layer?.gloss,
+      translit: layer?.translit,
     })
 
     this.effective.clear()
@@ -619,6 +729,7 @@ class LocalizationManager {
       // catalog; one that doesn't inherits it, the same rule `authors` uses.
       pluralCategories: metadata.pluralCategories ?? builtin?.pluralCategories,
       gloss: metadata.gloss ?? builtin?.gloss,
+      translit: metadata.translit ?? builtin?.translit,
       messages:
         builtin === undefined
           ? user!.messages
