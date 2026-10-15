@@ -18,7 +18,7 @@ import {
   FallbackLocaleTag,
   Variant,
 } from '../../lib/l10n'
-import { getPluralCategories, displayQualifier } from '../../lib/l10n/format'
+import { displayQualifier } from '../../lib/l10n/format'
 import { PluralQualifierPrefix, PluralQualifiers } from '../../lib/l10n/catalog'
 import { LinkButton } from '../lib/link-button'
 import { Dispatcher } from '../dispatcher'
@@ -1053,7 +1053,7 @@ const PluralFormPrefix = `${PluralKindPrefix}${PluralQualifierPrefix}`
 function rowStatus(target: string, key: string): RowStatus {
   const variants = targetVariants(
     localization.getReference(key),
-    getPluralCategories(target)
+    localization.getPluralCategories(target)
   )
   const overrides = localization.getUserMessages(target).get(key)
   const filled = countFilled(variants, overrides)

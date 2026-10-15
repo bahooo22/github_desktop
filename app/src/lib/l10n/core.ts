@@ -1,5 +1,11 @@
 import { flattenCatalog, mergeMessages, readCatalogMeta } from './catalog'
-import { currentPlatform, interpolate, Platform, selectVariant } from './format'
+import {
+  currentPlatform,
+  getPluralCategories as getPluralCategoriesFromIntl,
+  interpolate,
+  Platform,
+  selectVariant,
+} from './format'
 import {
   CatalogProblem,
   Direction,
@@ -27,6 +33,14 @@ type CatalogLayer = {
    * about it, which is what the editor migrates from.
    */
   readonly ready: ReadonlySet<string> | undefined
+
+  /**
+   * The plural categories this catalog declares, as bare CLDR names. When set,
+   * it wins over `Intl.PluralRules`: an unknown tag would otherwise pick up the
+   * host locale's forms and the row shape would depend on the operating system
+   * rather than the language.
+   */
+  readonly pluralCategories: ReadonlyArray<string> | undefined
 }
 
 /** One user catalog exactly as it sits on disk, flags included. */
@@ -108,6 +122,8 @@ class LocalizationManager {
       authors: meta.authors ?? existing?.authors,
       messages: merged,
       ready,
+      pluralCategories:
+        meta.pluralCategories ?? existing?.pluralCategories,
     })
 
     // The snapshot is post-merge on purpose: `saveUserLocalization` registers
@@ -185,6 +201,30 @@ class LocalizationManager {
   /** The shipped catalog of `tag`, without any user overrides. */
   public getBuiltInMessages(tag: string): ReadonlyMap<string, Message> {
     return this.builtins.get(tag)?.messages ?? noMessages
+  }
+
+  /**
+   * The plural forms `tag` distinguishes, as qualified keys (`_one`, `_few`,
+   * ...) in the canonical order of `PluralQualifiers`.
+   *
+   * A catalog that declares `meta.pluralCategories` wins over `Intl`: for any
+   * tag CLDR does not know, `Intl.PluralRules` silently falls back to the host
+   * locale, so an editor row on a Russian Windows would offer four forms for
+   * Klingon and two on an English one. The declaration pins the shape to the
+   * language instead of the machine.
+   *
+   * Languages without a declaration (English, Russian, Ukrainian, Brazilian
+   * Portuguese) still answer from `Intl` — for tags CLDR knows, that is
+   * already the correct grammar.
+   */
+  public getPluralCategories(tag: string): ReadonlyArray<string> {
+    const declared = this.getLayer(tag)?.pluralCategories
+
+    if (declared !== undefined) {
+      return declared.map(c => `_${c}`)
+    }
+
+    return getPluralCategoriesFromIntl(tag)
   }
 
   public getAvailableLocales(): ReadonlyArray<LocaleSummary> {
@@ -318,6 +358,7 @@ class LocalizationManager {
       // here would make editing one string erase the authors of the file.
       authors: layer?.authors,
       ready: layer?.ready,
+      pluralCategories: layer?.pluralCategories,
       messages,
     })
 
@@ -379,6 +420,7 @@ class LocalizationManager {
       // make the language look untouched, or the save button disappears with
       // the change the user just made.
       ready: keys,
+      pluralCategories: layer?.pluralCategories,
     })
 
     this.effective.clear()
@@ -402,6 +444,7 @@ class LocalizationManager {
       authors: layer?.authors,
       messages: layer?.messages ?? noMessages,
       ready: new Set(keys),
+      pluralCategories: layer?.pluralCategories,
     })
 
     this.effective.clear()
@@ -470,6 +513,10 @@ class LocalizationManager {
       // patches, like the other metadata it doesn't restate.
       authors: metadata.authors ?? builtin?.authors,
       ready: metadata.ready ?? builtin?.ready,
+      // A user file that restates `pluralCategories` overrides the shipped
+      // catalog; one that doesn't inherits it, the same rule `authors` uses.
+      pluralCategories:
+        metadata.pluralCategories ?? builtin?.pluralCategories,
       messages:
         builtin === undefined
           ? user!.messages

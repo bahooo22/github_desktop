@@ -446,6 +446,48 @@ describe('l10n manager', () => {
     assert.deepEqual(localization.getUnsavedTags(), ['de'])
   })
 
+  it('a declared pluralCategories wins over Intl', () => {
+    fresh()
+    // `tlh` is not in CLDR, so on a Russian host Intl would report four
+    // categories and on an English one two. The declaration pins the shape to
+    // two everywhere, which is what the Klingon grammar actually has.
+    localization.registerFromJson(
+      'tlh',
+      {
+        meta: { name: 'Klingon', pluralCategories: ['one', 'other'] },
+        greeting: 'nuqneH',
+      },
+      'user'
+    )
+
+    assert.deepEqual(localization.getPluralCategories('tlh'), [
+      '_one',
+      '_other',
+    ])
+  })
+
+  it('unknown categories in meta.pluralCategories are ignored', () => {
+    fresh()
+    // A hand written file can name `bogus` as a category; only CLDR's six are
+    // legal qualifiers, so `selectPlural` could never match `_bogus`. Dropping
+    // the whole declaration (rather than just the invalid entry) matches how
+    // `readCatalogMeta` treats a malformed `direction`.
+    localization.registerFromJson(
+      'xx',
+      {
+        meta: { pluralCategories: ['one', 'bogus'] },
+        greeting: 'Hi',
+      },
+      'user'
+    )
+
+    const got = localization.getPluralCategories('xx')
+    assert.ok(!got.includes('_bogus'))
+    // The Intl fallback answers, whatever the host locale reports; the point of
+    // the case is only that the malformed declaration did not win.
+    assert.notDeepEqual(got, ['_one', '_bogus'])
+  })
+
   it('notifies subscribers when the language changes', () => {
     fresh()
     let notifications = 0

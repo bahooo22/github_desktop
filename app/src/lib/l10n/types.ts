@@ -34,6 +34,18 @@ export type LocaleMeta = {
    * draft until it is declared ready.
    */
   readonly ready?: ReadonlyArray<string>
+
+  /**
+   * The plural categories this language grammatically distinguishes, as bare
+   * CLDR names (`one`, `few`, `many`, `other`, ...). Declaring them pins the
+   * editor's row shape independently of `Intl.PluralRules`, which falls back to
+   * the machine's locale for any tag CLDR does not know — so an unknown tag
+   * would otherwise get four forms on a Russian Windows and two on English.
+   *
+   * Read only for values in `PluralQualifiers`; anything else is dropped, the
+   * same rule that `readCatalogMeta` applies to `name` and `direction`.
+   */
+  readonly pluralCategories?: ReadonlyArray<string>
 }
 
 /** A single leaf, indexed by the qualifier it applies under. */

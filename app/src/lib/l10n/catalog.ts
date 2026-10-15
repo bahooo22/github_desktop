@@ -133,10 +133,26 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
     return {}
   }
 
-  const { name, nativeName, direction, authors, ready } = meta as Record<
-    string,
-    unknown
-  >
+  const {
+    name,
+    nativeName,
+    direction,
+    authors,
+    ready,
+    pluralCategories,
+  } = meta as Record<string, unknown>
+
+  // A hand written file can name any category; only CLDR's six are usable as
+  // qualifiers, so anything else would produce a row that `selectPlural` can
+  // never match. Dropping the unknown ones matches how `name` and `direction`
+  // behave: a malformed metadata field is ignored, not fatal.
+  const categories =
+    Array.isArray(pluralCategories) &&
+    pluralCategories.every(c =>
+      (PluralQualifiers as ReadonlyArray<string>).includes(c)
+    )
+      ? (pluralCategories as string[])
+      : undefined
 
   return {
     ...(typeof name === 'string' ? { name } : {}),
@@ -148,6 +164,7 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
     ...(Array.isArray(ready) && ready.every(r => typeof r === 'string')
       ? { ready: ready as string[] }
       : {}),
+    ...(categories !== undefined ? { pluralCategories: categories } : {}),
   }
 }
 
