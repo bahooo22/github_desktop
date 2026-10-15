@@ -69,10 +69,33 @@ body.l10n-pick-mode {
 }
 
 #localization-editor {
+  // Every key of the catalog is over a hundred thousand pixels of rows, so the
+  // dialog gets a height of its own and the list is the only thing that gives
+  // way when it runs out. Measured against the viewport rather than against a
+  // guess at how tall the header, toolbar, progress line and footer happen to be
+  // — a translated footer is two, three, four lines high, and any single number
+  // for it pushes the buttons out of the window.
+  //
+  // It has to be `height`, not the `max-height` this rule once was: a clamp is
+  // not a height. With only `max-height` the dialog's own box stops growing at
+  // the viewport while the form and the fieldset inside it keep resolving
+  // `height: 100%` (see _dialog.scss) against an auto box, which is no height at
+  // all — the content then stays a hundred screens tall and the footer lands
+  // below the window even though the dialog itself looks bounded.
+  height: calc(100vh - var(--spacing-double) * 2);
+
   .dialog-content {
     display: flex;
     flex-direction: column;
-    min-height: 400px;
+    flex: 1 1 auto;
+    min-height: 0;
+
+    // `auto`, not `hidden`: a window short enough that the toolbar and the
+    // add-a-language panel together are taller than the room left has to give
+    // access to their lower half rather than cut it off. When everything fits,
+    // which is every state the measure covered down to 700px, nothing scrolls
+    // here at all.
+    overflow-y: auto;
   }
 
   .localization-editor-toolbar {
@@ -120,14 +143,20 @@ body.l10n-pick-mode {
   }
 
   .localization-editor-list {
-    // Every key of the catalog is over a hundred thousand pixels of rows, and
-    // the dialog is sized by its content: unbounded, the footer with Save and
-    // the pick button lands a hundred screens below the window, where no real
-    // click can reach it. Bounded against the viewport like `#release-notes`
-    // does, the list becomes the only thing that scrolls. 400px is the rest of
-    // the dialog — header, toolbar, progress line and footer.
-    max-height: calc(100vh - 400px);
-    min-height: 120px;
+    // Bounded by the dialog's own height chain rather than by `calc(100vh -
+    // 400px)`: the flex above hands this box whatever room is left after the
+    // header, the toolbar, the progress line and the footer. The footer takes
+    // its height first (`flex: 0 0 auto` below), and this is what gives way.
+    //
+    // The floor is what keeps "gives way" from meaning "disappears". Measured at
+    // 700x500 with the add-a-language panel open, the room left over was two
+    // pixels — a list that scrolls inside two pixels of height shows no row at
+    // all. 96px is the smallest number that was inert everywhere else: at
+    // 960x633 in the same state the leftover is 101px on its own, so nothing
+    // here reaches the floor and nothing outside it starts scrolling.
+    max-height: none;
+    min-height: 96px;
+    flex: 1 1 auto;
     overflow-y: auto;
     margin-top: var(--spacing-half);
     border: var(--base-border);
@@ -297,6 +326,10 @@ body.l10n-pick-mode {
   // are four of them and the translator has to reach every one, so they lay out
   // in a row and wrap rather than building a tower down the page.
   .dialog-footer {
+    // Whatever the footer needs is taken before the list is measured: when the
+    // window is short it is the list that gives way, not the buttons that leave
+    // the box.
+    flex: 0 0 auto;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
