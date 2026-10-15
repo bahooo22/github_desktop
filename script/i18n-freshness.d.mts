@@ -26,6 +26,13 @@ export interface ICatalogParityResult {
   readonly issues: ReadonlyArray<string>
 }
 
+/** How much of a catalog is still the English text of the same place. */
+export interface IUntranslatedCount {
+  readonly untranslated: number
+  readonly compared: number
+  readonly unmatched: number
+}
+
 export const PRODUCT_NAMES: ReadonlyArray<string>
 export const VISIBLE_NAMES: ReadonlySet<string>
 export const VISIBLE_SUFFIXES: ReadonlyArray<string>
@@ -49,6 +56,10 @@ export function flattenCatalogLeaves(
   catalog: CatalogTree
 ): Map<string, CatalogLeaf>
 export function collectCatalogStrings(catalog: CatalogTree): ReadonlySet<string>
+export function countUntranslatedLeaves(
+  enLeaves: Map<string, CatalogLeaf>,
+  targetLeaves: Map<string, CatalogLeaf>
+): IUntranslatedCount
 export function compareCatalogParity(
   catalogs: ReadonlyArray<ICatalogEntry | readonly [string, CatalogTree]>
 ): ICatalogParityResult

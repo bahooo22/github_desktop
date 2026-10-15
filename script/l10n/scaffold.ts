@@ -59,7 +59,9 @@ function parseArgs(): Options | undefined {
 
   const tag = flags.get('tag')
   if (tag === undefined) {
-    console.error('usage: yarn l10n:scaffold --tag <tag> [--name …] [--nativeName …] [--categories one,other] [--update] [--force]')
+    console.error(
+      'usage: yarn l10n:scaffold --tag <tag> [--name …] [--nativeName …] [--categories one,other] [--update] [--force]'
+    )
     return undefined
   }
 
@@ -71,8 +73,7 @@ function parseArgs(): Options | undefined {
     tag,
     name: flags.get('name') ?? tag,
     nativeName: flags.get('nativeName') ?? tag,
-    direction:
-      flags.get('direction') === 'rtl' ? 'rtl' : 'ltr',
+    direction: flags.get('direction') === 'rtl' ? 'rtl' : 'ltr',
     categories,
     user: flags.get('user') === 'true',
     update: flags.get('update') === 'true',
@@ -92,7 +93,11 @@ function isPlatformGroup(obj: Record<string, unknown>): boolean {
   return Object.keys(obj).some(k => k.startsWith('@'))
 }
 
-type Leaf = { path: string; kind: 'plain' | 'plural' | 'platform'; value: unknown }
+type Leaf = {
+  path: string
+  kind: 'plain' | 'plural' | 'platform'
+  value: unknown
+}
 
 function walkLeaves(
   tree: Record<string, unknown>,
@@ -107,7 +112,11 @@ function walkLeaves(
 
     if (typeof value === 'string') {
       out.push({ path: fullKey, kind: 'plain', value })
-    } else if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+    } else if (
+      value !== null &&
+      typeof value === 'object' &&
+      !Array.isArray(value)
+    ) {
       const obj = value as Record<string, unknown>
       const keys = Object.keys(obj)
 
@@ -156,6 +165,7 @@ function setLeaf(
 
 function generate(opts: Options): void {
   const enPath = Path.join(localesDir, 'en.json')
+  // eslint-disable-next-line no-sync
   const enTree = JSON.parse(Fs.readFileSync(enPath, 'utf-8'))
 
   const leaves: Leaf[] = []
@@ -196,8 +206,19 @@ function generate(opts: Options): void {
 
   const targetPath = Path.join(localesDir, `${opts.tag.toLowerCase()}.json`)
 
+  // eslint-disable-next-line no-sync
   if (opts.update && Fs.existsSync(targetPath) && !opts.force) {
+    // eslint-disable-next-line no-sync
     const existing = JSON.parse(Fs.readFileSync(targetPath, 'utf-8'))
+
+    // The generator owns exactly the four fields it is asked about; everything
+    // else in `meta` belongs to the file. A re-run that dropped the glossary or
+    // the credits would silence a hint and erase an author set up by hand.
+    out.meta = {
+      ...((existing.meta as Record<string, unknown> | undefined) ?? {}),
+      ...(out.meta as Record<string, unknown>),
+    }
+
     const existingLeaves: Leaf[] = []
     walkLeaves(existing, '', existingLeaves)
     const existingMap = new Map(existingLeaves.map(l => [l.path, l]))
@@ -205,7 +226,8 @@ function generate(opts: Options): void {
     for (const leaf of leaves) {
       const prior = existingMap.get(leaf.path)
       if (prior !== undefined && leaf.kind === 'plain') {
-        const newVal = typeof prior.value === 'string' ? prior.value : leaf.value
+        const newVal =
+          typeof prior.value === 'string' ? prior.value : leaf.value
         if (newVal === leaf.value) {
           setLeaf(out, leaf.path, leaf.value)
         } else {
@@ -218,7 +240,10 @@ function generate(opts: Options): void {
         const existingPlural = prior.value as Record<string, unknown>
         if (targetPlural !== undefined) {
           for (const [k, v] of Object.entries(existingPlural)) {
-            if (typeof v === 'string' && v !== ((leaf.value as any)?.[k] ?? '')) {
+            if (
+              typeof v === 'string' &&
+              v !== ((leaf.value as any)?.[k] ?? '')
+            ) {
               targetPlural[k] = v
             }
           }
@@ -227,10 +252,12 @@ function generate(opts: Options): void {
     }
   }
 
+  // eslint-disable-next-line no-sync
   Fs.writeFileSync(targetPath, JSON.stringify(out, null, 2) + '\n', 'utf-8')
-  console.log(
-    `Wrote ${targetPath} — ${leaves.length} keys, categories: ${opts.categories.join(', ')}`
-  )
+
+  const categories = opts.categories.join(', ')
+  console.log(`Wrote ${targetPath}`)
+  console.log(`${leaves.length} keys, categories: ${categories}`)
 }
 
 function getPathValue(

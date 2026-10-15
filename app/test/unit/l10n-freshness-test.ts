@@ -7,8 +7,10 @@ import { join } from 'node:path'
 import {
   collectCatalogStrings,
   compareCatalogParity,
+  countUntranslatedLeaves,
   extractPlaceholders,
   extractVisibleLiteralsFromSource,
+  flattenCatalogLeaves,
   innermostCallee,
   isDiagnosticCallee,
   isLegalVisibleLiteral,
@@ -190,5 +192,72 @@ describe('l10n freshness', () => {
     assert.equal(isUserFacingLiteral('Git'), false)
     assert.equal(isUserFacingLiteral('Save'), true)
     assert.equal(isUserFacingLiteral('^a[0-9]$'), false)
+  })
+})
+
+// The counter decides when a language counts as finished. A variant record used
+// to be compared with `===`, which never matches two records, so every plural
+// and platform row stayed out of the count and a catalog of pure English copies
+// could read as translated.
+describe('untranslated counter', () => {
+  it('counts a variant record form by form', () => {
+    const en = flattenCatalogLeaves({
+      commits: { _one: 'commit', _other: 'commits' },
+    })
+    const target = flattenCatalogLeaves({
+      commits: { _one: 'коммит', _other: 'commits' },
+    })
+
+    assert.deepEqual(countUntranslatedLeaves(en, target), {
+      untranslated: 1,
+      compared: 2,
+      unmatched: 0,
+    })
+  })
+
+  it('judges a form English does not have by the English text of the key', () => {
+    const en = flattenCatalogLeaves({ files: 'files' })
+    const target = flattenCatalogLeaves({
+      files: { _one: 'files', _other: 'ghantoH' },
+    })
+
+    assert.deepEqual(countUntranslatedLeaves(en, target), {
+      untranslated: 1,
+      compared: 2,
+      unmatched: 0,
+    })
+  })
+
+  it('falls back to the English general form for a form English lacks', () => {
+    // Russian carries four forms where English has two, so `_few` and `_many`
+    // have no English row of their own. Measured on `ru`: without this fallback
+    // the counter compares 1 806 forms instead of 1 902, and 210 forms instead
+    // of 114 fall out of the count entirely.
+    const en = flattenCatalogLeaves({
+      commits: { _one: 'commit', _other: 'commits' },
+    })
+    const target = flattenCatalogLeaves({
+      commits: { _one: 'коммит', _few: 'commits', _many: 'коммитов' },
+    })
+
+    assert.deepEqual(countUntranslatedLeaves(en, target), {
+      untranslated: 1,
+      compared: 3,
+      unmatched: 0,
+    })
+  })
+
+  it('leaves a form with no English original out of the count', () => {
+    const en = flattenCatalogLeaves({ modified: 'modified' })
+    const target = flattenCatalogLeaves({
+      modified: 'modified',
+      'copilot.ai-credits-per-tokens': { _few: 'tokenów' },
+    })
+
+    assert.deepEqual(countUntranslatedLeaves(en, target), {
+      untranslated: 1,
+      compared: 1,
+      unmatched: 1,
+    })
   })
 })

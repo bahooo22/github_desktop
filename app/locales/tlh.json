@@ -3,10 +3,9 @@
     "name": "Klingon",
     "nativeName": "tlhIngan Hol",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ]
+    "pluralCategories": ["one", "other"],
+    "gloss": "ru",
+    "authors": ["BaHooo"]
   },
   "common": {
     "cancel": "Cancel",
@@ -96,6 +95,8 @@
       "incomplete": "{missing:number} of {total:number} strings missing",
       "complete": "Fully translated",
       "editor": "Edit translations",
+      "gloss": "Show translation hint",
+      "glossHint": "Display the {language} text of every string under the translated one.",
       "editorHint": "Translate any string, or add a language of your own.",
       "openFolder": "Open translations folder",
       "folderHint": "You can also drop JSON files into {path} and reload.",

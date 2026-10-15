@@ -969,9 +969,55 @@ export function runParity() {
 }
 
 /**
- * Count leaf values in `<tag>` that are byte-for-byte copies of the English
- * catalog. A language is "fully translated" when this number reaches zero.
+ * The English text a form of this key was copied from, or `undefined` when
+ * English has nothing for it. A record without the very form falls back to the
+ * generic one, because that is what a generated skeleton puts there.
  */
+function englishFor(enLeaf, form) {
+  if (enLeaf === undefined) {
+    return undefined
+  }
+  if (typeof enLeaf === 'string') {
+    return enLeaf
+  }
+
+  const exact = enLeaf[form]
+  return exact !== undefined ? exact : enLeaf['_other'] ?? enLeaf['_one']
+}
+
+/**
+ * Count the strings of a target catalog that are byte-for-byte the English text
+ * of the same place. A variant record carries one text per form, so its forms
+ * are judged one by one: comparing the records with `===` never matches, and
+ * every plural and platform row would stay outside the count forever.
+ */
+export function countUntranslatedLeaves(enLeaves, targetLeaves) {
+  let untranslated = 0
+  let compared = 0
+  let unmatched = 0
+
+  for (const [key, leaf] of targetLeaves) {
+    const forms = typeof leaf === 'string' ? [['', leaf]] : Object.entries(leaf)
+
+    for (const [form, text] of forms) {
+      const enText = englishFor(enLeaves.get(key), form)
+
+      if (enText === undefined) {
+        unmatched++
+        continue
+      }
+
+      compared++
+      if (enText === text) {
+        untranslated++
+      }
+    }
+  }
+
+  return { untranslated, compared, unmatched }
+}
+
+/** CLI mode: print how much of `<tag>` is still the English text. */
 export function runUntranslated(tag) {
   const enTree = readJson(join(localesDir, 'en.json'))
   const targetPath = join(localesDir, `${tag}.json`)
@@ -982,22 +1028,16 @@ export function runUntranslated(tag) {
   }
 
   const targetTree = readJson(targetPath)
-  const enLeaves = flattenCatalogLeaves(enTree)
-  const targetLeaves = flattenCatalogLeaves(targetTree)
+  const { untranslated, compared, unmatched } = countUntranslatedLeaves(
+    flattenCatalogLeaves(enTree),
+    flattenCatalogLeaves(targetTree)
+  )
 
-  let count = 0
-  for (const [key, value] of targetLeaves) {
-    const en = enLeaves.get(key)
-    if (en === undefined) {
-      continue
-    }
-    if (en === value) {
-      count++
-    }
-  }
-
-  console.log(`${tag}: ${count} untranslated leaves of ${targetLeaves.size}`)
-  return count > 0 ? 1 : 0
+  console.log(
+    `${tag}: ${untranslated} untranslated leaves of ${compared} compared` +
+      (unmatched === 0 ? '' : `, ${unmatched} without an English original`)
+  )
+  return untranslated > 0 ? 1 : 0
 }
 
 // ---------------------------------------------------------------------------
@@ -1015,13 +1055,7 @@ const buildDir = join(projectRoot, 'out')
 const shippedApps = [
   join(projectRoot, 'bin', 'resources', 'app'),
   join(projectRoot, 'dist', 'desktop-linux-x64', 'resources', 'app'),
-  join(
-    projectRoot,
-    'dist',
-    'GitHubDesktopL10n-win32-x64',
-    'resources',
-    'app'
-  ),
+  join(projectRoot, 'dist', 'GitHubDesktopL10n-win32-x64', 'resources', 'app'),
 ]
 
 /** Bundles that embed the catalogs, so a missing language shows up in these. */

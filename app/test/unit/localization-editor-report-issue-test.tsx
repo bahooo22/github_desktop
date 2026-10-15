@@ -266,6 +266,12 @@ describe('localization editor - translation issue report', () => {
   })
 
   it('offers the action even when no single string is in view', () => {
+    // Which catalog the editor opens on is `defaultTarget`'s business, not this
+    // case's: with four more shipped languages the alphabetically first one is
+    // no longer Russian. Reading in Russian is what the case needs, so it says
+    // so instead of inheriting whatever the host locale detected.
+    localization.setRequestedLocale('ru')
+
     const view = render(<LocalizationEditor onDismissed={() => {}} />)
 
     const link = reportLink()
