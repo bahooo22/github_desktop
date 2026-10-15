@@ -46,7 +46,24 @@ export type LocaleMeta = {
    * same rule that `readCatalogMeta` applies to `name` and `direction`.
    */
   readonly pluralCategories?: ReadonlyArray<string>
+
+  /**
+   * A language tag whose catalog carries the meaning of every string in this
+   * one, shown underneath it when the gloss mode is on. Transliterated
+   * languages (Klingon, Quenya) read aloud but do not read as meaning, so the
+   * hint is a second catalog rather than a second name for the same tag.
+   */
+  readonly gloss?: string
 }
+
+/**
+ * How a glossary language renders under the translated string.
+ *
+ * `block` puts it on its own line, `inline` wraps it in parentheses after the
+ * text. The second form exists because native menu items cannot hold two
+ * lines: Electron's `MenuItem.sublabel` is macOS-only.
+ */
+export type GlossMode = 'off' | 'block' | 'inline'
 
 /** A single leaf, indexed by the qualifier it applies under. */
 export type Message = ReadonlyMap<string, string>
@@ -67,6 +84,9 @@ export type LocaleDefinition = {
 
   /** Translator credits from the catalog's `meta.authors` block. */
   readonly authors?: ReadonlyArray<string>
+
+  /** Glossary tag from `meta.gloss`, the language that hints at this one. */
+  readonly gloss?: string
 
   /** Where the catalog came from, which decides whether it is editable. */
   readonly source: 'builtin' | 'user'

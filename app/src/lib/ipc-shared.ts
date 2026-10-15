@@ -40,7 +40,7 @@ export type RequestChannels = {
   ) => void
   'get-app-menu': () => void
   'update-preferred-app-menu-item-labels': (labels: MenuLabelsEvent) => void
-  'update-localization': (tag: string) => void
+  'update-localization': (tag: string, gloss: string) => void
   'uncaught-exception': (error: Error) => void
   'send-error-report': (
     error: Error,

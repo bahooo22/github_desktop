@@ -478,8 +478,13 @@ app.on('ready', () => {
     applyMenuLabels(labels)
   )
 
-  registerLocalizationIpc(tag => {
+  registerLocalizationIpc((tag, gloss) => {
     localization.setRequestedLocale(tag)
+
+    // Menu items cannot hold a second line (`MenuItem.sublabel` is macOS
+    // only), so whatever the renderer chose, the menu glosses inline — and
+    // only when the renderer actually turned the gloss on.
+    localization.setGlossMode(gloss === 'off' ? 'off' : 'inline')
 
     if (lastMenuLabels !== undefined) {
       applyMenuLabels(lastMenuLabels)

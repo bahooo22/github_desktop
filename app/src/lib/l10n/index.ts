@@ -1,5 +1,6 @@
 import * as ipcRenderer from '../ipc-renderer'
 import { LocalizationState } from './types'
+import { GlossMode } from './types'
 import { localization } from './core'
 import { registerBuiltInLocales } from './builtins'
 
@@ -7,7 +8,7 @@ export { localization, t, matchTag, FallbackLocaleTag } from './core'
 export type { Variant } from './core'
 export { unflattenMessages, findUnknownKeys } from './catalog'
 export { findPlaceholders } from './format'
-export type { LocaleMeta } from './types'
+export type { GlossMode, LocaleMeta } from './types'
 export {
   Trans,
   LocalizationProvider,
@@ -33,6 +34,27 @@ export type LocalizationsReloaded = {
 
 let state: LocalizationState | undefined
 
+const GlossStorageKey = 'localization-gloss'
+
+function readStoredGlossMode(): GlossMode {
+  const stored =
+    typeof localStorage === 'undefined'
+      ? null
+      : localStorage.getItem(GlossStorageKey)
+
+  // Anything the three known modes do not name is treated as off: a hand
+  // edited storage entry must not put the interface into a half-state.
+  return stored === 'block' || stored === 'inline' ? stored : 'off'
+}
+
+/** Turns the gloss on or off and remembers the choice across restarts. */
+export function setGlossMode(mode: GlossMode): void {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(GlossStorageKey, mode)
+  }
+  localization.setGlossMode(mode)
+}
+
 /**
  * Loads every catalog and works out which language to render in. Must run
  * before the first render so that no English flashes past a user whose system
@@ -45,18 +67,35 @@ export async function initializeLocalization(): Promise<void> {
 
   applyState(state)
 
+  localization.setGlossMode(readStoredGlossMode())
+
   // The native menu is built in the main process, which can't see our
   // selection, so every language change has to be pushed over there. Only on
   // an actual change though: editor keystrokes also emit, and rebuilding the
   // whole menu for each of them would be pure waste.
   let lastTag = localization.getActiveTag()
+  let lastMode = localization.getGlossMode()
+
+  const pushToMenu = () =>
+    ipcRenderer.send('update-localization', lastTag, lastMode)
+
   localization.subscribe(() => {
     const tag = localization.getActiveTag()
-    if (tag !== lastTag) {
+    const mode = localization.getGlossMode()
+    if (tag !== lastTag || mode !== lastMode) {
       lastTag = tag
-      ipcRenderer.send('update-localization', tag)
+      lastMode = mode
+      pushToMenu()
     }
   })
+
+  // The language arrived from the settings file and the main process already
+  // built its menu with it, so no tag change will fire the subscription — but
+  // the gloss mode it read from localStorage is news over there, and the menu
+  // needs it before the user touches anything.
+  if (lastMode !== 'off') {
+    pushToMenu()
+  }
 }
 
 function applyState(next: LocalizationState | undefined) {

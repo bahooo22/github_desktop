@@ -19,6 +19,22 @@ function getAccessKey(label: string): string | null {
   return m ? m[1].toLowerCase() : null
 }
 
+/** Every label of a template, depth first, in the order Electron shows them. */
+function collectLabels(
+  items: ReadonlyArray<Electron.MenuItemConstructorOptions>,
+  acc: string[] = []
+): string[] {
+  for (const item of items) {
+    if (typeof item.label === 'string') {
+      acc.push(item.label)
+    }
+    if (Array.isArray(item.submenu)) {
+      collectLabels(item.submenu, acc)
+    }
+  }
+  return acc
+}
+
 type DuplicateAccessKey = {
   readonly menuPath: string
   readonly accessKey: string
@@ -378,6 +394,46 @@ describe('main-process menu', () => {
         report,
         [],
         `duplicate access keys found:\n${report.join('\n')}`
+      )
+    })
+
+    // A glossary hint is not an accelerator. The shipped Russian catalog marks
+    // its own menu mnemonics (`В&етка`), so an inline label built from
+    // `&Branch` + that text would carry two access keys for one item — and the
+    // second letter is Cyrillic, which Windows happily accepts. The test keeps
+    // the two templates parallel: same items in the same order, so comparing
+    // the access key per index proves the marker of the label itself survived
+    // and nothing was added after it.
+    it('keeps one access key per label while the gloss runs inline', () => {
+      localization.setPlatform('win32')
+      localization.setRequestedLocale('tlh')
+
+      let plain: string[]
+      let glossed: string[]
+
+      try {
+        localization.setGlossMode('off')
+        plain = collectLabels(buildDefaultMenuTemplate(baseParams))
+        localization.setGlossMode('inline')
+        glossed = collectLabels(buildDefaultMenuTemplate(baseParams))
+      } finally {
+        localization.setGlossMode('off')
+        localization.setRequestedLocale(null)
+        localization.setPlatform(currentPlatform())
+      }
+
+      assert.strictEqual(glossed.length, plain.length)
+      assert.deepStrictEqual(glossed.map(getAccessKey), plain.map(getAccessKey))
+
+      // The hint itself has to be there — otherwise the two arrays above agree
+      // because nothing was glossed at all.
+      assert.ok(
+        glossed.some(label => /\([^\n]*[А-Яа-я]/.test(label)),
+        'no Cyrillic gloss reached a menu label'
+      )
+      assert.ok(
+        glossed.every(label => !/\([^\n]*(?<!&)&[^&]/.test(label)),
+        'an access key survived inside a gloss'
       )
     })
   })

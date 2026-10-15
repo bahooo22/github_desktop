@@ -257,9 +257,11 @@ export async function deleteUserLocalization(tag: string): Promise<boolean> {
 /**
  * Wires up the channels the renderer uses to read and edit translations.
  * `localeChanged` fires when the renderer has settled on a different language
- * and the native menu needs to be rebuilt.
+ * or gloss mode and the native menu needs to be rebuilt.
  */
-export function registerLocalizationIpc(localeChanged: (tag: string) => void) {
+export function registerLocalizationIpc(
+  localeChanged: (tag: string, gloss: string) => void
+) {
   ipcMain.handle('get-localization-state', () => getLocalizationState())
 
   ipcMain.handle('set-preferred-locale', (_, tag) => savePreferredLocale(tag))
@@ -278,5 +280,7 @@ export function registerLocalizationIpc(localeChanged: (tag: string) => void) {
     await shell.openPath(directory)
   })
 
-  ipcMain.on('update-localization', (_, tag) => localeChanged(tag))
+  ipcMain.on('update-localization', (_, tag, gloss) =>
+    localeChanged(tag, gloss)
+  )
 }

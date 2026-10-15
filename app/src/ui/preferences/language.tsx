@@ -4,11 +4,13 @@ import { PopupType } from '../../models/popup'
 import { DialogContent } from '../dialog'
 import { Select } from '../lib/select'
 import { Button } from '../lib/button'
+import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import {
   localization,
   matchTag,
   t,
   setPreferredLocale,
+  setGlossMode,
   reloadUserLocalizations,
   getLocalizationsDirectory,
   getUnreadableLocalizations,
@@ -63,7 +65,8 @@ export class Language extends React.Component<
         <p className="settings-description">
           {t('settings.language.description')}
         </p>
-        {this.renderPicker()} {this.renderEditorRow()} {this.renderFolderRow()}
+        {this.renderPicker()} {this.renderGlossRow()} {this.renderEditorRow()}{' '}
+        {this.renderFolderRow()}
         {this.renderResetRow()}
       </DialogContent>
     )
@@ -155,6 +158,42 @@ export class Language extends React.Component<
     return missing === 0
       ? t('settings.language.complete')
       : t('settings.language.incomplete', { missing, total })
+  }
+
+  /**
+   * The gloss switch, shown only when the active language declares a glossary
+   * catalog in its `meta`. For every other language the row would be a
+   * checkbox that cannot do anything.
+   */
+  private renderGlossRow() {
+    const glossTag = localization.getGlossTag()
+
+    if (glossTag === undefined) {
+      return null
+    }
+
+    const glossLocale = localization.getLocale(glossTag)
+
+    return (
+      <div className="language-settings-row">
+        <div>
+          <h3>{t('settings.language.gloss')}</h3>
+          <p className="settings-description">
+            {t('settings.language.glossHint', {
+              language: glossLocale?.nativeName ?? glossTag,
+            })}
+          </p>
+        </div>
+        <Checkbox
+          value={
+            localization.getGlossMode() === 'off'
+              ? CheckboxValue.Off
+              : CheckboxValue.On
+          }
+          onChange={this.onGlossChanged}
+        />
+      </div>
+    )
   }
 
   private renderEditorRow() {
@@ -267,6 +306,11 @@ export class Language extends React.Component<
   private onReload = async () => {
     const reloaded = await reloadUserLocalizations()
     this.setState({ reloaded })
+  }
+
+  private onGlossChanged = (ev: React.FormEvent<HTMLInputElement>) => {
+    const on = ev.currentTarget.checked
+    setGlossMode(on ? 'block' : 'off')
   }
 
   private onOpenEditor = () => {

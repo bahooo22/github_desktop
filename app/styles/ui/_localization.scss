@@ -349,3 +349,24 @@ body.l10n-pick-mode {
     }
   }
 }
+
+// The `block` gloss mode puts a newline into translated strings at runtime;
+// only this rule turns it into a second line. It is scoped through the body
+// class rather than the language attribute because the same language renders
+// with and without the gloss, and buttons are where a two-line label first
+// showed up.
+body.gloss-enabled {
+  .button-component .button-content,
+  .component-tooltip,
+  .tab-container .tab {
+    white-space: pre-line;
+  }
+}
+
+// The `Trans` path cannot carry the newline through the template — a raw
+// newline there would be parsed as text — so it renders its own element.
+.l10n-gloss {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary-color);
+}

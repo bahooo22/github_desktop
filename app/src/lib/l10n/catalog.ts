@@ -140,6 +140,7 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
     authors,
     ready,
     pluralCategories,
+    gloss,
   } = meta as Record<string, unknown>
 
   // A hand written file can name any category; only CLDR's six are usable as
@@ -165,6 +166,7 @@ export function readCatalogMeta(raw: unknown): Partial<LocaleMeta> {
       ? { ready: ready as string[] }
       : {}),
     ...(categories !== undefined ? { pluralCategories: categories } : {}),
+    ...(typeof gloss === 'string' ? { gloss } : {}),
   }
 }
 

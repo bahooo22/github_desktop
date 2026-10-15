@@ -78,6 +78,16 @@ export class LocalizationProvider extends React.Component<
   private applyDocumentAttributes() {
     document.documentElement.lang = localization.getActiveTag()
     document.documentElement.dir = getDirection()
+
+    // The `block` mode puts a newline into every translated string, and only
+    // CSS can turn it into a second line. The class is on the body rather
+    // than the active tag because the same language renders with and without
+    // the gloss.
+    document.body?.classList.toggle(
+      'gloss-enabled',
+      localization.getGlossMode() !== 'off' &&
+        localization.getGlossTag() !== undefined
+    )
   }
 
   public render() {
@@ -127,7 +137,24 @@ export const Trans = ({
       ? [k]
       : renderTemplate(template, params, tag, components)
 
-  return React.createElement(element, { ...rest, 'data-l10n-key': k }, children)
+  // The gloss goes in as its own element rather than into the template: a
+  // newline inside the markup would be parsed as text and `<link>` frames
+  // would shift. `getTemplate` stays untouched, so both paths stay apart.
+  // The `key` is what React wants of any element built into a child array.
+  const gloss = localization.getGloss(k, params)
+
+  return React.createElement(
+    element,
+    { ...rest, 'data-l10n-key': k },
+    gloss === undefined
+      ? children
+      : [
+          ...children,
+          <span key="gloss" className="l10n-gloss">
+            {gloss}
+          </span>,
+        ]
+  )
 }
 
 type Frame = { name: string; children: Array<React.ReactNode> }

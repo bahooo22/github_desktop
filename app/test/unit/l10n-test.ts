@@ -488,6 +488,65 @@ describe('l10n manager', () => {
     assert.notDeepEqual(got, ['_one', '_bogus'])
   })
 
+  it('block mode appends the gloss text, inline wraps it, off stays plain', () => {
+    fresh()
+    localization.registerFromJson(
+      'tlh',
+      {
+        meta: { name: 'Klingon', gloss: 'ru' },
+        greeting: 'nuqneH',
+      },
+      'builtin'
+    )
+    localization.setRequestedLocale('tlh')
+
+    // The default mode must not touch anything: existing tests and the e2e
+    // selectors match on text, and a gloss hidden in a string would break
+    // both without a visible change anywhere.
+    localization.setGlossMode('off')
+    assert.equal(localization.translate('greeting'), 'nuqneH')
+
+    localization.setGlossMode('block')
+    assert.equal(localization.translate('greeting'), 'nuqneH\nПривет')
+
+    // The menu path: one line, because menu items cannot hold a second one.
+    localization.setGlossMode('inline')
+    assert.equal(localization.translate('greeting'), 'nuqneH (Привет)')
+
+    localization.setGlossMode('off')
+  })
+
+  it('a catalog without meta.gloss never appends', () => {
+    fresh()
+    localization.setRequestedLocale('ru')
+    localization.setGlossMode('block')
+
+    assert.equal(localization.getGlossTag(), undefined)
+    assert.equal(localization.translate('greeting'), 'Привет')
+    assert.equal(localization.translate('bye'), 'Goodbye')
+
+    localization.setGlossMode('off')
+  })
+
+  it('a key missing from the gloss catalog returns the plain text', () => {
+    fresh()
+    // The built-in Russian fixture has `greeting` but no `bye`, so the key
+    // falls back through the reference catalog in the active language while
+    // the glossary has nothing to say about it.
+    localization.registerFromJson(
+      'tlh',
+      { meta: { gloss: 'ru' }, greeting: 'nuqneH' },
+      'builtin'
+    )
+    localization.setRequestedLocale('tlh')
+    localization.setGlossMode('block')
+
+    assert.equal(localization.translate('greeting'), 'nuqneH\nПривет')
+    assert.equal(localization.translate('bye'), 'Goodbye')
+
+    localization.setGlossMode('off')
+  })
+
   it('notifies subscribers when the language changes', () => {
     fresh()
     let notifications = 0

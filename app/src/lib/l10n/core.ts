@@ -5,10 +5,12 @@ import {
   interpolate,
   Platform,
   selectVariant,
+  withoutMarkup,
 } from './format'
 import {
   CatalogProblem,
   Direction,
+  GlossMode,
   LocaleDefinition,
   LocaleSummary,
   Message,
@@ -17,6 +19,16 @@ import {
 
 /** The catalog every other catalog is measured against, and always present. */
 export const FallbackLocaleTag = 'en'
+
+/**
+ * Drop the access key markers from a text that is not a menu label. `&&` is an
+ * escaped ampersand and stays, a lone `&` marks the next letter as an accelerator
+ * and goes away — left in place it would give the label a second, and unwanted,
+ * access key.
+ */
+function withoutMnemonics(text: string): string {
+  return text.replace(/&&|&/g, marker => (marker === '&&' ? '&&' : ''))
+}
 
 type Listener = () => void
 
@@ -41,6 +53,14 @@ type CatalogLayer = {
    * rather than the language.
    */
   readonly pluralCategories: ReadonlyArray<string> | undefined
+
+  /**
+   * The language that carries the meaning of this catalog's strings, or
+   * `undefined` when the catalog declares no gloss. Transliterated languages
+   * read aloud but do not read as meaning, so the hint comes from a second
+   * catalog under the same key.
+   */
+  readonly gloss: string | undefined
 }
 
 /** One user catalog exactly as it sits on disk, flags included. */
@@ -96,6 +116,7 @@ class LocalizationManager {
   private systemTags = new Array<string>()
   private activeTag = FallbackLocaleTag
   private platform: Platform = currentPlatform()
+  private glossMode: GlossMode = 'off'
 
   public registerFromJson(
     tag: string,
@@ -122,8 +143,8 @@ class LocalizationManager {
       authors: meta.authors ?? existing?.authors,
       messages: merged,
       ready,
-      pluralCategories:
-        meta.pluralCategories ?? existing?.pluralCategories,
+      pluralCategories: meta.pluralCategories ?? existing?.pluralCategories,
+      gloss: meta.gloss ?? existing?.gloss,
     })
 
     // The snapshot is post-merge on purpose: `saveUserLocalization` registers
@@ -244,6 +265,7 @@ class LocalizationManager {
       nativeName: layer.nativeName,
       direction: layer.direction,
       ...(layer.authors !== undefined ? { authors: layer.authors } : {}),
+      ...(layer.gloss !== undefined ? { gloss: layer.gloss } : {}),
       source: this.userLayers.has(tag) ? 'user' : 'builtin',
       messages: layer.messages,
       userMessages: this.userLayers.get(tag)?.messages ?? noMessages,
@@ -276,6 +298,70 @@ class LocalizationManager {
     }
   }
 
+  /**
+   * Turns the glossary language on or off. The mode belongs to the manager
+   * rather than to the preferences screen because the main process builds the
+   * native menu outside the component tree and needs the same decision.
+   */
+  public setGlossMode(mode: GlossMode): void {
+    if (mode === this.glossMode) {
+      return
+    }
+
+    this.glossMode = mode
+    this.emit()
+  }
+
+  public getGlossMode(): GlossMode {
+    return this.glossMode
+  }
+
+  /**
+   * The glossary language of the active catalog, or `undefined` when nothing
+   * can gloss it. A catalog that names its own tag is a mistake, not a hint,
+   * and the answer for it is the same as for no declaration at all.
+   */
+  public getGlossTag(): string | undefined {
+    const gloss = this.getLayer(this.activeTag)?.gloss
+    return gloss !== undefined && gloss !== this.activeTag ? gloss : undefined
+  }
+
+  /**
+   * The same key as the glossary language renders it, or `undefined` when the
+   * gloss catalog has no such key. Selection runs through `selectVariant` for
+   * the gloss language, so a plural row is glossed in the plural form that
+   * language itself requires.
+   */
+  public getGloss(
+    key: string,
+    params: TranslationParameters = {}
+  ): string | undefined {
+    if (this.glossMode === 'off') {
+      return undefined
+    }
+
+    const glossTag = this.getGlossTag()
+
+    if (glossTag === undefined) {
+      return undefined
+    }
+
+    const message = this.getLayer(glossTag)?.messages.get(key)
+
+    if (message === undefined) {
+      return undefined
+    }
+
+    const template = selectVariant(message, glossTag, params, this.platform)
+
+    // The hint is printed as text in both modes — a second line in the
+    // renderer, parentheses in the menu — and nobody turns a `<link>` in it
+    // into an element, so the markup would only be noise.
+    return template === undefined
+      ? undefined
+      : withoutMarkup(interpolate(template, params, glossTag))
+  }
+
   public translate(key: string, params: TranslationParameters = {}): string {
     const template = this.getTemplate(key, params)
 
@@ -284,7 +370,20 @@ class LocalizationManager {
       return key
     }
 
-    return interpolate(template, params, this.activeTag)
+    const text = interpolate(template, params, this.activeTag)
+    const gloss = this.getGloss(key, params)
+
+    if (gloss === undefined) {
+      return text
+    }
+
+    // The renderer asks for `block` and gets a newline; the main process pins
+    // `inline` at startup because menu labels cannot hold a second line. The
+    // shipped Russian catalog marks its own mnemonics, and a label may carry
+    // exactly one of them, so the hint is stripped on that path.
+    return this.glossMode === 'inline'
+      ? `${text} (${withoutMnemonics(gloss)})`
+      : `${text}\n${gloss}`
   }
 
   /**
@@ -359,6 +458,7 @@ class LocalizationManager {
       authors: layer?.authors,
       ready: layer?.ready,
       pluralCategories: layer?.pluralCategories,
+      gloss: layer?.gloss,
       messages,
     })
 
@@ -421,6 +521,7 @@ class LocalizationManager {
       // the change the user just made.
       ready: keys,
       pluralCategories: layer?.pluralCategories,
+      gloss: layer?.gloss,
     })
 
     this.effective.clear()
@@ -445,6 +546,7 @@ class LocalizationManager {
       messages: layer?.messages ?? noMessages,
       ready: new Set(keys),
       pluralCategories: layer?.pluralCategories,
+      gloss: layer?.gloss,
     })
 
     this.effective.clear()
@@ -515,8 +617,8 @@ class LocalizationManager {
       ready: metadata.ready ?? builtin?.ready,
       // A user file that restates `pluralCategories` overrides the shipped
       // catalog; one that doesn't inherits it, the same rule `authors` uses.
-      pluralCategories:
-        metadata.pluralCategories ?? builtin?.pluralCategories,
+      pluralCategories: metadata.pluralCategories ?? builtin?.pluralCategories,
+      gloss: metadata.gloss ?? builtin?.gloss,
       messages:
         builtin === undefined
           ? user!.messages

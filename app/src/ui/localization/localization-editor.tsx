@@ -18,7 +18,7 @@ import {
   FallbackLocaleTag,
   Variant,
 } from '../../lib/l10n'
-import { displayQualifier } from '../../lib/l10n/format'
+import { displayQualifier, withoutMarkup } from '../../lib/l10n/format'
 import { PluralQualifierPrefix, PluralQualifiers } from '../../lib/l10n/catalog'
 import { LinkButton } from '../lib/link-button'
 import { Dispatcher } from '../dispatcher'
@@ -869,6 +869,10 @@ export class LocalizationEditor extends React.Component<
             ...(locale.authors !== undefined
               ? { authors: locale.authors }
               : {}),
+            // Same inheritance as the credits: the glossary is declared by the
+            // shipped catalog, and a user file that left it out would silence
+            // the hint for everyone using this language.
+            ...(locale.gloss !== undefined ? { gloss: locale.gloss } : {}),
             // The list comes from the layers, not from `getLocale`: a shipped
             // catalog's own readiness is nobody's business to restate. The one
             // case left without a section is the file that predates it — writing
@@ -1183,26 +1187,4 @@ function exampleOf(target: string, key: string, variant: Variant): string {
   return form === undefined || form.template === ''
     ? variant.template
     : form.template
-}
-
-/**
- * Тот же текст так, как он читается на экране: без разметки, которой `Trans`
- * оборачивает ссылку или кнопку.
- *
- * Призрачный текст в пустом поле — подсказка, а не источник копирования: его
- * нельзя выделить, поэтому `<link>` в нём только шум. Саму строку примера
- * над полем разметку сохраняет, потому что её копируют в поле, и вставленный
- * без `<link>` перевод молча теряет ссылку в интерфейсе.
- *
- * Закрытие и открывающий тег вырезаются вместе со скобками, а текст между
- * ними остаётся — ровно то, что делает `renderTemplate` с неизвестным тегом.
- * Самозакрывающийся (`<time />`, `<shortcut/>`) подстановкой элемента, а не
- * текста, поэтому исчезает вместе с пробелом перед ним: `(проверено )` с
- * висячим пробелом читается хуже, чем `(проверено)`.
- */
-function withoutMarkup(text: string): string {
-  return text
-    .replace(/ ?<[^>]*\/>/g, '')
-    .replace(/<\/?[^>]*>/g, '')
-    .trim()
 }
