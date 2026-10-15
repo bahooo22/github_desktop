@@ -48,7 +48,7 @@ export function buildTranslationIssueUrl(issue: ITranslationIssue): string {
 export interface ITranslationIssueContext {
   readonly target: string
   readonly key?: string
-  readonly filter?: 'missing' | 'translated'
+  readonly filter?: 'missing' | 'partial' | 'translated'
   readonly search: string
 }
 
@@ -158,9 +158,14 @@ export function buildFeedbackIssueUrl(
   }
 
   if (filter !== undefined) {
+    // The same three views the editor's own radio group offers, spelled out
+    // here rather than imported: the report is written from a plain value, and
+    // this module must not depend on the dialog it reports on.
     const filterName =
       filter === 'missing'
         ? t('localizationEditor.filterMissing')
+        : filter === 'partial'
+        ? t('localizationEditor.filterPartial')
         : t('localizationEditor.filterTranslated')
 
     details.push(

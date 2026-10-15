@@ -207,6 +207,20 @@ describe('l10n format', () => {
     assert.equal(selectVariant(m, 'ru', { count: 5 }, 'win32'), '{count} файл')
   })
 
+  it('takes the singular wording rather than the generic one in between', () => {
+    const m = message([
+      ['plural:_one', '{count} файл'],
+      ['plural:_many', '{count} файлов'],
+      ['plural:_other', '{count} файла'],
+    ])
+
+    // Russian asks for a `few` and this message has none, so two remaining
+    // forms could answer. The editor tells the translator which one it gets
+    // (`singularFallback` on the row), so the order is a promise and not an
+    // implementation detail.
+    assert.equal(selectVariant(m, 'ru', { count: 3 }, 'win32'), '{count} файл')
+  })
+
   it('falls back to the plain message when no qualifier applies', () => {
     assert.equal(
       selectVariant(message([['', 'plain']]), 'en', {}, 'linux'),
@@ -371,12 +385,18 @@ describe('l10n manager', () => {
     assert.equal(localization.translate('greeting'), 'Servus')
   })
 
-  it('reads readiness from the file and reports nothing for a catalog without it', () => {
+  it('reads readiness from the file and tells a legacy file from none', () => {
     fresh()
 
-    // A catalog written before readiness existed says nothing about it, and
-    // that is not the same as declaring an empty list: the editor migrates the
-    // first and honors the second.
+    // A language with no file of its own has declared nothing, and nothing is an
+    // empty list: a row typed in from scratch stays a draft until the translator
+    // says otherwise.
+    assert.deepEqual([...localization.getReadyKeys('ru')!], [])
+
+    // A user file that already holds wording and says nothing about readiness is
+    // the catalog written before the flag existed — `undefined` is what tells
+    // the two apart, and it is the one case the editor migrates.
+    localization.registerFromJson('ru', { greeting: 'Привет' }, 'user')
     assert.equal(localization.getReadyKeys('ru'), undefined)
 
     localization.registerFromJson(

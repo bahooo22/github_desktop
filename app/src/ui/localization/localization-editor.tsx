@@ -29,7 +29,27 @@ import {
 } from './translation-issue'
 import { armPickMode, disarmPickMode } from './pick-mode'
 
-export type Filter = 'all' | 'missing' | 'translated'
+export type Filter = 'all' | 'missing' | 'partial' | 'translated'
+
+/**
+ * How far one row has come. `missing` has no wording yet, `partial` has some
+ * but is not declared finished, and `ready` is the translator's own word that
+ * the string is done — see `rowStatus`.
+ */
+type RowState = 'ready' | 'partial' | 'missing'
+
+/** Everything the editor decides about one row, worked out once per render. */
+type RowStatus = {
+  readonly variants: ReadonlyArray<Variant>
+  readonly overrides: ReadonlyMap<string, string> | undefined
+  readonly state: RowState
+  /** Every form the target language has a wording for. */
+  readonly complete: boolean
+  /** Counted as translated: declared, or migrated from a complete row. */
+  readonly ready: boolean
+  /** A plural form with nothing to fall back on, so `selectPlural` would. */
+  readonly needsSingular: boolean
+}
 
 interface ILocalizationEditorProps {
   /**
@@ -224,7 +244,7 @@ export class LocalizationEditor extends React.Component<
 
         <RadioGroup<Filter>
           selectedKey={this.state.filter}
-          radioButtonKeys={['all', 'missing', 'translated']}
+          radioButtonKeys={['all', 'missing', 'partial', 'translated']}
           onSelectionChanged={this.onFilterChanged}
           renderRadioButtonLabelContents={this.renderFilterLabel}
         />
@@ -238,6 +258,8 @@ export class LocalizationEditor extends React.Component<
         return t('localizationEditor.filterAll')
       case 'missing':
         return t('localizationEditor.filterMissing')
+      case 'partial':
+        return t('localizationEditor.filterPartial')
       case 'translated':
         return t('localizationEditor.filterTranslated')
       default:
@@ -327,8 +349,6 @@ export class LocalizationEditor extends React.Component<
 
   private renderProgress() {
     const { target } = this.state
-    const user = localization.getUserMessages(target)
-    const categories = getPluralCategories(target)
 
     const keys = localization.getBuiltInKeys()
     let total = 0
@@ -337,13 +357,10 @@ export class LocalizationEditor extends React.Component<
     // Progress counts variants, not keys: a plural whose `_few` is still
     // English is not finished even though the key has an entry.
     for (const key of keys) {
-      const variants = targetVariants(
-        localization.getReference(key),
-        categories
-      )
+      const status = rowStatus(target, key)
 
-      total += variants.length
-      translated += countTranslated(variants, user.get(key))
+      total += status.variants.length
+      translated += countTranslated(status)
     }
 
     // `total` is a per language number: a catalog for ru needs four plural
@@ -382,14 +399,32 @@ export class LocalizationEditor extends React.Component<
 
   private renderRow(key: string) {
     const { target } = this.state
-    const reference = localization.getReference(key)
-    const user = localization.getUserMessages(target).get(key)
+    const status = rowStatus(target, key)
 
     return (
-      <div key={key} className="translation-row">
-        <div className="translation-key">{key}</div>
-        {targetVariants(reference, getPluralCategories(target)).map(variant =>
-          this.renderVariant(key, target, variant, user)
+      <div key={key} className={`translation-row ${status.state}`}>
+        <div className="translation-row-header">
+          <div className="translation-key">{key}</div>
+          <Button
+            className="row-ready"
+            ariaPressed={status.ready}
+            tooltip={t(
+              status.ready
+                ? 'localizationEditor.readyHint'
+                : 'localizationEditor.markReady'
+            )}
+            onClick={this.onToggleReady(key)}
+          >
+            {t('localizationEditor.ready')}
+          </Button>
+          {status.needsSingular && (
+            <span className="singular-fallback-note">
+              {t('localizationEditor.singularFallback')}
+            </span>
+          )}
+        </div>
+        {status.variants.map(variant =>
+          this.renderVariant(key, target, variant, status)
         )}
       </div>
     )
@@ -399,10 +434,10 @@ export class LocalizationEditor extends React.Component<
     key: string,
     target: string,
     variant: Variant,
-    user: ReadonlyMap<string, string> | undefined
+    status: RowStatus
   ) {
-    const value = user?.get(variant.qualifier) ?? ''
-    const hasOverride = user?.get(variant.qualifier) !== undefined
+    const value = status.overrides?.get(variant.qualifier) ?? ''
+    const hasOverride = status.overrides?.get(variant.qualifier) !== undefined
     const missing = missingPlaceholders(variant.template, value)
     const onValueChanged = this.onVariantValueChanged(key, variant.qualifier)
 
@@ -421,6 +456,7 @@ export class LocalizationEditor extends React.Component<
               {displayQualifier(variant.qualifier)}
             </span>
           )}
+          {this.renderFormBadge(status, value)}
           <code className="selectable-text">{variant.template}</code>
         </div>
         {showExample && (
@@ -436,6 +472,7 @@ export class LocalizationEditor extends React.Component<
           placeholder={withoutMarkup(example)}
           displayInvalidState={missing.length > 0}
           onValueChanged={onValueChanged}
+          onKeyDown={this.onVariantKeyDown(key)}
           ariaLabel={key}
         />
         {missing.length > 0 && value !== '' && (
@@ -456,6 +493,24 @@ export class LocalizationEditor extends React.Component<
         )}
       </div>
     )
+  }
+
+  /**
+   * The state of one form, next to the text it stands for. A finished row needs
+   * none of it; in a draft every filled form says "draft" because text alone is
+   * not a translation yet, and an empty one says what is still missing.
+   */
+  private renderFormBadge(status: RowStatus, value: string) {
+    if (status.ready) {
+      return null
+    }
+
+    const kind = value === '' ? 'partial' : 'draft'
+    const label = t(
+      value === '' ? 'localizationEditor.partial' : 'localizationEditor.draft'
+    )
+
+    return <span className={`state-badge ${kind}`}>{label}</span>
   }
 
   private renderFooter() {
@@ -539,22 +594,23 @@ export class LocalizationEditor extends React.Component<
 
   private visibleKeys(): ReadonlyArray<string> {
     const { filter, search, target } = this.state
-    const user = localization.getUserMessages(target)
     const needle = search.trim().toLowerCase()
-    const categories = getPluralCategories(target)
 
     return localization.getBuiltInKeys().filter(key => {
-      const variants = targetVariants(
-        localization.getReference(key),
-        categories
-      )
-      const overrides = user.get(key)
-      const complete = countTranslated(variants, overrides) === variants.length
+      const status = rowStatus(target, key)
 
-      if (filter === 'missing' && complete) {
+      // "Missing" is the list of rows that still need work, which includes the
+      // half-typed one under the cursor: moving a row out of the filter the
+      // translator is working through, on the first letter they type, is the
+      // defect the explicit readiness replaces. "Partial" is the narrower view
+      // of the same rows that have some wording already.
+      if (filter === 'missing' && status.ready) {
         return false
       }
-      if (filter === 'translated' && !complete) {
+      if (filter === 'partial' && status.state !== 'partial') {
+        return false
+      }
+      if (filter === 'translated' && !status.ready) {
         return false
       }
 
@@ -567,8 +623,10 @@ export class LocalizationEditor extends React.Component<
       // often the least memorable thing about it.
       const texts = [
         key,
-        ...variants.map(v => v.template),
-        ...(overrides !== undefined ? [...overrides.values()] : []),
+        ...status.variants.map(v => v.template),
+        ...(status.overrides !== undefined
+          ? [...status.overrides.values()]
+          : []),
       ]
       return texts.some(text => text.toLowerCase().includes(needle))
     })
@@ -584,13 +642,59 @@ export class LocalizationEditor extends React.Component<
     }
 
   /**
+   * `Ctrl+Enter` declares the row the field belongs to. Plain `Enter` is left
+   * alone on purpose: the dialog renders a form whose submit saves the whole
+   * catalog, and taking that key would change the behaviour of every dialog.
+   */
+  private onVariantKeyDown = (key: string) => (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && e.ctrlKey) {
+      e.preventDefault()
+      this.toggleReady(key)
+    }
+  }
+
+  private onToggleReady = (key: string) => () => this.toggleReady(key)
+
+  /**
+   * Marks one row ready, or takes the translator to the form that isn't filled
+   * in. Readiness is only ever a statement about a whole row, so a row missing
+   * a form cannot be marked — and the click that tried is answered by putting
+   * the cursor exactly where the work still is.
+   */
+  private toggleReady(key: string) {
+    const { target } = this.state
+    const status = rowStatus(target, key)
+
+    if (!status.ready && !status.complete) {
+      this.focusFirstEmptyForm(key)
+      return
+    }
+
+    if (localization.getReadyKeys(target) === undefined) {
+      localization.setReadyKeys(target, migratedReadyKeys(target))
+    }
+
+    localization.setKeyReady(target, key, !status.ready)
+  }
+
+  /**
    * Puts the shipped wording back for one form of one string. Writing an empty
    * value is exactly that: `setUserMessage` drops the variant, and a string
    * left without any variant is dropped with it, so an undone edit also stops
    * counting as unsaved once it matches the file again.
    */
   private onRevertVariant = (key: string, qualifier: string) => () => {
-    localization.setUserMessage(this.state.target, key, qualifier, '')
+    const { target } = this.state
+
+    localization.setUserMessage(target, key, qualifier, '')
+
+    // Losing a form takes the declaration with it: "ready" standing over an
+    // empty field would contradict its own "not finished" badge, and the row
+    // would go on counting in the progress the translator just un-did.
+    const after = rowStatus(target, key)
+    if (after.ready && !after.complete) {
+      localization.setKeyReady(target, key, false)
+    }
   }
 
   /**
@@ -682,21 +786,26 @@ export class LocalizationEditor extends React.Component<
   }
 
   private revealPickedKey(key: string) {
-    const row = [...document.querySelectorAll('.translation-row')].find(
-      candidate =>
-        candidate.querySelector('.translation-key')?.textContent === key
-    )
+    const row = findRow(key)
 
     if (row === undefined) {
       return
     }
 
     row.scrollIntoView({ block: 'center' })
+    focusFirstEmptyForm(row)
+  }
 
-    const inputs = [...row.querySelectorAll('input')]
-    const firstUntranslated = inputs.find(input => input.value === '')
+  /**
+   * The row a click on the "ready" button cannot finish: the key is unique in
+   * the list, and the search box has usually narrowed it to one row anyway.
+   */
+  private focusFirstEmptyForm(key: string) {
+    const row = findRow(key)
 
-    ;(firstUntranslated ?? inputs[0])?.focus()
+    if (row !== undefined) {
+      focusFirstEmptyForm(row)
+    }
   }
 
   private onCreateLanguage = async () => {
@@ -744,6 +853,7 @@ export class LocalizationEditor extends React.Component<
     const tag = this.state.target
     const messages = localization.getUserMessages(tag)
     const locale = localization.getLocale(tag)
+    const ready = localization.getReadyKeys(tag)
 
     const tree = unflattenMessages(
       messages,
@@ -759,6 +869,12 @@ export class LocalizationEditor extends React.Component<
             ...(locale.authors !== undefined
               ? { authors: locale.authors }
               : {}),
+            // The list comes from the layers, not from `getLocale`: a shipped
+            // catalog's own readiness is nobody's business to restate. The one
+            // case left without a section is the file that predates it — writing
+            // an empty list over that file would turn every row it holds back
+            // into a draft, and the flags the editor just froze with it.
+            ...(ready === undefined ? {} : { ready: [...ready].sort() }),
           }
     )
 
@@ -901,13 +1017,118 @@ function targetVariants(
   return [...nonPlurals, ...orderedPlurals]
 }
 
-function countTranslated(
+function countFilled(
   variants: ReadonlyArray<Variant>,
   overrides: ReadonlyMap<string, string> | undefined
 ): number {
   return overrides === undefined
     ? 0
     : variants.filter(variant => overrides.has(variant.qualifier)).length
+}
+
+/**
+ * Forms this row contributes to the progress: none of them while the row is
+ * undeclared. Presence of text is not a finished translation, and counting it
+ * as one is what moved a row out from under the translator's cursor on the
+ * first letter they typed into it.
+ */
+function countTranslated(status: RowStatus): number {
+  return status.ready ? countFilled(status.variants, status.overrides) : 0
+}
+
+const PluralFormPrefix = `${PluralKindPrefix}${PluralQualifierPrefix}`
+
+/**
+ * Everything the editor shows and decides about one row. Readiness is the
+ * translator's own word that the string is done, so a row is never counted as
+ * translated by the text it happens to hold.
+ *
+ * A file written before readiness existed declares nothing (`undefined`), and
+ * such a catalog is read through the migration: every row that has all its
+ * forms was what the previous editor called translated, and calling those
+ * drafts instead would wipe the progress of anyone whose file predates the
+ * flag. The first flag the user clicks freezes that reading — see
+ * `toggleReady`.
+ */
+function rowStatus(target: string, key: string): RowStatus {
+  const variants = targetVariants(
+    localization.getReference(key),
+    getPluralCategories(target)
+  )
+  const overrides = localization.getUserMessages(target).get(key)
+  const filled = countFilled(variants, overrides)
+  const complete = filled === variants.length
+  const declared = localization.getReadyKeys(target)
+  const ready = declared === undefined ? complete : declared.has(key)
+
+  return {
+    variants,
+    overrides,
+    complete,
+    ready,
+    state: ready ? 'ready' : filled === 0 ? 'missing' : 'partial',
+    needsSingular:
+      !ready && hasRowWithoutAFormOfItsOwn(target, key, variants, overrides),
+  }
+}
+
+/** Every row the migration would read as finished, flags and all. */
+function migratedReadyKeys(target: string): ReadonlySet<string> {
+  const ready = new Set<string>()
+
+  for (const key of localization.getBuiltInKeys()) {
+    if (rowStatus(target, key).complete) {
+      ready.add(key)
+    }
+  }
+
+  return ready
+}
+
+/**
+ * Whether an empty form of this row would be filled by the singular wording at
+ * render time (`selectPlural` falls back to `_one`, then to `_other`). Only
+ * worth saying for a plural form that has no text of its own anywhere — the
+ * shipped catalog of the language answers for the rest, and a plain form has no
+ * number to substitute.
+ */
+function hasRowWithoutAFormOfItsOwn(
+  target: string,
+  key: string,
+  variants: ReadonlyArray<Variant>,
+  overrides: ReadonlyMap<string, string> | undefined
+): boolean {
+  const shipped = localization.getBuiltInMessages(target).get(key)
+  const has = (qualifier: string) =>
+    (overrides?.get(qualifier) ?? '') !== '' ||
+    (shipped?.get(qualifier) ?? '') !== ''
+
+  return (
+    has(`${PluralFormPrefix}one`) &&
+    variants.some(
+      variant =>
+        variant.qualifier.startsWith(PluralKindPrefix) &&
+        !has(variant.qualifier)
+    )
+  )
+}
+
+/** The rendered row of one key, or nothing while the filter hides it. */
+function findRow(key: string): Element | undefined {
+  return [...document.querySelectorAll('.translation-row')].find(
+    row => row.querySelector('.translation-key')?.textContent === key
+  )
+}
+
+/**
+ * The first field of a row still waiting for wording — where the click on
+ * "ready" sends the translator when the row cannot honestly be marked.
+ */
+function focusFirstEmptyForm(row: Element) {
+  const inputs = [...row.querySelectorAll('input')]
+  const first = inputs.find(input => input.value === '')
+
+  ;(first ?? inputs[0])?.focus()
 }
 
 function missingPlaceholders(

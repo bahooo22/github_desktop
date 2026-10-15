@@ -125,6 +125,40 @@ const revertButtons = () =>
     ...document.querySelectorAll('.translation-variant button.revert-variant'),
   ] as HTMLButtonElement[]
 
+// One per visible row: declaring a row finished is the only thing this button
+// does, and it is there whether or not the row can be declared yet.
+const readyButtons = () =>
+  [
+    ...document.querySelectorAll('.translation-row button.row-ready'),
+  ] as HTMLButtonElement[]
+
+const stateClasses = () =>
+  [...document.querySelectorAll('.translation-row')].map(row =>
+    row.className.replace('translation-row ', '')
+  )
+
+const badgeKinds = () =>
+  [...document.querySelectorAll('.state-badge')].map(badge =>
+    badge.className.replace('state-badge ', '')
+  )
+
+const progressText = () =>
+  document.querySelector('.localization-editor-progress')!.textContent!
+
+// A footer button of one mounted editor, found by the words it shows. Not
+// `getByRole`: the list carries a button per row, so a role query computes an
+// accessible name for every one of those before it can answer a question about
+// the footer, which on the whole catalog is minutes rather than milliseconds.
+// Only the button's own text counts, because a tooltip renders inside it.
+const footerButton = (container: HTMLElement, label: string) =>
+  [...container.querySelectorAll('.dialog-footer button')].find(
+    button =>
+      [...button.childNodes]
+        .filter(node => node.nodeType === Node.TEXT_NODE)
+        .map(node => node.textContent)
+        .join('') === label
+  )
+
 // One entry per rendered variant: the example's wording, or `undefined` where
 // the row has no example line at all. Which rows have none is as much a part of
 // the behaviour as what the others show.
@@ -368,19 +402,20 @@ describe('localization editor', () => {
     selectTarget('ru')
     searchFor('zztest.plural')
 
-    assert.match(
-      document.querySelector('.localization-editor-progress')!.textContent!,
-      /Translated by me: 0 of [\d,]+ translation forms/
-    )
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
 
     const [first, , , fourth] = variantInputs()
     typeInto(first, '{count} виджет')
     typeInto(fourth, '{count} виджетов')
 
-    assert.match(
-      document.querySelector('.localization-editor-progress')!.textContent!,
-      /Translated by me: 2 of [\d,]+ translation forms/
-    )
+    // Two of the four forms and the counter has not moved: text in a field is
+    // not yet a translation, only the translator's own word is.
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
+
+    // Nor can the row be declared while it has empty forms — the click takes
+    // the cursor to the first one instead of marking what isn't finished.
+    fireEvent.click(readyButtons()[0])
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
 
     fireEvent.click(
       screen.getByRole('radio', {
@@ -403,10 +438,12 @@ describe('localization editor', () => {
     typeInto(inputs[1], '{count} виджета')
     typeInto(inputs[2], '{count} виджетов')
 
-    assert.match(
-      document.querySelector('.localization-editor-progress')!.textContent!,
-      /Translated by me: 4 of [\d,]+ translation forms/
-    )
+    // Every form filled in still says nothing until it is declared.
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
+
+    fireEvent.click(readyButtons()[0])
+
+    assert.match(progressText(), /Translated by me: 4 of [\d,]+ translation/)
 
     fireEvent.click(
       screen.getByRole('radio', {
@@ -415,6 +452,178 @@ describe('localization editor', () => {
       })
     )
     assert.ok(screen.getByText('zztest.plural'))
+  })
+
+  it('keeps the row under the cursor when the first letter lands', () => {
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plural')
+
+    fireEvent.click(
+      screen.getByRole('radio', {
+        name: t('localizationEditor.filterMissing'),
+        hidden: true,
+      })
+    )
+    assert.deepEqual(stateClasses(), ['missing'])
+
+    // The symptom this whole flow exists to fix: one letter used to flip the
+    // row into "translated", which pulled it out of the list the translator was
+    // working through and out from under their own cursor.
+    typeInto(variantInputs()[0], '{')
+
+    assert.ok(screen.getByText('zztest.plural'), 'the row has moved out')
+    assert.deepEqual(stateClasses(), ['partial'])
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
+
+    // The narrow filter is what tells the two halves of "not done" apart.
+    fireEvent.click(
+      screen.getByRole('radio', {
+        name: t('localizationEditor.filterPartial'),
+        hidden: true,
+      })
+    )
+    assert.ok(screen.getByText('zztest.plural'))
+
+    fireEvent.click(
+      screen.getByRole('radio', {
+        name: t('localizationEditor.filterMissing'),
+        hidden: true,
+      })
+    )
+    assert.ok(screen.getByText('zztest.plural'))
+
+    // Declaring it is still refused, and the half-typed form is a draft.
+    fireEvent.click(readyButtons()[0])
+    assert.deepEqual(stateClasses(), ['partial'])
+    assert.deepEqual(badgeKinds(), ['draft', 'partial', 'partial', 'partial'])
+  })
+
+  it('marks a row ready with Ctrl+Enter without saving the catalog', () => {
+    const { calls, restore } = saveCalls()
+    restoreInvoke = restore
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plain')
+
+    const input = variantInputs()[0]
+    typeInto(input, 'готово через клавишу')
+
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
+
+    // The key belongs to the editor alone. jsdom never submits a form on Enter,
+    // so "no save call" would stay true even if the handler let the key through
+    // to the dialog's form - what a browser does with it has to be measured on
+    // the event itself, which means dispatching one that can be cancelled.
+    const enter = new KeyboardEvent('keydown', {
+      key: 'Enter',
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: true,
+    })
+    input.dispatchEvent(enter)
+
+    assert.ok(enter.defaultPrevented, 'Enter still reaches the dialog form')
+    assert.match(progressText(), /Translated by me: 1 of [\d,]+ translation/)
+    assert.deepEqual(stateClasses(), ['ready'])
+    assert.deepEqual(badgeKinds(), [])
+    assert.equal(readyButtons()[0].getAttribute('aria-pressed'), 'true')
+
+    // The key belongs to the editor alone: the catalog is only written by the
+    // Save button, and the flag is one more unsaved change until then.
+    assert.deepEqual(calls, [])
+    assert.ok(screen.queryByText(t('localizationEditor.unsaved')))
+
+    fireEvent.keyDown(input, { key: 'Enter', ctrlKey: true })
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
+  })
+
+  it('reads a catalog that predates readiness as far as it had come', () => {
+    // `de` is a user file with no `ready` section, so nothing declares any row
+    // finished. Counting such rows as drafts instead would zero the progress of
+    // every catalog the previous version of the editor wrote.
+    localization.registerFromJson(
+      'de',
+      {
+        ...deCatalog,
+        zztest: { plain: 'Hallo' },
+        zzmarkup: { time: 'Übertragen' },
+      },
+      'user'
+    )
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    assert.equal(targetSelect().value, 'de')
+    searchFor('zztest.plain')
+
+    // The progress line is catalog-wide, so the second finished row shows up
+    // here even though only one row is on screen.
+    assert.match(progressText(), /Translated by me: 2 of [\d,]+ translation/)
+    assert.deepEqual(stateClasses(), ['ready'])
+
+    // The first flag freezes that reading instead of replacing it: un-marking
+    // this row leaves the other finished one counted, so the counter moves by
+    // one row and not by the whole catalog.
+    fireEvent.click(readyButtons()[0])
+
+    assert.deepEqual(stateClasses(), ['partial'])
+    assert.match(progressText(), /Translated by me: 1 of [\d,]+ translation/)
+
+    fireEvent.click(readyButtons()[0])
+
+    assert.deepEqual(stateClasses(), ['ready'])
+    assert.match(progressText(), /Translated by me: 2 of [\d,]+ translation/)
+  })
+
+  it('drops the readiness of a row whose form went back to the original', () => {
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plural')
+
+    const inputs = variantInputs()
+    typeInto(inputs[0], '{count} виджет')
+    typeInto(inputs[1], '{count} виджета')
+    typeInto(inputs[2], '{count} виджетов')
+    typeInto(inputs[3], '{count} виджетов')
+
+    fireEvent.click(readyButtons()[0])
+    assert.deepEqual(stateClasses(), ['ready'])
+    assert.match(progressText(), /Translated by me: 4 of [\d,]+ translation/)
+
+    fireEvent.click(revertButtons()[1])
+
+    // The row is short one form now, and "ready" over an empty field would
+    // contradict the badge on it.
+    assert.deepEqual(stateClasses(), ['partial'])
+    assert.match(progressText(), /Translated by me: 0 of [\d,]+ translation/)
+  })
+
+  it('names the wording an empty plural form borrows', () => {
+    render(<LocalizationEditor onDismissed={() => {}} />)
+
+    selectTarget('ru')
+    searchFor('zztest.plural')
+
+    // Russian ships `_one` and `_other` for this key and nothing between them,
+    // so the two forms in the middle have no wording of their own: the note
+    // says what the interface will show for those numbers instead.
+    const note = document.querySelector('.singular-fallback-note')
+    assert.ok(note)
+    assert.equal(note!.textContent, t('localizationEditor.singularFallback'))
+
+    const inputs = variantInputs()
+    typeInto(inputs[0], '{count} виджет')
+    typeInto(inputs[1], '{count} виджета')
+    typeInto(inputs[2], '{count} виджетов')
+    typeInto(inputs[3], '{count} виджетов')
+
+    // Every form has its own text now, so there is nothing being borrowed.
+    assert.equal(document.querySelector('.singular-fallback-note'), null)
   })
 
   it('refuses to leave a language with unsaved changes', async () => {
@@ -536,6 +745,11 @@ describe('localization editor', () => {
       typeInto(variantInputs()[0], 'свой вариант')
       assert.ok(screen.queryByText(t('localizationEditor.unsaved')))
 
+      // Declaring the row finished is an unsaved change like any other, so the
+      // button that drops the unsaved changes has to drop this one too.
+      fireEvent.keyDown(variantInputs()[0], { key: 'Enter', ctrlKey: true })
+      assert.deepEqual(stateClasses(), ['ready'])
+
       fireEvent.click(
         screen.getByRole('button', {
           name: t('localizationEditor.revertAll', { tag: 'ru' }),
@@ -546,6 +760,7 @@ describe('localization editor', () => {
       await waitFor(() => assertNotUnsaved())
       assert.equal(variantInputs()[0].value, 'Заводской перевод')
       assert.equal(localization.hasUserFile('ru'), true)
+      assert.equal(localization.getReadyKeys('ru'), undefined)
     } finally {
       ipcRenderer.invoke = previous
     }
@@ -632,6 +847,32 @@ describe('localization editor', () => {
     await waitFor(() => assertNotUnsaved())
   })
 
+  it('writes the readiness of a row into the file it saves', async () => {
+    const { calls, restore } = saveCalls()
+    restoreInvoke = restore
+
+    localization.registerFromJson('de', deCatalog, 'user')
+
+    render(<LocalizationEditor onDismissed={() => {}} />)
+    searchFor('zztest.plain')
+    typeInto(variantInputs()[0], 'Hallo')
+    fireEvent.keyDown(variantInputs()[0], { key: 'Enter', ctrlKey: true })
+
+    fireEvent.click(
+      screen.getByRole('button', {
+        name: t('localizationEditor.save'),
+        hidden: true,
+      })
+    )
+
+    await waitFor(() => assert.equal(calls.length, 1))
+
+    // The flag is part of what the file says, which is the only reason a
+    // reopened dialog — or a restarted application — still knows the row is
+    // done.
+    assert.deepEqual(readCatalogMeta(calls[0].contents).ready, ['zztest.plain'])
+  })
+
   it('surfaces catalog problems and unknown keys', () => {
     localization.registerFromJson(
       'ru',
@@ -687,27 +928,25 @@ describe('localization editor', () => {
   })
 
   it('offers the pick only where the editor can be reopened', () => {
-    render(<LocalizationEditor onDismissed={() => {}} />)
+    const withoutDispatcher = render(
+      <LocalizationEditor onDismissed={() => {}} />
+    )
 
     // Without a dispatcher the pick could only close the dialog for good, so
     // the button that does it is left out rather than shown broken.
     assert.equal(
-      screen.queryByRole('button', {
-        name: t('localizationEditor.pick'),
-        hidden: true,
-      }),
-      null
+      footerButton(withoutDispatcher.container, t('localizationEditor.pick')),
+      undefined
     )
 
-    render(
+    withoutDispatcher.unmount()
+
+    const withDispatcher = render(
       <LocalizationEditor onDismissed={() => {}} dispatcher={fakeDispatcher} />
     )
 
     assert.ok(
-      screen.getByRole('button', {
-        name: t('localizationEditor.pick'),
-        hidden: true,
-      })
+      footerButton(withDispatcher.container, t('localizationEditor.pick'))
     )
   })
 })

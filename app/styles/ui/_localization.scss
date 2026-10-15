@@ -141,6 +141,49 @@ body.l10n-pick-mode {
     &:last-child {
       border-bottom: none;
     }
+
+    // The state of a row marked on its edge rather than by tinting the whole
+    // block: the translator scrolls hundreds of these, and three background
+    // shades would read as a table of themes instead of their own progress.
+    // A row with no wording needs no mark at all — that is what the "Missing"
+    // filter is for.
+    &.ready {
+      border-left: 2px solid var(--status-success-color);
+    }
+
+    &.partial {
+      border-left: 2px solid var(--input-warning-text-color);
+    }
+  }
+
+  .translation-row-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-half);
+    margin-bottom: var(--spacing-half);
+
+    // The key is mono text of a length nobody controls, so it takes what it can
+    // and the action stays reachable at the right edge instead of being pushed
+    // out of the window.
+    .translation-key {
+      min-width: 0;
+      margin-bottom: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .row-ready {
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    // Its own line: the note explains the empty fields below it, and sharing
+    // the line with a long key would put it where nobody reads it.
+    .singular-fallback-note {
+      flex-basis: 100%;
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary-color);
+    }
   }
 
   .translation-key {
@@ -175,6 +218,26 @@ body.l10n-pick-mode {
         border-radius: var(--border-radius);
         background-color: var(--text-secondary-color);
         color: white;
+      }
+
+      // The per-form half of the row's state. Outline rather than a filled
+      // `.qualifier`: the qualifier chip names the grammar, this one only says
+      // what the translator still owes the field, and a second solid badge in
+      // the same line would look like part of the key.
+      .state-badge {
+        flex-shrink: 0;
+        font-size: var(--font-size-sm);
+        padding: 0 var(--spacing-half);
+        border-radius: var(--border-radius);
+        border: var(--base-border);
+
+        &.draft {
+          color: var(--text-secondary-color);
+        }
+
+        &.partial {
+          color: var(--input-warning-text-color);
+        }
       }
     }
 

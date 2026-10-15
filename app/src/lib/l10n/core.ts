@@ -43,6 +43,7 @@ export type Variant = {
 }
 
 const noMessages: ReadonlyMap<string, Message> = new Map()
+const noReadyKeys: ReadonlySet<string> = new Set()
 
 /**
  * Holds the catalogs and answers lookups for whichever language is active.
@@ -325,13 +326,31 @@ class LocalizationManager {
   }
 
   /**
-   * The keys `tag` declares finished, or `undefined` when nothing declares it:
-   * no user layer and no `ready` section in the file on disk. That difference
-   * is what tells the editor a catalog predates readiness, so it can count the
-   * rows it finds complete as ready instead of wiping the translator's progress.
+   * The keys `tag` declares finished, or `undefined` for the one catalog that
+   * declares nothing but still holds work: a user file written before readiness
+   * existed. The editor counts the rows such a file has filled in as ready,
+   * because calling them drafts would zero the progress of every catalog the
+   * previous version wrote.
+   *
+   * A language that has no file yet is not that case and answers with an empty
+   * set: nothing has been declared, and a freshly typed row must stay a draft
+   * until the translator says otherwise — otherwise the last form typed in it
+   * would mark the row ready on its own, which is the symptom the flag exists
+   * to remove.
    */
   public getReadyKeys(tag: string): ReadonlySet<string> | undefined {
-    return this.userLayers.get(tag)?.ready ?? this.savedLayers.get(tag)?.ready
+    const declared =
+      this.userLayers.get(tag)?.ready ?? this.savedLayers.get(tag)?.ready
+
+    if (declared !== undefined) {
+      return declared
+    }
+
+    const saved = this.savedLayers.get(tag)
+
+    return saved !== undefined && saved.messages.size > 0
+      ? undefined
+      : noReadyKeys
   }
 
   /**
@@ -360,6 +379,29 @@ class LocalizationManager {
       // make the language look untouched, or the save button disappears with
       // the change the user just made.
       ready: keys,
+    })
+
+    this.effective.clear()
+    this.emit()
+  }
+
+  /**
+   * Replaces the readiness list wholesale. The editor calls this before its
+   * very first flag on a catalog whose file has no `ready` section: that file
+   * is read as "every complete row is ready", so a lone `setKeyReady` would
+   * narrow the reading down to the one row clicked, and the progress counter of
+   * a translator who had finished half the catalog would collapse on the click.
+   */
+  public setReadyKeys(tag: string, keys: ReadonlySet<string>): void {
+    const layer = this.userLayers.get(tag)
+
+    this.userLayers.set(tag, {
+      name: layer?.name ?? tag,
+      nativeName: layer?.nativeName ?? tag,
+      direction: layer?.direction ?? 'ltr',
+      authors: layer?.authors,
+      messages: layer?.messages ?? noMessages,
+      ready: new Set(keys),
     })
 
     this.effective.clear()
