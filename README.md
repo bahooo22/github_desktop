@@ -83,7 +83,7 @@ webpack 5.111, Electron 44.1.1 на Node 24.19 (`.node-version`).
 OAuth-приложения —
 [docs/fork-oauth-client.md](docs/fork-oauth-client.md). О том, как считается
 готовность каждого каталога, в каком состоянии четыре учебных языка и по какой
-таблице клингонский и квенья записываются кириллицей —
+таблице из их латиницы получается кириллическая транскрипция —
 [docs/fork-localization-progress.md](docs/fork-localization-progress.md). Общая
 настройка сборки для разработки — апстримная
 [`setup.md`](./docs/contributing/setup.md).
