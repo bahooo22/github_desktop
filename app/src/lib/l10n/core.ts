@@ -450,17 +450,31 @@ class LocalizationManager {
    * two exist depends on the catalog, and a language that declares both is
    * exactly the case this hint is for — `tlhIngan Hol` read aloud, then meant.
    *
-   * The mode decides the shape: a line each for `block`, one joined line for
-   * `inline`, because a native menu label cannot hold a second one.
+   * This is the source of the hint's lines. `getHint` joins them and the
+   * renderer puts them in elements, so neither has to re-derive which parts
+   * exist; each guard that decides "is there a hint at all" lives here once.
+   */
+  public getHintParts(
+    key: string,
+    params: TranslationParameters = {}
+  ): ReadonlyArray<string> {
+    return [
+      this.getTranscription(key, params),
+      this.getGloss(key, params),
+    ].filter((part): part is string => part !== undefined && part !== '')
+  }
+
+  /**
+   * The parts as one string. The mode decides the shape: a line each for
+   * `block`, one joined line for `inline`, because a native menu label cannot
+   * hold a second one. `tooltip` uses the same newline as `block` — the popup
+   * separates its entries the same way — but nothing joins this value there.
    */
   public getHint(
     key: string,
     params: TranslationParameters = {}
   ): string | undefined {
-    const parts = [
-      this.getTranscription(key, params),
-      this.getGloss(key, params),
-    ].filter(part => part !== undefined && part !== '')
+    const parts = this.getHintParts(key, params)
 
     if (parts.length === 0) {
       return undefined
@@ -478,6 +492,14 @@ class LocalizationManager {
     }
 
     const text = interpolate(template, params, this.activeTag)
+
+    // In `tooltip` the hint is not part of the string: the renderer wraps the
+    // text in its own popup component, and a newline here would put a second
+    // line into a label the popup was meant to keep clean.
+    if (this.glossMode === 'tooltip') {
+      return text
+    }
+
     const hint = this.getHint(key, params)
 
     if (hint === undefined) {

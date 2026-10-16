@@ -71,14 +71,15 @@ export type LocaleMeta = {
  * How a glossary language renders under the translated string.
  *
  * `block` puts it on its own line, `inline` wraps it in parentheses after the
- * text. The second form exists because native menu items cannot hold two
+ * text, `tooltip` keeps the text alone and shows the hint in a popup on hover
+ * and focus. The second form exists because native menu items cannot hold two
  * lines: Electron's `MenuItem.sublabel` is macOS-only.
  *
  * A catalog that declares `meta.translit` contributes its Cyrillic reading to
- * the same hint, ahead of the glossary text, which is a second line in `block`
- * and part of the one line in `inline`.
+ * the same hint, ahead of the glossary text, which is a second line in `block`,
+ * part of the one line in `inline`, and a second entry in the `tooltip`.
  */
-export type GlossMode = 'off' | 'block' | 'inline'
+export type GlossMode = 'off' | 'block' | 'inline' | 'tooltip'
 
 /** A single leaf, indexed by the qualifier it applies under. */
 export type Message = ReadonlyMap<string, string>

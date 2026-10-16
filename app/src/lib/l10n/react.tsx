@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { localization } from './core'
 import { interpolate } from './format'
+import { L10nHint } from './hint'
 import { TranslationParameters } from './types'
 
 const listeners = new Set<() => void>()
@@ -85,10 +86,12 @@ export class LocalizationProvider extends React.Component<
     // the hint, and buttons are where a two-line label first showed up. Either
     // half of the hint can be the one that is there: a transliterated catalog
     // carries a reading without a glossary, and a user file can keep one and
-    // drop the other.
+    // drop the other. `tooltip` is deliberately not in this condition — its
+    // parts are separate elements, and `pre-line` on a button would only
+    // mislay the line break the popup already provides.
     document.body?.classList.toggle(
       'gloss-enabled',
-      localization.getGlossMode() !== 'off' &&
+      localization.getGlossMode() === 'block' &&
         (localization.getGlossTag() !== undefined ||
           localization.getTranslitScheme() !== undefined)
     )
@@ -140,6 +143,18 @@ export const Trans = ({
     template === undefined
       ? [k]
       : renderTemplate(template, params, tag, components)
+
+  // The `tooltip` form keeps the text alone: the parts go into a popup of
+  // their own and nothing is appended to the children.
+  const parts = localization.getHintParts(k, params)
+
+  if (localization.getGlossMode() === 'tooltip' && parts.length > 0) {
+    return React.createElement(
+      element,
+      { ...rest, 'data-l10n-key': k },
+      <L10nHint parts={parts}>{children}</L10nHint>
+    )
+  }
 
   // The hint goes in as its own element rather than into the template: a
   // newline inside the markup would be parsed as text and `<link>` frames

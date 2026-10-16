@@ -483,7 +483,9 @@ app.on('ready', () => {
 
     // Menu items cannot hold a second line (`MenuItem.sublabel` is macOS
     // only), so whatever the renderer chose, the menu glosses inline — and
-    // only when the renderer actually turned the gloss on.
+    // only when the renderer actually turned the gloss on. The `tooltip` form
+    // arrives here as a hint that is on and becomes `inline` as well: a native
+    // menu item has no popup either, its `toolTip` being macOS-only too.
     localization.setGlossMode(gloss === 'off' ? 'off' : 'inline')
 
     if (lastMenuLabels !== undefined) {

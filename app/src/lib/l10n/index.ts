@@ -35,6 +35,14 @@ export type LocalizationsReloaded = {
 let state: LocalizationState | undefined
 
 const GlossStorageKey = 'localization-gloss'
+const GlossFormStorageKey = 'localization-gloss-form'
+
+/**
+ * The shape a switched-on hint takes. `inline` is deliberately not one of
+ * these: the main process pins it for the native menu, so it is never chosen
+ * here, only read back from the stored mode.
+ */
+export type GlossForm = 'block' | 'tooltip'
 
 function readStoredGlossMode(): GlossMode {
   const stored =
@@ -42,9 +50,40 @@ function readStoredGlossMode(): GlossMode {
       ? null
       : localStorage.getItem(GlossStorageKey)
 
-  // Anything the three known modes do not name is treated as off: a hand
+  // Anything the four known modes do not name is treated as off: a hand
   // edited storage entry must not put the interface into a half-state.
-  return stored === 'block' || stored === 'inline' ? stored : 'off'
+  return stored === 'block' || stored === 'inline' || stored === 'tooltip'
+    ? stored
+    : 'off'
+}
+
+/**
+ * The form remembered for the next time the hint is switched on. `block` is
+ * the default, so a missing or foreign entry reads as that.
+ */
+export function getStoredGlossForm(): GlossForm {
+  if (typeof localStorage === 'undefined') {
+    return 'block'
+  }
+
+  return localStorage.getItem(GlossFormStorageKey) === 'tooltip'
+    ? 'tooltip'
+    : 'block'
+}
+
+/** Turns the hint into the chosen form and remembers it. */
+export function setGlossForm(form: GlossForm): void {
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem(GlossFormStorageKey, form)
+  }
+
+  // While the hint is off there is nothing to reshape — the stored form waits
+  // for the checkbox. A mode that is not one of the two forms is the menu's
+  // own `inline`, which no setting here overwrites.
+  const current = localization.getGlossMode()
+  if (current === 'block' || current === 'tooltip') {
+    setGlossMode(form)
+  }
 }
 
 /** Turns the gloss on or off and remembers the choice across restarts. */

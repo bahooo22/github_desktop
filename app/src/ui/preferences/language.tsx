@@ -11,6 +11,8 @@ import {
   t,
   setPreferredLocale,
   setGlossMode,
+  setGlossForm,
+  getStoredGlossForm,
   reloadUserLocalizations,
   getLocalizationsDirectory,
   getUnreadableLocalizations,
@@ -161,9 +163,9 @@ export class Language extends React.Component<
   }
 
   /**
-   * The gloss switch, shown only when the active language declares a glossary
-   * catalog in its `meta`. For every other language the row would be a
-   * checkbox that cannot do anything.
+   * The hint switch and its form, shown only when the active language declares
+   * a glossary catalog in its `meta`. For every other language the row would be
+   * a checkbox that cannot do anything.
    */
   private renderGlossRow() {
     const glossTag = localization.getGlossTag()
@@ -184,14 +186,28 @@ export class Language extends React.Component<
             })}
           </p>
         </div>
-        <Checkbox
-          value={
-            localization.getGlossMode() === 'off'
-              ? CheckboxValue.Off
-              : CheckboxValue.On
-          }
-          onChange={this.onGlossChanged}
-        />
+        <div className="language-actions">
+          <Select
+            label={t('settings.language.glossForm')}
+            value={getStoredGlossForm()}
+            onChange={this.onGlossFormChanged}
+          >
+            <option value="block">
+              {t('settings.language.glossFormBlock')}
+            </option>
+            <option value="tooltip">
+              {t('settings.language.glossFormTooltip')}
+            </option>
+          </Select>
+          <Checkbox
+            value={
+              localization.getGlossMode() === 'off'
+                ? CheckboxValue.Off
+                : CheckboxValue.On
+            }
+            onChange={this.onGlossChanged}
+          />
+        </div>
       </div>
     )
   }
@@ -310,7 +326,14 @@ export class Language extends React.Component<
 
   private onGlossChanged = (ev: React.FormEvent<HTMLInputElement>) => {
     const on = ev.currentTarget.checked
-    setGlossMode(on ? 'block' : 'off')
+    // The form the user last picked, not a hard-coded one: switching the hint
+    // off and back on is meant to bring the shape they had, not the default.
+    setGlossMode(on ? getStoredGlossForm() : 'off')
+  }
+
+  private onGlossFormChanged = (ev: React.FormEvent<HTMLSelectElement>) => {
+    const value = ev.currentTarget.value
+    setGlossForm(value === 'tooltip' ? 'tooltip' : 'block')
   }
 
   private onOpenEditor = () => {

@@ -575,6 +575,40 @@ describe('l10n manager', () => {
     assert.equal(localization.translate('greeting'), 'nuqneH')
   })
 
+  // The third form keeps the string it returns byte for byte what the catalog
+  // says, because the renderer puts the parts into a popup of their own — a
+  // newline here would show up as a second line in the label itself.
+  it('keeps the string clean in the tooltip form', () => {
+    fresh()
+    localization.registerFromJson(
+      'tlh',
+      {
+        meta: { name: 'Klingon', gloss: 'ru', translit: 'tlh' },
+        greeting: 'nuqneH',
+      },
+      'builtin'
+    )
+    localization.setRequestedLocale('tlh')
+    localization.setGlossMode('tooltip')
+
+    assert.equal(localization.translate('greeting'), 'nuqneH')
+    assert.deepEqual(localization.getHintParts('greeting'), [
+      'нукнэх',
+      'Привет',
+    ])
+
+    // `tooltip` joins the way `block` does, one line per part: the popup shows
+    // the same two lines. Only `inline` folds them into one.
+    assert.equal(localization.getHint('greeting'), 'нукнэх\nПривет')
+
+    localization.setGlossMode('off')
+    assert.deepEqual(
+      localization.getHintParts('greeting'),
+      [],
+      'an off hint has no parts at all'
+    )
+  })
+
   it('gives no reading to a row that still holds the English', () => {
     fresh()
     localization.registerFromJson(
