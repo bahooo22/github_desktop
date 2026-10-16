@@ -30,22 +30,62 @@ yarn l10n:untranslated <tag>
 
 | тег | untranslated | compared | без оригинала | состояние |
 | --- | --- | --- | --- | --- |
-| `ru` | 25 | 1 902 | 114 | переведён |
-| `uk` | 25 | 1 902 | 114 | переведён |
-| `la` | 1 948 | 2 008 | 0 | `about`, `common`, `welcome` |
-| `eo` | 1 948 | 2 008 | 0 | `about`, `common`, `welcome` |
-| `tlh` | 2 008 | 2 008 | 0 | маска, перевод не начат |
-| `qya` | 2 008 | 2 008 | 0 | то же |
+| `ru` | 25 | 1 905 | 114 | переведён |
+| `uk` | 25 | 1 905 | 114 | переведён |
+| `la` | 1 951 | 2 011 | 0 | `about`, `common`, `welcome` |
+| `eo` | 1 951 | 2 011 | 0 | `about`, `common`, `welcome` |
+| `tlh` | 1 950 | 2 011 | 0 | то же, латиницей |
+| `qya` | 1 975 | 2 011 | 0 | те же группы, но 36 ключей из 59 |
 
-Числа сняты 15.10.2026: `la` и `eo` — после первого батча, `ru` и `uk` — там же,
-на непереведённой маске. Из 25 совпадений русского с английским: `Copilot`, `Git`,
-`Azure`, `Anthropic`, `GitHub.com`, `GitHub Enterprise`, `Git Credential Manager`,
-`URL`, `Apple silicon`, `Arm64`, `Cherry-pick`, `rebase`, `cherry-pick`,
-`GitHub Ignore`, `{example} ({pattern})` и подобные — строки, где перевод совпадает
-с оригиналом по сути. В `la` и `eo` первый батч меняет ровно 60 листов в каждом
-(секции `about`, `common`, `welcome`), и ни одно новое значение не совпадает с
-английским: мерка — побайтовое сравнение с `en` по всем 2 008 листьев, остальные
-1 948 пока остаются копией оригинала.
+Числа сняты 16.10.2026 тем же `--untranslated`, после второго батча и после
+семантической правки квенья. Разница в одну строку между `la`/`eo` и `tlh`/`qya` —
+из-за `{speed}/s`: у первых двух он остался английским, у последних переведён.
+Считать удобно от готовности: у `la` и `eo` 59 готовых ключей это 62 строки, из
+которых 2 побайтово равны английскому (чистые плейсхолдеры вроде
+`about.downloadingLine`), отсюда 2 011 − 62 + 2 = 1 951; у `tlh` тех же 62 строки,
+но совпадает одна — 2 011 − 62 + 1 = 1 950; у `qya` 36 готовых ключей дают 37
+строк (`common.openPreferences` несёт две платформенные формы) и одна из них
+равна оригиналу — 2 011 − 37 + 1 = 1 975. Из 25 совпадений русского с английским:
+`Copilot`, `Git`, `Azure`, `Anthropic`, `GitHub.com`, `GitHub Enterprise`,
+`Git Credential Manager`, `URL`, `Apple silicon`, `Arm64`, `Cherry-pick`, `rebase`,
+`cherry-pick`, `GitHub Ignore`, `{example} ({pattern})` и подобные — строки, где
+перевод совпадает с оригиналом по сути.
+
+### Почему у квенья 36 ключей, а не 59
+
+Из первого квенья-черновика (59 ключей) 23 сняты с готовности, и их значения
+возвращены английскими копиями — счётчик и `meta.ready` сходятся ровно на этом
+числе. Снятие — не косметика: гейт подтверждает слово, а черновик для этих строк
+брал слова, которых в Eldamo нет в нужном смысле либо которые дают ровно одну
+омографную запись. Сняты 15 ключей `about` (`title`, `check-time-error`,
+`dev-no-updates`, `downloadSpeed`, `downloadingSize`, `firstRunOfBuild`,
+`firstRunOfBuild-rich`, `forkRelease`, `l10nCredit`, `license-notices`,
+`os-unsupported`, `quit-and-install-update`, `responsible-use-copilot`,
+`terms-and-conditions`, `upstream-behind`), 3 ключа `common`
+(`do-not-show-again`, `learnMore`, `ok`) и 5 ключей `welcome`
+(`configure-git-description`, `create-account`, `legal-footer`,
+`start-description`, `user-metrics`). Английский остаток в них — осознанное
+состояние «подтверждения нет», а не пропуск: следующий батч закрывает строку,
+только когда найдёт запись в дампе, а не когда придумает правдоподобное слово.
+
+## Готовность строки и `meta.ready`
+
+Счётчик выше меряет перевод, а редактор показывает готовность — это разные вещи, и
+путаница стоила того, чтобы её разделить. Каталог без секции `ready` редактор
+читает как «каждая заполненная строка готова» (`localization-editor.tsx:1066`),
+и маска из en-копий выглядела бы переведённой полностью. Поэтому каждый батч
+дописывает свои ключи в `meta.ready` — 59 у `la`, `eo` и `tlh`, 36 у `qya`
+(см. «Почему у квенья 36 ключей, а не 59» выше). Строки,
+совпадающие с английским по сути (`about.downloadingLine`), в этот список входят:
+готовая — не значит отличная от оригинала, значит «переводчик её закрыл».
+
+## Реестр батчей
+
+| коммит | теги | группы | ключей | строк | гейт словаря |
+| --- | --- | --- | --- | --- | --- |
+| `df3c6459b7` | `la`, `eo` | `about`, `common`, `welcome` | 59 | 62 | сверка не нужна |
+| этот | `tlh` | те же три группы | 59 | 62 | 218 слов, 0 неподтверждённых |
+| этот | `qya` | те же три группы | 36 | 37 | 52 вхождения, 0 неподтверждённых |
 
 ## Методика батчей
 
@@ -77,9 +117,13 @@ yarn l10n:untranslated <tag>
   пишется в таблицу состояния выше.
 
 Скорость `la` и `eo` ожидаемо близка к мерке русского (1 500–2 000 строк за день),
-`tlh` и `qya` — под вопросом: там текст строится по словообразованию языка, а не
-подбирается по-русски. Первый же их батч обязан заменить эту догадку фактическим
-числом строк за день.
+`tlh` и `qya` — теперь фактом: столбец `tlh` первого батча (62 листа) написан этим
+окном за 9 минут 40 секунд непрерывной работы (16.10.2026, 03:16:36 → 03:26:16 UTC
+по часам сеанса), то есть ≈ 300 листов за восьмичасовой день. Квенья в том же
+батче достались от черновика и в мерку не входит. Догадка плана «500–800 полей за
+день» для клингонского не подтвердилась: она завышена примерно вдвое, потому что
+считала подбор по-русски, а тут каждый корень ещё надо построить по
+словообразованию языка.
 
 ## Формы множественного числа
 
@@ -234,10 +278,236 @@ Windows клингонский обзавёлся бы `_few` и `_many`. Дек
 - `eo` — живой язык с устоявшейся IT-терминологией; единственные категории
   которого подтверждены CLDR.
 - `la` — мёртвый, но терминография существует.
-- `tlh` — официальный словарь Окранда, технические термины образуются по его
-  словообразованию.
-- `qya` — словарь Толкина (Portal, Hiswelökë), современные термины строятся по тем
-  же правилам словообразования.
+- `tlh` — словарь Окранда в машинном дампе boQwI'; технические термины образуются
+  из его корней словообразованием.
+- `qya` — Eldamo Пола Строка: там Толкин (отметка `q`) отделён от посттолкиновского
+  Neo-Quenya (`nq`), и современные термины строятся из основ второго слоя по
+  тем же правилам словообразования.
+
+Два языка из четырёх требуют подтверждения слова внешним словарём, и для них
+проверка сделана скриптом. Скрипты и дампы лежат в `glm/scripts/` у автора батча и
+в Git не входят намеренно: дампы — чужие данные, а не часть сборки.
+
+| тег | дамп | размер | что в нём подтверждается |
+| --- | --- | --- | --- |
+| `tlh` | `ek_dictionary.md` из `De7vID/klingon-assistant-data` (<https://github.com/De7vID/klingon-assistant-data>) | 378 805 Б | корень, глагольная приставка, суффикс с номером типа, либо форма целиком из словарного примера |
+| `qya` | `eldamo-data.xml` из `pfstrack/eldamo` — Eldamo, Пол Строек, <https://eldamo.org>, CC BY 4.0 | 30 325 949 Б | лемма Neo-Quenya, attested-форма Толкина, глагольная основа, аффикс |
+
+```bash
+python glm/scripts/l10n_check_klingon.py --dict glm/scripts/data/ek_dictionary.md \
+    --catalog app/locales/tlh.json --keys-from-meta-ready \
+    --allow GitHub,Desktop,Git,Copilot,Beta,com,Enterprise
+python glm/scripts/l10n_check_quenya.py --xml glm/scripts/data/eldamo-data.xml \
+    --catalog app/locales/qya.json --keys-from-meta-ready \
+    --allow GitHub,Desktop,Git,Copilot,Beta,com,Enterprise
+```
+
+Мерка 16.10.2026 после правок батча. Клингонский: 218 слов в проверке, 0 не
+подтверждается словарём, 0 подтверждено только примером. Квэнья: 52 вхождения
+(30 уникальных форм), 0 не подтверждается; по уровням 22 леммы Neo-Quenya, 28
+attested-форм, 2 глагольные основы, 0 «основа плюс суффикс». По уникальным формам
+это 13 лемм, 15 attested и 2 основы.
+
+Оба скрипта — гейт, а не переводчик: они подтверждают, что слово существует и
+собирается по правилам, но не что фраза смысловерна. Это и есть потолок справки.
+
+### Мера, о которой надо писать отдельно
+
+И гейт, и дамп у одного написания имеют несколько записей, и первая из них — не
+«главное значение», а просто первая в файле. Таблица, построенная по первой
+глоссе, трижды за батч выдавала ложный дефект там, где перевод был верен:
+
+- клингонский `ngeq` первой записью значит «bump into, collide with», а
+  «cache, store, hoard» — второй;
+- `chen` — «build up, take form», `mI'` — «number», `poS` — «open», `QIn` —
+  «message», `loS` — «wait (for)», `teq` — и «remove, take off», и «assume»,
+  `lu'` — «yes, okay» вдобавок к «I will»;
+- квенья `anta` — существительное «jaw», а «to give» записан отдельной основой
+  `anta-`; у `harya` attested-форма даёт «left (hand)», а нужный батчу глагол
+  «to have» — отдельная основа; `vinya` в записях-названиях даёт «The Noldo» и
+  «Young, New Land», а «young, new» — та же форма в другой записи.
+
+Поэтому ниже у формы печатаются ВСЕ её различные записи, а перестановки слов
+одной и той же записи («data, information» / «information, data») свёрнуты: иначе
+таблица раздувается вдвое и читается как перечень разных слов.
+
+Глоссы аффиксов в клингонских цепочках не печатаются вовсе — у аффикса омографов
+больше всего, и первая запись даёт чужой смысл: `-meH` первой записью «bridge (of a
+ship)» вместо «in order to», `-bogh` — «be born» вместо «which», `-be'` — «female,
+woman» вместо отрицания. Вместо глосс цепочка печатается членением
+(`yIcha'be'qa'` = `yi + cha' + be' + qa'`), а читатель с словарём проверит суффиксы
+сам.
+
+Три формы подтверждаются и как целые токены из примеров дампа, и разбором. Для
+`yI'ol` («but verify.») и `yIngu'` («What is your favorite month?») разбор смыслу
+не противоречит: `'ol` — «check if (something) is true, verify», `ngu'` —
+«identify». Для `Supaw'jaj` (`welcome.aria`, `welcome.title`) всё наоборот: пример
+дампа даёт «Welcome!», а корневой разбор `su + paw' + jaj` — «you (plural)-none» +
+«butt heads» + пожелительный `-jaj`, то есть совершенно другой смысл. Эта строка
+держится на одном словарном примере, и при следующей сверке её править в первую
+очередь.
+
+### Корни клингонского, которые берёт батч
+
+| форма | записи дампа (все, перестановки свёрнуты) |
+| --- | --- |
+| `'ach` | but, nevertheless, even so, however, whereas (conj) |
+| `'e'` | that (previous topic) (n:pro) |
+| `'ej` | and (joining sentences) (conj); star? (n) |
+| `'em` | area behind, behind (n); vomit (v:t) |
+| `'oH` | it (n:pro) |
+| `bop` | be about, be concerned with (v:t_c) |
+| `chab` | dumpling, pie, tart (n); innovation, invention (n) |
+| `chaw'` | allow, permit (v:t_c); permit (n) |
+| `chen` | build up, take form (v:i_c) |
+| `chenmoH` | create, form, make (v:t_c) |
+| `chu'` | activate, engage (a device) (v:t_c); be new (v:is); play (a musical instrument) (v:t_c) |
+| `chut` | law (n) |
+| `DaH` | array, bank (n); now (adv) |
+| `De'` | data, information (n) |
+| `De'wI'` | computer (n) |
+| `Hal` | be porous (v:is); source (n) |
+| `Hoch` | all, everyone, everything, each (n) |
+| `HochDIch` | end, last item in a list (n:num) |
+| `Hol` | language (n) |
+| `jaj` | day (from dawn to dawn) (n) |
+| `jonHa'` | release (v:t_c) |
+| `lo'` | make use of, use (v:t_c); mode, use (n) |
+| `lu'` | I will, yes, okay (excl) |
+| `lup` | second (of time) (n); transport (v:t_c) |
+| `mab` | account (for using a service) (n); agreement, treaty, contract, commitment (n) |
+| `mev` | stop, cease (v:ambi) |
+| `mI'` | dance, run in place, do calisthenics (v:t); number (n) |
+| `mIw` | formula, procedure, process, step, stage (in a process), recipe (n) |
+| `mugh` | translate (v:t_c) |
+| `muj` | factually wrong, be factually wrong, be wrong, be incorrect (v:is); incorrect, be incorrect, be wrong, be factually wrong (v:is); wrong, be wrong, be incorrect, be factually wrong (v:is) |
+| `ngeH` | send (v:t_c) |
+| `ngo'` | be old (not new) (v:is) |
+| `nIqHom` | software (n) |
+| `pat` | system (n) |
+| `pe'vIl` | by force, forcefully (adv) |
+| `pegh` | keep something secret (v:t_c); be secret (v:is); secret (n) |
+| `pItlh` | done (uttered at the completion of a task) (excl) |
+| `poH` | period of time, session, shift (n); time (v:t_c) |
+| `pong` | call, name (v:t_c); name (n) |
+| `poS` | left (side) (n); open, be open, be opened (v:is) |
+| `qay'` | blow one's top, lose one's temper (v:i); a hassle, be a hassle, be a problem (v:is); a problem, be a problem, be a hassle (v:is) |
+| `QIn` | groan, moan (v:i); inject (v:t_c); message (n) |
+| `rIn` | accomplished, be accomplished, be finished (v:is); finished, be finished, be accomplished (v:is) |
+| `tlhab` | free, be free, be independent (v:is); freedom, independence (n); independent, be independent, be free (v:is) |
+| `vabDot` | even, moreover, furthermore (adv) |
+| `vep` | advertisement, proclamation, notification, announcement, and the like (n) |
+| `wa'DIch` | first (n:num) |
+
+### Формы клингонского, собранные словообразованием
+
+| форма | из чего собрана |
+| --- | --- |
+| `bIchenmoHbogh` | bi + chenmoh + bogh |
+| `bIghaj` | ghaj |
+| `bIghajbogh` | bi + ghaj + bogh |
+| `bIjonHa'DI'` | bi + jonha' + di' |
+| `chaw'be'lu'` | chaw' + be' + lu' |
+| `chenmoHDI'` | chenmoh + di' |
+| `De'mey` | de' + mey |
+| `De'vetlh` | de' + vetlh |
+| `DubmeH` | dub + meh |
+| `DuHmey` | duh + mey |
+| `ghaqmeH` | ghaq + meh |
+| `Hevbe'lu'` | hev + be' + lu' |
+| `jInmolmey` | jinmol + mey |
+| `jInmolmeyvaD` | jinmol + mey + vad |
+| `jomlaH` | jom + lah |
+| `mangeqtaH` | ma + ngeq + tah |
+| `mIwvam` | miw + vam |
+| `ngeqta'` | ngeq + ta' |
+| `QInmey` | qin + mey |
+| `QInvam` | qin + vam |
+| `qotwI'` | qot + wi' |
+| `Qutlhbe'` | qutlh + be' |
+| `Qutlhbogh` | qutlh + bogh |
+| `SeHwI'` | seh + wi' |
+| `Supaw'jaj` | su + paw' + jaj (см. оговорку выше) |
+| `taHchugh` | tah + chugh |
+| `tu'laH` | tu' + lah |
+| `wI'olta'` | wi + 'ol + ta' |
+| `wI'oltaH` | wi + 'ol + tah |
+| `wI'oltaHbogh` | wi + 'ol + tah + bogh |
+| `wISovbe'` | wi + sov + be' |
+| `wuqmeH` | wuq + meh |
+| `yI'ol` | 'ol |
+| `yI'olqa'` | yi + 'ol + qa' |
+| `yIcha'be'qa'` | yi + cha' + be' + qa' |
+| `yIchel` | chel |
+| `yIghoj` | ghoj |
+| `yIjom` | jom |
+| `yIlegh` | legh |
+| `yIleghlaH` | yi + legh + lah |
+| `yIlo'` | lo' |
+| `yIloS` | los |
+| `yInej` | nej |
+| `yIngaQHa'moH` | ngaqha'moh |
+| `yIngeH` | ngeh |
+| `yIngu'` | ngu' |
+| `yIpol` | pol |
+| `yIpolHa'` | polha' |
+| `yIpoSmoH` | posmoh |
+| `yIqIl` | qil |
+| `yIQochbe'` | qochbe' |
+| `yISeH` | seh |
+| `yISoQmoH` | soqmoh |
+| `yIteq` | teq |
+| `yIwaHqa'` | yi + wah + qa' |
+
+### Формы квенья по Eldamo
+
+Уровень — где форма найдена; у одной формы уровней может быть несколько, тогда в
+последней колонке перечислены все её различные записи. Отметки `[q]`/`[mq]`/`[nq]`
+в записях — слои Eldamo (Толкин, его ранние версии, Neo-Quenya); среди записей
+встречаются переводы цитат, а не только глосс слова.
+
+| форма | уровень | записи Eldamo |
+| --- | --- | --- |
+| `alla` | attested | [q] hail Eärendil, brightest of stars; [q] welcome, hail; [mq] none, nothing; [q] never |
+| `apanta` | лемма nq | apanta- (vb) — to open, reveal, show, display |
+| `apta` | attested | [q] to refuse, deny, say nay; apta- — to refuse, deny, say nay |
+| `aulerya` | лемма nq | aulerya- (vb) — to rid, free somebody of something |
+| `aurë` | attested | [q] Behold, people of the Eldar and Fathers of Men, the day has come!; [q] day (as opposed to night), daylight, sunlight, morning; [q] Day shall come again!; [q] The day has come! |
+| `cara` | attested | [q] to do, make; [q] thy will be done |
+| `cilmë` | attested | [q] choice, choosing |
+| `enquet` | основа q | enquet- — to repeat, say again |
+| `essë` | attested | [q] name |
+| `ferya` | лемма nq | ferya (adj) — quick, ready, prompt; ferya- — to make ready (promptly) |
+| `haita` | лемма nq | haita- (vb) — to remove, (lit.) make distant |
+| `harya` | attested | [mq] left (hand); harya- — to have |
+| `holya` | attested | [q] ?to shut, close; holya- — ?to shut, close |
+| `hritya` | лемма nq | hritya- (vb) — to achieve, accomplish |
+| `larta` | лемма nq | larta- (vb) — to wait, stay, last, endure |
+| `lerië` | лемма nq | lerië (n) — issue, release, edition |
+| `leryalë` | лемма nq | leryalë (n) — release |
+| `metta` | attested | [q] ending, end; [q] *with this the long tale ends and my extended long day is complete; [q] In this place will I abide, and my heirs, unto the ending of the world |
+| `panwë` | лемма nq | panwë (n) — arrangement, plan |
+| `quettar` | attested | [q] those who form words with voices; [q] word |
+| `rehta` | основа q | rehta- — to rescue, save |
+| `sina` | attested | [q] this; [q] This oath shall stand in memory of the glory of the Land of the Star |
+| `tenca` | лемма nq | tenca (n) — letter (epistola) |
+| `tira` | attested | [q] to watch (over), guard, heed |
+| `tulca` | лемма nq | tulca- (vb) — to set up, establish, *found |
+| `tulu` | attested | [q] to come |
+| `tulya` | лемма nq | tulya (adj) — coming, approaching, future; [q] [and] lead us not into temptation; [q] to come; [q] *to lead |
+| `vinya` | attested | [q] The Noldo; [mq] Young, New Land; [q] young, new; [mq] pale blue |
+| `yanta` | лемма nq | yanta-¹ (vb) — to join; [nq] yoke; [q] wide, vast, huge; [q] bridge |
+| `úvanima` | attested | [q] not fair, ugly |
+
+
+Отдельно про имена, которые не переводятся. `GitHub`, `GitHub Desktop`, `Git`,
+`Copilot`, `Beta` остаются своей записью. Для квенья это не мешает транскрипции
+(`G`, `i`, `t`, `b` в таблицу входят — `Git` читается «кит»), для клингонского —
+мешает: `G` и `g` вне алфавита, и `transliterate` на таком значении возвращает
+`undefined`, то есть транскрипции нет, а русская подстрочница остаётся. Это
+штатное поведение слоя, а не дефект батча: гард «латинская буква не из алфавита —
+транскрипции нет» существует именно чтобы английскую копию не выдавать за
+произношение.
 
 В каталогах это поле — `meta.authors`: там кредит переводчика (`["BaHooo"]`), а не
 это описание. Диалог «О программе» берёт его из активного каталога и печатает
