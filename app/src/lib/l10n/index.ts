@@ -104,6 +104,8 @@ export async function initializeLocalization(): Promise<void> {
 
   state = await readState()
 
+  registerUserLayers(state)
+
   applyState(state)
 
   localization.setGlossMode(readStoredGlossMode())
@@ -162,24 +164,32 @@ async function readState(): Promise<LocalizationState | undefined> {
 }
 
 /**
- * Re-reads the user's translation files. Called by the settings screen after
- * the user has edited or dropped in a catalog, which makes a hand written
- * translation visible without a restart.
+ * Rebuilds the user's layers from the files the main process just read.
  *
- * The user layers are rebuilt from scratch rather than merged on top of what
- * is already in memory, so keys that were removed from a file disappear from
- * the interface too.
+ * The layers are rebuilt from scratch rather than merged on top of what is
+ * already in memory, so keys that were removed from a file disappear from the
+ * interface too.
  */
-export async function reloadUserLocalizations(): Promise<LocalizationsReloaded> {
-  const next = await readState()
-  state = next
-
+function registerUserLayers(next: LocalizationState | undefined) {
   localization.resetUserLayers()
+
   for (const file of next?.files ?? []) {
     if (file.contents !== undefined) {
       localization.registerFromJson(file.tag, file.contents, 'user')
     }
   }
+}
+
+/**
+ * Re-reads the user's translation files. Called by the settings screen after
+ * the user has edited or dropped in a catalog, which makes a hand written
+ * translation visible without a restart.
+ */
+export async function reloadUserLocalizations(): Promise<LocalizationsReloaded> {
+  const next = await readState()
+  state = next
+
+  registerUserLayers(next)
 
   const loaded = next?.files.filter(f => f.contents !== undefined).length ?? 0
   const failed = (next?.files ?? [])

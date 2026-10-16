@@ -7,6 +7,7 @@ import {
 } from '../../src/lib/l10n/catalog'
 import { interpolate, selectVariant } from '../../src/lib/l10n/format'
 import { matchTag, localization } from '../../src/lib/l10n/core'
+import { initializeLocalization } from '../../src/lib/l10n'
 import { Message } from '../../src/lib/l10n/types'
 
 function message(entries: ReadonlyArray<[string, string]>): Message {
@@ -684,5 +685,66 @@ describe('l10n manager', () => {
     const before = notifications
     localization.setRequestedLocale('ru')
     assert.equal(notifications, before)
+  })
+})
+
+describe('l10n initialization reads the user catalogs', () => {
+  it('puts a catalog saved in an earlier session back into memory', async () => {
+    // Nothing else in the app loads user catalogs before the language screen
+    // or the editor is opened, so this call is the only chance a translation
+    // written yesterday has of being there today. Reading the files without
+    // registering them left the interface on the shipped wording until
+    // someone visited settings.
+    localization.setPlatform('win32')
+    localization.setRequestedLocale(null)
+    localization.resetUserLayers()
+
+    const state = {
+      systemLocales: ['en-US'],
+      preferredLocale: 'ru',
+      directory: '/user/localizations',
+      files: [
+        {
+          tag: 'ru',
+          path: '/user/localizations/ru.json',
+          contents: {
+            meta: { name: 'ru', ready: ['about.x'] },
+            about: { x: 'Готово', y: 'Черновик' },
+          },
+        },
+        {
+          tag: 'tk',
+          path: '/user/localizations/tk.json',
+          error: 'Unexpected end of JSON input',
+        },
+      ],
+    }
+
+    const electron = await import('electron')
+    const previousInvoke = electron.ipcRenderer.invoke
+    electron.ipcRenderer.invoke = (async (channel: string) =>
+      channel === 'get-localization-state' ? state : undefined) as any
+
+    try {
+      await initializeLocalization()
+    } finally {
+      electron.ipcRenderer.invoke = previousInvoke
+    }
+
+    const user = localization.getUserMessages('ru')
+    assert.equal(user.get('about.x')?.get(''), 'Готово')
+    assert.equal(user.get('about.y')?.get(''), 'Черновик')
+    assert.ok(localization.getReadyKeys('ru')?.has('about.x'))
+    assert.equal(localization.getReadyKeys('ru')?.has('about.y'), false)
+
+    // The unreadable file registers nothing at all, which is what keeps the
+    // language falling back to its shipped catalog instead of an empty layer.
+    assert.equal(localization.getUserMessages('tk').size, 0)
+
+    localization.setRequestedLocale('ru')
+    assert.equal(localization.translate('about.x'), 'Готово')
+
+    localization.resetUserLayers()
+    localization.setRequestedLocale(null)
   })
 })

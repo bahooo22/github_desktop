@@ -52,6 +52,10 @@ mock.module('electron', {
     ipcRenderer: {
       invoke: mock.fn(async () => {}),
       on: mock.fn(x => {}),
+      // `initializeLocalization` pushes the chosen language to the native menu
+      // through `send`, and a test that runs it would otherwise trip over the
+      // missing export rather than over anything it is trying to prove.
+      send: mock.fn(() => {}),
     },
   },
 })
