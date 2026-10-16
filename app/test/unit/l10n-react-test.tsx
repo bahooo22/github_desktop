@@ -96,10 +96,18 @@ describe('l10n tooltip hint', () => {
       {
         meta: { name: 'Glossed', gloss: 'zzs', translit: 'tlh' },
         hi: 'nuqneH',
+        // A label that carries its own link, the way `about.l10nCredit` and
+        // `welcome.termsAndPrivacy` do — the focusable element sits inside the
+        // hint target rather than around it.
+        hiLink: 'nuqneH <link>tlhIngan Hol</link>',
       },
       'builtin'
     )
-    localization.registerFromJson('zzs', { hi: 'Привет' }, 'builtin')
+    localization.registerFromJson(
+      'zzs',
+      { hi: 'Привет', hiLink: 'Привет <link>там</link>' },
+      'builtin'
+    )
     localization.setRequestedLocale('zzg')
   }
 
@@ -147,9 +155,9 @@ describe('l10n tooltip hint', () => {
     assert.ok(button !== null, 'the button wrapper is there')
 
     // A `span` inside a button is never the focused element, and jsdom answers
-    // `:focus-visible` with `false` even on a focused button (measured 15.10),
-    // so the popup is opened through the `ancestorFocused` prop rather than
-    // `openOnFocus`.
+    // `:focus-visible` with `false` even on a focused button (measured 15.10).
+    // `openOnFocus` cannot help here either: it listens on the target, and the
+    // button is above it, so the popup is opened through `ancestorFocused`.
     fireEvent.focus(button)
     advanceTimersBy(400)
 
@@ -163,6 +171,50 @@ describe('l10n tooltip hint', () => {
 
     fireEvent.keyDown(document, { key: 'Escape' })
     assert.equal(document.querySelector('.tooltip'), null, 'Escape dismisses')
+
+    resetTestTimers()
+    localization.setGlossMode('off')
+  })
+
+  // The other half of the keyboard: a translated line that owns its links
+  // (`about.l10nCredit`, `welcome.termsAndPrivacy`) puts the focusable element
+  // inside the hint target, and those are the screens reachable without a
+  // repository.
+  it('opens when a link inside the label takes focus', () => {
+    setup()
+    localization.setGlossMode('tooltip')
+    enableTestTimers(['setTimeout'])
+
+    render(
+      React.createElement(Trans, {
+        k: 'hiLink',
+        components: { link: React.createElement('a', { href: '#' }) },
+        'data-testid': 'row',
+      })
+    )
+
+    const link = screen.getByTestId('row').querySelector('a')
+    assert.ok(link !== null, 'the label carries its own link')
+    assert.equal(document.querySelector('.tooltip'), null)
+
+    // The real focusing path, not a synthetic event: `focus` stays on the anchor
+    // while `focusin` bubbles to the target, and the upstream `openOnFocus`
+    // handler is the only thing that turns it into a popup.
+    link.focus()
+    assert.equal(document.activeElement, link, 'the anchor really took focus')
+    advanceTimersBy(400)
+
+    const lines = document.querySelectorAll('.tooltip .tooltip-content > div')
+    assert.equal(lines.length, 2, 'the popup opened on the inner focus')
+    assert.equal(lines[1].textContent, 'Привет там')
+
+    link.blur()
+    advanceTimersBy(500)
+    assert.equal(
+      document.querySelector('.tooltip'),
+      null,
+      'losing the focus hides it'
+    )
 
     resetTestTimers()
     localization.setGlossMode('off')

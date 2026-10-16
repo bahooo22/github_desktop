@@ -35,12 +35,21 @@ interface IL10nHintState {
  * The `tooltip` gloss form: the translated text is left alone and the hint
  * floats above it on hover and on keyboard focus.
  *
- * Hover comes from the upstream `Tooltip` for free. Focus does not: the tooltip
- * opens on focus only when the target itself matches `:focus-visible`
- * (`tooltip.tsx:465-475`), and a span inside a button never gets focus, so this
- * component watches the nearest focusable ancestor and feeds the ready-made
- * `ancestorFocused` prop instead — the same way the file status icons in the
- * changes list stay open while their row is focused.
+ * Hover comes from the upstream `Tooltip` for free. Focus needs both of the
+ * ready-made channels, because the two ways a keyboard can reach a translated
+ * string are on opposite sides of the target:
+ *
+ * - The label sits inside a button. The `span` is then never the focused
+ *   element, and the tooltip opens on focus only when the target itself matches
+ *   `:focus-visible` (`tooltip.tsx:465-475`), so this component watches the
+ *   nearest focusable ancestor and feeds the `ancestorFocused` prop — the same
+ *   way the file status icons in the changes list stay open while their row is
+ *   focused.
+ * - The label carries its own links (`about.l10nCredit`,
+ *   `welcome.termsAndPrivacy`). Those are inside the target, and `focusin`
+ *   bubbles down to it, so `openOnFocus` opens the hint for them. Without it
+ *   neither channel covers the screens that are reachable without a repository,
+ *   which is where the gloss is read the most.
  */
 export class L10nHint extends React.Component<IL10nHintProps, IL10nHintState> {
   private targetRef = createObservableRef<HTMLElement>()
@@ -133,6 +142,7 @@ export class L10nHint extends React.Component<IL10nHintProps, IL10nHintState> {
           <Tooltip
             target={this.targetRef}
             interactive={true}
+            openOnFocus={true}
             className="selectable l10n-hint-tooltip"
             ancestorFocused={ancestorFocused}
             positionRelativeToTarget={true}
