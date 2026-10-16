@@ -370,3 +370,16 @@ body.gloss-enabled {
   font-size: var(--font-size-sm);
   color: var(--text-secondary-color);
 }
+
+// `selectable` on the hint popup reaches `.tooltip-content` alone (see
+// window/_tooltips.scss:104), while every hint line is a `div` inside it, and
+// the blanket `:not(input, textarea)` rule in _globals.scss pins
+// `user-select: none` and `cursor: default` on any element that is not a text
+// field. Measured in the running app: without this rule a drag across a hint
+// line leaves the selection empty, with it the same drag selects 41 characters.
+.l10n-hint-tooltip {
+  .tooltip-content * {
+    user-select: text;
+    cursor: text;
+  }
+}
