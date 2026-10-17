@@ -141,6 +141,82 @@
       "invalidatedToken.no",
       "invalidatedToken.title",
       "invalidatedToken.yes",
+      "menu.about",
+      "menu.add-local-repository",
+      "menu.add-to-dictionary",
+      "menu.branch",
+      "menu.branch-on-github",
+      "menu.clone-repository",
+      "menu.compare-on-github",
+      "menu.compare-to-branch",
+      "menu.contact-support",
+      "menu.copy",
+      "menu.create-branch",
+      "menu.create-issue-in-repository-on-github",
+      "menu.create-pull-request",
+      "menu.create-worktree",
+      "menu.cut",
+      "menu.decrease-active-resizable-width",
+      "menu.default-branch-name",
+      "menu.delete-branch",
+      "menu.discard-all-changes",
+      "menu.edit",
+      "menu.exit",
+      "menu.fetch",
+      "menu.file",
+      "menu.find",
+      "menu.go-to-commit-message",
+      "menu.help",
+      "menu.hide-changes-filter",
+      "menu.hide-stashed-changes",
+      "menu.increase-active-resizable-width",
+      "menu.install-cli",
+      "menu.merge-branch",
+      "menu.new-repository",
+      "menu.open-in-copilot-app",
+      "menu.open-in-editor",
+      "menu.open-in-editor-default",
+      "menu.open-in-shell",
+      "menu.open-in-shell-default",
+      "menu.open-with-external-editor",
+      "menu.open-working-directory",
+      "menu.paste",
+      "menu.preferences",
+      "menu.preview-pull-request",
+      "menu.pull",
+      "menu.rebase-branch",
+      "menu.redo",
+      "menu.reload-window",
+      "menu.remove-repository",
+      "menu.remove-repository-confirm",
+      "menu.rename-branch",
+      "menu.report-issue",
+      "menu.repository",
+      "menu.reset-zoom",
+      "menu.select-all",
+      "menu.show-branches-list",
+      "menu.show-changes",
+      "menu.show-changes-filter",
+      "menu.show-devtools",
+      "menu.show-history",
+      "menu.show-keyboard-shortcuts",
+      "menu.show-logs",
+      "menu.show-repository-list",
+      "menu.show-repository-settings",
+      "menu.show-stashed-changes",
+      "menu.show-user-guides",
+      "menu.show-worktrees-list",
+      "menu.squash-and-merge-branch",
+      "menu.stash-all-changes",
+      "menu.stash-all-changes-confirm",
+      "menu.toggle-full-screen",
+      "menu.undo",
+      "menu.update-from",
+      "menu.view",
+      "menu.view-pull-request",
+      "menu.view-repository-on-github",
+      "menu.zoom-in",
+      "menu.zoom-out",
       "missingRepository.cantFind",
       "missingRepository.checkAgain",
       "missingRepository.cloneAgain",
@@ -692,284 +768,284 @@
     "pickHint": "Click a translated label on the screen to edit it. Escape cancels the pick."
   },
   "menu": {
-    "about": "About GitHub Desktop",
+    "about": "pá GitHub Desktop",
     "add-local-repository": {
-      "@darwin": "Add Local Repository…",
-      "@other": "Add &local repository…"
+      "@darwin": "yanta i nómëa haura…",
+      "@other": "&yanta i nómëa haura…"
     },
     "branch-on-github": {
-      "@darwin": "View Branch on GitHub",
-      "@other": "View branch on GitHub"
+      "@darwin": "cenë i olba i GitHubissë",
+      "@other": "cenë i olba i GitHubissë"
     },
     "branch": {
-      "@darwin": "Branch",
-      "@other": "&Branch"
+      "@darwin": "olba",
+      "@other": "&olba"
     },
     "clone-repository": {
-      "@darwin": "Clone Repository…",
-      "@other": "Clo&ne repository…"
+      "@darwin": "ovëanta i haura…",
+      "@other": "&ovëanta i haura…"
     },
     "compare-on-github": {
-      "@darwin": "Compare on GitHub",
-      "@other": "Compare on &GitHub"
+      "@darwin": "véta i GitHubissë",
+      "@other": "vé&ta i GitHubissë"
     },
     "compare-to-branch": {
-      "@darwin": "Compare to Branch",
-      "@other": "&Compare to branch"
+      "@darwin": "véta i olbanna",
+      "@other": "v&éta i olbanna"
     },
     "copy": {
-      "@darwin": "Copy",
-      "@other": "&Copy"
+      "@darwin": "ovëanta",
+      "@other": "&ovëanta"
     },
     "create-branch": {
-      "@darwin": "New Branch…",
-      "@other": "New &branch…"
+      "@darwin": "vinya olba…",
+      "@other": "&vinya olba…"
     },
     "create-issue-in-repository-on-github": {
-      "@darwin": "Create Issue on GitHub",
-      "@other": "Create &issue on GitHub"
+      "@darwin": "carë i lerië i GitHubissë",
+      "@other": "ca&rë i lerië i GitHubissë"
     },
     "create-pull-request": {
-      "@darwin": "Create Pull Request",
-      "@other": "Cre&ate pull request"
+      "@darwin": "carë i luciquista",
+      "@other": "c&arë i luciquista"
     },
     "create-worktree": {
-      "@darwin": "New Worktree…",
-      "@other": "New work&tree…"
+      "@darwin": "vinya hauramar…",
+      "@other": "&vinya hauramar…"
     },
     "cut": {
-      "@darwin": "Cut",
-      "@other": "Cu&t"
+      "@darwin": "cirë",
+      "@other": "&cirë"
     },
     "decrease-active-resizable-width": {
-      "@darwin": "Contract Active Resizable",
-      "@other": "Contract active resizable"
+      "@darwin": "pihta i cilienë tolma",
+      "@other": "pihta i cilienë tolma"
     },
     "default-branch-name": {
-      "@darwin": "Default Branch",
-      "@other": "default branch"
+      "@darwin": "i sitina olba",
+      "@other": "i sitina olba"
     },
     "delete-branch": {
-      "@darwin": "Delete…",
-      "@other": "&Delete…"
+      "@darwin": "fehta…",
+      "@other": "&fehta…"
     },
     "discard-all-changes": {
-      "@darwin": "Discard All Changes…",
-      "@other": "Discard all changes…"
+      "@darwin": "aulerya ilya ahyanië…",
+      "@other": "aulerya ilya ahyanië…"
     },
     "edit": {
-      "@darwin": "Edit",
-      "@other": "&Edit"
+      "@darwin": "tengwista",
+      "@other": "&tengwista"
     },
-    "exit": "E&xit",
+    "exit": "&lóya",
     "fetch": {
-      "@darwin": "Fetch",
-      "@other": "&Fetch"
+      "@darwin": "tulya",
+      "@other": "&tulya"
     },
     "file": {
-      "@darwin": "File",
-      "@other": "&File"
+      "@darwin": "cómë",
+      "@other": "&cómë"
     },
     "find": {
-      "@darwin": "Find",
-      "@other": "&Find"
+      "@darwin": "hirë",
+      "@other": "&hirë"
     },
     "go-to-commit-message": {
-      "@darwin": "Go to Summary",
-      "@other": "Go to &Summary"
+      "@darwin": "menë i menta sina",
+      "@other": "&menë i menta sina"
     },
-    "help": "&Help",
+    "help": "t&uluhta",
     "hide-changes-filter": {
-      "@darwin": "Hide Changes Filter",
-      "@other": "Hi&de Toggle Changes Filter"
+      "@darwin": "cuvë i ahyaniëo silta",
+      "@other": "cu&vë i ahyaniëo silta"
     },
     "hide-stashed-changes": {
-      "@darwin": "Hide Stashed Changes",
-      "@other": "H&ide stashed changes"
+      "@darwin": "cuvë i nurtanë ahyanië",
+      "@other": "&cuvë i nurtanë ahyanië"
     },
     "increase-active-resizable-width": {
-      "@darwin": "Expand Active Resizable",
-      "@other": "Expand active resizable"
+      "@darwin": "meletya i cilienë tolma",
+      "@other": "meletya i cilienë tolma"
     },
-    "install-cli": "Install Command Line Tool…",
+    "install-cli": "tulca i axacarma…",
     "merge-branch": {
-      "@darwin": "Merge into Current Branch…",
-      "@other": "&Merge into current branch…"
+      "@darwin": "erta i ahyanië i silúmëa olbassë…",
+      "@other": "e&rta i ahyanië i silúmëa olbassë…"
     },
     "new-repository": {
-      "@darwin": "New Repository…",
-      "@other": "New &repository…"
+      "@darwin": "vinya haura…",
+      "@other": "&vinya haura…"
     },
     "open-in-copilot-app": {
-      "@darwin": "Open in GitHub Copilot",
-      "@other": "Open in GitHub &Copilot"
+      "@darwin": "apanta i GitHub Copilotissë",
+      "@other": "apanta &i GitHub Copilotissë"
     },
     "open-with-external-editor": {
-      "@darwin": "Open With…",
-      "@other": "Open &with…"
+      "@darwin": "apanta maxarmassë…",
+      "@other": "apanta &maxarmassë…"
     },
     "open-working-directory": {
-      "@darwin": "Show in Finder",
-      "@other": "Show in your File Manager",
-      "@win32": "Show in E&xplorer"
+      "@darwin": "tana i Finderissë",
+      "@other": "tana i cóma mahtandossë",
+      "@win32": "&tana i Explorerissë"
     },
     "paste": {
-      "@darwin": "Paste",
-      "@other": "&Paste"
+      "@darwin": "netë",
+      "@other": "ne&të"
     },
-    "preferences": "Settings…",
+    "preferences": "partië…",
     "preview-pull-request": {
-      "@darwin": "Preview Pull Request",
-      "@other": "Preview pull request"
+      "@darwin": "cenë i luciquista ertava",
+      "@other": "cenë i luciquista ertava"
     },
     "pull": {
-      "@darwin": "Pull",
-      "@other": "Pu&ll"
+      "@darwin": "lucë",
+      "@other": "&lucë"
     },
     "rebase-branch": {
-      "@darwin": "Rebase Current Branch…",
-      "@other": "R&ebase current branch…"
+      "@darwin": "vinya sundo carë i silúmëa olba…",
+      "@other": "vin&ya sundo carë i silúmëa olba…"
     },
     "redo": {
-      "@darwin": "Redo",
-      "@other": "&Redo"
+      "@darwin": "enquet",
+      "@other": "&enquet"
     },
-    "reload-window": "&Reload",
+    "reload-window": "c&euta i lattin",
     "remove-repository-confirm": {
-      "@darwin": "Remove…",
-      "@other": "R&emove…"
+      "@darwin": "haita…",
+      "@other": "h&aita…"
     },
     "remove-repository": {
-      "@darwin": "Remove",
-      "@other": "&Remove"
+      "@darwin": "haita",
+      "@other": "&haita"
     },
     "rename-branch": {
-      "@darwin": "Rename…",
-      "@other": "&Rename…"
+      "@darwin": "vista i essë…",
+      "@other": "v&ista i essë…"
     },
     "repository": {
-      "@darwin": "Repository",
-      "@other": "&Repository"
+      "@darwin": "haura",
+      "@other": "&haura"
     },
     "select-all": {
-      "@darwin": "Select All",
-      "@other": "Select &all"
+      "@darwin": "cilë ilya",
+      "@other": "c&ilë ilya"
     },
     "show-branches-list": {
-      "@darwin": "Show Branches List",
-      "@other": "&Branches list"
+      "@darwin": "tana i olba nyarda",
+      "@other": "tana &i olba nyarda"
     },
     "show-changes-filter": {
-      "@darwin": "Show Changes Filter",
-      "@other": "Show Toggle Chan&ges Filter"
+      "@darwin": "apanta i ahyaniëo silta",
+      "@other": "a&panta i ahyaniëo silta"
     },
     "show-changes": {
-      "@darwin": "Show Changes",
-      "@other": "&Changes"
+      "@darwin": "tana i ahyanië",
+      "@other": "&tana i ahyanië"
     },
     "show-devtools": {
-      "@darwin": "Toggle Developer Tools",
-      "@other": "&Toggle developer tools"
+      "@darwin": "apanta i carindo carmar",
+      "@other": "apanta i ca&rindo carmar"
     },
     "show-history": {
-      "@darwin": "Show History",
-      "@other": "&History"
+      "@darwin": "tana i nyárë",
+      "@other": "t&ana i nyárë"
     },
     "show-keyboard-shortcuts": {
-      "@darwin": "Show Keyboard Shortcuts",
-      "@other": "Show keyboard shortcuts"
+      "@darwin": "tana i otolmiëo lintali",
+      "@other": "tana i otolmiëo lintali"
     },
     "show-logs": {
-      "@darwin": "Show Logs in Finder",
-      "@other": "S&how logs in your File Manager",
-      "@win32": "S&how logs in Explorer"
+      "@darwin": "tana i remparma Finderissë",
+      "@other": "&tana i remparma cóma mahtandossë",
+      "@win32": "&tana i remparma Explorerissë"
     },
     "show-repository-list": {
-      "@darwin": "Show Repository List",
-      "@other": "Repository &list"
+      "@darwin": "tana i haura nyarda",
+      "@other": "ta&na i haura nyarda"
     },
     "show-repository-settings": {
-      "@darwin": "Repository Settings…",
-      "@other": "Repository &settings…"
+      "@darwin": "hauramo partië…",
+      "@other": "hauram&o partië…"
     },
     "show-stashed-changes": {
-      "@darwin": "Show Stashed Changes",
-      "@other": "Sho&w stashed changes"
+      "@darwin": "tana i nurtanë ahyanië",
+      "@other": "tana i n&urtanë ahyanië"
     },
-    "show-user-guides": "Show User Guides",
+    "show-user-guides": "tana i queno parandi",
     "show-worktrees-list": {
-      "@darwin": "Show Worktrees List",
-      "@other": "Wor&ktrees list"
+      "@darwin": "tana i hauramar nyarda",
+      "@other": "tana i &hauramar nyarda"
     },
     "squash-and-merge-branch": {
-      "@darwin": "Squash and Merge into Current Branch…",
-      "@other": "Squas&h and merge into current branch…"
+      "@darwin": "malë ar erta i ahyanië i silúmëa olbassë…",
+      "@other": "&malë ar erta i ahyanië i silúmëa olbassë…"
     },
     "stash-all-changes-confirm": {
-      "@darwin": "Stash All Changes…",
-      "@other": "S&tash all changes…"
+      "@darwin": "nurta ilya ahyanië…",
+      "@other": "n&urta ilya ahyanië…"
     },
     "stash-all-changes": {
-      "@darwin": "Stash All Changes",
-      "@other": "&Stash all changes"
+      "@darwin": "nurta i ahyanië",
+      "@other": "&nurta i ahyanië"
     },
     "undo": {
-      "@darwin": "Undo",
-      "@other": "&Undo"
+      "@darwin": "nancar",
+      "@other": "&nancar"
     },
     "view-pull-request": {
-      "@darwin": "View Pull Request on GitHub",
-      "@other": "View &pull request on GitHub"
+      "@darwin": "cenë i luciquista i GitHubissë",
+      "@other": "&cenë i luciquista i GitHubissë"
     },
     "view-repository-on-github": {
-      "@darwin": "View on GitHub",
-      "@other": "&View on GitHub"
+      "@darwin": "cenë i GitHubissë",
+      "@other": "&cenë i GitHubissë"
     },
     "view": {
-      "@darwin": "View",
-      "@other": "&View"
+      "@darwin": "ehten",
+      "@other": "&ehten"
     },
     "toggle-full-screen": {
-      "@darwin": "Toggle Full Screen",
-      "@other": "Toggle &full screen"
+      "@darwin": "apanta i fanwa quanta",
+      "@other": "apanta i &fanwa quanta"
     },
     "reset-zoom": {
-      "@darwin": "Reset Zoom",
-      "@other": "Reset zoom"
+      "@darwin": "ceuta i senya meletya",
+      "@other": "ceuta i senya meletya"
     },
     "zoom-in": {
-      "@darwin": "Zoom In",
-      "@other": "Zoom in"
+      "@darwin": "meletya",
+      "@other": "meletya"
     },
     "zoom-out": {
-      "@darwin": "Zoom Out",
-      "@other": "Zoom out"
+      "@darwin": "pihta",
+      "@other": "pihta"
     },
     "open-in-shell": {
-      "@darwin": "Open in {shell}",
-      "@other": "O&pen in {shell}"
+      "@darwin": "apanta {shell}issë",
+      "@other": "a&panta {shell}issë"
     },
     "open-in-shell-default": "Shell",
     "open-in-editor": {
-      "@darwin": "Open in {editor}",
-      "@other": "&Open in {editor}"
+      "@darwin": "apanta {editor}issë",
+      "@other": "apa&nta {editor}issë"
     },
-    "open-in-editor-default": "External Editor",
+    "open-in-editor-default": "maxarma tecindo",
     "update-from": {
-      "@darwin": "Update from {branch}",
-      "@other": "&Update from {branch}"
+      "@darwin": "enhanya {branch}ullo",
+      "@other": "&enhanya {branch}ullo"
     },
     "report-issue": {
-      "@darwin": "Report Issue…",
-      "@other": "Report issue…"
+      "@darwin": "langwesë i lerië…",
+      "@other": "langwesë i lerië…"
     },
     "contact-support": {
-      "@darwin": "Contact GitHub Support…",
-      "@other": "&Contact GitHub support…"
+      "@darwin": "omentë i GitHubo tuluhtanna…",
+      "@other": "&omentë i GitHubo tuluhtanna…"
     },
     "add-to-dictionary": {
-      "@darwin": "Add to Dictionary",
-      "@other": "Add to dictionary"
+      "@darwin": "yanta i quettastanna",
+      "@other": "yanta i quettastanna"
     }
   },
   "about": {

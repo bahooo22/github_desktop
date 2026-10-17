@@ -35,7 +35,7 @@ yarn l10n:untranslated <tag>
 | `la` | 28 | 2 011 | 1 718 | переведён, остаток — бренды и подстановки |
 | `eo` | 20 | 2 011 | 1 791 | переведён, остаток — бренды и подстановки |
 | `tlh` | 1 588 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu` и частичный батч |
-| `qya` | 1 729 | 2 011 | 282 | те же группы, но 36 ключей из 59 |
+| `qya` | 1 589 | 2 011 | 422 | те же группы, но `menu` закрыт, а `about`/`welcome` — 36 ключей из 59 |
 
 Числа сняты 17.10.2026 тем же `--untranslated`, после аудита латыни и эсперанто
 (69 и 6 исправленных форм), после закрытия verbatim-дыр (41 и 8) и после
@@ -45,7 +45,11 @@ yarn l10n:untranslated <tag>
 → `Aliud nomen` в латыни; в эсперанто — `terms.miscellanea` → `Diversaĵoj`,
 `commitMessage.error-word` и `appError.generic` → `Eraro`,
 `multiCommit.operation.cherryPick` → `Ĉerelpikado`, `multiCommit.operation.rebase` →
-`Rebaziĝo`, `repositoryAlias.alias` → `Alinomo`. Остаток `la`/`eo` — то же, что и у
+`Rebaziĝo`, `repositoryAlias.alias` → `Alinomo`. Тем же вечером закрыта группа
+`menu` в двух конланговых каталогах: 144 формы в `tlh` (`E:/tmp/tlh_menu_fill.py`)
+и 144 в `qya` (`E:/tmp/qya_menu_fill.py`) — у квенья осталось 1589 только потому,
+что `menu.open-in-shell-default` = `Shell` совпадает с оригиналом по сути. Остаток
+`la`/`eo` — то же, что и у
 русского: `Copilot`, `Git`, `Azure`, `Anthropic`, `GitHub.com`, `GitHub Enterprise`,
 `URL`, `Apple silicon`, `Arm64`, `{example} ({pattern})`, `{speed}/s` и подобные
 строки, где перевод совпадает с оригиналом по сути. Отдельно оговоримое: в латыни
@@ -76,7 +80,8 @@ yarn l10n:untranslated <tag>
 читает как «каждая заполненная строка готова» (`localization-editor.tsx:1066`),
 и маска из en-копий выглядела бы переведённой полностью. Поэтому каждый батч
 дописывает свои ключи в `meta.ready` — 1 746 у `la` и `eo` (каталог закрыт весь:
-остались только бренды и чистые подстановки), 257 у `tlh` и `qya` (см. «Почему у
+остались только бренды и чистые подстановки), 333 у `tlh` и `qya` (257 прежних +
+76 строк `menu`; см. «Почему у
 квенья 36 ключей, а не 59» выше). Строки,
 совпадающие с английским по сути (`about.downloadingLine`), в этот список входят:
 готовая — не значит отличная от оригинала, значит «переводчик её закрыл».
@@ -94,6 +99,8 @@ yarn l10n:untranslated <tag>
 | этот | `tlh` | те же три группы | 59 | 62 | 218 слов, 0 неподтверждённых |
 | этот | `qya` | те же три группы | 36 | 37 | 52 вхождения, 0 неподтверждённых |
 | этот | `eo` | `menu` | 76 | 145 | Glosbe + eo.wikipedia: `deponejo`, `kunfandi` |
+| `e463ff01f3` | `tlh` | `menu` | 76 | 145 | boQwI' + Eldamo/Klingon AI: `bartIq`, `De' ngaSwI'` |
+| этот | `qya` | `menu` | 76 | 145 | Eldamo (`qya_attest.py --gloss/--show`): `olba`, `haura`, `quettasta`, `remparma` |
 
 ## Методика батчей
 
@@ -153,6 +160,32 @@ yarn l10n:untranslated <tag>
 день» для клингонского не подтвердилась: она завышена примерно вдвое, потому что
 считала подбор по-русски, а тут каждый корень ещё надо построить по
 словообразованию языка.
+
+### Меню-батч квенья: падежи вместо порядка слов (`qya`)
+
+`E:/tmp/qya_menu_fill.py` повторяет клингонский скрипт, но опоры другие: лексика
+снимается не словарной статьёй, а дампом Eldamo
+(<https://eldamo.org>, `glm/scripts/data/eldamo-data.xml`) прогоном
+`E:/tmp/qya_attest.py --gloss/--show`. Отсюда три правила стиля, которые держат
+весь батч:
+
+- повелительное = голая основа глагола, как в уже переведённых строках каталога
+  (`common.cancel` = `apta`, `app.select-repository` = `cilë i haura`);
+- связи несут падежи, а не порядок слов: локатив `-ssë/-issë` («i GitHubissë»,
+  `{editor}issë`), аблатив `-llo` («{branch}ullo»), датив `-nna`
+  («i quettastanna»), родственный `-o/-mo` («ahyaniëo silta», «hauramo partië»);
+- термина, которого в Eldamo нет, в каталог не идёт. Вместо него — описание из
+  аттестованных основ: pull request = `luc-` «тянуть» + `iquist-` «запрос» =
+  `luciquista`, worktree = `haura` + `már` «жилище» = `hauramar`, developer =
+  `car-` «делать» + `-indo` «тот, кто» = `carindo`. Такие сборки помечены в
+  глоссарии `source: not` и не выдают себя за словарные цитаты.
+
+Отсеянное на этом батче: `apuco` и `túlelma` («прежде», «прошлое») — лемм в дампе
+нет, поэтому `menu.preview-pull-request` строится на future-форме `ertava`
+(«запрос, который будет слит»); `to widen`, `to expand`, `to paste`, `to exit`
+в Eldamo не аттестованы — взяты `meletya-` «увеличить», `net-` «получить»,
+`lóya-` «уйти (откуда)». `mnemonic_dedupe` развёл 27 коллизий доступняток,
+`mnemonic_fix` не нашёл ни одной недостающей (`&` уже стоял в 1 805 формах).
 
 ## Формы множественного числа
 
