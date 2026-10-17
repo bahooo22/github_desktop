@@ -11,44 +11,265 @@
       "about.beta-channel",
       "about.build",
       "about.check-for-updates",
+      "about.check-time-error",
       "about.checking",
+      "about.dev-no-updates",
+      "about.downloadSpeed",
       "about.downloading",
       "about.downloadingLine",
       "about.downloadingProgress",
+      "about.downloadingSize",
+      "about.firstRunOfBuild",
+      "about.firstRunOfBuild-rich",
+      "about.forkRelease",
+      "about.l10nCredit",
+      "about.license-notices",
       "about.looking-for-features",
+      "about.os-unsupported",
+      "about.quit-and-install-update",
       "about.release-notes",
+      "about.responsible-use-copilot",
       "about.system",
+      "about.terms-and-conditions",
+      "about.title",
       "about.up-to-date",
       "about.up-to-date-rich",
       "about.update-ready",
+      "about.upstream-behind",
       "about.version",
+      "account-picker.account",
+      "app.current-repository",
+      "app.no-repositories",
+      "app.no-repository-selected",
+      "app.select-repository",
+      "appMenu.application-menu",
+      "authentication.browserRedirect",
+      "avatar.forUser",
+      "avatar.unknown",
+      "branchName.rulesBypassable",
+      "branchName.rulesRestricted",
+      "branchNameWarnings.nameExistsOnRemote",
+      "branchNameWarnings.trackingWarning",
+      "branchesContainer.chooseMergeInto",
+      "branchesContainer.chooseMergeIntoTooltip",
+      "branchesContainerTabs.branchesTab",
+      "branchesContainerTabs.pullRequestsTab",
+      "checkout.checkout",
+      "checkout.confirm-message",
+      "checkout.dont-show-again",
+      "checkout.title",
+      "cli.branch-optional",
+      "cli.clone-url",
+      "cli.dispatch",
+      "cli.dispatch-title",
+      "cli.installed-info",
+      "cli.installed-title",
+      "cli.open-repository",
+      "cli.path",
+      "cli.url",
+      "cloningRepository.title",
+      "commitProgress.close",
+      "commitProgress.title",
       "common.add",
       "common.cancel",
       "common.close",
       "common.discard",
+      "common.do-not-show-again",
       "common.done",
       "common.email",
       "common.hangOn",
       "common.invalidDate",
+      "common.learnMore",
       "common.name",
+      "common.ok",
       "common.openPreferences",
       "common.remove",
       "common.retry",
       "common.save",
+      "configureGitUser.exampleCommit",
+      "configureGitUser.exampleCommitSummary",
+      "createBranch.based-on-commit",
+      "createBranch.based-on-label",
+      "createBranch.branch-exists-error",
+      "createBranch.could-not-determine-default-branch",
+      "createBranch.create-branch-ok",
+      "createBranch.current-branch-description",
+      "createBranch.current-is-default",
+      "createBranch.default-branch-description",
+      "createBranch.default-branch-link",
+      "createBranch.detached-head",
+      "createBranch.fork-settings-hint",
+      "createBranch.name",
+      "createBranch.title",
+      "createBranch.unborn-branch",
+      "createBranch.upstream-default-branch-description",
+      "deleteBranch.cannot-undo",
+      "deleteBranch.confirm-message",
+      "deleteBranch.confirm-remote-message",
+      "deleteBranch.delete",
+      "deleteBranch.delete-on-remote",
+      "deleteBranch.delete-remote-title",
+      "deleteBranch.open-pr-hint",
+      "deleteBranch.open-pr-warning",
+      "deleteBranch.remote-exists-question",
+      "deleteBranch.remote-only-warning",
+      "deleteBranch.title",
+      "deleteTag.confirm-message",
+      "deleteTag.delete",
+      "deleteTag.title",
+      "editorError.download",
+      "editorError.title",
+      "enterprise.addressLabel",
+      "fullScreenInfo.exitFullscreen",
+      "gitUser.configureManually",
+      "gitUser.useGitHubAccount",
+      "gitUser.yourNamePlaceholder",
+      "hooks.done",
+      "hooks.failedWithCode",
+      "hooks.killedBySignal",
+      "iconPreview.title",
+      "installGit.install",
+      "installGit.message",
+      "installGit.openWithoutGit",
+      "installGit.resources",
+      "installGit.terminal",
+      "installGit.title",
+      "installingUpdate.message",
+      "installingUpdate.quitAnyway",
+      "installingUpdate.title",
+      "invalidatedToken.message",
+      "invalidatedToken.no",
+      "invalidatedToken.title",
+      "invalidatedToken.yes",
+      "missingRepository.cantFind",
+      "missingRepository.checkAgain",
+      "missingRepository.cloneAgain",
+      "missingRepository.lastSeenAt",
+      "missingRepository.locate",
+      "missingRepository.potentiallyUnsafe",
+      "missingRepository.trustOwner",
+      "missingRepository.trustRepository",
+      "missingRepository.unsafeRepository",
+      "noRepositories.add-existing-repository",
+      "noRepositories.add-repository-hint",
+      "noRepositories.clone-from-internet",
+      "noRepositories.clone-selected",
+      "noRepositories.continue",
+      "noRepositories.create-new-repository",
+      "noRepositories.create-tutorial",
+      "noRepositories.create-tutorial-info",
+      "noRepositories.drag-drop-hint",
+      "noRepositories.get-started",
+      "noRepositories.return-to-tutorial",
+      "noRepositories.start-tutorial",
+      "openFile.noExternalProgram",
+      "password.toggleVisibility",
+      "password.toggleVisibilityAria",
+      "preferencesAccounts.dotcomHeading",
+      "preferencesAccounts.enterpriseHeading",
+      "preferencesIntegrations.copilotHeading",
+      "publish.description",
+      "publish.dotcom-sign-in-description",
+      "publish.enterprise-sign-in-description",
+      "publish.keep-private",
+      "publish.name",
+      "publish.none",
+      "publish.organization",
+      "publish.publish-repository-ok",
+      "publish.sign-in",
+      "publish.title",
+      "publish.will-be-created-as",
+      "relativeTime.justNow",
+      "removeRepository.confirm-message",
+      "removeRepository.move-to-trash",
+      "removeRepository.title",
+      "removeRepository.will-be-removed",
+      "renameBranch.name",
+      "renameBranch.rename-button",
+      "renameBranch.title",
+      "repository.sidebar",
+      "repositoryTabs.changes",
+      "repositoryTabs.history",
+      "reset.continue",
+      "reset.title",
+      "reset.warning",
+      "resizable.resizeHandle",
+      "revealDirectory.detail",
+      "revealDirectory.message",
+      "revealDirectory.revealButton",
+      "revealDirectory.title",
+      "shellError.title",
+      "ssh.confirmConnect",
+      "ssh.hostAuthenticity",
+      "ssh.hostTitle",
+      "ssh.keyPassphraseLabel",
+      "ssh.keyPassphraseTitle",
+      "ssh.no",
+      "ssh.rememberPassphrase",
+      "ssh.rememberPassword",
+      "ssh.userPasswordLabel",
+      "ssh.userPasswordTitle",
+      "ssh.yes",
+      "stash.fileListDescription",
+      "stashChanges.actionLabel",
+      "stashChanges.bringDescription",
+      "stashChanges.bringTitle",
+      "stashChanges.leaveDescription",
+      "stashChanges.leaveTitle",
+      "stashChanges.overwrite.message",
+      "stashChanges.overwrite.ok",
+      "stashChanges.overwrite.title",
+      "stashChanges.overwriteWarning",
+      "stashChanges.switchBranch",
+      "successBanner.undo",
+      "successfulCherryPick.copied",
+      "suggestedActions.branchAria",
+      "textBox.clear",
+      "textBox.inputCleared",
+      "thankYou.contributed",
+      "thankYou.note",
+      "thankYou.title",
+      "toolbar.checkingOutTooltip",
+      "toolbar.currentBranch",
+      "toolbar.currentBranchButton",
+      "toolbar.currentBranchIsTooltip",
+      "toolbar.currentWorktreeButton",
+      "toolbar.detachedHead",
+      "toolbar.detachedHeadTooltip",
+      "toolbar.fetchFrom",
+      "toolbar.fetchFromDescription",
+      "toolbar.forcePushTo",
+      "toolbar.forcePushWarning",
+      "toolbar.onCommit",
+      "toolbar.overwriteOn",
+      "toolbar.publishBranch",
+      "toolbar.publishRepository",
+      "toolbar.publishRepositoryDescription",
+      "toolbar.pushPullButton",
+      "toolbar.rebasingBranch",
+      "toolbar.rebasingTooltip",
+      "toolbar.warningTitle",
+      "tooltippedSha.copy",
+      "tutorialPanelSkip.skip",
       "welcome.aria",
+      "welcome.configure-git-description",
       "welcome.configure-git-title",
+      "welcome.create-account",
       "welcome.finish",
+      "welcome.legal-footer",
       "welcome.new-to-github",
       "welcome.sign-in-enterprise-title",
       "welcome.sign-in-to-github-com",
       "welcome.sign-in-to-github-enterprise",
       "welcome.skip",
-      "welcome.title"
+      "welcome.start-description",
+      "welcome.title",
+      "welcome.user-metrics"
     ]
   },
   "common": {
     "cancel": "apta",
-    "ok": "OK",
+    "ok": "vanima",
     "save": "rehta",
     "close": "holya",
     "add": "yanta",
@@ -57,8 +278,8 @@
     "invalidDate": "aurë úvanima",
     "discard": "aulerya",
     "done": "hritya",
-    "learnMore": "Learn more",
-    "do-not-show-again": "Do not show this message again",
+    "learnMore": "nolya",
+    "do-not-show-again": "áva cennëa i nyarnë sina",
     "email": "tenca",
     "name": "essë",
     "openPreferences": {
@@ -69,21 +290,21 @@
   },
   "app": {
     "select-repository": {
-      "@darwin": "Select a Repository",
-      "@other": "Select a repository"
+      "@darwin": "cilë i haura",
+      "@other": "cilë i haura"
     },
     "no-repositories": {
-      "@darwin": "No Repositories",
-      "@other": "No repositories"
+      "@darwin": "lá haurar",
+      "@other": "lá haurar"
     },
     "current-repository": {
-      "@darwin": "Current Repository",
-      "@other": "Current repository"
+      "@darwin": "i haura sina",
+      "@other": "i haura sina"
     },
-    "no-repository-selected": "No repository selected"
+    "no-repository-selected": "lá haura cilienë"
   },
   "account-picker": {
-    "account": "Account"
+    "account": "essë"
   },
   "settings": {
     "title": {
@@ -510,7 +731,7 @@
     },
     "create-pull-request": {
       "@darwin": "Create Pull Request",
-      "@other": "Create &pull request"
+      "@other": "Cre&ate pull request"
     },
     "create-worktree": {
       "@darwin": "New Worktree…",
@@ -560,7 +781,7 @@
     "help": "&Help",
     "hide-changes-filter": {
       "@darwin": "Hide Changes Filter",
-      "@other": "Hide Toggle Chan&ges Filter"
+      "@other": "Hi&de Toggle Changes Filter"
     },
     "hide-stashed-changes": {
       "@darwin": "Hide Stashed Changes",
@@ -616,7 +837,7 @@
     "reload-window": "&Reload",
     "remove-repository-confirm": {
       "@darwin": "Remove…",
-      "@other": "&Remove…"
+      "@other": "R&emove…"
     },
     "remove-repository": {
       "@darwin": "Remove",
@@ -686,7 +907,7 @@
     },
     "stash-all-changes-confirm": {
       "@darwin": "Stash All Changes…",
-      "@other": "&Stash all changes…"
+      "@other": "S&tash all changes…"
     },
     "stash-all-changes": {
       "@darwin": "Stash All Changes",
@@ -752,40 +973,40 @@
     }
   },
   "about": {
-    "title": "About {name}",
+    "title": "siton {name}",
     "build": "cara {version}",
     "version": "lerië {version}",
     "system": "panwë: {name} {version}, {arch}",
     "release-notes": "leryalë quettar",
     "check-for-updates": "tira lerië",
-    "quit-and-install-update": "Quit and Install Update",
+    "quit-and-install-update": "holya ar tulca i leryalë",
     "checking": "tira lerië…",
     "downloading": "tulya leryalë…",
     "downloadingProgress": "{percent}% — {downloaded} / {total}",
-    "downloadingSize": "{downloaded} downloaded",
+    "downloadingSize": "{downloaded} tulyanë",
     "downloadSpeed": "{speed}/s",
     "downloadingLine": "{downloading} · {details}",
     "up-to-date": "harya vinya lerië (tira {date})",
     "up-to-date-rich": "harya vinya lerië (tira <time />)",
-    "firstRunOfBuild": "This build first ran on {date}",
-    "firstRunOfBuild-rich": "This build first ran on <time />",
+    "firstRunOfBuild": "i cara minya carienë {date}essë",
+    "firstRunOfBuild-rich": "i cara minya carienë <time />",
     "update-ready": "lerië ferya",
-    "dev-no-updates": "The application is currently running in development and will not receive any updates.",
-    "os-unsupported": "This operating system is no longer supported. Software updates have been disabled. <link>Supported operating systems</link>",
-    "check-time-error": "Couldn't determine the last time an update check was performed. You may be running an old version. Please try manually checking for updates and contact GitHub Support if the problem persists",
+    "dev-no-updates": "i ocaraitië síra carë i tulcaliëissë, ar lá tulëa leryalë.",
+    "os-unsupported": "i panwë sina lá alya carë i leryalë. I ocaraitiëo leryalyar haitanë. <link>i alyanë panwi</link>",
+    "check-time-error": "unistë hiryë i telwa tira leryalëo. Nai lyë yuhta i lerië ya vinya lá. Ámólë tira i leryalë, ar ámenta i GitHubo sámonna yá i nanwa sina úmeta.",
     "looking-for-features": "tira vinya?",
     "beta-channel": "tira <link>beta leryalë</link>",
-    "terms-and-conditions": "Terms and Conditions",
-    "license-notices": "License and Open Source Notices",
-    "responsible-use-copilot": "Responsible use of Copilot in GitHub Desktop",
-    "l10nCredit": "Localization by <authors>{authors}</authors>. Built from <sha>{sha}</sha> on {date}.",
+    "terms-and-conditions": "nyeli ar axani",
+    "license-notices": "i axanio canwalië ar i lérien ocaraitiëo canwar",
+    "responsible-use-copilot": "i vanimëa yuhtië i Copilot GitHub Desktopissë",
+    "l10nCredit": "i lambelanga carienë <authors>{authors}</authors>lo. Caru <sha>{sha}</sha>llo, {date}essë.",
     "upstream-behind": {
-      "_one": "A new upstream version is available: <link>{version}</link> ({count} release behind)",
-      "_other": "A new upstream version is available: <link>{version}</link> ({count} releases behind)"
+      "_one": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryalë ca)",
+      "_other": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryali ca)"
     },
     "forkRelease": {
-      "_one": "A newer build of this fork is available: <link>{sha}</link> ({date}), {count} commit ahead of this one",
-      "_other": "A newer build of this fork is available: <link>{sha}</link> ({date}), {count} commits ahead of this one"
+      "_one": "i nelecco vinya cara tulë: <link>{sha}</link> ({date}), {count} minatacë 'epë i cara sina",
+      "_other": "i nelecco vinya cara tulë: <link>{sha}</link> ({date}), {count} minatacer 'epë i cara sina"
     }
   },
   "acknowledgements": {
@@ -796,18 +1017,18 @@
     "unknown-license": "Unknown license"
   },
   "cli": {
-    "dispatch-title": "Dispatch CLI Action",
-    "open-repository": "Open repository",
-    "clone-url": "Clone URL",
-    "dispatch": "Dispatch",
-    "path": "Path",
+    "dispatch-title": "menta i carda axacarmo",
+    "open-repository": "latya i haura",
+    "clone-url": "ovëanta URL-lo",
+    "dispatch": "menta",
+    "path": "tië",
     "url": "URL",
-    "branch-optional": "Branch (optional)",
+    "branch-optional": "olba (enetya)",
     "installed-title": {
-      "@darwin": "Command Line Tool Installed",
-      "@other": "Command line tool installed"
+      "@darwin": "i axacarma tulcanë",
+      "@other": "i axacarma tulcanë"
     },
-    "installed-info": "The command line tool has been installed at <strong>{path}</strong>."
+    "installed-info": "i axacarma tulcanë <strong>{path}</strong>essë."
   },
   "moveToApplications": {
     "title": "Move GitHub Desktop to the Applications folder?",
@@ -819,33 +1040,33 @@
     "not-now": "Not Now"
   },
   "noRepositories": {
-    "start-tutorial": "Start tutorial",
-    "create-tutorial-info": "This will create a repository on your local machine, and push it to your account <ref>{login}</ref> on <link>{endpoint}</link>. This repository will only be visible to you, and not visible publicly.",
-    "continue": "Continue",
-    "get-started": "Let's get started!",
-    "add-repository-hint": "Add a repository to GitHub Desktop to start collaborating",
-    "clone-selected": "Clone <strong>{repository}</strong>",
+    "start-tutorial": "yesta parandë",
+    "create-tutorial-info": "car haura nótar, ar mento <ref>{login}</ref> essë <link>{endpoint}</link>. sina haura cénima lyanna, alacénima illiéva.",
+    "continue": "cacara",
+    "get-started": "yestalmë!",
+    "add-repository-hint": "yanta haura GitHub Desktop, yesta parandë",
+    "clone-selected": "ovëanta <strong>{repository}</strong>",
     "return-to-tutorial": {
-      "@darwin": "Return to In Progress Tutorial",
-      "@other": "Return to in progress tutorial"
+      "@darwin": "ralya parandë",
+      "@other": "ralya parandë"
     },
     "create-tutorial": {
-      "@darwin": "Create a Tutorial Repository…",
-      "@other": "Create a tutorial repository…"
+      "@darwin": "car parandëo haura…",
+      "@other": "car parandëo haura…"
     },
     "clone-from-internet": {
-      "@darwin": "Clone a Repository from the Internet…",
-      "@other": "Clone a repository from the Internet…"
+      "@darwin": "ovëanta haura imbenatsëo…",
+      "@other": "ovëanta haura imbenatsëo…"
     },
     "create-new-repository": {
-      "@darwin": "Create a New Repository on your Local Drive…",
-      "@other": "Create a New Repository on your local drive…"
+      "@darwin": "car vinya nótar haura…",
+      "@other": "car vinya nótar haura…"
     },
     "add-existing-repository": {
-      "@darwin": "Add an Existing Repository from your Local Drive…",
-      "@other": "Add an Existing Repository from your local drive…"
+      "@darwin": "yanta harya nótar haura…",
+      "@other": "yanta harya nótar haura…"
     },
-    "drag-drop-hint": "<strong>ProTip!</strong> You can drag & drop an existing repository folder here to add it to Desktop"
+    "drag-drop-hint": "<strong>ProTip!</strong> tulya sina haura colca, yanta GitHub Desktop"
   },
   "signIn": {
     "title": "Sign in",
@@ -895,25 +1116,25 @@
     "misc-contact": "Contact Us. Please send any questions about these Application Terms to <link>support@github.com</link>."
   },
   "thankYou": {
-    "title": "Thank you {name}!",
-    "note": "Thanks so much for all your hard work on GitHub Desktop{version}. We're so grateful for your willingness to contribute and make the app better for everyone!",
-    "contributed": "You contributed:"
+    "title": "Hantalë {name}!",
+    "note": "Hantalë i ilya mólëlya GitHub Desktop{version}! Á aryata i ocaraitië ilquenna.",
+    "contributed": "I mólëlya:"
   },
   "welcome": {
     "aria": "alla GitHub Desktop",
     "title": "alla <span>GitHub Desktop</span>",
-    "start-description": "GitHub Desktop is a seamless way to contribute to projects on GitHub and GitHub Enterprise. Sign in below to get started with your existing projects.",
+    "start-description": "GitHub Desktop 'na i pasta mólëo lé veryandino GitHub ar GitHub Enterprise. Tulu síra, na yestalya i veryandelyar nanwa.",
     "sign-in-to-github-com": "tulu GitHub.com",
     "sign-in-to-github-enterprise": "tulu GitHub Enterprise",
     "new-to-github": "vinya GitHub?",
-    "create-account": "Create your free account.",
+    "create-account": "car i esselya lériën.",
     "skip": "haita sina",
-    "legal-footer": "By creating an account, you agree to the <terms>Terms of Service</terms>. For more information about GitHub's privacy practices, see the <privacy>GitHub Privacy Statement.</privacy>",
-    "user-metrics": "GitHub Desktop sends usage metrics to improve the product and inform feature decisions. <link>Learn more about user metrics.</link>",
+    "legal-footer": "essë carir, sáquetatya i <terms>nyeli</terms>. GitHubo aquapahtiëo siton, cen i <privacy>GitHubo aquapahtië quetta</privacy>.",
+    "user-metrics": "GitHub Desktop menta i lestalië yuhtienyo, na cenë santalë ar na alya i eumeli. <link>nolya vinyar lestaliëo yuhtienyo.</link>",
     "configure-git-title": "tulca Git",
-    "configure-git-description": "This is used to identify the commits you create. Anyone will be able to see this information if you publish commits.",
+    "configure-git-description": "Sina yuhtien, na cenë i minatacelya. Ilyë cenëuva i nyarnë sina, etantatya.",
     "finish": "metta",
-    "sign-in-enterprise-title": "tulu GitHub Enterprise"
+    "sign-in-enterprise-title": "tulu lyanna GitHub Enterprise"
   },
   "addRepository": {
     "add-local-repository": "Add Local Repository",
@@ -945,7 +1166,7 @@
     "unsafe-repository-trust": "The Git repository appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository. If you trust the owner of the directory you can <link>add an exception for this directory</link> in order to continue."
   },
   "appMenu": {
-    "application-menu": "Application menu"
+    "application-menu": "i GitHub Desktopo menu"
   },
   "branches": {
     "checkout-in-new-worktree": "Checkout in new worktree…",
@@ -1141,10 +1362,10 @@
     "jobStepAria": "{stepName}, {duration}, {status}"
   },
   "checkout": {
-    "checkout": "Checkout",
-    "confirm-message": "Checking out a commit will create a detached HEAD, and you will no longer be on any branch. Are you sure you want to checkout this commit?",
-    "dont-show-again": "Do not show this message again",
-    "title": "Checkout Commit?"
+    "checkout": "cilë",
+    "confirm-message": "yá lyë cilë i minatacë, i HEAD 'na leryanë ar lá halyë olba. sáquetatya cilë i minatacë sina?",
+    "dont-show-again": "áva cennëa i nyarnë sina",
+    "title": "cilë i minatacë?"
   },
   "chooseForkSettings": {
     "continue": "Continue",
@@ -1240,21 +1461,21 @@
     "protected-branch": "<strong>{branch}</strong> is a protected branch. Want to <link>switch branches</link>?"
   },
   "createBranch": {
-    "based-on-commit": "Your new branch will be based on the commit '{summary}' ({sha}) from your repository.",
-    "based-on-label": "Create branch based on…",
-    "branch-exists-error": "A branch named {name} already exists.",
-    "could-not-determine-default-branch": "Could not determine the default branch.",
-    "create-branch-ok": "Create Branch",
-    "current-branch-description": "The currently checked out branch. Pick this if you need to build on work done on this branch.",
-    "default-branch-description": "The default branch in your repository. Pick this to start on something new that",
-    "detached-head": "You do not currently have any branch checked out (your HEAD reference is detached). As such your new branch will be based on your currently checked out commit ({sha}).",
-    "name": "Name",
-    "title": "Create a Branch",
-    "unborn-branch": "Your current branch is unborn (does not contain any commits). Creating a new branch will rename the current branch.",
-    "upstream-default-branch-description": "The default branch of the upstream repository. Pick this to start on something new that",
-    "current-is-default": "<ref>{branch}</ref> is the <defaultLink/> for your repository.",
-    "fork-settings-hint": "Your default branch source is determined by your <link>fork behavior settings</link>.",
-    "default-branch-link": "default branch"
+    "based-on-commit": "i olba vinyalya caruva sundo i hauramo llo: i minatacë '{summary}' ({sha}).",
+    "based-on-label": "carë i olba i sundo llo…",
+    "branch-exists-error": "i olba i essë {name} 'na tensi.",
+    "could-not-determine-default-branch": "unistë hiryë i sitina olba.",
+    "create-branch-ok": "carë i olba",
+    "current-branch-description": "i olba cilienë síra. cilë sina yá oratya vinya mólë carë i olbas sina.",
+    "default-branch-description": "i sitina olba i haurassëlya. cilë sina, itan yesta i vinya.",
+    "detached-head": "lá harya olba cilienë síra (i HEAD 'na leryanë). tulu i olba vinyalya caruva sundo i minatacë cilienë síra ({sha}).",
+    "name": "essë",
+    "title": "carë i olba",
+    "unborn-branch": "i olba síra lá nanwa (lá harya minatacer). yá lyë carë olba vinya, vista i essë i olbao síra.",
+    "upstream-default-branch-description": "i sitina olba i minya hauramo. cilë sina, itan yesta i vinya.",
+    "current-is-default": "<ref>{branch}</ref> 'na i <defaultLink/> i haurassëlya.",
+    "fork-settings-hint": "i sitina olba tulë <link>i nelecco axanilyar</link>llo.",
+    "default-branch-link": "sitina olba"
   },
   "createTag": {
     "create-tag-ok": "Create Tag",
@@ -1269,22 +1490,22 @@
     "tag-exists": "A tag named <ref>{name}</ref> already exists"
   },
   "deleteBranch": {
-    "cannot-undo": "This action cannot be undone.",
-    "delete": "Delete",
-    "delete-on-remote": "Yes, delete this branch on the remote",
-    "delete-remote-title": "Delete Remote Branch",
-    "open-pr-warning": "This branch may have an open pull request associated with it.",
-    "remote-exists-question": "The branch also exists on the remote, do you wish to delete it there as well?",
-    "remote-only-warning": "This branch does not exist locally. Deleting it may impact others collaborating on this branch.",
-    "title": "Delete Branch",
-    "confirm-message": "Delete branch <ref>{branch}</ref>?",
-    "confirm-remote-message": "Delete remote branch <ref>{branch}</ref>?",
-    "open-pr-hint": "If <link>#{number}</link> has been merged, you can also go to GitHub to delete the remote branch."
+    "cannot-undo": "i carda sina unistë nanquerë.",
+    "delete": "fehta",
+    "delete-on-remote": "sá, fehta i olba sina i palan haurassë",
+    "delete-remote-title": "fehta i palan olba",
+    "open-pr-warning": "nai harya i olba sina i ettulëo carda apanta.",
+    "remote-exists-question": "i olba sina 'na i palan haurassë. sáquetatya fehta i palan haurassë?",
+    "remote-only-warning": "i olba sina lá nanwa i arëa haurassë. fehtien, nai raxëa hyaquen i ocaro i olbas sina.",
+    "title": "fehta i olba",
+    "confirm-message": "fehta i olba <ref>{branch}</ref>?",
+    "confirm-remote-message": "fehta i palan olba <ref>{branch}</ref>?",
+    "open-pr-hint": "yá <link>#{number}</link> limyanë, lyë ista menë i GitHubanna itan fehta i palan olba."
   },
   "deleteTag": {
-    "delete": "Delete",
-    "title": "Delete Tag",
-    "confirm-message": "Are you sure you want to delete the tag <ref>{tag}</ref>?"
+    "delete": "fehta",
+    "title": "á-fehta i tengwa",
+    "confirm-message": "sáquetatya á-fehta i tengwa <ref>{tag}</ref>?"
   },
   "diff": {
     "added": "added",
@@ -1426,32 +1647,32 @@
     }
   },
   "installGit": {
-    "install": "Install Git",
-    "message": "We were unable to locate Git on your system. This means you won't be able to execute any Git commands in the {terminal}.",
+    "install": "tulca Git",
+    "message": "Git úhirnë i indya lyava. Lyë unistë menta ilya Git axani i {terminal}issë.",
     "openWithoutGit": {
-      "@darwin": "Open Without Git",
-      "@other": "Open without Git"
+      "@darwin": "latya Git-enca",
+      "@other": "latya Git-enca"
     },
-    "resources": "To help you get Git installed and configured for your operating system, we have some external resources available.",
+    "resources": "Git tulca itan lyë alya, haryalmë istalë ar nólë.",
     "terminal": {
-      "@darwin": "Terminal window",
-      "@other": "command prompt"
+      "@darwin": "lattin axano",
+      "@other": "quetta axano"
     },
     "title": {
-      "@darwin": "Unable to Locate Git",
-      "@other": "Unable to locate Git"
+      "@darwin": "Git alahírima",
+      "@other": "Git alahírima"
     }
   },
   "installingUpdate": {
-    "message": "Do not close GitHub Desktop while the update is in progress. Closing now may break your installation.",
-    "quitAnyway": "Quit Anyway",
-    "title": "Installing Update…"
+    "message": "áva holya i GitHub Desktop yá i leryalë carienë. yá lyë holya sírë, nai i tulcalië racuva.",
+    "quitAnyway": "holya aivë",
+    "title": "tulca i leryalë…"
   },
   "invalidatedToken": {
-    "no": "No",
-    "title": "Invalidated Account Token",
-    "yes": "Yes",
-    "message": "Your account token is no longer valid and you have been signed out from your <ref>{endpoint}</ref> account. Do you want to sign in again?"
+    "no": "lá",
+    "title": "i essëo tengwë úvanima",
+    "yes": "sá",
+    "message": "i tengwëly i esselyo úvanima, ar lyë útyuli i <ref>{endpoint}</ref> esselyallo. sáquetatya entulë?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -1729,17 +1950,17 @@
     "merge-status-loading": "<strong>Checking mergeability...</strong> Don't worry, you can still create the pull request."
   },
   "publish": {
-    "description": "Description",
-    "dotcom-sign-in-description": "Sign in to your GitHub.com account to access your repositories.",
-    "enterprise-sign-in-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories.",
-    "keep-private": "Keep this code private",
-    "name": "Name",
-    "none": "None",
-    "organization": "Organization",
-    "publish-repository-ok": "Publish Repository",
-    "sign-in": "Sign In",
-    "title": "Publish Repository",
-    "will-be-created-as": "Will be created as {name}"
+    "description": "istalë",
+    "dotcom-sign-in-description": "tulu i GitHub.com esselyanna, itan cenatya i hauralyar.",
+    "enterprise-sign-in-description": "yá lyë yuhta GitHub Enterprise i mólëassë, tulu sina itan cenatya i hauralyar.",
+    "keep-private": "rehta pahta i tengwesta sina",
+    "name": "essë",
+    "none": "lá",
+    "organization": "partalë",
+    "publish-repository-ok": "etanta i haura",
+    "sign-in": "tulu",
+    "title": "etanta i haura",
+    "will-be-created-as": "cara vë {name}"
   },
   "pushNeedsPull": {
     "fetch": "Fetch",
@@ -1755,15 +1976,15 @@
     }
   },
   "removeRepository": {
-    "confirm-message": "Are you sure you want to remove the repository \"{name}\" from GitHub Desktop?",
-    "move-to-trash": "Also move this repository to ",
-    "title": "Remove Repository",
-    "will-be-removed": "The repository will be removed from GitHub Desktop:"
+    "confirm-message": "sáquetatya haita i haura \"{name}\" i GitHub Desktopallo?",
+    "move-to-trash": "enta yanta i haura sina auhantenna",
+    "title": "haita i haura",
+    "will-be-removed": "i haura haitaúva i GitHub Desktopallo."
   },
   "renameBranch": {
-    "name": "Name",
-    "rename-button": "Rename {branch}",
-    "title": "Rename Branch"
+    "name": "essë",
+    "rename-button": "vista i essë {branch}",
+    "title": "vista i essë i olbao"
   },
   "repositoryAlias": {
     "alias": "Alias",
@@ -1798,9 +2019,9 @@
     "no-remote-message": "Publish your repository to GitHub. Need help? <link>Learn more about remote repositories.</link>"
   },
   "reset": {
-    "continue": "Continue",
-    "title": "Reset to Commit",
-    "warning": "Warning"
+    "continue": "cacara",
+    "title": "á-hircë i minatacënna",
+    "warning": "órë"
   },
   "samlReauth": {
     "confirm": "Would you like to open a browser to grant GitHub Desktop permission to access the repository?",
@@ -1844,36 +2065,36 @@
     "remediation": "Allowing secrets risks exposure. Consider <link>removing the secret from your commit and commit history.</link>"
   },
   "ssh": {
-    "confirmConnect": "Are you sure you want to continue connecting?",
-    "hostAuthenticity": "The authenticity of host '{host} ({ip})' can't be established. {keyType} key fingerprint is {fingerprint}.",
-    "hostTitle": "SSH Host",
-    "keyPassphraseLabel": "Enter passphrase for key '{keyPath}':",
-    "keyPassphraseTitle": "SSH Key Passphrase",
-    "no": "No",
-    "rememberPassphrase": "Remember passphrase",
-    "rememberPassword": "Remember password",
-    "userPasswordLabel": "Enter password for '{username}':",
-    "userPasswordTitle": "SSH User Password",
-    "yes": "Yes"
+    "confirmConnect": "sáquetatya lyë cacarë i himyalë?",
+    "hostAuthenticity": "i nótaro '{host} ({ip})' vératanna unistë tulcanë. i {keyType} latilya vératanna 'na {fingerprint}.",
+    "hostTitle": "SSH nótar",
+    "keyPassphraseLabel": "anta i pahta tengwa i latil '{keyPath}':",
+    "keyPassphraseTitle": "SSH latilya pahta tengwa",
+    "no": "lá",
+    "rememberPassphrase": "mintya i pahta tengwa",
+    "rememberPassword": "mintya i pahta tengwa",
+    "userPasswordLabel": "anta i pahta tengwa i '{username}':",
+    "userPasswordTitle": "SSH queno pahta tengwa",
+    "yes": "sá"
   },
   "stashChanges": {
-    "actionLabel": "You have changes on this branch. What would you like to do with them?",
-    "bringDescription": "Your in-progress work will follow you to the new branch",
-    "bringTitle": "Bring my changes to {branchName}",
-    "leaveDescription": "Your in-progress work will be stashed on this branch for you to return to later",
-    "leaveTitle": "Leave my changes on {branchName}",
+    "actionLabel": "harya ahyanië i olbas sina. cilë i carda oratya.",
+    "bringDescription": "i mólëlya tulëva i vinya olbanna.",
+    "bringTitle": "tulya i ahyanielya {branchName}anna",
+    "leaveDescription": "rehtauva i mólëlya i olbas sina, itan ralyalëa sis i apalúmë.",
+    "leaveTitle": "haita i ahyanielya {branchName}assë",
     "overwrite": {
-      "message": "Are you sure you want to proceed? This will overwrite your existing stash with your current changes.",
-      "ok": "Overwrite",
+      "message": "ná lyë sinwa, sáquetatya cacarë? i rehta vinya carëva i rehtalya minomë.",
+      "ok": "carë minomë",
       "title": {
-        "@darwin": "Overwrite Stash?",
-        "@other": "Overwrite stash?"
+        "@darwin": "carë minomë i rehtalya?",
+        "@other": "carë minomë i rehtalya?"
       }
     },
-    "overwriteWarning": "Your current stash will be overwritten by creating a new stash",
+    "overwriteWarning": "carëva i rehtalya minomë yá carë i rehta vinya.",
     "switchBranch": {
-      "@darwin": "Switch Branch",
-      "@other": "Switch branch"
+      "@darwin": "vista i olba",
+      "@other": "vista i olba"
     }
   },
   "unknownAuthors": {
@@ -2090,15 +2311,15 @@
     }
   },
   "configureGitUser": {
-    "exampleCommit": "Example commit",
-    "exampleCommitSummary": "Fix all the things"
+    "exampleCommit": "i minatacë hócilmë",
+    "exampleCommitSummary": "aptya i ilya nanwi"
   },
   "relativeTime": {
-    "justNow": "just now"
+    "justNow": "síra"
   },
   "repositoryTabs": {
-    "changes": "Changes",
-    "history": "History"
+    "changes": "ahyanië",
+    "history": "nyárë"
   },
   "updateAvailableBanner": {
     "restartNow": "restart GitHub Desktop",
@@ -2117,7 +2338,7 @@
     "showcaseVersion": " with GitHub Desktop {version}"
   },
   "successBanner": {
-    "undo": "Undo"
+    "undo": "nanquer"
   },
   "thankYouCard": {
     "message": "The Desktop team would like to thank you for your contributions.",
@@ -2215,10 +2436,10 @@
     }
   },
   "tooltippedSha": {
-    "copy": "Copy"
+    "copy": "ovëanta"
   },
   "tutorialPanelSkip": {
-    "skip": "Skip"
+    "skip": "haita"
   },
   "cloneRepositoryTabs": {
     "dotcomTab": "GitHub.com",
@@ -2226,8 +2447,8 @@
     "urlTab": "URL"
   },
   "branchesContainerTabs": {
-    "branchesTab": "Branches",
-    "pullRequestsTab": "Pull Requests"
+    "branchesTab": "i olbi",
+    "pullRequestsTab": "i ettuco cardí"
   },
   "preferencesIntegrations": {
     "copilotHeading": "GitHub Copilot"
@@ -2335,21 +2556,21 @@
     "sanitizedLive": "Will be created as {sanitizedName}. Invalid characters have been replaced by hyphens."
   },
   "missingRepository": {
-    "checkAgain": "Check again.",
-    "locate": "Locate…",
-    "cloneAgain": "Clone Again",
+    "checkAgain": "entyasta.",
+    "locate": "hira…",
+    "cloneAgain": "entuista",
     "trustRepository": {
-      "@darwin": "Trust Repository",
-      "@other": "Trust repository"
+      "@darwin": "satarya i haura",
+      "@other": "satarya i haura"
     },
-    "potentiallyUnsafe": "{name} is potentially unsafe",
-    "unsafeRepository": "The Git repository at <ref>{path}</ref> appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository.",
-    "trustOwner": "If you trust the owner of the directory you can add an exception for this directory in order to continue.",
-    "cantFind": "Can't find \"{name}\"",
-    "lastSeenAt": "It was last seen at <path>{path}</path>. <link/>"
+    "potentiallyUnsafe": "nai {name} raxëa.",
+    "unsafeRepository": "i Git haura <ref>{path}</ref>essë ná hyaquen-va. yá yantëa i hauri lá estelva, nai i cómi haurissë caruva.",
+    "trustOwner": "yá satarya i colca öamo, lyë ista yanta sina colca enetya itan cacarë.",
+    "cantFind": "úhíra \"{name}\"",
+    "lastSeenAt": "cilienë <path>{path}</path>essë, i métima. <link/>"
   },
   "repository": {
-    "sidebar": "Repository sidebar"
+    "sidebar": "i haurao assir"
   },
   "commitMessageOverride": {
     "title": "Commit message override",
@@ -2390,19 +2611,19 @@
     "branchFilter": "Branch filter"
   },
   "gitUser": {
-    "configureManually": "Configure manually",
-    "yourNamePlaceholder": "Your Name",
-    "useGitHubAccount": "Use my {account} account name and email address"
+    "configureManually": "á-tulca mánen",
+    "yourNamePlaceholder": "esselya",
+    "useGitHubAccount": "á-cilë i {account} essë ar i tengwalya"
   },
   "enterprise": {
-    "addressLabel": "Enterprise address"
+    "addressLabel": "GitHub Enterprise URL"
   },
   "password": {
-    "toggleVisibility": "Toggle password visibility",
-    "toggleVisibilityAria": "Toggle password visibility"
+    "toggleVisibility": "vista i cenienë i pahta tengwao",
+    "toggleVisibilityAria": "vista i cenienë i pahta tengwao"
   },
   "iconPreview": {
-    "title": "Icon Preview"
+    "title": "tira i airemma"
   },
   "openWithEditor": {
     "selectEditor": "Select an editor",
@@ -2413,15 +2634,15 @@
   },
   "editorError": {
     "title": {
-      "@darwin": "Unable to Open External Editor",
-      "@other": "Unable to open external editor"
+      "@darwin": "unistë latyë i ocaraitien",
+      "@other": "unistë latyë i ocaraitien"
     },
-    "download": "Download {name}"
+    "download": "á-tulya {name}"
   },
   "shellError": {
     "title": {
-      "@darwin": "Unable to Open Shell",
-      "@other": "Unable to open shell"
+      "@darwin": "unistë latyë i Shell",
+      "@other": "unistë latyë i Shell"
     }
   },
   "releaseNotes": {
@@ -2492,32 +2713,32 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Resize handle"
+    "resizeHandle": "i tolma i vista"
   },
   "stash": {
-    "fileListDescription": "Stash file list"
+    "fileListDescription": "i rehtaléo cómi"
   },
   "toolbar": {
-    "currentBranchButton": "Current branch dropdown button",
-    "fetchFrom": "Fetch {branch}",
-    "fetchFromDescription": "Fetch the latest changes from {branch}",
-    "warningTitle": "Warning:",
-    "forcePushWarning": "A force push will rewrite history on the remote. Any collaborators working on this branch will need to reset their own local branch to match the history of the remote.",
-    "forcePushTo": "Force push {branch}",
-    "overwriteOn": "Overwrite any changes on {branch} with your local changes",
-    "pushPullButton": "Push pull button",
-    "publishRepository": "Publish repository",
-    "publishRepositoryDescription": "Publish this repository to GitHub",
-    "publishBranch": "Publish branch",
-    "currentWorktreeButton": "Current worktree dropdown button",
-    "currentBranchIsTooltip": "Current branch is {ref}",
-    "checkingOutTooltip": "Checking out {branch}",
-    "currentBranch": "Current branch",
-    "onCommit": "On {sha}",
-    "detachedHead": "Detached HEAD",
-    "detachedHeadTooltip": "Currently on a detached HEAD",
-    "rebasingBranch": "Rebasing branch",
-    "rebasingTooltip": "Rebasing {branch}"
+    "currentBranchButton": "cortangwa i olbao sina",
+    "fetchFrom": "tulya {branch}",
+    "fetchFromDescription": "tulya i vinya ahyanië {branch}ullo",
+    "warningTitle": "Raxë:",
+    "forcePushWarning": "Nírië vistáva i nyárë i palan haurassë. Ilyar ocaro i olbas sina: nertava i olba arëa minomë, vëalta i nyárëo i palan hauramo.",
+    "forcePushTo": "nirë {branch} turmoin",
+    "overwriteOn": "carë i arëa ahyanielya minomë i ahyanië {branch}assë",
+    "pushPullButton": "cortangwa nirëo ar ettucëo",
+    "publishRepository": "etanta i haura",
+    "publishRepositoryDescription": "etanta i haura sina GitHubas",
+    "publishBranch": "etanta i olba",
+    "currentWorktreeButton": "cortangwa i hauramar sina",
+    "currentBranchIsTooltip": "{ref} ná i olba sina",
+    "checkingOutTooltip": "cilë {branch}",
+    "currentBranch": "i olba sina",
+    "onCommit": "{sha}assë",
+    "detachedHead": "leryanë HEAD",
+    "detachedHeadTooltip": "nán leryanë HEAD-ssë sina",
+    "rebasingBranch": "sundo vinya carë i olbamo",
+    "rebasingTooltip": "sundo vinya carë i {branch}assë"
   },
   "revertProgress": {
     "title": "Reverting…",
@@ -2653,11 +2874,11 @@
     }
   },
   "authentication": {
-    "browserRedirect": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop please allow it to."
+    "browserRedirect": "i browser sina lelyuva lyë enta i GitHub Desktopanna yá tyulë. yá i browser sina mansëa i lávë itan latya i GitHub Desktop, anta i lávë."
   },
   "branchName": {
-    "rulesRestricted": "Branch name '{branchName}' is restricted by repo rules.",
-    "rulesBypassable": "Branch name '{branchName}' is restricted by repo rules, but you can bypass them. Proceed with caution!"
+    "rulesRestricted": "i olba i essë '{branchName}' 'na avanwa i haurao axanen.",
+    "rulesBypassable": "i olba i essë '{branchName}' 'na avanwa i haurao axanen, má alyë avartëa i axani. Lelyë i raxen!"
   },
   "gitEmail": {
     "learnMoreAria": "Learn more about commit attribution",
@@ -2668,7 +2889,7 @@
     "accountMultiple": "either of your GitHub.com nor GitHub Enterprise accounts"
   },
   "openFile": {
-    "noExternalProgram": "Unable to open file {fullPath} in an external program. Please check you have a program associated with this file extension"
+    "noExternalProgram": "i cómë {fullPath} unistë latyë i ocaraitien. Entyasta má lyë harya ocaraitië i latya i cómë sina"
   },
   "authorInput": {
     "userNotFound": "Could not find user with username {username}",
@@ -2677,19 +2898,19 @@
     "coAuthors": "Co-Authors"
   },
   "suggestedActions": {
-    "branchAria": "Suggested actions for this branch"
+    "branchAria": "i cardí i mentien i olbas sina"
   },
   "avatar": {
-    "forUser": "Avatar for {name}",
-    "unknown": "Avatar for unknown user"
+    "forUser": "i cendelë {name}o",
+    "unknown": "i cendelë i úhírëa queno"
   },
   "historyCompare": {
     "comparedBranchUpToDate": "The compared branch (<ref/>) is up to date with your branch",
     "yourBranchUpToDate": "Your branch is up to date with the compared branch (<ref/>)"
   },
   "branchNameWarnings": {
-    "trackingWarning": "This branch is tracking <ref/> and renaming this branch will not change the branch name on the remote.",
-    "nameExistsOnRemote": "A branch named <ref/> already exists on the remote."
+    "trackingWarning": "i olba sina 'epë i <ref/>; yá lyë vista i essë, i olbao essë i palan haurassë úvista.",
+    "nameExistsOnRemote": "i olba i essë <ref/> 'na tensi i palan haurassë."
   },
   "copilotApp": {
     "notFoundMessage": "Couldn't find the GitHub Copilot App on your machine. Experience agent-driven development built natively on GitHub by <download>downloading GitHub Copilot</download>.",
@@ -2712,8 +2933,8 @@
     }
   },
   "branchesContainer": {
-    "chooseMergeInto": "Choose a branch to merge into <branch/>",
-    "chooseMergeIntoTooltip": "Choose a branch to merge into {branch}"
+    "chooseMergeInto": "cilë i olba i <branch/>nna ertanien",
+    "chooseMergeIntoTooltip": "cilë i olba i {branch}nna ertanien"
   },
   "copilotDisclaimer": {
     "poweredByAi": "Copilot is powered by AI, so mistakes are possible.",
@@ -2741,8 +2962,8 @@
   },
   "successfulCherryPick": {
     "copied": {
-      "_one": "Successfully copied {count:number} commit to <strong>{branch}</strong>.",
-      "_other": "Successfully copied {count:number} commits to <strong>{branch}</strong>."
+      "_one": "{count:number} minatacë ovëantanë <strong>{branch}</strong>anna.",
+      "_other": "{count:number} minatacer ovëantanë <strong>{branch}</strong>anna."
     }
   },
   "authorHandle": {
@@ -2792,11 +3013,11 @@
     "deleteAndRetry": "This can happen if another tool is currently modifying the Git configuration or if a Git process has terminated earlier without cleaning up the lock file. Do you want to <link>delete the lock file</link> and try again?"
   },
   "textBox": {
-    "clear": "Clear",
-    "inputCleared": "Input cleared"
+    "clear": "cumya",
+    "inputCleared": "i antienë cumienë"
   },
   "fullScreenInfo": {
-    "exitFullscreen": "Press <shortcut/> to exit fullscreen"
+    "exitFullscreen": "Nirë i <shortcut/>, itan lelyë i fanwallo"
   },
   "addWorktreeDialog": {
     "willCheckOutRemoteBranch": "Will check out remote branch <ref>{branch}</ref>.",
@@ -2909,8 +3130,8 @@
     "retryAfterDate": "You can try again after {retryAfter}."
   },
   "commitProgress": {
-    "title": "Committing changes",
-    "close": "Close"
+    "title": "minatecë i ahyanië",
+    "close": "holya"
   },
   "appStore": {
     "refreshingRepository": {
@@ -2924,20 +3145,20 @@
   },
   "revealDirectory": {
     "title": {
-      "@darwin": "Reveal Repository in Finder?",
-      "@win32": "Reveal Repository in File Explorer?",
-      "@other": "Reveal Repository in the file manager?"
+      "@darwin": "apanta i haura Finderessë?",
+      "@win32": "apanta i haura File Exploreressë?",
+      "@other": "apanta i haura colcassë?"
     },
-    "message": "This repository might be an application.",
+    "message": "nai sina haura ná ocaraitië.",
     "detail": {
-      "@darwin": "Opening it directly could run software. You can reveal and select it in Finder without opening it.",
-      "@win32": "Opening it directly could run software. You can reveal and select it in File Explorer without opening it.",
-      "@other": "Opening it directly could run software. You can reveal and select it in the file manager without opening it."
+      "@darwin": "latya, nai i maxarma caruva. lyë ista apanta ar cilë i Finderessë, lá latya.",
+      "@win32": "latya, nai i maxarma caruva. lyë ista apanta ar cilë i File Exploreressë, lá latya.",
+      "@other": "latya, nai i maxarma caruva. lyë ista apanta ar cilë i colcassë, lá latya."
     },
     "revealButton": {
-      "@darwin": "Reveal in Finder",
-      "@win32": "Reveal in File Explorer",
-      "@other": "Reveal in file manager"
+      "@darwin": "apanta i Finderessë",
+      "@win32": "apanta i File Exploreressë",
+      "@other": "apanta i colcassë"
     }
   },
   "contextMenu": {
@@ -2984,11 +3205,11 @@
     "renameButton": "Rename {name}"
   },
   "cloningRepository": {
-    "title": "Cloning {repository}"
+    "title": "ovëanta {repository}"
   },
   "hooks": {
-    "killedBySignal": "{hookName} hook killed by signal {signal} after {duration}s",
-    "failedWithCode": "{hookName} hook failed with code {code} after {duration}s",
-    "done": "{hookName} hook done after {duration}s"
+    "killedBySignal": "i ampa {hookName} {signal}nen ú-qualta {duration} lúmessen",
+    "failedWithCode": "i ampa {hookName} {code} tengwasten ú-lyanë {duration} lúmessen",
+    "done": "i ampa {hookName} hritya {duration} lúmessen"
   }
 }

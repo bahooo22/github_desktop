@@ -37,6 +37,39 @@
       "about.update-ready",
       "about.upstream-behind",
       "about.version",
+      "account-picker.account",
+      "app.current-repository",
+      "app.no-repositories",
+      "app.no-repository-selected",
+      "app.select-repository",
+      "appMenu.application-menu",
+      "authentication.browserRedirect",
+      "avatar.forUser",
+      "avatar.unknown",
+      "branchName.rulesBypassable",
+      "branchName.rulesRestricted",
+      "branchNameWarnings.nameExistsOnRemote",
+      "branchNameWarnings.trackingWarning",
+      "branchesContainer.chooseMergeInto",
+      "branchesContainer.chooseMergeIntoTooltip",
+      "branchesContainerTabs.branchesTab",
+      "branchesContainerTabs.pullRequestsTab",
+      "checkout.checkout",
+      "checkout.confirm-message",
+      "checkout.dont-show-again",
+      "checkout.title",
+      "cli.branch-optional",
+      "cli.clone-url",
+      "cli.dispatch",
+      "cli.dispatch-title",
+      "cli.installed-info",
+      "cli.installed-title",
+      "cli.open-repository",
+      "cli.path",
+      "cli.url",
+      "cloningRepository.title",
+      "commitProgress.close",
+      "commitProgress.title",
       "common.add",
       "common.cancel",
       "common.close",
@@ -53,6 +86,171 @@
       "common.remove",
       "common.retry",
       "common.save",
+      "configureGitUser.exampleCommit",
+      "configureGitUser.exampleCommitSummary",
+      "createBranch.based-on-commit",
+      "createBranch.based-on-label",
+      "createBranch.branch-exists-error",
+      "createBranch.could-not-determine-default-branch",
+      "createBranch.create-branch-ok",
+      "createBranch.current-branch-description",
+      "createBranch.current-is-default",
+      "createBranch.default-branch-description",
+      "createBranch.default-branch-link",
+      "createBranch.detached-head",
+      "createBranch.fork-settings-hint",
+      "createBranch.name",
+      "createBranch.title",
+      "createBranch.unborn-branch",
+      "createBranch.upstream-default-branch-description",
+      "deleteBranch.cannot-undo",
+      "deleteBranch.confirm-message",
+      "deleteBranch.confirm-remote-message",
+      "deleteBranch.delete",
+      "deleteBranch.delete-on-remote",
+      "deleteBranch.delete-remote-title",
+      "deleteBranch.open-pr-hint",
+      "deleteBranch.open-pr-warning",
+      "deleteBranch.remote-exists-question",
+      "deleteBranch.remote-only-warning",
+      "deleteBranch.title",
+      "deleteTag.confirm-message",
+      "deleteTag.delete",
+      "deleteTag.title",
+      "editorError.download",
+      "editorError.title",
+      "enterprise.addressLabel",
+      "fullScreenInfo.exitFullscreen",
+      "gitUser.configureManually",
+      "gitUser.useGitHubAccount",
+      "gitUser.yourNamePlaceholder",
+      "hooks.done",
+      "hooks.failedWithCode",
+      "hooks.killedBySignal",
+      "iconPreview.title",
+      "installGit.install",
+      "installGit.message",
+      "installGit.openWithoutGit",
+      "installGit.resources",
+      "installGit.terminal",
+      "installGit.title",
+      "installingUpdate.message",
+      "installingUpdate.quitAnyway",
+      "installingUpdate.title",
+      "invalidatedToken.message",
+      "invalidatedToken.no",
+      "invalidatedToken.title",
+      "invalidatedToken.yes",
+      "missingRepository.cantFind",
+      "missingRepository.checkAgain",
+      "missingRepository.cloneAgain",
+      "missingRepository.lastSeenAt",
+      "missingRepository.locate",
+      "missingRepository.potentiallyUnsafe",
+      "missingRepository.trustOwner",
+      "missingRepository.trustRepository",
+      "missingRepository.unsafeRepository",
+      "noRepositories.add-existing-repository",
+      "noRepositories.add-repository-hint",
+      "noRepositories.clone-from-internet",
+      "noRepositories.clone-selected",
+      "noRepositories.continue",
+      "noRepositories.create-new-repository",
+      "noRepositories.create-tutorial",
+      "noRepositories.create-tutorial-info",
+      "noRepositories.drag-drop-hint",
+      "noRepositories.get-started",
+      "noRepositories.return-to-tutorial",
+      "noRepositories.start-tutorial",
+      "openFile.noExternalProgram",
+      "password.toggleVisibility",
+      "password.toggleVisibilityAria",
+      "preferencesAccounts.dotcomHeading",
+      "preferencesAccounts.enterpriseHeading",
+      "preferencesIntegrations.copilotHeading",
+      "publish.description",
+      "publish.dotcom-sign-in-description",
+      "publish.enterprise-sign-in-description",
+      "publish.keep-private",
+      "publish.name",
+      "publish.none",
+      "publish.organization",
+      "publish.publish-repository-ok",
+      "publish.sign-in",
+      "publish.title",
+      "publish.will-be-created-as",
+      "relativeTime.justNow",
+      "removeRepository.confirm-message",
+      "removeRepository.move-to-trash",
+      "removeRepository.title",
+      "removeRepository.will-be-removed",
+      "renameBranch.name",
+      "renameBranch.rename-button",
+      "renameBranch.title",
+      "repository.sidebar",
+      "repositoryTabs.changes",
+      "repositoryTabs.history",
+      "reset.continue",
+      "reset.title",
+      "reset.warning",
+      "resizable.resizeHandle",
+      "revealDirectory.detail",
+      "revealDirectory.message",
+      "revealDirectory.revealButton",
+      "revealDirectory.title",
+      "shellError.title",
+      "ssh.confirmConnect",
+      "ssh.hostAuthenticity",
+      "ssh.hostTitle",
+      "ssh.keyPassphraseLabel",
+      "ssh.keyPassphraseTitle",
+      "ssh.no",
+      "ssh.rememberPassphrase",
+      "ssh.rememberPassword",
+      "ssh.userPasswordLabel",
+      "ssh.userPasswordTitle",
+      "ssh.yes",
+      "stash.fileListDescription",
+      "stashChanges.actionLabel",
+      "stashChanges.bringDescription",
+      "stashChanges.bringTitle",
+      "stashChanges.leaveDescription",
+      "stashChanges.leaveTitle",
+      "stashChanges.overwrite.message",
+      "stashChanges.overwrite.ok",
+      "stashChanges.overwrite.title",
+      "stashChanges.overwriteWarning",
+      "stashChanges.switchBranch",
+      "successBanner.undo",
+      "successfulCherryPick.copied",
+      "suggestedActions.branchAria",
+      "textBox.clear",
+      "textBox.inputCleared",
+      "thankYou.contributed",
+      "thankYou.note",
+      "thankYou.title",
+      "toolbar.checkingOutTooltip",
+      "toolbar.currentBranch",
+      "toolbar.currentBranchButton",
+      "toolbar.currentBranchIsTooltip",
+      "toolbar.currentWorktreeButton",
+      "toolbar.detachedHead",
+      "toolbar.detachedHeadTooltip",
+      "toolbar.fetchFrom",
+      "toolbar.fetchFromDescription",
+      "toolbar.forcePushTo",
+      "toolbar.forcePushWarning",
+      "toolbar.onCommit",
+      "toolbar.overwriteOn",
+      "toolbar.publishBranch",
+      "toolbar.publishRepository",
+      "toolbar.publishRepositoryDescription",
+      "toolbar.pushPullButton",
+      "toolbar.rebasingBranch",
+      "toolbar.rebasingTooltip",
+      "toolbar.warningTitle",
+      "tooltippedSha.copy",
+      "tutorialPanelSkip.skip",
       "welcome.aria",
       "welcome.configure-git-description",
       "welcome.configure-git-title",
@@ -92,21 +290,21 @@
   },
   "app": {
     "select-repository": {
-      "@darwin": "Select a Repository",
-      "@other": "Select a repository"
+      "@darwin": "De' ngaSwI' 'e' yIwIv",
+      "@other": "De' ngaSwI' 'e' yIwIv"
     },
     "no-repositories": {
-      "@darwin": "No Repositories",
-      "@other": "No repositories"
+      "@darwin": "De' ngaSwI'pu' chIm",
+      "@other": "De' ngaSwI'pu' chIm"
     },
     "current-repository": {
-      "@darwin": "Current Repository",
-      "@other": "Current repository"
+      "@darwin": "DaH De' ngaSwI'",
+      "@other": "DaH De' ngaSwI'"
     },
-    "no-repository-selected": "No repository selected"
+    "no-repository-selected": "De' ngaSwI' 'e' wIvpu'be'"
   },
   "account-picker": {
-    "account": "Account"
+    "account": "mab"
   },
   "settings": {
     "title": {
@@ -494,284 +692,284 @@
     "pickHint": "Click a translated label on the screen to edit it. Escape cancels the pick."
   },
   "menu": {
-    "about": "About GitHub Desktop",
+    "about": "GitHub Desktop bop",
     "add-local-repository": {
-      "@darwin": "Add Local Repository…",
-      "@other": "Add &local repository…"
+      "@darwin": "De' ngaSwI' lIj 'e' yIchel…",
+      "@other": "D&e' ngaSwI' lIj 'e' yIchel…"
     },
     "branch-on-github": {
-      "@darwin": "View Branch on GitHub",
-      "@other": "View branch on GitHub"
+      "@darwin": "bartIq 'e' GitHubDaq yI'ang",
+      "@other": "bartIq 'e' GitHubDaq yI'ang"
     },
     "branch": {
-      "@darwin": "Branch",
-      "@other": "&Branch"
+      "@darwin": "bartIq",
+      "@other": "&bartIq"
     },
     "clone-repository": {
-      "@darwin": "Clone Repository…",
-      "@other": "Clo&ne repository…"
+      "@darwin": "De' ngaSwI' 'e' yIvoy…",
+      "@other": "De' &ngaSwI' 'e' yIvoy…"
     },
     "compare-on-github": {
-      "@darwin": "Compare on GitHub",
-      "@other": "Compare on &GitHub"
+      "@darwin": "GitHubDaq yIDay",
+      "@other": "&GitHubDaq yIDay"
     },
     "compare-to-branch": {
-      "@darwin": "Compare to Branch",
-      "@other": "&Compare to branch"
+      "@darwin": "bartIq 'e' yIDay",
+      "@other": "b&artIq 'e' yIDay"
     },
     "copy": {
-      "@darwin": "Copy",
-      "@other": "&Copy"
+      "@darwin": "yIwoH",
+      "@other": "yI&woH"
     },
     "create-branch": {
-      "@darwin": "New Branch…",
-      "@other": "New &branch…"
+      "@darwin": "bartIq chu' 'e' chenmoH…",
+      "@other": "&bartIq chu' 'e' chenmoH…"
     },
     "create-issue-in-repository-on-github": {
-      "@darwin": "Create Issue on GitHub",
-      "@other": "Create &issue on GitHub"
+      "@darwin": "GitHubDaq qay' 'e' chenmoH…",
+      "@other": "Git&HubDaq qay' 'e' chenmoH…"
     },
     "create-pull-request": {
-      "@darwin": "Create Pull Request",
-      "@other": "Create &pull request"
+      "@darwin": "qem tlhob 'e' chenmoH…",
+      "@other": "q&em tlhob 'e' chenmoH…"
     },
     "create-worktree": {
-      "@darwin": "New Worktree…",
-      "@other": "New work&tree…"
+      "@darwin": "vum chu' 'e' chenmoH…",
+      "@other": "&vum chu' 'e' chenmoH…"
     },
     "cut": {
-      "@darwin": "Cut",
-      "@other": "Cu&t"
+      "@darwin": "yIpe'",
+      "@other": "yI&pe'"
     },
     "decrease-active-resizable-width": {
-      "@darwin": "Contract Active Resizable",
-      "@other": "Contract active resizable"
+      "@darwin": "wIvbogh pa' 'e' yIlang",
+      "@other": "wIvbogh pa' 'e' yIlang"
     },
     "default-branch-name": {
-      "@darwin": "Default Branch",
-      "@other": "default branch"
+      "@darwin": "motlh bartIq",
+      "@other": "motlh bartIq"
     },
     "delete-branch": {
-      "@darwin": "Delete…",
-      "@other": "&Delete…"
+      "@darwin": "yIqaw…",
+      "@other": "&yIqaw…"
     },
     "discard-all-changes": {
-      "@darwin": "Discard All Changes…",
-      "@other": "Discard all changes…"
+      "@darwin": "Hoch choH 'e' yIpolHa'…",
+      "@other": "Hoch choH 'e' yIpolHa'…"
     },
     "edit": {
-      "@darwin": "Edit",
-      "@other": "&Edit"
+      "@darwin": "yIDI'",
+      "@other": "&yIDI'"
     },
-    "exit": "E&xit",
+    "exit": "&yI'elHa'",
     "fetch": {
-      "@darwin": "Fetch",
-      "@other": "&Fetch"
+      "@darwin": "yIqem",
+      "@other": "y&Iqem"
     },
     "file": {
-      "@darwin": "File",
-      "@other": "&File"
+      "@darwin": "De'",
+      "@other": "&De'"
     },
     "find": {
-      "@darwin": "Find",
-      "@other": "&Find"
+      "@darwin": "yISam",
+      "@other": "yI&Sam"
     },
     "go-to-commit-message": {
-      "@darwin": "Go to Summary",
-      "@other": "Go to &Summary"
+      "@darwin": "choH vem poS 'e' yIjaH",
+      "@other": "c&hoH vem poS 'e' yIjaH"
     },
-    "help": "&Help",
+    "help": "&QaH",
     "hide-changes-filter": {
-      "@darwin": "Hide Changes Filter",
-      "@other": "Hide Toggle Chan&ges Filter"
+      "@darwin": "choH QIbwI' 'e' yISo'",
+      "@other": "choH Q&IbwI' 'e' yISo'"
     },
     "hide-stashed-changes": {
-      "@darwin": "Hide Stashed Changes",
-      "@other": "H&ide stashed changes"
+      "@darwin": "ngeqlu' choH 'e' yISo'",
+      "@other": "n&geqlu' choH 'e' yISo'"
     },
     "increase-active-resizable-width": {
-      "@darwin": "Expand Active Resizable",
-      "@other": "Expand active resizable"
+      "@darwin": "wIvbogh pa' 'e' yISach",
+      "@other": "wIvbogh pa' 'e' yISach"
     },
-    "install-cli": "Install Command Line Tool…",
+    "install-cli": "ra'SommI' 'e' yIjom…",
     "merge-branch": {
-      "@darwin": "Merge into Current Branch…",
-      "@other": "&Merge into current branch…"
+      "@darwin": "DaH bartIqDaq choHmey yImergh…",
+      "@other": "DaH ba&rtIqDaq choHmey yImergh…"
     },
     "new-repository": {
-      "@darwin": "New Repository…",
-      "@other": "New &repository…"
+      "@darwin": "De' ngaSwI' chu' 'e' chenmoH…",
+      "@other": "&De' ngaSwI' chu' 'e' chenmoH…"
     },
     "open-in-copilot-app": {
-      "@darwin": "Open in GitHub Copilot",
-      "@other": "Open in GitHub &Copilot"
+      "@darwin": "GitHub CopilotDaq yIpoSmoH",
+      "@other": "GitHub &CopilotDaq yIpoSmoH"
     },
     "open-with-external-editor": {
-      "@darwin": "Open With…",
-      "@other": "Open &with…"
+      "@darwin": "DoS nIqHomDaq yIpoSmoH…",
+      "@other": "D&oS nIqHomDaq yIpoSmoH…"
     },
     "open-working-directory": {
-      "@darwin": "Show in Finder",
-      "@other": "Show in your File Manager",
-      "@win32": "Show in E&xplorer"
+      "@darwin": "FinderDaq yI'ang",
+      "@other": "De' patDaq yI'ang",
+      "@win32": "&ExplorereDaq yI'ang"
     },
     "paste": {
-      "@darwin": "Paste",
-      "@other": "&Paste"
+      "@darwin": "yIroQ",
+      "@other": "yI&roQ"
     },
-    "preferences": "Settings…",
+    "preferences": "SeHlaw…",
     "preview-pull-request": {
-      "@darwin": "Preview Pull Request",
-      "@other": "Preview pull request"
+      "@darwin": "qem tlhob 'e' yI'ang",
+      "@other": "qem tlhob 'e' yI'ang"
     },
     "pull": {
-      "@darwin": "Pull",
-      "@other": "Pu&ll"
+      "@darwin": "yIHoq",
+      "@other": "&yIHoq"
     },
     "rebase-branch": {
-      "@darwin": "Rebase Current Branch…",
-      "@other": "R&ebase current branch…"
+      "@darwin": "DaH bartIq 'e' yIchenmoHqa'…",
+      "@other": "DaH bart&Iq 'e' yIchenmoHqa'…"
     },
     "redo": {
-      "@darwin": "Redo",
-      "@other": "&Redo"
+      "@darwin": "yIDopmoHqa'",
+      "@other": "y&IDopmoHqa'"
     },
-    "reload-window": "&Reload",
+    "reload-window": "Qo&rwagh 'e' yIqam",
     "remove-repository-confirm": {
-      "@darwin": "Remove…",
-      "@other": "&Remove…"
+      "@darwin": "yIteq…",
+      "@other": "yIt&eq…"
     },
     "remove-repository": {
-      "@darwin": "Remove",
-      "@other": "&Remove"
+      "@darwin": "yIteq",
+      "@other": "yI&teq"
     },
     "rename-branch": {
-      "@darwin": "Rename…",
-      "@other": "&Rename…"
+      "@darwin": "pong 'e' yIchoH…",
+      "@other": "&pong 'e' yIchoH…"
     },
     "repository": {
-      "@darwin": "Repository",
-      "@other": "&Repository"
+      "@darwin": "De' ngaSwI'",
+      "@other": "D&e' ngaSwI'"
     },
     "select-all": {
-      "@darwin": "Select All",
-      "@other": "Select &all"
+      "@darwin": "Hoch 'e' yIwIv",
+      "@other": "&Hoch 'e' yIwIv"
     },
     "show-branches-list": {
-      "@darwin": "Show Branches List",
-      "@other": "&Branches list"
+      "@darwin": "bartIqmey tetlh 'e' yIcha'",
+      "@other": "&bartIqmey tetlh 'e' yIcha'"
     },
     "show-changes-filter": {
-      "@darwin": "Show Changes Filter",
-      "@other": "Show Toggle Chan&ges Filter"
+      "@darwin": "choH QIbwI' 'e' yIcha'",
+      "@other": "ch&oH QIbwI' 'e' yIcha'"
     },
     "show-changes": {
-      "@darwin": "Show Changes",
-      "@other": "&Changes"
+      "@darwin": "choHmey 'e' yIcha'",
+      "@other": "&choHmey 'e' yIcha'"
     },
     "show-devtools": {
-      "@darwin": "Toggle Developer Tools",
-      "@other": "&Toggle developer tools"
+      "@darwin": "chenmoHwI' Sommey 'e' yIcha'",
+      "@other": "ch&enmoHwI' Sommey 'e' yIcha'"
     },
     "show-history": {
-      "@darwin": "Show History",
-      "@other": "&History"
+      "@darwin": "qun 'e' yIcha'",
+      "@other": "&qun 'e' yIcha'"
     },
     "show-keyboard-shortcuts": {
-      "@darwin": "Show Keyboard Shortcuts",
-      "@other": "Show keyboard shortcuts"
+      "@darwin": "nItlh 'echlet qIghmey 'e' yIcha'",
+      "@other": "nItlh 'echlet qIghmey 'e' yIcha'"
     },
     "show-logs": {
-      "@darwin": "Show Logs in Finder",
-      "@other": "S&how logs in your File Manager",
-      "@win32": "S&how logs in Explorer"
+      "@darwin": "FinderDaq QonoS 'e' yIcha'",
+      "@other": "&De' patDaq QonoS 'e' yIcha'",
+      "@win32": "&ExplorereDaq QonoS 'e' yIcha'"
     },
     "show-repository-list": {
-      "@darwin": "Show Repository List",
-      "@other": "Repository &list"
+      "@darwin": "De' ngaSwI'mey tetlh 'e' yIcha'",
+      "@other": "&De' ngaSwI'mey tetlh 'e' yIcha'"
     },
     "show-repository-settings": {
-      "@darwin": "Repository Settings…",
-      "@other": "Repository &settings…"
+      "@darwin": "De' ngaSwI' SeHlaw…",
+      "@other": "De' &ngaSwI' SeHlaw…"
     },
     "show-stashed-changes": {
-      "@darwin": "Show Stashed Changes",
-      "@other": "Sho&w stashed changes"
+      "@darwin": "ngeqlu' choH 'e' yIcha'",
+      "@other": "&ngeqlu' choH 'e' yIcha'"
     },
-    "show-user-guides": "Show User Guides",
+    "show-user-guides": "DevmeH paqmey 'e' yIcha'",
     "show-worktrees-list": {
-      "@darwin": "Show Worktrees List",
-      "@other": "Wor&ktrees list"
+      "@darwin": "vummey tetlh 'e' yIcha'",
+      "@other": "&vummey tetlh 'e' yIcha'"
     },
     "squash-and-merge-branch": {
-      "@darwin": "Squash and Merge into Current Branch…",
-      "@other": "Squas&h and merge into current branch…"
+      "@darwin": "DaH bartIqDaq choHmey yItap 'ej yImergh…",
+      "@other": "DaH bar&tIqDaq choHmey yItap 'ej yImergh…"
     },
     "stash-all-changes-confirm": {
-      "@darwin": "Stash All Changes…",
-      "@other": "&Stash all changes…"
+      "@darwin": "Hoch choH 'e' yIngeq…",
+      "@other": "H&och choH 'e' yIngeq…"
     },
     "stash-all-changes": {
-      "@darwin": "Stash All Changes",
-      "@other": "&Stash all changes"
+      "@darwin": "Hoch choH 'e' yIngeq",
+      "@other": "&Hoch choH 'e' yIngeq"
     },
     "undo": {
-      "@darwin": "Undo",
-      "@other": "&Undo"
+      "@darwin": "yIDopmoH",
+      "@other": "&yIDopmoH"
     },
     "view-pull-request": {
-      "@darwin": "View Pull Request on GitHub",
-      "@other": "View &pull request on GitHub"
+      "@darwin": "qem tlhob 'e' GitHubDaq yI'ang",
+      "@other": "&qem tlhob 'e' GitHubDaq yI'ang"
     },
     "view-repository-on-github": {
-      "@darwin": "View on GitHub",
-      "@other": "&View on GitHub"
+      "@darwin": "GitHubDaq yI'ang",
+      "@other": "&GitHubDaq yI'ang"
     },
     "view": {
-      "@darwin": "View",
-      "@other": "&View"
+      "@darwin": "yI'ang",
+      "@other": "y&I'ang"
     },
     "toggle-full-screen": {
-      "@darwin": "Toggle Full Screen",
-      "@other": "Toggle &full screen"
+      "@darwin": "jIH Hoch 'e' yIchoH",
+      "@other": "&jIH Hoch 'e' yIchoH"
     },
     "reset-zoom": {
-      "@darwin": "Reset Zoom",
-      "@other": "Reset zoom"
+      "@darwin": "motlh jo' 'e' yIwIv",
+      "@other": "motlh jo' 'e' yIwIv"
     },
     "zoom-in": {
-      "@darwin": "Zoom In",
-      "@other": "Zoom in"
+      "@darwin": "yIjo'",
+      "@other": "yIjo'"
     },
     "zoom-out": {
-      "@darwin": "Zoom Out",
-      "@other": "Zoom out"
+      "@darwin": "yIjo'Ha'",
+      "@other": "yIjo'Ha'"
     },
     "open-in-shell": {
-      "@darwin": "Open in {shell}",
-      "@other": "O&pen in {shell}"
+      "@darwin": "{shell}Daq yIpoSmoH",
+      "@other": "{shell}&Daq yIpoSmoH"
     },
     "open-in-shell-default": "Shell",
     "open-in-editor": {
-      "@darwin": "Open in {editor}",
-      "@other": "&Open in {editor}"
+      "@darwin": "{editor}Daq yIpoSmoH",
+      "@other": "{editor}D&aq yIpoSmoH"
     },
-    "open-in-editor-default": "External Editor",
+    "open-in-editor-default": "DoS DI'wI'",
     "update-from": {
-      "@darwin": "Update from {branch}",
-      "@other": "&Update from {branch}"
+      "@darwin": "{branch}Daq De' chu' 'e' yIqem",
+      "@other": "{branch}&Daq De' chu' 'e' yIqem"
     },
     "report-issue": {
-      "@darwin": "Report Issue…",
-      "@other": "Report issue…"
+      "@darwin": "qay' 'e' yIja'…",
+      "@other": "qay' 'e' yIja'…"
     },
     "contact-support": {
-      "@darwin": "Contact GitHub Support…",
-      "@other": "&Contact GitHub support…"
+      "@darwin": "GitHub qot 'e' yInej…",
+      "@other": "&GitHub qot 'e' yInej…"
     },
     "add-to-dictionary": {
-      "@darwin": "Add to Dictionary",
-      "@other": "Add to dictionary"
+      "@darwin": "mu'ghomDaq yIchel",
+      "@other": "mu'ghomDaq yIchel"
     }
   },
   "about": {
@@ -819,18 +1017,18 @@
     "unknown-license": "Unknown license"
   },
   "cli": {
-    "dispatch-title": "Dispatch CLI Action",
-    "open-repository": "Open repository",
-    "clone-url": "Clone URL",
-    "dispatch": "Dispatch",
-    "path": "Path",
+    "dispatch-title": "ra'SommI' nab 'e' yIngeH",
+    "open-repository": "De' ngaSwI' 'e' yIpoSmoH",
+    "clone-url": "URL-vo' De' ngaSwI' yIvoy",
+    "dispatch": "yIngeH",
+    "path": "He",
     "url": "URL",
-    "branch-optional": "Branch (optional)",
+    "branch-optional": "bartIq (nISbe'bogh)",
     "installed-title": {
-      "@darwin": "Command Line Tool Installed",
-      "@other": "Command line tool installed"
+      "@darwin": "ra'SommI' jompu'",
+      "@other": "ra'SommI' jompu'"
     },
-    "installed-info": "The command line tool has been installed at <strong>{path}</strong>."
+    "installed-info": "<strong>{path}</strong>Daq ra'SommI' jompu'lu'."
   },
   "moveToApplications": {
     "title": "Move GitHub Desktop to the Applications folder?",
@@ -842,33 +1040,33 @@
     "not-now": "Not Now"
   },
   "noRepositories": {
-    "start-tutorial": "Start tutorial",
-    "create-tutorial-info": "This will create a repository on your local machine, and push it to your account <ref>{login}</ref> on <link>{endpoint}</link>. This repository will only be visible to you, and not visible publicly.",
-    "continue": "Continue",
-    "get-started": "Let's get started!",
-    "add-repository-hint": "Add a repository to GitHub Desktop to start collaborating",
-    "clone-selected": "Clone <strong>{repository}</strong>",
+    "start-tutorial": "ghojmeH mIw yItagh",
+    "create-tutorial-info": "Dochvam De'wI'lIjDaq De' ngaSwI' chenmoH, 'ach <ref>{login}</ref> mabDaq <link>{endpoint}</link> 'e' yIyuv. De' ngaSwI'vetlh jang neH bIleghlaH, tlhopDaq leghbe'lu'.",
+    "continue": "yitaH",
+    "get-started": "qamaH!",
+    "add-repository-hint": "GitHub DesktopDaq De' ngaSwI' yIchel, yeqmeH ghojmeH mIw yItagh.",
+    "clone-selected": "<strong>{repository}</strong> 'e' yIvoy",
     "return-to-tutorial": {
-      "@darwin": "Return to In Progress Tutorial",
-      "@other": "Return to in progress tutorial"
+      "@darwin": "DaH ghojmeH mIw 'e' yIchegh",
+      "@other": "DaH ghojmeH mIw 'e' yIchegh"
     },
     "create-tutorial": {
-      "@darwin": "Create a Tutorial Repository…",
-      "@other": "Create a tutorial repository…"
+      "@darwin": "ghojmeH De' ngaSwI' chenmoH…",
+      "@other": "ghojmeH De' ngaSwI' chenmoH…"
     },
     "clone-from-internet": {
-      "@darwin": "Clone a Repository from the Internet…",
-      "@other": "Clone a repository from the Internet…"
+      "@darwin": "'InternetDaq De' ngaSwI' yIvoy…",
+      "@other": "'InternetDaq De' ngaSwI' yIvoy…"
     },
     "create-new-repository": {
-      "@darwin": "Create a New Repository on your Local Drive…",
-      "@other": "Create a New Repository on your local drive…"
+      "@darwin": "chu' De' ngaSwI' chenmoH De'wI'lIjDaq…",
+      "@other": "chu' De' ngaSwI' chenmoH De'wI'lIjDaq…"
     },
     "add-existing-repository": {
-      "@darwin": "Add an Existing Repository from your Local Drive…",
-      "@other": "Add an Existing Repository from your local drive…"
+      "@darwin": "De'wI'lIjDaq chenmoHpu'bogh De' ngaSwI' yIchel…",
+      "@other": "De'wI'lIjDaq chenmoHpu'bogh De' ngaSwI' yIchel…"
     },
-    "drag-drop-hint": "<strong>ProTip!</strong> You can drag & drop an existing repository folder here to add it to Desktop"
+    "drag-drop-hint": "<strong>ProTip!</strong> chenmoHpu'bogh De' ngaSwI' 'e' naDev bIHoqlaH 'ach bIchaghlaH, DesktopDaq yIchelmeH."
   },
   "signIn": {
     "title": "Sign in",
@@ -918,9 +1116,9 @@
     "misc-contact": "Contact Us. Please send any questions about these Application Terms to <link>support@github.com</link>."
   },
   "thankYou": {
-    "title": "Thank you {name}!",
-    "note": "Thanks so much for all your hard work on GitHub Desktop{version}. We're so grateful for your willingness to contribute and make the app better for everyone!",
-    "contributed": "You contributed:"
+    "title": "{name} 'e' vItlho'!",
+    "note": "GitHub Desktop {version}Daq Hoch Daqap. tlho' vIghaj. GitHub Desktop Hoch yIDubmeH yIghaq.",
+    "contributed": "bIghaqbogh:"
   },
   "welcome": {
     "aria": "GitHub Desktop 'e' pe'vIl Supaw'jaj!",
@@ -968,7 +1166,7 @@
     "unsafe-repository-trust": "The Git repository appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository. If you trust the owner of the directory you can <link>add an exception for this directory</link> in order to continue."
   },
   "appMenu": {
-    "application-menu": "Application menu"
+    "application-menu": "GitHub Desktop HIDjolev"
   },
   "branches": {
     "checkout-in-new-worktree": "Checkout in new worktree…",
@@ -1164,10 +1362,10 @@
     "jobStepAria": "{stepName}, {duration}, {status}"
   },
   "checkout": {
-    "checkout": "Checkout",
-    "confirm-message": "Checking out a commit will create a detached HEAD, and you will no longer be on any branch. Are you sure you want to checkout this commit?",
-    "dont-show-again": "Do not show this message again",
-    "title": "Checkout Commit?"
+    "checkout": "yIwIv",
+    "confirm-message": "choH vemvam yIwIvDI', nach ngaQmoHbe'bogh chenmoHlu' 'ach bartIq bIghajbe'. choH vemvam 'e' yIwIv DaneHbej'a'?",
+    "dont-show-again": "QInvam 'e' yIcha'be'qa'",
+    "title": "choH vem 'e' yIwIv?"
   },
   "chooseForkSettings": {
     "continue": "Continue",
@@ -1263,21 +1461,21 @@
     "protected-branch": "<strong>{branch}</strong> is a protected branch. Want to <link>switch branches</link>?"
   },
   "createBranch": {
-    "based-on-commit": "Your new branch will be based on the commit '{summary}' ({sha}) from your repository.",
-    "based-on-label": "Create branch based on…",
-    "branch-exists-error": "A branch named {name} already exists.",
-    "could-not-determine-default-branch": "Could not determine the default branch.",
-    "create-branch-ok": "Create Branch",
-    "current-branch-description": "The currently checked out branch. Pick this if you need to build on work done on this branch.",
-    "default-branch-description": "The default branch in your repository. Pick this to start on something new that",
-    "detached-head": "You do not currently have any branch checked out (your HEAD reference is detached). As such your new branch will be based on your currently checked out commit ({sha}).",
-    "name": "Name",
-    "title": "Create a Branch",
-    "unborn-branch": "Your current branch is unborn (does not contain any commits). Creating a new branch will rename the current branch.",
-    "upstream-default-branch-description": "The default branch of the upstream repository. Pick this to start on something new that",
-    "current-is-default": "<ref>{branch}</ref> is the <defaultLink/> for your repository.",
-    "fork-settings-hint": "Your default branch source is determined by your <link>fork behavior settings</link>.",
-    "default-branch-link": "default branch"
+    "based-on-commit": "lIj bartIq chu' 'oH lIj De' ngaSwI'Daq choH vem '{summary}' ({sha})Daq waw chenmoHbogh.",
+    "based-on-label": "wawDaq bartIq 'e' chenmoH…",
+    "branch-exists-error": "{name} pong bartIq wejHa' nargh.",
+    "could-not-determine-default-branch": "motlh bartIq Sambe'lu'.",
+    "create-branch-ok": "bartIq 'e' chenmoH",
+    "current-branch-description": "DaH wIvbogh bartIq. 'vam yIwIv, bartIqvamDaq vum chu' chenmoHmeH.",
+    "default-branch-description": "lIj De' ngaSwI'Daq motlh bartIq. 'vam yIwIv, nuq chu' taghmeH.",
+    "detached-head": "DaH bartIq bIghajbe' wIvbogh (lIj nach ngaQmoHbe'bogh 'oH). 'ach lIj bartIq chu' DaH wIvbogh choH vem ({sha})Daq waw 'oHtaH.",
+    "name": "pong",
+    "title": "bartIq 'e' chenmoH",
+    "unborn-branch": "lIj DaH bartIq narghbe'bogh (choH vem bIghajbe'). bartIq chu' chenmoHDI', DaH bartIq pong choHlu'.",
+    "upstream-default-branch-description": "tagh De' ngaSwI'Daq motlh bartIq. 'vam yIwIv, nuq chu' taghmeH.",
+    "current-is-default": "<ref>{branch}</ref> 'oH lIj De' ngaSwI'Daq <defaultLink/>.",
+    "fork-settings-hint": "lIj motlh bartIq waw 'oH <link>puq chonnaQ nab tu'qommey</link>Daq chenmoHlu'.",
+    "default-branch-link": "motlh bartIq"
   },
   "createTag": {
     "create-tag-ok": "Create Tag",
@@ -1292,22 +1490,22 @@
     "tag-exists": "A tag named <ref>{name}</ref> already exists"
   },
   "deleteBranch": {
-    "cannot-undo": "This action cannot be undone.",
-    "delete": "Delete",
-    "delete-on-remote": "Yes, delete this branch on the remote",
-    "delete-remote-title": "Delete Remote Branch",
-    "open-pr-warning": "This branch may have an open pull request associated with it.",
-    "remote-exists-question": "The branch also exists on the remote, do you wish to delete it there as well?",
-    "remote-only-warning": "This branch does not exist locally. Deleting it may impact others collaborating on this branch.",
-    "title": "Delete Branch",
-    "confirm-message": "Delete branch <ref>{branch}</ref>?",
-    "confirm-remote-message": "Delete remote branch <ref>{branch}</ref>?",
-    "open-pr-hint": "If <link>#{number}</link> has been merged, you can also go to GitHub to delete the remote branch."
+    "cannot-undo": "nabvam DopmoHlaHbe'lu'.",
+    "delete": "yIqaw",
+    "delete-on-remote": "lu', bartIqvam 'e' HopDaq yIqaw",
+    "delete-remote-title": "HopDaq bartIq 'e' yIqaw",
+    "open-pr-warning": "chaq bartIqvam je qem tlhob nargh.",
+    "remote-exists-question": "bartIqvam HopDaq nargh je. HopDaq 'e' yIqaw DaneH'a'?",
+    "remote-only-warning": "bartIqvam lIjDaq narghbe'. qawDI', HopDaq yeqbogh latlhpu' qay' DuH.",
+    "title": "bartIq 'e' yIqaw",
+    "confirm-message": "bartIq <ref>{branch}</ref> 'e' yIqaw?",
+    "confirm-remote-message": "HopDaq bartIq <ref>{branch}</ref> 'e' yIqaw?",
+    "open-pr-hint": "<link>#{number}</link> merghchugh, GitHub yIjaH 'ach HopDaq bartIq 'e' yIqaw."
   },
   "deleteTag": {
-    "delete": "Delete",
-    "title": "Delete Tag",
-    "confirm-message": "Are you sure you want to delete the tag <ref>{tag}</ref>?"
+    "delete": "yIqaw",
+    "title": "per 'e' yIqaw",
+    "confirm-message": "per <ref>{tag}</ref> 'e' yIqaw DaneHbej'a'?"
   },
   "diff": {
     "added": "added",
@@ -1449,32 +1647,32 @@
     }
   },
   "installGit": {
-    "install": "Install Git",
-    "message": "We were unable to locate Git on your system. This means you won't be able to execute any Git commands in the {terminal}.",
+    "install": "Git yIjom",
+    "message": "bIj De'wI' patDaq Git chIl. {terminal}Daq Hoch Git ra' bIlo'laHbe'.",
     "openWithoutGit": {
-      "@darwin": "Open Without Git",
-      "@other": "Open without Git"
+      "@darwin": "Git Hutlh yIpoSmoH",
+      "@other": "Git Hutlh yIpoSmoH"
     },
-    "resources": "To help you get Git installed and configured for your operating system, we have some external resources available.",
+    "resources": "De'wI' patDaq Git jommeH 'ach tu'qom wIvmeH, QaHmeH Supmey 'oH.",
     "terminal": {
-      "@darwin": "Terminal window",
-      "@other": "command prompt"
+      "@darwin": "ra'SommI' Qorwagh",
+      "@other": "ra' Qorwagh"
     },
     "title": {
-      "@darwin": "Unable to Locate Git",
-      "@other": "Unable to locate Git"
+      "@darwin": "Git Sambe'lu'",
+      "@other": "Git Sambe'lu'"
     }
   },
   "installingUpdate": {
-    "message": "Do not close GitHub Desktop while the update is in progress. Closing now may break your installation.",
-    "quitAnyway": "Quit Anyway",
-    "title": "Installing Update…"
+    "message": "De' chu' jombogh GitHub Desktop 'e' yISoQmoHbe'. DaH yISoQmoHchugh, jompu''e' DopmoHlaH.",
+    "quitAnyway": "yISoQmoH neH",
+    "title": "De' chu' jomlu'…"
   },
   "invalidatedToken": {
-    "no": "No",
-    "title": "Invalidated Account Token",
-    "yes": "Yes",
-    "message": "Your account token is no longer valid and you have been signed out from your <ref>{endpoint}</ref> account. Do you want to sign in again?"
+    "no": "HISlaHbe'",
+    "title": "mab ngoq ghenbe'",
+    "yes": "HISlaH",
+    "message": "lIj mab ngoq ghenbe' 'ach <ref>{endpoint}</ref> mabvo' bIngaQHa'moHbe'lu'. ngaQHa'moHqa' 'e' DaneH'a'?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -1752,17 +1950,17 @@
     "merge-status-loading": "<strong>Checking mergeability...</strong> Don't worry, you can still create the pull request."
   },
   "publish": {
-    "description": "Description",
-    "dotcom-sign-in-description": "Sign in to your GitHub.com account to access your repositories.",
-    "enterprise-sign-in-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories.",
-    "keep-private": "Keep this code private",
-    "name": "Name",
-    "none": "None",
-    "organization": "Organization",
-    "publish-repository-ok": "Publish Repository",
-    "sign-in": "Sign In",
-    "title": "Publish Repository",
-    "will-be-created-as": "Will be created as {name}"
+    "description": "QIjwI'",
+    "dotcom-sign-in-description": "GitHub.com mab 'e' yIngaQHa'moH 'ach lIj De' ngaSwI'pu' naw'meH.",
+    "enterprise-sign-in-description": "vumDaq GitHub Enterprise 'e' lo'chugh, GitHub Enterprise 'e' yIngaQHa'moH 'ach lIj De' ngaSwI'pu' naw'meH.",
+    "keep-private": "ngoqvam 'e' pegh yIpol",
+    "name": "pong",
+    "none": "pagh",
+    "organization": "DIvI'",
+    "publish-repository-ok": "De' ngaSwI' 'e' yI'ang",
+    "sign-in": "yIngaQHa'moH",
+    "title": "De' ngaSwI' 'e' yI'ang",
+    "will-be-created-as": "De' ngaSwI' {name} pong chenmoHlu'."
   },
   "pushNeedsPull": {
     "fetch": "Fetch",
@@ -1778,15 +1976,15 @@
     }
   },
   "removeRepository": {
-    "confirm-message": "Are you sure you want to remove the repository \"{name}\" from GitHub Desktop?",
-    "move-to-trash": "Also move this repository to ",
-    "title": "Remove Repository",
-    "will-be-removed": "The repository will be removed from GitHub Desktop:"
+    "confirm-message": "De' ngaSwI' \"{name}\" GitHub Desktopvo' teq 'e' DaneHbej'a'?",
+    "move-to-trash": "De' ngaSwI'vam 'oH veQDaq yIQay je",
+    "title": "De' ngaSwI' 'e' yIteq",
+    "will-be-removed": "De' ngaSwI' 'oH GitHub Desktopvo' teq."
   },
   "renameBranch": {
-    "name": "Name",
-    "rename-button": "Rename {branch}",
-    "title": "Rename Branch"
+    "name": "pong",
+    "rename-button": "{branch} pong 'e' yIchoH",
+    "title": "bartIq pong 'e' yIchoH"
   },
   "repositoryAlias": {
     "alias": "Alias",
@@ -1821,9 +2019,9 @@
     "no-remote-message": "Publish your repository to GitHub. Need help? <link>Learn more about remote repositories.</link>"
   },
   "reset": {
-    "continue": "Continue",
-    "title": "Reset to Commit",
-    "warning": "Warning"
+    "continue": "yitaH",
+    "title": "choH vemnDaq yIchegh",
+    "warning": "ghuHmoH"
   },
   "samlReauth": {
     "confirm": "Would you like to open a browser to grant GitHub Desktop permission to access the repository?",
@@ -1867,36 +2065,36 @@
     "remediation": "Allowing secrets risks exposure. Consider <link>removing the secret from your commit and commit history.</link>"
   },
   "ssh": {
-    "confirmConnect": "Are you sure you want to continue connecting?",
-    "hostAuthenticity": "The authenticity of host '{host} ({ip})' can't be established. {keyType} key fingerprint is {fingerprint}.",
-    "hostTitle": "SSH Host",
-    "keyPassphraseLabel": "Enter passphrase for key '{keyPath}':",
-    "keyPassphraseTitle": "SSH Key Passphrase",
-    "no": "No",
-    "rememberPassphrase": "Remember passphrase",
-    "rememberPassword": "Remember password",
-    "userPasswordLabel": "Enter password for '{username}':",
-    "userPasswordTitle": "SSH User Password",
-    "yes": "Yes"
+    "confirmConnect": "rar 'e' taH DaneHbej'a'?",
+    "hostAuthenticity": "De'wI' '{host} ({ip})' tlhI' cherlaHbe'lu'. {keyType} ngaQHa'moHwI' nItlh Su'nIm vem 'oH {fingerprint}.",
+    "hostTitle": "SSH De'wI'",
+    "keyPassphraseLabel": "'{keyPath}' ngaQHa'moHwI' chaw' ngoq 'e' yIghItlh:",
+    "keyPassphraseTitle": "SSH ngaQHa'moHwI' chaw' ngoq",
+    "no": "HISlaHbe'",
+    "rememberPassphrase": "chaw' ngoq yIqaw",
+    "rememberPassword": "chaw' ngoq yIqaw",
+    "userPasswordLabel": "'{username}' chaw' ngoq 'e' yIghItlh:",
+    "userPasswordTitle": "SSH lo'wI' chaw' ngoq",
+    "yes": "HISlaH"
   },
   "stashChanges": {
-    "actionLabel": "You have changes on this branch. What would you like to do with them?",
-    "bringDescription": "Your in-progress work will follow you to the new branch",
-    "bringTitle": "Bring my changes to {branchName}",
-    "leaveDescription": "Your in-progress work will be stashed on this branch for you to return to later",
-    "leaveTitle": "Leave my changes on {branchName}",
+    "actionLabel": "bartIqvamDaq choHmey bIghaj. nuq DaneH?",
+    "bringDescription": "lIj vum chu' bartIqDaq lIjDaq ghoS.",
+    "bringTitle": "{branchName}Daq choHmeywI' 'e' yIqem",
+    "leaveDescription": "lIj vum 'e' bartIqvamDaq pol, SIbI'Ha' yIcheghmeH.",
+    "leaveTitle": "{branchName}Daq choHmeywI' 'e' yIpol",
     "overwrite": {
-      "message": "Are you sure you want to proceed? This will overwrite your existing stash with your current changes.",
-      "ok": "Overwrite",
+      "message": "ruch 'e' DaneHbej'a'? polwI' chu' chenmoHDI', DaH choHmey 'e' yIghItlhqa'.",
+      "ok": "yIghItlhqa'",
       "title": {
-        "@darwin": "Overwrite Stash?",
-        "@other": "Overwrite stash?"
+        "@darwin": "polwI' 'e' yIghItlhqa'?",
+        "@other": "polwI' 'e' yIghItlhqa'?"
       }
     },
-    "overwriteWarning": "Your current stash will be overwritten by creating a new stash",
+    "overwriteWarning": "polwI' chu' chenmoHDI', lIj polwI' ghItlhqa'lu'.",
     "switchBranch": {
-      "@darwin": "Switch Branch",
-      "@other": "Switch branch"
+      "@darwin": "bartIq 'e' yIchoH",
+      "@other": "bartIq 'e' yIchoH"
     }
   },
   "unknownAuthors": {
@@ -2113,15 +2311,15 @@
     }
   },
   "configureGitUser": {
-    "exampleCommit": "Example commit",
-    "exampleCommitSummary": "Fix all the things"
+    "exampleCommit": "chovnatlh choH vem",
+    "exampleCommitSummary": "Hoch 'e' yItI'"
   },
   "relativeTime": {
-    "justNow": "just now"
+    "justNow": "DaH"
   },
   "repositoryTabs": {
-    "changes": "Changes",
-    "history": "History"
+    "changes": "choHmey",
+    "history": "qun"
   },
   "updateAvailableBanner": {
     "restartNow": "restart GitHub Desktop",
@@ -2140,7 +2338,7 @@
     "showcaseVersion": " with GitHub Desktop {version}"
   },
   "successBanner": {
-    "undo": "Undo"
+    "undo": "yIDopmoH"
   },
   "thankYouCard": {
     "message": "The Desktop team would like to thank you for your contributions.",
@@ -2238,10 +2436,10 @@
     }
   },
   "tooltippedSha": {
-    "copy": "Copy"
+    "copy": "yIwoH"
   },
   "tutorialPanelSkip": {
-    "skip": "Skip"
+    "skip": "yInop"
   },
   "cloneRepositoryTabs": {
     "dotcomTab": "GitHub.com",
@@ -2249,8 +2447,8 @@
     "urlTab": "URL"
   },
   "branchesContainerTabs": {
-    "branchesTab": "Branches",
-    "pullRequestsTab": "Pull Requests"
+    "branchesTab": "bartIqmey",
+    "pullRequestsTab": "qem tlhobmey"
   },
   "preferencesIntegrations": {
     "copilotHeading": "GitHub Copilot"
@@ -2358,21 +2556,21 @@
     "sanitizedLive": "Will be created as {sanitizedName}. Invalid characters have been replaced by hyphens."
   },
   "missingRepository": {
-    "checkAgain": "Check again.",
-    "locate": "Locate…",
-    "cloneAgain": "Clone Again",
+    "checkAgain": "yI'olqa'.",
+    "locate": "yISam…",
+    "cloneAgain": "yIvoyqa'",
     "trustRepository": {
-      "@darwin": "Trust Repository",
-      "@other": "Trust repository"
+      "@darwin": "De' ngaSwI' 'e' yIvoq",
+      "@other": "De' ngaSwI' 'e' yIvoq"
     },
-    "potentiallyUnsafe": "{name} is potentially unsafe",
-    "unsafeRepository": "The Git repository at <ref>{path}</ref> appears to be owned by another user on your machine. Adding untrusted repositories may automatically execute files in the repository.",
-    "trustOwner": "If you trust the owner of the directory you can add an exception for this directory in order to continue.",
-    "cantFind": "Can't find \"{name}\"",
-    "lastSeenAt": "It was last seen at <path>{path}</path>. <link/>"
+    "potentiallyUnsafe": "{name} ghaytan Qob 'oH.",
+    "unsafeRepository": "Git De' ngaSwI' <ref>{path}</ref>Daq ghajwI' pIm nargh. voqbe'bogh De' ngaSwI'pu' chelDI', De' ngaSwI'Daq De'pu' QaplaH.",
+    "trustOwner": "ngaSwI' ghajwI' yIvoqchugh, ngaSwI'vam 'e' pIm yIchenmoH 'ach yItaH.",
+    "cantFind": "\"{name}\" SamlaHbe'.",
+    "lastSeenAt": "<path>{path}</path>Daq tagha' leghlu'. <link/>"
   },
   "repository": {
-    "sidebar": "Repository sidebar"
+    "sidebar": "De' ngaSwI' retlh vol"
   },
   "commitMessageOverride": {
     "title": "Commit message override",
@@ -2413,19 +2611,19 @@
     "branchFilter": "Branch filter"
   },
   "gitUser": {
-    "configureManually": "Configure manually",
-    "yourNamePlaceholder": "Your Name",
-    "useGitHubAccount": "Use my {account} account name and email address"
+    "configureManually": "ruQ 'e' yISeH",
+    "yourNamePlaceholder": "pong lIj",
+    "useGitHubAccount": "{account} mabDaq pong lIj 'ej nav QIn lIj yIwIv"
   },
   "enterprise": {
-    "addressLabel": "Enterprise address"
+    "addressLabel": "GitHub Enterprise URL"
   },
   "password": {
-    "toggleVisibility": "Toggle password visibility",
-    "toggleVisibilityAria": "Toggle password visibility"
+    "toggleVisibility": "chaw' ngoq So' 'e' yIchoH",
+    "toggleVisibilityAria": "chaw' ngoq So' 'e' yIchoH"
   },
   "iconPreview": {
-    "title": "Icon Preview"
+    "title": "vo'nIng wa' legh"
   },
   "openWithEditor": {
     "selectEditor": "Select an editor",
@@ -2436,15 +2634,15 @@
   },
   "editorError": {
     "title": {
-      "@darwin": "Unable to Open External Editor",
-      "@other": "Unable to open external editor"
+      "@darwin": "DI'wI' 'e' poSmoHlaHbe'",
+      "@other": "DI'wI' 'e' poSmoHlaHbe'"
     },
-    "download": "Download {name}"
+    "download": "{name} 'e' lI'"
   },
   "shellError": {
     "title": {
-      "@darwin": "Unable to Open Shell",
-      "@other": "Unable to open shell"
+      "@darwin": "ra'SommI' 'e' poSmoHlaHbe'",
+      "@other": "ra'SommI' 'e' poSmoHlaHbe'"
     }
   },
   "releaseNotes": {
@@ -2515,32 +2713,32 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Resize handle"
+    "resizeHandle": "vItlh choHwI' jI'ev"
   },
   "stash": {
-    "fileListDescription": "Stash file list"
+    "fileListDescription": "polwI' De' tetlh"
   },
   "toolbar": {
-    "currentBranchButton": "Current branch dropdown button",
-    "fetchFrom": "Fetch {branch}",
-    "fetchFromDescription": "Fetch the latest changes from {branch}",
-    "warningTitle": "Warning:",
-    "forcePushWarning": "A force push will rewrite history on the remote. Any collaborators working on this branch will need to reset their own local branch to match the history of the remote.",
-    "forcePushTo": "Force push {branch}",
-    "overwriteOn": "Overwrite any changes on {branch} with your local changes",
-    "pushPullButton": "Push pull button",
-    "publishRepository": "Publish repository",
-    "publishRepositoryDescription": "Publish this repository to GitHub",
-    "publishBranch": "Publish branch",
-    "currentWorktreeButton": "Current worktree dropdown button",
-    "currentBranchIsTooltip": "Current branch is {ref}",
-    "checkingOutTooltip": "Checking out {branch}",
-    "currentBranch": "Current branch",
-    "onCommit": "On {sha}",
-    "detachedHead": "Detached HEAD",
-    "detachedHeadTooltip": "Currently on a detached HEAD",
-    "rebasingBranch": "Rebasing branch",
-    "rebasingTooltip": "Rebasing {branch}"
+    "currentBranchButton": "DaH bartIq SeHjan",
+    "fetchFrom": "{branch} 'e' yIqem",
+    "fetchFromDescription": "{branch}Daq De' chu' 'e' yIqem",
+    "warningTitle": "ghuHmoH:",
+    "forcePushWarning": "HoS 'e' yIlo' 'ach yuvDI', HopDaq qun 'e' ghItlhchoHlu'. bartIqvamDaq vumbogh yeqwI' Hoch, HopDaq qun 'e' nelmeH, lIjDaq bartIq 'e' yIcheghqa'.",
+    "forcePushTo": "HoS 'e' yIlo' 'ach {branch} 'e' yIyuv",
+    "overwriteOn": "{branch}Daq choHmey Hoch yIteq, lIjDaq choHmey 'e' yIghItlh",
+    "pushPullButton": "yuv 'ej qem SeHjan",
+    "publishRepository": "De' ngaSwI' 'e' yI'ang",
+    "publishRepositoryDescription": "De' ngaSwI'vam 'e' GitHubDaq yI'ang",
+    "publishBranch": "bartIq 'e' yI'ang",
+    "currentWorktreeButton": "DaH vum Daq SeHjan",
+    "currentBranchIsTooltip": "{ref} 'oH DaH bartIq'e'",
+    "checkingOutTooltip": "{branch} 'e' wIwIv",
+    "currentBranch": "DaH bartIq",
+    "onCommit": "{sha}Daq",
+    "detachedHead": "ngaQmoHbe'bogh nach",
+    "detachedHeadTooltip": "DaH ngaQmoHbe'bogh nachDaq 'oHtaH maH.",
+    "rebasingBranch": "waw' chu' chenmoHbogh bartIq",
+    "rebasingTooltip": "{branch} 'e' waw' chu' yIchenmoH"
   },
   "revertProgress": {
     "title": "Reverting…",
@@ -2676,11 +2874,11 @@
     }
   },
   "authentication": {
-    "browserRedirect": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop please allow it to."
+    "browserRedirect": "ngaQHa'moHpu'ta', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'."
   },
   "branchName": {
-    "rulesRestricted": "Branch name '{branchName}' is restricted by repo rules.",
-    "rulesBypassable": "Branch name '{branchName}' is restricted by repo rules, but you can bypass them. Proceed with caution!"
+    "rulesRestricted": "'{branchName}' pong bartIq 'e' De' ngaSwI' chutmey tuch.",
+    "rulesBypassable": "'{branchName}' pong bartIq 'e' De' ngaSwI' chutmey tuch, 'ach bIjuSlaH. yIjaH 'ach yIqep!"
   },
   "gitEmail": {
     "learnMoreAria": "Learn more about commit attribution",
@@ -2691,7 +2889,7 @@
     "accountMultiple": "either of your GitHub.com nor GitHub Enterprise accounts"
   },
   "openFile": {
-    "noExternalProgram": "Unable to open file {fullPath} in an external program. Please check you have a program associated with this file extension"
+    "noExternalProgram": "De' {fullPath} 'e' poSlaHbe'. yI'ol 'ach bIghaj De'wI' pat 'e' nel."
   },
   "authorInput": {
     "userNotFound": "Could not find user with username {username}",
@@ -2700,19 +2898,19 @@
     "coAuthors": "Co-Authors"
   },
   "suggestedActions": {
-    "branchAria": "Suggested actions for this branch"
+    "branchAria": "bartIqvamDaq nargh nabmey"
   },
   "avatar": {
-    "forUser": "Avatar for {name}",
-    "unknown": "Avatar for unknown user"
+    "forUser": "{name} qab vo'nIng",
+    "unknown": "lo'wI' Sambe'bogh qab vo'nIng"
   },
   "historyCompare": {
     "comparedBranchUpToDate": "The compared branch (<ref/>) is up to date with your branch",
     "yourBranchUpToDate": "Your branch is up to date with the compared branch (<ref/>)"
   },
   "branchNameWarnings": {
-    "trackingWarning": "This branch is tracking <ref/> and renaming this branch will not change the branch name on the remote.",
-    "nameExistsOnRemote": "A branch named <ref/> already exists on the remote."
+    "trackingWarning": "bartIqvam 'oH <ref/> 'e' ghoS, pong choHDI' HopDaq bartIq pong choHlaHbe'.",
+    "nameExistsOnRemote": "<ref/> pong bartIq HopDaq wejHa' nargh."
   },
   "copilotApp": {
     "notFoundMessage": "Couldn't find the GitHub Copilot App on your machine. Experience agent-driven development built natively on GitHub by <download>downloading GitHub Copilot</download>.",
@@ -2735,8 +2933,8 @@
     }
   },
   "branchesContainer": {
-    "chooseMergeInto": "Choose a branch to merge into <branch/>",
-    "chooseMergeIntoTooltip": "Choose a branch to merge into {branch}"
+    "chooseMergeInto": "<branch/> Daq choHmey yImerghmeH bartIq 'e' yIwIv",
+    "chooseMergeIntoTooltip": "{branch} Daq choHmey yImerghmeH bartIq 'e' yIwIv"
   },
   "copilotDisclaimer": {
     "poweredByAi": "Copilot is powered by AI, so mistakes are possible.",
@@ -2764,8 +2962,8 @@
   },
   "successfulCherryPick": {
     "copied": {
-      "_one": "Successfully copied {count:number} commit to <strong>{branch}</strong>.",
-      "_other": "Successfully copied {count:number} commits to <strong>{branch}</strong>."
+      "_one": "<strong>{branch}</strong> Daq choH vem {count:number} 'e' woHlu' Qapla'.",
+      "_other": "<strong>{branch}</strong> Daq choH vempu' {count:number} 'e' woHlu' Qapla'."
     }
   },
   "authorHandle": {
@@ -2815,11 +3013,11 @@
     "deleteAndRetry": "This can happen if another tool is currently modifying the Git configuration or if a Git process has terminated earlier without cleaning up the lock file. Do you want to <link>delete the lock file</link> and try again?"
   },
   "textBox": {
-    "clear": "Clear",
-    "inputCleared": "Input cleared"
+    "clear": "yIHuv",
+    "inputCleared": "ghItlh Huvlu'"
   },
   "fullScreenInfo": {
-    "exitFullscreen": "Press <shortcut/> to exit fullscreen"
+    "exitFullscreen": "<shortcut/> 'e' yIlo', jIH Hoch 'e' yI'elHa'"
   },
   "addWorktreeDialog": {
     "willCheckOutRemoteBranch": "Will check out remote branch <ref>{branch}</ref>.",
@@ -2932,8 +3130,8 @@
     "retryAfterDate": "You can try again after {retryAfter}."
   },
   "commitProgress": {
-    "title": "Committing changes",
-    "close": "Close"
+    "title": "choHmey 'e' qon",
+    "close": "yISoQmoH"
   },
   "appStore": {
     "refreshingRepository": {
@@ -2947,20 +3145,20 @@
   },
   "revealDirectory": {
     "title": {
-      "@darwin": "Reveal Repository in Finder?",
-      "@win32": "Reveal Repository in File Explorer?",
-      "@other": "Reveal Repository in the file manager?"
+      "@darwin": "FinderDaq De' ngaSwI' 'e' yI'ang'a'",
+      "@win32": "File ExplorerDaq De' ngaSwI' 'e' yI'ang'a'",
+      "@other": "De' patDaq De' ngaSwI' 'e' yI'ang'a'"
     },
-    "message": "This repository might be an application.",
+    "message": "De' ngaSwI'vam ghaytan nIqHom 'oH.",
     "detail": {
-      "@darwin": "Opening it directly could run software. You can reveal and select it in Finder without opening it.",
-      "@win32": "Opening it directly could run software. You can reveal and select it in File Explorer without opening it.",
-      "@other": "Opening it directly could run software. You can reveal and select it in the file manager without opening it."
+      "@darwin": "pIQ poSmoHchugh nIqHom QaplaH. FinderDaq yI'ang 'ach yIwIv, poSmoHbe' 'ach.",
+      "@win32": "pIQ poSmoHchugh nIqHom QaplaH. File ExplorerDaq yI'ang 'ach yIwIv, poSmoHbe' 'ach.",
+      "@other": "pIQ poSmoHchugh nIqHom QaplaH. De' patDaq yI'ang 'ach yIwIv, poSmoHbe' 'ach."
     },
     "revealButton": {
-      "@darwin": "Reveal in Finder",
-      "@win32": "Reveal in File Explorer",
-      "@other": "Reveal in file manager"
+      "@darwin": "FinderDaq yI'ang",
+      "@win32": "File ExplorerDaq yI'ang",
+      "@other": "De' patDaq yI'ang"
     }
   },
   "contextMenu": {
@@ -3007,11 +3205,11 @@
     "renameButton": "Rename {name}"
   },
   "cloningRepository": {
-    "title": "Cloning {repository}"
+    "title": "{repository} 'e' voylu'"
   },
   "hooks": {
-    "killedBySignal": "{hookName} hook killed by signal {signal} after {duration}s",
-    "failedWithCode": "{hookName} hook failed with code {code} after {duration}s",
-    "done": "{hookName} hook done after {duration}s"
+    "killedBySignal": "{hookName} SIrIl ghoptel {signal}Daq HoHlu' {duration} retlhvo'",
+    "failedWithCode": "{hookName} SIrIl {code} ngoq 'e' laHbe' {duration} retlhvo'",
+    "done": "{hookName} SIrIl pItlh {duration} retlhvo'"
   }
 }
