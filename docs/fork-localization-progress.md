@@ -35,7 +35,7 @@ yarn l10n:untranslated <tag>
 | `la` | 28 | 2 011 | 1 718 | переведён, остаток — бренды и подстановки |
 | `eo` | 20 | 2 011 | 1 791 | переведён, остаток — бренды и подстановки |
 | `tlh` | 1 362 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu`/`settings` и частичный батч |
-| `qya` | 1 589 | 2 011 | 422 | те же группы, но `menu` закрыт, а `about`/`welcome` — 36 ключей из 59 |
+| `qya` | 1 364 | 2 011 | 422 | группы `about`/`common`/`welcome`/`menu`/`settings`, `about`/`welcome` — 36 ключей из 59 |
 
 Числа сняты 18.10.2026 тем же `--untranslated`, после аудита латыни и эсперанто
 (69 и 6 исправленных форм), после закрытия verbatim-дыр (41 и 8) и после
@@ -48,7 +48,10 @@ yarn l10n:untranslated <tag>
 `Rebaziĝo`, `repositoryAlias.alias` → `Alinomo`. Тем же вечером закрыта группа
 `menu` в двух конланговых каталогах: 144 формы в `tlh` (`E:/tmp/tlh_menu_fill.py`)
 и 144 в `qya` (`E:/tmp/qya_menu_fill.py`) — у квенья осталось 1589 только потому,
-что `menu.open-in-shell-default` = `Shell` совпадает с оригиналом по сути. Остаток
+что `menu.open-in-shell-default` = `Shell` совпадает с оригиналом по сути. Следом
+закрыта группа `settings`: у `tlh` 1 362 (`E:/tmp/tlh_settings_fill.py`), у `qya`
+1 364 (`E:/tmp/qya_settings_fill.py`) — счётчики двух конлангов сошлись с
+разницей в два ключа. Остаток
 `la`/`eo` — то же, что и у
 русского: `Copilot`, `Git`, `Azure`, `Anthropic`, `GitHub.com`, `GitHub Enterprise`,
 `URL`, `Apple silicon`, `Arm64`, `{example} ({pattern})`, `{speed}/s` и подобные
@@ -81,8 +84,8 @@ yarn l10n:untranslated <tag>
 и маска из en-копий выглядела бы переведённой полностью. Поэтому каждый батч
 дописывает свои ключи в `meta.ready` — 1 746 у `la` и `eo` (каталог закрыт весь:
 остались только бренды и чистые подстановки), 541 у `tlh` (257 прежних +
-76 строк `menu` + 208 строк `settings`) и 333 у `qya` (257 прежних +
-76 строк `menu`; см. «Почему у
+76 строк `menu` + 208 строк `settings`) и 541 у `qya` (257 прежних +
+76 строк `menu` + 208 строк `settings`; см. «Почему у
 квенья 36 ключей, а не 59» выше). Строки,
 совпадающие с английским по сути (`about.downloadingLine`), в этот список входят:
 готовая — не значит отличная от оригинала, значит «переводчик её закрыл».
@@ -103,6 +106,7 @@ yarn l10n:untranslated <tag>
 | `e463ff01f3` | `tlh` | `menu` | 76 | 145 | boQwI' + Eldamo/Klingon AI: `bartIq`, `De' ngaSwI'` |
 | этот | `qya` | `menu` | 76 | 145 | Eldamo (`qya_attest.py --gloss/--show`): `olba`, `haura`, `quettasta`, `remparma` |
 | этот | `tlh` | `settings` | 208 | 233 | boQwI' (`tlh_gloss_search.py`) + Computer Terms: `vep`, `DeQ`, `vuS`, `taw Dor` |
+| этот | `qya` | `settings` | 208 | 233 | Eldamo (`qya_attest.py --gloss/--show`): `sinwata-`, `nemesta`, `cantemma`, `hríma`, `pella` |
 
 ## Методика батчей
 
@@ -230,8 +234,65 @@ accessibility, `woQ Qorwagh` «окно подтверждения» для conf
 ближайший по смыслу подтверждённый корень (`jem` для detected, `'ol` для make sure /
 check, `Hev` для available — по образцу `about.dev-no-updates`).
 
-## Формы множественного числа
+### Настройки квенья: опора только на дамп, четыре опоры пересняты (`qya`)
 
+`E:/tmp/qya_settings_fill.py` — те же 208 путей, что у клингонского батча, но
+опоры другие: каждое слово либо из дампа Eldamo (`--show` по лемме, `--gloss` по
+английской глоссе, `--forms` по основе), либо собрано из аттестованных основ и
+тогда помечено в `gloss_qya.json` как `source: not`. Так закрыты термины, которых
+в языке нет: «уведомление» = `sinwatië` (sinwata- «to make known, announce,
+notify»), «интеграции» = `ocarië` (ocar- «to cooperate, work together»),
+«подтверждения» = `tancatië` (tancata- «to make firm, fix, confirm», 6 форм),
+«внешность» = аттестованное `nemesta` («appearance, seeming»), «расширенные» =
+`tumba partië` (tumba — q прил. «deep, lowlying»), «граница лимита» = `hríma`
+(«edge, hem, border») с послелогом `pella` («beyond (boundary or limit)»),
+«модель ИИ» = `cantemma` («shaped image, sculpture»), «провайдер» = `antindo`
+(anta- «to give» + -indo по прецеденту `tecindo`/`minasurindo`), «поставщик
+доли/квоты» — `massë` и `estatië` (оба «portion, share»). Время собрано на
+аттестованных мерах: `lúmincë` (минута), `lúmë` (час), `aurë` (день), `otsola`
+(неделя), `asta` (месяц, мн. `astar`), плюс `nótima` «several», `úoio` «never»,
+`ríllumë` «often», `epë` «after».
+
+Четыре опоры батч и предшествующие группы вернули назад в дамп, потому что
+проверка леммы не сошлась:
+
+- `fána` для «премиум/отлично» — в Eldamo это «raiment, veil», а прилагательное
+  `fána` значит «белый»; взято `maira` («admirable, excellent, precious», 4 форм).
+  Форму `fana` без ударения батч оставил там, где смысл «форма/облик»:
+  `i aurëo fana` = «формат дня» (это отдельная аттестованная запись).
+- `cóma` — лемма «file» в дампе одна: `cómë` (nq n, 0 форм), множественное по
+  модели `lissë → lissi` даёт `cómi`; формы на `-a` в дампе нет вовсе (`--show cóma`
+  — 0 записей). Сведено к `cómë` (единичное), `cómi` (множественное и модификатор:
+  «File Manager» = `i cómi mahtandossë`) и `cómillon` (собранный аблатив
+  множественного для «from disk»). Всего пять строк: три из этого батча
+  (`settings.language.folderHint`, `settings.language.reloaded`,
+  `settings.git.edit-global-config-link`) и две закоммиченные ранее —
+  `menu.open-working-directory`, `menu.show-logs`.
+- `indyaro tengwi` для «переменные окружения» — `indya` в дампе значит
+  «device, machine, engine», а глоссы `environment`/`medium` дают 0 записей.
+  В каталог опора не попала: черновик батча переписан на `amparo tengwi`
+  («настройки хуков») плюс `i Shellollo` («из оболочки») — пять строк подгруппы
+  `git`; `indya` в `qya.json` не встречается вовсе.
+- `vëalta` — ни леммы, ни корневой глоссы; в `toolbar.forcePushWarning` им было
+  передано «to match». Заменено на связочное `i nyárë úva ve i palan hauramo nyárë`
+  («история будет как история удалённого хранилища»), где `ve` — аттестованный
+  предлог «as, like» (39 форм).
+
+Омографных ловушек в батче три, все помечены в глоссарии: `hríma` и `massë` имеют
+омографы в более ранних стадиях языка (`hríma` = «many», `masse¹` = «where»), а
+`sana-` («to think», 1 форма) отличается от `sana-` глоссы «can, know how». Один
+случай, где проверка леммы обманула: `cata` не находится по `--show cata`, потому
+что в дампе лемма записана как `ca(ta)` — нашлась только по `--gloss behind`
+(8 форм); «фоновые обновления» = `enhanya cata` оставлено как подтверждённое.
+
+Глоссарий языка после батча — 330 записей (было 280): `E:/tmp/gloss_qya_add_settings.py`
+дописал 50 терминов этого батча, каждая с периодом (`nq`/`q`), числом аттестованных
+форм и ссылкой на источник дампа; ни одна запись не добавлена без прогона меры.
+Совпадений с оригиналом — 8 (`tab.copilot`, `tab.git`, `integrations.shell`,
+`advanced.gcm-name`, `appearance.format-example`, три `copilot.provider-type-*`):
+бренды и имя службы, как и в клингонском.
+
+## Формы множественного числа
 Набор форм берётся из каталога (`meta.pluralCategories`), а не из `Intl`: для тега,
 которого нет в CLDR, `Intl` выдаёт формы системной локали машины, и на русской
 Windows клингонский обзавёлся бы `_few` и `_many`. Декларация делает набор
