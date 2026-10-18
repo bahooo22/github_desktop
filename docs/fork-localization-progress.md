@@ -34,10 +34,10 @@ yarn l10n:untranslated <tag>
 | `uk` | 25 | 1 905 | 114 | переведён |
 | `la` | 28 | 2 011 | 1 718 | переведён, остаток — бренды и подстановки |
 | `eo` | 20 | 2 011 | 1 791 | переведён, остаток — бренды и подстановки |
-| `tlh` | 1 588 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu` и частичный батч |
+| `tlh` | 1 362 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu`/`settings` и частичный батч |
 | `qya` | 1 589 | 2 011 | 422 | те же группы, но `menu` закрыт, а `about`/`welcome` — 36 ключей из 59 |
 
-Числа сняты 17.10.2026 тем же `--untranslated`, после аудита латыни и эсперанто
+Числа сняты 18.10.2026 тем же `--untranslated`, после аудита латыни и эсперанто
 (69 и 6 исправленных форм), после закрытия verbatim-дыр (41 и 8) и после
 терминоправок там, где каталог молча оставлял английское содержательное слово:
 `settings.integrations.shell` → `Interpres`, `multiCommit.operation.rebase` →
@@ -80,7 +80,8 @@ yarn l10n:untranslated <tag>
 читает как «каждая заполненная строка готова» (`localization-editor.tsx:1066`),
 и маска из en-копий выглядела бы переведённой полностью. Поэтому каждый батч
 дописывает свои ключи в `meta.ready` — 1 746 у `la` и `eo` (каталог закрыт весь:
-остались только бренды и чистые подстановки), 333 у `tlh` и `qya` (257 прежних +
+остались только бренды и чистые подстановки), 541 у `tlh` (257 прежних +
+76 строк `menu` + 208 строк `settings`) и 333 у `qya` (257 прежних +
 76 строк `menu`; см. «Почему у
 квенья 36 ключей, а не 59» выше). Строки,
 совпадающие с английским по сути (`about.downloadingLine`), в этот список входят:
@@ -101,6 +102,7 @@ yarn l10n:untranslated <tag>
 | этот | `eo` | `menu` | 76 | 145 | Glosbe + eo.wikipedia: `deponejo`, `kunfandi` |
 | `e463ff01f3` | `tlh` | `menu` | 76 | 145 | boQwI' + Eldamo/Klingon AI: `bartIq`, `De' ngaSwI'` |
 | этот | `qya` | `menu` | 76 | 145 | Eldamo (`qya_attest.py --gloss/--show`): `olba`, `haura`, `quettasta`, `remparma` |
+| этот | `tlh` | `settings` | 208 | 233 | boQwI' (`tlh_gloss_search.py`) + Computer Terms: `vep`, `DeQ`, `vuS`, `taw Dor` |
 
 ## Методика батчей
 
@@ -184,8 +186,49 @@ yarn l10n:untranslated <tag>
 нет, поэтому `menu.preview-pull-request` строится на future-форме `ertava`
 («запрос, который будет слит»); `to widen`, `to expand`, `to paste`, `to exit`
 в Eldamo не аттестованы — взяты `meletya-` «увеличить», `net-` «получить»,
-`lóya-` «уйти (откуда)». `mnemonic_dedupe` развёл 27 коллизий доступняток,
+`lóya-` «уйти (откуда)». `mnemonic_dedupe` развёл 27 коллизий мнемоник,
 `mnemonic_fix` не нашёл ни одной недостающей (`&` уже стоял в 1 805 формах).
+
+### Настройки клингонского: описания разбиты на короткие предложения (`tlh`)
+
+Группа `settings` — первая, где клингонский упирается не в термины, а в синтаксис:
+68 из 233 форм — полные предложения по 15–40 английских слов (`hooks-load-env-description`,
+`repository-indicators-off-description`, `underline-description`). Клингонский не
+соединяет такие придаточными цепочками, поэтому батч (`E:/tmp/tlh_settings_fill.py`)
+держит три правила:
+
+- английское сложное предложение распадается на 2–3 коротких, каждое — объект с
+  топиком `'e'` и глагол в конце; связь — `'ach` «но/однако», `'ej` «и», `-chugh`
+  «если», `-DI'`/`-bogh` «когда», `-meH` «для/чтобы». Ни одного союза, которого нет
+  в дампе.
+- корень берётся только из дампа boQwI' или со страницы «Computer Terms»; где статьи
+  нет, собирается по словообразованию из подтверждённых основ и помечается в
+  глоссарии `source: not`: «провайдер модели» = `peS-` «provide» (дамп 1979) +
+  `-wI'` = `peSwI'`, «иконка статуса» = `patlh vo'nIng` (`vo'nIng` — image, дамп 3518),
+  «квота» и «лимит» — `vuS` «limit» (дамп 4118), «токен» — `QujwI' lIw` «play token»
+  (дамп 2844), «кредит» — `DeQ` «credit (monetary unit)» (дамп 1657).
+- термины не получают второй перевод: `ngeq` «cache, store» остаётся и для stash
+  (`ngeqlu' choH` — как в `menu.hide-stashed-changes`), `vum` — для worktree,
+  `choH vem` — для commit, `motlh` — для default; `Shell`, `Git`, `Copilot`, `Azure`,
+  `Anthropic`, `URL`, `OpenSSH`, `Git Credential Manager` и `{example} ({pattern})`
+  совпадают с оригиналом как бренды и подстановки — 7 таких ключей скрипт печатает
+  отдельной строкой, чтобы совпадение не выглядело пропуском.
+
+Числительные с существительным не требуют плюрального суффикса, поэтому
+`copilot.provider-model-count` в обеих формах (`_one`/`_other`) получает одно и то же
+`{count:number} ghantoH` — это не недосмотр, а следствие декларации `meta.pluralCategories`
+этого каталога. Формы времени «обновится через N минут/часов/дней» собраны на
+аттестованных `tup` (дамп 4523), `rep` (3342), `jaj` и локативе `-Daq`
+(`{count:number} tupDaH motlh 'oH choHlu'`), «еженедельно» — `Hogh` «week» (7909),
+«ежемесячно» — `jar` «month» (4578).
+
+Отсеянное на этом батче: «accessible», «prompt», «stash», «worktree», «dialog», «permission», «license», «premium», «endpoint», «overage», «remaining», «executable»,
+«argument» (в значении аргумента команды), «weekly», «usage», «reload», «reset»,
+«default», «warning», «credential», «high-signal» — статьёй в дампе не лежат; везде
+взято либо описание из подтверждённых основ (`naw' laH` «доступ возможен» для
+accessibility, `woQ Qorwagh` «окно подтверждения» для confirmation dialog), либо
+ближайший по смыслу подтверждённый корень (`jem` для detected, `'ol` для make sure /
+check, `Hev` для available — по образцу `about.dev-no-updates`).
 
 ## Формы множественного числа
 
