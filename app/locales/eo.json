@@ -2954,15 +2954,15 @@
     "could-not-determine-default-branch": "Ne eblis determini la defaŭltan branĉon.",
     "create-branch-ok": "Krei Branĉon",
     "current-branch-description": "La nune kontrolata branĉo. Elektu ĝin se vi bezonas konstrui sur laboro farita en ĉi tiu branĉo.",
-    "default-branch-description": "La defaŭлта branĉo de via deponejo. Elektu ĝin por komenci ion novan, kio",
+    "default-branch-description": "La defaŭlta branĉo de via deponejo. Elektu ĝin por komenci ion novan, kio",
     "detached-head": "Nune vi ne havas iun branĉon kontrolatan (via HEAD-referenco estas disligita). Tial via nova branĉo baziĝos sur via nune kontrolata komito ({sha}).",
     "name": "Nomo",
     "title": "Krei Branĉon",
     "unborn-branch": "Via nuna branĉo estas nenaskiĝinta (ne enhavas iujn komitojn). Krei novan branĉon renomos la nunan branĉon.",
-    "upstream-default-branch-description": "La defaŭлта branĉo de la suprenflua deponejo. Elektu ĝin por komenci ion novan, kio",
+    "upstream-default-branch-description": "La defaŭlta branĉo de la suprenflua deponejo. Elektu ĝin por komenci ion novan, kio",
     "current-is-default": "<ref>{branch}</ref> estas la <defaultLink/> de via deponejo.",
-    "fork-settings-hint": "Via fonto de defaŭлта branĉo determiniĝas per viaj <link>agordoj pri fork-kondukado</link>.",
-    "default-branch-link": "defaŭłta branĉo"
+    "fork-settings-hint": "Via fonto de defaŭlta branĉo determiniĝas per viaj <link>agordoj pri fork-kondukado</link>.",
+    "default-branch-link": "defaŭlta branĉo"
   },
   "createTag": {
     "create-tag-ok": "Krei Etikedon",

@@ -34,7 +34,7 @@ yarn l10n:untranslated <tag>
 | `uk` | 25 | 1 905 | 114 | переведён |
 | `la` | 28 | 2 011 | 1 718 | переведён, остаток — бренды и подстановки |
 | `eo` | 20 | 2 011 | 1 791 | переведён, остаток — бренды и подстановки |
-| `tlh` | 1 362 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu`/`settings` и частичный батч |
+| `tlh` | 1 235 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu`/`settings`/`changes` |
 | `qya` | 1 364 | 2 011 | 422 | группы `about`/`common`/`welcome`/`menu`/`settings`, `about`/`welcome` — 36 ключей из 59 |
 
 Числа сняты 18.10.2026 тем же `--untranslated`, после аудита латыни и эсперанто
@@ -51,7 +51,14 @@ yarn l10n:untranslated <tag>
 что `menu.open-in-shell-default` = `Shell` совпадает с оригиналом по сути. Следом
 закрыта группа `settings`: у `tlh` 1 362 (`E:/tmp/tlh_settings_fill.py`), у `qya`
 1 364 (`E:/tmp/qya_settings_fill.py`) — счётчики двух конлангов сошлись с
-разницей в два ключа. Остаток
+разницей в два ключа. Следом закрыта группа `changes` в `tlh`: 127 строк из 128
+(`E:/tmp/tlh_changes_fill.py`), счётчик упал до 1 235, `meta.ready` вырос до 666;
+у `qya` эта группа ещё не переведена, поэтому её счётчик остался 1 364. Тем же
+вечером с каталога `eo` снята смешанная графика: в трёх строках `createBranch` к
+основе `defaŭ` приписаны кириллические «л», «т», «а», а в
+`createBranch.default-branch-link` латинская `l` набрана польской `ł`; все четыре
+формы исправлены на `defaŭlta` (`E:/tmp/eo_fix_mixed_script.py`) - мерка по буквам
+вне алфавита после правки даёт ноль и в `la`, и в `eo`, и в `tlh`. Остаток
 `la`/`eo` — то же, что и у
 русского: `Copilot`, `Git`, `Azure`, `Anthropic`, `GitHub.com`, `GitHub Enterprise`,
 `URL`, `Apple silicon`, `Arm64`, `{example} ({pattern})`, `{speed}/s` и подобные
@@ -83,8 +90,8 @@ yarn l10n:untranslated <tag>
 читает как «каждая заполненная строка готова» (`localization-editor.tsx:1066`),
 и маска из en-копий выглядела бы переведённой полностью. Поэтому каждый батч
 дописывает свои ключи в `meta.ready` — 1 746 у `la` и `eo` (каталог закрыт весь:
-остались только бренды и чистые подстановки), 541 у `tlh` (257 прежних +
-76 строк `menu` + 208 строк `settings`) и 541 у `qya` (257 прежних +
+остались только бренды и чистые подстановки), 666 у `tlh` (257 прежних +
+76 строк `menu` + 208 строк `settings` + 125 строк `changes`) и 541 у `qya` (257 прежних +
 76 строк `menu` + 208 строк `settings`; см. «Почему у
 квенья 36 ключей, а не 59» выше). Строки,
 совпадающие с английским по сути (`about.downloadingLine`), в этот список входят:
@@ -107,6 +114,7 @@ yarn l10n:untranslated <tag>
 | этот | `qya` | `menu` | 76 | 145 | Eldamo (`qya_attest.py --gloss/--show`): `olba`, `haura`, `quettasta`, `remparma` |
 | этот | `tlh` | `settings` | 208 | 233 | boQwI' (`tlh_gloss_search.py`) + Computer Terms: `vep`, `DeQ`, `vuS`, `taw Dor` |
 | этот | `qya` | `settings` | 208 | 233 | Eldamo (`qya_attest.py --gloss/--show`): `sinwata-`, `nemesta`, `cantemma`, `hríma`, `pella` |
+| этот | `tlh` | `changes` | 125 | 128 | boQwI' (`tlh_gloss_search.py` по глоссе, `tlh_head.py` по лемме): `legh`, `chup`, `wejHa'`, `law' / puS`, `bID` |
 
 ## Методика батчей
 
@@ -233,6 +241,55 @@ yarn l10n:untranslated <tag>
 accessibility, `woQ Qorwagh` «окно подтверждения» для confirmation dialog), либо
 ближайший по смыслу подтверждённый корень (`jem` для detected, `'ol` для make sure /
 check, `Hev` для available — по образцу `about.dev-no-updates`).
+
+### Изменения клингонского: `View` через `legh`, сравнение через `law' / puS` (`tlh`)
+
+Группа `changes` - 128 форм, 127 залито (`E:/tmp/tlh_changes_fill.py`), одна совпадает
+с оригиналом по сути: `and-word` = `GitHub`. Термины взяты теми же, что уже живут в
+каталоге (`De' ngaSwI'`, `choH vem`, `ngeq`, `bartIq`, `yuv`, `QIb`, `SeHjan`), чтобы
+соседние вкладки не получили второе название одного понятия.
+
+Перед записью шесть оснований пересняты по дампу - все шесть оказались моими же
+непроверенными догадками:
+
+- `pagh` в `file.partially-included` читалось как «половина», в дампе это «either/or»
+  (2186), «no one, nothing, none» (4790), «zero» (8184); половина - `bID` (3121).
+  Метка чекбокса пересобрана на `Hochbe' yughlu'` («включено не всё») в ту же рамку,
+  что уже готовые `yughlu'` и `yughbe'lu'`.
+- `qang` в `no-changes-description` читалось как «хотеть», в дампе - «always agree
+  with» (229) и «pour» (5384); хотеть - `neH` (7823). В той же строке «uncommitted»
+  переписано на `choHlu'be'bogh` (придаточное от пассива с отрицанием): стоявшее
+  `ngeq qawbe'bogh` значит «не отложенное в stash», то есть другой термин каталога.
+- `lero'lu'` для «already published» снято: леммы `le` в дампе нет, а `ler` - это
+  «wobble» (8028), то есть форма опиралась на омограф. Опубликованное в этом каталоге
+  уже `'ang` (5817) по образцу закоммиченного `toolbar.publishBranch`, «уже» -
+  `wejHa'` (220); обе строки (`create-pr-description`, `preview-pr-description`)
+  получили `'anglu' wejHa'`.
+- `pella` в `oversized-files-warning` - послелог квенья, в клингонском дампе его нет.
+  Сравнение строится рамкой `… law' … puS` (дамп 26, живые примеры 733, 2092, 3310):
+  `De'meyvam tIn law' 100MB tIn puS`. Вариант `wogh` («do more than is acceptable,
+  transgress» 2014) отвергнут: глагол непереходный и несёт оценку, а не размер.
+- `De' cha'wI'` для «File Manager» снято: `cha'` - «display, show (picture)», это
+  действие приложения, а просмотрщик - `De' leghwI'` (`legh` «see» 6117 + `-wI'`).
+- Соглашение `View` / `Show` проведено последовательно: `View`, `see`, `Preview` -
+  действие пользователя, поэтому `yIlegh`; показ, который делает приложение, остаётся
+  при `cha'` (`yIcha'`, `mIcha'qa'` - 1981/6246). Правило изменило десять строк:
+  `adjust-filters`, три `avatar.aria-*`, `preview-pr-button`, `preview-pr-title`,
+  `preview-pr-description`, `stash-title`, `stash-view`, `show-in-file-manager`.
+
+Меры, которыми это видно: `E:/tmp/tlh_head.py` печатает все строки дампа по лемме
+(для проверки «существует ли форма вообще» - `tlh_gloss_search.py` ищет по глоссе и
+на омографе врёт), `E:/tmp/tlh_audit_batch.py` раскладывает таблицу на токены и
+печатает те, что не закрываются леммой дампа даже со снятыми суффиксами. Прогон дал
+66 токенов: имена подстановок (`count`, `link`, `items`), бренды и формы, которые не
+раскладываются списком суффиксов; из них вручную по дампу пересняты шесть оснований
+выше. Второй прогон по каталогу целиком - `E:/tmp/eo_fix_mixed_script.py` (буквы вне
+алфавита): у `tlh`, `la` и `eo` ноль, у `qya` 124 знака `ú ó í`, и это орфография
+дампа Eldamo (`lúmë`, `hríma`, `cómi`), а не склейка двух график.
+
+Глоссарий языка после батча - 377 записей (было 364): `E:/tmp/gloss_tlh_add_changes.py`
+дописал 13 терминов, включая две отвергнутые основы (`pagh`, `qang`) с объяснением,
+почему они не подходят, - чтобы следующий батч не наступил на них снова.
 
 ### Настройки квенья: опора только на дамп, четыре опоры пересняты (`qya`)
 
