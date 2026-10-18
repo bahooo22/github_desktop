@@ -35,7 +35,7 @@ yarn l10n:untranslated <tag>
 | `la` | 28 | 2 011 | 1 718 | переведён, остаток — бренды и подстановки |
 | `eo` | 20 | 2 011 | 1 791 | переведён, остаток — бренды и подстановки |
 | `tlh` | 1 235 | 2 011 | 423 | группы `about`/`common`/`welcome`/`menu`/`settings`/`changes` |
-| `qya` | 1 364 | 2 011 | 422 | группы `about`/`common`/`welcome`/`menu`/`settings`, `about`/`welcome` — 36 ключей из 59 |
+| `qya` | 1 237 | 2 011 | 422 | группы `about`/`common`/`welcome`/`menu`/`settings`/`changes`, `about`/`welcome` — 36 ключей из 59 |
 
 Числа сняты 18.10.2026 тем же `--untranslated`, после аудита латыни и эсперанто
 (69 и 6 исправленных форм), после закрытия verbatim-дыр (41 и 8) и после
@@ -53,8 +53,9 @@ yarn l10n:untranslated <tag>
 1 364 (`E:/tmp/qya_settings_fill.py`) — счётчики двух конлангов сошлись с
 разницей в два ключа. Следом закрыта группа `changes` в `tlh`: 127 строк из 128
 (`E:/tmp/tlh_changes_fill.py`), счётчик упал до 1 235, `meta.ready` вырос до 666;
-у `qya` эта группа ещё не переведена, поэтому её счётчик остался 1 364. Тем же
-вечером с каталога `eo` снята смешанная графика: в трёх строках `createBranch` к
+затем та же группа закрыта у `qya`: 127 форм из 128 (`E:/tmp/qya_changes_fill.py`),
+счётчик упал до 1 237, `meta.ready` — тоже 666. Одна форма оставлена оригиналом
+намеренно: `changes.and-word` = `GitHub`, бренд. Тем же вечером с каталога `eo` снята смешанная графика: в трёх строках `createBranch` к
 основе `defaŭ` приписаны кириллические «л», «т», «а», а в
 `createBranch.default-branch-link` латинская `l` набрана польской `ł`; все четыре
 формы исправлены на `defaŭlta` (`E:/tmp/eo_fix_mixed_script.py`) - мерка по буквам
@@ -91,8 +92,8 @@ yarn l10n:untranslated <tag>
 и маска из en-копий выглядела бы переведённой полностью. Поэтому каждый батч
 дописывает свои ключи в `meta.ready` — 1 746 у `la` и `eo` (каталог закрыт весь:
 остались только бренды и чистые подстановки), 666 у `tlh` (257 прежних +
-76 строк `menu` + 208 строк `settings` + 125 строк `changes`) и 541 у `qya` (257 прежних +
-76 строк `menu` + 208 строк `settings`; см. «Почему у
+76 строк `menu` + 208 строк `settings` + 125 строк `changes`) и 666 у `qya` (257 прежних +
+76 строк `menu` + 208 строк `settings` + 125 строк `changes`; см. «Почему у
 квенья 36 ключей, а не 59» выше). Строки,
 совпадающие с английским по сути (`about.downloadingLine`), в этот список входят:
 готовая — не значит отличная от оригинала, значит «переводчик её закрыл».
@@ -115,6 +116,7 @@ yarn l10n:untranslated <tag>
 | этот | `tlh` | `settings` | 208 | 233 | boQwI' (`tlh_gloss_search.py`) + Computer Terms: `vep`, `DeQ`, `vuS`, `taw Dor` |
 | этот | `qya` | `settings` | 208 | 233 | Eldamo (`qya_attest.py --gloss/--show`): `sinwata-`, `nemesta`, `cantemma`, `hríma`, `pella` |
 | этот | `tlh` | `changes` | 125 | 128 | boQwI' (`tlh_gloss_search.py` по глоссе, `tlh_head.py` по лемме): `legh`, `chup`, `wejHa'`, `law' / puS`, `bID` |
+| этот | `qya` | `changes` | 125 | 128 | Eldamo (`qya_attest.py --gloss/--show/--forms`): `mitta-`, `hehta-`, `yána`, `hyarmen`, `tal`, рамка `A yána lá B` |
 
 ## Методика батчей
 
@@ -348,6 +350,53 @@ notify»), «интеграции» = `ocarië` (ocar- «to cooperate, work toge
 Совпадений с оригиналом — 8 (`tab.copilot`, `tab.git`, `integrations.shell`,
 `advanced.gcm-name`, `appearance.format-example`, три `copilot.provider-type-*`):
 бренды и имя службы, как и в клингонском.
+
+## Изменения квенья: падежи на плейсхолдере и рамка сравнения (`qya`)
+
+`E:/tmp/qya_changes_fill.py` — те же 128 путей группы `changes`, что у клингонского
+батча, и те же опоры: только дамп Eldamo (`qya_attest.py` в трёх режимах — `--gloss`
+по английской глоссе, `--show` по лемме, `--forms` по основе). 127 форм записано,
+одна (`and-word`) оставлена оригиналом: там стоит бренд `GitHub`.
+
+Стиль держит закоммиченные группы, а не изобретает новый. Метка действия — инфинитив
+без частицы (`cenë` = View, `aulerya` = Discard, `vista-` = Adjust); отрицательный
+запрет — рамка `áva` плюс инфинитив на `-ie` (`áva cennëa i nyarnë sina` = «не показывай
+это сообщение снова», это дословная копия `common.do-not-show-again`); причастие
+результата — `-në` у a-основ (`mittanë` = included, `hehtanë` = excluded,
+`nurtanë` = stashed, `vistanë` = discarded) и `-ienë` после согласной (`cilienë` =
+selected). Падеж приклеен к подстановке, а не к отдельному слову: `open-in-editor` даёт
+`i {editor}iss`, `push-branch-button` — `{remote}anna` (датив), `pull-branch-button` —
+`{remote}llo` (аблатив), `avatar.for-user` — `{name}va`. Сравнение размера собрано
+рамкой `A yána lá B` («больше, чем B»), потому что послелогов сравнения в аттестованной
+грамматике квенья нет: `I cómi sina yána lá 100MB` = «эти файлы больше 100 МБ».
+
+Три перефраз там, где слова в языке нет. «Untracked files» (`continue-rebase.untracked-excluded`)
+стал `Hehtanë i cómi lá mittanë i haurassë` — «исключены файлы, не включённые в
+хранилище», потому что ни `untracked`, ни `tracking branch` в дампе не находится.
+`submodule` оставлен заимствованием и склоняется как квенийское существительное на -o
+(`i submoduleassë`, `i submoduleanna`); это помечено в глоссарии как `source: not`.
+Toolbar = `cortangwa nyassë`, rebase = `ensundalië`, disallowed = `úcávima`,
+file manager = `cómahtando`, unknown user = `úhírëa queno` — пять неологизмов введены
+этим же батчем и закреплены в `gloss_qya.json`, чтобы следующая группа не придумала
+термину второй перевод. Одно расхождение уже существует и оставлено как есть:
+закоммиченный ранее `menu.rebase-branch` — описательное `vinya sundo carë i silúmëa olba`
+(глагольный оборот), а `ensundalië` — именная форма для заголовка состояния
+`continue-rebase.rebasing`.
+
+Четыре опоры сняты до записи, потому что проверка леммы дала ноль аттестованных форм
+или омограф: `asta` отклонена для «partially» (в дампе это «месяц; разделение», а
+частичность закрыта аттестованным `satta`), `avanev-` для «wait» (0 форм, взято `larta-`),
+`ósat-` для «share» (0 форм, взято q `estat-`), `minatec-` для «untracked» (0 форм —
+строка переписана через `mittanë` + `haurassë`). Отвергнутые опоры записаны в
+`glm/scripts/data/gloss_qya_rejected.json`, чтобы следующий батч не подставил их
+обратно. Отдельно зафиксировано намеренное расхождение: существительное «stash» =
+`rehta` (`Cenë i rehta`), а причастие «stashed» = `nurtanë` (`I nurtanë ahyanië`) —
+две разные опоры для двух частей речи, из уже закоммиченных групп, и это не дефект.
+
+Глоссарий языка после батча — 354 записи (было 331): `E:/tmp/gloss_qya_add_changes.py`
+дописал 23 термина группы и обновил запись `stash`. Совпадений с оригиналом в группе —
+одно, бренд. Мера `E:/tmp/placeholders.py` по группе: 128 форм, 0 расхождений по
+множеству `{…}` и по тегам разметки.
 
 ## Формы множественного числа
 Набор форм берётся из каталога (`meta.pluralCategories`), а не из `Intl`: для тега,
