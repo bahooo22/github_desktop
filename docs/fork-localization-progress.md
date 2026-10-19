@@ -938,3 +938,29 @@ woman» вместо отрицания. Вместо глосс цепочка 
 `nach` («голова») для summary не взято: в каталоге оно уже занято под HEAD
 (`ngaQmoHbe'bogh nach`), и получилась бы омонимия. `ostecë` — от attested
 `ostec-` «to describe» (nq).
+
+## Аудит существующего перевода, 20.10.2026
+
+Прогнаны оба каталога целиком: `tlh` 1 091 переведённая строка, `qya` 1 089.
+Меры — `E:/tmp/tlh_check.py` и `qya_check.py`, доработанные перед прогоном:
+снятие глагольных префиксов (`vI-`, `jI-`, `cho-`…), рекурсивное снятие
+суффиксов, распознавание бренда с падежным окончанием (`GitHubissë`,
+`macOS-llo`), `i`-множественное (`cómi`).
+
+**`tlh` — реальных ошибок нет.** 15 остатков фильтра: кавычки (`'GitHub`,
+`Copilot'`), обрывки после `&`-мнемоники (`b`, `c`, `t`), `'e'`-конструкции
+(`bartIq'e'`, `jompu''e'`) и составные с `-Daq` (`De'wI'lIjDaq`).
+
+**`qya` — пять ошибок, исправлены:**
+
+| строка | было | стало | почему |
+| --- | --- | --- | --- |
+| `settings/accounts/enterprise-description` | `lyá` | `lyë` | `lyë` — «ты», `lyá` в Eldamo нет |
+| `settings/language/confirmResetAll` | `lá nanquavë` | `lá polë nancar` | `nancar-` «to undo»; `nanquavë` — «через» |
+| `settings/copilot/license-required` | `eumar` | `eumeli` | мн. от `eumë` «feature» — `eumeli` |
+| `localizationEditor/readyHint` | `tocë` | `nirë` | `nir-` «to press»; `toc-` нет |
+| `menu/help` | `t&uluhta` | `&tuluhta` | принятая метка — `tuluhta` |
+
+Остаток после фильтра — 79 форм `qya` и 15 `tlh`: бренды с окончаниями,
+сборные формы (`cotiamo`, `tetyavië`, `cómissen`) и обрывки мнемоник.
+Это не подтверждённый долг, а список на ручную вычитку.

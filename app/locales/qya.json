@@ -936,7 +936,7 @@
         "@other": "tulë i GitHub Enterpriseissë"
       },
       "dotcom-description": "Tulë i GitHub.comissë imya essëva. Imin: latya i imyaro haura.",
-      "enterprise-description": "Yá mahta lyá GitHub Enterprise i mólëssë, tulë i GitHub Enterpriseissë. Imin: latya i imyaro haura."
+      "enterprise-description": "Yá mahta lyë GitHub Enterprise i mólëssë, tulë i GitHub Enterpriseissë. Imin: latya i imyaro haura."
     },
     "language": {
       "title": "i lambë",
@@ -968,7 +968,7 @@
       },
       "reset": "ceuta i nó tulcana lambelanga",
       "resetAll": "aulerya ilya imyaro lambelanga",
-      "confirmResetAll": "sina fehta ilya i lyá harya yanta. Sina lá nanquavë."
+      "confirmResetAll": "sina fehta ilya i lyë harya yanta. Sina lá polë nancar."
     },
     "integrations": {
       "external-editor": {
@@ -1100,7 +1100,7 @@
       "sign-in-to-configure": "tulë i essenna harya i Copiloto lávë, ar santa i Copiloto partië.",
       "sign-in": "tulë i essë",
       "checking-access": "tyasta i Copiloto latië…",
-      "license-required": "I Copilot eumar GitHub Desktopisse maura i Copiloto lávë.",
+      "license-required": "I Copilot eumeli GitHub Desktopisse maura i Copiloto lávë.",
       "view-plans": "cenë i Copiloto mirma",
       "desktop-disabled": "I Copiloto lávë férima imya essë. \"Copilot GitHub Desktopisse\" cuvana i eumëo partiëssë.",
       "open-feature-settings": "apanta i Copiloto eumëo partië",
@@ -1222,7 +1222,7 @@
     "filterPartial": "empatyellessë",
     "ready": "carina",
     "markReady": "á tanë i serma carina (Ctrl+Enter)",
-    "readyHint": "Carina. Á tocë, á nirë Ctrl+Enter i empatyellessë.",
+    "readyHint": "Carina. Á nirë ar á nirë Ctrl+Enter i empatyellessë.",
     "draft": "lá carina",
     "partial": "peníë",
     "singularFallback": "I fana i lá harya tana i quettalë eritëo.",
@@ -1376,7 +1376,7 @@
       "@darwin": "menë i menta sina",
       "@other": "&menë i menta sina"
     },
-    "help": "t&uluhta",
+    "help": "&tuluhta",
     "hide-changes-filter": {
       "@darwin": "cuvë i ahyaniëo silta",
       "@other": "cu&vë i ahyaniëo silta"
