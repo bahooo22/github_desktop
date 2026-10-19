@@ -3,10 +3,15 @@
     "name": "Klingon",
     "nativeName": "tlhIngan Hol",
     "direction": "ltr",
-    "pluralCategories": ["one", "other"],
+    "pluralCategories": [
+      "one",
+      "other"
+    ],
     "gloss": "ru",
     "translit": "tlh",
-    "authors": ["BaHooo"],
+    "authors": [
+      "BaHooo"
+    ],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -266,6 +271,74 @@
       "invalidatedToken.no",
       "invalidatedToken.title",
       "invalidatedToken.yes",
+      "localizationEditor.close",
+      "localizationEditor.create",
+      "localizationEditor.delete",
+      "localizationEditor.deleted",
+      "localizationEditor.displayName",
+      "localizationEditor.draft",
+      "localizationEditor.empty",
+      "localizationEditor.exampleCaption",
+      "localizationEditor.exported",
+      "localizationEditor.filterAll",
+      "localizationEditor.filterMissing",
+      "localizationEditor.filterPartial",
+      "localizationEditor.filterTranslated",
+      "localizationEditor.import",
+      "localizationEditor.importFailed",
+      "localizationEditor.languageExample",
+      "localizationEditor.languageName",
+      "localizationEditor.markReady",
+      "localizationEditor.newLanguage",
+      "localizationEditor.newLanguageHint",
+      "localizationEditor.noResults",
+      "localizationEditor.original",
+      "localizationEditor.partial",
+      "localizationEditor.pick",
+      "localizationEditor.pickHint",
+      "localizationEditor.placeholderWarning",
+      "localizationEditor.platformNote",
+      "localizationEditor.pluralNote",
+      "localizationEditor.problemsTitle",
+      "localizationEditor.progress",
+      "localizationEditor.progressStrings",
+      "localizationEditor.ready",
+      "localizationEditor.readyHint",
+      "localizationEditor.reportIssue",
+      "localizationEditor.reportIssueBuild",
+      "localizationEditor.reportIssueContext",
+      "localizationEditor.reportIssueCurrent",
+      "localizationEditor.reportIssueCurrentHint",
+      "localizationEditor.reportIssueFilter",
+      "localizationEditor.reportIssueKey",
+      "localizationEditor.reportIssueLanguage",
+      "localizationEditor.reportIssueOtherLanguage",
+      "localizationEditor.reportIssueReference",
+      "localizationEditor.reportIssueScreen",
+      "localizationEditor.reportIssueSearch",
+      "localizationEditor.reportIssueSuggested",
+      "localizationEditor.reportIssueSuggestedHint",
+      "localizationEditor.reportIssueTitle",
+      "localizationEditor.reportIssueTitleKey",
+      "localizationEditor.reportIssueUntranslated",
+      "localizationEditor.reportIssueWhy",
+      "localizationEditor.revert",
+      "localizationEditor.revertAll",
+      "localizationEditor.revertHint",
+      "localizationEditor.save",
+      "localizationEditor.saveFailed",
+      "localizationEditor.saved",
+      "localizationEditor.search",
+      "localizationEditor.singularFallback",
+      "localizationEditor.tagExists",
+      "localizationEditor.tagInvalid",
+      "localizationEditor.target",
+      "localizationEditor.title",
+      "localizationEditor.translation",
+      "localizationEditor.unknownKeysTitle",
+      "localizationEditor.unsaved",
+      "localizationEditor.unsavedSwitch",
+      "localizationEditor.variants",
       "menu.about",
       "menu.add-local-repository",
       "menu.add-to-dictionary",
@@ -863,7 +936,7 @@
         "@other": "GitHub Enterprise mabDaq yIngaQHa'moH"
       },
       "dotcom-description": "GitHub.com mabDaq yIngaQHa'moH. De' ngaSwI' lIj 'e' naw'laH.",
-      "enterprise-description": "ghIghDaq GitHub Enterprise 'e' yIlo' chugh, mabDaq yIngaQHa'moH 'ej De' ngaSwI' lIj 'e' naw'laH."
+      "enterprise-description": "ghIghDaq GitHub Enterprise 'e' yIlo'chugh, mabDaq yIngaQHa'moH 'ej De' ngaSwI' lIj 'e' naw'laH."
     },
     "language": {
       "title": "Hol",
@@ -886,7 +959,7 @@
       "glossFormBlock": "QIn Ha'DI'",
       "glossFormTooltip": "QorwaghDaq QaH",
       "editorHint": "SIrgh pagh 'e' yImugh, pagh Hol lIj 'e' yIchel",
-      "openFolder": "jIyweS 'aplo 'e' yIpoSmoH",
+      "openFolder": "jIyweS 'aplo' 'e' yIpoSmoH",
       "folderHint": "JSON De' {path}Daq yIchagh 'ej yIqamqa'.",
       "reload": "jIyweS 'e' yIqamqa'",
       "reloaded": {
@@ -917,7 +990,7 @@
       },
       "applications": "Deryatmey",
       "choose-copilot": "GitHub Copilot 'e' yIwIv",
-      "copilot-description": "GitHubDaq chenlu' Doptu' 'e' yIghoj.",
+      "copilot-description": "GitHubDaq chenlu' Copilot nab 'e' yIghoj.",
       "copilot-learn-more": "GitHub Copilot 'e' je ghoj",
       "app-location": "Deryat Daq",
       "app-location-placeholder": {
@@ -930,17 +1003,17 @@
       "tab-author": "chenwI'",
       "tab-default-branch": "motlh bartIq",
       "tab-hooks": "SIrIlmey",
-      "default-branch-heading": "De' ngaSwI' chu'ghun motlh bartIq pong",
+      "default-branch-heading": "De' ngaSwI' chu' chenmoHmeH motlh bartIq pong",
       "default-branch-is": "GitHub motlh bartIq pong 'oH",
-      "default-branch-change": "gham tIghmey je rarmey lIj ghun motlh bartIq pong 'e' yIlo' nIS chugh, pong 'e' yIchoHlaH:",
+      "default-branch-change": "gham tIghmey je rarmey lIj ghun motlh bartIq pong 'e' yIlo' nISchugh, pong 'e' yIchoHlaH:",
       "warning-verb-saved": "pol",
       "edit-global-config-lead": "SeHlawmeyvam 'oH",
       "edit-global-config-link": "lIj git pat De' Hoch 'e' DI'",
       "hooks-load-env": "SIrIlmey ghun De'wI' pat lo' De' 'e' Shellvo' yIqeng",
-      "hooks-load-env-description": "chaw'lu' chugh, GitHub Desktop 'oH SIrIlmey yIghunbogh Shell lIjvo' De'wI' pat lo' De' 'e' qeng. 'oH Qap chugh SIrIlmey lIj 'oH Shell SeHlawmeyDaq chenlu' De'wI' pat lo' ghun nIS - 'oH nuq reH luq nvm, rbenv, asdf ghun laHmeyDaq.",
+      "hooks-load-env-description": "chaw'lu'chugh, GitHub Desktop 'oH SIrIlmey yIghunbogh Shell lIjvo' De'wI' pat lo' De' 'e' qeng. 'oH Qapchugh SIrIlmey lIj 'oH Shell SeHlawmeyDaq chenlu' De'wI' pat lo' ghun nIS - 'oH nuq reH luq nvm, rbenv, asdf ghun laHmeyDaq.",
       "hooks-shell-label": "De'wI' pat lo' qengmeH Shell",
       "hooks-cache-env": "SIrIlmey ghun De'wI' pat lo' De' 'e' yIngeq",
-      "hooks-cache-env-description": "ngeq 'oH chaw' vItlh qengmoHmeH. DoSlu' chugh, SIrIlmey lIj 'oH De'wI' pat lo' choH tIn ghun nIS."
+      "hooks-cache-env-description": "ngeq 'oH chaw' vItlh qengmoHmeH. DoSlu'chugh, SIrIlmey lIj 'oH De'wI' pat lo' choH tIn ghun nIS."
     },
     "appearance": {
       "light": "wov",
@@ -978,22 +1051,22 @@
       "grant-permission-hint": " <link>chaw' 'e' yInob</link> GitHub Desktopvo' vepmey 'oH cha'lu' meH.",
       "permission-denied": "<icon/> GitHub Desktop 'oH vepmey cha' laHbe'. <link>vepmey SeHlaw</link>Daq yIchaw'.",
       "configure-hint": " GitHub Desktop ghun vepmey 'oH {verb} 'e', <link>vepmey SeHlaw</link>Daq 'ol.",
-      "verb-properly-configured": "pItmay ghunlu'",
+      "verb-properly-configured": "ghunlu'bogh lugh",
       "verb-enabled": "chaw'lu'"
     },
     "accessibility": {
       "title": "naw' laH",
       "underline-links": "nelmeS Ha'DI' yamtaw",
-      "underline-description": "chaw'lu' chugh, GitHub Desktop 'oH nelmeS Ha'DI' yamtaw chenmoH choH vem QInDaq 'ej latlh QIn 'aploDaq. 'oH nuq nelmeS 'e' pIm 'e' yISam.",
-      "example-link": "vam 'oH chovnatlh nelmeS",
+      "underline-description": "chaw'lu'chugh, GitHub Desktop 'oH nelmeS Ha'DI' yamtaw chenmoH choH vem QInDaq 'ej latlh QIn 'aplo'Daq. 'oH nuq nelmeS 'e' pIm 'e' yISam.",
+      "example-link": "chovnatlh nelmeSvam 'oH",
       "show-diff-check-marks": "pImDaq 'ol vem 'e' yIcha'",
-      "show-diff-check-marks-description": "chaw'lu' chugh, 'ol vem 'oH cha'lu' SIrgh mI' 'ej mI' ghomHa' ghommey Ha'DI' pImDaq choH vem polDI'. DoSlu' chugh, SIrgh mI' SeHjanmey 'oH tInbe'."
+      "show-diff-check-marks-description": "chaw'lu'chugh, 'ol vem 'oH cha'lu' SIrgh mI' 'ej mI' ghomHa' ghommey Ha'DI' pImDaq choH vem polDI'. DoSlu'chugh, SIrgh mI' SeHjanmey 'oH tInbe'."
     },
     "advanced": {
       "background-updates": "Hur ghun De' chu'",
       "repository-indicators": "De' ngaSwI'mey tetlhDaq patlh vo'nIngmey 'e' yIcha'",
-      "repository-indicators-description": "vo'nIngmeyvam 'oH cha' Sum 'ej Hop choHmey ghaj lIj De' ngaSwI'meyghun. 'ach poH poH 'oH nIS qem DaH wIvboghbe' je' De' ngaSwI'mey.",
-      "repository-indicators-off-description": "DoSlu' chugh, DaH wIvbogh De' ngaSwI' 'oH qem nIS luqbe'Ha'. 'ach Deryat Hoch Qap 'oH tIn De' ngaSwI'mey lIj tIn chugh.",
+      "repository-indicators-description": "vo'nIngmeyvam 'oH ghaS lIj De' ngaSwI'mey ghaj Sum 'ej Hop choHmey 'e'. 'ach poH poH 'oH nIS qem DaH wIvboghbe' je' De' ngaSwI'mey.",
+      "repository-indicators-off-description": "DoSlu'chugh, DaH wIvbogh De' ngaSwI' 'oH qem nIS luqbe'Ha'. 'ach Deryat Hoch Qap 'oH tIn De' ngaSwI'mey lIj tInchugh.",
       "usage": "lo'",
       "help-improve": "GitHub Desktop ghun Qap tIn meH 'oH 'e' ngeH",
       "usage-stats": "lo' ghun mI' poj",
@@ -1016,7 +1089,7 @@
       "overriding-commit-message": "chenmoHlu' QIn 'e' choH vem QIn ghap yIlo'",
       "removing-worktrees": "vummey 'e' yIteq",
       "committing-changes-hidden-by-filter": "QIbwI' So'lu' choHmey 'e' yIpol",
-      "switch-branch-heading": "choHmey lIj ghaj 'ej bartIq 'e' yIchoH chugh...",
+      "switch-branch-heading": "choHmey lIj ghaj 'ej bartIq 'e' yIchoHchugh...",
       "ask-me-where-changes-go": "choHmey nuqDaq ghoS DaneH 'e' vItlhob",
       "always-move-to-new-branch": "reH choHmeywI' 'e' yIqem bartIq wIj chu'Daq",
       "always-stash-on-current-branch": "reH choHmeywI' 'e' yIngeq 'ej DaH bartIqDaq yImej",
@@ -1076,7 +1149,7 @@
       "reasoning": "mo' meq",
       "ai-credits-per-tokens": "QujwI' lIw {count:number} ghap AI DeQ",
       "input": "'el De'",
-      "cached-input": "ngelqlu' 'el De'",
+      "cached-input": "ngeqlu' 'el De'",
       "output": "'elHa' De'",
       "show-credit-costs-aria": "Copilot ghantoH DIlmeH Huch 'e' yIcha'",
       "show-credit-costs": "DIlmeH Huch 'e' yIcha'",
@@ -1093,18 +1166,18 @@
         "no-usage-limit": "lo' 'e' vuSbe'",
         "quota-used": "{percentage:number}% ghun vuS lo'lu'",
         "resets-in-minutes": {
-          "_one": "{count:number} tupDaH motlh 'oH choHlu'",
-          "_other": "{count:number} tupDaH motlh 'oH choHlu'"
+          "_one": "{count:number} tupDaq motlh 'oH choHlu'",
+          "_other": "{count:number} tupDaq motlh 'oH choHlu'"
         },
         "resets-in-hours": {
-          "_one": "{count:number} repDaH motlh 'oH choHlu'",
-          "_other": "{count:number} repDaH motlh 'oH choHlu'"
+          "_one": "{count:number} repDaq motlh 'oH choHlu'",
+          "_other": "{count:number} repDaq motlh 'oH choHlu'"
         },
         "resets-in-days": {
-          "_one": "{count:number} jajDaH motlh 'oH choHlu'",
-          "_other": "{count:number} jajDaH motlh 'oH choHlu'"
+          "_one": "{count:number} jajDaq motlh 'oH choHlu'",
+          "_other": "{count:number} jajDaq motlh 'oH choHlu'"
         },
-        "resets-monthly": "(jarDaH motlh 'oH choHlu)",
+        "resets-monthly": "(jarDaq motlh 'oH choHlu')",
         "configure": "yIghun…",
         "loading": "Copilot lo' De' 'e' yIqeng...",
         "no-data": "Copilot lo' De' tu'lu'be' wejHa'.",
@@ -1135,86 +1208,86 @@
       "arguments": "ra' De'mey",
       "arguments-placeholder": "ra'SommI' ghap De'mey",
       "invalid-path": "tawvam 'oH SommI' ghun ghenbe'.",
-      "invalid-arguments": "De'vammey 'oH ghenbe'.",
+      "invalid-arguments": "De'meyvam 'oH ghenbe'.",
       "missing-target-path": "ra' De'mey 'oH yugh taw 'e' {targetPath} ghaj.",
       "executables-filter": "SommI'mey"
     }
   },
   "localizationEditor": {
-    "title": "Translations",
-    "search": "Search strings",
-    "filterAll": "All",
-    "filterMissing": "Missing",
-    "filterTranslated": "Translated by me",
-    "filterPartial": "In progress",
-    "ready": "Ready",
-    "markReady": "Mark this string as finished (Ctrl+Enter)",
-    "readyHint": "Finished — click again or press Ctrl+Enter to put it back in progress",
-    "draft": "Draft",
-    "partial": "Missing",
-    "singularFallback": "An empty form shows the wording of the singular.",
-    "target": "Editing",
-    "newLanguage": "Add a language",
-    "newLanguageHint": "Pick any language code, for example \"pt-BR\". The application creates a file for it in your translations folder.",
-    "languageName": "Language code",
-    "displayName": "Name",
-    "create": "Create",
-    "tagInvalid": "Use a language code such as \"ru\", \"pt-BR\" or \"sr-Cyrl-RS\".",
-    "tagExists": "A translation for {tag} already exists.",
-    "original": "Original",
-    "translation": "Translation",
-    "empty": "Nothing to show.",
-    "noResults": "No string matches that search.",
-    "unsaved": "You have changes that are not saved yet.",
-    "unsavedSwitch": "Save your changes to {tag} before switching, or the next save will lose them.",
-    "revert": "Revert",
-    "revertAll": "Discard all changes in {tag}",
-    "revertHint": "Removes your wording for this form and shows the original again",
-    "save": "Save translations",
-    "saved": "Saved to {path}",
-    "saveFailed": "Could not write the translation file: {error}",
-    "exported": "Copied to {path}",
-    "import": "Import",
-    "importFailed": "{file} could not be read: {error}",
-    "delete": "Delete this translation",
-    "deleted": "Removed {tag}",
+    "title": "jIyweS",
+    "search": "SIrghmey 'e' yInej",
+    "filterAll": "Hoch",
+    "filterMissing": "jIyweSbe'lu'",
+    "filterTranslated": "jImughbogh",
+    "filterPartial": "DaH Qaplu'",
+    "ready": "rIn",
+    "markReady": "SIrghvam rIn 'e' yIghItlh (Ctrl+Enter)",
+    "readyHint": "rIn 'oH. je yIHot pagh Ctrl+Enter yIlo' 'ej DaH Qaplu' 'e' yIchegh.",
+    "draft": "rInbe'",
+    "partial": "jIyweSbe'lu'",
+    "singularFallback": "tu'qom chIm 'oH wa' mu' 'e' yIlegh.",
+    "target": "DaH yIDI'",
+    "newLanguage": "Hol 'e' yIchel",
+    "newLanguageHint": "Hol ngoq 'oH yIwIv, chovnatlh \"pt-BR\". De'wI' 'oH lIj jIyweS 'aplo'Daq De' tetlh 'e' chenmoH.",
+    "languageName": "Hol ngoq",
+    "displayName": "pong",
+    "create": "yIchenmoH",
+    "tagInvalid": "Hol ngoq 'oH yIlo', chovnatlh \"ru\" pagh \"pt-BR\" pagh \"sr-Cyrl-RS\".",
+    "tagExists": "{tag}vaD jIyweS 'oH chenlu' wejHa'.",
+    "original": "wa' ghItlhbogh",
+    "translation": "jIyweS",
+    "empty": "cha' 'e' De' tu'lu'be'.",
+    "noResults": "nejvam 'e' SIrgh tu'lu'be'.",
+    "unsaved": "polbe'bogh choHmey lIjDaq tu'lu'.",
+    "unsavedSwitch": "{tag}vaD choHmey lIj 'e' yIpol DaH yIchoHpa'. polbe'chugh, choHmeyvam 'oH yIqaw.",
+    "revert": "yIDopmoH",
+    "revertAll": "{tag}Daq choHmey Hoch 'e' yIpolHa'",
+    "revertHint": "tu'qomvamDaq lIj mu' 'e' yIteq 'ej wa' ghItlhbogh 'oH yIcha'qa'",
+    "save": "jIyweS 'e' yIpol",
+    "saved": "{path}Daq pollu'",
+    "saveFailed": "jIyweS De' tetlh 'e' ghItlhbe'lu': {error}",
+    "exported": "{path}Daq woHlu'",
+    "import": "qawHaqvo' yIchel",
+    "importFailed": "{file} 'oH leghbe'lu': {error}",
+    "delete": "jIyweSvam 'e' yIqaw",
+    "deleted": "{tag} 'oH teqlu'.",
     "variants": {
-      "_one": "This string has {count:number} form",
-      "_other": "This string has {count:number} forms"
+      "_one": "SIrghvam 'oH {count:number} tu'qom ghaj",
+      "_other": "SIrghvam 'oH {count:number} tu'qompu' ghaj"
     },
-    "pluralNote": "This string changes with the number, so it needs one row per form.",
-    "platformNote": "This string differs per operating system. The row for this system is the one you see.",
-    "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
-    "problemsTitle": "Some catalog entries could not be loaded",
-    "unknownKeysTitle": "These keys aren't part of the original catalog",
-    "progress": "Translated by me: {count:number} of {total:number} translation forms",
+    "pluralNote": "mI' 'e' joHbogh SIrghvam 'oH choH; tu'qom wa' 'oH mI' wa' meH yIghaj.",
+    "platformNote": "De'wI' pat 'e' joHbogh SIrghvam 'oH choH. patvam tu'qom 'oH yIlegh.",
+    "placeholderWarning": "wa' ghItlhbogh 'oH {placeholders} yIlo' - jIyweSlIjDaq 'oH yIpol",
+    "problemsTitle": "mem ghu'lISmey 'oH Hevlu'be'",
+    "unknownKeysTitle": "ngoqvam 'oH wa' memDaq tu'lu'be'.",
+    "progress": "jImughbogh: {total:number} tu'qomDaq {count:number}",
     "progressStrings": {
-      "_one": "{count:number} string",
-      "_other": "{count:number} strings"
+      "_one": "{count:number} SIrgh",
+      "_other": "{count:number} SIrghmey"
     },
-    "close": "Close",
-    "exampleCaption": "Example",
-    "languageExample": "Portuguese (Brazil)",
-    "reportIssue": "Report a translation issue",
-    "reportIssueTitle": "Translation: {tag} — <what is wrong>",
-    "reportIssueTitleKey": "Translation: {key} — <what is wrong>",
-    "reportIssueScreen": "**What screen is this:** <for example \"the Push panel, the tooltip of the button\">",
-    "reportIssueCurrent": "**How it looks now:**",
-    "reportIssueCurrentHint": "> <the text as you see it>",
-    "reportIssueReference": "**Original (en):**",
-    "reportIssueUntranslated": "(this string has no translation in this language yet)",
-    "reportIssueSuggested": "**How it should be:**",
-    "reportIssueSuggestedHint": "> <your wording>",
-    "reportIssueWhy": "**Why this is better:** <1–3 sentences: meaning, register, length, term>",
-    "reportIssueContext": "**Context that would help:**",
-    "reportIssueLanguage": "**Interface language:** {tag}",
-    "reportIssueKey": "**String key:** {key}",
-    "reportIssueFilter": "**Filter:** {filter}",
-    "reportIssueSearch": "**Search:** {search}",
-    "reportIssueBuild": "**App version:** {version} (build {sha})",
-    "reportIssueOtherLanguage": "**Does another language have the same problem:** <yes/no, which>",
-    "pick": "Pick a string",
-    "pickHint": "Click a translated label on the screen to edit it. Escape cancels the pick."
+    "close": "yISoQmoH",
+    "exampleCaption": "chovnatlh",
+    "languageExample": "Hol ngoq chovnatlh: pt-BR",
+    "reportIssue": "jIyweS qay' 'e' yIja'",
+    "reportIssueTitle": "jIyweS: {tag} - <nuq muj>",
+    "reportIssueTitleKey": "jIyweS: {key} - <nuq muj>",
+    "reportIssueScreen": "**jIHvam nuqDaq tu'lu':** <chovnatlh \"yuv vol, SeHjan QaH\">",
+    "reportIssueCurrent": "**DaH 'oH leghlu':**",
+    "reportIssueCurrentHint": "> <DaH 'oH yIleghbogh>",
+    "reportIssueReference": "**wa' ghItlhbogh (en):**",
+    "reportIssueUntranslated": "(SIrghvam HolvamDaq jIyweSbe'lu')",
+    "reportIssueSuggested": "**vuS 'oH jIyweS:**",
+    "reportIssueSuggestedHint": "> <lIj mu'>",
+    "reportIssueWhy": "**'ach nuqvam nIv:** <1-3 jatlhghom: nuq 'oH, nab, tIq, Hol>",
+    "reportIssueContext": "**QaH ghaytan De'vam:**",
+    "reportIssueLanguage": "**jIH Hol:** {tag}",
+    "reportIssueKey": "**SIrgh ngoq:** {key}",
+    "reportIssueFilter": "**QIb:** {filter}",
+    "reportIssueSearch": "**nej:** {search}",
+    "reportIssueBuild": "**De'wI' nIqHom mI':** {version} ({sha} chen)",
+    "reportIssueOtherLanguage": "**latlh Hol 'oH qay' ghaj:** <lu'/pagh, nuq Hol>",
+    "pick": "SIrgh 'e' yIwIv",
+    "pickHint": "jIHDaq jImughbogh pong 'e' yIHot 'ej yIDI'. Escape 'oH wIv 'e' yIqIl."
   },
   "menu": {
     "about": "GitHub Desktop bop",
@@ -1336,7 +1409,7 @@
     "open-working-directory": {
       "@darwin": "FinderDaq yI'ang",
       "@other": "De' patDaq yI'ang",
-      "@win32": "&ExplorereDaq yI'ang"
+      "@win32": "&ExplorerDaq yI'ang"
     },
     "paste": {
       "@darwin": "yIroQ",
@@ -1362,7 +1435,7 @@
     "reload-window": "Qo&rwagh 'e' yIqam",
     "remove-repository-confirm": {
       "@darwin": "yIteq…",
-      "@other": "yIt&eq…"
+      "@other": "yIte&q…"
     },
     "remove-repository": {
       "@darwin": "yIteq",
@@ -1407,7 +1480,7 @@
     "show-logs": {
       "@darwin": "FinderDaq QonoS 'e' yIcha'",
       "@other": "&De' patDaq QonoS 'e' yIcha'",
-      "@win32": "&ExplorereDaq QonoS 'e' yIcha'"
+      "@win32": "&ExplorerDaq QonoS 'e' yIcha'"
     },
     "show-repository-list": {
       "@darwin": "De' ngaSwI'mey tetlh 'e' yIcha'",
@@ -1553,7 +1626,7 @@
       "@darwin": "ra'SommI' jompu'",
       "@other": "ra'SommI' jompu'"
     },
-    "installed-info": "<strong>{path}</strong>Daq ra'SommI' jompu'lu'."
+    "installed-info": "<strong>{path}</strong>Daq ra'SommI' jomlu'pu'."
   },
   "moveToApplications": {
     "title": "Move GitHub Desktop to the Applications folder?",
@@ -1567,7 +1640,7 @@
   "noRepositories": {
     "start-tutorial": "ghojmeH mIw yItagh",
     "create-tutorial-info": "Dochvam De'wI'lIjDaq De' ngaSwI' chenmoH, 'ach <ref>{login}</ref> mabDaq <link>{endpoint}</link> 'e' yIyuv. De' ngaSwI'vetlh jang neH bIleghlaH, tlhopDaq leghbe'lu'.",
-    "continue": "yitaH",
+    "continue": "yItaH",
     "get-started": "qamaH!",
     "add-repository-hint": "GitHub DesktopDaq De' ngaSwI' yIchel, yeqmeH ghojmeH mIw yItagh.",
     "clone-selected": "<strong>{repository}</strong> 'e' yIvoy",
@@ -1712,7 +1785,7 @@
   },
   "changes": {
     "adjust-filters": "QIbmey 'e' yIchoH 'ej {count} choHmey Hoch yIlegh",
-    "and-word": "GitHub",
+    "and-word": "je",
     "avatar": {
       "account-emails": "lIj mabDaq ngeHmey",
       "also-word": "je",
@@ -1748,16 +1821,16 @@
     "check-all-label-filtered": "{visible} {count} choH De'vo'",
     "commit-anyway": "choH vem 'e' yIpol neH",
     "commit-filtered-dialog": {
-      "dont-show-again": "QInvam 'e' mIcha'qa'",
-      "title": "QIbSo'lu' choHmey 'e' yIpol?",
-      "message": "QIb 'oH lo'lu'. <link>So'bogh choHmey</link> tu'lu' 'ej ngeq qawlu'qa'. choHmeyvam 'e' yIpol DaneH'a'?"
+      "dont-show-again": "QInvam 'e' yIcha'be'qa'",
+      "title": "QIblu'bogh choHmey 'e' yIpol?",
+      "message": "QIb 'oH lo'lu'. <link>So'bogh choHmey</link> tu'lu' 'ej ngeq qawqa'lu'. choHmeyvam 'e' yIpol DaneH'a'?"
     },
     "commits-word": "choH vempu'",
     "continue-rebase": {
       "rebasing": "choH vemmey 'e' yIpat",
       "resolve-conflicts": "yolmey Hoch 'e' yIpan Ha'DI' yIghoS",
       "tooltip": "choH vemmey 'e' yIpat",
-      "untracked-excluded": "ghochbe'lu' De'mey 'oH yughbe'lu'qa'"
+      "untracked-excluded": "ghochbe'lu' De'mey 'oH yughbe'qa'lu'"
     },
     "create-pr-button": "Hoq tlhob 'e' yIchenmoH",
     "create-pr-title": "lIj DaH bartIqvo' Hoq tlhob 'oH yIchenmoH",
@@ -1782,7 +1855,7 @@
       "deleted-files": "teqlu' De'mey ({count})",
       "excluded-from-commit": "choH vemvo' yughbe'lu' ({count})",
       "included-in-commit": "choH vemDaq yughlu' ({count})",
-      "modified-files": "chohlu' De'mey ({count})",
+      "modified-files": "choHlu' De'mey ({count})",
       "list": {
         "many": "{others}, {last} je",
         "two": "{first} {second} je"
@@ -1791,22 +1864,22 @@
         "deleted": "teqlu' De'mey",
         "excluded": "choH vemvo' yughbe'lu'",
         "included": "choH vemDaq yughlu'",
-        "modified": "chohlu' De'mey",
+        "modified": "choHlu' De'mey",
         "new": "chu' De'mey"
       },
       "new-files": "chu' De'mey ({count})",
       "title": "QIb DuHmey"
     },
-    "hidden-changes": "So'bogh choHmey 'oH ngeq qawlu'qa'",
+    "hidden-changes": "So'bogh choHmey 'oH ngeq qawqa'lu'",
     "ignore-extension-files": "{extension} De'mey Hoch 'e' yIbuSHa' (.gitignoreDaq yIchel)",
     "ignore-file": "De' 'oH yIbuSHa' (.gitignoreDaq yIchel)",
-    "ignore-folder": "De' chaw'ngaSwI' 'oH yIbuSHa' (.gitignoreDaq yIchel)",
+    "ignore-folder": "'aplo' 'oH yIbuSHa' (.gitignoreDaq yIchel)",
     "ignore-selected-files": "wIvlu' {count} De' 'e' yIbuSHa' (.gitignoreDaq yIchel)",
     "include-selected-files": "wIvlu' De'mey 'e' yIchel",
-    "no-changes-description": "De' ngaSwI'vamDaq choHlu'be'bogh choHmey tu'lu'be'. DaH yIghoS 'e' chup qeSmeyvam 'oH jupDaq yIcha'.",
+    "no-changes-description": "De' ngaSwI'vamDaq choHlu'be'bogh choHmey tu'lu'be'. DaH yIghoS 'e' chup qeSmeyvam 'oH QaHmeH yIcha'.",
     "no-files-match": "lIj DaH QIbmey 'e' nelbe' De' tu'lu'",
     "no-local-changes": "Sum choHmey tu'lu'be'",
-    "no-results-message": "jIQoS. QIbmeyvam 'oH chohlu' De' 'e' jIqIl: {filters}",
+    "no-results-message": "jIQoS. QIbmeyvam 'oH choHlu' De' 'e' jIqIl: {filters}",
     "open-in-editor": "{editor}Daq yIpoSmoH",
     "open-in-editor-title": "lIj Hur DI'wI'Daq De' ngaSwI' 'e' yIpoSmoH",
     "placeholder-create": "{name} 'oH yIchenmoH",
@@ -1831,11 +1904,11 @@
     "show-in-file-manager": "lIj De' ngaSwI' ghun De'mey 'oH lIj De' leghwI'Daq yIlegh",
     "stash-all-changes": "choHmey Hoch 'e' yIngeq…",
     "stash-description": "{number} choHmey 'oH SoHDaq SerDaq 'ej ngeq qawbe'pu'.",
-    "stash-discoverability": "ngeq tu'lu' chugh, choH tetlh bIS'ubDaq poSDaq joHlaH.",
+    "stash-discoverability": "ngeq tu'lu'chugh, choH tetlh bIS'ubDaq poSDaq joHlaH.",
     "stash-title": "ngeqlu' choHmey 'oH yIlegh",
     "stash-view": "ngeq 'e' yIlegh",
     "stashed-changes": "ngeqlu' choHmey",
-    "submodule-partially-committable": "qaytu' bobcho'Daq ngeq qawlu' choHmey neH De' ngaSwI'vamDaq yIchelqa'. qaytu' bobcho'Daq chohlu' 'ej ghochbe'lu' choHmey latlh 'oH yIngeq qaw DaneH, De' ngaSwI'vamDaq yIghIjmeH wejHa'.",
+    "submodule-partially-committable": "qaytu' bobcho'Daq ngeq qawlu' choHmey neH De' ngaSwI'vamDaq yIchelqa'. qaytu' bobcho'Daq choHlu' 'ej ghochbe'lu' choHmey latlh 'oH yIngeq qaw DaneH, De' ngaSwI'vamDaq yIghIjmeH wejHa'.",
     "submodule-uncommittable": "qaytu' bobcho' choH 'oH choH vemDaq yIchellaHbe' - ngeq qawbe'bogh choHmey ghaj.",
     "summary-placeholder": "Del (poQ)",
     "tags-word": "permey",
@@ -1847,8 +1920,8 @@
     "committed-ago": "<time/> ngeq qawlu'",
     "create-pr-description": "DaH bartIq (<ref>{branch}</ref>) 'oH GitHubDaq 'anglu' wejHa'. Hoq tlhob 'oH yIchenmoH lIj choHmey vaD 'ej yeqchuqmeH.",
     "discoverability-menu-or": "{menu} HIDjolev 'oH <shortcut/> je",
-    "oversized-files-recommendation": "De'meyvam 'e' ngeq qaw DoSuv - 'oH SoH qeS. GitHubDaq tIn De'mey ngeqmeH <link>Git LFS</link> 'e' yIlo'.",
-    "oversized-files-warning": "De'meyvam tIn law' 100MB tIn puS. <strong>choHmeyvam 'e' yIngeq qaw chugh, De' ngaSwI'vam GitHub.comvaD yIyuvlaHbe'qa'.</strong>",
+    "oversized-files-recommendation": "De'meyvam 'e' ngeq qaw DaneHbe' 'e' jIchup. GitHubDaq tIn De'mey ngeqmeH <link>Git LFS</link> 'e' yIlo'.",
+    "oversized-files-warning": "De'meyvam tIn law' 100MB tIn puS. <strong>choHmeyvam 'e' yIngeq qawchugh, De' ngaSwI'vam GitHub.comvaD yIyuvlaHbe'qa'.</strong>",
     "preview-pr-description": "DaH bartIq (<ref>{branch}</ref>) 'oH GitHubDaq 'anglu' wejHa'. Hoq tlhobvam ghun choHmey 'oH chenmoHpa' yIlegh.",
     "publish-branch-discoverability": "reH qIt SeHjan tetlhDaq 'oH <shortcut/> je",
     "publish-repo-discoverability": "reH qIt Sum De' ngaSwI'pu' ghun SeHjan tetlhDaq 'oH <shortcut/> je",
@@ -1856,8 +1929,8 @@
       "_one": "DaH bartIq (<ref>{branch}</ref>) 'oH {remote} HopDaq choH vem tu'lu' 'ej lIj wIQwI'Daq tu'lu'be'.",
       "_other": "DaH bartIq (<ref>{branch}</ref>) 'oH {number} choH vempu' {remote} HopDaq tu'lu' 'ej lIj wIQwI'Daq tu'lu'be'."
     },
-    "pull-branch-discoverability": "reH qIt SeHjan tetlhDaq, Hop choHmey tu'lu' chugh, 'oH <shortcut/> je",
-    "push-branch-discoverability": "reH qIt SeHjan tetlhDaq, Sum choH vempu' yuv loS tu'lu' chugh, 'oH <shortcut/> je",
+    "pull-branch-discoverability": "reH qIt SeHjan tetlhDaq, Hop choHmey tu'lu'chugh, 'oH <shortcut/> je",
+    "push-branch-discoverability": "reH qIt SeHjan tetlhDaq, Sum choH vempu' yuv loS tu'lu'chugh, 'oH <shortcut/> je",
     "select-editor-description": "<link>{settings}</link>Daq lIj DI'wI' 'e' yIwIv"
   },
   "checkRuns": {
@@ -1986,20 +2059,20 @@
     "protected-branch": "<strong>{branch}</strong> is a protected branch. Want to <link>switch branches</link>?"
   },
   "createBranch": {
-    "based-on-commit": "lIj bartIq chu' 'oH lIj De' ngaSwI'Daq choH vem '{summary}' ({sha})Daq waw chenmoHbogh.",
-    "based-on-label": "wawDaq bartIq 'e' chenmoH…",
+    "based-on-commit": "lIj bartIq chu' 'oH lIj De' ngaSwI'Daq choH vem '{summary}' ({sha})Daq waw' chenmoHbogh.",
+    "based-on-label": "waw'Daq bartIq 'e' chenmoH…",
     "branch-exists-error": "{name} pong bartIq wejHa' nargh.",
     "could-not-determine-default-branch": "motlh bartIq Sambe'lu'.",
     "create-branch-ok": "bartIq 'e' chenmoH",
-    "current-branch-description": "DaH wIvbogh bartIq. 'vam yIwIv, bartIqvamDaq vum chu' chenmoHmeH.",
-    "default-branch-description": "lIj De' ngaSwI'Daq motlh bartIq. 'vam yIwIv, nuq chu' taghmeH.",
-    "detached-head": "DaH bartIq bIghajbe' wIvbogh (lIj nach ngaQmoHbe'bogh 'oH). 'ach lIj bartIq chu' DaH wIvbogh choH vem ({sha})Daq waw 'oHtaH.",
+    "current-branch-description": "DaH wIvbogh bartIq. bartIqvam yIwIv, bartIqvamDaq vum chu' chenmoHmeH.",
+    "default-branch-description": "lIj De' ngaSwI'Daq motlh bartIq. bartIqvam yIwIv, nuq chu' taghmeH.",
+    "detached-head": "DaH bartIq bIghajbe' wIvbogh (lIj nach ngaQmoHbe'bogh 'oH). 'ach lIj bartIq chu' DaH wIvbogh choH vem ({sha})Daq waw' 'oHtaH.",
     "name": "pong",
     "title": "bartIq 'e' chenmoH",
     "unborn-branch": "lIj DaH bartIq narghbe'bogh (choH vem bIghajbe'). bartIq chu' chenmoHDI', DaH bartIq pong choHlu'.",
-    "upstream-default-branch-description": "tagh De' ngaSwI'Daq motlh bartIq. 'vam yIwIv, nuq chu' taghmeH.",
+    "upstream-default-branch-description": "tagh De' ngaSwI'Daq motlh bartIq. bartIqvam yIwIv, nuq chu' taghmeH.",
     "current-is-default": "<ref>{branch}</ref> 'oH lIj De' ngaSwI'Daq <defaultLink/>.",
-    "fork-settings-hint": "lIj motlh bartIq waw 'oH <link>puq chonnaQ nab tu'qommey</link>Daq chenmoHlu'.",
+    "fork-settings-hint": "lIj motlh bartIq waw' 'oH <link>puq chonnaQ nab tu'qommey</link>Daq chenmoHlu'.",
     "default-branch-link": "motlh bartIq"
   },
   "createTag": {
@@ -2015,7 +2088,7 @@
     "tag-exists": "A tag named <ref>{name}</ref> already exists"
   },
   "deleteBranch": {
-    "cannot-undo": "nabvam DopmoHlaHbe'lu'.",
+    "cannot-undo": "nabvam DopmoHbe'lu'.",
     "delete": "yIqaw",
     "delete-on-remote": "lu', bartIqvam 'e' HopDaq yIqaw",
     "delete-remote-title": "HopDaq bartIq 'e' yIqaw",
@@ -2189,7 +2262,7 @@
     }
   },
   "installingUpdate": {
-    "message": "De' chu' jombogh GitHub Desktop 'e' yISoQmoHbe'. DaH yISoQmoHchugh, jompu''e' DopmoHlaH.",
+    "message": "De' chu' jombogh GitHub Desktop 'e' yISoQmoHQo'. DaH yISoQmoHchugh, jompu''e' DopmoHlaH.",
     "quitAnyway": "yISoQmoH neH",
     "title": "De' chu' jomlu'…"
   },
@@ -2243,19 +2316,19 @@
     },
     "cherryPick": {
       "cherryPickCommits": "{count} choH vemmey 'o' yIwIv 'ej yImergh",
-      "chooseBranchTitle": "{count} choH vemmey bartIqDaq yIwIvmergh",
+      "chooseBranchTitle": "{count} choH vemmey bartIqDaq yIwoH",
       "createBranchOk": {
-        "@darwin": "bartIq chu' 'e' yIchenmoH 'ej yIwIvmergh",
-        "@other": "bartIq chu' 'e' yIchenmoH 'ej yIwIvmergh"
+        "@darwin": "bartIq chu' 'e' yIchenmoH 'ej yIwoH",
+        "@other": "bartIq chu' 'e' yIchenmoH 'ej yIwoH"
       },
       "header": {
-        "@darwin": "bartIq chu'Daq yIwIvmergh",
-        "@other": "bartIq chu'Daq yIwIvmergh"
+        "@darwin": "bartIq chu'Daq yIwoH",
+        "@other": "bartIq chu'Daq yIwoH"
       },
-      "sameBranchTooltip": "bartIqvamvo' 'ej bartIqvamDaq yIwIvmerghlaHbe'",
+      "sameBranchTooltip": "bartIqvamvo' 'ej bartIqvamDaq bIwIvlaHbe'",
       "cherryPickCommitsTo": {
-        "_one": "{count:number} choH vem 'e' <strong>{branch}</strong>Daq yIwIvmergh...",
-        "_other": "{count:number} choH vemmey 'e' <strong>{branch}</strong>Daq yIwIvmergh..."
+        "_one": "{count:number} choH vem 'e' <strong>{branch}</strong>Daq yIwoH...",
+        "_other": "{count:number} choH vemmey 'e' <strong>{branch}</strong>Daq yIwoH..."
       }
     },
     "chooseBranch": {
@@ -2299,7 +2372,7 @@
       "mergedResolution": "Copilot poS 'oH merghlu'bogh 'e' yIlo'",
       "noResolution": "Copilot pup tu'lu'be'",
       "noResolutionForFile": "De'vam ghaj Copilot pup tu'lu'be'.",
-      "unableToLoadDiff": "De'vam ghaj pIm 'e' Dajtu'laHbe'.",
+      "unableToLoadDiff": "De'vam ghaj pIm 'e' HaDlaHbe'.",
       "usingChangesFrom": "{branch}vo' choHmey 'e' yIlo'"
     },
     "copilotDialog": {
@@ -2339,7 +2412,7 @@
       "keepFile": "De' 'e' yIpol",
       "keepFileFrom": "{branch}vo' De' 'e' yIpol"
     },
-    "dontShowAgain": "QInvam 'e' mIcha'qa'",
+    "dontShowAgain": "QInvam 'e' yIcha'be'qa'",
     "mergeChooseBranch": {
       "checkingMergeability": "motlh merghlaH 'e' yIqaw...",
       "unrelatedHistories": "De' ngaSwI'vamDaq qun yIpanpu'taHbe'bogh 'e' merghlaHbe'",
@@ -2354,21 +2427,21 @@
       "upToDate": "<current>{current}</current> 'oH <incoming>{incoming}</incoming>ghaj choHmey wejHa' ghaj."
     },
     "operation": {
-      "cherryPick": "wIvmergh",
+      "cherryPick": "tapqej woH",
       "merge": "mergh",
       "rebase": "chenmoHqa'",
       "reorder": "QurchoH",
       "squash": "tap"
     },
     "progress": {
-      "commitPosition": "{total} choH vemSuS wa'DIch {position} choH vem",
+      "commitPosition": "choH vem {position} 'oH {total} choH vem ghomDaq",
       "title": "{operation} DaH Qaplu'"
     },
     "rebaseChooseBranch": {
-      "invalid": "chenmoHqa'meH yI'oylaHbe'. bartIq 'oH 'oHlajbogh 'e' yIqaw.",
+      "invalid": "chenmoHqa'meH yI'oylaHbe'. bartIq ghenbogh 'e' yIqaw.",
       "loading": "motlh chenmoHqa'laH 'e' yIqaw...",
       "selfRebaseTooltip": "bartIqvam 'e' DoH bartIqDaq chenmoHqa'laHbe'.",
-      "upToDateTooltip": "DaH bartIq 'oH wIvbogh bartIqghaj choHmey wejHa' ghaj.",
+      "upToDateTooltip": "DaH bartIq 'oH wIvbogh bartIq choHmey wejHa' ghaj.",
       "applyCommits": {
         "_one": "<summary>{count:number} choH vem</summary> 'e' <base>{baseBranch}</base>Daq yIqemmoH 'ej <current>{currentBranch}</current> 'e' yIchenmoHqa'",
         "_other": "<summary>{count:number} choH vemmey</summary> 'e' <base>{baseBranch}</base>Daq yIqemmoH 'ej <current>{currentBranch}</current> 'e' yIchenmoHqa'"
@@ -2393,13 +2466,13 @@
       "title": "pup poS",
       "merging": "<their>{theirLabel}</their> 'oH <our>{ourLabel}</our>Daq yImergh",
       "rebasing": "<our>{ourLabel}</our> 'e' <their>{theirLabel}</their>Daq yIchenmoHqa'",
-      "cherryPicking": "<their>{theirLabel}</their>vo' <our>{ourLabel}</our>Daq choH vemmey 'e' yIwIvmergh",
+      "cherryPicking": "<their>{theirLabel}</their>vo' <our>{ourLabel}</our>Daq choH vemmey 'e' yIwoH",
       "squashing": "<our>{ourLabel}</our> 'oH yItap",
       "reordering": "<our>{ourLabel}</our> ghaj Qor 'e' yIchoH"
     },
     "warnForcePush": {
       "confirm": "{operation} 'e' yIqaw DaneHbej'a'?",
-      "message": "{operation} nuHtaHghomDaq GitHub Desktop HoS 'e' yIlo' yuvmeH 'ej HopDaq qun 'e' ghItlhchoHqa'. HoS yuvDI', qun 'e' choHlu'.",
+      "message": "{operation} rInDI' GitHub Desktop HoS 'e' yIlo' yuvmeH 'ej HopDaq qun 'e' ghItlhchoH. HoS yuvDI', qun 'e' choHlu'.",
       "ok": "lu'",
       "title": {
         "@darwin": "{operation} HoS yuv 'e' puch",
@@ -2408,7 +2481,7 @@
     },
     "currentBranchLabel": "DaH bartIq",
     "incomingBranchLabel": "qembogh bartIq",
-    "cherryPickedCommitLabel": "wIvmerghbogh choH vem",
+    "cherryPickedCommitLabel": "woHbogh choH vem",
     "copilotModelLabel": "{model} · {effort}"
   },
   "notifications": {
@@ -2544,8 +2617,8 @@
     "no-remote-message": "Publish your repository to GitHub. Need help? <link>Learn more about remote repositories.</link>"
   },
   "reset": {
-    "continue": "yitaH",
-    "title": "choH vemnDaq yIchegh",
+    "continue": "yItaH",
+    "title": "choH vemDaq yIchegh",
     "warning": "ghuHmoH"
   },
   "samlReauth": {
@@ -2591,7 +2664,7 @@
   },
   "ssh": {
     "confirmConnect": "rar 'e' taH DaneHbej'a'?",
-    "hostAuthenticity": "De'wI' '{host} ({ip})' tlhI' cherlaHbe'lu'. {keyType} ngaQHa'moHwI' nItlh Su'nIm vem 'oH {fingerprint}.",
+    "hostAuthenticity": "De'wI' '{host} ({ip})' tlhI' cherbe'lu'. {keyType} ngaQHa'moHwI' nItlh Su'nIm vem 'oH {fingerprint}.",
     "hostTitle": "SSH De'wI'",
     "keyPassphraseLabel": "'{keyPath}' ngaQHa'moHwI' chaw' ngoq 'e' yIghItlh:",
     "keyPassphraseTitle": "SSH ngaQHa'moHwI' chaw' ngoq",
@@ -3399,7 +3472,7 @@
     }
   },
   "authentication": {
-    "browserRedirect": "ngaQHa'moHpu'ta', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'."
+    "browserRedirect": "ngaQHa'moHpu', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'."
   },
   "branchName": {
     "rulesRestricted": "'{branchName}' pong bartIq 'e' De' ngaSwI' chutmey tuch.",
