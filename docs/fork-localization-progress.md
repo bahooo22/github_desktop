@@ -155,6 +155,8 @@ English original» (это ключи, которых нет в `en.json`), у `
 | этот | `qya` | `changes` | 125 | 128 | Eldamo (`qya_attest.py --gloss/--show/--forms`): `mitta-`, `hehta-`, `yána`, `hyarmen`, `tal`, рамка `A yána lá B` |
 | этот | `tlh` | `localizationEditor` | 68 | 70 | boQwI' (`tlh_gloss_search.py`, `tlh_head.py`): `rIn` «be ready», `ghItlh` «mark, write», `nej` «search for», `mugh` «translate», `SIrgh` «string, thread»; `tlh_attest_check.py` — 0 нераскладывающихся |
 | этот | `tlh` | чистка 12 групп | 69 | 75 | три меры (`tlh_state_check.py`, `tlh_order_check.py`, `tlh_attest_check.py`) — по 0 находок |
+| этот | `tlh` | `diff` | 68 | 68 | boQwI' + `tlh_check.py` (сверка черновика): `pIm` «различие», `choHlu'` / `teqlu'` / `chelpu'`, `'olQan` «промежуток» для whitespace, `Hur DI'wI'`, `ra'SommI'`, `chatlh` не бралось |
+| этот | `qya` | `diff` | 68 | 68 | Eldamo + `qya_check.py`: `hyanwë` «различие», `nyas` «строка», `meletya-` / `talta-`, `apantië`, `cumya` для whitespace, `axacarma`, `minatacë` |
 | этот | `qya` | `localizationEditor` | 68 | 70 | Eldamo только по целому слову: `carina` «done», `serma` «string, cord», `penië` «lack», `ces-` «search in order to find», `lambelanga-` «translate». Мера `qya_attest_check.py` закрытую группу даёт чистой (0 нераскладывающихся из 70), а по всему каталогу оставляет 183 ключа из 2 011 на ручной аудит — гейтом в смысле нуля она ещё не считается |
 
 ## Методика батчей
