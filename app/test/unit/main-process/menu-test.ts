@@ -5,7 +5,10 @@ import {
   buildDefaultMenuTemplate,
   dedupeMenuAccessKeys,
 } from '../../../src/main-process/menu'
-import { registerBuiltInLocales } from '../../../src/lib/l10n/builtins'
+import {
+  builtInLocaleTags,
+  registerBuiltInLocales,
+} from '../../../src/lib/l10n/builtins'
 import { localization } from '../../../src/lib/l10n/core'
 import { currentPlatform } from '../../../src/lib/l10n/format'
 import type { MenuLabelsEvent } from '../../../src/models/menu-labels'
@@ -353,11 +356,15 @@ describe('main-process menu', () => {
       // repeats across the parameter combinations, so the set is keyed by
       // (platform, locale, submenu, key, labels) and one run reports every
       // distinct collision rather than one per red run.
+      //
+      // The tags come from the shipped catalog table, not a literal list: this
+      // test already promised "any built-in catalog", and the hand-written
+      // subset let the four newest catalogs carry duplicate mnemonics silently.
       const found = new Map<string, DuplicateAccessKey>()
 
       for (const platform of ['win32', 'linux', 'darwin'] as const) {
         localization.setPlatform(platform)
-        for (const tag of ['en', 'ru', 'uk']) {
+        for (const tag of builtInLocaleTags) {
           localization.setRequestedLocale(tag)
           try {
             for (let bits = 0; bits < combinationCount; bits++) {
@@ -431,9 +438,14 @@ describe('main-process menu', () => {
         glossed.some(label => /\([^\n]*[А-Яа-я]/.test(label)),
         'no Cyrillic gloss reached a menu label'
       )
-      assert.ok(
-        glossed.every(label => !/\([^\n]*(?<!&)&[^&]/.test(label)),
-        'an access key survived inside a gloss'
+      // Which labels carry a mnemonic inside the parentheses, printed in full:
+      // a bare boolean here says only "something leaked", and the leak is in a
+      // catalog row someone has to go find.
+      const leaked = glossed.filter(label => /\([^\n]*(?<!&)&[^&]/.test(label))
+      assert.deepStrictEqual(
+        leaked,
+        [],
+        `access keys survived inside a gloss:\n${leaked.join('\n')}`
       )
     })
   })

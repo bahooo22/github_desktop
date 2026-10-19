@@ -484,14 +484,7 @@ class LocalizationManager {
   }
 
   public translate(key: string, params: TranslationParameters = {}): string {
-    const template = this.getTemplate(key, params)
-
-    if (template === undefined) {
-      this.missingKeys.add(key)
-      return key
-    }
-
-    const text = interpolate(template, params, this.activeTag)
+    const text = this.translateWithoutHint(key, params)
 
     // In `tooltip` the hint is not part of the string: the renderer wraps the
     // text in its own popup component, and a newline here would put a second
@@ -513,6 +506,26 @@ class LocalizationManager {
     return this.glossMode === 'inline'
       ? `${text} (${withoutMnemonics(hint)})`
       : `${text}\n${hint}`
+  }
+
+  /**
+   * The translation of a value that is substituted INTO another string — a
+   * shell name inside `Open in {shell}`. Such a value carries no hint: the hint
+   * belongs to the row it lands in, and its own parentheses would wrap the
+   * middle of that row's label and bury the mnemonic the row itself marks.
+   */
+  public translateWithoutHint(
+    key: string,
+    params: TranslationParameters = {}
+  ): string {
+    const template = this.getTemplate(key, params)
+
+    if (template === undefined) {
+      this.missingKeys.add(key)
+      return key
+    }
+
+    return interpolate(template, params, this.activeTag)
   }
 
   /**
@@ -921,4 +934,12 @@ export const localization = new LocalizationManager()
  */
 export function t(key: string, params?: TranslationParameters): string {
   return localization.translate(key, params)
+}
+
+/**
+ * The message for `key` with no glossary hint, for a value that is substituted
+ * into another message rather than shown as a row of its own.
+ */
+export function tv(key: string, params?: TranslationParameters): string {
+  return localization.translateWithoutHint(key, params)
 }

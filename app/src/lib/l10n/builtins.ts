@@ -22,6 +22,13 @@ const shippedCatalogs: Readonly<Record<string, unknown>> = {
   qya,
 }
 
+/**
+ * The same table the registration loop walks, for checks that must cover every
+ * shipped catalog instead of a hand-written subset of tags.
+ */
+export const builtInLocaleTags: ReadonlyArray<string> =
+  Object.keys(shippedCatalogs)
+
 export function registerBuiltInLocales(): void {
   for (const [tag, contents] of Object.entries(shippedCatalogs)) {
     localization.registerFromJson(tag, contents, 'builtin')

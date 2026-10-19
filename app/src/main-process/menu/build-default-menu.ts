@@ -1,4 +1,4 @@
-import { t } from '../../lib/l10n/core'
+import { t, tv } from '../../lib/l10n/core'
 import { Menu, shell, app, BrowserWindow } from 'electron'
 import { ensureItemIds } from './ensure-item-ids'
 import { MenuEvent } from './menu-event'
@@ -21,7 +21,9 @@ import { buildTestMenu } from './build-test-menu'
  */
 const createPullRequestLabel = () => t('menu.create-pull-request')
 const showPullRequestLabel = () => t('menu.view-pull-request')
-const defaultBranchNameValue = () => t('menu.default-branch-name')
+// `tv`, not `t`: this name is substituted into `menu.update-from`, and a hint
+// wrapped around it would land inside that row's label.
+const defaultBranchNameValue = () => tv('menu.default-branch-name')
 const confirmRepositoryRemovalLabel = () => t('menu.remove-repository-confirm')
 const repositoryRemovalLabel = () => t('menu.remove-repository')
 const confirmStashAllChangesLabel = () => t('menu.stash-all-changes-confirm')
@@ -398,7 +400,7 @@ export function buildDefaultMenuTemplate({
       },
       {
         label: t('menu.open-in-shell', {
-          shell: selectedShell ?? t('menu.open-in-shell-default'),
+          shell: selectedShell ?? tv('menu.open-in-shell-default'),
         }),
         id: 'open-in-shell',
         accelerator: 'Ctrl+`',
@@ -412,7 +414,7 @@ export function buildDefaultMenuTemplate({
       },
       {
         label: t('menu.open-in-editor', {
-          editor: selectedExternalEditor ?? t('menu.open-in-editor-default'),
+          editor: selectedExternalEditor ?? tv('menu.open-in-editor-default'),
         }),
         id: 'open-external-editor',
         accelerator: 'CmdOrCtrl+Shift+A',
