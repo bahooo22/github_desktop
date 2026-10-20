@@ -2726,43 +2726,43 @@
     "expected": "Expected: <url>{url}</url>"
   },
   "banners": {
-    "dismiss-message": "Dismiss this message",
-    "viewConflicts": "View conflicts",
-    "rebaseConflicts": "Resolve conflicts to continue rebasing <branch/>.",
-    "mergeConflicts": "Resolve conflicts and commit to merge into <branch/>.",
-    "conflictsFound": "Resolve conflicts to continue <operation/>.",
-    "cherryPickConflicts": "Resolve conflicts to continue cherry-picking onto <branch/>.",
+    "dismiss-message": "QInvam yIteq",
+    "viewConflicts": "yolmey yIlegh",
+    "rebaseConflicts": "<branch/> rebase taHmeH yol yItI'.",
+    "mergeConflicts": "yol yItI' 'ej <branch/>Daq boqmeH yIngeq.",
+    "conflictsFound": "<operation/> taHmeH yol yItI'.",
+    "cherryPickConflicts": "<branch/>Daq cherry-pick taHmeH yol yItI'.",
     "successfulReorder": {
-      "_one": "Successfully reordered {count:number} commit.",
-      "_other": "Successfully reordered {count:number} commits."
+      "_one": "{count:number} choH vem QurchoHlu'pu'.",
+      "_other": "{count:number} choH vemmey QurchoHlu'pu'."
     },
     "cherryPickUndone": {
-      "_one": "Cherry-pick undone. Successfully removed the {count} copied commit from <branch/>.",
-      "_other": "Cherry-pick undone. Successfully removed the {count} copied commits from <branch/>."
+      "_one": "cherry-pick luqIlpu'. {count} choH vem <branch/>vo' teqlu'pu'.",
+      "_other": "cherry-pick luqIlpu'. {count} choH vemmey <branch/>vo' teqlu'pu'."
     },
     "successfulSquash": {
-      "_one": "Successfully squashed {count} commit.",
-      "_other": "Successfully squashed {count} commits."
+      "_one": "{count} choH vem taplu'pu'.",
+      "_other": "{count} choH vemmey taplu'pu'."
     },
-    "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>",
+    "osNotSupported": "De'wI' patvam lu'u'lu'. De' chu' luqaDlu'. <link>QaH De'</link>",
     "forkReleaseAvailable": {
-      "_one": "A newer build of this fork is available: {count} commit ahead. <link>Release page</link>",
-      "_other": "A newer build of this fork is available: {count} commits ahead. <link>Release page</link>"
+      "_one": "puq chonnaQvam chen chu' tu'laH: {count} choH vem ruch. <link>chen paq</link>",
+      "_other": "puq chonnaQvam chen chu' tu'laH: {count} choH vemmey ruch. <link>chen paq</link>"
     },
-    "branchAlreadyUpToDateWith": "<ours></ours> is already up to date with <theirs></theirs>",
-    "branchAlreadyUpToDate": "<ours></ours> is already up to date",
+    "branchAlreadyUpToDateWith": "<ours></ours> <theirs></theirs> chu' DaH",
+    "branchAlreadyUpToDate": "<ours></ours> chu' DaH",
     "squashUndone": {
-      "_one": "Squash of {count} commit undone.",
-      "_other": "Squash of {count} commits undone."
+      "_one": "{count} choH vem tap luqIlpu'.",
+      "_other": "{count} choH vemmey tap luqIlpu'."
     },
     "reorderUndone": {
-      "_one": "Reorder of {count} commit undone.",
-      "_other": "Reorder of {count} commits undone."
+      "_one": "{count} choH vem QurchoH luqIlpu'.",
+      "_other": "{count} choH vemmey QurchoH luqIlpu'."
     },
-    "successfulMergeWith": "Successfully merged <theirs></theirs> into <ours></ours>",
-    "successfulMerge": "Successfully merged into <ours></ours>",
-    "successfulRebaseOnto": "Successfully rebased <target></target> onto <base></base>",
-    "successfulRebase": "Successfully rebased <target></target>"
+    "successfulMergeWith": "<theirs></theirs> <ours></ours>Daq boqlu'pu'.",
+    "successfulMerge": "<ours></ours>Daq boqlu'pu'.",
+    "successfulRebaseOnto": "<target></target> <base></base>Daq rebaselu'pu'.",
+    "successfulRebase": "<target></target> rebaselu'pu'."
   },
   "stashDiffHeader": {
     "title": "Stashed changes",

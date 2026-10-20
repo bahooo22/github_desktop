@@ -2726,43 +2726,43 @@
     "expected": "Expected: <url>{url}</url>"
   },
   "banners": {
-    "dismiss-message": "Dismiss this message",
-    "viewConflicts": "View conflicts",
-    "rebaseConflicts": "Resolve conflicts to continue rebasing <branch/>.",
-    "mergeConflicts": "Resolve conflicts and commit to merge into <branch/>.",
-    "conflictsFound": "Resolve conflicts to continue <operation/>.",
-    "cherryPickConflicts": "Resolve conflicts to continue cherry-picking onto <branch/>.",
+    "dismiss-message": "Haitë sina quetta.",
+    "viewConflicts": "Cenë i cotyar",
+    "rebaseConflicts": "Selyë i cotyar na cahtë i ensundo <branch/>.",
+    "mergeConflicts": "Selyë i cotyar ar nasartë na erta <branch/>nna.",
+    "conflictsFound": "Selyë i cotyar na cahtë <operation/>.",
+    "cherryPickConflicts": "Selyë i cotyar na cahtë i ciliérta <branch/>nna.",
     "successfulReorder": {
-      "_one": "Successfully reordered {count:number} commit.",
-      "_other": "Successfully reordered {count:number} commits."
+      "_one": "Enpartaina {count:number} minatacë.",
+      "_other": "Enpartainë {count:number} minatacër."
     },
     "cherryPickUndone": {
-      "_one": "Cherry-pick undone. Successfully removed the {count} copied commit from <branch/>.",
-      "_other": "Cherry-pick undone. Successfully removed the {count} copied commits from <branch/>."
+      "_one": "Ciliérta nuhtaina. {count} minatacë ovëantaina haitaina <branch/>llo.",
+      "_other": "Ciliérta nuhtaina. {count} minatacër ovëantainë haitainë <branch/>llo."
     },
     "successfulSquash": {
-      "_one": "Successfully squashed {count} commit.",
-      "_other": "Successfully squashed {count} commits."
+      "_one": "Malina {count} minatacë.",
+      "_other": "Malinë {count} minatacër."
     },
-    "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>",
+    "osNotSupported": "Lá mahtaina sína indya. Envinyatië nuhtaina. <link>Alyassë</link>",
     "forkReleaseAvailable": {
-      "_one": "A newer build of this fork is available: {count} commit ahead. <link>Release page</link>",
-      "_other": "A newer build of this fork is available: {count} commits ahead. <link>Release page</link>"
+      "_one": "Harya nelecco vinya: {count} minatacë epe. <link>Leryaressë</link>",
+      "_other": "Harya nelecco vinya: {count} minatacër epe. <link>Leryaressë</link>"
     },
-    "branchAlreadyUpToDateWith": "<ours></ours> is already up to date with <theirs></theirs>",
-    "branchAlreadyUpToDate": "<ours></ours> is already up to date",
+    "branchAlreadyUpToDateWith": "<ours></ours> ná sí <theirs></theirs>nen.",
+    "branchAlreadyUpToDate": "<ours></ours> ná sí.",
     "squashUndone": {
-      "_one": "Squash of {count} commit undone.",
-      "_other": "Squash of {count} commits undone."
+      "_one": "Malë {count} minatacë nuhtaina.",
+      "_other": "Malë {count} minatacër nuhtainë."
     },
     "reorderUndone": {
-      "_one": "Reorder of {count} commit undone.",
-      "_other": "Reorder of {count} commits undone."
+      "_one": "Enparta {count} minatacë nuhtaina.",
+      "_other": "Enparta {count} minatacër nuhtainë."
     },
-    "successfulMergeWith": "Successfully merged <theirs></theirs> into <ours></ours>",
-    "successfulMerge": "Successfully merged into <ours></ours>",
-    "successfulRebaseOnto": "Successfully rebased <target></target> onto <base></base>",
-    "successfulRebase": "Successfully rebased <target></target>"
+    "successfulMergeWith": "Ertaina <theirs></theirs> <ours></ours>nna.",
+    "successfulMerge": "Ertaina <ours></ours>nna.",
+    "successfulRebaseOnto": "Ensundaina <target></target> <base></base>nna.",
+    "successfulRebase": "Ensundaina <target></target>."
   },
   "stashDiffHeader": {
     "title": "Stashed changes",
