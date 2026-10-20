@@ -3265,49 +3265,49 @@
     }
   },
   "repositoriesList": {
-    "fullNameLabel": "Full Name:",
-    "pathLabel": "Path:",
-    "noRepositoryFound": "Sorry, I can't find that repository",
-    "uncommittedChanges": "There are uncommitted changes in this repository",
-    "proTip": "ProTip! Press <addShortcut/> to quickly add a local repository, and <cloneShortcut/> to clone from anywhere within the app",
-    "aheadBehindBothTooltip": "The currently checked out branch is {behind} behind and {ahead} ahead of its tracked branch.",
-    "behindTooltip": "The currently checked out branch is {commits} behind its tracked branch.",
-    "aheadTooltip": "The currently checked out branch is {commits} ahead of its tracked branch.",
+    "fullNameLabel": "Quanta essë:",
+    "pathLabel": "Tië:",
+    "noRepositoryFound": "Lá hirnë i haura.",
+    "uncommittedChanges": "Harya sina haura ahyanier lá nasartaina.",
+    "proTip": "<addShortcut/> nirë na napan haura nómëa, ar <cloneShortcut/> nirë na ovëanta",
+    "aheadBehindBothTooltip": "I silúmëa cilina olba harya {ahead} ahyanier epe i 'epëna olba ar {behind} ahyanier no i olba.",
+    "behindTooltip": "I silúmëa cilina olba harya {commits} ahyanier no i 'epëna olba.",
+    "aheadTooltip": "I silúmëa cilina olba harya {commits} ahyanier epe i 'epëna olba.",
     "cloneRepository": {
-      "@darwin": "Clone Repository…",
-      "@other": "Clone repository…"
+      "@darwin": "Ovëanta haura…",
+      "@other": "Ovëanta haura…"
     },
     "createNewRepository": {
-      "@darwin": "Create New Repository…",
-      "@other": "Create new repository…"
+      "@darwin": "Carë haura vinya…",
+      "@other": "Carë haura vinya…"
     },
     "addExistingRepository": {
-      "@darwin": "Add Existing Repository…",
-      "@other": "Add existing repository…"
+      "@darwin": "Napan i haura i hirna…",
+      "@other": "Napan i haura i hirna…"
     },
     "copyRepoName": {
-      "@darwin": "Copy Repo Name",
-      "@other": "Copy repo name"
+      "@darwin": "Ovëantë i haurao essë",
+      "@other": "Ovëantë i haurao essë"
     },
     "copyRepoPath": {
-      "@darwin": "Copy Repo Path",
-      "@other": "Copy repo path"
+      "@darwin": "Ovëantë i haurao tië",
+      "@other": "Ovëantë i haurao tië"
     },
     "createAlias": {
-      "@darwin": "Create Alias",
-      "@other": "Create alias"
+      "@darwin": "Carë hyana essë",
+      "@other": "Carë hyana essë"
     },
     "changeAlias": {
-      "@darwin": "Change Alias",
-      "@other": "Change alias"
+      "@darwin": "Vistë i hyana essë",
+      "@other": "Vistë i hyana essë"
     },
     "removeAlias": {
-      "@darwin": "Remove Alias",
-      "@other": "Remove alias"
+      "@darwin": "Haitë i hyana essë",
+      "@other": "Haitë i hyana essë"
     },
     "showWorktrees": {
-      "@darwin": "Show Worktrees",
-      "@other": "Show worktrees"
+      "@darwin": "Cenë i olba colcar",
+      "@other": "Cenë i olba colcar"
     }
   },
   "resizable": {

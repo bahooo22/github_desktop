@@ -3265,49 +3265,49 @@
     }
   },
   "repositoriesList": {
-    "fullNameLabel": "Full Name:",
-    "pathLabel": "Path:",
-    "noRepositoryFound": "Sorry, I can't find that repository",
-    "uncommittedChanges": "There are uncommitted changes in this repository",
-    "proTip": "ProTip! Press <addShortcut/> to quickly add a local repository, and <cloneShortcut/> to clone from anywhere within the app",
-    "aheadBehindBothTooltip": "The currently checked out branch is {behind} behind and {ahead} ahead of its tracked branch.",
-    "behindTooltip": "The currently checked out branch is {commits} behind its tracked branch.",
-    "aheadTooltip": "The currently checked out branch is {commits} ahead of its tracked branch.",
+    "fullNameLabel": "pong naQ:",
+    "pathLabel": "taw:",
+    "noRepositoryFound": "jIQoch: De' ngaSwI'vetlh tu'laHbe'.",
+    "uncommittedChanges": "De' ngaSwI'vamDaq ngeq qawbe'lu'bogh choHmey tu'lu'.",
+    "proTip": "<addShortcut/> yI'uy 'ej De' ngaSwI' naDev yIchel; <cloneShortcut/> yI'uy 'ej Dat yIvoy",
+    "aheadBehindBothTooltip": "DaH wIvbogh bartIq 'em {behind} 'ej ruch {ahead}.",
+    "behindTooltip": "DaH wIvbogh bartIq 'em {commits}.",
+    "aheadTooltip": "DaH wIvbogh bartIq ruch {commits}.",
     "cloneRepository": {
-      "@darwin": "Clone Repository…",
-      "@other": "Clone repository…"
+      "@darwin": "De' ngaSwI' yIvoy…",
+      "@other": "De' ngaSwI' yIvoy…"
     },
     "createNewRepository": {
-      "@darwin": "Create New Repository…",
-      "@other": "Create new repository…"
+      "@darwin": "De' ngaSwI' chu' yIchenmoH…",
+      "@other": "De' ngaSwI' chu' yIchenmoH…"
     },
     "addExistingRepository": {
-      "@darwin": "Add Existing Repository…",
-      "@other": "Add existing repository…"
+      "@darwin": "De' ngaSwI' tu'lu'bogh yIchel…",
+      "@other": "De' ngaSwI' tu'lu'bogh yIchel…"
     },
     "copyRepoName": {
-      "@darwin": "Copy Repo Name",
-      "@other": "Copy repo name"
+      "@darwin": "De' ngaSwI' pong yIwoH",
+      "@other": "De' ngaSwI' pong yIwoH"
     },
     "copyRepoPath": {
-      "@darwin": "Copy Repo Path",
-      "@other": "Copy repo path"
+      "@darwin": "De' ngaSwI' taw yIwoH",
+      "@other": "De' ngaSwI' taw yIwoH"
     },
     "createAlias": {
-      "@darwin": "Create Alias",
-      "@other": "Create alias"
+      "@darwin": "pong latlh yIchenmoH",
+      "@other": "pong latlh yIchenmoH"
     },
     "changeAlias": {
-      "@darwin": "Change Alias",
-      "@other": "Change alias"
+      "@darwin": "pong latlh yIchoH",
+      "@other": "pong latlh yIchoH"
     },
     "removeAlias": {
-      "@darwin": "Remove Alias",
-      "@other": "Remove alias"
+      "@darwin": "pong latlh yIteq",
+      "@other": "pong latlh yIteq"
     },
     "showWorktrees": {
-      "@darwin": "Show Worktrees",
-      "@other": "Show worktrees"
+      "@darwin": "bartIq 'aplo'mey yI'agh",
+      "@other": "bartIq 'aplo'mey yI'agh"
     }
   },
   "resizable": {
