@@ -2198,3 +2198,97 @@ l10n:untranslated tlh` / `qya`), HEAD той же мерой — 522 и 525, м�
 
 Итог. Контекстное меню файла закрыто полностью: 18 форм в двух конлангах,
 готовность по 1 000 строк, остаток — 504 и 507 форм.
+## Панель урока: 17 форм в двух конлангах (21.10.2026)
+
+Группа `tutorialPanel` — 17 листовых форм в 14 строках: боковая панель
+интерактивного урока. Заголовок и alt-текст иллюстрации читают
+`app/src/ui/tutorial/tutorial-panel.tsx:113` и `:114`, пять шагов-описаний —
+там же; кнопки `iHaveEditor` (:152), `openEditor`, `openPullRequestAction` и
+`exitTutorial` имеют платформенные варианты, поэтому форм больше, чем строк.
+
+- Клингонский: «pull request» взят готовым `qem tlhob` из меню
+  (`menu.create-pull-request`, `menu.preview-pull-request`), а не новым
+  третьим термином. Черновик собирал `bor` («request»; мера форм его
+  принимала), но правило переиспользования, введённое в `contextMenu`,
+  обязывает показывать то же слово, что пользователь уже читает в меню.
+  Мнемоника `q&em` повторяет `menu.create-pull-request.@other`.
+- «top bar» собран как `yorDaq … HIDjolev` — «меню наверху». `yor` (n) —
+  «top (exterior)» (ek_dictionary:7230), а первые три записи дампа для `yor`
+  — глагол «mope, sulk» (:4589, :5386, :6797): локатив `-Daq` присоединяется
+  только к существительным, поэтому омонимия не опасна. `HIDjolev` — «menu»
+  (:4459), `Sut veragh` — «button (clothing)» (:1002).
+- `vum` — та же омонимия: глагол «toil, work» (:7206) против существительного
+  «scumbag» (:571); в `bIvumlaH` основа глагольная, с префиксом и `-laH`.
+- «Partially checked check list» собран по образцу готовой строки
+  `changes.file.partially-included` = `Hoch yughbe'lu'` («включено не всё»):
+  `Hoch yughbe'lu'bogh 'ol tetlh` = «список проверок, где отмечено не всё».
+  `'ol` — «verify, check if (something) is true» (:1199), `tetlh` — «list,
+  roll» (:4133).
+- Прочие клингонские опоры: `chaw'` «allow, permit» (:213), `motlh` «usually,
+  typically» (:399) для «default», `pong` «call, name» (:1029) — так каталог
+  уже переводит «Summary», `QIn` (n) «message» (:4472) против глагола `QIn`
+  «inject» (:3619), `ngoq` «code» (:1339), `nuD` «examine» (:2385), `mergh`
+  «be combined» (:1371), `pegh` «keep something secret» (:3829), `jom`
+  «install (a device)» (:3642), `ngeq qaw` «save (in storage medium)» (:4450),
+  `SuD` «blue, be blue, be green, be yellow» (:812), `tagh` «begin a process»
+  (:703), `bup` «quit» (`klingon_computer_terms.md`).
+- Квенья: термины берутся из готовых строк каталога — `tecindo` «редактор»,
+  `minatacë` «коммит», `olba` «ветка», `ahyanië` «изменение», `luciquista`
+  «пул-реквест», `etanta` «публиковать», `erta` «сливать», `rehta`
+  «сохранять», `cortangwa` «кнопка», `nyas` «панель» (toolbar стоит как
+  `cortangwa nyas`), `menta` «summary», `nyarnë` «message», `cilë`
+  «выбрать», `nirë` «кликнуть», `parandë` «урок», `pahta` «приватный», `quen`
+  «кто-то», `tengwesta` «код» (`i tengwesta qua` = «Code completions»).
+- `henta-` — «to eye, examine, read, scan» (Eldamo, q, 10 форм): отсюда
+  `Satta henta nyarda` для «Partially checked check list» и `hentuva`
+  («будет рассматривать») для «review». Порядок слов зеркалит готовое
+  `Satta mittanë` («Partially Included»).
+- `yuhta-` («to use, employ», nq) заменил в `noEditorInstalled` каталожное
+  `Lo` «use»: отдельное `ló` по дампу — предлог «(away) from; by agent», то
+  есть форма читалась бы как «вы можете из X или Atom». Тот же класс дефекта,
+  что `mo'` вместо `-mo'`: слово законно, смысл не тот.
+- `lerië` — «issue, release, edition» (nq) для «versions», `sitina` — «usual,
+  customary» (nq) по готовому `i sitina olba` («Default branch»), `maira` —
+  «admirable, precious» (q) по `i maira iquirië` («Premium requests») для
+  «preferred», `nelya` — «third» (q ordinal) для «third button», `senta` —
+  «short» (q, 4 формы), `luinë` — «blue» (q, 27 форм), `castëa` — «top» (nq)
+  для «top bar», `natsemen` — «website, (lit.) web-spot» (nq) для строки
+  `{name}`, `yesta-` — «to begin» (nq) для заголовка.
+- Предлог `mi` («in», q, 25 форм) заменил локатив в `defaultEditor`: к
+  самозакрывающемуся `<link/>` падежный суффикс приклеить нельзя — всё, что
+  стоит после тега, меряется отдельным токеном. Тот же распил даёт `Apa&nta`
+  (мнемоника из `menu.open-in-editor.@other`): `nta` и так лежит в находках
+  каталога, новых группа не принесла.
+
+Замеры. Зонды по черновику до вставки, сняты на хосту 21.10.2026: клингонский
+— 145 слов и 0 находок, квенья — 147 токенов и 2 неподтверждённых, и обе
+находки — `nta` от распила `Apa&nta`. `python E:/tmp/markup_check_2010.py tutorialPanel`
+— `MARKUP GATE OK (findings=0)`, по 17 форм в en, tlh и qya. Сухой прогон
+вставки — «формат воспроизведён байт-в-байт: OK», 17 изменится, 0 ключей вне
+каталога; повторный прогон после правки черновика — «изменится: 2 | уже такие
+же: 15 | нет в каталоге: 0». Прогоны в контейнере `gdlab`: `yarn l10n:parity`
+— 1 746 leaf-ключей на каждый из четырёх каталогов, 0 расхождений;
+`yarn l10n:untranslated tlh` и `qya` — 487 и 490 форм из 2 011 (HEAD той же
+мерой — 504 и 507, минус ровно по группе); `meta.ready` — 1 000 → 1 014
+строк, `ready_check` — 0 битых путей и 0 пустых значений. Клингонская мера —
+5 864 слова против 5 722 на HEAD, 0 находок, вердикт `IDENTICAL`; мера квенья
+— 6 507 слов и 29 уникальных находок против 6 360 и 29, новых 0, вердикт
+`IDENTICAL`. `yarn test` по `menu-test.ts`, `l10n-test.ts` и
+`l10n-freshness-test.ts` — 69 тестов, 69 пройдено, 0 падений (7.0 с);
+`prettier --check` по обоим каталогам — чисто. `yarn l10n:audit` — 13
+непокрытых литералов и `--bundles` — «out of date: 2» как базлайн.
+
+Принятый остаток. `yuhta`, `natsemen` и `lerië` — новоквенья без единой
+аттестованной формы в дампе, у `sitina` и `castëa` по одной ссылке: лемма в
+списке есть, живой носитель её не подтвердит, а альтернатив для «website» и
+«default» в аттестованном квенья нет. `SuD` покрывает сразу синий, зелёный
+и жёлтый — точного цвета кнопки клингонский словарь не различает. Значение подписи по-прежнему сверяют
+руками: обе меры проверяют форму слова, а не его соответствие английскому.
+Дрейф `qem tlhob` против `Hoq tlhob` (12 вхождений против 6 в `changes`)
+группа не трогает — он вынесен в отдельную задачу, а `bor` из черновика
+удалён именно ради него. GUI-приёмка недоступна: собранных каталогов в
+контейнере нет. Пуш и перезапуск джобы — за пользователем.
+
+Итог. Панель урока закрыта полностью: 17 форм в двух конлангах, готовность по
+1 014 строк, остаток — 487 и 490 форм.
+

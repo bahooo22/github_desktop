@@ -993,6 +993,20 @@
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
       "tooltippedSha.copy",
+      "tutorialPanel.altChecklist",
+      "tutorialPanel.createBranch",
+      "tutorialPanel.defaultEditor",
+      "tutorialPanel.editFile",
+      "tutorialPanel.exitTutorial",
+      "tutorialPanel.getStarted",
+      "tutorialPanel.iHaveEditor",
+      "tutorialPanel.makeCommit",
+      "tutorialPanel.noEditorInstalled",
+      "tutorialPanel.openEditor",
+      "tutorialPanel.openEditorWebsite",
+      "tutorialPanel.openPullRequest",
+      "tutorialPanel.openPullRequestAction",
+      "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
       "welcome.aria",
       "welcome.configure-git-description",
@@ -2929,28 +2943,28 @@
     }
   },
   "tutorialPanel": {
-    "getStarted": "Get started",
-    "altChecklist": "Partially checked check list",
-    "noEditorInstalled": "It doesn’t look like you have a text editor installed. We can recommend <editor>{editor}</editor> or <atom>Atom</atom>, but feel free to use any.",
-    "openEditorWebsite": "Open the {name} website",
-    "defaultEditor": "Your default editor is <editor/>. You can change your preferred editor in <link/>",
-    "createBranch": "A branch allows you to work on different versions of a repository at one time. Create a branch by going into the branch menu in the top bar and clicking \"{branch}\".",
-    "editFile": "Open this repository in your preferred text editor. Edit the <ref/> file, save it, and come back.",
-    "makeCommit": "A commit allows you to save sets of changes. In the “summary“ field in the bottom left, write a short message that describes the changes you made. When you’re done, click the blue Commit button to finish.",
-    "publishToGithub": "Publishing will “push”, or upload, your commits to this branch of your repository on GitHub. Publish using the third button in the top bar.",
-    "openPullRequest": "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private.",
-    "iHaveEditor": "I have an editor",
+    "getStarted": "DaH yItagh",
+    "altChecklist": "Hoch yughbe'lu'bogh 'ol tetlh",
+    "noEditorInstalled": "Hop ghItlh DI'wI' jompu'be'. <editor>{editor}</editor> joq <atom>Atom</atom> chuplaH 'oH, 'ach vay' DI'wI' 'e' bIlo'laH.",
+    "openEditorWebsite": "{name} weQmoQnaQ 'e' yIpoSmoH",
+    "defaultEditor": "motlh DI'wI'lIj <editor/> 'oH. <link/>Daq maSbogh DI'wI' 'e' yIchoHlaH.",
+    "createBranch": "bartIqDaq De' ngaSwI' choHmey ghom jaS 'e' bIvumlaH. yorDaq bartIq HIDjolev 'e' yIpoSmoH 'ach \"{branch}\" 'e' yIwIv.",
+    "editFile": "De' ngaSwI'vam 'e' maSbogh ghItlh DI'wI'Daq yIpoSmoH. <ref/> De' 'e' yIchoH 'ej yIpol, 'ach yIchegh.",
+    "makeCommit": "choHmey ghom 'e' yIpolmeH ngeq qaw 'oH. pongDaq QIn Hom 'e' yIghItlh 'ach SuD choH vem Sut veragh 'e' yIwIv.",
+    "publishToGithub": "'angghach 'oH “yuv” joq “lab”: choH vemmey 'e' yIlab GitHubDaq bartIqvamDaq. yorDaq wejDIch Sut veragh 'e' yIwIv.",
+    "openPullRequest": "qem tlhob chaw' choHmey ngoqDaq chenmoHlaH. qem tlhob 'e' nuD 'ej mergh 'e' tlhoblu'. ghojmeH De' ngaSwI' 'oH, 'ach qem tlhob pegh 'oH.",
+    "iHaveEditor": "DI'wI' vIghajpu'",
     "openEditor": {
-      "@darwin": "Open Editor",
-      "@other": "&Open editor"
+      "@darwin": "DI'wI' 'e' yIpoSmoH",
+      "@other": "D&I'wI' 'e' yIpoSmoH"
     },
     "openPullRequestAction": {
-      "@darwin": "Open Pull Request",
-      "@other": "&Open pull request"
+      "@darwin": "qem tlhob 'e' yIpoSmoH",
+      "@other": "q&em tlhob 'e' yIpoSmoH"
     },
     "exitTutorial": {
-      "@darwin": "Exit Tutorial",
-      "@other": "E&xit tutorial"
+      "@darwin": "ghojmeH mIw 'e' yIbup",
+      "@other": "gh&ojmeH mIw 'e' yIbup"
     }
   },
   "testNotifications": {

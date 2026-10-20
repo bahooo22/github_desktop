@@ -993,6 +993,20 @@
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
       "tooltippedSha.copy",
+      "tutorialPanel.altChecklist",
+      "tutorialPanel.createBranch",
+      "tutorialPanel.defaultEditor",
+      "tutorialPanel.editFile",
+      "tutorialPanel.exitTutorial",
+      "tutorialPanel.getStarted",
+      "tutorialPanel.iHaveEditor",
+      "tutorialPanel.makeCommit",
+      "tutorialPanel.noEditorInstalled",
+      "tutorialPanel.openEditor",
+      "tutorialPanel.openEditorWebsite",
+      "tutorialPanel.openPullRequest",
+      "tutorialPanel.openPullRequestAction",
+      "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
       "welcome.aria",
       "welcome.configure-git-description",
@@ -2929,28 +2943,28 @@
     }
   },
   "tutorialPanel": {
-    "getStarted": "Get started",
-    "altChecklist": "Partially checked check list",
-    "noEditorInstalled": "It doesn’t look like you have a text editor installed. We can recommend <editor>{editor}</editor> or <atom>Atom</atom>, but feel free to use any.",
-    "openEditorWebsite": "Open the {name} website",
-    "defaultEditor": "Your default editor is <editor/>. You can change your preferred editor in <link/>",
-    "createBranch": "A branch allows you to work on different versions of a repository at one time. Create a branch by going into the branch menu in the top bar and clicking \"{branch}\".",
-    "editFile": "Open this repository in your preferred text editor. Edit the <ref/> file, save it, and come back.",
-    "makeCommit": "A commit allows you to save sets of changes. In the “summary“ field in the bottom left, write a short message that describes the changes you made. When you’re done, click the blue Commit button to finish.",
-    "publishToGithub": "Publishing will “push”, or upload, your commits to this branch of your repository on GitHub. Publish using the third button in the top bar.",
-    "openPullRequest": "A pull request allows you to propose changes to the code. By opening one, you’re requesting that someone review and merge them. Since this is a demo repository, this pull request will be private.",
-    "iHaveEditor": "I have an editor",
+    "getStarted": "Á yesta",
+    "altChecklist": "Satta henta nyarda",
+    "noEditorInstalled": "I sarma tecindo lá tulcanë. Lyë ista yuhta <editor>{editor}</editor> á <atom>Atom</atom>, á ilya hyana tecindo.",
+    "openEditorWebsite": "Apanta i {name}o natsemen",
+    "defaultEditor": "I sitina tecindolya ná <editor/>. Lyë ista ahya i maira tecindo mi <link/>.",
+    "createBranch": "Lyë ista ocarë i haurao hyana leriëar i olbassë. Apanta i olbao menu i castëa cortangwa nyassë, ar cilë \"{branch}\".",
+    "editFile": "Apanta i haura sina i maira sarma tecindolyassë. Ahya i <ref/> cómi, rehta, ar entulë.",
+    "makeCommit": "Lyë ista rehta i ahyaniëar i minatacenen. Carë i senta nyarnë i minatacëo mentasse, ar nirë i luinë minatacëo cortangwa.",
+    "publishToGithub": "Etantienë i minatacelya i olbanna sina GitHubissë. Etanta i nelya cortangwa i castëa nyassë.",
+    "openPullRequest": "Lyë ista oratya i ahyanië i tengwestanna i luciquistenen. Apantienë, quen hentuva ar ertuva i ahyanië. I haura sina ná parandëo, ar i luciquista sina ná pahta.",
+    "iHaveEditor": "Haryan i tecindo",
     "openEditor": {
-      "@darwin": "Open Editor",
-      "@other": "&Open editor"
+      "@darwin": "Apanta i tecindo",
+      "@other": "Apa&nta i tecindo"
     },
     "openPullRequestAction": {
-      "@darwin": "Open Pull Request",
-      "@other": "&Open pull request"
+      "@darwin": "Apanta i luciquista",
+      "@other": "Apa&nta i luciquista"
     },
     "exitTutorial": {
-      "@darwin": "Exit Tutorial",
-      "@other": "E&xit tutorial"
+      "@darwin": "Lelyë i parandëollo",
+      "@other": "Lel&yë i parandëollo"
     }
   },
   "testNotifications": {
