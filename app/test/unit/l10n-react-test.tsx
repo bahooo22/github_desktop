@@ -60,6 +60,15 @@ describe('l10n Trans with a gloss', () => {
     assert.ok(gloss !== null, 'the gloss element is rendered')
     assert.equal(gloss?.textContent, 'Привет там')
 
+    // A catalog with no transcription table has nothing to put in brackets, so
+    // the whole hint is the glossary language — and the text it belongs to is
+    // the run that carries the headword weight.
+    assert.equal(gloss?.querySelector('.l10n-reading'), null)
+    assert.equal(
+      screen.getByTestId('row').querySelector('.l10n-original')?.textContent,
+      'Hoi there'
+    )
+
     // The frame the translator wrote survives: the `<link>` still expands into
     // the provided element rather than into literal markup.
     assert.ok(
@@ -87,8 +96,8 @@ describe('l10n Trans with a gloss', () => {
 })
 
 describe('l10n tooltip hint', () => {
-  // A catalog that carries both a reading and a meaning: the popup has to show
-  // two separate lines and the label has to show neither of them.
+  // A catalog that carries both a reading and a meaning: the popup has one line
+  // of its own and the label has to show neither of them.
   const setup = () => {
     localization.resetUserLayers()
     localization.registerFromJson(
@@ -164,10 +173,12 @@ describe('l10n tooltip hint', () => {
     const tooltip = document.querySelector('.tooltip')
     assert.ok(tooltip !== null, 'the popup opened on the ancestor focus')
 
-    const lines = tooltip?.querySelectorAll('.tooltip-content > div')
-    assert.equal(lines?.length, 2, 'one element per part')
-    assert.equal(lines?.[0]?.textContent, 'нукнэх')
-    assert.equal(lines?.[1]?.textContent, 'Привет')
+    const runs = tooltip?.querySelectorAll('.tooltip-content span')
+    assert.equal(runs?.length, 2, 'one element per run of the hint')
+    assert.equal(runs?.[0]?.className, 'l10n-reading')
+    assert.equal(runs?.[0]?.textContent, '[нукнэх]')
+    assert.equal(runs?.[1]?.className, 'l10n-meaning')
+    assert.equal(runs?.[1]?.textContent, ' Привет')
 
     fireEvent.keyDown(document, { key: 'Escape' })
     assert.equal(document.querySelector('.tooltip'), null, 'Escape dismisses')
@@ -204,9 +215,12 @@ describe('l10n tooltip hint', () => {
     assert.equal(document.activeElement, link, 'the anchor really took focus')
     advanceTimersBy(400)
 
-    const lines = document.querySelectorAll('.tooltip .tooltip-content > div')
-    assert.equal(lines.length, 2, 'the popup opened on the inner focus')
-    assert.equal(lines[1].textContent, 'Привет там')
+    const runs = document.querySelectorAll('.tooltip .tooltip-content span')
+    assert.equal(runs.length, 2, 'the popup opened on the inner focus')
+    // The reading runs over the label as the template has it, markup aside, so
+    // the link's own words are part of what is read aloud.
+    assert.equal(runs[0].textContent, '[нукнэх тльынган хол]')
+    assert.equal(runs[1].textContent, ' Привет там')
 
     link.blur()
     advanceTimersBy(500)

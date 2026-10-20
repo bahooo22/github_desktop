@@ -512,7 +512,7 @@ describe('l10n manager', () => {
 
     // The menu path: one line, because menu items cannot hold a second one.
     localization.setGlossMode('inline')
-    assert.equal(localization.translate('greeting'), 'nuqneH (Привет)')
+    assert.equal(localization.translate('greeting'), 'nuqneH – Привет')
 
     localization.setGlossMode('off')
   })
@@ -551,8 +551,8 @@ describe('l10n manager', () => {
   // A `tlh` or `qya` row is written in the language's own Latin alphabet, so the
   // hint answers two different questions at once: how it sounds, and what it
   // means. The reading comes from the table, the meaning from the glossary
-  // catalog, and the mode decides whether they share a line.
-  it('puts the Cyrillic reading above the translation', () => {
+  // catalog, and they share the line the way a dictionary entry shares one.
+  it('puts the Cyrillic reading beside the translation', () => {
     fresh()
     localization.registerFromJson(
       'tlh',
@@ -565,19 +565,19 @@ describe('l10n manager', () => {
     localization.setRequestedLocale('tlh')
 
     localization.setGlossMode('block')
-    assert.equal(localization.translate('greeting'), 'nuqneH\nнукнэх\nПривет')
+    assert.equal(localization.translate('greeting'), 'nuqneH\n[нукнэх] Привет')
 
     // The menu path stays one line: `MenuItem.sublabel` does not exist on
     // Windows, so a second line there would be dropped rather than wrapped.
     localization.setGlossMode('inline')
-    assert.equal(localization.translate('greeting'), 'nuqneH (нукнэх — Привет)')
+    assert.equal(localization.translate('greeting'), 'nuqneH – [нукнэх] Привет')
 
     localization.setGlossMode('off')
     assert.equal(localization.translate('greeting'), 'nuqneH')
   })
 
   // The third form keeps the string it returns byte for byte what the catalog
-  // says, because the renderer puts the parts into a popup of their own — a
+  // says, because the renderer puts the hint into a popup of its own — a
   // newline here would show up as a second line in the label itself.
   it('keeps the string clean in the tooltip form', () => {
     fresh()
@@ -593,20 +593,16 @@ describe('l10n manager', () => {
     localization.setGlossMode('tooltip')
 
     assert.equal(localization.translate('greeting'), 'nuqneH')
-    assert.deepEqual(localization.getHintParts('greeting'), [
-      'нукнэх',
-      'Привет',
-    ])
 
-    // `tooltip` joins the way `block` does, one line per part: the popup shows
-    // the same two lines. Only `inline` folds them into one.
-    assert.equal(localization.getHint('greeting'), 'нукнэх\nПривет')
+    // What the popup shows is the same single line the `block` form puts under
+    // the label: the reading in brackets, then the glossary language.
+    assert.equal(localization.getHint('greeting'), '[нукнэх] Привет')
 
     localization.setGlossMode('off')
-    assert.deepEqual(
-      localization.getHintParts('greeting'),
-      [],
-      'an off hint has no parts at all'
+    assert.equal(
+      localization.getHint('greeting'),
+      undefined,
+      'an off hint has nothing to show'
     )
   })
 
@@ -652,7 +648,7 @@ describe('l10n manager', () => {
     localization.setUserMessage('tlh', 'greeting', '', "Qapla'")
     localization.setGlossMode('block')
 
-    assert.equal(localization.translate('greeting'), "Qapla'\nкхапла'\nПривет")
+    assert.equal(localization.translate('greeting'), "Qapla'\n[кхапла'] Привет")
   })
 
   it('ignores a transcription scheme it does not ship', () => {

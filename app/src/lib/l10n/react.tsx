@@ -2,6 +2,7 @@ import * as React from 'react'
 import { localization } from './core'
 import { interpolate } from './format'
 import { L10nHint } from './hint'
+import { hintRuns, OriginalClass } from './hint-style'
 import { TranslationParameters } from './types'
 
 const listeners = new Set<() => void>()
@@ -144,15 +145,18 @@ export const Trans = ({
       ? [k]
       : renderTemplate(template, params, tag, components)
 
-  // The `tooltip` form keeps the text alone: the parts go into a popup of
-  // their own and nothing is appended to the children.
-  const parts = localization.getHintParts(k, params)
+  // The `tooltip` form keeps the text alone: the runs go into a popup of their
+  // own and nothing is appended to the children.
+  const runs = hintRuns(
+    localization.getTranscription(k, params),
+    localization.getGloss(k, params)
+  )
 
-  if (localization.getGlossMode() === 'tooltip' && parts.length > 0) {
+  if (localization.getGlossMode() === 'tooltip' && runs.length > 0) {
     return React.createElement(
       element,
       { ...rest, 'data-l10n-key': k },
-      <L10nHint parts={parts}>{children}</L10nHint>
+      <L10nHint runs={runs}>{children}</L10nHint>
     )
   }
 
@@ -160,17 +164,26 @@ export const Trans = ({
   // newline inside the markup would be parsed as text and `<link>` frames
   // would shift. `getTemplate` stays untouched, so both paths stay apart.
   // The `key` is what React wants of any element built into a child array.
-  const hint = localization.getHint(k, params)
-
+  //
+  // The runs are drawn as elements here rather than left for the observer in
+  // `hint-style.ts` because this path already knows which half of the hint is
+  // the reading; the observer has to guess that from the brackets, and only
+  // can when the text it is given is a whole composed label.
   return React.createElement(
     element,
     { ...rest, 'data-l10n-key': k },
-    hint === undefined
+    runs.length === 0
       ? children
       : [
-          ...children,
+          <span key="original" className={OriginalClass}>
+            {children}
+          </span>,
           <span key="gloss" className="l10n-gloss">
-            {hint}
+            {runs.map(run => (
+              <span key={run.className} className={run.className}>
+                {run.text}
+              </span>
+            ))}
           </span>,
         ]
   )

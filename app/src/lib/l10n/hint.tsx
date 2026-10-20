@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { Tooltip } from '../../ui/lib/tooltip'
 import { createObservableRef } from '../../ui/lib/observable-ref'
+import { IHintRun } from './hint-style'
 
 /**
  * The elements a translated string can sit inside that take focus themselves.
@@ -11,8 +12,8 @@ const FocusableSelector =
   'button, a[href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
 
 interface IL10nHintProps {
-  /** The hint lines, in the order the catalog produces them. */
-  readonly parts: ReadonlyArray<string>
+  /** The hint's runs: the reading in brackets, then the glossary language. */
+  readonly runs: ReadonlyArray<IHintRun>
 
   readonly children: React.ReactNode
 }
@@ -124,7 +125,7 @@ export class L10nHint extends React.Component<IL10nHintProps, IL10nHintState> {
   }
 
   public render() {
-    const { parts, children } = this.props
+    const { runs, children } = this.props
     const { ancestorFocused, dismissed } = this.state
 
     return (
@@ -147,11 +148,18 @@ export class L10nHint extends React.Component<IL10nHintProps, IL10nHintState> {
             ancestorFocused={ancestorFocused}
             positionRelativeToTarget={true}
           >
-            {/* A newline would collapse here: `.tooltip-content` has no
-                `white-space: pre-line`, so each part is its own block. */}
-            {parts.map((part, index) => (
-              <div key={index}>{part}</div>
-            ))}
+            {/* One line, the way a dictionary entry reads: the hovered word is
+                already on screen, so the popup starts at its reading. The runs
+                carry their own classes rather than being joined into one string
+                — this is the one place both halves of the hint are known, not
+                guessed from the brackets. */}
+            <div>
+              {runs.map(run => (
+                <span key={run.className} className={run.className}>
+                  {run.text}
+                </span>
+              ))}
+            </div>
           </Tooltip>
         )}
       </span>

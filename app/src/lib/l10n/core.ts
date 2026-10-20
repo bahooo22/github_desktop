@@ -371,8 +371,8 @@ class LocalizationManager {
     const template = selectVariant(message, glossTag, params, this.platform)
 
     // The hint is printed as text in both modes — a second line in the
-    // renderer, parentheses in the menu — and nobody turns a `<link>` in it
-    // into an element, so the markup would only be noise.
+    // renderer, a dash-separated tail on the menu label — and nobody turns a
+    // `<link>` in it into an element, so the markup would only be noise.
     return template === undefined
       ? undefined
       : withoutMarkup(interpolate(template, params, glossTag))
@@ -445,42 +445,35 @@ class LocalizationManager {
   }
 
   /**
-   * Everything shown under the translated text: the Cyrillic reading of the
-   * catalog's own Latin value first, then the glossary language. Which of the
-   * two exist depends on the catalog, and a language that declares both is
-   * exactly the case this hint is for — `tlhIngan Hol` read aloud, then meant.
+   * The parts as one string, in the shape a dictionary entry uses: the Cyrillic
+   * reading goes in brackets and the glossary language follows it unbracketed,
+   * on a single line. Which of the two exist is the catalog's business — a
+   * language with no transcription table contributes only the glossary, and one
+   * with no glossary only the reading.
    *
-   * This is the source of the hint's lines. `getHint` joins them and the
-   * renderer puts them in elements, so neither has to re-derive which parts
-   * exist; each guard that decides "is there a hint at all" lives here once.
-   */
-  public getHintParts(
-    key: string,
-    params: TranslationParameters = {}
-  ): ReadonlyArray<string> {
-    return [
-      this.getTranscription(key, params),
-      this.getGloss(key, params),
-    ].filter((part): part is string => part !== undefined && part !== '')
-  }
-
-  /**
-   * The parts as one string. The mode decides the shape: a line each for
-   * `block`, one joined line for `inline`, because a native menu label cannot
-   * hold a second one. `tooltip` uses the same newline as `block` — the popup
-   * separates its entries the same way — but nothing joins this value there.
+   * The brackets are also what the renderer cuts the hint apart by: the reading
+   * is the only part a text node can be recognized by without knowing its key,
+   * so `hint-style.ts` reads them back. A catalog whose glossary text starts
+   * with a bracket is the one case that reads as a reading, and it only costs a
+   * wrong typeface, never a wrong word.
+   *
+   * The mode no longer decides the shape of the hint itself, only how it is set
+   * under the text: `translate` puts a newline before it for `block` and an en
+   * dash for `inline`, because a native menu label cannot hold a second one.
    */
   public getHint(
     key: string,
     params: TranslationParameters = {}
   ): string | undefined {
-    const parts = this.getHintParts(key, params)
+    const transcription = this.getTranscription(key, params)
+    const gloss = this.getGloss(key, params)
 
-    if (parts.length === 0) {
-      return undefined
-    }
+    const reading = transcription === undefined ? '' : `[${transcription}]`
+    const meaning = gloss ?? ''
 
-    return parts.join(this.glossMode === 'inline' ? ' — ' : '\n')
+    const hint = `${reading} ${meaning}`.trim()
+
+    return hint === '' ? undefined : hint
   }
 
   public translate(key: string, params: TranslationParameters = {}): string {
@@ -500,11 +493,12 @@ class LocalizationManager {
     }
 
     // The renderer asks for `block` and gets a newline; the main process pins
-    // `inline` at startup because menu labels cannot hold a second line. The
-    // shipped Russian catalog marks its own mnemonics, and a label may carry
+    // `inline` at startup because menu labels cannot hold a second line, and the
+    // dash is what keeps the dictionary shape readable on the one line it has.
+    // The shipped Russian catalog marks its own mnemonics, and a label may carry
     // exactly one of them, so the hint is stripped on that path.
     return this.glossMode === 'inline'
-      ? `${text} (${withoutMnemonics(hint)})`
+      ? `${text} – ${withoutMnemonics(hint)}`
       : `${text}\n${hint}`
   }
 

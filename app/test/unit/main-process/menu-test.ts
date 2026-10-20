@@ -433,15 +433,27 @@ describe('main-process menu', () => {
       assert.deepStrictEqual(glossed.map(getAccessKey), plain.map(getAccessKey))
 
       // The hint itself has to be there — otherwise the two arrays above agree
-      // because nothing was glossed at all.
+      // because nothing was glossed at all. It is read off the pair of labels
+      // rather than from the brackets or the dash: the composition in `core`
+      // owns that shape and is free to change it, while the boundary between
+      // the plain label and what the gloss added to it is the one thing this
+      // measure can rely on.
+      const hints = glossed.map((label, index) =>
+        label.startsWith(plain[index])
+          ? label.slice(plain[index].length).replace(/^ – /, '')
+          : label
+      )
+
       assert.ok(
-        glossed.some(label => /\([^\n]*[А-Яа-я]/.test(label)),
+        hints.some(hint => /[А-Яа-я]/.test(hint)),
         'no Cyrillic gloss reached a menu label'
       )
-      // Which labels carry a mnemonic inside the parentheses, printed in full:
-      // a bare boolean here says only "something leaked", and the leak is in a
-      // catalog row someone has to go find.
-      const leaked = glossed.filter(label => /\([^\n]*(?<!&)&[^&]/.test(label))
+      // Which labels carry a mnemonic inside the gloss, printed in full: a bare
+      // boolean here says only "something leaked", and the leak is in a catalog
+      // row someone has to go find.
+      const leaked = glossed.filter((_, index) =>
+        /(?<!&)&[^&]/.test(hints[index])
+      )
       assert.deepStrictEqual(
         leaked,
         [],

@@ -3,6 +3,7 @@ import { LocalizationState } from './types'
 import { GlossMode } from './types'
 import { localization } from './core'
 import { registerBuiltInLocales } from './builtins'
+import { startHintStyling } from './hint-style'
 
 export { localization, t, matchTag, FallbackLocaleTag } from './core'
 export type { Variant } from './core'
@@ -109,6 +110,12 @@ export async function initializeLocalization(): Promise<void> {
   applyState(state)
 
   localization.setGlossMode(readStoredGlossMode())
+
+  // The reading and the glossary language are drawn from the text the catalogs
+  // compose, and the layer that draws them has to be watching before the first
+  // label is rendered — otherwise the strings on screen at startup keep the
+  // plain typeface until something happens to rewrite them.
+  startHintStyling()
 
   // The native menu is built in the main process, which can't see our
   // selection, so every language change has to be pushed over there. Only on
