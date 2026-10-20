@@ -231,6 +231,15 @@
       "common.save",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "contextMenu.copyFilePath",
+      "contextMenu.copyPaths",
+      "contextMenu.copyRelativeFilePath",
+      "contextMenu.copyRelativePaths",
+      "contextMenu.openIn",
+      "contextMenu.openInExternalEditor",
+      "contextMenu.openInShell",
+      "contextMenu.revealInFileManager",
+      "contextMenu.trashName",
       "copilotByokModel.add",
       "copilotByokModel.addTitle",
       "copilotByokModel.defaultReasoningOption",
@@ -3896,39 +3905,39 @@
     }
   },
   "contextMenu": {
-    "openIn": "Open in {name}",
+    "openIn": "{name}Daq yIpoSmoH",
     "copyFilePath": {
-      "@darwin": "Copy File Path",
-      "@other": "Copy file path"
+      "@darwin": "De' taw yIwoH",
+      "@other": "De' taw yIwoH"
     },
     "copyRelativeFilePath": {
-      "@darwin": "Copy Relative File Path",
-      "@other": "Copy relative file path"
+      "@darwin": "De' ngaSwI'vo' De' taw yIwoH",
+      "@other": "De' ngaSwI'vo' De' taw yIwoH"
     },
     "copyPaths": {
-      "@darwin": "Copy Paths",
-      "@other": "Copy paths"
+      "@darwin": "tawmey yIwoH",
+      "@other": "tawmey yIwoH"
     },
     "copyRelativePaths": {
-      "@darwin": "Copy Relative Paths",
-      "@other": "Copy relative paths"
+      "@darwin": "De' ngaSwI'vo' tawmey yIwoH",
+      "@other": "De' ngaSwI'vo' tawmey yIwoH"
     },
     "openInExternalEditor": {
-      "@darwin": "Open in External Editor",
-      "@other": "Open in external editor"
+      "@darwin": "Hop DI'wI'Daq yIpoSmoH",
+      "@other": "Hop DI'wI'Daq yIpoSmoH"
     },
     "openInShell": {
-      "@darwin": "Open in Shell",
-      "@other": "Open in shell"
+      "@darwin": "ShellDaq yIpoSmoH",
+      "@other": "ShellDaq yIpoSmoH"
     },
     "revealInFileManager": {
-      "@darwin": "Reveal in Finder",
-      "@win32": "Show in Explorer",
-      "@other": "Show in your File Manager"
+      "@darwin": "FinderDaq yI'ang",
+      "@win32": "ExplorerDaq yI'ang",
+      "@other": "De' patDaq yI'ang"
     },
     "trashName": {
-      "@win32": "Recycle Bin",
-      "@other": "Trash"
+      "@win32": "veQ QermoHwI'",
+      "@other": "veQ"
     }
   },
   "renameWorktreeDialog": {

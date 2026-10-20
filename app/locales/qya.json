@@ -231,6 +231,15 @@
       "common.save",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "contextMenu.copyFilePath",
+      "contextMenu.copyPaths",
+      "contextMenu.copyRelativeFilePath",
+      "contextMenu.copyRelativePaths",
+      "contextMenu.openIn",
+      "contextMenu.openInExternalEditor",
+      "contextMenu.openInShell",
+      "contextMenu.revealInFileManager",
+      "contextMenu.trashName",
       "copilotByokModel.add",
       "copilotByokModel.addTitle",
       "copilotByokModel.defaultReasoningOption",
@@ -3896,39 +3905,39 @@
     }
   },
   "contextMenu": {
-    "openIn": "Open in {name}",
+    "openIn": "Apanta {name}issë",
     "copyFilePath": {
-      "@darwin": "Copy File Path",
-      "@other": "Copy file path"
+      "@darwin": "Ovëantë i cómeo tië",
+      "@other": "Ovëantë i cómeo tië"
     },
     "copyRelativeFilePath": {
-      "@darwin": "Copy Relative File Path",
-      "@other": "Copy relative file path"
+      "@darwin": "Ovëantë i haurallo cómeo tië",
+      "@other": "Ovëantë i haurallo cómeo tië"
     },
     "copyPaths": {
-      "@darwin": "Copy Paths",
-      "@other": "Copy paths"
+      "@darwin": "Ovëantë i tiër",
+      "@other": "Ovëantë i tiër"
     },
     "copyRelativePaths": {
-      "@darwin": "Copy Relative Paths",
-      "@other": "Copy relative paths"
+      "@darwin": "Ovëantë i haurallo tiër",
+      "@other": "Ovëantë i haurallo tiër"
     },
     "openInExternalEditor": {
-      "@darwin": "Open in External Editor",
-      "@other": "Open in external editor"
+      "@darwin": "Apanta i maxarma tecindossë",
+      "@other": "Apanta i maxarma tecindossë"
     },
     "openInShell": {
-      "@darwin": "Open in Shell",
-      "@other": "Open in shell"
+      "@darwin": "Apanta i Shellissë",
+      "@other": "Apanta i Shellissë"
     },
     "revealInFileManager": {
-      "@darwin": "Reveal in Finder",
-      "@win32": "Show in Explorer",
-      "@other": "Show in your File Manager"
+      "@darwin": "Apanta i Finderissë",
+      "@win32": "Tana i Explorerissë",
+      "@other": "Tana i cómi mahtandossë"
     },
     "trashName": {
-      "@win32": "Recycle Bin",
-      "@other": "Trash"
+      "@win32": "auhanta",
+      "@other": "auhanta"
     }
   },
   "renameWorktreeDialog": {
