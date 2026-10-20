@@ -1074,7 +1074,7 @@
       "use-git-credential-manager": "Git Credential Manager 'e' yIlo'",
       "gcm-description-prefix": "GitHub.com Hop",
       "gcm-name": "Git Credential Manager",
-      "gcm-description-suffix": "So'lu' De' ngaSwI'mey meH 'e' yIlo'. 'oH ngongmeH 'ej choHlaH.",
+      "gcm-description-suffix": "So'lu' De' ngaSwI'mey meH 'e' yIlo'. 'oH ngong 'ej choHlaH.",
       "use-system-openssh": "De'wI' pat OpenSSH 'e' yIlo' (chuplu')"
     },
     "prompts": {
@@ -1125,10 +1125,10 @@
         "@other": "choH vem QIn chenmoH"
       },
       "conflict-resolution": {
-        "@darwin": "yol pup",
-        "@other": "yol pup"
+        "@darwin": "yol tI'",
+        "@other": "yol tI'"
       },
-      "conflict-model-changes": "ghantoH choH 'oH je' tuch yol pupmey ghap.",
+      "conflict-model-changes": "ghantoH choH 'oH je' tuch yolmey ghap.",
       "always-use-copilot-conflicts": {
         "@darwin": "reH Copilot 'e' yIlo' yol jemDI'",
         "@other": "reH Copilot 'e' yIlo' yol jemDI'"
@@ -2311,7 +2311,7 @@
       "message": " SeHlaw → Copilot",
       "no": "je'",
       "path": " SeHlaw → Copilot",
-      "title": "yol pup meH reH Copilot 'e' yIlo'",
+      "title": "yol tI'meH reH Copilot 'e' yIlo'",
       "yes": "je'"
     },
     "cherryPick": {

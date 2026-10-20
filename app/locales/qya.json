@@ -1721,7 +1721,7 @@
   "welcome": {
     "aria": "alla GitHub Desktop",
     "title": "alla <span>GitHub Desktop</span>",
-    "start-description": "GitHub Desktop 'na i pasta mólëo lé veryandino GitHub ar GitHub Enterprise. Tulu síra, na yestalya i veryandelyar nanwa.",
+    "start-description": "GitHub Desktop ná i pasta mólëo lé veryandino GitHub ar GitHub Enterprise. Tulu síra, na yestalya i veryandelyar nanwa.",
     "sign-in-to-github-com": "tulu GitHub.com",
     "sign-in-to-github-enterprise": "tulu GitHub Enterprise",
     "new-to-github": "vinya GitHub?",
@@ -1961,7 +1961,7 @@
   },
   "checkout": {
     "checkout": "cilë",
-    "confirm-message": "yá lyë cilë i minatacë, i HEAD 'na leryanë ar lá halyë olba. sáquetatya cilë i minatacë sina?",
+    "confirm-message": "yá lyë cilë i minatacë, i HEAD ná leryanë ar lá halyë olba. sáquetatya cilë i minatacë sina?",
     "dont-show-again": "áva cennëa i nyarnë sina",
     "title": "cilë i minatacë?"
   },
@@ -2061,17 +2061,17 @@
   "createBranch": {
     "based-on-commit": "i olba vinyalya caruva sundo i hauramo llo: i minatacë '{summary}' ({sha}).",
     "based-on-label": "carë i olba i sundo llo…",
-    "branch-exists-error": "i olba i essë {name} 'na tensi.",
+    "branch-exists-error": "i olba i essë {name} ná tensi.",
     "could-not-determine-default-branch": "unistë hiryë i sitina olba.",
     "create-branch-ok": "carë i olba",
     "current-branch-description": "i olba cilienë síra. cilë sina yá oratya vinya mólë carë i olbas sina.",
     "default-branch-description": "i sitina olba i haurassëlya. cilë sina, itan yesta i vinya.",
-    "detached-head": "lá harya olba cilienë síra (i HEAD 'na leryanë). tulu i olba vinyalya caruva sundo i minatacë cilienë síra ({sha}).",
+    "detached-head": "lá harya olba cilienë síra (i HEAD ná leryanë). tulu i olba vinyalya caruva sundo i minatacë cilienë síra ({sha}).",
     "name": "essë",
     "title": "carë i olba",
     "unborn-branch": "i olba síra lá nanwa (lá harya minatacer). yá lyë carë olba vinya, vista i essë i olbao síra.",
     "upstream-default-branch-description": "i sitina olba i minya hauramo. cilë sina, itan yesta i vinya.",
-    "current-is-default": "<ref>{branch}</ref> 'na i <defaultLink/> i haurassëlya.",
+    "current-is-default": "<ref>{branch}</ref> ná i <defaultLink/> i haurassëlya.",
     "fork-settings-hint": "i sitina olba tulë <link>i nelecco axanilyar</link>llo.",
     "default-branch-link": "sitina olba"
   },
@@ -2093,7 +2093,7 @@
     "delete-on-remote": "sá, fehta i olba sina i palan haurassë",
     "delete-remote-title": "fehta i palan olba",
     "open-pr-warning": "nai harya i olba sina i ettulëo carda apanta.",
-    "remote-exists-question": "i olba sina 'na i palan haurassë. sáquetatya fehta i palan haurassë?",
+    "remote-exists-question": "i olba sina ná i palan haurassë. sáquetatya fehta i palan haurassë?",
     "remote-only-warning": "i olba sina lá nanwa i arëa haurassë. fehtien, nai raxëa hyaquen i ocaro i olbas sina.",
     "title": "fehta i olba",
     "confirm-message": "fehta i olba <ref>{branch}</ref>?",
@@ -2664,7 +2664,7 @@
   },
   "ssh": {
     "confirmConnect": "sáquetatya lyë cacarë i himyalë?",
-    "hostAuthenticity": "i nótaro '{host} ({ip})' vératanna unistë tulcanë. i {keyType} latilya vératanna 'na {fingerprint}.",
+    "hostAuthenticity": "i nótaro '{host} ({ip})' vératanna unistë tulcanë. i {keyType} latilya vératanna ná {fingerprint}.",
     "hostTitle": "SSH nótar",
     "keyPassphraseLabel": "anta i pahta tengwa i latil '{keyPath}':",
     "keyPassphraseTitle": "SSH latilya pahta tengwa",
@@ -3475,8 +3475,8 @@
     "browserRedirect": "i browser sina lelyuva lyë enta i GitHub Desktopanna yá tyulë. yá i browser sina mansëa i lávë itan latya i GitHub Desktop, anta i lávë."
   },
   "branchName": {
-    "rulesRestricted": "i olba i essë '{branchName}' 'na avanwa i haurao axanen.",
-    "rulesBypassable": "i olba i essë '{branchName}' 'na avanwa i haurao axanen, má alyë avartëa i axani. Lelyë i raxen!"
+    "rulesRestricted": "i olba i essë '{branchName}' ná avanwa i haurao axanen.",
+    "rulesBypassable": "i olba i essë '{branchName}' ná avanwa i haurao axanen, má alyë avartëa i axani. Lelyë i raxen!"
   },
   "gitEmail": {
     "learnMoreAria": "Learn more about commit attribution",
@@ -3508,7 +3508,7 @@
   },
   "branchNameWarnings": {
     "trackingWarning": "i olba sina 'epë i <ref/>; yá lyë vista i essë, i olbao essë i palan haurassë úvista.",
-    "nameExistsOnRemote": "i olba i essë <ref/> 'na tensi i palan haurassë."
+    "nameExistsOnRemote": "i olba i essë <ref/> ná tensi i palan haurassë."
   },
   "copilotApp": {
     "notFoundMessage": "Couldn't find the GitHub Copilot App on your machine. Experience agent-driven development built natively on GitHub by <download>downloading GitHub Copilot</download>.",
