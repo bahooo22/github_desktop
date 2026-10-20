@@ -1287,7 +1287,7 @@
     "reportIssueBuild": "**I GitHub Desktop lerië:** {version} ({sha} cara)",
     "reportIssueOtherLanguage": "**Harya i hyanya lambë sinwa raicë:** <ná/lá, lambë>",
     "pick": "cilë i serma",
-    "pickHint": "Á tocë i essë lambelanga i fanwasse i tengwistëa. Escape apta i cilië."
+    "pickHint": "Á nirë i essë lambelanga i fanwasse i tengwistëa. Escape apta i cilië."
   },
   "menu": {
     "about": "pá GitHub Desktop",
