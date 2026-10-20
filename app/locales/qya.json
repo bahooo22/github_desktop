@@ -1041,13 +1041,13 @@
     },
     "notifications": {
       "title": "i sinwatië",
-      "enable": "latya i sinwatië",
+      "enable": "vehta i sinwatië",
       "description": "Sina tuluhta tana i sinwatië yá ëa raxëa carda i haura silúmëa.",
       "grant-permission-hint": " Maura <link>yanta i lávë</link> itan tana sina sinwatië GitHub Desktopó.",
       "permission-denied": "<icon/> GitHub Desktop lá harya i lávë itan tana i sinwatië. Latya <link>i sinwatiëo partiëssë</link>.",
       "configure-hint": " Tancata: i sinwatië {verb} GitHub Desktop·va <link>i sinwatiëo partiëssë</link>.",
       "verb-properly-configured": "tulcana",
-      "verb-enabled": "latyana"
+      "verb-enabled": "vehtaina"
     },
     "accessibility": {
       "title": "i latië",
@@ -1184,7 +1184,7 @@
         "name": "essë",
         "endpoint": "i mettatië",
         "avatar-url": "i cendelëo URL",
-        "enabled": "latyana",
+        "enabled": "vehtaina",
         "token-based-billing": "i mirma i tengwëo",
         "unlimited": "lá hríma",
         "entitlement-requests": "i massëo iquirië",
@@ -1192,8 +1192,8 @@
         "remaining-percentage": "i lá mahtanë massë",
         "overage": "pella i hríma",
         "reset-date": "i nanquavëa aurë",
-        "usage-allowed-quota-exhausted": "latya i mahtanië, i massë cumna",
-        "overage-allowed-quota-exhausted": "latya pella i hríma, i massë cumna"
+        "usage-allowed-quota-exhausted": "mahtanië lávima, i massë cumna",
+        "overage-allowed-quota-exhausted": "massë pella lávima, i massë cumna"
       }
     },
     "integration-form": {
@@ -1818,7 +1818,7 @@
     "commit-filtered-dialog": {
       "dont-show-again": "áva cennëa i nyarnë sina",
       "title": "Carë i siltanë ahyanië?",
-      "message": "Harya silta latyanë. <link>I nurtanë ahyanië</link> minatanë i caruva. Ná lyë sinwa, sáquetatya carë i ahyanië sina?"
+      "message": "Harya silta antacina. <link>I nurtanë ahyanië</link> minatanë i caruva. Ná lyë sinwa, sáquetatya carë i ahyanië sina?"
     },
     "commits-word": "minatacë",
     "continue-rebase": {
@@ -1845,7 +1845,7 @@
     "files-too-large": "I cómi yána",
     "filter-placeholder": "Silta",
     "filter": {
-      "applied": "({count} latyanë)",
+      "applied": "({count} antacina)",
       "clear": "Cumya i siltyar",
       "deleted-files": "I fehtanë cómi ({count})",
       "excluded-from-commit": "Hehtanë i minatacëallo ({count})",

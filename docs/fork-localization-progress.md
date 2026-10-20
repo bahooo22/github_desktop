@@ -1189,3 +1189,45 @@ Applications Terms and Conditions, включая разделы об отказ
 сериализатор, который воспроизводит prettier-формат побайтно (сворачивание
 влезающих в 80 колонок массивов скаляров плюс конечный перевод строки); сухая
 пересборка обоих каталогов без изменений совпадает с файлом байт-в-байт.
+
+## Смысловая сверка: форма меры значение не проверяет (20.10.2026)
+
+Меры по клингонскому (словарь boQwI' и правила Hol 'ampaS) и по квенья (Eldamo,
+Paul Strack) отвечают на вопрос «есть ли такая форма в языке». Слово, которое в
+словаре есть, но значит другое, проходит обе меры зелёным. Поэтому поверх них
+снят смысловой проход: каждое значение глоссария сверено со статьёй дампа или
+Eldamo целиком, а не по первой глоссе.
+
+Найдено и выправлено 8 уже закоммиченных форм.
+
+- Клингонский, `settings/git/default-branch-change`: `gham tIghmey`. `gham` в
+  дампе — «limb (of an animal)» (ek_dictionary:4117), «работы» в ней нет; `tIq`
+  — «сердце» (:3214) и «быть длинным» (:4057), тоже не «procedure». Взято
+  `ghIgh` «task, assignment, duty» (:6961) и `mIw` «procedure, process, step»
+  (:5459): `ghIgh mIwmey` — «рабочие процедуры».
+- Квенья, семь строк: `latya-` = «to open anything (so as to allow entry)», а
+  ею закрывали и «enable», и «applied». Замены по Eldamo: `vehta-` «to
+  activate, turn on, switch on» в `settings/notifications/enable`, `vehtaina`
+  (основа плюс `-ina` «passive participle») в двух строках «enabled», `antacina`
+  от `antac-` «to apply» в `changes/filter/applied` и в тексте
+  `changes/commit-filtered-dialog/message`, `lávima` «permissible» в двух
+  строках copilot про «allowed with exhausted quota». В той же правке `hríma`
+  («edge, hem, border») уступила `massë` («portion, share, capacity») в строке
+  про перерасход квоты.
+
+Оставлено сознательно, с записью в глоссарии: `essë` (86 форм) для account —
+сервисного слова в Eldamo нет, это метонимия «имя»; `vanima` для valid — глосса
+«beautiful, fair, good, suitable», для интерфейса берётся «suitable», а
+`úvanima` для invalid уже закоммичено трижды; `colca` («box») для dialog и
+folder; `orturië` от `ortur-` «overpower» для override — kind=assembled.
+
+Глоссарии пополнены: 389 → 390 записей в клингонском и 379 → 383 в квенья, в
+том числе `authenticated` = `chap` (ek_dictionary:473) и `renewal` = `ceulë`
+(Eldamo q n '*renewal'). Заодно снята самоподтверждающаяся ссылка в записи
+«apply»: прежде источником считалась уже принятая строка каталога.
+
+Замеры (контейнер `gdlab`, 20.10.2026): `npx prettier --check` по двум
+каталогам — зелёный; мера по клингонскому — 5 022 слова, 0 находок; мера по
+квенья — 29 находок и в рабочем файле, и в HEAD, новых ноль; `--parity` —
+1 746 leaf-ключей на каталог, 0 расхождений; `--untranslated` — 681 и 684 формы
+из 2 011; тест `app/test/unit/l10n-test.ts` — 41/41.
