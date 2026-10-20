@@ -3,15 +3,10 @@
     "name": "Quenya",
     "nativeName": "Quenya",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ],
+    "pluralCategories": ["one", "other"],
     "gloss": "ru",
     "translit": "qya",
-    "authors": [
-      "BaHooo"
-    ],
+    "authors": ["BaHooo"],
     "ready": [
       "about.beta-channel",
       "about.build",

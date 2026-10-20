@@ -3,15 +3,10 @@
     "name": "Klingon",
     "nativeName": "tlhIngan Hol",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ],
+    "pluralCategories": ["one", "other"],
     "gloss": "ru",
     "translit": "tlh",
-    "authors": [
-      "BaHooo"
-    ],
+    "authors": ["BaHooo"],
     "ready": [
       "about.beta-channel",
       "about.build",
