@@ -231,6 +231,19 @@
       "common.save",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "copilotByokModel.add",
+      "copilotByokModel.addTitle",
+      "copilotByokModel.defaultReasoningOption",
+      "copilotByokModel.displayNameLabel",
+      "copilotByokModel.editTitle",
+      "copilotByokModel.exactNameHint",
+      "copilotByokModel.friendlyNameHint",
+      "copilotByokModel.identifierExists",
+      "copilotByokModel.identifierRequired",
+      "copilotByokModel.modelIdentifierLabel",
+      "copilotByokModel.reasoningEffortLabel",
+      "copilotByokModel.reasoningHint",
+      "copilotByokModel.save",
       "createBranch.based-on-commit",
       "createBranch.based-on-label",
       "createBranch.branch-exists-error",
@@ -3162,34 +3175,34 @@
     "enterpriseHeading": "GitHub Enterprise"
   },
   "copilotByokModel": {
-    "reasoningHint": "Reasoning models (o1, o3, GPT-5 reasoning variants, etc.) think before responding. Higher levels are slower but produce better answers on complex tasks. Leave on <em>Default</em> for non-reasoning models or to let the provider pick.",
-    "save": "Save",
-    "add": "Add",
-    "identifierRequired": "Please enter a model identifier.",
-    "identifierExists": "Another model with the identifier '{id}' already exists.",
-    "friendlyNameHint": "The friendly name shown in the Copilot model picker.",
-    "exactNameHint": "The exact name your provider expects (e.g. <code>gpt-4o</code>, <code>llama3</code>).",
+    "reasoningHint": "mo' meq ghantoHmey (o1, o3, GPT-5 je) jangpa' meqlu'. patlh vItlh QIt ghoS, 'ach Qatlh ghIghmeyDaq jangghach nIv chenmoHlu'. mo' meqbe' ghantoHmeyDaq <em>motlh</em> yIchoH, 'ach peSwI' yIwIvmoH.",
+    "save": "yIpol",
+    "add": "yIchel",
+    "identifierRequired": "ghantoH ngu'ghach yIghItlh.",
+    "identifierExists": "ghantoH latlhDaq ngu'ghach '{id}' wejHa' tu'lu'.",
+    "friendlyNameHint": "Copilot ghantoH wIvwI'Daq pong jup cha'lu'.",
+    "exactNameHint": "pong pup 'e' poQ peSwI'lIj (ghantoHmey: <code>gpt-4o</code>, <code>llama3</code>).",
     "editTitle": {
-      "@darwin": "Edit Model",
-      "@other": "Edit model"
+      "@darwin": "ghantoH yIchoH",
+      "@other": "ghantoH yIchoH"
     },
     "addTitle": {
-      "@darwin": "Add Model",
-      "@other": "Add model"
+      "@darwin": "ghantoH yIchel",
+      "@other": "ghantoH yIchel"
     },
     "displayNameLabel": {
-      "@darwin": "Display Name",
-      "@other": "Display name"
+      "@darwin": "pong cha'lu'bogh",
+      "@other": "pong cha'lu'bogh"
     },
     "modelIdentifierLabel": {
-      "@darwin": "Model Identifier",
-      "@other": "Model identifier"
+      "@darwin": "ghantoH ngu'ghach",
+      "@other": "ghantoH ngu'ghach"
     },
     "reasoningEffortLabel": {
-      "@darwin": "Reasoning Effort",
-      "@other": "Reasoning effort"
+      "@darwin": "mo' meq patlh",
+      "@other": "mo' meq patlh"
     },
-    "defaultReasoningOption": "Default (provider's choice)"
+    "defaultReasoningOption": "motlh (peSwI' wIv)"
   },
   "ciCheckRunRerun": {
     "titleSingle": "Re-run Single check",

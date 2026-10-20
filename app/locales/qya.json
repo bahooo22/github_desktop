@@ -231,6 +231,19 @@
       "common.save",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "copilotByokModel.add",
+      "copilotByokModel.addTitle",
+      "copilotByokModel.defaultReasoningOption",
+      "copilotByokModel.displayNameLabel",
+      "copilotByokModel.editTitle",
+      "copilotByokModel.exactNameHint",
+      "copilotByokModel.friendlyNameHint",
+      "copilotByokModel.identifierExists",
+      "copilotByokModel.identifierRequired",
+      "copilotByokModel.modelIdentifierLabel",
+      "copilotByokModel.reasoningEffortLabel",
+      "copilotByokModel.reasoningHint",
+      "copilotByokModel.save",
       "createBranch.based-on-commit",
       "createBranch.based-on-label",
       "createBranch.branch-exists-error",
@@ -3162,34 +3175,34 @@
     "enterpriseHeading": "GitHub Enterprise"
   },
   "copilotByokModel": {
-    "reasoningHint": "Reasoning models (o1, o3, GPT-5 reasoning variants, etc.) think before responding. Higher levels are slower but produce better answers on complex tasks. Leave on <em>Default</em> for non-reasoning models or to let the provider pick.",
-    "save": "Save",
-    "add": "Add",
-    "identifierRequired": "Please enter a model identifier.",
-    "identifierExists": "Another model with the identifier '{id}' already exists.",
-    "friendlyNameHint": "The friendly name shown in the Copilot model picker.",
-    "exactNameHint": "The exact name your provider expects (e.g. <code>gpt-4o</code>, <code>llama3</code>).",
+    "reasoningHint": "I sanalië cantemmar (o1, o3, GPT-5) sanar nó i hanquenta. I rihta alya ná taira, onë carir alya hanquenta i urda rincumassë. Á sesta <em>Sitina</em> i cantemmar lá sanar, á lerya i antindo cilë.",
+    "save": "Rehta",
+    "add": "Yanta",
+    "identifierRequired": "Tecë i cantemma tengwa.",
+    "identifierExists": "I enta cantemma i tengwa '{id}' harya ná tensi.",
+    "friendlyNameHint": "Ilquen Copilot i cantemma ciliëssë cenuvas i essë.",
+    "exactNameHint": "I essë nanwa i antindolya mauya (<code>gpt-4o</code>, <code>llama3</code>).",
     "editTitle": {
-      "@darwin": "Edit Model",
-      "@other": "Edit model"
+      "@darwin": "Tengwista cantemma",
+      "@other": "Tengwista cantemma"
     },
     "addTitle": {
-      "@darwin": "Add Model",
-      "@other": "Add model"
+      "@darwin": "Yanta cantemma",
+      "@other": "Yanta cantemma"
     },
     "displayNameLabel": {
-      "@darwin": "Display Name",
-      "@other": "Display name"
+      "@darwin": "Essë apantaina",
+      "@other": "Essë apantaina"
     },
     "modelIdentifierLabel": {
-      "@darwin": "Model Identifier",
-      "@other": "Model identifier"
+      "@darwin": "Cantemma tengwa",
+      "@other": "Cantemma tengwa"
     },
     "reasoningEffortLabel": {
-      "@darwin": "Reasoning Effort",
-      "@other": "Reasoning effort"
+      "@darwin": "Sanalië rihta",
+      "@other": "Sanalië rihta"
     },
-    "defaultReasoningOption": "Default (provider's choice)"
+    "defaultReasoningOption": "Sitina (i antindoro cilmë)"
   },
   "ciCheckRunRerun": {
     "titleSingle": "Re-run Single check",

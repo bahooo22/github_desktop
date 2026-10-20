@@ -1744,3 +1744,154 @@ request» (`qem tlhob` против `Hoq tlhob` в `changes`) этот комм�
 новая форма `tlhobghach` фиксирует, что вторая опора — глагол, и это надо учесть
 при сведении. Живая приёмка двухстрочной подсказки в собранном интерфейсе и три
 проверки WCAG 1.4.13 по-прежнему не сняты.
+
+## Форма добавления модели Copilot BYOK: 18 форм в двух конлангах (20.10.2026)
+
+Группа `copilotByokModel` — диалог добавления и правки своей модели в настройке
+Copilot BYOK: заголовки, две подписи полей, три подсказки под ними, опция
+«Default» и два состояния проверки идентификатора. Порядок тот же, что на
+`checkRuns`, `discardChanges` и `notifications`: черновик из глоссариев, приёмка
+форм по первичным словарям, готовность в `meta.ready`, гейты, коммит.
+
+Состав группы. 18 листовых форм лежат в 13 строках каталога: `addTitle`,
+`editTitle`, `displayNameLabel`, `modelIdentifierLabel` и
+`reasoningEffortLabel` несут по два платформенных варианта (`@darwin` и
+`@other`), остальные 8 строк — по одной форме. Платформенные пары в этой группе
+различаются только регистром («Add Model» против «Add model»), поэтому в обоих
+конлангах варианты совпадают текстом. В `meta.ready` добавлены те же 13 имён
+строк, 961 → 974.
+
+Клингонский. Термин «model» — `ghantoH` (ek_dictionary:2386, 4551, 5110
+«example, model, pattern»), он уже стоит в `copilotByokProvider`
+(`modelsHint`, `duplicateModelId`), и новых записей в дампе под ним не искалось.
+«Identifier» собран как `ngu'ghach`: `ngu'` — «identify» (:3482), а после
+номинализатора `-ghach` основа становится существительным. Первая попытка
+`nguwI'` (тот же `-wI'`, «тот, кто идентифицирует») мера отклонила:
+номинализующий суффикс не присоединяется к основе на апостроф, — тот же класс
+отказа, что `'olmey` на `checkRuns` и `tlhobvetlh` на `notifications`.
+«Display Name» — `pong cha'lu'bogh`: `pong` (:4686 «name») плюс `cha'` (:1981
+«display, show (picture)») с `-lu'` неопределённого субъекта и `-bogh`
+«который», — буквально «то, что показывает имя».
+
+Ловушка группы — притяжательное `lIj`. Черновик писал «ваш провайдер» как
+`peSwI' lIj`, но раздельное `lIj` — это глагол «forget» (:2733), и клингонская
+мера такое предложение пропускает: оба слова аттестованы по отдельности.
+Притяжательное «your» — суффикс 4-го типа `-lIj` (:8166), поэтому форма
+переписана как `peSwI'lIj`; сама опора `peSwI'` = `peS` (:1979 «dispense,
+supply, furnish, provide») плюс `-wI'` уже живёт в `copilotByokProvider`
+(`providerLegend`, `namePlaceholder` = `peSwI'wI'` «мой провайдер»). Это второй
+случай за день, когда смысловой проход нашёл то, что не видит проверка формы:
+первый был `mo'` вместо `-mo'` в прошлой группе.
+
+Три кнопки группы берутся каталожными императивами: `yIpol` от `pol` (:3831,
+6019 «keep, save»), `yIchel` от `chel` (:114 «add») и `yIchoH` от `choH` (:223,
+1175 «alter, change»). Здесь стоит `choH`, а не `ghoS`, — разделение прошлого
+коммита развёрнуто: кнопка правит саму модель, а не переносит пользователя, и
+ровно так же секция `notifications` описала `switchTo`. «Please enter a
+model identifier» — та же связка, что `common.nameRequired` (`pong yIghItlh.`):
+`ghItlh` (:2287 «engrave, incise, mark (upon), write») в императиве.
+«already exists» — `wejHa' tu'lu'`: `wejHa'` (:220, 398, 699 «already, before
+now») и `tu'lu'` (:7072 «there is, there are»), а «другая модель» — `latlh`
+(:117, 4998 «other one») с локативом `-Daq`.
+
+Длинная `reasoningHint` держит три смысла, и в каждом была своя опора.
+«Reasoning models think before responding» — `mo' meq ghantoHmey ... jangpa'
+meqlu'`: `meq` (:4168, 4619 «logical thinking, reason, motive»; :5688 «reason,
+think logically») с `mo'` (:3064, 4617 «grounds, motive, rationale»), `jang`
+(:301 «answer, reply») с `-pa'` «раньше» и `-lu'`. Суффикс `-mo'` «because»
+(:686, 687) к этой паре отношения не имеет — омограф того же ряда, что `-meH`.
+«Higher levels are slower» — `patlh vItlh QIt ghoS`: `patlh` (:4017, 4076
+«level, rank»), `vItlh` (:3032, 3257 «great in quantity, high»), и `QIt` — это
+наречие «slowly» (:6380), а не «хорошо»: «good» в дампе занимают `QaQ` (:2978),
+`'ey` (:2977) и `chong` (:2976). «produce better answers on complex tasks» —
+`Qatlh ghIghmeyDaq jangghach nIv chenmoHlu'`: `Qatlh` (:1430, 1901 «complex,
+difficult»), `ghIgh` (:417 «assignment, task, duty»), `nIv` (:6809 «be
+superior») и `chenmoH` (:1653 «create, form, make») с `-lu'`. Нерассуждающие
+модели — `mo' meqbe' ghantoHmeyDaq` через `-be'`, «оставьте Default» — `motlh
+yIchoH` (`motlh` :399, 4813 «as expected, be standard»), «пусть провайдер
+выберет» — `peSwI' yIwIvmoH`: каузатив `-moH` от `wIv` (:1231 «choose,
+select»). Одиночная `defaultReasoningOption` — `motlh (peSwI' wIv)`, где два
+существа рядом дают притяжение: «обычное (выбор выбирающего)».
+
+Две подсказки держат русско-английскую пару «friendly / exact», и для обеих в
+дампе есть короткие основы: `jup` (:2792 «friend») даёт `pong jup`, `pup`
+(:2380, 5160 «exact, be perfect») даёт `pong pup 'e' poQ peSwI'lIj` — «ваш
+провайдер требует точное имя» (`poQ` :1828 «demand, require», `'e'` переводит
+объект в тему). `Copilot`, `o1`, `o3`, `GPT-5`, `gpt-4o` и `llama3` оставлены
+именами: тот же литерал стоит в en-значении этого же ключа, и разметочная мера
+их не требует переводить.
+
+Квенья. Все термины взяты из глоссария форка и уже стоят в каталоге: `cantemma`
+(«model», Eldamo nq n :91914 «shaped image, sculpture»), `sanalië` («reasoning»,
+`copilotByokProvider.reasoning` :1268), `sitina` («default», `i sitina olba`
+:1123), `antindo` («provider», `providerLegend` :3077), `essë` («name»,
+`common.name` :1001), `Rehta` и `Yanta` (`common.save`, `common.add`),
+`Tengwista` («edit», `localizationEditor.editor` :1074) и `tengwa` («sign,
+token, indication; writing») — от него `Cantemma tengwa` для «Model
+Identifier» и `Tecë i cantemma tengwa.` по образцу `nameRequired` (`Tecë i
+essë.` :3130). Новое слово группы — `rihta` (nq n :225309 «effort»), оно даёт
+`Sanalië rihta` для «Reasoning Effort» и раньше в каталоге не стояло.
+«Display Name» — `Essë apantaina`: `apanta-` (:80731 «to open, reveal, show,
+display») с `-ina` страдательного причастия, тот же оборот, что `Mainaina` и
+`Hentaina` в `notifications`. «friendly name shown in the model picker» —
+`Ilquen Copilot i cantemma ciliëssë cenuvas i essë`, построенное по образцу
+`copilotByokProvider.modelsHint` :3089 (`Ilquen cenuvas i cantemma ciliëssë`),
+где `ilquen` — «everybody» (:134287).
+
+В `identifierExists` черновик шёл за каталожной `baseUrlInvalid` :3132 и писал
+«которая имеет» как `i haro`, но в Eldamo `haro` — существительное «hawk» (mq n
+:118475), и форма держится в каталоге только как готовый оборот. Принадлежность
+по-квенья делает `harya` (:2044 `i luciquista sina harya epë`), а «уже
+существует» — идиом `ná tensi` (:2183 `i olba i essë {name} ná tensi`; `tensi`
+:251805 «already, up to now»), поэтому форма переписана целиком: `I enta
+cantemma i tengwa '{id}' harya ná tensi.` (`enta` = «тот, другой», стоит в
+:2697). В `reasoningHint` правка одна: `carir arya hanquenta` заменено на
+`carir alya hanquenta`, потому что `arya` — «something else» (:68241) и «day»
+(:84334), а «good» — `alya` (:75150, оно же в `Ma mauya alya?` :2736).
+
+Остальной текст `reasoningHint` собран по дампу: `sanar nó i hanquenta` —
+«рассуждают перед ответом» (`sanar` q n :230254 «mind, thinker» как 3-е лицо мн.
+числа от `sana-`, `nó` :193314 «before», `hanquenta` :120820 «answer»), `I
+rihta alya ná taira` — «усилие высокое есть медленное» (`taira` nq adj :154390
+«slow»), `onë carir alya hanquenta i urda rincumassë` — «но делают хорошие
+ответы в трудной задаче» (`onë` conj :166357 «but», `urda` :268013 «hard,
+difficult», `rincuma` nq n :226054 «task, charge, mission» с локативом `-ssë`),
+`Á sesta <em>Sitina</em> i cantemmar lá sanar` — «уподобьте Sitina моделям,
+которые не рассуждают» (`sesta-` :234109 «to liken, make like»), и `á lerya i
+antindo cilë` — «отпустите провайдеру выбрать» (`lerya` :155665 «release, set
+free, let go», `cil-` :96956 «to choose»). `defaultReasoningOption` — `Sitina (i
+antindoro cilmë)`: `cilmë` :96991 «choice, choosing» с генитивом `-ro`
+(«выбор провайдера»). `exactNameHint` — `I essë nanwa i antindolya mauya`, где
+`nanwa` :183532 «existing, actual» даёт «фактическое имя», а `-lya` — «ваш»
+(каталожное `Antindonya` :3079 — «мой провайдер»).
+
+Разметка. Теги `<em>` и `<code>` и плейсхолдер `{id}` — единственная разметка
+группы: `<em>` стоит в `reasoningHint` (обе группы держат его на слове
+«Default»), два `<code>` — в `exactNameHint`. Ни один тег не склеен с
+следующим словом. Мерка `markup_check_2010.py copilotByokModel` сверяет состав
+тегов и плейсхолдеров с `en.json`; регрессы `notifications`, `checkRuns`,
+`history`, `discardChanges` и `copilotByokProvider` прогнаны в том же прогоне.
+
+Замеры. Контейнер `gdlab`, прогон 20.10.2026. Клингонская мера — 5 624 слова, 0
+неподтверждённых (на HEAD — 5 554 и 0); множество находок совпадает,
+`IDENTICAL` (`E:/tmp/tlh_find6_2010.py`, `E:/tmp/tlh_diff_sets_2010.py`). Мера
+квенья — 6 232 слова и 29 уникальных находок в рабочем файле против 6 150 и 29
+на HEAD, вердикт `IDENTICAL`, новых 0. По самой группе: клингонский 70 слов и 0
+находок (8 английских литералов пропущены как совпадающие с en-значением того
+же ключа), квенья 82 слова и 0 находок. Разметочная мера — 18 форм против 18, 0
+расхождений, пять соседних групп в том же прогоне — 0. Гейты: `--parity` 1 746
+leaf-ключей на каталог, 0 расхождений; `--untranslated` клингонский 558 → 540 и
+квенья 561 → 543 из 2 011; `meta.ready` 961 → 974 строк в обоих каталогах, 0
+битых путей; `prettier --check` зелёный; `yarn test app/test/unit/l10n-test.ts`
+— 41 тест, 41 пройден, 0 падений, 5 сюит, 7 942 мс; `--audit` — 40 видимых
+литералов и те же 13 непокрытых; `--bundles` — «shipped copies out of date: 2».
+
+Принятый остаток. `baseUrlInvalid` :3132 по-прежнему стоит с `haro` — форма не
+из этого диффа, и править её надо отдельным коммитом со сверкой всех строк,
+где `haro` уже закрепился. `Á sesta` для «leave on Default» — самое близкое из
+аттестованных: отдельного глагола «оставить (значение неизменным)» дамп не даёт,
+поэтому оборот буквализирован («уподобьте Обычному»). Русская глосса
+«выбор выбирающего» у `peSwI' wIv` остаётся двусмысленной на глаз — приёмка её
+по дампу подтверждает, но смысловой проход по ряду `wIv`/`cilmë` стоит сделать
+вместе с `copilotByokProvider`. Живая приёмка двухстрочной подсказки в собранном
+интерфейсе и три проверки WCAG 1.4.13 по-прежнему не сняты.
