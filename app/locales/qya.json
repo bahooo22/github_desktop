@@ -2955,66 +2955,66 @@
     "altCloud": "Server stack with cloud"
   },
   "copilotByokProvider": {
-    "providerLegend": "Provider",
-    "nameLabel": "Name",
-    "namePlaceholder": "My provider",
-    "typeLabel": "Type",
-    "typeOpenAI": "OpenAI / OpenAI-compatible",
+    "providerLegend": "Antindo",
+    "nameLabel": "Essë",
+    "namePlaceholder": "Antindonya",
+    "typeLabel": "Nostalë",
+    "typeOpenAI": "OpenAI",
     "typeAzure": "Azure",
     "typeAnthropic": "Anthropic",
-    "modelsLegend": "Models",
-    "wireApiCompletions": "Chat completions (default)",
+    "modelsLegend": "Cantemmar",
+    "wireApiCompletions": "Chat completions (sitina)",
     "wireApiResponses": "Responses (GPT-5 series)",
-    "duplicateModelId": "Duplicate model ID '{id}'.",
-    "modelsEmpty": "No models yet. Add at least one to use this provider.",
-    "modelsHint": "Tell Desktop which models this provider offers. Each one will appear in the model picker for Copilot features.",
-    "noCredentialsHint": "No credentials will be sent with requests to this provider.",
-    "removeQuestion": "Are you sure you want to remove the custom provider <ref/>?",
+    "duplicateModelId": "Cantemma ID '{id}' atta.",
+    "modelsEmpty": "Lá cantemmar. Yanta erë.",
+    "modelsHint": "Sina antindo cantemmar Desktop. Ilquen cenuvas i cantemma ciliëssë.",
+    "noCredentialsHint": "Lá pahta tengwa nauva mentaina.",
+    "removeQuestion": "Ma anwavë meril haita i sito antindo <ref/>?",
     "removeTitle": {
-      "@darwin": "Remove Custom Provider",
-      "@other": "Remove custom provider"
+      "@darwin": "Haita sito antindo",
+      "@other": "Haita sito antindo"
     },
-    "remove": "Remove",
-    "removeApiKeyConsequence": "Its API key will also be removed from your keychain.",
-    "removeBearerConsequence": "Its bearer token will also be removed from your keychain.",
-    "removeNoAuthConsequence": "Any models you have configured for it will no longer be available.",
-    "untitledModel": "Untitled model",
-    "reasoningMeta": "Reasoning: {effort}",
-    "editModelAria": "Edit {heading}",
-    "removeModelAria": "Remove {heading}",
+    "remove": "Haita",
+    "removeApiKeyConsequence": "i latil ya nauva haitaina i pahta tengwallon.",
+    "removeBearerConsequence": "i bearer token ya nauva haitaina i pahta tengwallon.",
+    "removeNoAuthConsequence": "i cantemmar i yantalyë lá nauvar.",
+    "untitledModel": "Cantemma essë lá",
+    "reasoningMeta": "Sanalië: {effort}",
+    "editModelAria": "Tengwista {heading}",
+    "removeModelAria": "Haita {heading}",
     "editTitle": {
-      "@darwin": "Edit Custom Provider",
-      "@other": "Edit custom provider"
+      "@darwin": "Tengwista sito antindo",
+      "@other": "Tengwista sito antindo"
     },
     "addTitle": {
-      "@darwin": "Add Custom Provider",
-      "@other": "Add custom provider"
+      "@darwin": "Yanta sito antindo",
+      "@other": "Yanta sito antindo"
     },
-    "baseUrlLabel": "Base URL",
+    "baseUrlLabel": "URL rav",
     "apiFormatLabel": {
-      "@darwin": "API Format",
-      "@other": "API format"
+      "@darwin": "API fana",
+      "@other": "API fana"
     },
     "azureApiVersionLabel": {
-      "@darwin": "Azure API Version",
+      "@darwin": "Azure API version",
       "@other": "Azure API version"
     },
     "requestTimeoutLabel": {
-      "@darwin": "Request Timeout (seconds)",
-      "@other": "Request timeout (seconds)"
+      "@darwin": "Lúmë timeout",
+      "@other": "Lúmë timeout"
     },
-    "unchangedSecret": "(unchanged)",
+    "unchangedSecret": "(lá vistaina)",
     "addModel": {
-      "@darwin": "Add Model…",
-      "@other": "Add model…"
+      "@darwin": "Yanta cantemma…",
+      "@other": "Yanta cantemma…"
     },
-    "nameRequired": "Please enter a name.",
-    "baseUrlRequired": "Please enter a base URL.",
-    "baseUrlInvalid": "Base URL must be an https URL, or an http URL pointing at the local machine.",
-    "modelsRequired": "Please add at least one model.",
-    "bearerRequired": "Please enter a bearer token.",
-    "apiKeyRequired": "Please enter an API key.",
-    "timeoutInvalid": "Request timeout must be a positive number of seconds."
+    "nameRequired": "Tecë i essë.",
+    "baseUrlRequired": "Tecë i URL rav.",
+    "baseUrlInvalid": "i URL rav mauya na https URL, hya http URL i haro i nótaro.",
+    "modelsRequired": "Yanta erë cantemma.",
+    "bearerRequired": "Tecë i bearer token.",
+    "apiKeyRequired": "Tecë i latil.",
+    "timeoutInvalid": "i timeout mauya na nótë."
   },
   "unreachableCommits": {
     "unreachableTab": "Unreachable",

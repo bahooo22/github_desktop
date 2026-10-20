@@ -159,6 +159,8 @@ English original» (это ключи, которых нет в `en.json`), у `
 | этот | `qya` | `diff` | 68 | 68 | Eldamo + `qya_check.py`: `hyanwë` «различие», `nyas` «строка», `meletya-` / `talta-`, `apantië`, `cumya` для whitespace, `axacarma`, `minatacë` |
 | этот | `tlh` | `commitMessage` | 50 | 50 | boQwI' + `tlh_check.py`: `choH vem` «коммит», `SIrIlmey` «хуки», `pab` «следовать правилам», `puq chonnaQ` «форк», `Qan` «защищать», `tlhI'` «подпись», `Qav` «последний» |
 | этот | `qya` | `commitMessage` | 50 | 50 | Eldamo + `qya_check.py`: `minatacë` «коммит», `ampa` «хук», `menta` «заголовок», `apterya-` «исправить», `maura-` «требовать», `axan` «правило», `tehta` «знак» |
+| этот | `tlh` | `copilotByokProvider` | 46 | 46 | boQwI' + `tlh_check.py`: `peSwI'` «провайдер», `ghantoH` «модель», `ngoq` «учётные данные», `ngaQHa'moHwI'` «ключ», `'aqroS` «максимум»; `API`, `URL`, `bearer token` — латиницей |
+| этот | `qya` | `copilotByokProvider` | 46 | 46 | Eldamo + `qya_check.py`: `antindo` «провайдер», `cantemma` «модель», `latil` «ключ», `sanalië` «рассуждение», `pahta tengwa` «учётные данные», `nostalë` «тип»; `API`, `URL`, `timeout` — латиницей |
 | этот | `qya` | `localizationEditor` | 68 | 70 | Eldamo только по целому слову: `carina` «done», `serma` «string, cord», `penië` «lack», `ces-` «search in order to find», `lambelanga-` «translate». Мера `qya_attest_check.py` закрытую группу даёт чистой (0 нераскладывающихся из 70), а по всему каталогу оставляет 183 ключа из 2 011 на ручной аудит — гейтом в смысле нуля она ещё не считается |
 
 ## Методика батчей

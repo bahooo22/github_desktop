@@ -2955,66 +2955,66 @@
     "altCloud": "Server stack with cloud"
   },
   "copilotByokProvider": {
-    "providerLegend": "Provider",
-    "nameLabel": "Name",
-    "namePlaceholder": "My provider",
-    "typeLabel": "Type",
-    "typeOpenAI": "OpenAI / OpenAI-compatible",
+    "providerLegend": "peSwI'",
+    "nameLabel": "pong",
+    "namePlaceholder": "peSwI'wI'",
+    "typeLabel": "Segh",
+    "typeOpenAI": "OpenAI",
     "typeAzure": "Azure",
     "typeAnthropic": "Anthropic",
-    "modelsLegend": "Models",
-    "wireApiCompletions": "Chat completions (default)",
+    "modelsLegend": "ghantoHmey",
+    "wireApiCompletions": "Chat completions (motlh)",
     "wireApiResponses": "Responses (GPT-5 series)",
-    "duplicateModelId": "Duplicate model ID '{id}'.",
-    "modelsEmpty": "No models yet. Add at least one to use this provider.",
-    "modelsHint": "Tell Desktop which models this provider offers. Each one will appear in the model picker for Copilot features.",
-    "noCredentialsHint": "No credentials will be sent with requests to this provider.",
-    "removeQuestion": "Are you sure you want to remove the custom provider <ref/>?",
+    "duplicateModelId": "ghantoH ID '{id}' rap.",
+    "modelsEmpty": "ghantoHmey tu'lu'be'. wa' yIchel.",
+    "modelsHint": "peSwI'vam ghantoHmey Desktop yIja'. ghantoH wIvmeH Hoch cha'lu'.",
+    "noCredentialsHint": "ngoqmey ngeHlu'be'.",
+    "removeQuestion": "tIgh peSwI' <ref/> yIteq 'e' yIneH'a'?",
     "removeTitle": {
-      "@darwin": "Remove Custom Provider",
-      "@other": "Remove custom provider"
+      "@darwin": "tIgh peSwI' yIteq",
+      "@other": "tIgh peSwI' yIteq"
     },
-    "remove": "Remove",
-    "removeApiKeyConsequence": "Its API key will also be removed from your keychain.",
-    "removeBearerConsequence": "Its bearer token will also be removed from your keychain.",
-    "removeNoAuthConsequence": "Any models you have configured for it will no longer be available.",
-    "untitledModel": "Untitled model",
-    "reasoningMeta": "Reasoning: {effort}",
-    "editModelAria": "Edit {heading}",
-    "removeModelAria": "Remove {heading}",
+    "remove": "yIteq",
+    "removeApiKeyConsequence": "API key lIj je ngaQHa'moHwI' tetlhvo' teqlu'.",
+    "removeBearerConsequence": "bearer token lIj je ngaQHa'moHwI' tetlhvo' teqlu'.",
+    "removeNoAuthConsequence": "ghantoHmey lIj tu'lu'be'qa'.",
+    "untitledModel": "pong Hutlh ghantoH",
+    "reasoningMeta": "mo' meq: {effort}",
+    "editModelAria": "{heading} yIchoH",
+    "removeModelAria": "{heading} yIteq",
     "editTitle": {
-      "@darwin": "Edit Custom Provider",
-      "@other": "Edit custom provider"
+      "@darwin": "tIgh peSwI' yIchoH",
+      "@other": "tIgh peSwI' yIchoH"
     },
     "addTitle": {
-      "@darwin": "Add Custom Provider",
-      "@other": "Add custom provider"
+      "@darwin": "tIgh peSwI' yIchel",
+      "@other": "tIgh peSwI' yIchel"
     },
-    "baseUrlLabel": "Base URL",
+    "baseUrlLabel": "URL rav",
     "apiFormatLabel": {
-      "@darwin": "API Format",
-      "@other": "API format"
+      "@darwin": "API mIw",
+      "@other": "API mIw"
     },
     "azureApiVersionLabel": {
-      "@darwin": "Azure API Version",
-      "@other": "Azure API version"
+      "@darwin": "Azure API mI'",
+      "@other": "Azure API mI'"
     },
     "requestTimeoutLabel": {
-      "@darwin": "Request Timeout (seconds)",
-      "@other": "Request timeout (seconds)"
+      "@darwin": "poQ 'aqroS",
+      "@other": "poQ 'aqroS"
     },
-    "unchangedSecret": "(unchanged)",
+    "unchangedSecret": "(choHbe'lu')",
     "addModel": {
-      "@darwin": "Add Model…",
-      "@other": "Add model…"
+      "@darwin": "ghantoH yIchel…",
+      "@other": "ghantoH yIchel…"
     },
-    "nameRequired": "Please enter a name.",
-    "baseUrlRequired": "Please enter a base URL.",
-    "baseUrlInvalid": "Base URL must be an https URL, or an http URL pointing at the local machine.",
-    "modelsRequired": "Please add at least one model.",
-    "bearerRequired": "Please enter a bearer token.",
-    "apiKeyRequired": "Please enter an API key.",
-    "timeoutInvalid": "Request timeout must be a positive number of seconds."
+    "nameRequired": "pong yIghItlh.",
+    "baseUrlRequired": "URL rav yIghItlh.",
+    "baseUrlInvalid": "URL rav https 'oHnIS pagh De'wI'vamDaq http.",
+    "modelsRequired": "wa' ghantoH yIchel.",
+    "bearerRequired": "bearer token yIghItlh.",
+    "apiKeyRequired": "API key yIghItlh.",
+    "timeoutInvalid": "poQ 'aqroS mI' yIchel."
   },
   "unreachableCommits": {
     "unreachableTab": "Unreachable",
