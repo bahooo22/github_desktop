@@ -1528,3 +1528,96 @@ prettier --check app/locales/tlh.json app/locales/qya.json` — зелёный; 
 подсказки и три проверки WCAG 1.4.13 на этой группе не снимались — коммит меряет
 файлы. Группа `terms` (29 форм) остаётся английской намеренно: это юридический
 текст апстрима.
+
+## Диалог группы «отмена изменений»: 18 форм в двух конлангах (20.10.2026)
+
+Группа `discardChanges` — диалог подтверждения отмены изменений и его повторная
+ветка `retry.*`: 18 листовых форм, которые укладываются в 17 строк каталога
+(`retry.ok` — одна строка с двумя платформенными вариантами `@darwin` и
+`@other`). Порядок работы тот же, что на `checkRuns` и `history`: черновик из
+глоссариев, приёмка форм по первичным словарям, готовность в `meta.ready`,
+гейты.
+
+Что в группе. Три вопроса подтверждения (`confirmFileList`, `confirmManyFiles` с
+`{count}`, `confirmSelected`), две кнопки (`okDiscard`, `okDiscardAll`), два
+заголовка (`titleDiscard`, `titleDiscardAll`), подпись `restoreMessage`, флажок
+`dontShowAgain` и девять форм `retry.*` — `title`, `failed`, `commonReasons`,
+`reason1`, `reason2`, `okTooltip`, `unrecoverable` и обе платформы `ok`.
+
+Решение по `{trash}`. Плейсхолдер остаётся плейсхолдером: значение ему даёт
+`TrashNameLabel`, то есть `contextMenu.trashName`
+(`app/src/ui/lib/context-menu.ts:23`), а группа `contextMenu` (18 форм) ещё не
+переведена. Падежные суффиксы лепятся к нему так же, как к плейсхолдерам в уже
+принятых строках: клингонское `{trash}vo'` по образцу `<from>{branch}</from>vo'`
+из `multiCommit.mergeChooseBranch.cleanMerge`, `{trash}Daq` по образцу
+`{tag}Daq` из `localizationEditor.revertAll`; квенья `{trash}ollo` (аблатив) и
+`{trash}enna` (дативный `-nna`, тот же, что в `removeRepository.move-to-trash`).
+Термин «корзина» (`auhanta` в квенья, `veQ` в клингонском) здесь не вписан — он
+придёт вместе с `contextMenu`.
+
+Клингонские опоры (дамп boQwI', номера строк `ek_dictionary.md`). `polHa'` 1943
+«discard» — глагол группы, уже в `common.discard` и `changes.discard-changes`;
+`woq` 1466 «confirm, substantiate» — от него `yIwoq` в заголовках; `choH` 223
+«change» и множественное `choHmey` (каталожная форма
+`settings.prompts.discarding-changes`); `Hoch` 207 «all, everything»; `wIv` 1231
+«choose, select» → `wIvlu'bogh` «выбранные»; `DaneH` (want, примеры дампа 1482,
+3355, 3491) с `-bej` 7571 «certainly» и `-a'` → `DaneHbej'a'` — ровно та
+конструкция, что уже принята в `deleteTag.confirm-message`; `qem` 937 «bring» с
+`-DI'` → `yIqemDI'` «вынеся/принеся обратно»; `chegh` 5812 «return (to)» с
+`-laH` → `cheghlaH` для «can be restored»; `luj` 2463 «fail» в конструкции «XmeH
+luj» (прецедент `repositorySettings.error-save-gitignore`); `ghun` 5478 «program
+(a computer)» для «is configured»; `SIbI'` 3523 «immediately»; `teq` 5760
+«remove» с пассивом `-lu'` → `teqlu'`; `tuch` 2703 «forbid» для «restricted
+access»; `naw'` 65 «access» как существительное; `mo'` 3064 «grounds, motive,
+reason» с `-mey` и `reH` 233 «always» — вместе `reH mo'mey 'oH:` для «Common
+reasons are:»; `-Ha'` 7570 «undo» в принятой форме `choHHa'laHbe'` («cannot be
+undone») для «unrecoverable»; `-bogh` для `polHa'bogh` и `-vam` 7123 для
+`choHmeyvam`.
+
+Одна правка по ходу приёмки. Заголовок «Confirm Discard changes» сначала писался
+как `choHmey 'e' yIpolHa' 'e' yIwoq` — два `'e'` в одной строке. В каталоге для
+таких заголовков стоит другой образец: `{operation} qIl 'e' yIwoq`
+(`multiCommit.confirmAbort.title`), то есть название действия идёт перед `'e'
+yIwoq` как существительное, без собственного `'e'`. Отсюда окончательные
+`choHmey polHa' 'e' yIwoq` и `choHmey Hoch polHa' 'e' yIwoq`.
+
+Квенья-опоры (Eldamo, `eldamo-data.xml`, и глоссарий). `aulerya` (nq «to rid,
+free somebody of something») — уже `common.discard`; `ahyanië` «changes»; `ilya`
+«all»; `cilienë` «selected» (`changes.discard-selected-changes`); `vistanë`
+«changed» (`diff.binary.changed`); `sáquetatya` «do you wish»
+(`deleteTag.confirm-message`); `áva cennëa i nyarnë sina` — принятой формой снят
+`dontShowAgain`; `nananta-` (nq «to give back, return») в конструкции `polë +
+аорист`, той же, что в `lá polë nancar` (`settings.language.confirmResetAll`);
+`cahta` (nq «cause, motive, reason») → `cahtar`; `sitina` (nq adj «habitual,
+customary, usual, ordinary, common») для «Common»; `Loica` «failed»
+(`repositorySettings.error-save-gitignore`); `santa-` «configure»
+(`settings.integrations.configure-custom-editor`) в форме `Santanë i {trash}`;
+`linta` «quick» для «immediately» — фраза из дампа Eldamo `ú pusto` (0
+аттестованных форм) не взята; `avanwa` «restricted»
+(`branchName.rulesRestricted`); `latië` «access» (`settings.tab.accessibility`);
+`lev-` (nq «to move») для «move the file(s)»; `tancata-` (q «to make firm, fix,
+confirm») для «Confirm»; `cómë`/`cómi` «file(s)».
+
+Разметка. Плейсхолдеры группы — `{count}` в `confirmManyFiles` и `{trash}` в
+четырёх формах; тегов разметки здесь нет. Мерка `markup_check_2010.py` сверяет
+состав и то и другое с `en.json` и дополнительно ловит суффикс, приклеенный
+снаружи закрывающего тега.
+
+Замеры. Контейнер `gdlab`, прогон 20.10.2026: клингонская мера по форме слова —
+5 494 слова, 0 неподтверждённых; квенья — 6 088 слов, 29 уникальных находок,
+множество совпадает с HEAD (`IDENTICAL`, новых 0); разметочная мера по группе —
+18 форм, 0 расхождений, регрессы `checkRuns` и `history` в том же прогоне — 0.
+Гейты: `--parity` 1 746 leaf-ключей на каталог, 0 расхождений; `--untranslated`
+клингонский 594 → 576 и квенья 597 → 579 из 2 011; `meta.ready` 929 → 946 строк;
+`prettier --check` по обеим каталогам зелёный; `yarn test
+app/test/unit/l10n-test.ts` — 41 тест, 41 пройден, 5 сюит, 6 480 мс; `--audit`
+40 видимых литералов и те же 13 непокрытых (апстримные `.tsx`-литералы, базлайн
+форка); `--bundles` — «shipped copies out of date: 2», win32-бандл «not rolled
+out (skipped)».
+
+Принятый остаток. Подставляемое имя корзины остаётся английским, пока не закрыта
+`contextMenu.trashName`. Группа `terms` (29 форм) остаётся английской намеренно
+— это юридический текст апстрима. Дрейф «pull request» в клингонском (`qem
+tlhob` против `Hoq tlhob` в `changes`) — отдельная задача. Живая приёмка
+двухстрочной подсказки (транскрипция плюс глосса) в собранном интерфейсе и три
+проверки WCAG 1.4.13 не сняты: коммит меряет файлы.
