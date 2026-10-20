@@ -2628,39 +2628,39 @@
     "title": "Re-authorization Required"
   },
   "secretScanning": {
-    "atLine": "at line {line}",
-    "bypass": "Bypass",
-    "bypassAria": "Bypass {description}",
+    "atLine": "yamtaw {line}Daq",
+    "bypass": "yIchu'Ha'",
+    "bypassAria": "{description} yIchu'Ha'",
     "bypassDialog": {
-      "falsePositiveDescription": "The detected string is not a secret",
-      "falsePositiveTitle": "It's a false positive",
-      "ok": "Allow me to expose this secret",
-      "reasonLabel": "Why are you bypassing this {description}?",
+      "falsePositiveDescription": "ngoq 'oHbe' tu'lu'bogh.",
+      "falsePositiveTitle": "ngoq 'oHbe'",
+      "ok": "ngoquvam vI'ang 'e' yIchaw'",
+      "reasonLabel": "{description} yIchu'Ha' qatlh?",
       "title": {
-        "@darwin": "Bypass Push Detection",
-        "@other": "Bypass push detection"
+        "@darwin": "ngeH tu'lu' 'e' yIchu'Ha'",
+        "@other": "ngeH tu'lu' 'e' yIchu'Ha'"
       },
-      "usedInTestsDescription": "The secret poses no risk. If anyone finds it, they cannot do any damage or gain access to sensitive information.",
-      "usedInTestsTitle": "It's used in tests",
-      "willFixLaterDescription": "The secret is real, I understand the risk, and I will need to revoke it. This will open a security alert and notify admins of this repository.",
-      "willFixLaterTitle": "I'll fix it later"
+      "usedInTestsDescription": "Qagh Hutlh ngoq. tu'lu'chugh, not QIH.",
+      "usedInTestsTitle": "tuchmeyDaq lo'lu'",
+      "willFixLaterDescription": "ngoq 'oH. Qob vISov. tI'nIS.",
+      "willFixLaterTitle": "wa'leS vItI'"
     },
-    "bypassed": "Bypassed",
-    "copySha": "Copy the full SHA",
-    "exposureRisks": "Exposing this secret can allow someone to:",
-    "risk1": "Act on behalf of the secret's owner",
-    "risk2": "Know which resources the secret(s) can access",
-    "risk3": "Act on behalf of the secret's owner",
-    "risk4": "Push the secret(s) to this repository without being blocked",
-    "secrets": "Secrets",
+    "bypassed": "chu'Ha'lu'pu'",
+    "copySha": "SHA naQ yIwoH",
+    "exposureRisks": "ngoquvam 'anglu'chugh, vay' laH:",
+    "risk1": "ngoquvam ghajwI' mIw yIvang",
+    "risk2": "ngoquvam laH De' yISov",
+    "risk3": "ngoquvam ghajwI' mIw yIvang",
+    "risk4": "ngoquvam ngeH 'e' yIchaw'",
+    "secrets": "ngoqmey",
     "showLessLocations": {
-      "@darwin": "Show Less Locations",
-      "@other": "Show less locations"
+      "@darwin": "Daqmey puS yI'agh",
+      "@other": "Daqmey puS yI'agh"
     },
-    "showMoreLocations": "Show More locations",
-    "title": "Push blocked: secret detected",
-    "foundSecrets": "<link>Secret Scanning</link> found secret(s) in the commit(s) you attempted to push.",
-    "remediation": "Allowing secrets risks exposure. Consider <link>removing the secret from your commit and commit history.</link>"
+    "showMoreLocations": "Daqmey law' yI'agh",
+    "title": "ngeH mev: ngoq tu'lu'",
+    "foundSecrets": "<link>ngoq nej</link> ngoqmey tu'pu' ngeHlIjDaq.",
+    "remediation": "ngoqmey chaw'lu'chugh, 'anglu'. <link>ngoquvam choH vemvo' 'ej choH vem mI'vo' yIteq.</link>"
   },
   "ssh": {
     "confirmConnect": "rar 'e' taH DaneHbej'a'?",

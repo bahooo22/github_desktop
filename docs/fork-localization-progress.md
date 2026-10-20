@@ -165,6 +165,8 @@ English original» (это ключи, которых нет в `en.json`), у `
 | этот | `qya` | `commitList` | 42 | 42 | Eldamo + `qya_check.py`: `minatacë` «коммит», `malë` «squash», `enparta` «reorder», `ciliérta` «cherry-pick», `nirë` «нажми» |
 | этот | `tlh` | `addRepository` | 27 | 27 | boQwI' + `tlh_check.py`: `naDev` «здешний» для local, `taw` для path, `buSHa'` «игнорировать»; `bare`, `README` — латиницей |
 | этот | `qya` | `addRepository` | 27 | 27 | Eldamo + `qya_check.py`: `haura` «репозиторий», `nómëa` для local, `submodule` заимствовано, `latië` «доступ» для разрешения |
+| этот | `tlh` | `secretScanning` | 27 | 27 | boQwI' + `tlh_check.py`: `ngoq` «секрет/код», `chu'Ha'` «обойти», `'ang` «показать», `Qob` «опасный» |
+| этот | `qya` | `secretScanning` | 27 | 27 | Eldamo + `qya_check.py`: `laistima` «тайный», `nuhta-` «обойти», `apanta-` «раскрыть», `raxë` «опасность» |
 | — | `tlh`, `qya` | `terms` | 29 | 29 | **намеренно оставлено английским**: юридический текст лицензии |
 | этот | `qya` | `localizationEditor` | 68 | 70 | Eldamo только по целому слову: `carina` «done», `serma` «string, cord», `penië` «lack», `ces-` «search in order to find», `lambelanga-` «translate». Мера `qya_attest_check.py` закрытую группу даёт чистой (0 нераскладывающихся из 70), а по всему каталогу оставляет 183 ключа из 2 011 на ручной аудит — гейтом в смысле нуля она ещё не считается |
 

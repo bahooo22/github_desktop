@@ -2628,39 +2628,39 @@
     "title": "Re-authorization Required"
   },
   "secretScanning": {
-    "atLine": "at line {line}",
-    "bypass": "Bypass",
-    "bypassAria": "Bypass {description}",
+    "atLine": "nyas {line}ssë",
+    "bypass": "Nuhtë",
+    "bypassAria": "Nuhtë {description}",
     "bypassDialog": {
-      "falsePositiveDescription": "The detected string is not a secret",
-      "falsePositiveTitle": "It's a false positive",
-      "ok": "Allow me to expose this secret",
-      "reasonLabel": "Why are you bypassing this {description}?",
+      "falsePositiveDescription": "Lá ná laistima i hírëa.",
+      "falsePositiveTitle": "Lá ná laistima",
+      "ok": "Lavë nin apanta sina laistima",
+      "reasonLabel": "Manen nuhtil {description}?",
       "title": {
-        "@darwin": "Bypass Push Detection",
-        "@other": "Bypass push detection"
+        "@darwin": "Nuhtë i nirë hirna",
+        "@other": "Nuhtë i nirë hirna"
       },
-      "usedInTestsDescription": "The secret poses no risk. If anyone finds it, they cannot do any damage or gain access to sensitive information.",
-      "usedInTestsTitle": "It's used in tests",
-      "willFixLaterDescription": "The secret is real, I understand the risk, and I will need to revoke it. This will open a security alert and notify admins of this repository.",
-      "willFixLaterTitle": "I'll fix it later"
+      "usedInTestsDescription": "Lá raxë i laistima. Hirna → lá polë rucë.",
+      "usedInTestsTitle": "Mahtaina i tyastessë",
+      "willFixLaterDescription": "Ná laistima. Istanyë i raxë. Mauya apterya.",
+      "willFixLaterTitle": "Apteryuva sí ar lúmissë"
     },
-    "bypassed": "Bypassed",
-    "copySha": "Copy the full SHA",
-    "exposureRisks": "Exposing this secret can allow someone to:",
-    "risk1": "Act on behalf of the secret's owner",
-    "risk2": "Know which resources the secret(s) can access",
-    "risk3": "Act on behalf of the secret's owner",
-    "risk4": "Push the secret(s) to this repository without being blocked",
-    "secrets": "Secrets",
+    "bypassed": "Nuhtaina",
+    "copySha": "Ovëantë i quanta SHA",
+    "exposureRisks": "Apantaila sina laistima, polë quen:",
+    "risk1": "Carë ve i laistimao haryando",
+    "risk2": "Ista man i laistimar polë latya",
+    "risk3": "Carë ve i laistimao haryando",
+    "risk4": "Nirë i laistimar i hauranna únuhtaina",
+    "secrets": "Laistimar",
     "showLessLocations": {
-      "@darwin": "Show Less Locations",
-      "@other": "Show less locations"
+      "@darwin": "Cenë nómer pici",
+      "@other": "Cenë nómer pici"
     },
-    "showMoreLocations": "Show More locations",
-    "title": "Push blocked: secret detected",
-    "foundSecrets": "<link>Secret Scanning</link> found secret(s) in the commit(s) you attempted to push.",
-    "remediation": "Allowing secrets risks exposure. Consider <link>removing the secret from your commit and commit history.</link>"
+    "showMoreLocations": "Cenë nómer rimbë",
+    "title": "Nirë nuhtaina: laistima hirna",
+    "foundSecrets": "<link>Laistima cenda</link> hirnë laistimar i nirtalyassë.",
+    "remediation": "Lavë laistimar → raxë. <link>Haitë i laistima i minatacëllo ar i nyárëllo.</link>"
   },
   "ssh": {
     "confirmConnect": "sáquetatya lyë cacarë i himyalë?",
