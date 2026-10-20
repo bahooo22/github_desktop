@@ -2292,3 +2292,132 @@ l10n:untranslated tlh` / `qya`), HEAD той же мерой — 522 и 525, м�
 Итог. Панель урока закрыта полностью: 17 форм в двух конлангах, готовность по
 1 014 строк, остаток — 487 и 490 форм.
 
+## Диалог перезапуска проверок: 17 форм в двух конлангах (21.10.2026)
+
+Группа `ciCheckRunRerun` — 17 листовых форм, и каждая из них отдельное имя в
+`meta.ready`: диалог, который открывает кнопка перезапуска в списке CI-проверок.
+Форм больше, чем смысловых строк, из-за двух регистров заголовка: ветка
+`showDescriptor` (`app/src/ui/check-runs/ci-check-run-rerun-dialog.tsx:214`–`:221`)
+отдаёт строчные варианты, потому что `titleMultipleLower` подставляется ещё и
+как `<name/>` внутрь сообщения о зависимых (`:161`), а предупреждение печатается
+одним абзацем — префикс плюс причина склеиваются в разметке (`:206`).
+Заглавные варианты там же, `:224`–`:230`. Прочие ссылки: `:165`–`:166` —
+`dependentsMessageOne/Many` (английский различает только «its» и «their»),
+`:186`–`:187` — `noRerunnableFailed` и `noRerunnableAll`, `:193`–`:194` и
+`:198`–`:199` — четыре формы со счётчиком `<count/>`, `:238` и `:240` —
+`pleaseWait` и `determining`.
+
+- Клингонский опирается на готовый термин: `'ol vem` — «check run» уже стоит в
+  15 строках вне группы (`checkRuns.summary-title`, `checkRuns.view-details`,
+  `checkRuns.statusTooltip`, `settings.accessibility.show-diff-check-marks`),
+  `yIwaHqa'` — «re-run» в 6 строках, включая `checkRuns.rerun.button` и
+  `checkRuns.rerun.failed-option`. Три заголовка из шести скопированы оттуда
+  дословно, строчные варианты — тоже: правило переиспользования требует ту же
+  форму, а не похожую.
+- Дамп по клингонскому: `'ol` — «check if (something) is true, verify»
+  (ek_dictionary:1199), `waH` — «test, try out, use experimentally» (:7037) плюс
+  `-qa'` «do again, resume» (:5807), `ngIq` (n) — «each one, a single one»
+  (:2142) для «Single check», `luj` — «fail, lose (not win)» (:2463), `nuq` —
+  «what?» (:7933), `tu'` — «discover, find» (:1953) с `-be'` (:4830) для
+  «there are no», `Hoch` — «all, everyone, everything, each» (:207), `wa'` —
+  «one» (:4931), `jar` — «month (Klingon)» (:4578), `qenHa'` — «a while back»
+  (:4178), `rIn` — «be finished, be accomplished» (:2589), `cher` — «set up,
+  establish» (:6161) для «configured», `joq` — «or, and/or (joining nouns)»
+  (:4966), `wuv` — «depend on, rely on» (:1848) с `-bogh` (:7963), `tagh` —
+  «initiate, begin a process» (:3617) с `-lu'` (:3572), `loS` — «wait (for)»
+  (:7810), `'e'` — «that (previous topic)» (:7055).
+- Ловушка группы — «attempt». В каталоге он стоит как `qeng`
+  (`settings.git.hooks-load-env-description`), но по дампу `qeng` — «carry,
+  convey» (:1097, :1556), а «attempt, try» — это `nID` (:452). Новая форма
+  строится на нём плюс номинатор `-ghach` (:4799): `chu' nIDghach` — «новая
+  попытка». Каталожный дрейф `qeng` группа не правит — он, как и
+  `qem tlhob` против `Hoq tlhob`, вынесен в отдельную задачу.
+- Вторая ловушка — `chu'`: «be new» (:4744), но тот же корневой слог даёт
+  глагол «activate, engage (a device)» (:105) и суффикс типа 6 «clearly,
+  perfectly» (:1277). Мера форм такого не различает, поэтому выбор смотрят
+  руками: перед существительным `chu'` стоит как прилагательное, по образцу
+  готового `chab chu'` — «new invention» (:4746).
+- Третья ловушка — `loS`: «wait (for)» (:7810) и числительное «four» (:2760).
+  В `yIloS` основа глагольная, с повелительным префиксом, и она уже стоит в
+  каталоге (`checkRuns.loading.title`, `notifications.checksFailed.standBy`).
+- Смысловая правка черновика: `DaH yIloS` снят. `DaH` — «текущий, теперь»
+  (60 строк каталога: `DaH bartIq` — «current branch», `DaH yIghoS` — «go now»),
+  в английском «Please wait» такого слова нет, поэтому осталась каталожная
+  форма без него — `yIloS`.
+- Та же правка по регистру: `determining` черновик собирал с префиксом `vI-`
+  («я определяю»), а в английском подлежащего нет. Каталог для безличных
+  заголовков этого вида использует неопределённый `-lu'` с длительным `-taH`
+  (`commitMessage.generating-details` = `Del chenmoHlu'taH…`), и итоговая форма
+  строится так же: `'ol vemmey waHqa'laHbogh nuq 'e' tu'lu'taH`. Тот же класс
+  дефекта, что `mo'` вместо `-mo'`: слово законно, роль не та.
+- Квенья: `henta-` («to eye, examine, read, scan», Eldamo, q, 10 форм,
+  PE17/077) — готовый термин «check», он стоит в 28 строках вне группы
+  (`checkRuns.summary-title`, `checkRuns.completeness-aria`,
+  `multiCommit.copilotLoading.analyzing`), «re-run» — готовое `carë ata`
+  (`ata` — mq adv «again», Ety/AT(AT).005) в 5 строках. Три заголовка
+  скопированы из `checkRuns.rerun.*` дословно.
+- Прочие квенья-опоры: `erinqua` (q adj «single, alone», VT42/10.2002, 1 форма)
+  для «Single check» — числительное `minë` в дампе лежит как `mine` и к
+  прилагательной позиции не подходит; `loita-` (q vb «to miss, fail, fall short
+  of», PE17/151.2505) даёт `loitanë`, который уже стоит в готовом
+  `checkRuns.rerun.failed-option`; `cárima` (q adj «feasible, possible (to do),
+  able to be done», 4 формы, PE22/137.1601) — про «можно ли это вообще», в
+  отличие от личностного `pol-`; `quanta` (q adj «full, filled», 21 форма) для
+  «completed»; `asta` (q n «month; division, part», 6 форм, PE17/018.2009) для
+  «one month»; `lahta-` (q vb «to cross, pass over, go over; to surpass», 6
+  форм, PE17/092.1907) для «more than» — буквально «перешагивает месяц»;
+  `hir-` (q vb «to find», 20 форм) в безличном `Hirila`, по пассивной рамке
+  готового `Carila i menta…` (`commitMessage.generating-details`); `ar`
+  (q conj «and», 97 форм) в перечислении причин — аттестованного союза «или» в
+  квенья нет, и каталог уже обходится `ar`; `sina` (q adj pron «this», 12 форм)
+  для «its/their», `ilya` (q «every, each, all», 24 формы) для «all», `vinya`
+  (q adj «young, new», 8 форм) для «new», `yá` — «если, когда» по готовому
+  `settings.prompts.switch-branch-heading`.
+- `nauva carina` и `tulcana` группа не изобретает: рамки готовые —
+  `addRepository.repository-will-be-created` = `Haura nauva carina …` и
+  `settings.language.reset` = `ceuta i nó tulcana lambelanga`. А `rícië` для
+  «a new attempt» — новая находка: в дампе это nq-сущность (0 аттестованных
+  форм) от аттестованного `ric-` (q vb «to try, put forth effort, strive»,
+  5 форм); отдельного устоявшегося слова «attempt» в каталоге нет ни в одной
+  строке.
+- `Á larta` — та же история, что `yIloS`: `larta-` (nq vb «to wait, stay, last,
+  endure», 0 аттестованных форм) с повелительной `Á` уже стоит в
+  `checkRuns.loading.title` и `notifications.checksFailed.standBy` как `á larta`;
+  группа оставила каталожную форму, подняв первую букву — это заголовок.
+
+Замеры. Зонды по финальному черновику до вставки, сняты на хосту 21.10.2026:
+клингонский — «слов: 88, находок: 0», квенья — «проверено токенов: 139,
+неподтверждённых: 0». Разметочная мера `python E:/tmp/markup_check_2010.py
+ciCheckRunRerun` — «MARKUP GATE OK (findings=0)», по 17 форм в en, tlh и qya.
+Сухой прогон вставки — «формат воспроизведён байт-в-байт: OK», «черновик: 17 |
+изменится: 17 | уже такие же: 0 | нет в каталоге: 0» (байт 179 092 и 180 162,
+CRLF 3 989, одиночных LF 0); повторный прогон после записи — «изменится: 0 |
+уже такие же: 17», то есть вставка идемпотентна. `ready_group` — 17 имён, все
+уже на месте, дописывается 0. Меры множеств: клингонский — 5 952 слова против
+5 864 на HEAD, 0 неподтверждённых, множества находок совпадают, вердикт
+`IDENTICAL`; квенья — 6 646 слов и 29 уникальных находок против 6 507 и 29 на
+HEAD, новых 0, тоже `IDENTICAL`. `ready_check` — la и eo по 1 746, tlh и qya по
+1 031 готовой строке, 0 битых путей, 0 пустых значений. Прогоны в контейнере
+`gdlab`: `prettier --check` по обоим каталогам — rc=0; `yarn l10n:parity` —
+1 746 leaf-ключей в каждом из шести каталогов, «parity issues: 0»;
+`node script/i18n-freshness.mjs --untranslated tlh` и `qya` — 470 и 473 из
+2 011 (HEAD той же мерой — 487 и 490, минус ровно по группе, регрессий 0);
+`yarn test` по `menu-test.ts`, `l10n-test.ts` и `l10n-freshness-test.ts` —
+69 тестов, 69 пройдено, 0 падений (6 841,9 мс). `yarn l10n:audit` — 40 видимых
+литералов, 13 непокрытых, `yarn l10n:bundles` — «shipped copies out of date: 2»
+и win-бандл «not rolled out (skipped)»: как базлайн, этой задачей не чинятся.
+
+Принятый остаток. `larta-`, `rícië` и `maura-` — новоквенья без единой
+аттестованной формы, `erinqua` и `loita-` — по одной ссылке: лемма в списке
+есть, живой носитель её не подтвердит. `nauva` и `tulcana` собраны из
+продуктивных суффиксов и существуют только как каталожные рамки. `lahta-` для
+«more than» — буквальное «перешагивает»: аттестованного компаратива в квенья
+нет. `cárima` при английском «can» выбрано вместо `pol-`, потому что речь про
+возможность настройки, а не про чью-то способность. Клингонский `'ol vem`
+покрывает и «check», и «check run» — словарь их не разделяет. Значение каждой
+подписи по-прежнему сверяют руками: обе меры проверяют форму слова, а не его
+соответствие английскому. GUI-приёмка недоступна: собранных каталогов в
+контейнере нет. Пуш и перезапуск джобы — за пользователем.
+
+Итог. Диалог перезапуска проверок закрыт полностью: 17 форм в двух конлангах,
+готовность по 1 031 строке, остаток — 470 и 473 формы.
