@@ -1222,7 +1222,7 @@
     "filterPartial": "empatyellessë",
     "ready": "carina",
     "markReady": "á tanë i serma carina (Ctrl+Enter)",
-    "readyHint": "Carina. Á nirë ar á nirë Ctrl+Enter i empatyellessë.",
+    "readyHint": "Carina. Á nirë hya á nirë Ctrl+Enter i empatyellessë.",
     "draft": "lá carina",
     "partial": "peníë",
     "singularFallback": "I fana i lá harya tana i quettalë eritëo.",
