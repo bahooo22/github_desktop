@@ -249,6 +249,22 @@
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
+      "history.branchFilter",
+      "history.cannotReorder",
+      "history.cannotSquash",
+      "history.collapse",
+      "history.collapseDetails",
+      "history.copyFullSha",
+      "history.dateLabel",
+      "history.emptyCommitMessage",
+      "history.expand",
+      "history.expandDetails",
+      "history.mergeInto",
+      "history.noBranchesToCompare",
+      "history.notIncluded",
+      "history.selectBranchToCompare",
+      "history.showingChangesFrom",
+      "history.showingChangesFromPlain",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
@@ -3216,37 +3232,37 @@
     "copilotTip": "Tip: You can use <link>Copilot Instructions</link> to customize how commit messages are generated."
   },
   "history": {
-    "dateLabel": "Date:",
-    "cannotReorder": "Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits.",
-    "cannotSquash": "Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits.",
-    "copyFullSha": "Copy the full SHA",
-    "mergeInto": "Merge into <branch/>",
-    "collapse": "Collapse",
-    "expand": "Expand",
-    "collapseDetails": "Collapse commit details",
-    "expandDetails": "Expand commit details",
-    "emptyCommitMessage": "Empty commit message",
+    "dateLabel": "Aurë:",
+    "cannotReorder": "Lá cárima enparta. Encarna i enparta i minatacë ilya, tenna i telwa minatacë maura i enparta. Lá ëa ertanë minatacë imbë i minatacëllon.",
+    "cannotSquash": "Lá cárima malë. Encarna i malë i minatacë ilya, tenna i telwa minatacë maura i malë. Lá ëa ertanë minatacë imbë i minatacëllon.",
+    "copyFullSha": "Ovëantë i quanta SHA",
+    "mergeInto": "Erta i ahyanië <branch/>nna",
+    "collapse": "pihta",
+    "expand": "meletya",
+    "collapseDetails": "pihta i minatacëo hraitastar",
+    "expandDetails": "meletya i minatacëo hraitastar",
+    "emptyCommitMessage": "Cumya minatacëo menta",
     "notIncluded": {
-      "_one": "<link>{count:number} unreachable commit</link> not included.",
-      "_other": "<link>{count:number} unreachable commits</link> not included."
+      "_one": "<link>{count:number} minatacë alahírima</link> lá minatanë.",
+      "_other": "<link>{count:number} minatacër alahírima</link> lá minatanë."
     },
     "showingChangesFrom": {
-      "_one": "Showing changes from <link>{count:number} commit</link>",
-      "_other": "Showing changes from <link>{count:number} commits</link>"
+      "_one": "Tana i ahyanië <link>{count:number} minatacëllo</link>",
+      "_other": "Tana i ahyanië <link>{count:number} minatacëllon</link>"
     },
     "showingChangesFromPlain": {
-      "_one": "Showing changes from {count:number} commit",
-      "_other": "Showing changes from {count:number} commits"
+      "_one": "Tana i ahyanië {count:number} minatacëllo",
+      "_other": "Tana i ahyanië {count:number} minatacëllon"
     },
     "noBranchesToCompare": {
-      "@darwin": "No Branches to Compare",
-      "@other": "No branches to compare"
+      "@darwin": "Lá hirnë i olba véta.",
+      "@other": "Lá hirnë i olba véta."
     },
     "selectBranchToCompare": {
-      "@darwin": "Select Branch to Compare…",
-      "@other": "Select branch to compare…"
+      "@darwin": "Cilë i olba véta…",
+      "@other": "Cilë i olba véta…"
     },
-    "branchFilter": "Branch filter"
+    "branchFilter": "i olbao silta"
   },
   "gitUser": {
     "configureManually": "á-tulca mánen",

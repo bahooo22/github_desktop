@@ -1356,3 +1356,90 @@ leaf-ключей, 0 расхождений; `--untranslated` — 633 и 636 ф�
 — `qem tlhob` (12 вхождений, из них 5 добавил этот батч; глоссарий) и
 `Hoq tlhob` (6 вхождений в `changes`, все прежние). Батч держит
 глоссарийный, разведение — отдельная задача.
+
+## Диалог группы «история коммитов»: 21 форма в двух конлангах (20.10.2026)
+
+Группа `history` — 16 строк, из них три с формами числа (`notIncluded`,
+`showingChangesFrom`, `showingChangesFromPlain`) и две с платформенными
+вариантами (`noBranchesToCompare`, `selectBranchToCompare`): всего 21 листовая
+форма. `meta.ready` вырос на 16 строк — 895 → 911, в обоих каталогах.
+
+Клингонский. Опоры сняты дампом boQwI' по лемме, а не по первой глоссе: `jaj`
+(1760 «day (from dawn to dawn)») — «date», `choH` (1177 «change»,
+существительное) с `-vem` — «commit», `chenmoH` (1653 «create, form, make») с
+`-qa'` — «сначала переделать всё», `mergh` (1371 «be combined») — «merge», `tap`
+(4354 «mash, squash») — «squash», `naQ` (2804 «full, whole, complete») — «полный
+SHA», `woH` (5228 «pick up») — «copy», `poS` (4946 «be open») вместе с `wolmoH`
+(2677 «fold, crease») — «collapse», `Sach` (2413 «expand») — «expand», `Del`
+(1853 «describe») — «details», `chIm` (2238 «be empty») с `QIn` (4472 «message»)
+— «пустое сообщение коммита», `'uch` (3564 «include, consist of») в пассиве с
+`-lu'be'` — «не включён», `tu'` (2580 «find, discover») с `-laHbe'bogh` —
+«unreachable», `cha'` (6246 «display, show (picture)») — «showing changes»,
+`Day` (1417 «compare») с `-laHbogh` — «ветки, которые можно сравнить», `bartIq`
+(896 «branch (of a tree)»), `ghaj` (3165 «have, possess») с `be'` — «нет
+ничего», `Sam` (6121 «seek and find, locate») — «выбрать», `QIb` (2573 «filter,
+strain, sieve, sift») с `-wI'` — «фильтр» как предмет.
+
+Термины взяты уже принятыми в каталоге, а не придуманы заново: `SHA naQ yIwoH`
+повторяет `diff.submodule.copyNewSha` (`SHA chu' naQ yIwoH`), `chIm choH vem
+QIn` — `commitMessage.allow-empty-commit` (`chIm choH vem yIchaw'`), `poS 'e'
+yIwolmoH` и `poS 'e' yISach` — `multiCommit.copilotChanges.collapse`, `bartIq
+QIbwI'` держит ту же пару, что `choH QIbwI'` в меню. `Del` для «details» — 24
+прежние формы, `choH vem` для «commit» — 133.
+
+Квенья. `aurë` [q n] «day (as opposed to night)» (16 форм) — «date», `minatacë`
+— «commit» по глоссарию (сборка от nq `minatec-` «to record», 127 прежних форм),
+`ilya` [q] «every, each, all» (24) и `telwa` [nq] «last, late» (2) держат
+«reorder all commits so the last commit is…», `cárima` [q] «feasible, able to be
+done» (4) — «cannot», `ertanë` от `erta-` [nq] «to unite» — «make a
+merge/squash», `imbë` [q prep] «between, among» (22) — «among these commits»,
+`quanta` [q] «full, filled» (21) — «full SHA», `ovëantë` от `ovëanta-` [nq] «to
+imitate, make like» — «copy», `menta` [q] «sending, message» (1 форма) с
+`cumya-` [nq] «to empty» (0 форм) — «empty commit message», `alahírima` [nq]
+«unfindable, impossible to find» (0 форм) — «unreachable», `tana-` [q] «to show,
+indicate» — «showing», `olba` [q] «branch» (9) с `véta-` [nq] «to compare,
+liken» (1 форма) — «branches to compare», `cil-` [nq] «to choose, select» —
+«select», `silta` [nq] «sieve» (1 форма) — «filter».
+
+Переиспользовано по каталогу, а не по словарю: `pihta` для «collapse» (8 прежних
+форм — `menu.zoom-out`, `multiCommit.copilotChanges.collapse`), хотя в Eldamo
+основы `piht-` нет и ближайшая статья `nihta-` [nq] «to reduce, make small» (0
+форм); `enparta` для «reorder» (3 прежние формы, глоссарий: `en-` «again» плюс
+`parta-` [nq] «to arrange, compose, order», kind=assembled); `ahyanië` для
+слияния и изменений (85 прежних форм; в Eldamo `ahyanë` «to change», 1 форма);
+`maura` для «лучше» (13 прежних форм; опора — `maur` «good, excellent, fair»);
+`hraitasta` для «details» (4 прежние формы, nq «detail», 0 аттестованных форм).
+
+Приёмка отозвала две правки до коммита, обе про разметку. Первая: суффикс
+аблатива, написанный снаружи тега (`<link>{count:number} minatacë</link>llon`),
+дал мерке квенья новую находку `llon` — то, что стоит за `</link>`,
+токенизируется отдельным словом и не разлагается. Форма ушла внутрь тега.
+Вторая: чтобы убрать суффикс, `showingChangesFrom` оставили вовсе без `<link>`,
+и это нашла отдельная мера `E:/tmp/markup_check_2010.py` — сверка состава тегов
+и плейсхолдеров с en по всем 21 форме группы: 2 расхождения. Итог — `Tana i
+ahyanië <link>{count:number} minatacëllo</link>`, разметка совпадает с
+оригиналом, `--untranslated` не изменился.
+
+Починен и инструментарий: `ready_group.py` пересобирал каталог «сырым»
+`json.dumps` и разворачивал `meta.pluralCategories` с `meta.authors` в
+многострочные массивы, из-за чего после каждой правки готовности `npx prettier
+--check app/locales/*.json` краснел. Теперь скрипт берёт `dump()` из
+`apply_group.py` — ту же свёртку массивов под `printWidth` 80 и конечный перевод
+строки.
+
+Замеры (20.10.2026): мера по клингонскому — 5 360 слов, 0 неподтверждённых; мера
+по квенья — 5 923 слова и 29 находок в рабочем файле против 5 811 и 29 в HEAD,
+множества совпадают (`E:/tmp/qya_diff_sets_2010.py` — IDENTICAL, новых 0); мера
+разметки — 21 форма, 0 расхождений; `--parity` — 1 746 leaf-ключей на каталог, 0
+расхождений; `--untranslated` — 612 и 615 форм из 2 011; `npx prettier --check
+app/locales/*.json` — зелёный; тест `app/test/unit/l10n-test.ts` — 41/41 (5
+сюит, 6 803 мс); `--audit` — 40 видимых литералов и те же 13 непокрытых.
+Заливка: `git diff --numstat` — 37/21 на каждый каталог, 3 853 → 3 869 строки
+CRLF в рабочем дереве, 174 562 и 175 417 байтов; в blob git оба файла лежат с LF
+(конверсию делает checkout).
+
+Сводная таблица в начале этого документа — снимок 19.10 с числами 1 040 (`tlh`)
+и 1 042 (`qya`); актуальные числа — в этой секции. Принятый остаток: `--bundles`
+печатает `shipped copies out of date: 2` (в `bin/` и `dist/desktop-linux-x64/`
+`crash.js`, `main.js`, `renderer.js` отстают от `out/`), потому что пересборка в
+контейнере запрещена.

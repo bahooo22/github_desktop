@@ -249,6 +249,22 @@
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
+      "history.branchFilter",
+      "history.cannotReorder",
+      "history.cannotSquash",
+      "history.collapse",
+      "history.collapseDetails",
+      "history.copyFullSha",
+      "history.dateLabel",
+      "history.emptyCommitMessage",
+      "history.expand",
+      "history.expandDetails",
+      "history.mergeInto",
+      "history.noBranchesToCompare",
+      "history.notIncluded",
+      "history.selectBranchToCompare",
+      "history.showingChangesFrom",
+      "history.showingChangesFromPlain",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
@@ -3216,37 +3232,37 @@
     "copilotTip": "Tip: You can use <link>Copilot Instructions</link> to customize how commit messages are generated."
   },
   "history": {
-    "dateLabel": "Date:",
-    "cannotReorder": "Unable to reorder. Reordering replays all commits up to the last one required for the reorder. A merge commit cannot exist among those commits.",
-    "cannotSquash": "Unable to squash. Squashing replays all commits up to the last one required for the squash. A merge commit cannot exist among those commits.",
-    "copyFullSha": "Copy the full SHA",
-    "mergeInto": "Merge into <branch/>",
-    "collapse": "Collapse",
-    "expand": "Expand",
-    "collapseDetails": "Collapse commit details",
-    "expandDetails": "Expand commit details",
-    "emptyCommitMessage": "Empty commit message",
+    "dateLabel": "jaj:",
+    "cannotReorder": "QurchoHlaHbe'. QurchoHlu'DI', choH vemmey Hoch chenmoHqa'lu', QurchoH vaD poQbogh HochDIch ngeH. choH vemmeyvamDaq mergh choH vem tu'laHbe'.",
+    "cannotSquash": "TaplaHbe'. taplu'DI', choH vemmey Hoch chenmoHqa'lu', tap vaD poQbogh HochDIch ngeH. choH vemmeyvamDaq mergh choH vem tu'laHbe'.",
+    "copyFullSha": "SHA naQ yIwoH",
+    "mergeInto": "<branch/>Daq choHmey yImergh",
+    "collapse": "poS 'e' yIwolmoH",
+    "expand": "poS 'e' yISach",
+    "collapseDetails": "choH vem Del 'e' yIwolmoH",
+    "expandDetails": "choH vem Del 'e' yISach",
+    "emptyCommitMessage": "chIm choH vem QIn",
     "notIncluded": {
-      "_one": "<link>{count:number} unreachable commit</link> not included.",
-      "_other": "<link>{count:number} unreachable commits</link> not included."
+      "_one": "<link>{count:number} tu'laHbe'bogh choH vem</link> 'uchlu'be'.",
+      "_other": "<link>{count:number} tu'laHbe'bogh choH vemmey</link> 'uchlu'be'."
     },
     "showingChangesFrom": {
-      "_one": "Showing changes from <link>{count:number} commit</link>",
-      "_other": "Showing changes from <link>{count:number} commits</link>"
+      "_one": "<link>{count:number} choH vemvo'</link> choHmey cha'lu'",
+      "_other": "<link>{count:number} choH vemmeyvo'</link> choHmey cha'lu'"
     },
     "showingChangesFromPlain": {
-      "_one": "Showing changes from {count:number} commit",
-      "_other": "Showing changes from {count:number} commits"
+      "_one": "{count:number} choH vemvo' choHmey cha'lu'",
+      "_other": "{count:number} choH vemmeyvo' choHmey cha'lu'"
     },
     "noBranchesToCompare": {
-      "@darwin": "No Branches to Compare",
-      "@other": "No branches to compare"
+      "@darwin": "DaylaHbogh bartIq ghajbe'.",
+      "@other": "DaylaHbogh bartIq ghajbe'."
     },
     "selectBranchToCompare": {
-      "@darwin": "Select Branch to Compare…",
-      "@other": "Select branch to compare…"
+      "@darwin": "DaylaHbogh bartIq 'e' yISam…",
+      "@other": "DaylaHbogh bartIq 'e' yISam…"
     },
-    "branchFilter": "Branch filter"
+    "branchFilter": "bartIq QIbwI'"
   },
   "gitUser": {
     "configureManually": "ruQ 'e' yISeH",
