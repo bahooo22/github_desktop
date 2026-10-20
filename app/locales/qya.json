@@ -598,6 +598,21 @@
       "noRepositories.get-started",
       "noRepositories.return-to-tutorial",
       "noRepositories.start-tutorial",
+      "notifications.checksFailed.footerMany",
+      "notifications.checksFailed.footerOne",
+      "notifications.checksFailed.standBy",
+      "notifications.checksFailed.stepsIncoming",
+      "notifications.checksFailed.summary",
+      "notifications.dismiss",
+      "notifications.markdownCommentTitle",
+      "notifications.openInBrowser",
+      "notifications.switchToPullRequest",
+      "notifications.switchToRepositoryAndPullRequest",
+      "notifications.timeline.summary",
+      "notifications.verb.approved",
+      "notifications.verb.commentedOn",
+      "notifications.verb.requestedChanges",
+      "notifications.verb.reviewed",
       "openFile.noExternalProgram",
       "openPullRequest.branch-up-to-date",
       "openPullRequest.different-histories",
@@ -2577,34 +2592,34 @@
   },
   "notifications": {
     "checksFailed": {
-      "footerMany": "Do you want to switch to that Pull Request now and start fixing them?",
-      "footerOne": "Do you want to switch to that Pull Request now and start fixing it?",
-      "standBy": "Stand By",
-      "stepsIncoming": "Check run steps incoming!",
-      "summary": "Summary"
+      "footerMany": "Sáquetatya vista i luciquistanna ar aptya i hentar sina?",
+      "footerOne": "Sáquetatya vista i luciquistanna ar aptya i henta sina?",
+      "standBy": "á larta",
+      "stepsIncoming": "I hentar haitar tūlā!",
+      "summary": "Menta"
     },
-    "dismiss": "Dismiss",
-    "markdownCommentTitle": "Pull request markdown comment",
+    "dismiss": "Haitë",
+    "markdownCommentTitle": "I luciquista markdown nyarnë",
     "openInBrowser": {
-      "@darwin": "Open in Browser",
-      "@other": "Open in browser"
+      "@darwin": "Apantë i browseralyassë",
+      "@other": "Apantë i browseralyassë"
     },
     "switchToPullRequest": {
-      "@darwin": "Switch to Pull Request",
-      "@other": "Switch to pull request"
+      "@darwin": "Vistë i luciquistanna",
+      "@other": "Vistë i luciquistanna"
     },
     "switchToRepositoryAndPullRequest": {
-      "@darwin": "Switch to Repository and Pull Request",
-      "@other": "Switch to repository and pull request"
+      "@darwin": "Vistë i hauranna ar i luciquistanna",
+      "@other": "Vistë i hauranna ar i luciquistanna"
     },
     "verb": {
-      "approved": "Approved",
-      "commentedOn": "commented on",
-      "requestedChanges": "requested changes on",
-      "reviewed": "Reviewed"
+      "approved": "Mainaina",
+      "commentedOn": "Nyarnanë",
+      "requestedChanges": "Iquiryanë i ahyanië",
+      "reviewed": "Hentaina"
     },
     "timeline": {
-      "summary": "<user>{login}</user> {verb} your pull request <date>{date}</date>"
+      "summary": "<user>{login}</user> {verb} i luciquistalya <date>{date}</date>"
     }
   },
   "openPullRequest": {

@@ -1621,3 +1621,126 @@ out (skipped)».
 tlhob` против `Hoq tlhob` в `changes`) — отдельная задача. Живая приёмка
 двухстрочной подсказки (транскрипция плюс глосса) в собранном интерфейсе и три
 проверки WCAG 1.4.13 не сняты: коммит меряет файлы.
+
+## Уведомления о прогонах и лента ревью: 18 форм в двух конлангах (20.10.2026)
+
+Группа `notifications` — это два разных уведомления, собранных в одном словаре:
+всплывающее сообщение о провалившихся проверках (`checksFailed.*`) и лента ревью
+пул-реквеста (`verb.*` плюс `timeline.summary`). Порядок работы тот же, что на
+`checkRuns`, `history` и `discardChanges`: черновик из глоссариев, приёмка форм
+по первичным словарям, готовность в `meta.ready`, гейты, коммит.
+
+Состав группы. 18 листовых форм лежат в 15 строках каталога: `openInBrowser`,
+`switchToPullRequest` и `switchToRepositoryAndPullRequest` несут по два
+платформенных варианта (`@darwin` и `@other`), остальные 12 строк — по одной
+форме. Форм числа в группе нет. В `meta.ready` добавлены те же 15 имён строк,
+946 → 961.
+
+Ключевая ловушка группы — слово «pull request». Глоссарий закрепил его парой
+`qem tlhob`, и вторая опора `tlhob` — глагольная основа «ask, request, plead»
+(ek_dictionary:407, 5301, 5783), а не существительное. Именные суффиксы —
+`-vetlh` (4-й тип) и `-Daq` (5-й тип) — к глагольной основе не присоединяются,
+поэтому `tlhobvetlh` («that pull request») и `tlhobDaq` («to the pull request»)
+клингонская мера отклонила: тот же класс дефекта, что `'olmey` на батче
+`checkRuns`. Выход — номинализующий суффикс `-ghach` (правила форка: verb type
+9; ek_dictionary:4799 «nominalizer»), после которого основа становится
+существительным и принимает именные суффиксы — и указатель, и падеж: `qem
+tlhobghachvetlhDaq yIghoS` — «иди к тому пул-реквесту». Этот же приём каталог
+уже применял в `multiCommit.copilotDialog.switchToManual` (`tI'ghach`).
+
+Глагол «switch to» взят как `ghoS` (ek_dictionary:329, 1372 «approach, proceed,
+follow (a course)») с локативным `-Daq`, а не как `choH` («alter, change», 223):
+`choH` меняет сам объект, а кнопка ничего в пул-реквесте не меняет — она
+переносит пользователя. `choH` остался там, где меняется состояние: `yIchoH` в
+ветке `commitMessage.protected-branch`. «Now» — наречие `DaH` (4844), форма та
+же, что в `checkRuns` и `addRepository`. «Switch to Repository and Pull Request»
+использует каталожную пару `De' ngaSwI'` для «repository» (глоссарий форка;
+буквально «вместилище данных» из `De'` 1751 и `ngaSwI'` 1533) и союз `je` (222
+«and, joining nouns»), потому что кнопки ставят в ряд два существительных, а не
+два глагола.
+
+Глаголы ревью. Четыре формы `verb.*` подставляются в `{verb}` строки
+`timeline.summary`, поэтому они должны быть сказуемыми, а не подписями.
+Клингонский взял корень «approve, praise, commend» `naD` (331, 1390, 5399),
+«examine» `nuD` (2385), «demand, require» `poQ` (1828) и «create, form, make»
+`chenmoH` (1653) — все с неопределённым субъектом `-lu'`, потому что подлежащее
+в строке — подставляемый `{login}`, и согласовывать префикс не с чем: `naDlu'`,
+`nuDlu'`, `choHmey 'e' poQlu'`, `QInHom chenmoHlu'`. «Comment» взято именем
+`QInHom` (1393) и сочетается с `chenmoH`: «создать комментарий». Порядок слов в
+`timeline.summary` клингонский — подлежащее, обстоятельство времени, объект,
+сказуемое: `<user>{login}</user> <date>{date}</date> lIj qem tlhob {verb}`, где
+`lIj` — притяжательное «ваш», стоящее перед определяемым словом, как уже стоит в
+`changes.create-pr-title` (`lIj DaH bartIqvo'`); в дампе это суффикс `-lIj`
+(8166 «your»). Набор тегов и плейсхолдеров при этом совпадает с оригиналом, что
+и меряет разметочная мера.
+
+Остальные клингонские формы держатся уже принятых по каталогу опор: «Stand By» —
+`yIloS` (7810 «wait (for)»), «Summary» — `gher'ID` (1488 «outcome, results»),
+«steps incoming» — `mIwmey qembogh!` из `mIw` (2745 «step, stage (in a
+process)») с `-mey` и того же `qem` (937) с `-bogh`, что стоит в
+`checkRuns.loading.cta`; «Dismiss» — `yIteq` (5760 «remove, take off»), та же
+форма, что в `banners.dismiss-message`; «Open in Browser» — `leghwI'Daq
+yIpoSmoH`, где `leghwI'` собран из `legh` (6117 «see») и `-wI'` (4924) и уже
+живёт в `authentication.browserRedirect`; «fix» — `tI'` (2620) в повелительной
+`yItI'`, а объект («them» / «it») вынесен в тему с `'e'`: `'ol vemmey 'e' yItI'`
+против `'ol vem 'e' yItI'`. Вопрос «do you want» — форма `DaneH'a'` (дамп 7924
+«What do you want to drink?»). Отдельного глагола «start» в форме нет: `-mo'` в
+дампе означает «because, due to» (686, 687), а не «начать», поэтому начало
+действия покрыто императивом и наречием `DaH`. Слово `markdown` осталось
+незаимствованным: это имя формата, а не лексика интерфейса, и клингонская мера
+пропускает его, потому что тот же литерал стоит в en-значении этого ключа.
+
+Квенья. «Approve» — `mainam-` (Eldamo, nq «to approve of, (lit.) well-judge»),
+«review» — `henta-` («to eye, examine, read, scan»), обе в форме страдательного
+причастия на `-ina`: `Mainaina`, `Hentaina`. «Comment» — `nyar-` («recount,
+tell»), в прошедшем `Nyarnanë`; «request changes» — `iquirya-` (nq «to ask for,
+request») в прошедшем `Iquiryanë i ahyanië`. Два других глагола группы — `vista`
+(«change», из `commitMessage.protected-branch`) и `aptya` («repair, fix», из
+`configureGitUser.exampleCommitSummary`). «Switch to» собрано с направительным
+падежом `-nna` по образцу `GitHub Desktopanna` из
+`authentication.browserRedirect`: `Vistë i luciquistanna`, `Vistë i hauranna ar
+i luciquistanna`.
+
+Остальные квенья-формы — прежние формы каталога: «Stand By» — `á larta`
+(`checkRuns.loading.title`), «Summary» — `Menta`, первая опора из `Menta i
+hentar` (`checkRuns.summary-title`), «steps» — `haitar`, множественное от
+принятого `haita` (`checkRuns.jobStepAria`), «incoming» — `tūlā` (`I hentar
+tūlā!`), «Dismiss» — `Haitë` (`banners.dismiss-message`), «comment» как
+существительное — `nyarnë` (`common.do-not-show-again`), «your pull request» —
+`luciquistalya` (основа `luciquista` из `openPullRequest` плюс притяжательное
+`-lya`). Порядок слов в `timeline.summary` оставлен как в оригинале: квенья идёт
+SVO, поэтому `{verb}` стоит сразу после подлежащего, а отметка времени — в
+конце: `<user>{login}</user> {verb} i luciquistalya <date>{date}</date>`.
+
+Решение по `openInBrowser`: единственная аттестованная форма «в браузере» в
+каталоге — `browseralyassë` («in your browser», `changes.view-on-github-title`).
+Собранное `browserissë` дало бы новую находку меры, а `browseralyassë` уже
+входит в принятые 29 находок рабочего дерева, поэтому форма взята из каталога, а
+не достроена: `Apantë i browseralyassë`. Заимствованный `browser` по-прежнему
+остаётся в находках — но внутри уже учтённого токена `browseralyassë`, поэтому
+множество не выросло и вердикт меры `IDENTICAL`.
+
+Разметка. Теги `<user>` и `<date>` и плейсхолдеры `{login}`, `{verb}`, `{date}`
+— единственная разметка группы; `checksFailed.footerMany` и `footerOne`
+различаются только числом (`i hentar sina` против `i henta sina`, `'ol vemmey`
+против `'ol vem`), как и в оригинале. Мерка `markup_check_2010.py notifications`
+сверяет состав тегов и плейсхолдеров с `en.json`.
+
+Замеры. Контейнер `gdlab`, прогон 20.10.2026: клингонская мера — 5 554 слова, 0
+неподтверждённых; квенья — 6 150 слов и 29 уникальных находок против 6 088 и 29
+на HEAD, множество совпадает (`IDENTICAL`, новых 0); разметочная мера — 18 форм,
+0 расхождений, регрессы `checkRuns`, `history` и `discardChanges` в том же
+прогоне — 0. Гейты: `--parity` 1 746 leaf-ключей на каталог, 0 расхождений;
+`--untranslated` клингонский 576 → 558 и квенья 579 → 561 из 2 011; `meta.ready`
+946 → 961 строк; `prettier --check` по обеим каталогам зелёный; `yarn test
+app/test/unit/l10n-test.ts` — 41 тест, 41 пройден, 0 падений, 5 сюит, 1 464 мс;
+`--audit` 40 видимых литералов и те же 13 непокрытых; `--bundles` — «shipped
+copies out of date: 2».
+
+Принятый остаток. Глаголы ревью в клингонском идут с неопределённым субъектом
+`-lu'`, потому что подлежащее подставляется из `{login}` и префикс согласовать
+нельзя; смысловой проход по таким оборотам — отдельная задача. Дрейф «pull
+request» (`qem tlhob` против `Hoq tlhob` в `changes`) этот коммит не трогает, но
+новая форма `tlhobghach` фиксирует, что вторая опора — глагол, и это надо учесть
+при сведении. Живая приёмка двухстрочной подсказки в собранном интерфейсе и три
+проверки WCAG 1.4.13 по-прежнему не сняты.

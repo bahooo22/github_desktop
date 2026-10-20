@@ -598,6 +598,21 @@
       "noRepositories.get-started",
       "noRepositories.return-to-tutorial",
       "noRepositories.start-tutorial",
+      "notifications.checksFailed.footerMany",
+      "notifications.checksFailed.footerOne",
+      "notifications.checksFailed.standBy",
+      "notifications.checksFailed.stepsIncoming",
+      "notifications.checksFailed.summary",
+      "notifications.dismiss",
+      "notifications.markdownCommentTitle",
+      "notifications.openInBrowser",
+      "notifications.switchToPullRequest",
+      "notifications.switchToRepositoryAndPullRequest",
+      "notifications.timeline.summary",
+      "notifications.verb.approved",
+      "notifications.verb.commentedOn",
+      "notifications.verb.requestedChanges",
+      "notifications.verb.reviewed",
       "openFile.noExternalProgram",
       "openPullRequest.branch-up-to-date",
       "openPullRequest.different-histories",
@@ -2577,34 +2592,34 @@
   },
   "notifications": {
     "checksFailed": {
-      "footerMany": "Do you want to switch to that Pull Request now and start fixing them?",
-      "footerOne": "Do you want to switch to that Pull Request now and start fixing it?",
-      "standBy": "Stand By",
-      "stepsIncoming": "Check run steps incoming!",
-      "summary": "Summary"
+      "footerMany": "DaH qem tlhobghachvetlhDaq yIghoS 'ej 'ol vemmey 'e' yItI' DaneH'a'?",
+      "footerOne": "DaH qem tlhobghachvetlhDaq yIghoS 'ej 'ol vem 'e' yItI' DaneH'a'?",
+      "standBy": "yIloS",
+      "stepsIncoming": "mIwmey qembogh!",
+      "summary": "gher'ID"
     },
-    "dismiss": "Dismiss",
-    "markdownCommentTitle": "Pull request markdown comment",
+    "dismiss": "yIteq",
+    "markdownCommentTitle": "qem tlhob markdown QInHom",
     "openInBrowser": {
-      "@darwin": "Open in Browser",
-      "@other": "Open in browser"
+      "@darwin": "leghwI'Daq yIpoSmoH",
+      "@other": "leghwI'Daq yIpoSmoH"
     },
     "switchToPullRequest": {
-      "@darwin": "Switch to Pull Request",
-      "@other": "Switch to pull request"
+      "@darwin": "qem tlhobghachvetlhDaq yIghoS",
+      "@other": "qem tlhobghachvetlhDaq yIghoS"
     },
     "switchToRepositoryAndPullRequest": {
-      "@darwin": "Switch to Repository and Pull Request",
-      "@other": "Switch to repository and pull request"
+      "@darwin": "De' ngaSwI' je qem tlhobghachvetlhDaq yIghoS",
+      "@other": "De' ngaSwI' je qem tlhobghachvetlhDaq yIghoS"
     },
     "verb": {
-      "approved": "Approved",
-      "commentedOn": "commented on",
-      "requestedChanges": "requested changes on",
-      "reviewed": "Reviewed"
+      "approved": "naDlu'",
+      "commentedOn": "QInHom chenmoHlu'",
+      "requestedChanges": "choHmey 'e' poQlu'",
+      "reviewed": "nuDlu'"
     },
     "timeline": {
-      "summary": "<user>{login}</user> {verb} your pull request <date>{date}</date>"
+      "summary": "<user>{login}</user> <date>{date}</date> lIj qem tlhob {verb}"
     }
   },
   "openPullRequest": {
