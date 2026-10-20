@@ -3396,79 +3396,79 @@
     }
   },
   "commitList": {
-    "beforeCommit": "before commit {row}",
-    "afterCommit": "after commit {row}",
+    "beforeCommit": "choH vem {row}pa'",
+    "afterCommit": "choH vem {row}vo'",
     "pressEnterToInsert": {
-      "_one": "Press Enter to insert the selected commit {insertionPoint} or Escape to cancel.",
-      "_other": "Press Enter to insert the selected commits {insertionPoint} or Escape to cancel."
+      "_one": "Enter yI'uy 'ej wIvlu'bogh choH vem {insertionPoint} yIchel; Escape yIqIl.",
+      "_other": "Enter yI'uy 'ej wIvlu'bogh choH vemmey {insertionPoint} yIchel; Escape yIqIl."
     },
     "chooseLocation": {
-      "_one": "Use the Up and Down arrow keys to choose a new location for the selected commit, then press Enter to confirm or Escape to cancel.",
-      "_other": "Use the Up and Down arrow keys to choose a new location for the selected commits, then press Enter to confirm or Escape to cancel."
+      "_one": "Dung bIng je yIlo' 'ej wIvlu'bogh choH vem Daq chu' yIwIv. Enter yI'uy 'ej yIghoS; Escape yIqIl.",
+      "_other": "Dung bIng je yIlo' 'ej wIvlu'bogh choH vemmey Daq chu' yIwIv. Enter yI'uy 'ej yIghoS; Escape yIqIl."
     },
     "cherryPickCommits": {
-      "@darwin": "Cherry-pick {count} Commits…",
-      "@other": "Cherry-pick {count} commits…"
+      "@darwin": "{count} choH vemmey yIwIv…",
+      "@other": "{count} choH vemmey yIwIv…"
     },
-    "createTag": "Create Tag…",
-    "deleteTag": "Delete tag…",
-    "deleteTagNamed": "Delete tag {name}",
-    "reorderChooseLocation": "Use <up/> <down/> to choose a new location.",
+    "createTag": "tag yIchenmoH…",
+    "deleteTag": "tag yIteq…",
+    "deleteTagNamed": "tag {name} yIteq",
+    "reorderChooseLocation": "<up/> <down/> yIlo' 'ej Daq chu' yIwIv.",
     "reorderCommits": {
-      "@darwin": "Reorder {count} Commits…",
-      "@other": "Reorder {count} commits…"
+      "@darwin": "{count} choH vemmey yIQurchoH…",
+      "@other": "{count} choH vemmey yIQurchoH…"
     },
     "squashCommits": {
-      "@darwin": "Squash {count} Commits…",
-      "@other": "Squash {count} commits…"
+      "@darwin": "{count} choH vemmey yItap…",
+      "@other": "{count} choH vemmey yItap…"
     },
     "tagsToPush": {
-      "_one": "This commit has {count} tag to push",
-      "_other": "This commit has {count} tags to push"
+      "_one": "choH vemvam {count} tag ghaj 'ej ngeHlu'nIS",
+      "_other": "choH vemvam {count} tagmey ghaj 'ej ngeHlu'nIS"
     },
     "reorderCommitsHintTitle": {
-      "@darwin": "Reorder Commits",
-      "@other": "Reorder commits"
+      "@darwin": "choH vemmey yIQurchoH",
+      "@other": "choH vemmey yIQurchoH"
     },
-    "pressEnterToConfirm": "Press <enter/> to confirm.",
-    "viewOnGitHub": "View on GitHub",
-    "viewOnGitHubEnterprise": "View on GitHub Enterprise",
+    "pressEnterToConfirm": "<enter/> yI'uy.",
+    "viewOnGitHub": "GitHubDaq yIlegh",
+    "viewOnGitHubEnterprise": "GitHub EnterpriseDaq yIlegh",
     "amendCommit": {
-      "@darwin": "Amend Commit…",
-      "@other": "Amend commit…"
+      "@darwin": "choH vem yItI'…",
+      "@other": "choH vem yItI'…"
     },
     "undoCommit": {
-      "@darwin": "Undo Commit…",
-      "@other": "Undo commit…"
+      "@darwin": "choH vem yIDopmoH…",
+      "@other": "choH vem yIDopmoH…"
     },
     "resetToCommit": {
-      "@darwin": "Reset to Commit…",
-      "@other": "Reset to commit…"
+      "@darwin": "choH vemDaq yIchoHqa'…",
+      "@other": "choH vemDaq yIchoHqa'…"
     },
     "checkoutCommit": {
-      "@darwin": "Checkout Commit",
-      "@other": "Checkout commit"
+      "@darwin": "choH vem yIwIv",
+      "@other": "choH vem yIwIv"
     },
     "reorderCommit": {
-      "@darwin": "Reorder Commit",
-      "@other": "Reorder commit"
+      "@darwin": "choH vem yIQurchoH",
+      "@other": "choH vem yIQurchoH"
     },
     "revertChangesInCommit": {
-      "@darwin": "Revert Changes in Commit",
-      "@other": "Revert changes in commit"
+      "@darwin": "choH vemDaq choHmey yIDopmoH",
+      "@other": "choH vemDaq choHmey yIDopmoH"
     },
     "createBranchFromCommit": {
-      "@darwin": "Create Branch from Commit",
-      "@other": "Create branch from commit"
+      "@darwin": "choH vemvo' bartIq yIchenmoH",
+      "@other": "choH vemvo' bartIq yIchenmoH"
     },
     "cherryPickCommit": {
-      "@darwin": "Cherry-pick Commit…",
-      "@other": "Cherry-pick commit…"
+      "@darwin": "choH vem yIwIv…",
+      "@other": "choH vem yIwIv…"
     },
-    "copySha": "Copy SHA",
+    "copySha": "SHA yIwoH",
     "copyTags": {
-      "_one": "Copy Tag",
-      "_other": "Copy Tags"
+      "_one": "tag yIwoH",
+      "_other": "tagmey yIwoH"
     }
   },
   "authentication": {

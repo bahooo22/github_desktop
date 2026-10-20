@@ -3396,79 +3396,79 @@
     }
   },
   "commitList": {
-    "beforeCommit": "before commit {row}",
-    "afterCommit": "after commit {row}",
+    "beforeCommit": "minatacë {row}no",
+    "afterCommit": "minatacë {row}llo",
     "pressEnterToInsert": {
-      "_one": "Press Enter to insert the selected commit {insertionPoint} or Escape to cancel.",
-      "_other": "Press Enter to insert the selected commits {insertionPoint} or Escape to cancel."
+      "_one": "Nirë Enter na yanta i cilina minatacë {insertionPoint}, hya Escape na apta.",
+      "_other": "Nirë Enter na yanta i cilina minatacër {insertionPoint}, hya Escape na apta."
     },
     "chooseLocation": {
-      "_one": "Use the Up and Down arrow keys to choose a new location for the selected commit, then press Enter to confirm or Escape to cancel.",
-      "_other": "Use the Up and Down arrow keys to choose a new location for the selected commits, then press Enter to confirm or Escape to cancel."
+      "_one": "Nirë i or ar i undu nirë, ar cilë nómë vinya i cilina minatacën. Nirë Enter na tancata, hya Escape na apta.",
+      "_other": "Nirë i or ar i undu nirë, ar cilë nómë vinya i cilina minatacër. Nirë Enter na tancata, hya Escape na apta."
     },
     "cherryPickCommits": {
-      "@darwin": "Cherry-pick {count} Commits…",
-      "@other": "Cherry-pick {count} commits…"
+      "@darwin": "Ciliérta i {count} minatacër…",
+      "@other": "Ciliérta i {count} minatacër…"
     },
-    "createTag": "Create Tag…",
-    "deleteTag": "Delete tag…",
-    "deleteTagNamed": "Delete tag {name}",
-    "reorderChooseLocation": "Use <up/> <down/> to choose a new location.",
+    "createTag": "Carë tag…",
+    "deleteTag": "Haitë i tag…",
+    "deleteTagNamed": "Haitë i tag {name}",
+    "reorderChooseLocation": "Nirë <up/> <down/> ar cilë nómë vinya.",
     "reorderCommits": {
-      "@darwin": "Reorder {count} Commits…",
-      "@other": "Reorder {count} commits…"
+      "@darwin": "Enparta i {count} minatacër…",
+      "@other": "Enparta i {count} minatacër…"
     },
     "squashCommits": {
-      "@darwin": "Squash {count} Commits…",
-      "@other": "Squash {count} commits…"
+      "@darwin": "Malë i {count} minatacër…",
+      "@other": "Malë i {count} minatacër…"
     },
     "tagsToPush": {
-      "_one": "This commit has {count} tag to push",
-      "_other": "This commit has {count} tags to push"
+      "_one": "Sina minatacë harya {count} tag i mauya menta",
+      "_other": "Sina minatacë harya {count} tag i mauya menta"
     },
     "reorderCommitsHintTitle": {
-      "@darwin": "Reorder Commits",
-      "@other": "Reorder commits"
+      "@darwin": "Enparta i minatacër",
+      "@other": "Enparta i minatacër"
     },
-    "pressEnterToConfirm": "Press <enter/> to confirm.",
-    "viewOnGitHub": "View on GitHub",
-    "viewOnGitHubEnterprise": "View on GitHub Enterprise",
+    "pressEnterToConfirm": "Nirë <enter/> na tancata.",
+    "viewOnGitHub": "Cenë GitHubessë",
+    "viewOnGitHubEnterprise": "Cenë GitHub Enterpriseessë",
     "amendCommit": {
-      "@darwin": "Amend Commit…",
-      "@other": "Amend commit…"
+      "@darwin": "Apterya i minatacë…",
+      "@other": "Apterya i minatacë…"
     },
     "undoCommit": {
-      "@darwin": "Undo Commit…",
-      "@other": "Undo commit…"
+      "@darwin": "Nancar i minatacë…",
+      "@other": "Nancar i minatacë…"
     },
     "resetToCommit": {
-      "@darwin": "Reset to Commit…",
-      "@other": "Reset to commit…"
+      "@darwin": "Nancar i minatacë…",
+      "@other": "Nancar i minatacë…"
     },
     "checkoutCommit": {
-      "@darwin": "Checkout Commit",
-      "@other": "Checkout commit"
+      "@darwin": "Cilë i minatacë",
+      "@other": "Cilë i minatacë"
     },
     "reorderCommit": {
-      "@darwin": "Reorder Commit",
-      "@other": "Reorder commit"
+      "@darwin": "Enparta i minatacë",
+      "@other": "Enparta i minatacë"
     },
     "revertChangesInCommit": {
-      "@darwin": "Revert Changes in Commit",
-      "@other": "Revert changes in commit"
+      "@darwin": "Nancar i ahyanier minatacëssë",
+      "@other": "Nancar i ahyanier minatacëssë"
     },
     "createBranchFromCommit": {
-      "@darwin": "Create Branch from Commit",
-      "@other": "Create branch from commit"
+      "@darwin": "Carë olba minatacëllo",
+      "@other": "Carë olba minatacëllo"
     },
     "cherryPickCommit": {
-      "@darwin": "Cherry-pick Commit…",
-      "@other": "Cherry-pick commit…"
+      "@darwin": "Ciliérta i minatacë…",
+      "@other": "Ciliérta i minatacë…"
     },
-    "copySha": "Copy SHA",
+    "copySha": "Ovëantë i SHA",
     "copyTags": {
-      "_one": "Copy Tag",
-      "_other": "Copy Tags"
+      "_one": "Ovëantë i tag",
+      "_other": "Ovëantë i tag"
     }
   },
   "authentication": {
