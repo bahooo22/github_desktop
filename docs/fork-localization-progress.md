@@ -1443,3 +1443,88 @@ CRLF в рабочем дереве, 174 562 и 175 417 байтов; в blob gi
 печатает `shipped copies out of date: 2` (в `bin/` и `dist/desktop-linux-x64/`
 `crash.js`, `main.js`, `renderer.js` отстают от `out/`), потому что пересборка в
 контейнере запрещена.
+
+## Диалог группы «прогоны проверок»: 18 форм в двух конлангах (20.10.2026)
+
+Группа `checkRuns` — 18 строк, и все 18 — листовые формы: ни форм числа, ни
+платформенных вариантов в ней нет. Это панель CI: заголовок-сводка, четыре
+состояния списка, три кнопки перезапуска, ARIA для индикатора полноты и для шага
+задачи. `meta.ready` вырос на 18 строк — 911 → 929 в обоих каталогах.
+
+Клингонский. «Проверка» держится аналитически: `'ol vem` уже стоит в каталоге
+(`settings.accessibility.show-diff-check-marks` = `pImwI'Daq 'ol vem 'e'
+yIcha'`), множественное — `'ol vemmey`. Опоры по леммам дампа: `'ol` (1199
+«check if something is true, verify, make sure»), `qem` (937 «bring») с `-bogh`
+— «incoming», `loS` (7810 «wait (for)») — «Stand By», `mIw` (2745 «procedure,
+step, stage (in a process)») — шаг задачи, `Hutlh` (639 «lack, be without, to
+not have») — «there are no», `waH` (7037 «test, try out, use experimentally») с
+суффиксом повтора `-qa'` (5807 «resume, do again») — «re-run», `luj` (2463
+«fail, lose») — «failed», `Qap` (2808 «function, work, succeed, win») —
+«passed», `rIn` (72 «be accomplished, be finished») — «completed», `wej` (4834
+«not yet»), `Ser` (5482 «progress») с `-Daq` — «in progress», `naQ` (1427
+«complete, be whole») вместе с `patlh` (4017 «rank, level, standing») —
+«completeness indicator» и подпись `{status}`, `gher'ID` (1488 «outcome,
+results») — «summary», `legh` (6117 «see») — «view».
+
+Прежние формы каталога, а не словарь: `qembogh` для «incoming»
+(`multiCommit.resolutionChoice.incoming`), `SerDaq` для «in progress»
+(`changes.stash-description`), `yIwaHqa'` для «retry» (`common.retry`), `Del`
+для «details» (24 прежние формы), `GitHubDaq` для «on GitHub»
+(`changes.create-pr-description`).
+
+Приёмка отозвала первую сборку слова «checks»: `'olmey` (глагольная основа `'ol`
+с именным `-mey`) мера клингонского завернула — 11 вхождений, 2 уникальных
+слова, потому что `-mey` и `-vam` к глаголу не лепятся. Заменено на
+аналитическое `'ol vemmey` по той же каталожной паре `'ol vem`; то же касалось
+`'olvam` в `no-steps`, и строка переписана без указателя на проверку: `mIwmey
+cha'lu'bogh Hutlh` — «не хватает шагов, которые показываются». После правки мера
+даёт 5 421 слово и 0 неподтверждённых.
+
+Квенья. `henta-` [q vb] «to eye, examine, read, scan» даёт `henta` и `hentar` —
+«check(s)»; «re-run» — `carë ata`, где `car-` [q vb] «to do, make» (492 формы),
+а `ata` «again» взято из пары `ricë ata`
+(`cloneRepository.error-unable-to-read-path`). `tūlā` — «incoming» (`i olba i
+tūlā`), `larta-` [nq] «to wait, stay, last» — и «Stand By», и `{queued}`
+(`common.hangOn` = `larta…`, `i lartar nirienë` в
+`changes.push-branch-description`). `loita-` [q] «to miss, fail» в претерите
+`loitanë` — «failed» (`commitMessage.hook-failed`), `úpanya` — «not successful»
+(`commitMessage.rule-failure-aria`), `súlë` — «some»
+(`localizationEditor.problemsTitle`), `quanta` [q] «full, filled» (21 форма)
+вместе с `carina` — «have passed» и «completed» (`localizationEditor.ready` =
+`carina`, `common.draft` = `lá carina`), `tensi` [q adv] «already, still, up to
+now; yet» (1 форма) при `lá` даёт «haven't yet», `ilya` [q] «all» (24 формы) —
+«all».
+
+По каталогу, а не по словарю: `menta` для «Summary»
+(`menu.go-to-commit-message`, `commitMessage.summary-label`), `tengwë` для
+«indicator» (семья `tengwistë` в `settings.language.*`, `tengwëo tellúmë` в
+`invalidatedToken.message`), `hraitasta` для «details» (4 прежние формы), `cenë
+… i GitHubissë` для «View … on GitHub» (`menu.view-repository-on-github`),
+`empatyellessë` для «in progress» (`localizationEditor.filterPartial`),
+`nyardassë` для `{status}` (`settings.advanced.repository-indicators`), `haita`
+для «step» (`welcome.skip`). «There are no …» взято целиком из
+`changes.no-changes-description` (`Lá ëa …`), а инфинитив `apanta` — из
+`common.openPreferences`.
+
+Мера разметки `E:/tmp/markup_check_2010.py` после прошлой группы стала
+параметрической: группа подаётся аргументом. В `checkRuns` тегов нет, только
+плейсхолдеры `{completed}`, `{name}`, `{stepName}` — состав совпадает с
+оригиналом: 18 форм, 0 расхождений; регресс по `history` в том же прогоне — тоже
+0.
+
+Замеры (20.10.2026): мера клингонского — 5 421 слово, 0 неподтверждённых; мера
+квенья — 5 994 слова и 29 находок в рабочем файле против 5 923 и 29 в HEAD,
+множества совпадают (`E:/tmp/qya_diff_sets_2010.py` — IDENTICAL, новых 0);
+разметка — 18 форм, 0 расхождений; `--parity` — 1 746 leaf-ключей на каталог, 0
+расхождений; `--untranslated` — 594 и 597 форм из 2 011 (было 612 и 615); `npx
+prettier --check app/locales/tlh.json app/locales/qya.json` — зелёный; тест
+`app/test/unit/l10n-test.ts` — 41/41 (5 сюит, 6 697 мс); `--audit` — 40 видимых
+литералов и те же 13 непокрытых; `--bundles` — `shipped copies out of date: 2`.
+
+Сводная таблица в начале документа — снимок 19.10 (1 040 и 1 042 формы), она
+устарела; актуальные числа — в этой секции. Принятый остаток: `crash.js`,
+`main.js`, `renderer.js` в `bin/` и `dist/desktop-linux-x64/` отстают от `out/`,
+потому что пересборка в контейнере запрещена; живая приёмка двухстрочной
+подсказки и три проверки WCAG 1.4.13 на этой группе не снимались — коммит меряет
+файлы. Группа `terms` (29 форм) остаётся английской намеренно: это юридический
+текст апстрима.

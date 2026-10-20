@@ -179,6 +179,24 @@
       "changes.undo-disabled-tooltip",
       "changes.view-on-github-title",
       "changes.warning-word",
+      "checkRuns.completeness-aria",
+      "checkRuns.jobStepAria",
+      "checkRuns.loading.cta",
+      "checkRuns.loading.title",
+      "checkRuns.no-steps",
+      "checkRuns.rerun.all-option",
+      "checkRuns.rerun.button",
+      "checkRuns.rerun.button-with-menu",
+      "checkRuns.rerun.failed-option",
+      "checkRuns.rerun.job-tooltip",
+      "checkRuns.statusTooltip",
+      "checkRuns.summary-title",
+      "checkRuns.title.all-failed",
+      "checkRuns.title.all-passed",
+      "checkRuns.title.pending",
+      "checkRuns.title.some-failed",
+      "checkRuns.view-details",
+      "checkRuns.view-on-github",
       "checkout.checkout",
       "checkout.confirm-message",
       "checkout.dont-show-again",
@@ -1990,30 +2008,30 @@
     "select-editor-description": "Cilë i tecindolya i <link>{settings}</link>issë"
   },
   "checkRuns": {
-    "completeness-aria": "Completeness indicator. {completed} completed, {inProgress} in progress, {queued} queued.",
+    "completeness-aria": "Tengwë i quanta hentar. {completed} carina, {inProgress} empatyellessë, {queued} lartar.",
     "loading": {
-      "cta": "Check runs incoming!",
-      "title": "Stand By"
+      "cta": "I hentar tūlā!",
+      "title": "á larta"
     },
-    "no-steps": "There are no steps to display for this check.",
+    "no-steps": "Lá ëa haita apanta i henta sinassë.",
     "rerun": {
-      "all-option": "Re-run All Checks",
-      "button": "Re-run Checks",
-      "button-with-menu": "Re-run",
-      "failed-option": "Re-run Failed Checks",
-      "job-tooltip": "Re-run {name}"
+      "all-option": "carë ata i ilya hentar",
+      "button": "carë ata i hentar",
+      "button-with-menu": "carë ata",
+      "failed-option": "carë ata i hentar loitanë",
+      "job-tooltip": "carë ata {name}"
     },
-    "summary-title": "Checks Summary",
+    "summary-title": "Menta i hentar",
     "title": {
-      "all-failed": "All checks have failed",
-      "all-passed": "All checks have passed",
-      "pending": "Some checks haven't completed yet",
-      "some-failed": "Some checks were not successful"
+      "all-failed": "I ilya henta loitanë",
+      "all-passed": "I ilya henta quanta carina",
+      "pending": "I súlë henta lá quanta carina tensi",
+      "some-failed": "I súlë henta úpanya"
     },
-    "view-details": "View check details",
-    "view-on-github": "View {name} on GitHub",
-    "statusTooltip": "Checks: {conclusion}",
-    "jobStepAria": "{stepName}, {duration}, {status}"
+    "view-details": "cenë i henta hraitasta",
+    "view-on-github": "cenë {name} i GitHubissë",
+    "statusTooltip": "Hentar: {conclusion}",
+    "jobStepAria": "haita {stepName}, {duration}, nyardassë {status}"
   },
   "checkout": {
     "checkout": "cilë",
