@@ -1231,3 +1231,62 @@ folder; `orturië` от `ortur-` «overpower» для override — kind=assemble
 квенья — 29 находок и в рабочем файле, и в HEAD, новых ноль; `--parity` —
 1 746 leaf-ключей на каталог, 0 расхождений; `--untranslated` — 681 и 684 формы
 из 2 011; тест `app/test/unit/l10n-test.ts` — 41/41.
+
+## Диалог проверки истечения токена: 25 форм в двух конлангах (20.10.2026)
+
+Группа `testTokenExpirationDialog` — 25 листовых форм, тестовый диалог
+«Тест истечения токена». Черновик группы писался до смыслового
+прохода терминов, поэтому в каталог вошли уже исправленные формы: `antacina`
+(«applied») вместо `latyana`, `vehtainar` вместо `latyanar`, `ghIgh chapbogh`
+(«авторизованная задача») вместо прежней основы `gham`.
+
+Опоры сняты дампом до записи; каждая — статья словаря либо сборка из статей.
+
+- Квенья: `ceuta-` [q vb] «to renew, refresh» (4 формы) даёт `ceutaima`
+  («refreshable») по образцу аттестованного `tyastaima` («testable»); `xéya-`
+  [nq vb] «to pass (of time, intransitive)» — `Tellúmë xéyanë` («срок
+  прошёл»); `tellúmë` [nq n] «deadline, (lit.) finish-time» закрывает и
+  «expiration», и «expiry»; `alasatya` [nq adj] «common, general», `rincuma`
+  [nq n] «task, charge, mission», `remparma` [nq n] «memoirs, diary» для
+  «log»; `eniquirya` («запросить снова») — `en-` плюс `iquirya-` [nq vb]
+  «to ask for, request», kind=assembled.
+- Клингонский: `QonoS` (дамп 3782 «journal, log») — «в логе» в двух строках
+  об ошибке; `tlhob` (407 «ask, request, plead») с `-wI'` и с `-qa' -DI'`
+  даёт `tlhobwI'mey` («обычные запросы») и `tlhobqa'DI'` («когда запросит
+  снова»); `ngep` (5013 «override, take/have priority») — `ngepghach`
+  («переопределение»); `van` (2250 «end (an event, voyage, …)») с
+  номинализатором `-ghach` — `vanghach` («истечение»); `chegh` (5812
+  «return (to)») — «restored», `'el` (2294 «enter, go in») с `-pu' -bogh` —
+  «signed-in».
+
+Направление времени в `refreshHint` взято из кода, а не из догадки по
+английской фразе: `refreshMargin = 10 * 60 * 1000`
+(`app/src/lib/credential-sessions.ts:18`) с комментарием «обновить то, что
+истекает в пределах этого окна, прежде чем выдать» — окно до истечения, не
+после. Поэтому «within 10 minutes of expiry» передано
+`10 lúmincessë fai i tellúmë` («за 10 минут до срока») и `10 tup poHDaq`
+при `chu'moH`.
+
+Отдельно `notRefreshable`: английский требует «Sign in again with short-lived
+tokens enabled», то есть «с включёнными короткоживущими токенами», а не «с
+возобновляемыми». Форма `i tengwi senta lúmëva vehtainar` оставлена по
+оригиналу: `senta` — Eldamo q adj «short» (4 формы).
+
+Дрейф, найденный при приёмке: `meta.ready` не дополнялся с 19.10 — десять
+закрытых групп (`addRepository`, `cloneRepository`, `commitMessage`, `diff`,
+`copilotByokProvider`, `commitList`, `repositoriesList`, `repositorySettings`,
+`secretScanning`, `banners`) остались за списком в 850 записей, хотя их формы
+переведены. Этот коммит дрейф не чинит: счётчик `--untranslated` его не
+видит, а редактор по такому ключу показывает строку неготовой. Группа батча
+в список дописана по прежнему правилу: 25 строк, 850 → 875, порядок
+сортировки сохранён.
+
+Замеры (20.10.2026): мера по клингонскому — 5 158 слов, 0 неподтверждённых;
+мера по квенья — 5 686 слов, 29 находок и в рабочем файле, и в HEAD, множества
+совпадают (`E:/tmp/qya_diff_sets_2010.py` даёт IDENTICAL, новых 0);
+`--parity` — 1 746 leaf-ключей на каталог, 0 расхождений; `--untranslated` —
+656 и 659 форм из 2 011; `npx prettier --check app/locales/*.json` — зелёный;
+тест `app/test/unit/l10n-test.ts` — 41/41 (5 сюит, 6 836 мс). Мера `--bundles`
+печатает `shipped copies out of date: 2`: в `bin/` и `dist/desktop-linux-x64/`
+собранные `crash.js`, `main.js`, `renderer.js` отстают от `out/`, потому что
+пересборка в контейнере запрещена.
