@@ -1290,3 +1290,69 @@ tokens enabled», то есть «с включёнными короткожив
 печатает `shipped copies out of date: 2`: в `bin/` и `dist/desktop-linux-x64/`
 собранные `crash.js`, `main.js`, `renderer.js` отстают от `out/`, потому что
 пересборка в контейнере запрещена.
+
+## Диалог группы «открыть pull request»: 23 формы в двух конлангах (20.10.2026)
+
+Группа `openPullRequest` — 20 строк диалога, из них три с формами числа
+(`lines-added`, `lines-deleted`, `merge-commits-into`): всего 23 листовые
+формы. `meta.ready` вырос на 20 строк — 875 → 895, в обоих каталогах.
+
+Клингонский. `yamtaw` (дамп 4120 «line») — «строка», `tetlh` (4133 «list,
+roll, scroll») — «список файлов», `poSmoH` (4945 «open»), `wIv` (6127
+«select, choose»), `Day` (1417 «compare») с суффиксом цели `-meH` — «ветка
+для сравнения», `motlh` (4813 «be usual, be standard») держит и «default»,
+и «automatically», `mergh` (1371 «be combined») с `-laH` — «able to merge»,
+`patlh` (2996 «be ranked, have a status») — «status», `qun` (3278
+«history») — «истории коммитов», `qawHaq` (1755 «data banks») — «disk»,
+`De' ngaSwI'` (`ngaSwI'` 1533 «container») — «репозиторий».
+
+Две формы отозвала приёмка, обе ушли в каталог до коммита. Первая:
+`HopDaq bartIq` — глоссарий даёт `HopDaq` для «удалённого репозитория», а
+«удалённую ветку» каталог закрепил как `HopwI'Daq bartIq`
+(`deleteBranch.confirm-remote-message`); мера показала 2 находки, форма
+приведена к каталожной. Вторая: `bIQepbe', 'ach` — `Qep` (дамп 658 «be
+anxious (about)») переходный, а префикс `bI-` означает «ты → меня», то есть
+выходил индикатив «ты не тревожишь меня» вместо «не волнуйся».
+Запретительной формы «don't worry» дамп не даёт, поэтому взята целиком
+аттестованная фраза `qay'be'` (4786, sen:phr «no problem.»).
+
+Квенья. `nyas` (nq «scratch, score, line, mark») — «строка», `nyarda`
+(nq «list, (lit.) product of recitation») — «список», `napan-` «to add» →
+`napannë`, `vista-` «to change [something]» → `vistanë`, `fehta-`
+(глоссарий: nq «to destroy, ruin, spoil», 0 форм в дампе) → `fehtanë`;
+`sitina` (nq «customary, usual») — «default», `olba` (q «branch», 9 форм),
+`palan` «far, remote», предлог `or` (q «above, on, upon», 9 форм) — «above»,
+`sundo` (q «base, root», 9 форм) — «base», `cil-` — «select», `apanta-` —
+«open, reveal», `erta-` «to unite» с `cárima` (q «feasible, able to be
+done») — «able to merge», `loima` (q «mistake») — «Error» в такт с
+`common.error-word`, `tensi` (q adv «already, still»), `tana-` «to show»,
+`henta-` «to eye, examine».
+
+Решения с оглядкой. «on disk» — `i cómissen`, локатив множественного от
+`cómë` «файл»: своего слова для диска в Eldamo нет, и глоссарий уже
+передаёт «from disk» как `cómillon`. «against remote branches» — `erë i
+palan olbannar`, где `-nnar` (allative, pl) взят из `rules_qya_cases.json`,
+а `erë` держит «only» по четырём прежним строкам. «Don't worry» передано
+без глагола беспокойства: `ruc-` и `sorya-` — «бояться», аттестованного
+«worry» нет, остаётся `Polilyë carë i luciquista tensi.` («запрос всё
+равно можно создать»). `vëalta` переиспользована по 12 прежним строкам
+каталога, хотя леммой в дампе не стоит (глоссарий: nq «to resemble»,
+1 форма). Приёмка убрала и новую форму: `nyarier` заменено на `nyari` —
+каталог уже называет так истории в `multiCommit.unrelatedHistories`, а
+разнобой в числе одного термина дороже новой сборки.
+
+Замеры (20.10.2026): мера по клингонскому — 5 260 слов, 0 неподтверждённых
+(5 262 до правки `qay'be'`); мера по квенья — 5 811 слов и 29 находок в
+рабочем файле против 5 686 и 29 в HEAD, множества совпадают
+(`E:/tmp/qya_diff_sets_2010.py` — IDENTICAL, новых 0); `--parity` — 1 746
+leaf-ключей, 0 расхождений; `--untranslated` — 633 и 636 форм из 2 011;
+`npx prettier --check app/locales/*.json` — зелёный; тест
+`app/test/unit/l10n-test.ts` — 41/41 (5 сюит, 6 882 мс); `--audit` — 40
+видимых литералов и те же 13 непокрытых, принятый остаток чужих
+необёрнутых строк. Заливка: 3 833 → 3 853 строки CRLF, 174 011 и
+174 860 байтов.
+
+Принятый остаток: в `tlh.json` термин «pull request» живёт в двух вариантах
+— `qem tlhob` (12 вхождений, из них 5 добавил этот батч; глоссарий) и
+`Hoq tlhob` (6 вхождений в `changes`, все прежние). Батч держит
+глоссарийный, разведение — отдельная задача.
