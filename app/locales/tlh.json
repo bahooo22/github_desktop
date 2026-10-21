@@ -1151,6 +1151,12 @@
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
+      "unreachableCommits.learnMore",
+      "unreachableCommits.reachableTab",
+      "unreachableCommits.title",
+      "unreachableCommits.unreachableTab",
+      "unreachableCommits.willSeeChanges",
+      "unreachableCommits.wontSeeChanges",
       "updateAvailableBanner.architecture",
       "updateAvailableBanner.arm64AutoUpdate",
       "updateAvailableBanner.dismiss",
@@ -3330,20 +3336,20 @@
     "timeoutInvalid": "poQ 'aqroS mI' yIchel."
   },
   "unreachableCommits": {
-    "unreachableTab": "Unreachable",
-    "reachableTab": "Reachable",
+    "unreachableTab": "tu'laHbe'bogh",
+    "reachableTab": "tu'laHbogh",
     "wontSeeChanges": {
-      "_one": "You will not see changes from the following commit because it's not in the ancestry path of the most recent commit in your selection.",
-      "_other": "You will not see changes from the following commits because they're not in the ancestry path of the most recent commit in your selection."
+      "_one": "vebbogh choH vemvo' choHmey Daleghbe', wIvpu'bogh choH vem Qav mung He 'uchbe'mo'.",
+      "_other": "vebbogh choH vemmeyvo' choHmey Daleghbe', wIvpu'bogh choH vem Qav mung He 'uchbe'mo'."
     },
     "willSeeChanges": {
-      "_one": "You will see changes from the following commit because it's in the ancestry path of the most recent commit in your selection.",
-      "_other": "You will see changes from the following commits because they're in the ancestry path of the most recent commit in your selection."
+      "_one": "vebbogh choH vemvo' choHmey Dalegh, wIvpu'bogh choH vem Qav mung He 'uchmo'.",
+      "_other": "vebbogh choH vemmeyvo' choHmey Dalegh, wIvpu'bogh choH vem Qav mung He 'uchmo'."
     },
-    "learnMore": "<link>Learn more about unreachable commits.</link>",
+    "learnMore": "<link>tu'laHbe'bogh choH vemmey De' yIghoj.</link>",
     "title": {
-      "@darwin": "Commit Reachability",
-      "@other": "Commit reachability"
+      "@darwin": "choH vem tu'laHghach",
+      "@other": "choH vem tu'laHghach"
     }
   },
   "tooltippedSha": {

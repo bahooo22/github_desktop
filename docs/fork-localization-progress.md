@@ -3421,3 +3421,87 @@ GUI-приёмка недоступна: собранных каталогов �
 Итог. Экран входа и форма аутентификации закрыты: 11 форм в двух конлангах, готовность
 каталогов выросла до 1 168 строк, остаток непереведённого — 307 и 310 форм из 2 011; обе
 меры форм остались IDENTICAL, группа не добавила ни одной новой неподтверждённой формы.
+
+## Диалог достижимости коммитов: 9 форм в двух конлангах (21.10.2026)
+
+Группа `unreachableCommits` — 9 листовых форм в 8 ключах: `unreachableTab`,
+`reachableTab`, пары `wontSeeChanges` и `willSeeChanges` с `_one`/`_other`,
+`learnMore` и `title` с `@darwin`/`@other`, которые различаются только регистром
+первой буквы. Ключи живут в
+`app/src/ui/history/unreachable-commits-dialog.tsx` (`:99`, `:100`, `:147`, `:148`,
+`:152`, `:167`).
+
+- `unreachableTab` и `reachableTab` — причастия от готовой основы: клин.
+  `tu'laHbe'bogh` («которых нельзя найти») стоит побайтово в готовой
+  `history.notIncluded` (`<link>{count} tu'laHbe'bogh choH vem</link> 'uchlu'be'`),
+  `tu'laHbogh` — та же основа без `-be'`; кв. `Alahírima` — готовая форма сразу из
+  двух строк (`history.notIncluded`, `installGit.title`), антоним `Hírima` — та же
+  основа без отрицательного префикса `ala-`.
+- «the following commit»: клин. `vebbogh choH vem` — `veb` («be next in a series,
+  sequence», дамп) с `-bogh`; кв. `minatacë entulala` — `entulala` («next») стоит
+  готовым в `testTokenExpirationDialog.selectAccount`. Аблатив «from» — готовые
+  рамки: клин. `choH vemvo'` (`changes.filter.excluded-from-commit`), кв.
+  `minatacëllo` и `minatacëllon` (`history.showingChangesFrom`).
+- «ancestry path» передан как «путь происхождения»: клин. `mung He` — `mung`
+  («origin», дамп) и `He` («course, route», дамп), соположение по модели готовой
+  `De' ngaSwI'`. Слова «ancestry» в дампе нет: `nol` — «funeral», не предок,
+  ловушка первой глоссы обойдена отказом от готового слова.
+- «most recent commit in your selection»: клин. `wIvpu'bogh choH vem Qav` —
+  `Qav` («be last», дамп) после существительного по модели готовой `veH Qav`
+  («final frontier»), `wIvpu'bogh` — по готовой `wIvpu'be'`
+  (`app.no-repository-selected`). Кв. `i métima minatacëo i cilienëlyassë` —
+  `métima` («last», Eldamo), генитив `minatacëo`; «in your selection» —
+  `cilienëlyassë` = `cilienë` («selected») + `-lya` + `-ssë`, ровно по готовой
+  `nótaralyassë` из `changes.pull-branch-description`.
+- Причина сформулирована через «включает/не включает», чтобы не маркировать число
+  на местоимении: клин. `… mung He 'uchbe'mo'` и `… mung He 'uchmo'` — `'uch`
+  («hold, capture») даёт в готовой `history.notIncluded` форму `'uchlu'be'`
+  («not included»), `-mo'` — «because» (тип 9). Кв. отрицание и утверждение —
+  готовые пары `lá ëa`/`lá ëar` (`changes.pull-branch-description`), путь —
+  `tiëssë`: `tië` («path», 45 форм Eldamo) с локативом `-ssë` по готовой
+  `partiëssë` (`settings.notifications.permission-denied`).
+- `learnMore`: клин. `<link>tu'laHbe'bogh choH vemmey De' yIghoj.</link>` — рамка
+  `<link>` с точкой внутри, как в готовой `common.learnMore`, `De'` («information»)
+  стоит в готовой `changes.avatar.learn-more-attribution`, `yIghoj` — императив
+  `ghoj`; кв. `<link>Nolya pá i minatacër alahírima.</link>` — готовая рамка
+  `Nolya pá …` оттуда же.
+- `title`: клин. `choH vem tu'laHghach` — `tu'laH` с номинализатором `-ghach` по
+  готовым `Delghach` (`commitMessage.length-hint-title`) и `Qapghach`; кв.
+  `Minatacëo Hírimië` — `Hírima` с `-ië` по модели `nostalië`
+  (`settings.copilot.learn-more-commit-messages`). Пара регистров повторяет
+  готовую пару `settings.copilot.settings-title`.
+
+Замеры. Вставка: «черновик: 9 | изменится: 9 | уже такие же: 0 | нет в каталоге: 0» в
+обоих, формат воспроизведён байт-в-байт: OK. Байты сняты ПОСЛЕ дописывания готовности:
+183 673 (tlh) и 185 197 (qya), CRLF 4 132 в обоих, одиночных переводов строки 0.
+Готовность: `ready_group.py` — 6 строк группы (пары `_one`/`_other` и `@darwin`/`@other`
+схлопываются в путь без суффикса), дописано 6, `meta.ready` вырос с 1 168 до 1 174.
+Зонды черновика до вставки: клингонский 61 слово / 0 неподтверждённых, квенья 75
+токенов / 0 находок. Меры форм приёмки: клингонский 6 738 слов / 0 находок против HEAD
+6 677 / 0 — вердикт IDENTICAL; квенья 7 532 слова / 29 уникальных находок против HEAD
+7 532 / 29 — те же 29, вердикт IDENTICAL. `tlh_order_check.py` — 0 нарушений порядка
+(4 154 леммы boQwI', 2 218 слов каталога, 893 чистых, 1 237 без членения).
+`markup_check_2010.py unreachableCommits` — forms 9/9/9, findings=0, вердикт
+MARKUP GATE OK. `l10n:parity` — 1 746 листовых ключей в каждом из семи каталогов,
+parity issues 0, возврат 0. `--untranslated` — tlh 298 и qya 301 форма из 2 011 против
+307 и 310 на HEAD, сдвиг ровно на эту группу.
+
+Принятый остаток. Лексических провалов группа не добавила: спорные места собраны из
+готовых строк. Смысловые ослабления: слова «ancestry» нет ни в дампе boQwI'
+(`nol` — «funeral»), ни в Eldamo («ancestor» — 0 записей), поэтому клингонское
+«ancestry path» передано как `mung He` («путь происхождения»), а квенийское — как «путь
+последнего коммита» (`tië` с генитивом). Клин. `tu'laHghach` и кв. `Hírimië` — новые
+словоформы по продуктивным моделям (`-ghach`, `-ië`): обе прошли меры (у клингона 0
+находок, множество квенья не выросло). Кв. `Hírima` — усечение отрицательного префикса
+готовой `alahírima`, отдельной записи в Eldamo нет; `cilienëlyassë` и `entulala`
+разрешены как производные от готовых форм, повтор не увеличивает множество находок.
+Клин. `vem` словарно — «pattern» и «wake up», но готовые строки каталога (десятки
+вхождений) закрепили `choH vem` как «commit»; здесь использован именно каталоговый
+термин. `pat` в дампе — «system» (ловушка омонима `De'wI' pat` — «OS»), не «path»,
+поэтому путь взят как `He`. GUI-приёмка недоступна: собранных каталогов нет. Пуш — за
+пользователем.
+
+Итог. Диалог достижимости коммитов закрыт: 9 форм в двух конлангах, готовность
+каталогов выросла до 1 174 строк, остаток непереведённого — 298 и 301 форма из 2 011;
+обе меры форм остались IDENTICAL, группа не добавила ни одной новой неподтверждённой
+формы.

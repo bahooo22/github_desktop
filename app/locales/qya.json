@@ -1151,6 +1151,12 @@
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
+      "unreachableCommits.learnMore",
+      "unreachableCommits.reachableTab",
+      "unreachableCommits.title",
+      "unreachableCommits.unreachableTab",
+      "unreachableCommits.willSeeChanges",
+      "unreachableCommits.wontSeeChanges",
       "updateAvailableBanner.architecture",
       "updateAvailableBanner.arm64AutoUpdate",
       "updateAvailableBanner.dismiss",
@@ -3330,20 +3336,20 @@
     "timeoutInvalid": "i timeout mauya na nótë."
   },
   "unreachableCommits": {
-    "unreachableTab": "Unreachable",
-    "reachableTab": "Reachable",
+    "unreachableTab": "Alahírima",
+    "reachableTab": "Hírima",
     "wontSeeChanges": {
-      "_one": "You will not see changes from the following commit because it's not in the ancestry path of the most recent commit in your selection.",
-      "_other": "You will not see changes from the following commits because they're not in the ancestry path of the most recent commit in your selection."
+      "_one": "Lá cenuvalyë i ahyanier i minatacëllo entulala, pan lá ëa i tiëssë i métima minatacëo i cilienëlyassë.",
+      "_other": "Lá cenuvalyë i ahyanier i minatacëllon entulala, pan lá ëar i tiëssë i métima minatacëo i cilienëlyassë."
     },
     "willSeeChanges": {
-      "_one": "You will see changes from the following commit because it's in the ancestry path of the most recent commit in your selection.",
-      "_other": "You will see changes from the following commits because they're in the ancestry path of the most recent commit in your selection."
+      "_one": "Cenuvalyë i ahyanier i minatacëllo entulala, pan ëa i tiëssë i métima minatacëo i cilienëlyassë.",
+      "_other": "Cenuvalyë i ahyanier i minatacëllon entulala, pan ëar i tiëssë i métima minatacëo i cilienëlyassë."
     },
-    "learnMore": "<link>Learn more about unreachable commits.</link>",
+    "learnMore": "<link>Nolya pá i minatacër alahírima.</link>",
     "title": {
-      "@darwin": "Commit Reachability",
-      "@other": "Commit reachability"
+      "@darwin": "Minatacëo Hírimië",
+      "@other": "Minatacëo hírimië"
     }
   },
   "tooltippedSha": {
