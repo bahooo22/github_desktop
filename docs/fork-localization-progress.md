@@ -2904,3 +2904,69 @@ HEAD → `IDENTICAL`. `tlh_order_check.py tlh` — нарушений поряд
 
 Итог. Стенд уведомлений закрыт: 12 форм в двух конлангах, готовность 1 106 строк, остаток —
 383 и 386 формы из 2 011.
+
+## Окно конфликтов: 12 форм в двух конлангах (21.10.2026)
+
+Группа `conflicts` — 12 листовых форм в 12 строках: состояния списка конфликтующих файлов и
+подсказка разрешения. Строки читаются в `app/src/ui/lib/conflicts/render-functions.tsx:10`,
+`:21`, `:30`, в `app/src/ui/lib/conflicts/unmerged-file.tsx:209`, `:327`, `:537` (две
+платформенные формы `noEditorConfigured`), а соседствующая `multiCommit.conflicts.allResolved`
+уже стоит в `app/src/ui/multi-commit-operation/dialog/conflicts-dialog.tsx:255`.
+
+Пять из двенадцати — дословное переиспользование ГОТОВЫХ форм: `{count} yol ghaj De'` и
+`{count} cómi i cotyeva` из готовой `multiCommit.copilotDialog.conflictedFiles` (та же
+английская строка), `{editor}Daq yIpoSmoH` и `Latya i {editor}issë` из готовой
+`multiCommit.copilotDialog.openInEditor`, плюс `1`-ая форма того же плюрала.
+
+- Термин «conflict» в клингонском подтверждён дампом: `yol` = «conflict» (n) — единственная
+  запись, поэтому `yolmey`, `yol ghaj De'` и `yol tI'` (готовая `settings.copilot
+  .conflict-resolution`) стоят на законной основе. В квенье — каталожное `cotya`
+  (`Cotya i cómë.` из готовой `diff.conflictViaCommandLine`) и `selya-` «разрешать»
+  (`Selya ilya cotya i cacariello` из готовой `changes.continue-rebase.resolve-conflicts`).
+- Находка дампа, которую пришлось принять: `pan` по boQwI' — «emit sparks, spark» (v:t), а
+  каталог носит его в ГОТОВЫХ `multiCommit.conflicts.allResolved` (`yol ghaj De'mey Hoch 'oH
+  panpu'.`) и `multiCommit.conflicts.resolvedCount` в роли «resolve». Правило
+  переиспользования сохранило единую форму: `yolmey Hoch panpu'.` для «All conflicts resolved».
+  Разнобой помечен рядом с `woH` («pick up») в роли «copy».
+- Локатив/датив, приклеенный к плейсхолдеру, снят зондом: `{branch}Daq` (клингонский
+  `'ItlhDaq` — суффикс после слова, которого нет в дампе как сущ.) и `{branch}ssë` (квенья —
+  мера вырезает плейсхолдер и оставляет голый суффикс `ssë`). Формы переписаны на пунктуацию
+  и отдельное слово: `DuHmey > 'Itlh: DI'wI' tu'lu'be'.` и `I cómi lá ëa i olbanna: {branch}.`
+  — по готовой рамке `Lá harya i cómi`/`Hop DI'wI' tu'lu'be'`.
+- «Manual» собрано каталожным `tIgh` («custom», дамп :1710) и `sito` (готовая рамка
+  `tIgh DI'wI'` / `sita tecindo`): `tIgh yol` и `i sito cotya`. «Target branch» клингонский
+  собрал пассивным причастием от `Qeq` («aim at», дамп :178) — `Qeqlu'bogh bartIq`; в квенья
+  `mehta-` («to aim at», nq, 2 формы) в позиции атрибута: `i olba i mehta`.
+- Подсказка `resolveManuallyHint` несёт `<link>`: клингонский
+  `<link>ra'SommI'Daq yIpoSmoH,</link> pagh lIj SommI' wIvlu'bogh 'e' yIlo', pagh yISoQmoH 'ej
+  tIgh yIpan.` (`SommI'` = «tool», дамп :3537; `SoQmoH` = «close, shut», :1305), квенья
+  `<link>Á apanta i axacarmenen,</link> hya á mahta i axacarma maira, hya á haita itan selya
+  i sito.` — инструменталь `-nen` и «via the command line» взяты из готовой
+  `Carë axacarmenen.`.
+
+Замеры. Вставка: `apply_group.py` — «черновик: 12 | изменится: 12 | уже такие же: 0 | нет в
+каталоге: 0» в обоих каталогах, повторный сухой прогон после готовности — «изменится: 0 | уже
+такие же: 12» и «формат воспроизведён байт-в-байт: OK», байты 182 152 и 183 388, CRLF 4 075,
+одиночных переводов строки 0. Готовность: `ready_group.py` — 12 строк, дописано 12,
+`meta.ready` стал 1 117; `ready_check.py` — la и eo по 1 746, tlh и qya по 1 117, битых путей
+0, пустых значений 0. Зонды ДО вставки: клингонский 46 слов / 0 находок, квенья 66 токенов /
+0 неподтверждённых (после переписки двух склеек с плейсхолдером). Меры по каталогу:
+клингонский 6 386 слов против 6 341 на HEAD, неподтверждённых 0, множества находок совпадают
+→ `IDENTICAL`; `tlh_order_check.py tlh` — нарушений порядка 0; квенья — 29 уникальных находок
+и в дереве, и на HEAD → `IDENTICAL`. `markup_check_2010.py conflicts` — forms 12/12/12,
+findings=0. `yarn l10n:parity` — 1 746 leaf-ключей, issues 0.
+`node script/i18n-freshness.mjs --untranslated tlh` и `qya` — 371 и 374 формы из 2 011
+(на HEAD той же мерой 383 и 386): снято ровно по группе. `yarn test` по `menu-test.ts`,
+`l10n-test.ts` и `l10n-freshness-test.ts` — 69 тестов, 69 пройдено, 0 падений (7 450.5 мс).
+`prettier --check` по обоим каталогам — rc=0, точечный `markdownlint` по этому дневнику и
+README — rc=0.
+
+Принятый остаток. Три позиции: `pan` держит «resolve» по готовым строкам каталога, хотя дамп
+даёт ему «emit sparks»; «manual» и «custom» закрыты одним словом (`tIgh`/`sito`) — отдельной
+аттестации для «ручной» ни один источник не даёт; «target» в квенье — атрибутивная позиция
+глагола `mehta-` вместо существительного, аттестованного «target» нет. Разнобои прежних групп
+(`olbi`/`olbar`, `woH`, `qem tlhob`/`Hoq tlhob`, раздельное `lIj`) не усилены. GUI-приёмка
+недоступна: собранных каталогов в контейнере нет. Пуш и перезапуск джобы — за пользователем.
+
+Итог. Окно конфликтов закрыто: 12 форм в двух конлангах, готовность 1 117 строк, остаток —
+371 и 374 формы из 2 011.
