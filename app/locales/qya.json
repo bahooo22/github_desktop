@@ -721,6 +721,15 @@
       "publish.sign-in",
       "publish.title",
       "publish.will-be-created-as",
+      "pushBranchCommits.createWithoutPushing",
+      "pushBranchCommits.publishButton",
+      "pushBranchCommits.publishMessage",
+      "pushBranchCommits.publishTitle",
+      "pushBranchCommits.publishTitleQ",
+      "pushBranchCommits.pushButton",
+      "pushBranchCommits.pushMessage",
+      "pushBranchCommits.pushTitle",
+      "pushBranchCommits.pushTitleQ",
       "relativeTime.justNow",
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
@@ -3585,32 +3594,32 @@
     }
   },
   "pushBranchCommits": {
-    "publishTitle": "Your branch must be published before opening a pull request.",
-    "publishMessage": "Would you like to publish <ref/> now and open a pull request?",
+    "publishTitle": "Étanta i olba lyava i luciquista fai apantienë.",
+    "publishMessage": "Má lyë merë étantë i <ref/> sina ar apantë i luciquista?",
     "pushTitle": {
-      "_one": "You have 1 local commit that hasn't been pushed to the remote yet.",
-      "_other": "You have {count} local commits that haven't been pushed to the remote yet."
+      "_one": "ëa 1 nómëa minatacë i lá nirienë i palan hauraanna enwa.",
+      "_other": "ëa {count} nómëa minatacër i lá nirienë i palan hauraanna enwa."
     },
-    "pushMessage": "Would you like to push your changes to <ref/> before creating your pull request?",
+    "pushMessage": "Má lyë merë nirë i ahyanielyar pá <ref/>, i luciquista lyava carienë fai?",
     "publishTitleQ": {
-      "@darwin": "Publish Branch?",
-      "@other": "Publish branch?"
+      "@darwin": "Etanta i olba?",
+      "@other": "Etanta i olba?"
     },
     "pushTitleQ": {
-      "@darwin": "Push Local Changes?",
-      "@other": "Push local changes?"
+      "@darwin": "Nirë i nómëa ahyanië?",
+      "@other": "Nirë i nómëa ahyanië?"
     },
     "publishButton": {
-      "@darwin": "Publish Branch",
-      "@other": "Publish branch"
+      "@darwin": "Etanta i olba",
+      "@other": "Etanta i olba"
     },
     "pushButton": {
-      "@darwin": "Push Commits",
-      "@other": "Push commits"
+      "@darwin": "Nirë i minatacër",
+      "@other": "Nirë i minatacër"
     },
     "createWithoutPushing": {
-      "@darwin": "Create Without Pushing",
-      "@other": "Create without pushing"
+      "@darwin": "Carë pen nirienë",
+      "@other": "Carë pen nirienë"
     }
   },
   "commitList": {

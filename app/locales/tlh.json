@@ -721,6 +721,15 @@
       "publish.sign-in",
       "publish.title",
       "publish.will-be-created-as",
+      "pushBranchCommits.createWithoutPushing",
+      "pushBranchCommits.publishButton",
+      "pushBranchCommits.publishMessage",
+      "pushBranchCommits.publishTitle",
+      "pushBranchCommits.publishTitleQ",
+      "pushBranchCommits.pushButton",
+      "pushBranchCommits.pushMessage",
+      "pushBranchCommits.pushTitle",
+      "pushBranchCommits.pushTitleQ",
       "relativeTime.justNow",
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
@@ -3585,32 +3594,32 @@
     }
   },
   "pushBranchCommits": {
-    "publishTitle": "Your branch must be published before opening a pull request.",
-    "publishMessage": "Would you like to publish <ref/> now and open a pull request?",
+    "publishTitle": "qem tlhob 'oH poSmoH chenmoHpa', lIj bartIq 'e' yI'ang DaneH.",
+    "publishMessage": "DaH <ref/> 'e' yI'ang 'ej qem tlhob 'oH yIpoSmoH'a'?",
     "pushTitle": {
-      "_one": "You have 1 local commit that hasn't been pushed to the remote yet.",
-      "_other": "You have {count} local commits that haven't been pushed to the remote yet."
+      "_one": "HopwI'Daq yuvlu'pu'be'bogh Sum choH vem wa' tu'lu'.",
+      "_other": "HopwI'Daq yuvlu'pu'be'bogh Sum choH vemmey {count} tu'lu'."
     },
-    "pushMessage": "Would you like to push your changes to <ref/> before creating your pull request?",
+    "pushMessage": "lIj qem tlhob chenmoHpa', <ref/> 'e' yIyuv'a'?",
     "publishTitleQ": {
-      "@darwin": "Publish Branch?",
-      "@other": "Publish branch?"
+      "@darwin": "bartIq 'e' yI'ang'a'?",
+      "@other": "bartIq 'e' yI'ang'a'?"
     },
     "pushTitleQ": {
-      "@darwin": "Push Local Changes?",
-      "@other": "Push local changes?"
+      "@darwin": "Sum choHmey 'e' yIyuv'a'?",
+      "@other": "Sum choHmey 'e' yIyuv'a'?"
     },
     "publishButton": {
-      "@darwin": "Publish Branch",
-      "@other": "Publish branch"
+      "@darwin": "bartIq 'e' yI'ang",
+      "@other": "bartIq 'e' yI'ang"
     },
     "pushButton": {
-      "@darwin": "Push Commits",
-      "@other": "Push commits"
+      "@darwin": "choH vemmey 'e' yIyuv",
+      "@other": "choH vemmey 'e' yIyuv"
     },
     "createWithoutPushing": {
-      "@darwin": "Create Without Pushing",
-      "@other": "Create without pushing"
+      "@darwin": "chenmoH 'ej yIyuvbe'",
+      "@other": "chenmoH 'ej yIyuvbe'"
     }
   },
   "commitList": {
