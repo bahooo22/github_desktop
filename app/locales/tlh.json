@@ -42,6 +42,16 @@
       "app.no-repositories",
       "app.no-repository-selected",
       "app.select-repository",
+      "appError.cloneFailed",
+      "appError.commitFailed",
+      "appError.createRepositoryFailed",
+      "appError.fileSizeLimitExceeded",
+      "appError.filesExceedLimit",
+      "appError.generic",
+      "appError.pushFailed",
+      "appError.retryClone",
+      "appError.retryCloning",
+      "appError.seeLfs",
       "appMenu.application-menu",
       "authentication.browserRedirect",
       "avatar.forUser",
@@ -3125,18 +3135,18 @@
     }
   },
   "appError": {
-    "filesExceedLimit": "Files that exceed the limit",
-    "seeLfs": "See <link>https://gh.io/lfs</link> for more information on managing large files on GitHub",
-    "fileSizeLimitExceeded": "File size limit exceeded",
-    "cloneFailed": "Clone failed",
-    "pushFailed": "Failed to push",
-    "createRepositoryFailed": "Failed creating repository",
-    "commitFailed": "Commit failed",
-    "generic": "Error",
-    "retryCloning": "Would you like to retry cloning <ref/>?",
+    "filesExceedLimit": "vuS lujbogh De'mey",
+    "seeLfs": "veS De' tu'lu': GitHubDaq tIn De'mey ngeqmeH yIlo'. <link>https://gh.io/lfs</link> 'e' yIlegh.",
+    "fileSizeLimitExceeded": "De' tInghach vuS luj",
+    "cloneFailed": "voymeH luj",
+    "pushFailed": "yuvmeH luj",
+    "createRepositoryFailed": "De' ngaSwI' chenmoHmeH luj",
+    "commitFailed": "ngeq qawmeH luj",
+    "generic": "Qagh",
+    "retryCloning": "<ref/> 'e' yIvoyqa' DaneH'a'?",
     "retryClone": {
-      "@darwin": "Retry Clone",
-      "@other": "Retry clone"
+      "@darwin": "yIvoyqa'",
+      "@other": "yIvoyqa'"
     }
   },
   "selectedCommits": {
