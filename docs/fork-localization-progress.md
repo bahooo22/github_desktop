@@ -4201,3 +4201,71 @@ IDENTICAL. `markup_check` по одиннадцати группам — 11/11 M
 Итог. Одиннадцать групп и 41 форма закрыты одним коммитом; готовность каталогов
 выросла до 1 363 строк, остаток непереведённого — 90 и 93 формы из 2 011; обе меры
 форм остались IDENTICAL.
+
+## Батч AJ: 38 форм в четырнадцати группах (21.10.2026)
+
+Последний содержательный батч: `pullRequestQuickView` (3),
+`enterpriseServerConfirmation` (3), `repositoryPath` (3), `commitMessageOverride` (3),
+`updateErrors` (3), `openWithEditor` (3), `worktreeDropdown` (3),
+`confirmExitTutorial` (3), `confirmDiscardStash` (3), `renameWorktreeDialog` (3),
+`revertProgress` (2), `historyCompare` (2), `copilotApp` (2), `configLockFile` (2) —
+38 форм; пять пар `@darwin`/`@other` схлопываются, строк готовности 33.
+
+- `pullRequestQuickView`: `nuD tlhoblu'` / `Mauya cesta`; `GitHubDaq yIlegh` /
+  `Cenë i GitHubissë`; markdown-тело — `qem tlhob markdown porgh` /
+  `i luciquista hröa` (в квенья «markdown» убрано).
+- `enterpriseServerConfirmation`: `Git turwI'vamDaq ngaQHa'moHmeH chaw' tlhob:` /
+  `Git mansëa i lávë ...`; доверие — `turwI'vam Divoqmo' neH yItaH` / `Cacara ne,
+  yá sataryalyë i indya sina`; адрес — `URL ...` / `i nómë ... fanwassëlya`
+  (заимствования address/browser из квенья убраны).
+- `repositoryPath`: `{{sanitizedName}}` с ДВОЙНЫМИ скобками сохранён как в EN,
+  `{sanitizedName}` — отдельный ключ; замена символов — та же формула, что в
+  `refNameTextBox`.
+- `commitMessageOverride`: `choH vem Del choHlu'` / `Vista i minatacëo menta`;
+  `chenmoHlu'bogh Delmo'` / `i menta carina`; подсказка — `chup` / `Mentë`.
+- `openWithEditor`: `SommI' yIwIv` / `Cilë i carma`, `SommI' yIpoSmoH…` /
+  `Apanta ar carma…` — `editor` заменён на «инструмент/программа», чтобы не вносить
+  заимствование.
+- `worktreeDropdown`: `DaH vum Qorwagh` / `I silúmëa hauramar`;
+  `confirmExitTutorial`: `ghojmeH mIwvo' bImej...` / `Lelya i parandëllo`;
+  `confirmDiscardStash`: `ngeqlu' choHmeyvam yIpolHa'...` / `Aulerya i nurtanë
+  ahyanier sinar`.
+- `updateErrors`: `'aplo' DungDaq Update.exe tu'lu'be'` / `lá ëa i envinyatar or i
+  cómi`; portable bundle — `i encarna`; timeout — `poH rInmo'` / `pan vanwa i lúmë`.
+- `renameWorktreeDialog`: `vum Qorwagh pong yIchoH` / `Vista i hauramo essë`;
+  `revertProgress`: `choHHa'lu'taH…` / `Nancar…`, кнопка — `choHHa' SeHjan` /
+  `i nancar cortangwa`; `historyCompare`: `rap` / `er`.
+- `copilotApp`: `GitHub Copilot App ... Sambe'lu'` / `... hirinë`; подсказка без
+  падежа на теге Preferences; `configLockFile`: `Git SeH De' tetlh` / `Git tulca
+  parma` (слово lock в квенья убрано), `rInbe'mo'`.
+
+Замеры. Вставка по группам: десять раз 3/3 и четыре раза 2/2. Байты после
+готовности: 189 871 (tlh) и 191 995 (qya), CRLF 4 354 в обоих, одиночных LF 0.
+Готовность: 33 строки, `meta.ready` 1 363 → 1 396. Зонды: клингонский 0 находок
+после правок (`addressvam` → `URL`, `editor` → `SommI'`, `tutorialvo'` →
+`ghojmeH mIwvo'`, `PreferencesDaq` → отдельным словом, `config` → `Git SeH`,
+`pItlhbe'mo'` → `rInbe'mo'`), квенья 0 находок после замен address/browser/editor/
+lock/portable/bundle/markdown на `nómë`, `fanwa`, `carma`, `parma`, `envinyatar`,
+`encarna`, `Git tulca`. Меры форм: клин. 0 против HEAD 0 — IDENTICAL; кв. 29 против
+29 — IDENTICAL. `markup_check` по четырнадцати группам — 14/14 MARKUP GATE OK.
+`tlh_order_check` — 0 нарушений (1 949 слов каталога, 978 чистых, 896 без членения).
+`--parity` — issues 0, rc=0; `--untranslated` — 52 и 55 из 2 011 против 90 и 93 на
+HEAD, сдвиг ровно на 38 форм. Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (244 342 мс)
+
+Принятый остаток. После батча в каталогах остаются только: 29 форм `terms`
+(юридический текст, как в `ru`), 2 формы `updateAvailableBanner.architecture`
+(«Apple silicon», «Arm64») и 21/24 бренда и шаблона — `settings.tab.copilot` /
+`git`, `settings.integrations.shell`, `settings.advanced.gcm-name`,
+`settings.copilot.provider-type-azure` / `anthropic`,
+`settings.appearance.format-example`, `copilotByokProvider.typeAzure` /
+`typeAnthropic` / `wireApiResponses`, `meta.direction`, `menu.open-in-shell-default`,
+`about.downloadingLine`, `cli.url`, `multiCommit.copilotModelLabel`,
+`preferencesIntegrations.copilotHeading`, `copilotModelPicker.itemAria`,
+`cloneRepositoryTabs.*`, `preferencesAccounts.*` — это названия продуктов и чистые
+плейсхолдерные шаблоны; переводить их нельзя. Поэтому фактический остаток — 52/55
+форм, а не 31: прежняя цель не учитывала эти бренды. GUI-приёмка недоступна:
+собранных каталогов нет. Пуш — за пользователем.
+
+Итог. Четырнадцать групп и 38 форм закрыты одним коммитом; готовность каталогов
+выросла до 1 396 строк, переводимых форм не осталось — только 31 неотменяемая и
+21/24 названия/шаблона. Обе меры форм остались IDENTICAL.

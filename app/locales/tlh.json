@@ -288,6 +288,9 @@
       "commitDragElement.copyTo",
       "commitDragElement.insertHere",
       "commitDragElement.moveHere",
+      "commitMessageOverride.body",
+      "commitMessageOverride.copilotTip",
+      "commitMessageOverride.title",
       "commitProgress.close",
       "commitProgress.title",
       "common.add",
@@ -306,8 +309,14 @@
       "common.remove",
       "common.retry",
       "common.save",
+      "configLockFile.deleteAndRetry",
+      "configLockFile.exists",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "confirmDiscardStash.title",
+      "confirmDiscardStash.warning",
+      "confirmExitTutorial.leaveWarning",
+      "confirmExitTutorial.title",
       "conflicts.allResolved",
       "conflicts.fileDoesNotExistOn",
       "conflicts.fileResolutionOptions",
@@ -328,6 +337,8 @@
       "contextMenu.openInShell",
       "contextMenu.revealInFileManager",
       "contextMenu.trashName",
+      "copilotApp.notFoundMessage",
+      "copilotApp.notFoundPreferencesHint",
       "copilotByok.apiKey",
       "copilotByok.authentication",
       "copilotByok.bearerToken",
@@ -433,6 +444,9 @@
       "editorError.download",
       "editorError.title",
       "enterprise.addressLabel",
+      "enterpriseServerConfirmation.confirmAddress",
+      "enterpriseServerConfirmation.signInRequest",
+      "enterpriseServerConfirmation.trustWarning",
       "forks.create-fork-manually",
       "forks.do-you-want-to-fork",
       "forks.error-details",
@@ -472,6 +486,8 @@
       "history.selectBranchToCompare",
       "history.showingChangesFrom",
       "history.showingChangesFromPlain",
+      "historyCompare.comparedBranchUpToDate",
+      "historyCompare.yourBranchUpToDate",
       "hookFailed.abort",
       "hookFailed.ignoreAndContinue",
       "hookFailed.message",
@@ -852,6 +868,8 @@
       "openPullRequest.select-base-branch",
       "openPullRequest.showing-all-commits",
       "openPullRequest.title",
+      "openWithEditor.dialogTitle",
+      "openWithEditor.selectEditor",
       "password.toggleVisibility",
       "password.toggleVisibilityAria",
       "preferencesAccounts.dotcomHeading",
@@ -872,6 +890,9 @@
       "pullRequestList.numFound",
       "pullRequestList.pullRequestsIn",
       "pullRequestList.refreshTooltip",
+      "pullRequestQuickView.markdownBody",
+      "pullRequestQuickView.reviewRequested",
+      "pullRequestQuickView.viewOnGitHub",
       "pushBranchCommits.createWithoutPushing",
       "pushBranchCommits.publishButton",
       "pushBranchCommits.publishMessage",
@@ -920,6 +941,8 @@
       "renameBranch.name",
       "renameBranch.rename-button",
       "renameBranch.title",
+      "renameWorktreeDialog.renameButton",
+      "renameWorktreeDialog.title",
       "repoRules.fails",
       "repoRules.failsWithBypass",
       "repoRules.viewAllRulesets",
@@ -927,6 +950,9 @@
       "repositoryAlias.alias",
       "repositoryAlias.description",
       "repositoryAlias.no-effect-note",
+      "repositoryPath.invalidCharsReplaced",
+      "repositoryPath.sanitizedLive",
+      "repositoryPath.willBeCreatedAs",
       "repositoryTabs.changes",
       "repositoryTabs.history",
       "reset.continue",
@@ -937,6 +963,8 @@
       "revealDirectory.message",
       "revealDirectory.revealButton",
       "revealDirectory.title",
+      "revertProgress.button",
+      "revertProgress.title",
       "samlReauth.confirm",
       "samlReauth.message",
       "samlReauth.ok",
@@ -1335,6 +1363,9 @@
       "updateBranch.rebaseDescription",
       "updateBranch.squashDescription",
       "updateBranch.squashLabel",
+      "updateErrors.missingSquirrel",
+      "updateErrors.serverUnreachable",
+      "updateErrors.timeout",
       "upstreamAlreadyExists.confirm",
       "upstreamAlreadyExists.current",
       "upstreamAlreadyExists.expected",
@@ -1366,6 +1397,8 @@
       "workflowPushRejected.grantPermission",
       "workflowPushRejected.rejectedMessage",
       "workflowPushRejected.title",
+      "worktreeDropdown.currentWorktree",
+      "worktreeDropdown.currentWorktreeTooltip",
       "worktreeList.copyWorktreeName",
       "worktreeList.copyWorktreePath",
       "worktreeList.missing",
@@ -3388,9 +3421,9 @@
     }
   },
   "pullRequestQuickView": {
-    "reviewRequested": "Review requested",
-    "viewOnGitHub": "View on GitHub",
-    "markdownBody": "Pull request markdown body"
+    "reviewRequested": "nuD tlhoblu'",
+    "viewOnGitHub": "GitHubDaq yIlegh",
+    "markdownBody": "qem tlhob markdown porgh"
   },
   "commitDragElement": {
     "copyTo": "Daq yIwoH",
@@ -3643,9 +3676,9 @@
     "itemAria": "{title}, {subtitle}"
   },
   "enterpriseServerConfirmation": {
-    "signInRequest": "Git is requesting permission to sign in to this server:",
-    "trustWarning": "Only continue if you recognize and trust this server.",
-    "confirmAddress": "Confirm this address appears in your browser. Otherwise, cancel and contact your repository administrator."
+    "signInRequest": "Git turwI'vamDaq ngaQHa'moHmeH chaw' tlhob:",
+    "trustWarning": "turwI'vam Divoqmo' neH yItaH.",
+    "confirmAddress": "URL lIj leghwI'Daq 'anglu' 'e' yI'ol. pagh, yIqIl 'ej De' ngaSwI' SeHwI' yI'ol."
   },
   "warnLocalChanges": {
     "continueAnyway": "taH DaneH'a'?",
@@ -3657,9 +3690,9 @@
     }
   },
   "repositoryPath": {
-    "willBeCreatedAs": "Will be created as {{sanitizedName}}",
-    "invalidCharsReplaced": "Invalid characters have been replaced by hyphens.",
-    "sanitizedLive": "Will be created as {sanitizedName}. Invalid characters have been replaced by hyphens."
+    "willBeCreatedAs": "{{sanitizedName}} rur chenlu'.",
+    "invalidCharsReplaced": "ngutlhmey chaw'be'lu'bogh '-' choHlu'.",
+    "sanitizedLive": "{sanitizedName} rur chenlu'. ngutlhmey chaw'be'lu'bogh '-' choHlu'."
   },
   "missingRepository": {
     "checkAgain": "yI'olqa'.",
@@ -3679,9 +3712,9 @@
     "sidebar": "De' ngaSwI' retlh vol"
   },
   "commitMessageOverride": {
-    "title": "Commit message override",
-    "body": "The commit message you have entered will be overridden by the generated commit message.",
-    "copilotTip": "Tip: You can use <link>Copilot Instructions</link> to customize how commit messages are generated."
+    "title": "choH vem Del choHlu'",
+    "body": "bIghItlhpu'bogh choH vem Del, chenmoHlu'bogh Delmo' choHlu'.",
+    "copilotTip": "chup: choH vem Del chenmoHmeH <link>Copilot Instructions</link> yIlo'."
   },
   "history": {
     "dateLabel": "jaj:",
@@ -3732,10 +3765,10 @@
     "title": "vo'nIng wa' legh"
   },
   "openWithEditor": {
-    "selectEditor": "Select an editor",
+    "selectEditor": "SommI' yIwIv",
     "dialogTitle": {
-      "@darwin": "Open With…",
-      "@other": "Open with…"
+      "@darwin": "SommI' yIpoSmoH…",
+      "@other": "SommI' yIpoSmoH…"
     }
   },
   "editorError": {
@@ -3847,8 +3880,8 @@
     "rebasingTooltip": "{branch} 'e' waw' chu' yIchenmoH"
   },
   "revertProgress": {
-    "title": "Reverting…",
-    "button": "Revert progress button"
+    "title": "choHHa'lu'taH…",
+    "button": "choHHa' SeHjan"
   },
   "tutorial": {
     "doneTitle": "SoH rInpu'!",
@@ -4011,22 +4044,22 @@
     "unknown": "lo'wI' Sambe'bogh qab vo'nIng"
   },
   "historyCompare": {
-    "comparedBranchUpToDate": "The compared branch (<ref/>) is up to date with your branch",
-    "yourBranchUpToDate": "Your branch is up to date with the compared branch (<ref/>)"
+    "comparedBranchUpToDate": "<ref/> bartIq, lIj bartIq je rap.",
+    "yourBranchUpToDate": "lIj bartIq, <ref/> bartIq je rap."
   },
   "branchNameWarnings": {
     "trackingWarning": "bartIqvam 'oH <ref/> 'e' ghoS, pong choHDI' HopwI'Daq bartIq pong choHlaHbe'.",
     "nameExistsOnRemote": "<ref/> pong bartIq HopwI'Daq wejHa' nargh."
   },
   "copilotApp": {
-    "notFoundMessage": "Couldn't find the GitHub Copilot App on your machine. Experience agent-driven development built natively on GitHub by <download>downloading GitHub Copilot</download>.",
-    "notFoundPreferencesHint": "Already installed it? Let us know where in <preferences>Preferences</preferences>."
+    "notFoundMessage": "GitHub Copilot App De'wI'lIjDaq Sambe'lu'. <download>GitHub Copilot yIqem</download>.",
+    "notFoundPreferencesHint": "wej yIchelpu''a'? <preferences>Preferences</preferences> yI'ol."
   },
   "worktreeDropdown": {
-    "currentWorktreeTooltip": "Current worktree is {worktree}",
+    "currentWorktreeTooltip": "DaH vum Qorwagh 'oH {worktree}.",
     "currentWorktree": {
-      "@darwin": "Current Worktree",
-      "@other": "Current worktree"
+      "@darwin": "DaH vum Qorwagh",
+      "@other": "DaH vum Qorwagh"
     }
   },
   "deleteWorktreeFailed": {
@@ -4060,10 +4093,10 @@
     "viewAllRulesets": "<link>bartIqvam chutmey Hoch yIlegh</link>."
   },
   "confirmExitTutorial": {
-    "leaveWarning": "Are you sure you want to leave the tutorial? This will bring you back to the home screen.",
+    "leaveWarning": "ghojmeH mIwvo' bImej DaneHbej'a'? ghIq juH pa'Daq bIchegh.",
     "title": {
-      "@darwin": "Exit Tutorial",
-      "@other": "Exit tutorial"
+      "@darwin": "ghojmeH mIw mej",
+      "@other": "ghojmeH mIw mej"
     }
   },
   "successfulCherryPick": {
@@ -4087,10 +4120,10 @@
     "verbCreated": "chenlu'"
   },
   "confirmDiscardStash": {
-    "warning": "Are you sure you want to discard these stashed changes?",
+    "warning": "ngeqlu' choHmeyvam yIpolHa' DaneHbej'a'?",
     "title": {
-      "@darwin": "Discard Stash?",
-      "@other": "Discard stash?"
+      "@darwin": "ngeqlu' choH yIpolHa''a'?",
+      "@other": "ngeqlu' choH yIpolHa''a'?"
     }
   },
   "workflowPushRejected": {
@@ -4115,8 +4148,8 @@
     "refreshTooltip": "qem tlhob tetlh yIchoHqa'."
   },
   "configLockFile": {
-    "exists": "Failed to update Git configuration file. A lock file already exists at <ref>{lockFilePath}</ref>.",
-    "deleteAndRetry": "This can happen if another tool is currently modifying the Git configuration or if a Git process has terminated earlier without cleaning up the lock file. Do you want to <link>delete the lock file</link> and try again?"
+    "exists": "Git SeH De' tetlh chu'moHlaHbe'. <ref>{lockFilePath}</ref> lock file tu'lu'.",
+    "deleteAndRetry": "latlh SommI' Git SeH choHtaH pagh Git vum rInbe'mo' DuH. <link>lock file yIteq</link> 'ej yInIDqa' DaneH'a'?"
   },
   "textBox": {
     "clear": "yIHuv",
@@ -4154,9 +4187,9 @@
     "rebaseDescription": "wIvlu'bogh bartIqvo' choH vemmey chenmoHqa'lu' 'ej DaH bartIqDaq chellu'."
   },
   "updateErrors": {
-    "missingSquirrel": "GitHub Desktop can't check for updates because it is not running from an installed copy — there is no Update.exe above the folder it was launched from. A portable bundle is replaced by hand: install the GitHubDesktopL10nSetup program to get automatic updates.",
-    "serverUnreachable": "GitHub Desktop was not able to contact the update server. Ensure you have internet connectivity and try again.",
-    "timeout": "GitHub Desktop was not able to check for updates due to a timeout. Ensure you have internet connectivity and try again."
+    "missingSquirrel": "GitHub Desktop chu' 'e' 'olbe': 'aplo' DungDaq Update.exe tu'lu'be'. portable bundle ghop choHlu'; GitHubDesktopL10nSetup yIchel.",
+    "serverUnreachable": "GitHub Desktop update server SamlaHbe'. net yI'ol 'ej yInIDqa'.",
+    "timeout": "poH rInmo' GitHub Desktop chu' 'e' 'olbe'. net yI'ol 'ej yInIDqa'."
   },
   "pushPullButton": {
     "lastFetched": "Qav qemlu'pu' <time/>",
@@ -4305,10 +4338,10 @@
   },
   "renameWorktreeDialog": {
     "title": {
-      "@darwin": "Rename Worktree",
-      "@other": "Rename worktree"
+      "@darwin": "vum Qorwagh pong yIchoH",
+      "@other": "vum Qorwagh pong yIchoH"
     },
-    "renameButton": "Rename {name}"
+    "renameButton": "{name} yIchoH"
   },
   "cloningRepository": {
     "title": "{repository} 'e' voylu'"
