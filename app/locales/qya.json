@@ -722,6 +722,20 @@
       "publish.title",
       "publish.will-be-created-as",
       "relativeTime.justNow",
+      "releaseNotes.bugfixes",
+      "releaseNotes.enhancements",
+      "releaseNotes.fork.aboutBuildInfo",
+      "releaseNotes.fork.interfaceLocalization",
+      "releaseNotes.fork.languageDetection",
+      "releaseNotes.fork.missingWorktrees",
+      "releaseNotes.fork.separateInstall",
+      "releaseNotes.fork.translationEditor",
+      "releaseNotes.fork.translationProgress",
+      "releaseNotes.fork.upstreamSync",
+      "releaseNotes.installAndRestart",
+      "releaseNotes.markdownGenerated",
+      "releaseNotes.other",
+      "releaseNotes.viewAll",
       "removeRepository.confirm-message",
       "removeRepository.move-to-trash",
       "removeRepository.title",
@@ -3448,24 +3462,24 @@
     }
   },
   "releaseNotes": {
-    "markdownGenerated": "Release notes generated from markdown",
-    "viewAll": "View all release notes",
-    "bugfixes": "Bugfixes",
-    "enhancements": "Enhancements",
-    "other": "Other",
+    "markdownGenerated": "I markdown cara leryalë quettar",
+    "viewAll": "Cenë ilya leryalë quettar",
+    "bugfixes": "Loimëo tancatiëar",
+    "enhancements": "Arya carier",
+    "other": "Hya",
     "installAndRestart": {
-      "@darwin": "Install and Restart",
-      "@other": "Install and restart"
+      "@darwin": "Tulca ar vinya carë",
+      "@other": "Tulca ar vinya carë"
     },
     "fork": {
-      "interfaceLocalization": "The whole interface is localized into Russian and Ukrainian, including menus, dialogs, preferences and error messages",
-      "translationEditor": "The translation editor shows how much of the interface is translated and reports a problematic string without leaving the app",
-      "separateInstall": "The fork installs beside upstream: its own Squirrel identifier, update feed, shortcut name and github-l10n command",
-      "aboutBuildInfo": "The About dialog shows the localization author, the commit the build came from, and a note when upstream has moved ahead",
-      "languageDetection": "The interface language is detected even when the system reports no preferred languages",
-      "translationProgress": "The translation progress counts strings by the plural rules of the interface language",
-      "upstreamSync": "The interface is rebuilt on top of upstream 3.6.8-beta2, so the fork carries the same fixes as the current GitHub Desktop preview",
-      "missingWorktrees": "Worktree dialogs now point out a worktree whose folder is gone, in the interface language"
+      "interfaceLocalization": "I fanwa lambë ná qua tengwistëa i Russian lambënnar ar i Ukrainian lambënnar: i menuar, tancatiëar, cilmëar ar loimëo quettar",
+      "translationEditor": "I tengwistëa tecindo tana i fanwa lambëo qua tengwistëa, ar tana i raicëa serma lá holya i Desktop",
+      "separateInstall": "I nelecco tulcea pá i minya: i Squirrel tengwa, i leryalëo quettar, i lintalo essë ar i github-l10n axacarma",
+      "aboutBuildInfo": "I siton tancatië tana i lambelanga tecindo, i minatacë i carienë, ar i minya epë tulienë",
+      "languageDetection": "I fanwa lambë hirnëa ilya lúmë, i auma lá quettëa i mairiëa lambëar",
+      "translationProgress": "I lambelanga malyë onota i sermar i fanwa lambëo axanerello",
+      "upstreamSync": "I fanwa lambë vinya carienë pá i minya 3.6.8-beta2, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
+      "missingWorktrees": "I hauramar tancatiessar tána i nómë lá hirnëa hauramar, i fanwa lambëssë"
     }
   },
   "repositoriesList": {

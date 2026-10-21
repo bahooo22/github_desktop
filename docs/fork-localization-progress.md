@@ -2609,3 +2609,92 @@ rc=0, точечный `markdownlint` по этому дневнику и README
 
 Итог. Список веток закрыт: 15 форм в двух конлангах, готовность 1 059 строк, остаток —
 439 и 442 формы.
+
+## Примечания к выпуску: 15 форм в двух конлангах (21.10.2026)
+
+Группа `releaseNotes` — 15 листовых форм в 14 строках: заголовки разделов диалога
+примечаний (`app/src/ui/release-notes/release-notes-dialog.tsx:64`, `:69`, `:131`,
+`:195`), кнопка `installAndRestart` (`:154`) — её платформенные варианты различаются
+только регистром — и восемь строк `fork/*`, которые диалог берёт из
+`changelog-fork.json` по имени ключа. Для восьми `fork`-строк смысловой опорой служило
+собственное русское значение той же строки: их писал форк, и они уже были вычитаны.
+
+| строка `releaseNotes` | английский оригинал | переиспользована из |
+| --- | --- | --- |
+| `markdownGenerated`, `viewAll` | Release notes… | `about.release-notes` (клинж. `jonHa' QInmey`, кв. `leryalë quettar`) |
+| `fork.interfaceLocalization` | menus, dialogs, preferences | `appMenu.application-menu` (`HIDjolev`), `common.openPreferences` (`DuHmey` / `cilmë`), `commitMessage.error-word` (`luj` / `Loima`) |
+| `fork.separateInstall` | fork, update feed, command, shortcut | `repositorySettings.fork-behavior-tab` (`puq chonnaQ` / `nelecco`), `menu.install-cli` (`ra'SommI'` / `axacarma`), `menu.show-keyboard-shortcuts` (`qIgh` / `lintal`) |
+| `fork.aboutBuildInfo` | About dialog, commit, build | `about.title` (`{name} bop` / `siton {name}`), `settings.git.tab-author` (`chenwI'` / `tecindo`), `about.forkRelease` (`choH vem` / `minatacë`) |
+| `fork.upstreamSync` | upstream, preview | `about.upstream-behind` (`chen` / `minya`), `menu.preview-pull-request` (`ertava`) |
+| `fork.missingWorktrees` | worktree dialogs | `settings.prompts.removing-worktrees` (`vummey` / `hauramar`) |
+
+- Восемь форм сняла сама мера клингонского, и все восемь — аффиксация:
+  `markdownvo'` и `markdownllo` (суффикс после латинского токена; каталог всегда ставит
+  бренд отдельным словом — `URL chelmeH`, `root .gitignore polmeH luj`), `bopDaq`,
+  `chenmoHvo'`, `chenmoHvam` (падеж и указатель нельзя приклеить к глагольной основе —
+  нужна номинализация или относительное: `chenmoHlu'bogh choH vem` «коммит, который был
+  собран»), `Hoqvam` (омограф: `Hoq` по дампу — «drag, pull» (:5532) и «expedition»
+  (:2415), а «форк» в каталоге — `puq chonnaQ` из готовой
+  `repositorySettings.fork-usage-heading`). Формы переписаны: «Release notes generated
+  from markdown» стало относительным `markdown chenmoHbogh jonHa' QInmey` и
+  `I markdown cara leryalë quettar` — «заметки, которые делает markdown».
+- Названия языков: коды `ru` и `uk` мера отвергла, квенья пишет названия словами по
+  принятой форме `i fanwa sina ná English` (`settings.language.noMatch`) — `i Russian
+  lambënnar ar i Ukrainian lambënnar` с дативом множественного. Клингонский собрал
+  аттестованные топонимы: `raSya'` (дамп :5953) и `'uqrayI'na` (:7539).
+- «Restart» в обоих конлангах собран заново, потому что прежние опоры оказались
+  ложными: `SIbI'` по дампу значит «immediately» (:3523), а не «снова», слова «again» в
+  дампе нет вовсе, а принятая каталожная форма `ceuta i lattin` не выдерживает сверки —
+  `lattin` по Eldamo «window» (2 формы), а `ceuta` в лексиконе отсутствует. Клингонский
+  взял готовую идиому `'elHa' yI'el` из `settings.language.description` («no restart
+  needed»), квенья — `Tulca ar vinya carë`.
+- Смысловая правка ПОСЛЕ зелёной меры: в трёх строках стоял императив `yIcha'`/`yIja'`
+  («покажи», «сообщи»), хотя подлежащее — редактор, диалоги и прогресс, а не пользователь;
+  переписано на третье лицо (`cha'`, `ja'`, `togH`). Мера формы такой дефект не видит.
+- Клингонские основы по дампу: `tI'` «repair, fix» (:5767) дала `tI'ghachmey` для
+  «Bugfixes», `Dub` «improve» (:3541) — `Dubghachmey`, `togh` «count» (:1609) —
+  `SIrghmey 'e' togH`, `Ser` «progress» (n, :5482), `ghoqchuy` «feed, (data) stream»
+  (:2523) — `De' chu' ghoqchuy`, `qIgh` «shortcut» (:6236) — `qIgh pong`, `Sum` «be
+  near» (:4701) и `yor` «top» (:7230) — `chen poSDaq jomlu'` и `chen 3.6.8-beta2
+  yorDaq chenmoHlu'`, `bop` «be about, be concerned with» (:652) — `bop QorwaghDaq`.
+  Квенья: `onot-` «to count up» (q, 4 формы), `arya` «excelling, better» (q, 5 форм) —
+  `Arya carier`, `pá` «against, on» (q, 9 форм) — «рядом с апстримом» и «поверх апстрима»,
+  `hir-` «find» — `I fanwa lambë hirnëa` для «язык определяется», `epë` по готовой
+  рамке `{count} minatacë 'epë i cara sina`.
+
+Замеры. Вставка: `apply_group.py` — «черновик: 15 | изменится: 15 | уже такие же: 0 |
+нет в каталоге: 0» в обоих каталогах, повторный сухой прогон после записи и готовности —
+«изменится: 0 | уже такие же: 15» и «формат воспроизведён байт-в-байт: OK», байты
+180 412 и 181 538, CRLF 4 031, одиночных переводов строки 0. Первый прогон вставки не
+состоялся: восемь ключей были записаны точкой (`fork.interfaceLocalization`) вместо
+разделителя `/`, скрипт ответил «нет в каталоге: 8» и ушёл до записи — но готовность к
+тому моменту уже была дописана на 14 строк, поэтому оба каталога откачены к
+`6498933ce9` и вставка повторена целиком. Готовность: `ready_group.py` — 14 строк,
+дописано 14, `meta.ready` стал 1 073; повторный прогон — «уже в ready 14, дописывается 0».
+`ready_check.py` — la и eo по 1 746, tlh и qya по 1 073, битых путей 0, пустых значений 0.
+Зонды по черновику ДО вставки: клингонский 129 слов / 0 находок, квенья 141 токен / 0 неподтверждённых.
+Меры по каталогу: клингонский 6 170 слов против 6 049 на HEAD, неподтверждённых 0,
+множества находок совпадают → `IDENTICAL`; `tlh_order_check.py tlh` — нарушений порядка
+0; квенья — 29 уникальных находок и в дереве, и на HEAD → `IDENTICAL`, новых не
+добавлено. `markup_check_2010.py releaseNotes` — forms 15/15/15, findings=0.
+`yarn l10n:parity` — 1 746 leaf-ключей, issues 0.
+`node script/i18n-freshness.mjs --untranslated tlh` и `qya` — 424 и 427 формы из 2 011
+(на HEAD той же мерой 439 и 442): снято ровно по группе. `yarn test` по `menu-test.ts`,
+`l10n-test.ts` и `l10n-freshness-test.ts` — 69 тестов, 69 пройдено, 0 падений
+(6 862.9 мс). `prettier --check` по обоим каталогам — rc=0, точечный `markdownlint` по
+этому дневнику и README — rc=0.
+
+Принятый остаток. Пять осознанных сжатий: «Bug» в заголовке `bugfixes` потерян (в дампе
+нет ни `ghu'sha'`, ни другого слова для программного дефекта), «plural» в
+`translationProgress` сведён к «множествам» (`ghommey pab`, `i fanwa lambëo
+axanerello`) — аттестованного грамматического термина нет, «preview» в клингонском
+`upstreamSync` опущен (в квенья `ertava` осталось), «update feed» в квенья передан как
+`i leryalëo quettar` — «сообщения об обновлениях», «how much of the interface» в
+квенья схлопнуто до полноты перевода, а клингонское `jIyweS ghun mevbe'` формально
+приписывает «не выходить из приложения» редактору. Разнобой `qem tlhob` против
+`Hoq tlhob` этой группой не усилен: `Hoq` для «форка» не использован вовсе. GUI-приёмка
+недоступна: собранных каталогов в контейнере нет. Пуш и перезапуск джобы — за
+пользователем.
+
+Итог. Примечания к выпуску закрыты: 15 форм в двух конлангах, готовность 1 073 строки,
+остаток — 424 и 427 формы из 2 011.
