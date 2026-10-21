@@ -1175,6 +1175,13 @@
       "updateAvailableBanner.showcase",
       "updateAvailableBanner.showcaseVersion",
       "updateAvailableBanner.whatsNew",
+      "upstreamAlreadyExists.confirm",
+      "upstreamAlreadyExists.current",
+      "upstreamAlreadyExists.expected",
+      "upstreamAlreadyExists.ignore",
+      "upstreamAlreadyExists.message",
+      "upstreamAlreadyExists.title",
+      "upstreamAlreadyExists.update",
       "welcome.aria",
       "welcome.configure-git-description",
       "welcome.configure-git-title",
@@ -3040,16 +3047,16 @@
     "message": "GitHub Desktop cannot verify the identity of {host}. The certificate ({subjectName}) is invalid or untrusted. <strong>This may indicate attackers are trying to steal your data.</strong>"
   },
   "upstreamAlreadyExists": {
-    "confirm": "Would you like to update the remote to use the expected URL?",
-    "ignore": "Ignore",
+    "confirm": "pIHlu'bogh URL lo'meH, HopwI' yIchoH DaneH'a'?",
+    "ignore": "yIbuSHa'",
     "title": {
-      "@darwin": "Upstream Already Exists",
-      "@other": "Upstream already exists"
+      "@darwin": "tagh De' ngaSwI' wejHa' tu'lu'",
+      "@other": "tagh De' ngaSwI' wejHa' tu'lu'"
     },
-    "update": "Update",
-    "message": "The repository <repository>{name}</repository> is a fork of <parent>{parentName}</parent>, but its <remote>{remoteName}</remote> remote points elsewhere.",
-    "current": "Current: <url>{url}</url>",
-    "expected": "Expected: <url>{url}</url>"
+    "update": "yIchoH",
+    "message": "<repository>{name}</repository> 'oH <parent>{parentName}</parent> puq chonnaQ, 'ach <remote>{remoteName}</remote> HopwI' latlhDaq Qeq.",
+    "current": "DaH: <url>{url}</url>",
+    "expected": "pIHlu'bogh: <url>{url}</url>"
   },
   "banners": {
     "dismiss-message": "QInvam yIteq",

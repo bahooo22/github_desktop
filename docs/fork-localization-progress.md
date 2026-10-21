@@ -3582,3 +3582,73 @@ parity issues 0, возврат 0. `--untranslated` — tlh 298 и qya 301 фо�
 форм остались IDENTICAL. Новый класс дефекта: потеря `:number` в плейсхолдере
 проходит зонд (он вырезает плейсхолдер до проверки) и ловится только
 `markup_check_2010.py` и `--parity`.
+
+## Существующий upstream: 8 форм в двух конлангах (21.10.2026)
+
+Группа `upstreamAlreadyExists` — диалог предупреждения, когда у форка уже есть
+remote `upstream`, указывающий не на родительский репозиторий: 8 листовых форм в
+7 ключах, `title` различается только регистром (`@darwin`/`@other`). Ключи живут в
+`app/src/ui/upstream-already-exists/upstream-already-exists.tsx` (`:45`, `:53`,
+`:60`, `:67`, `:73`, `:78`, `:79`).
+
+- `ignore` и `update`: клин. `yIbuSHa'` — побайтово готовая `changes.avatar.ignore`;
+  `yIchoH` — готовая основа `choH` (41 вхождение) с императивным `yI-`; кв. `Úcima` —
+  готовая `changes.avatar.ignore`, `Vista` — готовая основа `vista`
+  (`overriding-commit-message`).
+- `title`: клин. `tagh De' ngaSwI' wejHa' tu'lu'` — `tagh De' ngaSwI'` («upstream
+  repository») из готовой `createBranch.upstream-default-branch-description`,
+  `wejHa' tu'lu'` («already exists») побайтово из готовой
+  `copilotByokModel.identifierExists`; кв. `i minya haura tensi ëa` — `minya haura`
+  из готовой `about.upstream-behind`, `tensi` и `ëa` — готовые
+  (`localizationEditor.tagExists`, `lá ëa`). Регистр `@darwin`/`@other` в квенья
+  сохранён (`I`/`i`), в клингонском обе формы совпадают.
+- `message`: клин. `<repository>{name}</repository> 'oH
+  <parent>{parentName}</parent> puq chonnaQ, 'ach <remote>{remoteName}</remote>
+  HopwI' latlhDaq Qeq.` — модель `X 'oH Y` из готовой
+  `createBranch.current-is-default`, `puq chonnaQ` — готовый «fork», `HopwI'` —
+  готовый «remote», `latlhDaq` («в другое место») — готовая форма из
+  `copilotByokModel.identifierExists`, `Qeq` («aim at», дамп) с локативом. Кв.
+  `i haura <repository>{name}</repository> ná nelecco ho
+  <parent>{parentName}</parent>, mal i <remote>{remoteName}</remote> palan haura ná
+  nómëssë hyanya.` — `nelecco` — готовая форма из `commitMessage.no-write-access` и
+  `about.forkRelease`, `ho` («from», Eldamo) вместо генитива на плейсхолдере,
+  `palan haura` — готовый «remote», `mal` («but») — готовая, `nómëssë` — локатив
+  от `nómë`, `hyanya` («different», Eldamo).
+- `current` и `expected`: клин. `DaH:` — готовая «current»; `pIHlu'bogh:`
+  («ожидаемый») — `pIH` («expect», дамп) + `-lu'` + `-bogh`. Кв. `Silúmëa:` —
+  готовая «current»; `Mauya:` («нужный») — готовая `mauya` (`commitList.tagsToPush`),
+  потому что отдельного «expected» в Eldamo нет (единственная запись по глоссе —
+  `umbë` «imminence»).
+- `confirm`: клин. `pIHlu'bogh URL lo'meH, HopwI' yIchoH DaneH'a'?` — целевое
+  придаточное `-meH`, вопрос `DaneH'a'` из готовой
+  `deleteBranch.remote-exists-question`; кв. `sáquetatya vista i palan haura, itan
+  yuhta i URL ya mauya?` — `sáquetatya` («do you want») и `itan` («in order to») из
+  готовых, `yuhta` («use») из `check-time-error`, `ya mauya` — «который нужен».
+
+Замеры. Вставка: «черновик: 8 | изменится: 8 | уже такие же: 0 | нет в каталоге: 0»
+в обоих, формат воспроизведён байт-в-байт: OK. Байты сняты ПОСЛЕ дописывания
+готовности: 184 112 (tlh) и 185 661 (qya), CRLF 4 146 в обоих, одиночных переводов
+строки 0. Готовность: 7 строк (пара `@darwin`/`@other` схлопнута), `meta.ready`
+1 181 → 1 188; `ready_check.py` — битых путей 0, путей-форм 0, путей-узлов 0, пустых
+значений 0. Зонды черновика до вставки: клингонский 32 слова / 0 неподтверждённых,
+квенья 36 токенов / 0 находок. Меры форм приёмки: клингонский 6 782 слова / 0
+находок против HEAD 6 756 / 0 — вердикт IDENTICAL; квенья 29 уникальных находок
+против HEAD 29 — те же 29, IDENTICAL. `tlh_order_check.py` — 0 нарушений порядка
+(4 154 леммы boQwI', 2 210 слов каталога, 897 чистых, 1 225 без членения).
+`markup_check_2010.py upstreamAlreadyExists` — forms 8/8/8, findings=0, вердикт
+MARKUP GATE OK. `l10n:parity` — 1 746 листовых ключей в каждом из семи каталогов,
+issues 0, возврат 0. `--untranslated` — tlh 282 и qya 285 формы из 2 011 против 290
+и 293 на HEAD, сдвиг ровно на эту группу. Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (244 138 мс)
+
+Принятый остаток. В квенья нет словарного «expected»: `Mauya:` и `ya mauya` —
+«нужный», передают смысл «URL, который должен быть». `neleccë` (именительный) зонд
+не подтверждает, поэтому «это форк» собрано готовой формой `nelecco` (`Carë
+nelecco`, `i nelecco vinya cara`). «points elsewhere» переведено как «is in a
+different place» (`ná nómëssë hyanya`): глагола «point» в Eldamo нет. В клингонском
+`Qeq` — «aim at», а не буквальное «point». Регистр в клингонском не смысловой, обе
+формы `title` совпадают. GUI-приёмка недоступна: собранных каталогов нет. Пуш — за
+пользователем.
+
+Итог. Диалог существующего upstream закрыт: 8 форм в двух конлангах, готовность
+каталогов выросла до 1 188 строк, остаток непереведённого — 282 и 285 формы из 2 011;
+обе меры форм остались IDENTICAL.
