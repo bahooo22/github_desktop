@@ -4092,3 +4092,112 @@ issues 0, rc=0; `--untranslated` — 130 и 133 из 2 011 против 171 и 1
 Итог. Девять групп и 41 форма закрыты одним коммитом; готовность каталогов выросла до
 1 324 строк, остаток непереведённого — 130 и 133 формы из 2 011; обе меры форм
 остались IDENTICAL.
+
+## Батч AI: 41 форма в одиннадцати группах (21.10.2026)
+
+Четвёртый укрупнённый батч: `copilotByok` (4), `commitDragElement` (4),
+`thankYouCard` (4), `copilotModelPicker` (4), `authorInput` (4),
+`copilotDisclaimer` (4), `authorHandle` (4), `pushPullButton` (4),
+`pushNeedsPull` (3), `repositoryAlias` (3), `userAutocompletion` (3) — 41 форма;
+2 пары схлопываются (`moveHere`, `suggestions`), строк готовности 39.
+
+### Copilot BYOK (4)
+
+- `authentication` — `ngaQHa'moH` / `Tyulië` (готовая основа `signIn`);
+  `apiKey` — `API ngoq` / `API tengwë`; `bearerToken` — `Bearer QujwI' lIw` /
+  `Bearer tengwë` (`QujwI' lIw` — готовая «token»); `none` — `pagh` / `Lá`
+  (готовые `addRepository.none`).
+
+### Перетаскивание коммита (4)
+
+- `copyTo` — `Daq yIwoH` / `Ovëantë na`; `insertHere` — `naDev yIchel` /
+  `Yanta síra` (кавычки из EN `'Insert here'` сняты: зонд разбирал `'naDev` как
+  отдельное слово); `moveHere` — `choH vem naDev yIvIH` / `Levë i minatacë síra`
+  и множественное.
+
+### Благодарность (4)
+
+- `message` — `Desktop ghom tlho' vIghaj, bIghaqmo'.` / `I Desktopo quendi hantalë
+  lyë i ocaraitiëlva.` (`tlho' vIghaj` — готовая `thankYou.note`, `hantalë` —
+  готовая `thankYou.title`); `openCard` — `lIj nav yIpoSmoH` / `Apanta i parmalya`;
+  `throwAway` — `yIpolHa'` / `Haita`; `or` — `pagh` / `hya`.
+
+### Выбор модели (4)
+
+- `noModelsFound` — `ghantoH Sambe'lu'.` / `Lá hírinë i cantemmar.` (`ghantoH` /
+  `cantemma` — готовые «model»); `configureCustomProviders` — `tIgh peSwI'mey
+  yIghun…` / `Tulca i sito antindor…` (готовые `tIgh peSwI'mey` и `sito antindo`);
+  `defaultSuffix` — `{name} (motlh)` / `{name} (sítina)`; `itemAria` —
+  `{title}, {subtitle}`.
+
+### Ввод автора (4)
+
+- `userNotFound` — `{username} pong ghot Sambe'lu'.` / `Lá hirin i quén i essë
+  {username}.`; `searching` — `@{username} Samlu'taH.` / `Henta @{username}…`;
+  `errorUserNotFound` — `Qagh: ...` / `Loima: ...`; `coAuthors` — `ghajwI'pu'` /
+  `hya tecindor`.
+
+### Дисклеймер Copilot (4)
+
+- `poweredByAi` — `Copilot AI lo'lu', Qaghmey DuH.` / `I Copilot yuhta i AI, ar polë
+  carë loimar.`; `learnMore` — `<link>GitHub DesktopDaq Copilot De'
+  yIghoj.</link>` / `<link>Nolya pá i Copilot GitHub Desktopissë.</link>`;
+  `generateCommitMessage` — `choH vem Del chenmoHlu'bogh yI'ol 'ej yIchoH.` /
+  `Cenë ar vista i minatacëo menta carina, epë yuhta.`; `conflictResolution` —
+  `yol tI' chupbogh yI'ol 'ej De' tetlhmeyDaq yIlo'.` / `Cenë i cotyar selyar, epë
+  yuhta i parmannar.` (первая версия с `cotiamo` заменена на `cotyar`, чтобы не
+  повторять унаследованную находку меры).
+
+### Автор в поле ввода (4)
+
+- `knownAriaLabel` и `unknownAriaLabel` — с `{author}`, `{username}`, `{state}` и
+  `Qaw'meH backspace pagh delete yI'uy` / `backspace hya delete itan haita`;
+  `userNotFound` — `ghot Sambe'lu'` / `lá hirinë i quén`; `searching` —
+  `Samlu'taH` / `henta`.
+
+### Кнопка push/pull (4)
+
+- `lastFetched` — `Qav qemlu'pu' <time/>` / `Tulya <time/>`; `neverFetched` —
+  `wej qemlu'be'` / `Lá tulyana`; `pullRemote` — `{remoteName} 'e' yIHoq` /
+  `Lucë {remoteName}` (готовая `changes.pull-branch-button`); `pullRemoteWithRebase` —
+  `... 'ej yIchenmoHqa'` / `... ar ensundo`.
+
+### Нужен fetch (3)
+
+- `fetch` — `yIqem` / `tulya` (готовые `menu.fetch`); `message` — `HopwI'Daq choH
+  vemmey tu'lu', lIj bartIqDaq tu'lu'be'. yuvmeH, wa'DIch yIqem 'ej lIj choHmey je
+  yIrar.` / `... Itan nirë, tulya minya ar sesta i minatacer ar i lyë minatacer.`
+  (`minyavë` не подтверждён — взято готовое `minya`); `title` — `HopwI'Daq choH
+  vemmey chu'` / `Minatacer vinya i palan haurassë`.
+
+### Алиас репозитория (3)
+
+- `alias` — `pong latlh` / `hyana essë` (готовые `repositoriesList.createAlias`);
+  `description` — `Del` / `ostecë` (готовые); `no-effect-note` — `GitHubDaq De'
+  ngaSwI' pong motlh 'e' choHbe'.` / `Sina lá vistuva i minya haura essë
+  GitHubissë.`.
+
+### Автодополнение (3)
+
+- `searchForUser` — `ghot yISam` / `Cesta i quén`; `suggestions` — `{count} chup` /
+  `{count} menta` (в EN `{count}` без типа, поэтому и в каталогах `{count}`).
+
+Замеры. Вставка по группам: восемь раз 4/4 и три раза 3/3. Байты после готовности:
+189 187 (tlh) и 191 135 (qya), CRLF 4 321 в обоих, одиночных LF 0. Готовность:
+39 строк, `meta.ready` 1 324 → 1 363. Зонды: клингонский 0 находок после правки
+кавычек (`'naDev`), квенья 0 находок после трёх правок (`síra'`, `cotiamo`,
+`minyavë`). Меры форм: клин. 0 против HEAD 0 — IDENTICAL; кв. 29 против 29 —
+IDENTICAL. `markup_check` по одиннадцати группам — 11/11 MARKUP GATE OK.
+`tlh_order_check` — 0 нарушений (2 044 слова каталога, 964 чистых, 1 002 без
+членения). `--parity` — issues 0, rc=0; `--untranslated` — 90 и 93 из 2 011 против
+130 и 133 на HEAD, сдвиг ровно на 41 форму. Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (247 835 мс)
+
+Принятый остаток. Кавычки EN `'Insert here'` сняты: зонд разбирал `'naDev` как
+отдельное слово. `cotiamo` — унаследованная находка меры, поэтому в дисклеймере взято
+`cotyar`. `minyavë` зондом не подтверждён — `tulya minya`. «Bearer» остаётся
+заимствованием. «Suggestion» передано готовыми `chup` / `menta`. GUI-приёмка
+недоступна: собранных каталогов нет. Пуш — за пользователем.
+
+Итог. Одиннадцать групп и 41 форма закрыты одним коммитом; готовность каталогов
+выросла до 1 363 строк, остаток непереведённого — 90 и 93 формы из 2 011; обе меры
+форм остались IDENTICAL.

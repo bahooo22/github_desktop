@@ -71,6 +71,14 @@
       "appStore.pushingTo",
       "appStore.refreshingRepository",
       "authentication.browserRedirect",
+      "authorHandle.knownAriaLabel",
+      "authorHandle.searching",
+      "authorHandle.unknownAriaLabel",
+      "authorHandle.userNotFound",
+      "authorInput.coAuthors",
+      "authorInput.errorUserNotFound",
+      "authorInput.searching",
+      "authorInput.userNotFound",
       "avatar.forUser",
       "avatar.unknown",
       "branchName.rulesBypassable",
@@ -277,6 +285,9 @@
       "cli.path",
       "cli.url",
       "cloningRepository.title",
+      "commitDragElement.copyTo",
+      "commitDragElement.insertHere",
+      "commitDragElement.moveHere",
       "commitProgress.close",
       "commitProgress.title",
       "common.add",
@@ -317,6 +328,10 @@
       "contextMenu.openInShell",
       "contextMenu.revealInFileManager",
       "contextMenu.trashName",
+      "copilotByok.apiKey",
+      "copilotByok.authentication",
+      "copilotByok.bearerToken",
+      "copilotByok.none",
       "copilotByokModel.add",
       "copilotByokModel.addTitle",
       "copilotByokModel.defaultReasoningOption",
@@ -330,6 +345,10 @@
       "copilotByokModel.reasoningEffortLabel",
       "copilotByokModel.reasoningHint",
       "copilotByokModel.save",
+      "copilotDisclaimer.conflictResolution",
+      "copilotDisclaimer.generateCommitMessage",
+      "copilotDisclaimer.learnMore",
+      "copilotDisclaimer.poweredByAi",
       "copilotError.billingIssue",
       "copilotError.billingNotConfigured",
       "copilotError.openSettings",
@@ -337,6 +356,10 @@
       "copilotError.retryAfterDate",
       "copilotError.retryAfterSeconds",
       "copilotError.sessionQuotaExceeded",
+      "copilotModelPicker.configureCustomProviders",
+      "copilotModelPicker.defaultSuffix",
+      "copilotModelPicker.itemAria",
+      "copilotModelPicker.noModelsFound",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -858,6 +881,13 @@
       "pushBranchCommits.pushMessage",
       "pushBranchCommits.pushTitle",
       "pushBranchCommits.pushTitleQ",
+      "pushNeedsPull.fetch",
+      "pushNeedsPull.message",
+      "pushNeedsPull.title",
+      "pushPullButton.lastFetched",
+      "pushPullButton.neverFetched",
+      "pushPullButton.pullRemote",
+      "pushPullButton.pullRemoteWithRebase",
       "rebase.forcePush.dontShowAgain",
       "rebase.forcePush.message",
       "rebase.forcePush.ok",
@@ -894,6 +924,9 @@
       "repoRules.failsWithBypass",
       "repoRules.viewAllRulesets",
       "repository.sidebar",
+      "repositoryAlias.alias",
+      "repositoryAlias.description",
+      "repositoryAlias.no-effect-note",
       "repositoryTabs.changes",
       "repositoryTabs.history",
       "reset.continue",
@@ -1208,6 +1241,10 @@
       "thankYou.contributed",
       "thankYou.note",
       "thankYou.title",
+      "thankYouCard.message",
+      "thankYouCard.openCard",
+      "thankYouCard.or",
+      "thankYouCard.throwAway",
       "toolbar.checkingOutTooltip",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
@@ -1305,6 +1342,8 @@
       "upstreamAlreadyExists.message",
       "upstreamAlreadyExists.title",
       "upstreamAlreadyExists.update",
+      "userAutocompletion.searchForUser",
+      "userAutocompletion.suggestions",
       "warnLocalChanges.changesInProgress",
       "warnLocalChanges.continueAnyway",
       "warnLocalChanges.undoCommitTitle",
@@ -3030,9 +3069,9 @@
     "will-be-created-as": "cara vë {name}"
   },
   "pushNeedsPull": {
-    "fetch": "Fetch",
-    "message": "GitHub Desktop is unable to push commits to this branch because there are commits on the remote that are not present on your local branch. Fetch these new commits before pushing in order to reconcile them with your local commits.",
-    "title": "Newer Commits on Remote"
+    "fetch": "tulya",
+    "message": "I palan haura harya minatacer lá ëa i lyë arëa olbassë. Itan nirë, tulya minya ar sesta i minatacer ar i lyë minatacer.",
+    "title": "Minatacer vinya i palan haurassë"
   },
   "rebase": {
     "forcePush": {
@@ -3054,9 +3093,9 @@
     "title": "vista i essë i olbao"
   },
   "repositoryAlias": {
-    "alias": "Alias",
-    "description": "Description",
-    "no-effect-note": "This will not affect the original repository name on GitHub."
+    "alias": "hyana essë",
+    "description": "ostecë",
+    "no-effect-note": "Sina lá vistuva i minya haura essë GitHubissë."
   },
   "repositorySettings": {
     "error-read-gitignore": "Lá polë cenda i root .gitignore: {error}",
@@ -3292,10 +3331,10 @@
     "openInBrowser": "Apantë i browseralyassë: {body}"
   },
   "copilotByok": {
-    "authentication": "Authentication",
-    "apiKey": "API key",
-    "bearerToken": "Bearer token",
-    "none": "None"
+    "authentication": "Tyulië",
+    "apiKey": "API tengwë",
+    "bearerToken": "Bearer tengwë",
+    "none": "Lá"
   },
   "noPullRequests": {
     "notFound": "Lá hírinë i luciquista.",
@@ -3307,10 +3346,10 @@
     "createPrCta": "Sáquetatya <link>carë luciquista</link> i silúmëa olballo?"
   },
   "userAutocompletion": {
-    "searchForUser": "Search for user",
+    "searchForUser": "Cesta i quén",
     "suggestions": {
-      "_one": "{count} suggestion",
-      "_other": "{count} suggestions"
+      "_one": "{count} menta",
+      "_other": "{count} menta"
     }
   },
   "appError": {
@@ -3354,11 +3393,11 @@
     "markdownBody": "Pull request markdown body"
   },
   "commitDragElement": {
-    "copyTo": "Copy to",
-    "insertHere": "'Insert here'",
+    "copyTo": "Ovëantë na",
+    "insertHere": "Yanta síra",
     "moveHere": {
-      "_one": "Move commit here",
-      "_other": "Move commits here"
+      "_one": "Levë i minatacë síra",
+      "_other": "Levë i minatacer síra"
     }
   },
   "conflicts": {
@@ -3408,10 +3447,10 @@
     "undo": "nanquer"
   },
   "thankYouCard": {
-    "message": "The Desktop team would like to thank you for your contributions.",
-    "openCard": "Open Your Card",
-    "throwAway": "Throw It Away",
-    "or": "or"
+    "message": "I Desktopo quendi hantalë lyë i ocaraitiëlva.",
+    "openCard": "Apanta i parmalya",
+    "throwAway": "Haita",
+    "or": "hya"
   },
   "tutorialWelcome": {
     "title": "alla GitHub Desktop",
@@ -3598,9 +3637,9 @@
     }
   },
   "copilotModelPicker": {
-    "noModelsFound": "No models found.",
-    "configureCustomProviders": "Configure custom providers…",
-    "defaultSuffix": "{name} (default)",
+    "noModelsFound": "Lá hírinë i cantemmar.",
+    "configureCustomProviders": "Tulca i sito antindor…",
+    "defaultSuffix": "{name} (sítina)",
     "itemAria": "{title}, {subtitle}"
   },
   "enterpriseServerConfirmation": {
@@ -3959,10 +3998,10 @@
     "noExternalProgram": "i cómë {fullPath} unistë latyë i ocaraitien. Entyasta má lyë harya ocaraitië i latya i cómë sina"
   },
   "authorInput": {
-    "userNotFound": "Could not find user with username {username}",
-    "searching": "Searching for @{username}",
-    "errorUserNotFound": "Error: user {username} not found",
-    "coAuthors": "Co-Authors"
+    "userNotFound": "Lá hirin i quén i essë {username}.",
+    "searching": "Henta @{username}…",
+    "errorUserNotFound": "Loima: lá hirin i quén {username}.",
+    "coAuthors": "hya tecindor"
   },
   "suggestedActions": {
     "branchAria": "i cardí i mentien i olbas sina"
@@ -4004,10 +4043,10 @@
     "chooseMergeIntoTooltip": "cilë i olba i {branch}nna ertanien"
   },
   "copilotDisclaimer": {
-    "poweredByAi": "Copilot is powered by AI, so mistakes are possible.",
-    "learnMore": "<link>Learn more about Copilot in GitHub Desktop.</link>",
-    "generateCommitMessage": "Review and edit the generated message carefully before use.",
-    "conflictResolution": "Review the suggested resolutions carefully before applying them to your files."
+    "poweredByAi": "I Copilot yuhta i AI, ar polë carë loimar.",
+    "learnMore": "<link>Nolya pá i Copilot GitHub Desktopissë.</link>",
+    "generateCommitMessage": "Cenë ar vista i minatacëo menta carina, epë yuhta.",
+    "conflictResolution": "Cenë i cotyar selyar, epë yuhta i parmannar."
   },
   "repoRules": {
     "fails": {
@@ -4034,10 +4073,10 @@
     }
   },
   "authorHandle": {
-    "knownAriaLabel": "{author} press backspace or delete to remove",
-    "unknownAriaLabel": "{username}, {state}, press backspace or delete to remove",
-    "userNotFound": "user not found",
-    "searching": "searching"
+    "knownAriaLabel": "{author}, backspace hya delete itan haita",
+    "unknownAriaLabel": "{username}, {state}, backspace hya delete itan haita",
+    "userNotFound": "lá hirinë i quén",
+    "searching": "henta"
   },
   "refNameTextBox": {
     "errorNotValidName": "Loima: i essë {name} ná úvanima.",
@@ -4120,10 +4159,10 @@
     "timeout": "GitHub Desktop was not able to check for updates due to a timeout. Ensure you have internet connectivity and try again."
   },
   "pushPullButton": {
-    "lastFetched": "Last fetched <time/>",
-    "neverFetched": "Never fetched",
-    "pullRemote": "Pull {remoteName}",
-    "pullRemoteWithRebase": "Pull {remoteName} with rebase"
+    "lastFetched": "Tulya <time/>",
+    "neverFetched": "Lá tulyana",
+    "pullRemote": "Lucë {remoteName}",
+    "pullRemoteWithRebase": "Lucë {remoteName} ar ensundo"
   },
   "testTokenExpirationDialog": {
     "title": "Tyasta i tengwëo tellúmë",
