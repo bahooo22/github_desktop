@@ -3861,3 +3861,130 @@ domain» — как «необычное имя» (`pong motlhbe'` / `essë hyan
 1 242 строк, остаток непереведённого — 224 и 227 формы из 2 011; обе меры форм
 остались IDENTICAL. Класс дефекта «суффикс после закрывающего тега» пойман второй раз
 (`forks.no-write-access`) и снова исправлен до коммита.
+
+## Батч AG: 53 формы в девяти группах (21.10.2026)
+
+Второй укрупнённый батч: `noPullRequests` (7), `deleteWorktreeDialog` (7),
+`gitEmail` (6), `refNameTextBox` (6), `workflowPushRejected` (6), `appStore` (6),
+`acknowledgements` (5), `hookFailed` (5), `unknownAuthors` (5) — 53 листовые формы;
+7 пар схлопываются в `meta.ready`, строк готовности 46.
+
+### Нет pull request (7)
+
+- `notFound` — `qem tlhob vISambe'.` / `Lá hírinë i luciquista.`; `hangTight` —
+  `yIloS.` / `Á sarta.`; `allSet` — готовые `SoH rInpu'!` / `Ná lyë hritya!`.
+- `noOpenPrs` — `<repo/> qem tlhob tu'lu'be'.` / `<repo/> lá harya luciquista.` —
+  без падежа на самозакрывающемся теге.
+- `loading` — `qem tlhob qenglu'taH.` / `Lucë i luciquista…` (`qeng` — «load» из
+  `settings.git.hooks-load-env`).
+- CTA — `chu' bartIq <link>yIchenmoH</link> ...` / `<link>carë olba vinya</link> ...`;
+  `createPrCta` — `DaH bartIqvo' ...` / `i silúmëa olballo` (`olballo` — аблатив от
+  `olba`).
+
+### Удаление worktree (7)
+
+- `confirmMessage` — `vum Qorwagh <ref/> 'e' yIteq DaneHbej'a'?` (рамка готовой
+  `deleteTag.confirm-message`); `confirmMessageMissing` — `... 'aplo' tu'be'.
+  De' ngaSwI'vamvo' 'e' yIteq DaneH'a'?`; qya — `Sáquetatya haita i hauramar <ref/>?`
+  и `i cómi i hauramo <ref/> lá ëa. ...`.
+- `delete` — `yIteq` / `Haita` (готовые `common.remove`); title — `vum Qorwagh yIteq` /
+  `Haita i hauramar`; titleMissing — `vum Qorwagh tu'be'bogh yIteq` /
+  `Haita i hauramar lá hirnëa`.
+- `hauram` (ед. ч.) зонд не подтверждает, поэтому в квенья взято `hauramar`
+  (готовая форма `releaseNotes`).
+
+### Почта коммита (6)
+
+- `learnMoreAria` — побайтово готовая `changes.avatar.learn-more-attribution`;
+  `learnMore` — `De' yIghoj.` / `Nolya.`
+- `notAttributable` — `email {accountType} rurbe'. choHmey lIj ghajwI' pong Doplu'.`;
+  `matchesAccount` — `email {accountType} rur.`; qya — `I tenca sina lá vëalta
+  {accountType}. I minatacelyar caruva hyaquenenna.` (обе формы — готовые из
+  `changes.avatar`).
+- `accountSingle` — `lIj {accountType} mab` / `i {accountType} esselya`;
+  `accountMultiple` — `lIj GitHub.com pagh GitHub Enterprise mab` /
+  `i GitHub.com hya GitHub Enterprise esselya`.
+
+### Имя ссылки (6)
+
+- `errorNotValidName` — `Qagh: {name} pong lajbe'lu'.`; `notValidName` —
+  `<ref/> pong lajbe'lu'.`; qya — `Loima: i essë {name} ná úvanima.` /
+  `i essë <ref/> ná úvanima.` (`úvanima` — готовая «invalid» из
+  `invalidatedToken`).
+- `willBeAs` — `{verb} rur <ref/>.`; `warningLive` — `ghuHmoH: {verb} rur {value}. ...`;
+  qya — `Nauva {verb} ve <ref/>.` и `Raxë: nauva {verb} ve {value}. ...`;
+  `verbCreated` — `chenlu'` / `carina`.
+- «Spaces and invalid characters» передано как `ngutlhmey chaw'be'lu'bogh` /
+  `i tengwar úvanima` — отдельного слова «пробел» нет.
+
+### Отказ push из-за workflow (6)
+
+- `rejectedMessage` — `mIw nav <ref/> choH 'e' 'uchmo' yuvlu' lajbe'lu'. mIw
+  navmeyvaD yuvlaHmeH, GitHub Desktop latlh chaw'mey tlhobnIS.` (`mIw nav` — файл
+  процесса вместо заимствования workflow); qya — `... i mólëo parmassë <ref/> ...`.
+- `grantPermission` — `mIw navmey chu'moHmeH GitHub DesktopvaD chaw' DAnobmeH,
+  leghwI' yIpoSmoH DaneH'a'?` / `Sáquetatya apanta i browser, itan anta i lávë ...`.
+- `title` — `yuvlu' lajbe'lu'` / `Úcávima i nirë`; `continueInBrowser` — готовая
+  `lIj leghwI' yIlo' 'ej yItaH` / `Cacara i browseralyassë` (кв. форма унаследована
+  из 29 находок, повтор её не увеличивает).
+
+### Состояния appStore (6)
+
+- `refreshingRepository` — `De' ngaSwI' choHqa'lu'taH` / `Envinyata i haura`;
+  `checkingOut` — `wIwIvtaH` / `Cilë` (готовая `cilë`); `fastForwardingBranches` —
+  `bartIqmey qemlu'taH` / `Nirë linta i olbar`.
+- `pushingTo` — `{remote} HopwI'vaD yuvlu'taH` / `Nirë i {remote} palan haura` (без
+  суффикса на плейсхолдере); `pulling` — готовая `{remote} 'e' yIHoq` / без падежа
+  `Lucë i {remote} palan haura`.
+
+### Лицензии (5)
+
+- `title` и `license` — готовые `about.license-notices` (`chaw' 'ej poS Hal vep` /
+  `i axanio canwalië ar i lérien ocaraitiëo canwar`) и `chaw': {license}` /
+  `Canwa: {license}`.
+- `intro` — `<desktop>GitHub Desktop</desktop> 'oH poS Hal jInmol, MIT chaw' bIngDaq
+  'anglu'bogh. ...` / `... ná veryandë ocaraitiëo, canwassë MIT etantina. ...`.
+- `libraries` — `De' tetlhmeyvam ngeH je:` / `menta yúya i parmar sinar:`;
+  `unknown-license` — `chaw' Sovbe'lu'bogh` / `canwa lá istina`.
+
+### Ошибка hook (5)
+
+- `abort` — `yIqIl` / `apta` (готовые `common.cancel`); `ignoreAndContinue` —
+  `yIbuSHa' 'ej yItaH` / `Úcima ar cacara`.
+- `message` — `{hookName} SIrIl luj. nuq DaneH?` / `I ampa {hookName} ú-lyanë. Mana
+  caruvalyë?`; title — `{hookName} luj` / `I ampa {hookName} ú-lyanë`.
+
+### Неизвестные соавторы (5)
+
+- `list` и `many` — `nuvpu'vam Sambe'lu' 'ej choH vemvam latlh ghajwI'pu' rur
+  chellu'be'. choH vemvam yIchenmoH DaneHbej'a'?` / `Lá hirinë i queni sinar, ar lá
+  yantuvar ve hya tecindor i minatacëo sina. Sáquetatya carë i minatacë?`; плейсхолдер
+  в EN — `{count}` БЕЗ типа, поэтому в каталогах тоже `{count}`.
+- `ok` — `choH vem yIchenmoH neH` / `Carë i minatacë`; `title` —
+  `Sovbe'lu'bogh ghajwI'pu'` / `i tecindor lá istinë`.
+
+Замеры. Вставка по группам: 7/7, 7/7, 6/6, 6/6, 6/6, 6/6, 5/5, 5/5, 5/5. Байты после
+готовности и правок: 186 942 (tlh) и 188 764 (qya), CRLF 4 246 в обоих, одиночных LF
+0. Готовность: 46 строк, `meta.ready` 1 242 → 1 288. Зонды: клингонский 250 слов / 0
+после правок (`qem tlhob vISambe'` вместо `tlhobvetlh`, `qem tlhob` без `-mey`,
+`email` вместо `emailvam`, `Sambe'lu'` без двойного `-be'`), квенья 279 токенов /
+2 находки — унаследованная `browseralyassë` (входит в базовые 29, множество не
+растёт). Меры форм: клин. 0 находок против HEAD 0 — IDENTICAL; кв. 29 против 29 —
+IDENTICAL. `markup_check` по девяти группам: `refNameTextBox` — qya потеряла `{verb}`
+(findings=2), `unknownAuthors` — `{count:number}` вместо EN `{count}` (findings=4);
+после правки обе группы findings=0, остальные семь OK. Parity после правки — issues 0,
+rc=0. `--untranslated` — 171 и 174 из 2 011 против 224 и 227 на HEAD, сдвиг ровно на
+53 формы. `tlh_order_check` — 0 нарушений (2 145 слов каталога, 946 чистых, 1 115 без
+членения). Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (243 245 мс)
+
+Принятый остаток. «Пробел» словарно отсутствует: `ngutlhmey chaw'be'lu'bogh` /
+`i tengwar úvanima` — «недопустимые символы», без отдельного слова. «Worktree» в
+квенья — `hauramar` (готовая мн. форма), `hauram` зонд не подтверждает.
+`browseralyassë` — готовая форма `signIn`, унаследованная находка меры. `workflow`
+заменён на `mIw nav` / `mólëo parma`, чтобы не вносить неподтверждённое заимствование.
+`hangTight` передан императивом `yIloS` / `Á sarta`. GUI-приёмка недоступна:
+собранных каталогов нет. Пуш — за пользователем.
+
+Итог. Девять групп и 53 формы закрыты одним коммитом; готовность каталогов выросла до
+1 288 строк, остаток непереведённого — 171 и 174 формы из 2 011; обе меры форм
+остались IDENTICAL.

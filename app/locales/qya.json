@@ -38,6 +38,11 @@
       "about.upstream-behind",
       "about.version",
       "account-picker.account",
+      "acknowledgements.intro",
+      "acknowledgements.libraries",
+      "acknowledgements.license",
+      "acknowledgements.title",
+      "acknowledgements.unknown-license",
       "addWorktreeDialog.branchNameLabel",
       "addWorktreeDialog.createWorktree",
       "addWorktreeDialog.title",
@@ -60,6 +65,11 @@
       "appError.retryCloning",
       "appError.seeLfs",
       "appMenu.application-menu",
+      "appStore.checkingOut",
+      "appStore.fastForwardingBranches",
+      "appStore.pulling",
+      "appStore.pushingTo",
+      "appStore.refreshingRepository",
       "authentication.browserRedirect",
       "avatar.forUser",
       "avatar.unknown",
@@ -371,6 +381,11 @@
       "deleteTag.confirm-message",
       "deleteTag.delete",
       "deleteTag.title",
+      "deleteWorktreeDialog.confirmMessage",
+      "deleteWorktreeDialog.confirmMessageMissing",
+      "deleteWorktreeDialog.delete",
+      "deleteWorktreeDialog.title",
+      "deleteWorktreeDialog.titleMissing",
       "discardChanges.confirmFileList",
       "discardChanges.confirmManyFiles",
       "discardChanges.confirmSelected",
@@ -405,6 +420,12 @@
       "genericGitAuth.patDescription",
       "genericGitAuth.title",
       "genericGitAuth.username",
+      "gitEmail.accountMultiple",
+      "gitEmail.accountSingle",
+      "gitEmail.learnMore",
+      "gitEmail.learnMoreAria",
+      "gitEmail.matchesAccount",
+      "gitEmail.notAttributable",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
@@ -424,6 +445,10 @@
       "history.selectBranchToCompare",
       "history.showingChangesFrom",
       "history.showingChangesFromPlain",
+      "hookFailed.abort",
+      "hookFailed.ignoreAndContinue",
+      "hookFailed.message",
+      "hookFailed.title",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
@@ -741,6 +766,13 @@
       "multiCommit.warnForcePush.message",
       "multiCommit.warnForcePush.ok",
       "multiCommit.warnForcePush.title",
+      "noPullRequests.allSet",
+      "noPullRequests.createBranchCta",
+      "noPullRequests.createPrCta",
+      "noPullRequests.hangTight",
+      "noPullRequests.loading",
+      "noPullRequests.noOpenPrs",
+      "noPullRequests.notFound",
       "noRepositories.add-existing-repository",
       "noRepositories.add-repository-hint",
       "noRepositories.clone-from-internet",
@@ -814,6 +846,12 @@
       "pushBranchCommits.pushMessage",
       "pushBranchCommits.pushTitle",
       "pushBranchCommits.pushTitleQ",
+      "refNameTextBox.errorNotValidName",
+      "refNameTextBox.invalidCharsReplaced",
+      "refNameTextBox.notValidName",
+      "refNameTextBox.verbCreated",
+      "refNameTextBox.warningLive",
+      "refNameTextBox.willBeAs",
       "relativeTime.justNow",
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
@@ -1200,6 +1238,10 @@
       "tutorialWelcome.githubDefinition",
       "tutorialWelcome.intro",
       "tutorialWelcome.title",
+      "unknownAuthors.list",
+      "unknownAuthors.many",
+      "unknownAuthors.ok",
+      "unknownAuthors.title",
       "unreachableCommits.learnMore",
       "unreachableCommits.reachableTab",
       "unreachableCommits.title",
@@ -1245,6 +1287,10 @@
       "welcome.start-description",
       "welcome.title",
       "welcome.user-metrics",
+      "workflowPushRejected.continueInBrowser",
+      "workflowPushRejected.grantPermission",
+      "workflowPushRejected.rejectedMessage",
+      "workflowPushRejected.title",
       "worktreeList.copyWorktreeName",
       "worktreeList.copyWorktreePath",
       "worktreeList.missing",
@@ -1995,11 +2041,11 @@
     }
   },
   "acknowledgements": {
-    "title": "License and Open Source Notices",
-    "intro": "<desktop>GitHub Desktop</desktop> is an open source project published under the MIT License. You can view the source code and contribute to this project on <github>GitHub</github>.",
-    "libraries": "GitHub Desktop also distributes these libraries:",
-    "license": "License: {license}",
-    "unknown-license": "Unknown license"
+    "title": "i axanio canwalië ar i lérien ocaraitiëo canwar",
+    "intro": "<desktop>GitHub Desktop</desktop> ná veryandë ocaraitiëo, canwassë MIT etantina. Polilyë cenë i tengwesta ar ocar i veryandessë <github>GitHub</github>issë.",
+    "libraries": "GitHub Desktop menta yúya i parmar sinar:",
+    "license": "Canwa: {license}",
+    "unknown-license": "canwa lá istina"
   },
   "cli": {
     "dispatch-title": "menta i carda axacarmo",
@@ -2623,12 +2669,12 @@
     "patDescription": "Mauya yuhta i Personal Access Token (PAT) ve i pehta. Nolya pá carë i PAT i <link>integration docs</link>."
   },
   "hookFailed": {
-    "abort": "Abort",
-    "ignoreAndContinue": "Ignore and Continue",
-    "message": "The {hookName} hook failed. What would you like to do?",
+    "abort": "apta",
+    "ignoreAndContinue": "Úcima ar cacara",
+    "message": "I ampa {hookName} ú-lyanë. Mana caruvalyë?",
     "title": {
-      "@darwin": "{hookName} Failed",
-      "@other": "{hookName} failed"
+      "@darwin": "I ampa {hookName} ú-lyanë",
+      "@other": "I ampa {hookName} ú-lyanë"
     }
   },
   "installGit": {
@@ -3083,13 +3129,13 @@
     }
   },
   "unknownAuthors": {
-    "list": "These users weren't found and won't be added as co-authors of this commit. Are you sure you want to commit?",
+    "list": "Lá hirinë i queni sinar, ar lá yantuvar ve hya tecindor i minatacëo sina. Sáquetatya carë i minatacë?",
     "many": {
-      "_one": "{count} user wasn't found and won't be added as a co-author of this commit. Are you sure you want to commit?",
-      "_other": "{count} users weren't found and won't be added as co-authors of this commit. Are you sure you want to commit?"
+      "_one": "{count} quén lá hirinë, ar lá yantuva ve hya tecindo i minatacëo sina. Sáquetatya carë i minatacë?",
+      "_other": "{count} queni lá hirinë, ar lá yantuvar ve hya tecindor i minatacëo sina. Sáquetatya carë i minatacë?"
     },
-    "ok": "Commit Anyway",
-    "title": "Unknown Co-Authors"
+    "ok": "Carë i minatacë",
+    "title": "i tecindor lá istinë"
   },
   "untrustedCertificate": {
     "expected": "Iquai lúmessen polë ná i mauya. Hócilmë:",
@@ -3216,13 +3262,13 @@
     "none": "None"
   },
   "noPullRequests": {
-    "notFound": "Sorry, I can't find that pull request!",
-    "hangTight": "Hang tight",
-    "allSet": "You're all set!",
-    "noOpenPrs": "No open pull requests in <repo/>",
-    "loading": "Loading pull requests as fast as I can!",
-    "createBranchCta": "Would you like to <link>create a new branch</link> and get going on your next project?",
-    "createPrCta": "Would you like to <link>create a pull request</link> from the current branch?"
+    "notFound": "Lá hírinë i luciquista.",
+    "hangTight": "Á sarta.",
+    "allSet": "Ná lyë hritya!",
+    "noOpenPrs": "<repo/> lá harya luciquista.",
+    "loading": "Lucë i luciquista…",
+    "createBranchCta": "Sáquetatya <link>carë olba vinya</link> ar yesta i vinya veryandelya?",
+    "createPrCta": "Sáquetatya <link>carë luciquista</link> i silúmëa olballo?"
   },
   "userAutocompletion": {
     "searchForUser": "Search for user",
@@ -3866,12 +3912,12 @@
     "rulesBypassable": "i olba i essë '{branchName}' ná avanwa i haurao axanen, má alyë avartëa i axani. Lelyë i raxen!"
   },
   "gitEmail": {
-    "learnMoreAria": "Learn more about commit attribution",
-    "learnMore": "Learn more.",
-    "notAttributable": "This email address does not match {accountType}. Your commits will be wrongly attributed.",
-    "matchesAccount": "This email address matches {accountType}.",
-    "accountSingle": "your {accountType} account",
-    "accountMultiple": "either of your GitHub.com nor GitHub Enterprise accounts"
+    "learnMoreAria": "Nolya pá i minatacëo tecindo",
+    "learnMore": "Nolya.",
+    "notAttributable": "I tenca sina lá vëalta {accountType}. I minatacelyar caruva hyaquenenna.",
+    "matchesAccount": "I tenca sina vëalta {accountType}.",
+    "accountSingle": "i {accountType} esselya",
+    "accountMultiple": "i GitHub.com hya GitHub Enterprise esselya"
   },
   "openFile": {
     "noExternalProgram": "i cómë {fullPath} unistë latyë i ocaraitien. Entyasta má lyë harya ocaraitië i latya i cómë sina"
@@ -3958,12 +4004,12 @@
     "searching": "searching"
   },
   "refNameTextBox": {
-    "errorNotValidName": "Error: {name} is not a valid name.",
-    "notValidName": "<ref/> is not a valid name.",
-    "willBeAs": "Will be {verb} as <ref/>.",
-    "invalidCharsReplaced": "Spaces and invalid characters have been replaced by hyphens.",
-    "warningLive": "Warning: Will be {verb} as {value}. Spaces and invalid characters have been replaced by hyphens.",
-    "verbCreated": "created"
+    "errorNotValidName": "Loima: i essë {name} ná úvanima.",
+    "notValidName": "i essë <ref/> ná úvanima.",
+    "willBeAs": "Nauva {verb} ve <ref/>.",
+    "invalidCharsReplaced": "i tengwar úvanima nar carina ve '-'.",
+    "warningLive": "Raxë: nauva {verb} ve {value}. i tengwar úvanima nar carina ve '-'.",
+    "verbCreated": "carina"
   },
   "confirmDiscardStash": {
     "warning": "Are you sure you want to discard these stashed changes?",
@@ -3973,15 +4019,15 @@
     }
   },
   "workflowPushRejected": {
-    "rejectedMessage": "The push was rejected by the server for containing a modification to the workflow file <ref/>. In order to be able to push to workflow files GitHub Desktop needs to request additional permissions.",
-    "grantPermission": "Would you like to open a browser to grant GitHub Desktop permission to update workflow files?",
+    "rejectedMessage": "Úcávima i nirë, pan harya ahyanië i mólëo parmassë <ref/>. Itan polë nirë i mólëo parmannar, GitHub Desktop mauya yanta enetya lávë.",
+    "grantPermission": "Sáquetatya apanta i browser, itan anta i lávë i GitHub Desktopenna, na vista i mólëo parmar?",
     "title": {
-      "@darwin": "Push Rejected",
-      "@other": "Push rejected"
+      "@darwin": "Úcávima i nirë",
+      "@other": "Úcávima i nirë"
     },
     "continueInBrowser": {
-      "@darwin": "Continue in Browser",
-      "@other": "Continue in browser"
+      "@darwin": "Cacara i browseralyassë",
+      "@other": "Cacara i browseralyassë"
     }
   },
   "pullRequestList": {
@@ -4071,16 +4117,16 @@
     "changeFailed": "Lá polë ahya i tengwëo tellúmë. Cenë i remparma hraitastannar."
   },
   "deleteWorktreeDialog": {
-    "confirmMessage": "Are you sure you want to delete the worktree <ref/>?",
-    "confirmMessageMissing": "The folder for the worktree <ref/> no longer exists. Remove it from this repository?",
-    "delete": "Delete",
+    "confirmMessage": "Sáquetatya haita i hauramar <ref/>?",
+    "confirmMessageMissing": "i cómi i hauramo <ref/> lá ëa. Sáquetatya haita i haurassë?",
+    "delete": "Haita",
     "title": {
-      "@darwin": "Delete Worktree",
-      "@other": "Delete worktree"
+      "@darwin": "Haita i hauramar",
+      "@other": "Haita i hauramar"
     },
     "titleMissing": {
-      "@darwin": "Remove Missing Worktree",
-      "@other": "Remove missing worktree"
+      "@darwin": "Haita i hauramar lá hirnëa",
+      "@other": "Haita i hauramar lá hirnëa"
     }
   },
   "crash": {
@@ -4120,13 +4166,13 @@
   },
   "appStore": {
     "refreshingRepository": {
-      "@darwin": "Refreshing Repository",
-      "@other": "Refreshing repository"
+      "@darwin": "Envinyata i haura",
+      "@other": "Envinyata i haura"
     },
-    "checkingOut": "Checking out",
-    "fastForwardingBranches": "Fast-forwarding branches",
-    "pushingTo": "Pushing to {remote}",
-    "pulling": "Pulling {remote}"
+    "checkingOut": "Cilë",
+    "fastForwardingBranches": "Nirë linta i olbar",
+    "pushingTo": "Nirë i {remote} palan haura",
+    "pulling": "Lucë i {remote} palan haura"
   },
   "revealDirectory": {
     "title": {
