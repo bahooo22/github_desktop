@@ -233,6 +233,13 @@
       "checkout.confirm-message",
       "checkout.dont-show-again",
       "checkout.title",
+      "chooseForkSettings.continue",
+      "chooseForkSettings.contribute-to-parent",
+      "chooseForkSettings.contribute-to-parent-description",
+      "chooseForkSettings.contribute-to-self-description",
+      "chooseForkSettings.for-my-own-purposes",
+      "chooseForkSettings.question-label",
+      "chooseForkSettings.title",
       "ciCheckRunRerun.dependentsMessageMany",
       "ciCheckRunRerun.dependentsMessageOne",
       "ciCheckRunRerun.determining",
@@ -313,6 +320,13 @@
       "copilotByokModel.reasoningEffortLabel",
       "copilotByokModel.reasoningHint",
       "copilotByokModel.save",
+      "copilotError.billingIssue",
+      "copilotError.billingNotConfigured",
+      "copilotError.openSettings",
+      "copilotError.quotaExceeded",
+      "copilotError.retryAfterDate",
+      "copilotError.retryAfterSeconds",
+      "copilotError.sessionQuotaExceeded",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -377,7 +391,20 @@
       "editorError.download",
       "editorError.title",
       "enterprise.addressLabel",
+      "forks.create-fork-manually",
+      "forks.do-you-want-to-fork",
+      "forks.error-details",
+      "forks.fork-creation-failed",
+      "forks.fork-question",
+      "forks.fork-this-repository",
+      "forks.no-write-access",
       "fullScreenInfo.exitFullscreen",
+      "genericGitAuth.message",
+      "genericGitAuth.messageWithUser",
+      "genericGitAuth.password",
+      "genericGitAuth.patDescription",
+      "genericGitAuth.title",
+      "genericGitAuth.username",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
@@ -591,6 +618,13 @@
       "missingRepository.trustOwner",
       "missingRepository.trustRepository",
       "missingRepository.unsafeRepository",
+      "moveToApplications.description",
+      "moveToApplications.do-not-show-again",
+      "moveToApplications.move-and-restart",
+      "moveToApplications.move-and-restart-hint",
+      "moveToApplications.not-now",
+      "moveToApplications.question",
+      "moveToApplications.title",
       "multiCommit.abortOperation",
       "multiCommit.alwaysNudge.message",
       "multiCommit.alwaysNudge.no",
@@ -1172,6 +1206,13 @@
       "unreachableCommits.unreachableTab",
       "unreachableCommits.willSeeChanges",
       "unreachableCommits.wontSeeChanges",
+      "untrustedCertificate.expected",
+      "untrustedCertificate.message",
+      "untrustedCertificate.ok",
+      "untrustedCertificate.title",
+      "untrustedCertificate.trial",
+      "untrustedCertificate.unsure",
+      "untrustedCertificate.unusualTld",
       "updateAvailableBanner.architecture",
       "updateAvailableBanner.arm64AutoUpdate",
       "updateAvailableBanner.dismiss",
@@ -1203,7 +1244,12 @@
       "welcome.skip",
       "welcome.start-description",
       "welcome.title",
-      "welcome.user-metrics"
+      "welcome.user-metrics",
+      "worktreeList.copyWorktreeName",
+      "worktreeList.copyWorktreePath",
+      "worktreeList.missing",
+      "worktreeList.missingAria",
+      "worktreeList.noItemsFound"
     ]
   },
   "common": {
@@ -1970,13 +2016,13 @@
     "installed-info": "<strong>{path}</strong>Daq ra'SommI' jomlu'pu'."
   },
   "moveToApplications": {
-    "title": "Move GitHub Desktop to the Applications folder?",
-    "description": "We've detected that you're not running GitHub Desktop from the Applications folder of your machine. This could cause problems with the app, including impacting your ability to sign in.",
-    "question": "Do you want to move GitHub Desktop to the Applications folder now? This will also restart the app.",
-    "do-not-show-again": "Do not show this message again",
-    "move-and-restart": "Move and Restart",
-    "move-and-restart-hint": "This will move GitHub Desktop to the Applications folder in your machine and restart the app.",
-    "not-now": "Not Now"
+    "title": "Deryatmey 'aplo'Daq GitHub Desktop vIH DaneH'a'?",
+    "description": "Deryatmey 'aplo'vo' GitHub Desktop bIqapbe' 'e' wItu'. De'wI'Daq Qaghmey chenmoHlaH, ngaQHa'moHlaHbe'ghach je.",
+    "question": "DaH Deryatmey 'aplo'Daq GitHub Desktop vIH DaneH'a'? De'wI' taghqa' je.",
+    "do-not-show-again": "QInvam 'e' yIcha'be'qa'",
+    "move-and-restart": "yIvIH 'ej yItaghqa'",
+    "move-and-restart-hint": "Deryatmey 'aplo'Daq GitHub Desktop vIH 'ej De'wI' taghqa'.",
+    "not-now": "DaH 'oHbe'"
   },
   "noRepositories": {
     "start-tutorial": "ghojmeH mIw yItagh",
@@ -2307,13 +2353,13 @@
     "title": "choH vem 'e' yIwIv?"
   },
   "chooseForkSettings": {
-    "continue": "Continue",
-    "contribute-to-parent": "To contribute to the parent project",
-    "for-my-own-purposes": "For my own purposes",
-    "question-label": "This repository is a fork. How do you plan to use it?",
-    "title": "How are you planning to use this fork?",
-    "contribute-to-parent-description": "We will help you contribute to the <strong>{repository}</strong> repository",
-    "contribute-to-self-description": "We will help you contribute to the <strong>{repository}</strong> repository"
+    "continue": "yItaH",
+    "contribute-to-parent": "qaytu' jInmolDaq boqmeH",
+    "for-my-own-purposes": "jIlo'meH neH",
+    "question-label": "De' ngaSwI'vam puq chonnaQ. chay' Dalo' DaneH?",
+    "title": "chay' puq chonnaQvam Dalo' DaneH?",
+    "contribute-to-parent-description": "<strong>{repository}</strong> De' ngaSwI'Daq ghaqmeH QaH.",
+    "contribute-to-self-description": "<strong>{repository}</strong> De' ngaSwI'Daq ghaqmeH QaH."
   },
   "cloneRepository": {
     "archived": "So'lu'pu'",
@@ -2557,24 +2603,24 @@
     "titleDiscardAll": "choHmey Hoch polHa' 'e' yIwoq"
   },
   "forks": {
-    "do-you-want-to-fork": "Do you want to fork this repository?",
-    "error-details": "Error details",
-    "fork-this-repository": "Fork This Repository",
-    "create-fork-manually": "You can try <link>creating the fork manually on GitHub</link>.",
-    "fork-creation-failed": "Creating your fork <strong>{forkName}</strong> failed.",
-    "fork-question": "Do you want to create a fork of this repository at <strong>{forkName}</strong> to continue?",
-    "no-write-access": "It looks like you do not have write access to <strong>{fullName}</strong>. If you should, please check with a repository administrator."
+    "do-you-want-to-fork": "De' ngaSwI'vam puq chonnaQ yIchenmoH DaneH'a'?",
+    "error-details": "Qagh Del",
+    "fork-this-repository": "puq chonnaQ yIchenmoH",
+    "create-fork-manually": "<link>GitHubDaq puq chonnaQ ruQghachDaq yIchenmoHlaH</link>.",
+    "fork-creation-failed": "puq chonnaQ <strong>{forkName}</strong> chenmoHmeH luj.",
+    "fork-question": "bItaHmeH, <strong>{forkName}</strong> pong De' ngaSwI'vam puq chonnaQ yIchenmoH DaneH'a'?",
+    "no-write-access": "<strong>{fullName}</strong> ghItlh naw' ghajbe'. naw' DaghajnISchugh, De' ngaSwI' SeHwI' yI'ol."
   },
   "genericGitAuth": {
-    "password": "Password",
+    "password": "pegh",
     "title": {
-      "@darwin": "Authentication Failed",
-      "@other": "Authentication failed"
+      "@darwin": "ngaQHa'moHmeH luj",
+      "@other": "ngaQHa'moHmeH luj"
     },
-    "username": "Username",
-    "message": "We were unable to authenticate with <url>{remoteUrl}</url>. Please enter your username and password to try again.",
-    "messageWithUser": "We were unable to authenticate with <url>{remoteUrl}</url>. Please enter the password for the user <user>{username}</user> to try again.",
-    "patDescription": "Depending on your repository's hosting service, you might need to use a Personal Access Token (PAT) as your password. Learn more about creating a PAT in our <link>integration docs</link>."
+    "username": "ghot pong",
+    "message": "<url>{remoteUrl}</url> ngaQHa'moHlaHbe'. yInIDqa'meH, ghot pong pegh je yI'el.",
+    "messageWithUser": "<url>{remoteUrl}</url> ngaQHa'moHlaHbe'. yInIDqa'meH, <user>{username}</user> pegh yI'el.",
+    "patDescription": "De' ngaSwI' hosting service rur, Personal Access Token (PAT) pegh rur Dalo'nIS. PAT chenmoH De' <link>integration docs</link> yIghoj."
   },
   "hookFailed": {
     "abort": "Abort",
@@ -3046,13 +3092,13 @@
     "title": "Unknown Co-Authors"
   },
   "untrustedCertificate": {
-    "expected": "In some cases, this may be expected. For example:",
-    "ok": "View Certificate",
-    "title": "Untrusted Server",
-    "trial": "If this is a GitHub Enterprise trial.",
-    "unsure": "If you are unsure of what to do, cancel and contact your system administrator.",
-    "unusualTld": "If your GitHub Enterprise instance is run on an unusual top-level domain.",
-    "message": "GitHub Desktop cannot verify the identity of {host}. The certificate ({subjectName}) is invalid or untrusted. <strong>This may indicate attackers are trying to steal your data.</strong>"
+    "expected": "rut pIHlu'. 'e' cha'meH:",
+    "ok": "Qoyje' yIlegh",
+    "title": "turwI' voqbe'bogh",
+    "trial": "GitHub Enterprise waH 'oHchugh.",
+    "unsure": "Sovbe'chugh, yIqIl 'ej De'wI' pat SeHwI' yI'ol.",
+    "unusualTld": "lIj GitHub Enterprise pong motlhbe'chugh.",
+    "message": "GitHub Desktop {host} pong 'olbe'. Qoyje' ({subjectName}) ghenbe' pagh voqbe'bogh 'oH. <strong>jaghpu' lIj De' nIH 'e' DuH.</strong>"
   },
   "upstreamAlreadyExists": {
     "confirm": "pIHlu'bogh URL lo'meH, HopwI' yIchoH DaneH'a'?",
@@ -3112,16 +3158,16 @@
     "restoreDescription": "<strong>Restore</strong> will move your stashed files to the Changes list."
   },
   "worktreeList": {
-    "noItemsFound": "No worktrees found",
-    "missing": "(missing)",
-    "missingAria": "missing",
+    "noItemsFound": "vum Qorwaghmey Sambe'lu'",
+    "missing": "(tu'be'bogh)",
+    "missingAria": "tu'be'bogh",
     "copyWorktreeName": {
-      "@darwin": "Copy Worktree Name",
-      "@other": "Copy worktree name"
+      "@darwin": "vum Qorwagh pong yIwoH",
+      "@other": "vum Qorwagh pong yIwoH"
     },
     "copyWorktreePath": {
-      "@darwin": "Copy Worktree Path",
-      "@other": "Copy worktree path"
+      "@darwin": "vum Qorwagh He yIwoH",
+      "@other": "vum Qorwagh He yIwoH"
     }
   },
   "tutorialPanel": {
@@ -4057,16 +4103,16 @@
     }
   },
   "copilotError": {
-    "quotaExceeded": "Quota exceeded",
-    "sessionQuotaExceeded": "Session quota exceeded",
-    "billingNotConfigured": "Copilot billing not configured",
-    "billingIssue": "Copilot billing issue",
-    "openSettings": "Open GitHub Copilot settings",
+    "quotaExceeded": "vuS Hoch",
+    "sessionQuotaExceeded": "poH vuS Hoch",
+    "billingNotConfigured": "Copilot DIl ghunlu'be'",
+    "billingIssue": "Copilot DIl qay'",
+    "openSettings": "GitHub Copilot SeHlaw 'e' yIpoSmoH",
     "retryAfterSeconds": {
-      "_one": "You can try again in {count:number} second.",
-      "_other": "You can try again in {count:number} seconds."
+      "_one": "{count:number} 'eQ retlhvo' yInIDqa'laH.",
+      "_other": "{count:number} 'eQ retlhvo' yInIDqa'laH."
     },
-    "retryAfterDate": "You can try again after {retryAfter}."
+    "retryAfterDate": "{retryAfter} retlhvo' yInIDqa'laH."
   },
   "commitProgress": {
     "title": "choHmey 'e' qon",

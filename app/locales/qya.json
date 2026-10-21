@@ -233,6 +233,13 @@
       "checkout.confirm-message",
       "checkout.dont-show-again",
       "checkout.title",
+      "chooseForkSettings.continue",
+      "chooseForkSettings.contribute-to-parent",
+      "chooseForkSettings.contribute-to-parent-description",
+      "chooseForkSettings.contribute-to-self-description",
+      "chooseForkSettings.for-my-own-purposes",
+      "chooseForkSettings.question-label",
+      "chooseForkSettings.title",
       "ciCheckRunRerun.dependentsMessageMany",
       "ciCheckRunRerun.dependentsMessageOne",
       "ciCheckRunRerun.determining",
@@ -313,6 +320,13 @@
       "copilotByokModel.reasoningEffortLabel",
       "copilotByokModel.reasoningHint",
       "copilotByokModel.save",
+      "copilotError.billingIssue",
+      "copilotError.billingNotConfigured",
+      "copilotError.openSettings",
+      "copilotError.quotaExceeded",
+      "copilotError.retryAfterDate",
+      "copilotError.retryAfterSeconds",
+      "copilotError.sessionQuotaExceeded",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -377,7 +391,20 @@
       "editorError.download",
       "editorError.title",
       "enterprise.addressLabel",
+      "forks.create-fork-manually",
+      "forks.do-you-want-to-fork",
+      "forks.error-details",
+      "forks.fork-creation-failed",
+      "forks.fork-question",
+      "forks.fork-this-repository",
+      "forks.no-write-access",
       "fullScreenInfo.exitFullscreen",
+      "genericGitAuth.message",
+      "genericGitAuth.messageWithUser",
+      "genericGitAuth.password",
+      "genericGitAuth.patDescription",
+      "genericGitAuth.title",
+      "genericGitAuth.username",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
@@ -591,6 +618,13 @@
       "missingRepository.trustOwner",
       "missingRepository.trustRepository",
       "missingRepository.unsafeRepository",
+      "moveToApplications.description",
+      "moveToApplications.do-not-show-again",
+      "moveToApplications.move-and-restart",
+      "moveToApplications.move-and-restart-hint",
+      "moveToApplications.not-now",
+      "moveToApplications.question",
+      "moveToApplications.title",
       "multiCommit.abortOperation",
       "multiCommit.alwaysNudge.message",
       "multiCommit.alwaysNudge.no",
@@ -1172,6 +1206,13 @@
       "unreachableCommits.unreachableTab",
       "unreachableCommits.willSeeChanges",
       "unreachableCommits.wontSeeChanges",
+      "untrustedCertificate.expected",
+      "untrustedCertificate.message",
+      "untrustedCertificate.ok",
+      "untrustedCertificate.title",
+      "untrustedCertificate.trial",
+      "untrustedCertificate.unsure",
+      "untrustedCertificate.unusualTld",
       "updateAvailableBanner.architecture",
       "updateAvailableBanner.arm64AutoUpdate",
       "updateAvailableBanner.dismiss",
@@ -1203,7 +1244,12 @@
       "welcome.skip",
       "welcome.start-description",
       "welcome.title",
-      "welcome.user-metrics"
+      "welcome.user-metrics",
+      "worktreeList.copyWorktreeName",
+      "worktreeList.copyWorktreePath",
+      "worktreeList.missing",
+      "worktreeList.missingAria",
+      "worktreeList.noItemsFound"
     ]
   },
   "common": {
@@ -1970,13 +2016,13 @@
     "installed-info": "i axacarma tulcanë <strong>{path}</strong>essë."
   },
   "moveToApplications": {
-    "title": "Move GitHub Desktop to the Applications folder?",
-    "description": "We've detected that you're not running GitHub Desktop from the Applications folder of your machine. This could cause problems with the app, including impacting your ability to sign in.",
-    "question": "Do you want to move GitHub Desktop to the Applications folder now? This will also restart the app.",
-    "do-not-show-again": "Do not show this message again",
-    "move-and-restart": "Move and Restart",
-    "move-and-restart-hint": "This will move GitHub Desktop to the Applications folder in your machine and restart the app.",
-    "not-now": "Not Now"
+    "title": "Levë i GitHub Desktop i maxarma cóminna?",
+    "description": "Hirnë i GitHub Desktop lá ëa i maxarma cómessë. Sina polë carë raxë i haurassë, ar lá polilyë tyulë.",
+    "question": "Sáquetatya levë i GitHub Desktop i maxarma cóminna síra? Sina yestuva ata i haura.",
+    "do-not-show-again": "áva cennëa i nyarnë sina",
+    "move-and-restart": "Levë ar yesta ata",
+    "move-and-restart-hint": "Levë i GitHub Desktop i maxarma cóminna, ar yestuva ata i haura.",
+    "not-now": "Lá síra"
   },
   "noRepositories": {
     "start-tutorial": "yesta parandë",
@@ -2307,13 +2353,13 @@
     "title": "cilë i minatacë?"
   },
   "chooseForkSettings": {
-    "continue": "Continue",
-    "contribute-to-parent": "To contribute to the parent project",
-    "for-my-own-purposes": "For my own purposes",
-    "question-label": "This repository is a fork. How do you plan to use it?",
-    "title": "How are you planning to use this fork?",
-    "contribute-to-parent-description": "We will help you contribute to the <strong>{repository}</strong> repository",
-    "contribute-to-self-description": "We will help you contribute to the <strong>{repository}</strong> repository"
+    "continue": "Cacara",
+    "contribute-to-parent": "Na yanta i ontar hauranna",
+    "for-my-own-purposes": "Itan imya yuhtien",
+    "question-label": "Sina haura ná nelecco. Mancalyë yuhta?",
+    "title": "Manen mancalyë yuhta sina nelecco?",
+    "contribute-to-parent-description": "Alya lyë ocarë i <strong>{repository}</strong> hauranna.",
+    "contribute-to-self-description": "Alya lyë ocarë i <strong>{repository}</strong> hauranna."
   },
   "cloneRepository": {
     "archived": "Cuvina",
@@ -2557,24 +2603,24 @@
     "titleDiscardAll": "Tancata aulerya ilya ahyanië"
   },
   "forks": {
-    "do-you-want-to-fork": "Do you want to fork this repository?",
-    "error-details": "Error details",
-    "fork-this-repository": "Fork This Repository",
-    "create-fork-manually": "You can try <link>creating the fork manually on GitHub</link>.",
-    "fork-creation-failed": "Creating your fork <strong>{forkName}</strong> failed.",
-    "fork-question": "Do you want to create a fork of this repository at <strong>{forkName}</strong> to continue?",
-    "no-write-access": "It looks like you do not have write access to <strong>{fullName}</strong>. If you should, please check with a repository administrator."
+    "do-you-want-to-fork": "Sáquetatya carë nelecco i haura sina?",
+    "error-details": "i Loimëo hraitasta",
+    "fork-this-repository": "Carë nelecco",
+    "create-fork-manually": "<link>Polilyë carë i nelecco mánen GitHubissë</link>.",
+    "fork-creation-failed": "Loica carë i nelecco <strong>{forkName}</strong>.",
+    "fork-question": "Sáquetatya carë i nelecco, <strong>{forkName}</strong> essë, itan cesta?",
+    "no-write-access": "Lá tencil <strong>{fullName}</strong>. Yá mauya, cenë i haurassë heru."
   },
   "genericGitAuth": {
-    "password": "Password",
+    "password": "i pehta",
     "title": {
-      "@darwin": "Authentication Failed",
-      "@other": "Authentication failed"
+      "@darwin": "Loica tyulë",
+      "@other": "Loica tyulë"
     },
-    "username": "Username",
-    "message": "We were unable to authenticate with <url>{remoteUrl}</url>. Please enter your username and password to try again.",
-    "messageWithUser": "We were unable to authenticate with <url>{remoteUrl}</url>. Please enter the password for the user <user>{username}</user> to try again.",
-    "patDescription": "Depending on your repository's hosting service, you might need to use a Personal Access Token (PAT) as your password. Learn more about creating a PAT in our <link>integration docs</link>."
+    "username": "i essë",
+    "message": "Unistë tyulë <url>{remoteUrl}</url>anna. Rehta i essë ar i pehta, itan ricë ata.",
+    "messageWithUser": "Unistë tyulë <url>{remoteUrl}</url>anna. Rehta i pehta i quén <user>{username}</user>, itan ricë ata.",
+    "patDescription": "Mauya yuhta i Personal Access Token (PAT) ve i pehta. Nolya pá carë i PAT i <link>integration docs</link>."
   },
   "hookFailed": {
     "abort": "Abort",
@@ -3046,13 +3092,13 @@
     "title": "Unknown Co-Authors"
   },
   "untrustedCertificate": {
-    "expected": "In some cases, this may be expected. For example:",
-    "ok": "View Certificate",
-    "title": "Untrusted Server",
-    "trial": "If this is a GitHub Enterprise trial.",
-    "unsure": "If you are unsure of what to do, cancel and contact your system administrator.",
-    "unusualTld": "If your GitHub Enterprise instance is run on an unusual top-level domain.",
-    "message": "GitHub Desktop cannot verify the identity of {host}. The certificate ({subjectName}) is invalid or untrusted. <strong>This may indicate attackers are trying to steal your data.</strong>"
+    "expected": "Iquai lúmessen polë ná i mauya. Hócilmë:",
+    "ok": "Cenë i lávë tengwë",
+    "title": "I indya lá sataina",
+    "trial": "Yá ná tyastië GitHub Enterprise.",
+    "unsure": "Yá lá istal, apta ar cenë i nostalëo heru.",
+    "unusualTld": "Yá i GitHub Enterprise essë ná hyanya.",
+    "message": "Lá polë GitHub Desktop tyasta i {host} essë. I lávë tengwë ({subjectName}) ná úvanima hya lá sataina. <strong>Sina tana i nalantari pilar i ahyanielya.</strong>"
   },
   "upstreamAlreadyExists": {
     "confirm": "sáquetatya vista i palan haura, itan yuhta i URL ya mauya?",
@@ -3112,16 +3158,16 @@
     "restoreDescription": "<strong>Restore</strong> will move your stashed files to the Changes list."
   },
   "worktreeList": {
-    "noItemsFound": "No worktrees found",
-    "missing": "(missing)",
-    "missingAria": "missing",
+    "noItemsFound": "Lá hírinë i hauramar",
+    "missing": "(lá hirnëa)",
+    "missingAria": "lá hirnëa",
     "copyWorktreeName": {
-      "@darwin": "Copy Worktree Name",
-      "@other": "Copy worktree name"
+      "@darwin": "Ovëantë i hauramo essë",
+      "@other": "Ovëantë i hauramo essë"
     },
     "copyWorktreePath": {
-      "@darwin": "Copy Worktree Path",
-      "@other": "Copy worktree path"
+      "@darwin": "Ovëantë i hauramo tië",
+      "@other": "Ovëantë i hauramo tië"
     }
   },
   "tutorialPanel": {
@@ -4057,16 +4103,16 @@
     }
   },
   "copilotError": {
-    "quotaExceeded": "Quota exceeded",
-    "sessionQuotaExceeded": "Session quota exceeded",
-    "billingNotConfigured": "Copilot billing not configured",
-    "billingIssue": "Copilot billing issue",
-    "openSettings": "Open GitHub Copilot settings",
+    "quotaExceeded": "I massë cumna",
+    "sessionQuotaExceeded": "I mólëo massë cumna",
+    "billingNotConfigured": "i Copiloto mirma lá tulcana",
+    "billingIssue": "i Copiloto mirma raicë",
+    "openSettings": "apanta i GitHub Copilot partië",
     "retryAfterSeconds": {
-      "_one": "You can try again in {count:number} second.",
-      "_other": "You can try again in {count:number} seconds."
+      "_one": "Polilyë ricë ata {count:number} lúmessen.",
+      "_other": "Polilyë ricë ata {count:number} lúmessen."
     },
-    "retryAfterDate": "You can try again after {retryAfter}."
+    "retryAfterDate": "Polilyë ricë ata apa {retryAfter}."
   },
   "commitProgress": {
     "title": "minatecë i ahyanië",

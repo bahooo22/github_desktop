@@ -3724,3 +3724,140 @@ Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 sk
 Итог. Экран приветствия туториала закрыт: 8 форм в двух конлангах, готовность
 каталогов выросла до 1 196 строк, остаток непереведённого — 274 и 277 формы из 2 011;
 обе меры форм остались IDENTICAL.
+
+## Батч из семи групп: 50 форм в двух конлангах (21.10.2026)
+
+Батч укрупнён по указанию пользователя «бери батчи минимум по 40–50 форм»: семь
+групп за один коммит — `copilotError` (8), `moveToApplications` (7),
+`chooseForkSettings` (7), `forks` (7), `genericGitAuth` (7),
+`untrustedCertificate` (7), `worktreeList` (7). 50 листовых форм в 50 ключах;
+4 пары (`retryAfterSeconds`, `title`, `copyWorktreeName`, `copyWorktreePath`)
+схлопываются в `meta.ready`, поэтому строк готовности 46.
+
+### Ошибки Copilot: 8 форм
+
+- Заголовки: `vuS Hoch` / `poH vuS Hoch` («квота/сессия исчерпаны») — готовые
+  `settings.copilot.snapshot.*` (`vuS Hoch` = quota exhausted); кв. `I massë cumna` /
+  `I mólëo massë cumna` — готовые `massë cumna` и `i mólëo hríma`.
+- `billing`: клин. `DIl` (готовая `token-based-billing`), «not configured» —
+  `ghunlu'be'` по каталоговой модели `ghun` = configure
+  (`settings.copilot.sign-in-to-configure`); кв. `mirma` (готовая) + `lá tulcana`.
+- `openSettings`: `GitHub Copilot SeHlaw 'e' yIpoSmoH` / `apanta i GitHub Copilot
+  partië` — рамки готовых `settings.copilot.open-feature-settings`.
+- `retryAfterSeconds` / `retryAfterDate`: клин. `{count:number} 'eQ retlhvo'
+  yInIDqa'laH.` — «try again» из готовой `cloneRepository.error-unable-to-read-path`,
+  `retlhvo'` — готовая модель `{duration} retlhvo'`; `'eQ` («a few seconds or
+  minutes ago») — ближайшее к «second» (слова «секунда» в дампе нет). Кв.
+  `Polilyë ricë ata {count:number} lúmessen.` — `Polilyë` из
+  `diff.largeTooBigMessage`, `ricë ata` из `cloneRepository.error-unable-to-read-path`,
+  `lúmessen` — готовая модель `hooks.*`; для даты — `apa {retryAfter}`.
+
+### Переезд в Applications: 7 форм
+
+- `not-now` — готовая `lfs.notNow` (`DaH 'oHbe'` / `Lá síra`); `do-not-show-again` —
+  готовая `common.do-not-show-again`.
+- «Applications folder»: клин. `Deryatmey 'aplo'` — `Deryatmey` из готовой
+  `settings.integrations.applications`, `'aplo'` из `settings.language.openFolder`;
+  кв. `i maxarma cómi` (`maxarma` — готовая «Applications», `cómi` — готовая
+  «folder»).
+- «Move»: клин. `vIH` («be in motion, move», дамп) — непереходный, поэтому
+  «GitHub Desktop moves» и кнопка `yIvIH`; кв. `Levë`/`leva` (Eldamo «to move»).
+  «Restart»: клин. `taghqa'` (`tagh` + `-qa'`), кв. `yesta ata` (`yesta` — готовая
+  «begin», `ata` — «again»).
+- «running from» перестроено в состояние: клин. `Deryatmey 'aplo'vo' GitHub Desktop
+  bIqapbe' 'e' wItu'` (`Qap` — «operate»); кв. `Hirnë i GitHub Desktop lá ëa i
+  maxarma cómessë` (`hirnë` — готовая форма из `releaseNotes`).
+
+### Настройки форка: 7 форм
+
+- `continue` — `yItaH` / `Cacara` (готовая `signIn.continue`).
+- `contribute-to-parent` — готовая `repositorySettings.fork-contribute-to-parent`
+  (`qaytu' De' ngaSwI'Daq boqmeH` / `Na yanta i ontar hauranna`), в клингонском
+  заголовке «project» заменён на `jInmol`.
+- `for-my-own-purposes` — `jIlo'meH neH` («just for me to use») / `Itan imya
+  yuhtien` («for my own use»).
+- Вопросы — `chay' Dalo' DaneH?` и `Manen mancalyë yuhta?` (`manen` — «how»,
+  `manca-` — «intend»).
+- Описания — `<strong>{repository}</strong> De' ngaSwI'Daq ghaqmeH QaH.` /
+  `Alya lyë ocarë i <strong>{repository}</strong> hauranna.` (`ghaq`/`ocarë` —
+  готовые «contribute», `QaH`/`alya` — «help»).
+
+### Форки: 7 форм
+
+- «No write access» перестроен: клин. `<strong>{fullName}</strong> ghItlh naw'
+  ghajbe'.` — без локатива на теге, потому что `markup_check` дал
+  `GLUED ('strong','Daq')`; кв. `Lá tencil <strong>{fullName}</strong>.` — без
+  `nna`, чтобы зонд не ловил голый суффикс.
+- «fork» — готовые `puq chonnaQ` / `nelecco`; `fork-this-repository` —
+  `puq chonnaQ yIchenmoH` / `Carë nelecco`; ошибки — `chenmoHmeH luj` (рамка
+  `discardChanges.retry.failed`) и `Loica carë ...` (готовое `Loica`).
+- `create-fork-manually` — `<link>GitHubDaq puq chonnaQ ruQghachDaq
+  yIchenmoHlaH</link>` (`ruQghachDaq` — готовая «manually» из
+  `multiCommit.copilotDialog.skippedUnresolved`); кв. `mánen` (готовая
+  `conflicts.resolveManuallyHint`).
+- `fork-question`: имя форка больше не получает падеж — `<strong>{forkName}</strong>
+  pong ...` / `<strong>{forkName}</strong> essë ...`.
+
+### Пароль Git: 7 форм
+
+- `password` — клин. `pegh` («secret», дамп), кв. `i pehta` («secret», attested);
+  `username` — `ghot pong` («person name») / `i essë`.
+- `title` — `ngaQHa'moHmeH luj` (рамка «failed to X») / `Loica tyulë`; `message` —
+  `ngaQHa'moHlaHbe'` и готовые `yInIDqa'` / `Unistë tyulë ... itan ricë ata`.
+- `patDescription`: клин. `PAT pegh rur Dalo'nIS` (PAT как пароль), кв. `Mauya
+  yuhta i PAT ve i pehta`; суффикс `Daq` убран с закрывающего тега —
+  `<link>integration docsDaq</link>` записан внутрь.
+
+### Непроверенный сертификат: 7 форм
+
+- «certificate» — клин. `Qoyje'` (дамп, единственная запись); кв. `lávë tengwë`
+  («permission token», `lávë` — готовая «permission», `tengwë` — готовая «token»).
+- «untrusted server» — `turwI' voqbe'bogh` (`voq` — «trust», `tu'be'bogh` —
+  готовая модель) / `I indya lá sataina` (`satarya` — готовая «trust»,
+  `invalidatedToken` закрепил `úvanima` для «invalid»).
+- «invalid or untrusted» — `ghenbe' pagh voqbe'bogh 'oH` (`ghenbe'` — готовая
+  `invalidatedToken.title`) / `úvanima hya lá sataina`.
+- «attackers steal your data» — `<strong>jaghpu' lIj De' nIH 'e' DuH.</strong>`
+  (`jagh` — «enemy», `nIH` — «steal», `'e' DuH` — «it is possible»);
+  кв. `<strong>Sina tana i nalantari pilar i ahyanielya.</strong>` (`nalanta-` —
+  «attack», `pil-` — «steal»).
+- «expected» — `rut pIHlu'` (форма `pIHlu'laH` не прошла зонд — порядок `lu'`+`laH`)
+  / `Iquai lúmessen polë ná i mauya` (отдельного «expected» в Eldamo нет).
+
+### Список worktree: 7 форм
+
+- `noItemsFound` — `vum Qorwaghmey Sambe'lu'` / `Lá hírinë i hauramar`
+  (`vum Qorwagh` — готовая «worktree», `hauramar` — готовая форма из
+  `releaseNotes`); `missing`/`missingAria` — `tu'be'bogh` / `lá hirnëa` (готовая
+  «missing»).
+- `copyWorktreeName/Path` — `vum Qorwagh pong yIwoH` / `vum Qorwagh He yIwoH`;
+  кв. `Ovëantë i hauramo essë` / `Ovëantë i hauramo tië` (рамка
+  `diff.submodule.copyPreviousSha`).
+
+Замеры. Вставка по каждой группе: `8/8/0/0`, шесть раз `7/7/0/0`; повторный прогон
+`forks` после правки — 1 изменено, 6 уже такие же. `markup_check_2010.py` по семи
+группам: шесть MARKUP GATE OK, `forks` — `GLUED ('strong','Daq')`, findings=1; после
+правки — findings=0. Байты ПОСЛЕ готовности и правки: 185 640 (tlh) и 187 300 (qya),
+CRLF 4 200 в обоих, одиночных LF 0. Готовность: 46 строк, `meta.ready` 1 196 → 1 242.
+Зонды: клингонский 240 слов / 0 после трёх правок (`qay'mey` → `Qaghmey`, `docsDaq` →
+`docs`, `pIHlu'laH` → `pIHlu'`), квенья 270 токенов / 0 после одной (`nna` убран).
+Меры форм: клингонский 7 015 слов / 0 против HEAD 6 814 / 0 — IDENTICAL; квенья 7 715
+слов / 29 находок против HEAD — те же 29, IDENTICAL. `tlh_order_check.py` — 0 нарушений
+(4 154 леммы, 2 173 слова каталога, 922 чистых, 1 165 без членения). `--parity` —
+1 746 × 7, issues 0, rc=0; `--untranslated` — tlh 224 и qya 227 из 2 011 против 274
+и 277 на HEAD, сдвиг ровно на 50 форм. Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (258 739 мс)
+
+Принятый остаток. «Секунды» в клингонском нет: `{count:number} 'eQ` — «N мгновений»,
+ближайшее к смыслу (в дампе `'eQ` — «just a few seconds or minutes ago»). В квенья
+«second» передан через `lúmessen` (готовая модель «in N times»). «Expected» в
+квенья словарно нет — `Mauya`/`i mauya` («нужный»). «Certificate» в квенья —
+`lávë tengwë` («permission token»): отдельной записи нет. «Server» — `indya`
+(«machine/device», Eldamo), не `veuma` (nq, 0 форм). `Qoyje'` — единственная запись
+дампа для «certificate». «trial» передан как `waH`/`tyastië` («test»), «top-level
+domain» — как «необычное имя» (`pong motlhbe'` / `essë hyanya`), потому что слова
+«domain» нет. GUI-приёмка недоступна: собранных каталогов нет. Пуш — за пользователем.
+
+Итог. Семь групп и 50 форм закрыты одним коммитом; готовность каталогов выросла до
+1 242 строк, остаток непереведённого — 224 и 227 формы из 2 011; обе меры форм
+остались IDENTICAL. Класс дефекта «суффикс после закрывающего тега» пойман второй раз
+(`forks.no-write-access`) и снова исправлен до коммита.
