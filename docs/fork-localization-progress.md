@@ -2524,3 +2524,88 @@ GUI-приёмка недоступна: собранных каталогов �
 
 Итог. Финальный экран урока закрыт полностью: 16 форм в двух конлангах, готовность по
 1 044 строке, остаток — 454 и 457 формы.
+
+## Список веток: 15 форм в двух конлангах (21.10.2026)
+
+Группа `branches` — 15 листовых форм в 15 строках: заголовки группировок списка
+веток, метки колонок и два сообщения об ошибке. Подписи читаются в
+`app/src/ui/branches/branch-list.tsx` и `app/src/ui/branches/branches.tsx`,
+подсказка-«proTip» — там же, рядом с уже переведённой `repositoriesList.proTip`.
+Платформенных вариантов в группе нет, поэтому форм ровно столько, сколько строк.
+
+Шесть из пятнадцати — дословное переиспользование каталожных форм, четыре из них
+из строк, которые ещё не помечены готовыми: та же английская форма обязана
+показывать то же слово.
+
+| строка `branches` | английский оригинал | переиспользована из |
+| --- | --- | --- |
+| `default-branch-group` | Default Branch | `settings.git.tab-default-branch` (готова) |
+| `delete` | Delete… | `menu.delete-branch` |
+| `rename` | Rename… | `menu.rename-branch` |
+| `full-name` | Full Name: | `repositoriesList.fullNameLabel` |
+| `view-on-github` | View Branch on GitHub | `menu.branch-on-github` |
+| `view-pr-on-github` | View Pull Request on GitHub | `menu.view-pull-request` |
+| `copy-name` | Copy Branch Name | рамка `repositoriesList.copyRepoName` |
+| `createBranchShortcutProTip` | ProTip! Press <shortcut/> to quickly… | рамка `repositoriesList.proTip` |
+
+- Рамка `copy-name` взята из `repositoriesList.copyRepoName` («Copy Repo Name»):
+  клингонский `De' ngaSwI' pong yIwoH` → `bartIq pong yIwoH`, квенья
+  `Ovëantë i haurao essë` → `Ovëantë i olbao essë`. Дословно, вместе с дрейфом:
+  дамп boQwI' даёт `woH` = «pick up» (:5228), а не «copy», но форма уже стоит
+  в ГОТОВОЙ `tooltippedSha.copy` и во всей паре `menu.copy`, поэтому здесь она
+  обязана быть той же. Разнобой помечен в списке смысловых правок.
+- `last-modified` и `recent-branches-group` свелись к одному корню «последний»:
+  клингонский `Qav` = «final, be last» (дамп :2577 и :3993, v:is) даёт `Qavbogh
+  choH:` и `Qavbogh bartIqmey`; в квенья `metta` = «ending, end» (q, 9 форм) даёт
+  `Metta vistanë:` и `Metta olbi`. Вариант `lanéya` для «recent» отвергнут: в
+  Eldamo это наречие «recently, not long ago» с нулём форм, атрибутом оно не
+  стоит. Различим строки head-словом: «изменение» против «веток».
+- `other-branches-group`: клингонский `latlh` = «other one, additional one» —
+  `latlh bartIqmey` по образцу готового `latlh Hop DI'wI'`. В квенья вместо
+  каталожного `hya` взято `hyaitë` = «of other sort, of other kind» (nq, 5 форм):
+  `hya` по Eldamo — местоимение «other thing», атрибутом перед существительным
+  оно не стоит. Мн. число `olbi` взято из принятой `branchesContainerTabs.branchesTab`,
+  хотя в `openPullRequest.merge-status-clean` стоит `olbar` — разнобой помечен.
+- `checkout-in-new-worktree` = `chu' vumDaq yIwIv…` и `Á cilë i vinya
+  hauramarissë…`: локатив живёт на head-существительном (`vum`, `hauramar`), а не
+  на слове «новый» — то же правило, что сняло `chu'Daq` в группе `tutorial`.
+  Глаголы `wIv` для git-checkout и `cilë` для квенья уже стоят в готовом `checkout.*`.
+- «instead» в `createNewBranchInstead` не переведено ни в одном конланге, и это
+  не потеря, а каталожная норма: в принятой `addRepository.existing-repository-warning`
+  то же «instead» уже опущено (`De' ngaSwI'vam yIchel'a'?`), а `naDev` по дампу (:938, :2023)
+  значит «here, hereabouts» — ставить его ради «instead» значило бы добавить в
+  вопрос место, которого в оригинале нет. Квенья `Sís carë vinya olba?` держится
+  той же рамки, где `sís` уже закрывает «instead».
+- Подсказка `createBranchShortcutProTip` собрана рамкой `repositoriesList.proTip`:
+  `<shortcut/> yI'uy 'ej bartIq chu' 'e' chenmoH` и `<shortcut/> nirë na carë
+  vinya olba`. В обоих конлангах, как и в принятой рамке, опущены «quickly» и
+  «from anywhere within the app» — в рамке они не переносят ничего, кроме
+  вежливости; тег `<shortcut/>` сохранён, проверка разметки это и меряет.
+
+Замеры. Вставка: `apply_group.py` — «черновик: 15 | изменится: 15 | уже такие же: 0 |
+нет в каталоге: 0» в обоих каталогах, повторный сухой прогон — «изменится: 0 | уже
+такие же: 15», «формат воспроизведён байт-в-байт: OK», байты 180 006 и 181 048, CRLF
+4 017, одиночных переводов строки 0. Готовность: `ready_group.py` — 15 строк, дописано
+15, `meta.ready` стал 1 059; повторный прогон — «уже в ready 15, дописывается 0».
+`ready_check.py` — la и eo по 1 746, tlh и qya по 1 059, битых путей 0, пустых
+значений 0. Зонд клингонского по черновику ДО вставки — 44 слова, 0 находок; мера по
+каталогу — 6 049 слов против 6 005 на HEAD, неподтверждённых 0, множества находок
+совпадают → `IDENTICAL`. Зонд квенья — 49 токенов, 0 неподтверждённых; мера — 29
+уникальных находок и в дереве, и на HEAD → `IDENTICAL`, новых не добавлено.
+`markup_check_2010.py branches` — forms 15/15/15, findings=0. `yarn l10n:parity` —
+1 746 leaf-ключей, issues 0. `node script/i18n-freshness.mjs --untranslated tlh` и
+`qya` — 439 и 442 формы из 2 011 (на HEAD той же мерой 454 и 457): снято ровно по
+группе. `yarn test` по `menu-test.ts`, `l10n-test.ts` и `l10n-freshness-test.ts` — 69
+тестов, 69 пройдено, 0 падений (7 008.7 мс). `prettier --check` по обоим каталогам —
+rc=0, точечный `markdownlint` по этому дневнику и README — rc=0.
+
+Принятый остаток. Три осознанных подмены формы смыслу: `woH` («pick up») держится в
+`copy-name` ради готовой `tooltippedSha.copy`; «last» и «recent» закрыты одним корнем,
+потому что аттестованного прилагательного «recent» в списке нет; «instead» и «quickly»
+выпали из вопроса и подсказки по каталожной норме. Разнобой `olbi` против `olbar`
+остаётся в каталоге и чинится отдельной правкой, не в этой группе. GUI-приёмка
+недоступна: собранных каталогов в контейнере нет. Пуш и перезапуск джобы — за
+пользователем.
+
+Итог. Список веток закрыт: 15 форм в двух конлангах, готовность 1 059 строк, остаток —
+439 и 442 формы.
