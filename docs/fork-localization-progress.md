@@ -2421,3 +2421,106 @@ HEAD, новых 0, тоже `IDENTICAL`. `ready_check` — la и eo по 1 746,
 
 Итог. Диалог перезапуска проверок закрыт полностью: 17 форм в двух конлангах,
 готовность по 1 031 строке, остаток — 470 и 473 формы.
+
+## Финальный экран урока: 16 форм в двух конлангах (21.10.2026)
+
+Группа `tutorial` — 16 листовых форм в 13 строках: экран «урок закончен» с тремя
+предложениями, что делать дальше. Заголовок, текст и alt-иллюстрация читаются в
+`app/src/ui/tutorial/done.tsx:64`, `:65` и `:70`, три карточки — там же
+(`:75`–`:77`, `:83`–`:85`, `:91`–`:93`), а `openAtomSite` — в
+`app/src/ui/tutorial/tutorial-panel.tsx:145`. Форм больше, чем строк, потому что три
+кнопки несут платформенные варианты `@darwin` и `@other`, которые в английском
+различаются только регистром.
+
+Семь из шестнадцати форм закрыты дословным переиспользованием, как того вводит
+правило группы `contextMenu`: та же английская форма, уже переведённая в другой
+группе, обязана показывать то же слово, а не второй перевод.
+
+| строка `tutorial` | английский оригинал | переиспользована из |
+| --- | --- | --- |
+| `createTitle` | Create a new repository | `addRepository.create-new-repository` |
+| `createRepositoryButton` | Create Repository | `addRepository.create-repository-ok` |
+| `addRepositoryButton` | Add Repository | `addRepository.add-repository-ok` |
+| `openInBrowserButton` | Open in Browser | `notifications.openInBrowser` |
+| `openAtomSite` | Open the Atom website | `tutorialPanel.openEditorWebsite` |
+| `addTitle` (квенья) | Add a local repository | `menu.add-local-repository` |
+| `doneTitle` (клинг.) | You're done! | `welcome.finish` плюс `-pu'` из `ciCheckRunRerun` |
+
+- Клингонский `openAtomSite` = `Atom weQmoQnaQ 'e' yIpoSmoH` — та же рамка, что в
+  готовой `tutorialPanel.openEditorWebsite` (`{name} weQmoQnaQ 'e' yIpoSmoH`), где
+  подстановку заменило имя продукта. Квенья — `Apanta i Atamo natsemen` с
+  родительным `-o` у бренда, по образцу `i {name}o natsemen`.
+- Отказ от переиспользования ровно один, и он вынужденный: `menu.add-local-repository`
+  на клингонском стоит как `De' ngaSwI' lIj 'e' yIchel`, где раздельное `lIj` —
+  глагол «forget» (ek_dictionary:2733), а не притяжательный суффикс `-lIj` «твой».
+  Оба слова аттестованы по отдельности, поэтому мера форм на такую склейку молчит —
+  ловит только ручная сверка. Подпись `addTitle` собрана на каталожной идиоме
+  локатива `De'wI'lIjDaq` («в твоём хранилище») из `noRepositories.add-existing-repository`
+  и `noRepositories.create-new-repository`: `De'wI'lIjDaq De' ngaSwI' yIchel` —
+  «добавь репозиторий, который лежит в твоём хранилище». Разнобой между меню и этим
+  экраном остаётся и помечен вместе с `qem tlhob` против `Hoq tlhob`.
+- Прочие клингонские опоры: `rIn` «accomplished, be finished» (в дампе :72, в каталоге
+  уже стоит как `welcome.finish`), `tlhargh` «explore», `jInmol` «project» (в каталоге
+  `jInmolmeyvaD` из `welcome.start-description`), `ghaq` «contribute» (:1549),
+  `Daj` «be interesting», `tagh` «begin a process» (`tutorialPanel.getStarted` =
+  `DaH yItagh`), `vum` «toil, work» (:7206), `tu'lu'bogh` «который существует»
+  (`repositoriesList.addExistingRepository`), `nap` «be simple» для «basics»,
+  `ghoj` «learn» (:4033), `chup` «recommend, suggest»
+  (`multiCommit.copilotDialog.useCopilotSuggestion` = `Copilot chupbogh 'e' yIlo'`),
+  `veb` «be next (in a series, sequence)», `ghop` «hand» и `'ev` «applaud» — отсюда
+  `ghopmey 'evbogh` («руки, которые аплодируют») для alt-текста.
+- Пять ложных сборок сняла сама мера форм, и все пять — падежные: `GitHub'Daq`
+  (апостроф перед `-Daq` после брендового слова; каталог пишет `GitHubDaq` и
+  `DesktopDaq` без апострофа), `chu'Daq` (статив `chu'` «be new» не принимает именной
+  суффикс, форму переписали на `chu' jInmolDaq` — суффикс живёт на head-существительном,
+  как в `chu' De' ngaSwI' chenmoH`), `DajboghvaD` (падеж нельзя приклеить к основе с
+  относительным `-bogh`; правильно `Dajbogh jInmolvaD`), `chupbogh'mey` (множественное
+  принято только после номинализатора: `chupghachmey`), `yuhta'ghach`, `yuhta'ghachDaq`
+  и `yuhtahmeH` (номинализация «использование» из `yuhta-` меру не
+  устраивает). Из-за последнего «the basics on how to use GitHub Desktop» собрано без
+  подстановочного существительного: `GitHub Desktop Du' napbogh 'e' Daghojpu'` —
+  «ты выучил то, что в GitHub Desktop просто».
+- Квенья: «project» берут из глоссария и `welcome.start-description`, где оно уже стоит
+  как `veryande` с притяжанием (`i veryandelyar nanwa` — «твои существующие проекты»);
+  голое множественное `veryandi` собрано по образцу принятого `leryali`. «contribute» =
+  `ocar-` (глоссарий: «to cooperate, work together», «collaborator» = `ocaro`).
+  «explore» — аттестованное `cesta-` «to seek, search for», а не `rat-` «to explore»,
+  у которого в Eldamo ноль форм. «existing» = `nanwa` (q, 5 форм), «interesting» =
+  `cesyarëa` с дативом `lyëna` («которое тебе интересно»), «there are» = `ëa`
+  (q «to be, exist»; в каталоге `yá ëa raxëa carda`), «suggestion» = `menta`
+  (та же опора, что в Copilot-строке), «learned» = `parnë` от `par-` «to learn»,
+  «hands clapping» = `Mátar patahtar` (`má` «hand», 104 формы; `patahta-` «to clap»).
+  Рамка повелительного — `Á` плюс голое основание по образцу принятого `Á yesta`;
+  первая сборка была `Á ocarë` и переписана, потому что `Á` и `-ë` маркируют
+  наклонение дважды.
+
+Замеры. Вставка: `apply_group.py` — «черновик: 16 | изменится: 16 | уже такие же: 0 |
+нет в каталоге: 0» в обоих каталогах, повторный сухой прогон после записи —
+«изменится: 0 | уже такие же: 16», байты 179 523 и 180 566, CRLF 4 002 в обоих, одиночных
+переводов строки 0. Готовность: `ready_group.py` — 13 строк, дописано 13, в обоих
+каталогах `meta.ready` стал 1 044 строки; повторный прогон — «уже в ready 13,
+дописывается 0». `ready_check.py` — la и eo по 1 746, tlh и qya по 1 044, битых путей
+0, пустых значений 0. Мера клингонского — 6 005 слов против 5 952 на HEAD,
+неподтверждённых 0, множества находок совпадают → `IDENTICAL`. Мера квенья — 29
+уникальных находок и в рабочем дереве, и на HEAD → `IDENTICAL`; единственная находка
+этой группы — `browseralyassë`, она переиспользована из `notifications.openInBrowser`
+и уже входит в двадцать девять. `markup_check_2010.py tutorial` — forms 16/16/16,
+findings=0. `yarn l10n:parity` — 1 746 leaf-ключей в каждом из шести каталогов,
+issues 0. `node script/i18n-freshness.mjs --untranslated tlh` и `qya` — 454 и 457 форм
+из 2 011 (на HEAD той же мерой 470 и 473): снято ровно по группе, регрессии нет.
+`yarn test` по `menu-test.ts`, `l10n-test.ts` и `l10n-freshness-test.ts` — 69 тестов,
+69 пройдено, 0 падений (6 998.3 мс). `prettier --check` по обоим каталогам — rc=0,
+точечный `markdownlint` по этому дневнику и README — rc=0.
+
+Принятый остаток. Смысловые сжатия, которые ни одна мера форм не ловит: клингонское
+`Dajbogh jInmolvaD yIghaq` теряет «you» — статив `Daj` не принимает объектный префикс,
+поэтому «a project that interests you» читается как «проекту, который интересен»;
+`chu'` и `vinya` передают «brand new» без усиления; в квенья `Sina ëa lyëna mentali`
+не говорит, что предложения — про «следующее действие», аттестованного слова для
+«next» в этом значении в списке нет. Значение каждой подписи по-прежнему сверяют
+руками: обе меры проверяют форму слова, а не его соответствие английскому.
+GUI-приёмка недоступна: собранных каталогов в контейнере нет. Пуш и перезапуск джобы —
+за пользователем.
+
+Итог. Финальный экран урока закрыт полностью: 16 форм в двух конлангах, готовность по
+1 044 строке, остаток — 454 и 457 формы.

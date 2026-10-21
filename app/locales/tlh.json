@@ -1010,6 +1010,19 @@
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
       "tooltippedSha.copy",
+      "tutorial.addDescription",
+      "tutorial.addRepositoryButton",
+      "tutorial.addTitle",
+      "tutorial.createDescription",
+      "tutorial.createRepositoryButton",
+      "tutorial.createTitle",
+      "tutorial.doneImageAlt",
+      "tutorial.doneMessage",
+      "tutorial.doneTitle",
+      "tutorial.exploreDescription",
+      "tutorial.exploreTitle",
+      "tutorial.openAtomSite",
+      "tutorial.openInBrowserButton",
       "tutorialPanel.altChecklist",
       "tutorialPanel.createBranch",
       "tutorialPanel.defaultEditor",
@@ -3519,27 +3532,27 @@
     "button": "Revert progress button"
   },
   "tutorial": {
-    "doneTitle": "You're done!",
-    "exploreTitle": "Explore projects on GitHub",
-    "exploreDescription": "Contribute to a project that interests you",
-    "createTitle": "Create a new repository",
-    "createDescription": "Get started on a brand new project",
-    "addTitle": "Add a local repository",
-    "addDescription": "Work on an existing project in GitHub Desktop",
-    "openAtomSite": "Open the Atom website",
-    "doneMessage": "You’ve learned the basics on how to use GitHub Desktop. Here are some suggestions for what to do next.",
-    "doneImageAlt": "Hands clapping",
+    "doneTitle": "SoH rInpu'!",
+    "exploreTitle": "GitHubDaq jInmolmey yItlhargh",
+    "exploreDescription": "Dajbogh jInmolvaD yIghaq",
+    "createTitle": "De' ngaSwI' chu' yIchenmoH",
+    "createDescription": "chu' jInmolDaq yItagh",
+    "addTitle": "De'wI'lIjDaq De' ngaSwI' yIchel",
+    "addDescription": "GitHub DesktopDaq tu'lu'bogh jInmol 'e' yIvum",
+    "openAtomSite": "Atom weQmoQnaQ 'e' yIpoSmoH",
+    "doneMessage": "GitHub Desktop Du' napbogh 'e' Daghojpu'. vebbogh Du'vaD chupghachmey tu'lu'.",
+    "doneImageAlt": "ghopmey 'evbogh",
     "openInBrowserButton": {
-      "@darwin": "Open in Browser",
-      "@other": "Open in browser"
+      "@darwin": "leghwI'Daq yIpoSmoH",
+      "@other": "leghwI'Daq yIpoSmoH"
     },
     "createRepositoryButton": {
-      "@darwin": "Create Repository",
-      "@other": "Create repository"
+      "@darwin": "De' ngaSwI' yIchenmoH",
+      "@other": "De' ngaSwI' yIchenmoH"
     },
     "addRepositoryButton": {
-      "@darwin": "Add Repository",
-      "@other": "Add repository"
+      "@darwin": "De' ngaSwI' yIchel",
+      "@other": "De' ngaSwI' yIchel"
     }
   },
   "pushBranchCommits": {
