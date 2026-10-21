@@ -1027,6 +1027,14 @@
       "settings.tab.prompts",
       "settings.title",
       "shellError.title",
+      "signIn.browser-redirect-info",
+      "signIn.browser-title",
+      "signIn.continue",
+      "signIn.continue-with-browser",
+      "signIn.credential-helper-info",
+      "signIn.enterprise-address",
+      "signIn.existing-account-warning",
+      "signIn.title",
       "ssh.confirmConnect",
       "ssh.hostAuthenticity",
       "ssh.hostTitle",
@@ -1972,20 +1980,20 @@
     "drag-drop-hint": "<strong>ProTip!</strong> chenmoHpu'bogh De' ngaSwI' 'e' naDev bIHoqlaH 'ach bIchaghlaH, DesktopDaq yIchelmeH."
   },
   "signIn": {
-    "title": "Sign in",
+    "title": "yIngaQHa'moH",
     "browser-title": {
-      "@darwin": "Sign in Using Your Browser",
-      "@other": "Sign in using your browser"
+      "@darwin": "lIj leghwI' yIlo' 'ej yIngaQHa'moH",
+      "@other": "lIj leghwI' yIlo' 'ej yIngaQHa'moH"
     },
-    "continue": "Continue",
+    "continue": "yItaH",
     "continue-with-browser": {
-      "@darwin": "Continue With Browser",
-      "@other": "Continue with browser"
+      "@darwin": "lIj leghwI' yIlo' 'ej yItaH",
+      "@other": "lIj leghwI' yIlo' 'ej yItaH"
     },
-    "enterprise-address": "Enterprise address",
-    "browser-redirect-info": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop, please allow it.",
-    "existing-account-warning": "You're already signed in to <ref>{host}</ref> with the account <ref>{login}</ref>. If you continue, you will first be signed out.",
-    "credential-helper-info": "Git requesting credentials to access <ref>{url}</ref>."
+    "enterprise-address": "GitHub Enterprise URL",
+    "browser-redirect-info": "ngaQHa'moHpu', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'.",
+    "existing-account-warning": "<ref>{host}</ref>Daq bIngaQHa'moHpu' 'ej <ref>{login}</ref> mab Dalo'taH. bItaHchugh, wa'DIch bIngaQmoHlu'.",
+    "credential-helper-info": "<ref>{url}</ref> naw'meH ngoq tlhob Git."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",

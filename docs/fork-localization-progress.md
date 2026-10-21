@@ -3341,3 +3341,83 @@ parity issues 0, возврат 0. `--untranslated` той же мерой — t
 Итог. Экран аварии и нативный диалог неподвластной ошибки закрыты: 11 форм в двух конлангах,
 готовность каталогов выросла до 1 160 строк, остаток непереведённого — 317 и 320 форм из
 2 011; обе меры форм остались IDENTICAL.
+
+## Экран входа: 11 форм в двух конлангах (21.10.2026)
+
+Группа `signIn` — 11 листовых форм в 10 ключах: `title`, пары `browser-title` и
+`continue-with-browser` с `@darwin`/`@other`, которые различаются только регистром первой
+буквы, `continue`, `enterprise-address`, `browser-redirect-info`,
+`existing-account-warning` и `credential-helper-info`. Ключи живут в
+`app/src/ui/sign-in/sign-in.tsx` (`:37`, `:118`, `:123`, `:152`, `:170`, `:194`, `:245`,
+`:246`), общая форма — в `app/src/ui/lib/sign-in.tsx:43` и
+`app/src/ui/lib/authentication-form.tsx:47`.
+
+- `browser-redirect-info` переиспользует ГОТОВУЮ `authentication.browserRedirect`
+  побайтово в обоих каталогах: английские тексты расходятся только порядком фраз, а
+  перевод уже прошёл приёмку. `title` и `continue` тоже взяты из готовых строк: клин.
+  `yIngaQHa'moH` (`publish.sign-in`) и `yItaH` (`reset.continue`), кв. `Tulë`
+  (`welcome.sign-in-to-github-com`) и `Cacara` (`reset.continue`).
+- «using your browser» собирается из готовых кусков каталога: клин.
+  `lIj leghwI' yIlo' 'ej …` — `lIj leghwI'` («your browser») и `yIlo'` («use it») стоят
+  в готовой `authentication.browserRedirect`; кв. `i browseralyassë` — из готовой
+  `changes.view-on-github-title`. Форма `browseralyassë` не аттестована Eldamo и входит
+  в унаследованные 29 находок меры; повтор её не удваивает.
+- `enterprise-address` — подпись поля ввода того же адреса, поэтому взята дословная
+  готовая `enterprise.addressLabel` = `GitHub Enterprise URL`, а не собрана заново.
+- «signed in to host with the account login»: клин. `<ref>{host}</ref>Daq
+  bIngaQHa'moHpu' 'ej <ref>{login}</ref> mab Dalo'taH.` — локатив `-Daq` после парного
+  тега с плейсхолдером взят побайтово из готовой
+  `addRepository.repository-will-be-created` (`<ref>{path}</ref>Daq chenlu'`);
+  `ngaQHa'moH` — «log in, sign in» (дамп, v:t_c), `mab` — «account» (в дампе есть
+  омоним «treaty», он не выбран), `Dalo'taH` = `lo'` («use») + `-taH`; `bItaHchugh`
+  = `taH` («continue») + `-chugh` («if»), `wa'DIch` — «first»; «you will be signed
+  out» — `bIngaQmoHlu'` на готовой основе `yIngaQmoH` (`settings.accounts.sign-out`).
+  Кв. `Tensi tyulë i <ref>{host}</ref>essë, ar i essëlya ná <ref>{login}</ref>.` —
+  `tensi` («already», готовые `createBranch.branch-exists-error` и др.), `tyulë` —
+  готовая форма «you come» из `authentication.browserRedirect`, `essë` — «name,
+  account» (21 форма), `essëlya` — `-lya` («your»), локатив `ssë` после парного тега по
+  готовой `missingRepository.unsafeRepository`; продолжение — `Yá cacarë, minyallumë
+  autuvalyë` (`auta-` «leave», 48 форм; `minyallumë` — nq «firstly»).
+- `credential-helper-info`: клин. `<ref>{url}</ref> naw'meH ngoq tlhob Git.` — рамка цели
+  `XmeH` из `appError.*`, `naw'` подтверждён дампом как глагол «access», `ngoq` — «code»
+  (омоним `ngoQ` «goal» не выбран), `tlhob` — «ask, request»; кв. `Git mansëa i tengwë na
+  latya <ref>{url}</ref>.` — `mansëa` и `latya` стоят в готовых строках, `tengwë` —
+  «sign, token» (25 форм), `na` — «to».
+
+Замеры. Вставка: «черновик: 10 | изменится: 10 | уже такие же: 0 | нет в каталоге: 0» в
+обоих — 10 ключей дают 11 форм; повторный сухой прогон — «изменится: 0 | уже такие же: 10»
+при «формат воспроизведён байт-в-байт: OK». Байты сняты ПОСЛЕ дописывания готовности:
+183 622 (tlh) и 185 037 (qya), CRLF 4 126 в обоих, одиночных переводов строки 0.
+Готовность: `ready_group.py` — 8 строк группы, дописано 8, `meta.ready` вырос с 1 160 до
+1 168; `ready_check.py` — la и eo по 1 746, tlh и qya по 1 168, битых путей 0, путей-форм 0,
+путей-узлов 0, пустых значений 0. Зонды черновика до вставки: клингонский 53 слова / 0
+неподтверждённых, квенья 52 токена / 4 находки — все четыре `browseralyassë`, унаследованная
+готовая форма. Меры форм приёмки: клингонский 6 677 слов / 0 находок против HEAD 6 631 / 0 —
+вердикт IDENTICAL; квенья 7 480 слов / 29 уникальных находок против HEAD 7 480 / 29 — те же
+29, вердикт IDENTICAL. `tlh_order_check.py tlh` — 0 нарушений порядка (4 154 леммы boQwI',
+2 222 слова каталога, 886 чистых, 1 248 без членения). `markup_check_2010.py signIn` —
+forms 10/10/10, findings=0, вердикт MARKUP GATE OK. `l10n:parity` — 1 746 листовых ключей в
+каждом из семи каталогов, parity issues 0, возврат 0. `--untranslated` — tlh 307 и qya 310
+форм из 2 011 против 317 и 320 на HEAD, сдвиг ровно на эту группу. `prettier` 2.6.0 —
+`--check` на обоих каталогах: «All matched files use Prettier code style!», rc=0.
+`yarn test` в контейнере `gdlab` — 2 503 теста, 2 501 pass, 0 fail, 2 skipped, 242 640 мс;
+`markdownlint-cli` 0.41.1 с `--config .markdownlint.js --rules .markdownlint-rules.js` по
+README и дневнику — rc=0 (мера контролировалась посаженным файлом с MD018/MD041, rc=1).
+
+Принятый остаток. Лексических провалов группа не добавила: все спорные места собраны из
+готовых строк каталога. Смысловые ослабления: `mab` в клингонском — «account», но у слова
+есть омоним «treaty, agreement», который в дампе идёт первым — ловушка первой глоссы
+обойдена явным выбором записи; `ngoq` — «code», а не «credentials» в буквальном смысле,
+поэтому «credentials» сведено к коду, как уже сделано в готовой `invalidatedToken.message`
+(`mab ngoq`). В квенья «you will be signed out» передано активным `autuvalyë` («you will
+leave»): пассивной формы будущего в словаре нет, а `auta-` — единственный аттестованный
+глагол ухода (48 форм). `minyallumë` — nq-запись с одной формой, сильной опоры «firstly» в
+лексиконе нет. Квенья `essë` каталог уже несёт в значении «account»
+(`account-picker.account`, `testTokenExpirationDialog.account`), здесь это же значение.
+`browseralyassë` остаётся унаследованной неподтверждённой формой — она входит в 29 находок
+HEAD и повторена намеренно, чтобы не расходиться с готовой `changes.view-on-github-title`.
+GUI-приёмка недоступна: собранных каталогов нет. Пуш — за пользователем.
+
+Итог. Экран входа и форма аутентификации закрыты: 11 форм в двух конлангах, готовность
+каталогов выросла до 1 168 строк, остаток непереведённого — 307 и 310 форм из 2 011; обе
+меры форм остались IDENTICAL, группа не добавила ни одной новой неподтверждённой формы.

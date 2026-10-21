@@ -1027,6 +1027,14 @@
       "settings.tab.prompts",
       "settings.title",
       "shellError.title",
+      "signIn.browser-redirect-info",
+      "signIn.browser-title",
+      "signIn.continue",
+      "signIn.continue-with-browser",
+      "signIn.credential-helper-info",
+      "signIn.enterprise-address",
+      "signIn.existing-account-warning",
+      "signIn.title",
       "ssh.confirmConnect",
       "ssh.hostAuthenticity",
       "ssh.hostTitle",
@@ -1972,20 +1980,20 @@
     "drag-drop-hint": "<strong>ProTip!</strong> tulya sina haura colca, yanta GitHub Desktop"
   },
   "signIn": {
-    "title": "Sign in",
+    "title": "Tulë",
     "browser-title": {
-      "@darwin": "Sign in Using Your Browser",
-      "@other": "Sign in using your browser"
+      "@darwin": "Tulë i browseralyassë",
+      "@other": "Tulë i browseralyassë"
     },
-    "continue": "Continue",
+    "continue": "Cacara",
     "continue-with-browser": {
-      "@darwin": "Continue With Browser",
-      "@other": "Continue with browser"
+      "@darwin": "Cacara i browseralyassë",
+      "@other": "Cacara i browseralyassë"
     },
-    "enterprise-address": "Enterprise address",
-    "browser-redirect-info": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop, please allow it.",
-    "existing-account-warning": "You're already signed in to <ref>{host}</ref> with the account <ref>{login}</ref>. If you continue, you will first be signed out.",
-    "credential-helper-info": "Git requesting credentials to access <ref>{url}</ref>."
+    "enterprise-address": "GitHub Enterprise URL",
+    "browser-redirect-info": "i browser sina lelyuva lyë enta i GitHub Desktopanna yá tyulë. yá i browser sina mansëa i lávë itan latya i GitHub Desktop, anta i lávë.",
+    "existing-account-warning": "Tensi tyulë i <ref>{host}</ref>essë, ar i essëlya ná <ref>{login}</ref>. Yá cacarë, minyallumë autuvalyë.",
+    "credential-helper-info": "Git mansëa i tengwë na latya <ref>{url}</ref>."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",
