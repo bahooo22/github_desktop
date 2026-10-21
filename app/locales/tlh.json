@@ -38,6 +38,13 @@
       "about.upstream-behind",
       "about.version",
       "account-picker.account",
+      "addWorktreeDialog.branchNameLabel",
+      "addWorktreeDialog.createWorktree",
+      "addWorktreeDialog.title",
+      "addWorktreeDialog.willCheckOutExistingBranch",
+      "addWorktreeDialog.willCheckOutRemoteBranch",
+      "addWorktreeDialog.worktreeNameLabel",
+      "addWorktreeDialog.worktreeWillBeCreated",
       "app.current-repository",
       "app.no-repositories",
       "app.no-repository-selected",
@@ -3908,24 +3915,24 @@
     "exitFullscreen": "<shortcut/> 'e' yIlo', jIH Hoch 'e' yI'elHa'"
   },
   "addWorktreeDialog": {
-    "willCheckOutRemoteBranch": "Will check out remote branch <ref>{branch}</ref>.",
-    "willCheckOutExistingBranch": "Will check out existing branch <ref>{branch}</ref>.",
-    "worktreeWillBeCreated": "Worktree will be created at <ref>{path}</ref>.",
+    "willCheckOutRemoteBranch": "HopwI'Daq bartIq <ref>{branch}</ref> wIvlu'.",
+    "willCheckOutExistingBranch": "tu'lu'bogh bartIq <ref>{branch}</ref> wIvlu'.",
+    "worktreeWillBeCreated": "vum <ref>{path}</ref>Daq chenlu'.",
     "title": {
-      "@darwin": "Add Worktree",
-      "@other": "Add worktree"
+      "@darwin": "vum 'e' yIchel",
+      "@other": "vum 'e' yIchel"
     },
     "worktreeNameLabel": {
-      "@darwin": "Worktree Name",
-      "@other": "Worktree name"
+      "@darwin": "vum pong",
+      "@other": "vum pong"
     },
     "branchNameLabel": {
-      "@darwin": "Branch Name",
-      "@other": "Branch name"
+      "@darwin": "bartIq pong",
+      "@other": "bartIq pong"
     },
     "createWorktree": {
-      "@darwin": "Create Worktree",
-      "@other": "Create worktree"
+      "@darwin": "vum 'e' chenmoH",
+      "@other": "vum 'e' chenmoH"
     }
   },
   "updateBranch": {

@@ -38,6 +38,13 @@
       "about.upstream-behind",
       "about.version",
       "account-picker.account",
+      "addWorktreeDialog.branchNameLabel",
+      "addWorktreeDialog.createWorktree",
+      "addWorktreeDialog.title",
+      "addWorktreeDialog.willCheckOutExistingBranch",
+      "addWorktreeDialog.willCheckOutRemoteBranch",
+      "addWorktreeDialog.worktreeNameLabel",
+      "addWorktreeDialog.worktreeWillBeCreated",
       "app.current-repository",
       "app.no-repositories",
       "app.no-repository-selected",
@@ -3908,24 +3915,24 @@
     "exitFullscreen": "Nirë i <shortcut/>, itan lelyë i fanwallo"
   },
   "addWorktreeDialog": {
-    "willCheckOutRemoteBranch": "Will check out remote branch <ref>{branch}</ref>.",
-    "willCheckOutExistingBranch": "Will check out existing branch <ref>{branch}</ref>.",
-    "worktreeWillBeCreated": "Worktree will be created at <ref>{path}</ref>.",
+    "willCheckOutRemoteBranch": "I palan olba <ref>{branch}</ref> nauva cilina.",
+    "willCheckOutExistingBranch": "I nanwa olba <ref>{branch}</ref> nauva cilina.",
+    "worktreeWillBeCreated": "Hauramar nauva carina <ref>{path}</ref>ssë.",
     "title": {
-      "@darwin": "Add Worktree",
-      "@other": "Add worktree"
+      "@darwin": "Yanta i hauramar",
+      "@other": "Yanta i hauramar"
     },
     "worktreeNameLabel": {
-      "@darwin": "Worktree Name",
-      "@other": "Worktree name"
+      "@darwin": "I hauramaro essë",
+      "@other": "I hauramaro essë"
     },
     "branchNameLabel": {
-      "@darwin": "Branch Name",
-      "@other": "Branch name"
+      "@darwin": "I olbao essë",
+      "@other": "I olbao essë"
     },
     "createWorktree": {
-      "@darwin": "Create Worktree",
-      "@other": "Create worktree"
+      "@darwin": "Carë i hauramar",
+      "@other": "Carë i hauramar"
     }
   },
   "updateBranch": {
