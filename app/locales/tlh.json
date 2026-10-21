@@ -382,6 +382,13 @@
       "invalidatedToken.no",
       "invalidatedToken.title",
       "invalidatedToken.yes",
+      "lfs.attributeMismatch.message",
+      "lfs.attributeMismatch.title",
+      "lfs.attributeMismatch.update",
+      "lfs.initialize.many-repositories",
+      "lfs.initialize.ok",
+      "lfs.initialize.title",
+      "lfs.notNow",
       "localChangesOverwritten.action.checkout",
       "localChangesOverwritten.action.cherryPick",
       "localChangesOverwritten.action.clone",
@@ -2548,26 +2555,26 @@
   "lfs": {
     "attributeMismatch": {
       "title": {
-        "@darwin": "Update Existing Git LFS Filters?",
-        "@other": "Update existing Git LFS filters?"
+        "@darwin": "tu'lu'bogh Git LFS QIbmey 'e' yIchoH?",
+        "@other": "tu'lu'bogh Git LFS QIbmey 'e' yIchoH?"
       },
       "update": {
-        "@darwin": "Update Existing Filters",
-        "@other": "Update existing filters"
+        "@darwin": "tu'lu'bogh QIbmey 'e' yIchoH",
+        "@other": "tu'lu'bogh QIbmey 'e' yIchoH"
       },
-      "message": "Git LFS filters are already configured in <config>your global git config</config> but are not the values it expects. Would you like to update them now?"
+      "message": "<config>lIj git pat De' HochDaq</config> Git LFS QIbmey ghunlu'pu', pagh motlh tu'qommey 'oHbe'. DaH yIchoH DaneH'a'?"
     },
     "initialize": {
-      "ok": "Initialize Git LFS",
-      "title": "Initialize Git LFS",
+      "ok": "Git LFS 'e' yItagh",
+      "title": "Git LFS 'e' yItagh",
       "many-repositories": {
-        "_one": "{count:number} repository uses <lfs>Git LFS</lfs>. To contribute to it, Git LFS must first be initialized. Would you like to do so now?",
-        "_other": "{count:number} repositories use <lfs>Git LFS</lfs>. To contribute to them, Git LFS must first be initialized. Would you like to do so now?"
+        "_one": "{count:number} De' ngaSwI' <lfs>Git LFS</lfs> ghaj. jIghaqmeH, Git LFS 'e' wa'DIch taghnISlu'. DaH DaneH'a'?",
+        "_other": "{count:number} De' ngaSwI'pu' <lfs>Git LFS</lfs> ghaj. jIghaqmeH, Git LFS 'e' wa'DIch taghnISlu'. DaH DaneH'a'?"
       }
     },
     "notNow": {
-      "@darwin": "Not Now",
-      "@other": "Not now"
+      "@darwin": "DaH 'oHbe'",
+      "@other": "DaH 'oHbe'"
     }
   },
   "mergeConflicts": {

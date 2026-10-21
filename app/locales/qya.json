@@ -382,6 +382,13 @@
       "invalidatedToken.no",
       "invalidatedToken.title",
       "invalidatedToken.yes",
+      "lfs.attributeMismatch.message",
+      "lfs.attributeMismatch.title",
+      "lfs.attributeMismatch.update",
+      "lfs.initialize.many-repositories",
+      "lfs.initialize.ok",
+      "lfs.initialize.title",
+      "lfs.notNow",
       "localChangesOverwritten.action.checkout",
       "localChangesOverwritten.action.cherryPick",
       "localChangesOverwritten.action.clone",
@@ -2548,26 +2555,26 @@
   "lfs": {
     "attributeMismatch": {
       "title": {
-        "@darwin": "Update Existing Git LFS Filters?",
-        "@other": "Update existing Git LFS filters?"
+        "@darwin": "Á enhanya i nanwa Git LFS siltyar?",
+        "@other": "Á enhanya i nanwa Git LFS siltyar?"
       },
       "update": {
-        "@darwin": "Update Existing Filters",
-        "@other": "Update existing filters"
+        "@darwin": "Á enhanya i nanwa siltyar",
+        "@other": "Á enhanya i nanwa siltyar"
       },
-      "message": "Git LFS filters are already configured in <config>your global git config</config> but are not the values it expects. Would you like to update them now?"
+      "message": "<config>i ambarya Git partië</config> harya tensi i Git LFS siltyar, ar i Git LFS lá harya i siltyar sina. Sáquetatya enhanya i siltyar síra?"
     },
     "initialize": {
-      "ok": "Initialize Git LFS",
-      "title": "Initialize Git LFS",
+      "ok": "Á yesta i Git LFS",
+      "title": "Á yesta i Git LFS",
       "many-repositories": {
-        "_one": "{count:number} repository uses <lfs>Git LFS</lfs>. To contribute to it, Git LFS must first be initialized. Would you like to do so now?",
-        "_other": "{count:number} repositories use <lfs>Git LFS</lfs>. To contribute to them, Git LFS must first be initialized. Would you like to do so now?"
+        "_one": "ëa {count:number} haura i harya <lfs>Git LFS</lfs>. I Git LFS maura yesta, itan lyë anta i hauranna. Sáquetatya yesta síra?",
+        "_other": "ëa {count:number} haurar i harya <lfs>Git LFS</lfs>. I Git LFS maura yesta, itan lyë anta i haurannar. Sáquetatya yesta síra?"
       }
     },
     "notNow": {
-      "@darwin": "Not Now",
-      "@other": "Not now"
+      "@darwin": "Lá síra",
+      "@other": "Lá síra"
     }
   },
   "mergeConflicts": {
