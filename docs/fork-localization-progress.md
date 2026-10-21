@@ -2769,3 +2769,75 @@ GUI-приёмка недоступна: собранных каталогов �
 
 Итог. Диалог «сначала отправь» закрыт: 15 форм в двух конлангах, готовность 1 082 строки,
 остаток — 409 и 412 формы из 2 011.
+
+## Панель выбранных коммитов: 14 форм в двух конлангах (21.10.2026)
+
+Группа `selectedCommits` — 14 листовых форм в 12 строках: подсказка панели, которая
+появляется вместо диффа, когда в списке истории выбрано несколько коммитов
+(`app/src/ui/history/selected-commits.tsx:358`–`:364`, `:391`), и диалог «схлопнуть
+коммиты» (`app/src/ui/history/compare.tsx:715`, `:718`). Две формы — платформенные
+варианты `fileDoesNotExistOnDisk`, две — плюрал `squashCommits`.
+
+Семь из четырнадцати — дословное или рамочное переиспользование:
+
+| строка `selectedCommits` | английский оригинал | переиспользована из |
+| --- | --- | --- |
+| `fileDoesNotExistOnDisk` | File does not exist on disk | `openPullRequest.file-does-not-exist` (готова) |
+| `noCommitSelected` | No commit selected | рамка `app.no-repository-selected` |
+| `noFileSelected` | No file selected | та же рамка |
+| `fileListDescription` | Selected commit file list | `openPullRequest.file-list-description` |
+| `squashCommits` | Squash {count} Commit(s) | `commitList.squashCommits` |
+| `dragToCherryPick` | …cherry-pick them | `multiCommit.cherryPick.*` (`yIwoH` / `ciliérta`) |
+| `dragToSquashOrReorder` | …squash or reorder… | `multiCommit.operation.*` (`tap`/`malë`, `QurchoH`/`enparta`) |
+
+- «Unable to …» собрано двумя готовыми рамками: клингонский `XlaHbe'`
+  (`history.cannotSquash` = `TaplaHbe'.`, `multiCommit.copilotChanges.unableToLoadDiff` =
+  `De'vam ghaj pIm 'e' HaDlaHbe'.`), квенья `Lá cárima X` (`Lá cárima malë`,
+  `lá cárima lucë i vëtië`). Отсюда клингонское `pIm 'e' leghlaHbe'` для «display diff» —
+  `pIm` уже стоит в каталоге как «diff», а `legh` — «смотреть».
+- «Подряд» в клингонском опирается на `veb` («be next in a series, sequence»):
+  `choH vemmey vebbe'bogh 'oH wIvlu'bogh` — «выбраны коммиты, которые не идут подряд».
+  В квенья аттестованного слова нет: `hilista` («sequence», nq) — ноль форм, поэтому
+  строка схлопнута до `yá cilienë ilya minatacë` — «когда выбрано много коммитов».
+  «Единый» квенья взяла из сильной опоры: `er` («one, alone», q, 18 форм) —
+  `Cilë minatacë er, hya cilë minatacëar`.
+- «Right click» потерян в обоих конлангах сознательно: в дампе нет слова для «правый»
+  (запросы «on the right», «right side» — ноль записей), в Eldamo «right hand» — ноль
+  записей. Клингонский взял готовый глагол прикосновения из `localizationEditor.readyHint`
+  (`je yIHot`), квенья — готовый глагол нажатия из той же строки (`Á nirë …`), и к нему
+  добавлено `i cilmëar` («варианты выбора»). Дамп даёт `rIS` = «click» (:1282), но это
+  существительное, а не глагол.
+- «You can:» — заголовок списка, и в обоих конлангах он короче оригинала: клингонский
+  `bIlo'laH:` («можете воспользоваться») по рамке `yIlo'`/`bI…laH` из
+  `multiCommit.warnForcePush` и `tutorialPanel.createBranch` (`bIvumlaH`), квенья —
+  `Lyë ista:` дословно из готовой `changes.publish-repo-description` (`lyë ista estatë`).
+- Клингонский `qawHaqDaq De' tu'lu'be'` и квенья `I cómi lá ëa i cómissen` перенесены в
+  обе платформы без правки — форма уже помечена готовой в `openPullRequest`.
+
+Замеры. Вставка: `apply_group.py` — «черновик: 14 | изменится: 14 | уже такие же: 0 | нет
+в каталоге: 0» в обоих каталогах, повторный сухой прогон после готовности — «изменится: 0
+| уже такие же: 14» и «формат воспроизведён байт-в-байт: OK», байты 181 250 и 182 428,
+CRLF 4 052, одиночных переводов строки 0. Готовность: `ready_group.py` — 12 строк,
+дописано 12, `meta.ready` стал 1 094; повторный прогон — «уже в ready 12, дописывается 0».
+`ready_check.py` — la и eo по 1 746, tlh и qya по 1 094, битых путей 0, пустых значений 0.
+Зонды ДО вставки: клингонский 71 слово / 0 находок, квенья 78 токенов / 0 неподтверждённых.
+Меры по каталогу: клингонский 6 310 слов против 6 241 на HEAD, неподтверждённых 0,
+множества находок совпадают → `IDENTICAL`; квенья — 29 уникальных находок и в дереве, и на
+HEAD → `IDENTICAL`. `tlh_order_check.py tlh` — нарушений порядка 0.
+`markup_check_2010.py selectedCommits` — forms 14/14/14, findings=0. `yarn l10n:parity` —
+1 746 leaf-ключей, issues 0. `node script/i18n-freshness.mjs --untranslated tlh` и `qya` —
+395 и 398 формы из 2 011 (на HEAD той же мерой 409 и 412): снято ровно по группе.
+`yarn test` по `menu-test.ts`, `l10n-test.ts` и `l10n-freshness-test.ts` — 69 тестов,
+69 пройдено, 0 падений (6 985.9 мс). `prettier --check` по обоим каталогам — rc=0,
+точечный `markdownlint` по этому дневнику и README — rc=0.
+
+Принятый остаток. Четыре сжатия: «right» в `rightClickForOptions` потерян (ни один
+первичный источник не даёт слова для «правый»), «non-consecutive» в квенья схлопнуто до
+«нескольких выбранных коммитов», `pIm` держит и «diff», и «отличие» — словарь их не
+разделяет, а `bIlo'laH:` и `Lyë ista:` теряют перечисление, которое оригинал обещает
+двоеточием. Прежние разнобои (`olbi` против `olbar`, `woH` в роли «copy», раздельное `lIj`
+в `menu.add-local-repository`) группа не усиливает. GUI-приёмка недоступна: собранных
+каталогов в контейнере нет. Пуш и перезапуск джобы — за пользователем.
+
+Итог. Панель выбранных коммитов закрыта: 14 форм в двух конлангах, готовность 1 094
+строки, остаток — 395 и 398 формы из 2 011.
