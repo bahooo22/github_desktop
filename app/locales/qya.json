@@ -1158,6 +1158,14 @@
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
+      "tutorialWelcome.altCloud",
+      "tutorialWelcome.altCode",
+      "tutorialWelcome.altTeam",
+      "tutorialWelcome.desktopDefinition",
+      "tutorialWelcome.gitDefinition",
+      "tutorialWelcome.githubDefinition",
+      "tutorialWelcome.intro",
+      "tutorialWelcome.title",
       "unreachableCommits.learnMore",
       "unreachableCommits.reachableTab",
       "unreachableCommits.title",
@@ -3278,14 +3286,14 @@
     "or": "or"
   },
   "tutorialWelcome": {
-    "title": "Welcome to GitHub Desktop",
-    "intro": "Use this tutorial to get comfortable with Git, GitHub, and GitHub Desktop.",
-    "gitDefinition": "<strong>Git</strong> is the version control system.",
-    "githubDefinition": "<strong>GitHub</strong> is where you store your code and collaborate with others.",
-    "desktopDefinition": "<strong>GitHub Desktop</strong> helps you work with GitHub locally.",
-    "altCode": "Html syntax icon",
-    "altTeam": "People with discussion bubbles overhead",
-    "altCloud": "Server stack with cloud"
+    "title": "alla GitHub Desktop",
+    "intro": "Yuhta i parandë sina, itan nolya Git, GitHub ar GitHub Desktop.",
+    "gitDefinition": "<strong>Git</strong> ná i leriëo mahtië nostalë.",
+    "githubDefinition": "<strong>GitHub</strong> ná i nómë ya rehta i tengwesta ar ocarë hyaquen.",
+    "desktopDefinition": "<strong>GitHub Desktop</strong> alya lyë mólë ar GitHub arëa haurassëlya.",
+    "altCode": "i Html tengwesta airemma",
+    "altTeam": "i queni quetir, i quettar or i carya",
+    "altCloud": "i lumë ar i veumar"
   },
   "copilotByokProvider": {
     "providerLegend": "Antindo",

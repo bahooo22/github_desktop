@@ -3652,3 +3652,75 @@ different place» (`ná nómëssë hyanya`): глагола «point» в Eldamo 
 Итог. Диалог существующего upstream закрыт: 8 форм в двух конлангах, готовность
 каталогов выросла до 1 188 строк, остаток непереведённого — 282 и 285 формы из 2 011;
 обе меры форм остались IDENTICAL.
+
+## Экран приветствия туториала: 8 форм в двух конлангах (21.10.2026)
+
+Группа `tutorialWelcome` — вводный экран туториала: 8 строк в 8 ключах, из них три
+определения с парным тегом `<strong>` и три alt-текста иконок. Ключи живут в
+`app/src/ui/tutorial/welcome.tsx` (`:21`, `:22`, `:26`, `:28`, `:32`, `:34`,
+`:38`, `:40`).
+
+- `title`: клин. `GitHub Desktop 'e' pe'vIl Supaw'jaj!` и кв. `alla GitHub Desktop` —
+  побайтово готовые `welcome.aria` (в `welcome.title` та же фраза с `<span>`).
+- `intro`: клин. `Git, GitHub, GitHub Desktop je yIghojmeH, ghojmeH mIwvam yIlo'.` —
+  `ghojmeH mIw` («tutorial») из готовой `noRepositories.add-repository-hint`,
+  `vam` приклеен к существительному, как в готовых `De' ngaSwI'vam` и `choH vemvam`
+  (отдельным словом зонд `vam` не подтверждает); кв. `Yuhta i parandë sina, itan
+  nolya Git, GitHub ar GitHub Desktop.` — `parandë` («lesson») из готовой
+  `noRepositories.add-repository-hint`, `nolya` — из `Nolya pá`.
+- `gitDefinition`: клин. `<strong>Git</strong> 'oH nIqHom mI'mey SeHwI' pat.` —
+  `nIqHom mI'` («version number») из готовой `about.version`, `SeH` («control»,
+  дамп) + `-wI'`, `pat` («system»); кв. `<strong>Git</strong> ná i leriëo mahtië
+  nostalë.` — `lerië` из готовой `about.version`, `mahtië` от `mahta-`
+  («control», Eldamo, 21 форма), `nostalë` — модель `nostalië`.
+- `githubDefinition`: клин. `<strong>GitHubDaq</strong> ngoq Dapol 'ej latlhpu'
+  bIyeqlaH.` — `ngoq` («code»), `pol` («store»), `yeq` («cooperate», готовая
+  `yeqmeH`); локатив перенесён ВНУТРЬ тега (`markup_check` поймал
+  `GLUED ('strong','Daq')`), как в готовой `changes.avatar.warning-header`. Кв.
+  `<strong>GitHub</strong> ná i nómë ya rehta i tengwesta ar ocarë hyaquen.` —
+  `tengwesta` — готовая «code» (`Code completions`), `rehta` — готовая «save»,
+  `ocarë` и `hyaquen` — готовые.
+- `desktopDefinition`: клин. `<strong>GitHub Desktop</strong> De'wI'lIjDaq GitHub
+  Dalo'meH QaH.` — `De'wI'lIjDaq` («locally») из готовой
+  `deleteBranch.remote-only-warning`, `QaH` («help») из готовой `menu.help`;
+  кв. `<strong>GitHub Desktop</strong> alya lyë mólë ar GitHub arëa haurassëlya.` —
+  `alya` («help») из готовой `settings.git.hooks-cache-env-description`, `mólë`
+  («work») из `welcome.start-description`, `arëa haurassëlya` — готовая модель
+  `i arëa haurassë` + `i haurassëlya`.
+- `altCode`, `altTeam`, `altCloud`: alt-тексты описаны по сцене иконки, как готовая
+  `tutorial.doneImageAlt` («Hands clapping» → `ghopmey 'evbogh` / `Mátar patahtar`).
+  Клин. `Html pab vo'nIng` (`pab` — «grammar/syntax», `vo'nIng` — «icon» из
+  `iconPreview.title`); `nuvpu' nachDaq jatlhmeH ba'Suqmey` (`ba'Suq` — «bubble»,
+  дамп, `jatlh` — «speak»); `'eng je tIrbogh turwI'mey` (`'eng` — «cloud», `turwI'` —
+  «server», `tIr` — «be stacked»). Кв. `i Html tengwesta airemma` (`airemma` —
+  «icon» из `iconPreview.title`), `i queni quetir, i quettar or i carya`,
+  `i lumë ar i veumar` (`veuma` — «server», Eldamo nq, 0 форм; мн. `veumar`
+  разрешено зондом).
+
+Замеры. Вставка: «черновик: 8 | изменится: 8 | уже такие же: 0 | нет в каталоге: 0»
+в обоих; повторный прогон после правки разметки — «изменится: 1 | уже такие же: 7».
+Первый `markup_check_2010.py` поймал `GLUED tlh githubDefinition
+[('strong','Daq')]` — findings=1, MARKUP GATE MISMATCH; после переноса `Daq` внутрь
+тега — forms 8/8/8, findings=0, MARKUP GATE OK. Байты сняты ПОСЛЕ дописывания
+готовности и правки: 184 378 (tlh) и 185 947 (qya), CRLF 4 154 в обоих, одиночных
+переводов строки 0. Готовность: 8 строк, `meta.ready` 1 188 → 1 196;
+`ready_check.py` — битых путей 0. Зонды: клингонский 43 слова / 0 находок, квенья
+45 токенов / 0 находок. Меры форм приёмки: клингонский 6 814 слов / 0 находок
+против HEAD 6 782 / 0 — вердикт IDENTICAL; квенья 29 против HEAD 29 — те же 29,
+IDENTICAL. `tlh_order_check.py` — 0 нарушений порядка (4 154 леммы boQwI',
+2 207 слов каталога, 904 чистых, 1 215 без членения). `--untranslated` — tlh 274 и
+qya 277 формы из 2 011 против 282 и 285 на HEAD, сдвиг ровно на эту группу.
+Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (254 834 мс)
+
+Принятый остаток. Слова «syntax» нет ни в дампе boQwI' (запрос по глоссе даёт 0),
+ни отдельной записью в Eldamo: клин. `pab` — «grammar», кв. `tengwesta` — готовая
+«code» (`Code completions`), она же передаёт «syntax». Кв. `veuma` («server») —
+запись Eldamo nq с 0 форм: форма принята по словарю, не по корпусу. Alt-тексты
+передают сцену иконки, а не дословные «bubbles overhead», как и готовая
+`tutorial.doneImageAlt`. Клин. `vam` пишется слитно с существительным — отдельным
+словом зонд его не подтверждает. GUI-приёмка недоступна: собранных каталогов нет.
+Пуш — за пользователем.
+
+Итог. Экран приветствия туториала закрыт: 8 форм в двух конлангах, готовность
+каталогов выросла до 1 196 строк, остаток непереведённого — 274 и 277 формы из 2 011;
+обе меры форм остались IDENTICAL.

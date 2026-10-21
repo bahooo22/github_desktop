@@ -1158,6 +1158,14 @@
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
+      "tutorialWelcome.altCloud",
+      "tutorialWelcome.altCode",
+      "tutorialWelcome.altTeam",
+      "tutorialWelcome.desktopDefinition",
+      "tutorialWelcome.gitDefinition",
+      "tutorialWelcome.githubDefinition",
+      "tutorialWelcome.intro",
+      "tutorialWelcome.title",
       "unreachableCommits.learnMore",
       "unreachableCommits.reachableTab",
       "unreachableCommits.title",
@@ -3278,14 +3286,14 @@
     "or": "or"
   },
   "tutorialWelcome": {
-    "title": "Welcome to GitHub Desktop",
-    "intro": "Use this tutorial to get comfortable with Git, GitHub, and GitHub Desktop.",
-    "gitDefinition": "<strong>Git</strong> is the version control system.",
-    "githubDefinition": "<strong>GitHub</strong> is where you store your code and collaborate with others.",
-    "desktopDefinition": "<strong>GitHub Desktop</strong> helps you work with GitHub locally.",
-    "altCode": "Html syntax icon",
-    "altTeam": "People with discussion bubbles overhead",
-    "altCloud": "Server stack with cloud"
+    "title": "GitHub Desktop 'e' pe'vIl Supaw'jaj!",
+    "intro": "Git, GitHub, GitHub Desktop je yIghojmeH, ghojmeH mIwvam yIlo'.",
+    "gitDefinition": "<strong>Git</strong> 'oH nIqHom mI'mey SeHwI' pat.",
+    "githubDefinition": "<strong>GitHubDaq</strong> ngoq Dapol 'ej latlhpu' bIyeqlaH.",
+    "desktopDefinition": "<strong>GitHub Desktop</strong> De'wI'lIjDaq GitHub Dalo'meH QaH.",
+    "altCode": "Html pab vo'nIng",
+    "altTeam": "nuvpu' nachDaq jatlhmeH ba'Suqmey",
+    "altCloud": "'eng je tIrbogh turwI'mey"
   },
   "copilotByokProvider": {
     "providerLegend": "peSwI'",
