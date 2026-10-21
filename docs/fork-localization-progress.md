@@ -3988,3 +3988,107 @@ rc=0. `--untranslated` — 171 и 174 из 2 011 против 224 и 227 на HE
 Итог. Девять групп и 53 формы закрыты одним коммитом; готовность каталогов выросла до
 1 288 строк, остаток непереведённого — 171 и 174 формы из 2 011; обе меры форм
 остались IDENTICAL.
+
+## Батч AH: 41 форма в девяти группах (21.10.2026)
+
+Третий укрупнённый батч: `warnLocalChanges` (5), `deleteWorktreeFailed` (5),
+`repoRules` (5), `pullRequestList` (5), `updateBranch` (5), `mergeConflicts` (4),
+`rebase` (4), `samlReauth` (4), `stashDiffHeader` (4) — 41 форма; 5 пар
+схлопываются, строк готовности 36.
+
+### Локальные изменения при undo (5)
+
+- `continueAnyway` — `taH DaneH'a'?` / `Sáquetatya cesta?`; `changesInProgress` —
+  `choHmey DaghajtaH. merghbogh choH vem DopmoHDI', choHmeyvam 'op lujlaH.` /
+  `Harya ahyanië i carila. Yá nancar i erta minatacë, nai vanwa iquai ahyanië sinar.`
+- `undoWarning` — то же плюс `taH DaneH'a'?` / `Sáquetatya cesta?`;
+  `undoCommitTitle` — готовые `choH vem yIDopmoH` / `Nancar i minatacë`
+  (`menu.undo`, `settings.prompts.undoing-commit`).
+
+### Ошибка удаления worktree (5)
+
+- `deletionFailed` — `vum Qorwagh <ref/> teqmeH luj.` / `Loica haita i hauramar
+  <ref/>.`; `forceDeleteQuestion` — `... HoS yIteq DaneH'a'?` / `... turmoinen?`;
+  `forceDeleteButton` — `HoS yIteq` / `Haita turmoinen` (`HoS` — готовая «force» из
+  `HoS yuv`); title — `vum Qorwagh teqmeH luj` / `Loica haita i hauramar`.
+
+### Правила репозитория (5)
+
+- `fails` — `<subject/> {count:number} chut luj.` / `<subject/> loita {count:number}
+  axan.`; `failsWithBypass` — `... 'ach veghlaH. yIghuH!` / `... mal polë nuhta.
+  Á mahta!` (`vegh` — «go through», `nuhta` — готовая «bypass» из
+  `commitMessage.rule-failure-bypass`); `viewAllRulesets` —
+  `<link>bartIqvam chutmey Hoch yIlegh</link>.` / `<link>Cenë ilyë axaner i olbao
+  sina.</link>`.
+
+### Список pull request (5)
+
+- `loadingPullRequests` — `yIloS. qem tlhob qenglu'taH, nom vIqenglaH!` / `Á sarta.
+  Lucë i luciquista, linta ve polë!`; `numFound` — `{count:number} qem tlhob
+  Samlu'.` / `{count:number} luciquista hirinë.`; `pullRequestsIn` — `{repository}
+  qem tlhob` / `{repository}: i luciquista` (без падежа на плейсхолдере);
+  `refreshTooltip` — `qem tlhob tetlh yIchoHqa'.` / `Envinyata i luciquista`.
+
+### Обновление ветки (5)
+
+- `mergeCommitLabel` — `merghbogh choH vem yIchenmoH` / `Carë minatacë erta`;
+  `mergeCommitDescription` — `... merghbogh choH vem chenlu'.` / `... ve minatacë
+  erta.`; `squashLabel` — `yItap 'ej yImergh` / `Malë ar erta` (готовая
+  `menu.squash-and-merge-branch`); `squashDescription` — `... wa' choH vem
+  chenmoHlu'.` / `... er minatacë ...`; `rebaseDescription` — `... chenmoHqa'lu'
+  'ej ... chellu'.` / `... nar ensundë ar yantë ...`.
+
+### Конфликтующие файлы (4)
+
+- `confirm` — `yol ghajbogh De' tetlhmey yIchenmoH DaneHbej'a'?` — первая версия
+  `yolbogh` не прошла зонд (`-bogh` на существительном), поэтому относительное
+  придаточное построено от `ghaj`; ok — `HISlaH, De' tetlhmey yIchenmoH` /
+  `Sá, carë i cotyar`; title — `... 'e' yI'ol` / `Tancata i carië cotyar`;
+  warning — `ghuHmoH` / `Raxë`.
+
+### Force push при rebase (4)
+
+- `dontShowAgain` — готовая `QInvam 'e' yIcha'be'qa'` / `áva cennëa i nyarnë sina`;
+  ok — `luq` / `Sá`; title — `HoS yIyuv DaneHbej'a'?` / `Sáquetatya nirë turmoin?`;
+  message — `HoS yuvDI', <ref>{upstreamBranch}</ref> qun ghItlhchoHlu'. ...` /
+  `Nírië turmoin vista i nyárë (i <ref>{upstreamBranch}</ref> nyárë). ...` —
+  падеж не приклеен к тегу.
+
+### SAML (4)
+
+- `confirm` — `De' ngaSwI' naw'meH GitHub DesktopvaD chaw' DAnobmeH, leghwI'
+  yIpoSmoH DaneH'a'?` / `Sáquetatya apanta i browser, itan anta i lávë ...`;
+  `message` — `... SAML SSO chaw' pagh ra'pu'. ...` / `... harya SAML SSO. ...`;
+  ok — `luq` / `Sá`; title — `ngaQHa'moHqa' poQlu'` / `Maura tyulë ata`
+  (комбинация `qa'` + `nIS` + `lu'` зондом не подтверждена).
+
+### Заголовок stash (4)
+
+- title — `ngeqlu' choH` / `i nurtanë ahyanië`; restore — `yIchegh` / `Nananta`;
+  discard — `yIpolHa'` / `aulerya` (готовые `common.discard`,
+  `localChangesOverwritten.action.restoreStashedChanges`); `restoreDescription` —
+  `<strong>yIchegh</strong>. ngeqlu'bogh De' tetlhmey lIj, choH tetlhDaq yIghoS.` /
+  `<strong>Nananta</strong> levuva i parmalya nurtanë i ahyanië nyaranna.` — первая
+  версия с `</strong>DI'` дала `GLUED`.
+
+Замеры. Вставка по группам: 5/5, 5/5, 5/5, 5/5, 5/5, 4/4, 4/4, 4/4, 4/4. Байты после
+готовности и правок: 187 992 (tlh) и 189 877 (qya), CRLF 4 282 в обоих, одиночных LF
+0. Готовность: 36 строк, `meta.ready` 1 288 → 1 324. Зонды: клингонский 0 находок
+после трёх правок (`yolbogh` → `yol ghajbogh`, `ngaQHa'moHqa'nIS` →
+`ngaQHa'moHqa' poQlu'`), квенья 0 находок. Меры форм: клин. 0 против HEAD 0 —
+IDENTICAL; кв. 29 против 29 — IDENTICAL. `markup_check` по девяти группам: восемь OK,
+`stashDiffHeader` — `GLUED` после `</strong>`, после правки 0. `tlh_order_check` —
+0 нарушений (2 101 слово каталога, 959 чистых, 1 061 без членения). `--parity` —
+issues 0, rc=0; `--untranslated` — 130 и 133 из 2 011 против 171 и 174 на HEAD, сдвиг
+ровно на 41 форму. Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (245 296 мс)
+
+Принятый остаток. «SAML SSO» оставлено заимствованием; «enabled or enforced» сведено к
+`chaw' pagh ra'pu'` / `harya`. «Forcefully» — `HoS` по готовой `HoS yuv` /
+`turmoinen`. «Bypass» — `vegh` / `nuhta`, «caution» — `yIghuH` / `Á mahta`.
+«Re-authorization» — `ngaQHa'moHqa' poQlu'` / `Maura tyulë ata`: комбинация
+`qa'` + `nIS` + `lu'` зондом не подтверждена. GUI-приёмка недоступна: собранных
+каталогов нет. Пуш — за пользователем.
+
+Итог. Девять групп и 41 форма закрыты одним коммитом; готовность каталогов выросла до
+1 324 строк, остаток непереведённого — 130 и 133 формы из 2 011; обе меры форм
+остались IDENTICAL.

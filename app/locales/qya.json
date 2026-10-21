@@ -386,6 +386,10 @@
       "deleteWorktreeDialog.delete",
       "deleteWorktreeDialog.title",
       "deleteWorktreeDialog.titleMissing",
+      "deleteWorktreeFailed.deletionFailed",
+      "deleteWorktreeFailed.forceDeleteButton",
+      "deleteWorktreeFailed.forceDeleteQuestion",
+      "deleteWorktreeFailed.title",
       "discardChanges.confirmFileList",
       "discardChanges.confirmManyFiles",
       "discardChanges.confirmSelected",
@@ -634,6 +638,10 @@
       "menu.view-repository-on-github",
       "menu.zoom-in",
       "menu.zoom-out",
+      "mergeConflicts.commitWarning.confirm",
+      "mergeConflicts.commitWarning.ok",
+      "mergeConflicts.commitWarning.title",
+      "mergeConflicts.commitWarning.warning",
       "missingRepository.cantFind",
       "missingRepository.checkAgain",
       "missingRepository.cloneAgain",
@@ -837,6 +845,10 @@
       "publish.sign-in",
       "publish.title",
       "publish.will-be-created-as",
+      "pullRequestList.loadingPullRequests",
+      "pullRequestList.numFound",
+      "pullRequestList.pullRequestsIn",
+      "pullRequestList.refreshTooltip",
       "pushBranchCommits.createWithoutPushing",
       "pushBranchCommits.publishButton",
       "pushBranchCommits.publishMessage",
@@ -846,6 +858,10 @@
       "pushBranchCommits.pushMessage",
       "pushBranchCommits.pushTitle",
       "pushBranchCommits.pushTitleQ",
+      "rebase.forcePush.dontShowAgain",
+      "rebase.forcePush.message",
+      "rebase.forcePush.ok",
+      "rebase.forcePush.title",
       "refNameTextBox.errorNotValidName",
       "refNameTextBox.invalidCharsReplaced",
       "refNameTextBox.notValidName",
@@ -874,6 +890,9 @@
       "renameBranch.name",
       "renameBranch.rename-button",
       "renameBranch.title",
+      "repoRules.fails",
+      "repoRules.failsWithBypass",
+      "repoRules.viewAllRulesets",
       "repository.sidebar",
       "repositoryTabs.changes",
       "repositoryTabs.history",
@@ -885,6 +904,10 @@
       "revealDirectory.message",
       "revealDirectory.revealButton",
       "revealDirectory.title",
+      "samlReauth.confirm",
+      "samlReauth.message",
+      "samlReauth.ok",
+      "samlReauth.title",
       "selectedCommits.dragToCherryPick",
       "selectedCommits.dragToSquashOrReorder",
       "selectedCommits.fileDoesNotExistOnDisk",
@@ -1136,6 +1159,10 @@
       "stashChanges.overwrite.title",
       "stashChanges.overwriteWarning",
       "stashChanges.switchBranch",
+      "stashDiffHeader.discard",
+      "stashDiffHeader.restore",
+      "stashDiffHeader.restoreDescription",
+      "stashDiffHeader.title",
       "successBanner.undo",
       "successfulCherryPick.copied",
       "suggestedActions.branchAria",
@@ -1266,6 +1293,11 @@
       "updateAvailableBanner.showcase",
       "updateAvailableBanner.showcaseVersion",
       "updateAvailableBanner.whatsNew",
+      "updateBranch.mergeCommitDescription",
+      "updateBranch.mergeCommitLabel",
+      "updateBranch.rebaseDescription",
+      "updateBranch.squashDescription",
+      "updateBranch.squashLabel",
       "upstreamAlreadyExists.confirm",
       "upstreamAlreadyExists.current",
       "upstreamAlreadyExists.expected",
@@ -1273,6 +1305,10 @@
       "upstreamAlreadyExists.message",
       "upstreamAlreadyExists.title",
       "upstreamAlreadyExists.update",
+      "warnLocalChanges.changesInProgress",
+      "warnLocalChanges.continueAnyway",
+      "warnLocalChanges.undoCommitTitle",
+      "warnLocalChanges.undoWarning",
       "welcome.aria",
       "welcome.configure-git-description",
       "welcome.configure-git-title",
@@ -2732,10 +2768,10 @@
   },
   "mergeConflicts": {
     "commitWarning": {
-      "confirm": "Are you sure you want to commit these conflicted files?",
-      "ok": "Yes, Commit Files",
-      "title": "Confirm committing conflicted files",
-      "warning": "Warning"
+      "confirm": "Sáquetatya carë i cotyar?",
+      "ok": "Sá, carë i cotyar",
+      "title": "Tancata i carië cotyar",
+      "warning": "Raxë"
     }
   },
   "multiCommit": {
@@ -3000,10 +3036,10 @@
   },
   "rebase": {
     "forcePush": {
-      "dontShowAgain": "Do not show this message again",
-      "ok": "Ok",
-      "title": "Are you sure you want to force push?",
-      "message": "A force push will rewrite history on <ref>{upstreamBranch}</ref>. Any collaborators working on this branch will need to reset their own local branch to match the history of the remote."
+      "dontShowAgain": "áva cennëa i nyarnë sina",
+      "ok": "Sá",
+      "title": "Sáquetatya nirë turmoin?",
+      "message": "Nírië turmoin vista i nyárë (i <ref>{upstreamBranch}</ref> nyárë). Ilyar ocaro i olbas sina: maura yesta ata i olbalya arëa minomë, itan vehta i nyárë i palan haura."
     }
   },
   "removeRepository": {
@@ -3055,10 +3091,10 @@
     "warning": "órë"
   },
   "samlReauth": {
-    "confirm": "Would you like to open a browser to grant GitHub Desktop permission to access the repository?",
-    "message": "The \"{organizationName}\" organization has enabled or enforced SAML SSO. To access this repository, you must sign in again and grant GitHub Desktop permission to access the organization's repositories.",
-    "ok": "Ok",
-    "title": "Re-authorization Required"
+    "confirm": "Sáquetatya apanta i browser, itan anta i lávë i GitHub Desktopenna, na latya i haura?",
+    "message": "I partalë \"{organizationName}\" harya SAML SSO. Itan latya i haura sina, maura tyulë ata ar anta i lávë i GitHub Desktopenna, na latya i partalëo haurar.",
+    "ok": "Sá",
+    "title": "Maura tyulë ata"
   },
   "secretScanning": {
     "atLine": "nyas {line}ssë",
@@ -3198,10 +3234,10 @@
     "successfulRebase": "Ensundaina <target></target>."
   },
   "stashDiffHeader": {
-    "title": "Stashed changes",
-    "restore": "Restore",
-    "discard": "Discard",
-    "restoreDescription": "<strong>Restore</strong> will move your stashed files to the Changes list."
+    "title": "i nurtanë ahyanië",
+    "restore": "Nananta",
+    "discard": "aulerya",
+    "restoreDescription": "<strong>Nananta</strong> levuva i parmalya nurtanë i ahyanië nyaranna."
   },
   "worktreeList": {
     "noItemsFound": "Lá hírinë i hauramar",
@@ -3573,12 +3609,12 @@
     "confirmAddress": "Confirm this address appears in your browser. Otherwise, cancel and contact your repository administrator."
   },
   "warnLocalChanges": {
-    "continueAnyway": "Do you want to continue anyway?",
-    "changesInProgress": "You have changes in progress. Undoing the merge commit might result in some of these changes being lost.",
-    "undoWarning": "You have changes in progress. Undoing the commit might result in some of these changes being lost. Do you want to continue anyway?",
+    "continueAnyway": "Sáquetatya cesta?",
+    "changesInProgress": "Harya ahyanië i carila. Yá nancar i erta minatacë, nai vanwa iquai ahyanië sinar.",
+    "undoWarning": "Harya ahyanië i carila. Yá nancar i minatacë, nai vanwa iquai ahyanië sinar. Sáquetatya cesta?",
     "undoCommitTitle": {
-      "@darwin": "Undo Commit",
-      "@other": "Undo commit"
+      "@darwin": "Nancar i minatacë",
+      "@other": "Nancar i minatacë"
     }
   },
   "repositoryPath": {
@@ -3955,12 +3991,12 @@
     }
   },
   "deleteWorktreeFailed": {
-    "deletionFailed": "Deleting the worktree <ref/> failed.",
-    "forceDeleteQuestion": "Would you like to forcefully delete the worktree <ref/>?",
-    "forceDeleteButton": "Forcefully delete",
+    "deletionFailed": "Loica haita i hauramar <ref/>.",
+    "forceDeleteQuestion": "Sáquetatya haita i hauramar <ref/> turmoinen?",
+    "forceDeleteButton": "Haita turmoinen",
     "title": {
-      "@darwin": "Delete Worktree Failed",
-      "@other": "Delete worktree failed"
+      "@darwin": "Loica haita i hauramar",
+      "@other": "Loica haita i hauramar"
     }
   },
   "branchesContainer": {
@@ -3975,14 +4011,14 @@
   },
   "repoRules": {
     "fails": {
-      "_one": "<subject/> fails {count:number} rule.",
-      "_other": "<subject/> fails {count:number} rules."
+      "_one": "<subject/> loita {count:number} axan.",
+      "_other": "<subject/> loita {count:number} axaner."
     },
     "failsWithBypass": {
-      "_one": "<subject/> fails {count:number} rule, but you can bypass it. Proceed with caution!",
-      "_other": "<subject/> fails {count:number} rules, but you can bypass them. Proceed with caution!"
+      "_one": "<subject/> loita {count:number} axan, mal polë nuhta. Á mahta!",
+      "_other": "<subject/> loita {count:number} axaner, mal polë nuhta. Á mahta!"
     },
-    "viewAllRulesets": "<link>View all rulesets for this branch.</link>"
+    "viewAllRulesets": "<link>Cenë ilyë axaner i olbao sina.</link>"
   },
   "confirmExitTutorial": {
     "leaveWarning": "Are you sure you want to leave the tutorial? This will bring you back to the home screen.",
@@ -4031,13 +4067,13 @@
     }
   },
   "pullRequestList": {
-    "loadingPullRequests": "Hang Tight. Loading pull requests as fast as I can!",
+    "loadingPullRequests": "Á sarta. Lucë i luciquista, linta ve polë!",
     "numFound": {
-      "_one": "{count:number} pull request found",
-      "_other": "{count:number} pull requests found"
+      "_one": "{count:number} luciquista hirinë.",
+      "_other": "{count:number} luciquista hirinë."
     },
-    "pullRequestsIn": "Pull requests in {repository}",
-    "refreshTooltip": "Refresh the list of pull requests"
+    "pullRequestsIn": "{repository}: i luciquista",
+    "refreshTooltip": "Envinyata i luciquista"
   },
   "configLockFile": {
     "exists": "Failed to update Git configuration file. A lock file already exists at <ref>{lockFilePath}</ref>.",
@@ -4072,11 +4108,11 @@
     }
   },
   "updateBranch": {
-    "mergeCommitLabel": "Create a merge commit",
-    "mergeCommitDescription": "The commits from the selected branch will be added to the current branch via a merge commit.",
-    "squashLabel": "Squash and merge",
-    "squashDescription": "The commits in the selected branch will be combined into one commit in the current branch.",
-    "rebaseDescription": "The commits from the selected branch will be rebased and added to the current branch."
+    "mergeCommitLabel": "Carë minatacë erta",
+    "mergeCommitDescription": "I minatacer i cilienëo olballo yantuvar i silúmëa olbanna ve minatacë erta.",
+    "squashLabel": "Malë ar erta",
+    "squashDescription": "I minatacer i cilienëo olbassë nar carinar er minatacë i silúmëa olbassë.",
+    "rebaseDescription": "I minatacer i cilienëo olballo nar ensundë ar yantë i silúmëa olbanna."
   },
   "updateErrors": {
     "missingSquirrel": "GitHub Desktop can't check for updates because it is not running from an installed copy — there is no Update.exe above the folder it was launched from. A portable bundle is replaced by hand: install the GitHubDesktopL10nSetup program to get automatic updates.",
