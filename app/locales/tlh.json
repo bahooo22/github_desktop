@@ -336,6 +336,13 @@
       "createBranch.title",
       "createBranch.unborn-branch",
       "createBranch.upstream-default-branch-description",
+      "createTag.create-tag-ok",
+      "createTag.name",
+      "createTag.name-too-long",
+      "createTag.no-matches",
+      "createTag.previous-tags",
+      "createTag.tag-exists",
+      "createTag.title",
       "deleteBranch.cannot-undo",
       "deleteBranch.confirm-message",
       "deleteBranch.confirm-remote-message",
@@ -2395,16 +2402,16 @@
     "default-branch-link": "motlh bartIq"
   },
   "createTag": {
-    "create-tag-ok": "Create Tag",
-    "name": "Name",
+    "create-tag-ok": "tag yIchenmoH",
+    "name": "pong",
     "name-too-long": {
-      "_one": "The tag name cannot be longer than {count:number} character",
-      "_other": "The tag name cannot be longer than {count:number} characters"
+      "_one": "tag pong {count:number} law' ngutlh ghajlaHbe'.",
+      "_other": "tag pong {count:number} law' ngutlh ghajlaHbe'."
     },
-    "no-matches": "No matches found for '{name}'",
-    "previous-tags": "Previous Tags",
-    "title": "Create a Tag",
-    "tag-exists": "A tag named <ref>{name}</ref> already exists"
+    "no-matches": "'{name}' Sambe'lu'.",
+    "previous-tags": "permey vorgh",
+    "title": "tag 'e' chenmoH",
+    "tag-exists": "<ref>{name}</ref> pong tag wejHa' nargh."
   },
   "deleteBranch": {
     "cannot-undo": "nabvam DopmoHbe'lu'.",

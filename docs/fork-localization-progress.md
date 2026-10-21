@@ -3505,3 +3505,80 @@ parity issues 0, возврат 0. `--untranslated` — tlh 298 и qya 301 фо�
 каталогов выросла до 1 174 строк, остаток непереведённого — 298 и 301 форма из 2 011;
 обе меры форм остались IDENTICAL, группа не добавила ни одной новой неподтверждённой
 формы.
+
+## Создание тега: 8 форм в двух конлангах (21.10.2026)
+
+Группа `createTag` — 8 листовых форм в 7 ключах: `create-tag-ok`, `name`, пара
+`name-too-long` с `_one`/`_other`, `no-matches`, `previous-tags`, `title` и
+`tag-exists` с парным тегом `<ref>{name}</ref>`. Ключи живут в
+`app/src/ui/create-tag/create-tag-dialog.tsx` (`:60`, `:70`, `:80`, `:100`,
+`:107`, `:119`, `:127`).
+
+- `create-tag-ok` и `title`: клин. `tag yIchenmoH` — побайтово готовая
+  `commitList.createTag` (без многоточия), заголовок `tag 'e' chenmoH` — рамка
+  готовой `createBranch.title` (`bartIq 'e' chenmoH`); кв. `Carë tag` — готовая
+  `commitList.createTag`, заголовок `Carë i tag` — рамка `carë i olba`.
+- `name`: клин. `pong` и кв. `essë` — готовые `createBranch.name` в обоих
+  каталогах.
+- `name-too-long`: клин. `tag pong {count:number} law' ngutlh ghajlaHbe'.` —
+  `law'` («be many», дамп), поставленное после числа, даёт «больше чем N»;
+  `ngutlh` («written character») — из готовой `commitMessage.length-hint-title`
+  (`50 ngutlh puS ghaj`); `ghaj` + `-laH` + `-be'` — «не может иметь». Кв.
+  `Lá polë i tag essë lahta {count:number} tengwar.` — `lahta-` («to cross,
+  pass over, go over; to surpass, excel», Eldamo, q, 6 форм) вместо
+  отсутствующего «be long»; `polë` — готовая рамка `Lá polë cenë ve i quetil`
+  (`diff.unicodeBidiWarning`), `tengwar` — готовая
+  `commitMessage.length-hint-title`.
+- `no-matches`: клин. `'{name}' Sambe'lu'.` — `Sambe'lu'` побайтово из готовой
+  `createBranch.could-not-determine-default-branch`; кв. `Lá hiryë i '{name}'.` —
+  `hiryë` из готовой `could-not-determine-default-branch` (`unistë hiryë`),
+  отрицание `Lá` по готовым `Lá cenuvalyë` и `Lá polë`.
+- `previous-tags`: клин. `permey vorgh` — `vorgh` («be previous», дамп) после
+  существительного по готовой `SHA vorgh naQ`
+  (`diff.submodule.copyPreviousSha`), `permey` — готовая форма мн. числа из
+  `commitList.tagsToPush` и `copyTags`; кв. `i nó tehtar` — `nó` («before»,
+  Eldamo) по готовой `i quanta nó SHA` там же, `tehtar` — аттестованное мн.
+  число от `tehta` (готовая `changes.tags-word`).
+- `tag-exists`: клин. `<ref>{name}</ref> pong tag wejHa' nargh.` — рамка готовой
+  `createBranch.branch-exists-error` (`{name} pong bartIq wejHa' nargh.`),
+  `wejHa'` («already») и `nargh` («appear») — дамп. Кв.
+  `i tag i essë <ref>{name}</ref> ná tensi.` — рамка готовой
+  `branch-exists-error` (`i olba i essë {name} ná tensi.`), `tensi` («already»,
+  Eldamo); парный тег стоит вокруг имени, как в EN.
+
+Замеры. Вставка: «черновик: 8 | изменится: 8 | уже такие же: 0 | нет в каталоге: 0»
+в обоих, формат воспроизведён байт-в-байт: OK. Первый прогон мер поймал потерю типа
+плейсхолдера: в черновике стояло `{count}` вместо `{count:number}` — 4 находки
+(2 формы × 2 каталога) у `markup_check_2010.py` и 2 issues у `--parity`; после
+исправления повторный `apply_group.py --write` изменил 2 формы, 6 остались такими же.
+Повторные `markup_check` — forms 8/8/8, findings=0, MARKUP GATE OK; parity — 1 746
+листовых ключей в семи каталогах, issues 0, возврат 0. Байты пересняты ПОСЛЕ
+дописывания готовности и правки: 183 854 (tlh) и 185 384 (qya), CRLF 4 139 в обоих,
+одиночных переводов строки 0. Готовность: `ready_group.py` — 7 строк группы (пара
+`_one`/`_other` схлопывается в один путь), дописано 7, `meta.ready` вырос с 1 174 до
+1 181; `ready_check.py` — битых путей 0, путей-форм 0, путей-узлов 0, пустых значений
+0. Зонды черновика до вставки: клингонский 27 слов / 0 неподтверждённых, квенья 27
+токенов / 0 находок. Меры форм приёмки: клингонский 6 756 слов / 0 находок против HEAD
+6 738 / 0 — вердикт IDENTICAL; квенья 7 634 слова / 29 уникальных находок против HEAD
+7 607 / 29 — те же 29, вердикт IDENTICAL. `tlh_order_check.py` — 0 нарушений порядка
+(4 154 леммы boQwI', 2 213 слов каталога, 894 чистых, 1 231 без членения).
+`--untranslated` — tlh 290 и qya 293 формы из 2 011 против 298 и 301 на HEAD, сдвиг
+ровно на эту группу. Prettier — rc=0. `yarn test` — 2 503 теста / 2 501 pass / 0 fail / 2 skipped (256 327 мс)
+
+Принятый остаток. Термина «tag» нет ни в дампе boQwI' (запрос по подстроке даёт 29
+записей, ни одной «tag»: `naH`, `mIw`, `'atSuj`, `HIjmeH chaw'` и т.п.), ни в Eldamo;
+каталог уже закрепил заимствование `tag` (`commitList.createTag`, `deleteTag`),
+поэтому заголовок и кнопка держат его. Для множественного числа взято готовое
+`permey` (от `per` — «label»): в готовых строках уже есть разнобой `tag`/`permey`
+(`commitList.tagsToPush._one` против `_other`), и здесь он сохранён, а не изобретён
+заново. Кв. `tag` склоняемого словаря не имеет, поэтому генитив `tago` не
+использован: «имя тега» собрано соположением `i tag essë`. Кв. `lahta` — «превзойти»,
+а не «быть длинным»: словарного «be long» нет (Eldamo «long» — производные вроде
+`manaurëa` «how long lasting»; `lúta-` — «to have time pass»). GUI-приёмка недоступна:
+собранных каталогов нет. Пуш — за пользователем.
+
+Итог. Диалог создания тега закрыт: 8 форм в двух конлангах, готовность каталогов
+выросла до 1 181 строки, остаток непереведённого — 290 и 293 формы из 2 011; обе меры
+форм остались IDENTICAL. Новый класс дефекта: потеря `:number` в плейсхолдере
+проходит зонд (он вырезает плейсхолдер до проверки) и ловится только
+`markup_check_2010.py` и `--parity`.

@@ -336,6 +336,13 @@
       "createBranch.title",
       "createBranch.unborn-branch",
       "createBranch.upstream-default-branch-description",
+      "createTag.create-tag-ok",
+      "createTag.name",
+      "createTag.name-too-long",
+      "createTag.no-matches",
+      "createTag.previous-tags",
+      "createTag.tag-exists",
+      "createTag.title",
       "deleteBranch.cannot-undo",
       "deleteBranch.confirm-message",
       "deleteBranch.confirm-remote-message",
@@ -2395,16 +2402,16 @@
     "default-branch-link": "sitina olba"
   },
   "createTag": {
-    "create-tag-ok": "Create Tag",
-    "name": "Name",
+    "create-tag-ok": "Carë tag",
+    "name": "essë",
     "name-too-long": {
-      "_one": "The tag name cannot be longer than {count:number} character",
-      "_other": "The tag name cannot be longer than {count:number} characters"
+      "_one": "Lá polë i tag essë lahta {count:number} tengwar.",
+      "_other": "Lá polë i tag essë lahta {count:number} tengwar."
     },
-    "no-matches": "No matches found for '{name}'",
-    "previous-tags": "Previous Tags",
-    "title": "Create a Tag",
-    "tag-exists": "A tag named <ref>{name}</ref> already exists"
+    "no-matches": "Lá hiryë i '{name}'.",
+    "previous-tags": "i nó tehtar",
+    "title": "Carë i tag",
+    "tag-exists": "i tag i essë <ref>{name}</ref> ná tensi."
   },
   "deleteBranch": {
     "cannot-undo": "i carda sina unistë nanquerë.",
