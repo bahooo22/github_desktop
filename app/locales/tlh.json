@@ -1111,6 +1111,17 @@
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
+      "updateAvailableBanner.architecture",
+      "updateAvailableBanner.arm64AutoUpdate",
+      "updateAvailableBanner.dismiss",
+      "updateAvailableBanner.importantUpdates",
+      "updateAvailableBanner.installNow",
+      "updateAvailableBanner.pendingInstall",
+      "updateAvailableBanner.prioritizeMissing",
+      "updateAvailableBanner.restartNow",
+      "updateAvailableBanner.showcase",
+      "updateAvailableBanner.showcaseVersion",
+      "updateAvailableBanner.whatsNew",
       "welcome.aria",
       "welcome.configure-git-description",
       "welcome.configure-git-title",
@@ -3182,20 +3193,20 @@
     "history": "qun"
   },
   "updateAvailableBanner": {
-    "restartNow": "restart GitHub Desktop",
-    "whatsNew": "what's new",
-    "dismiss": "dismiss",
-    "pendingInstall": "An updated version of GitHub Desktop is available and will be installed at the next launch. See <whatsNew/> or <restart/>.",
-    "installNow": "A new version of GitHub Desktop is available. <restart/> now to install pending updates.",
-    "showcase": "Exciting new features have been added<version/>. See <whatsNew/> or <dismiss/>.",
-    "prioritizeMissing": "This version of GitHub Desktop is missing <importantUpdates/>. Please <restart/> now to install pending updates.",
-    "importantUpdates": "important updates",
-    "arm64AutoUpdate": "An optimized version of GitHub Desktop is available for your {chip} machine and will be installed at the next launch or <restart/> now.",
+    "restartNow": "GitHub Desktop 'e' 'elHa' yI'el",
+    "whatsNew": "chu' De'",
+    "dismiss": "yIteq",
+    "pendingInstall": "GitHub Desktop chen chu' tu'laH 'ej poS 'elDI' jomlu'. <whatsNew/> 'e' yIlegh pagh <restart/>.",
+    "installNow": "GitHub Desktop chen chu' tu'laH. DaH <restart/> 'e' yIlo', jomlaHbogh De' chu' yIjom.",
+    "showcase": "chu' De' chellu'<version/>. <whatsNew/> 'e' yIlegh pagh <dismiss/>.",
+    "prioritizeMissing": "GitHub Desktop ghun chen <importantUpdates/> tu'be'. DaH <restart/> 'e' yIlo', jomlaHbogh De' chu' yIjom.",
+    "importantUpdates": "De' chu' tIn",
+    "arm64AutoUpdate": "lIj {chip} wIQwI'Daq GitHub Desktop chen tIn tu'laH 'ej poS 'elDI' jomlu', pagh DaH <restart/>.",
     "architecture": {
       "@darwin": "Apple silicon",
       "@other": "Arm64"
     },
-    "showcaseVersion": " with GitHub Desktop {version}"
+    "showcaseVersion": "je GitHub Desktop {version}"
   },
   "successBanner": {
     "undo": "yIDopmoH"

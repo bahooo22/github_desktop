@@ -1111,6 +1111,17 @@
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
       "tutorialPanelSkip.skip",
+      "updateAvailableBanner.architecture",
+      "updateAvailableBanner.arm64AutoUpdate",
+      "updateAvailableBanner.dismiss",
+      "updateAvailableBanner.importantUpdates",
+      "updateAvailableBanner.installNow",
+      "updateAvailableBanner.pendingInstall",
+      "updateAvailableBanner.prioritizeMissing",
+      "updateAvailableBanner.restartNow",
+      "updateAvailableBanner.showcase",
+      "updateAvailableBanner.showcaseVersion",
+      "updateAvailableBanner.whatsNew",
       "welcome.aria",
       "welcome.configure-git-description",
       "welcome.configure-git-title",
@@ -3182,20 +3193,20 @@
     "history": "nyárë"
   },
   "updateAvailableBanner": {
-    "restartNow": "restart GitHub Desktop",
-    "whatsNew": "what's new",
-    "dismiss": "dismiss",
-    "pendingInstall": "An updated version of GitHub Desktop is available and will be installed at the next launch. See <whatsNew/> or <restart/>.",
-    "installNow": "A new version of GitHub Desktop is available. <restart/> now to install pending updates.",
-    "showcase": "Exciting new features have been added<version/>. See <whatsNew/> or <dismiss/>.",
-    "prioritizeMissing": "This version of GitHub Desktop is missing <importantUpdates/>. Please <restart/> now to install pending updates.",
-    "importantUpdates": "important updates",
-    "arm64AutoUpdate": "An optimized version of GitHub Desktop is available for your {chip} machine and will be installed at the next launch or <restart/> now.",
+    "restartNow": "Á vinya carë i GitHub Desktop",
+    "whatsNew": "i vinyar",
+    "dismiss": "Haitë",
+    "pendingInstall": "I lerië vinya GitHub Desktopo tulë, ar tulcean i poS entulienë. Cenë <whatsNew/> hya <restart/>.",
+    "installNow": "I lerië vinya GitHub Desktopo tulë. Á mahta <restart/> síra itan tulca i leryalëar.",
+    "showcase": "I vinyar tulë i GitHub Desktopo<version/>. Cenë <whatsNew/> hya <dismiss/>.",
+    "prioritizeMissing": "I lerië sina GitHub Desktopo ú harya <importantUpdates/>. Á mahta <restart/> itan tulca i leryalëar.",
+    "importantUpdates": "i valdëa leryalëar",
+    "arm64AutoUpdate": "I arya lerië GitHub Desktopo éa i {chip} indyanne, ar tulcean i poS entulienë, hya <restart/> síra.",
     "architecture": {
       "@darwin": "Apple silicon",
       "@other": "Arm64"
     },
-    "showcaseVersion": " with GitHub Desktop {version}"
+    "showcaseVersion": " ar GitHub Desktop {version}"
   },
   "successBanner": {
     "undo": "nanquer"
