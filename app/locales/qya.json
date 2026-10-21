@@ -313,6 +313,14 @@
       "copilotByokModel.reasoningEffortLabel",
       "copilotByokModel.reasoningHint",
       "copilotByokModel.save",
+      "crash.errorTitle",
+      "crash.launchDescription",
+      "crash.launchTitle",
+      "crash.nativeErrorMessage",
+      "crash.nativeErrorTitle",
+      "crash.quit",
+      "crash.quitAndRestart",
+      "crash.runtimeErrorDescription",
       "createBranch.based-on-commit",
       "createBranch.based-on-label",
       "createBranch.branch-exists-error",
@@ -3994,22 +4002,22 @@
     }
   },
   "crash": {
-    "launchDescription": "GitHub Desktop encountered a catastrophic error that prevents it from launching. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
-    "runtimeErrorDescription": "GitHub Desktop has encountered an unrecoverable error and will need to restart. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
+    "launchDescription": "GitHub Desktop hirnë i aica loima, ar lá polë latya. Sina tananë, ar yá lyë hira sina ata, tana i raicë sina <link>i GitHub Desktopo raicëo rattassë</link>.",
+    "runtimeErrorDescription": "GitHub Desktop hirnë loima lá polë nancar, ar maura entulë. Sina tananë, ar yá lyë hira sina ata, tana i raicë sina <link>i GitHub Desktopo raicëo rattassë</link>.",
     "nativeErrorTitle": {
-      "@darwin": "Unrecoverable Error",
-      "@other": "Unrecoverable error"
+      "@darwin": "Loima lá polë nancar",
+      "@other": "Loima lá polë nancar"
     },
-    "nativeErrorMessage": "GitHub Desktop has encountered an unrecoverable error and will need to restart.\n\nThis has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop issue tracker.",
-    "launchTitle": "GitHub Desktop failed to launch",
-    "errorTitle": "GitHub Desktop encountered an error",
+    "nativeErrorMessage": "GitHub Desktop hirnë loima lá polë nancar, ar maura entulë.\n\nSina tananë, ar yá lyë hira sina ata, tana i raicë sina i GitHub Desktopo raicëo rattassë.",
+    "launchTitle": "Loica i latienë GitHub Desktopo",
+    "errorTitle": "GitHub Desktop hirnë loima",
     "quit": {
-      "@darwin": "Quit",
-      "@other": "Exit"
+      "@darwin": "holya",
+      "@other": "holya"
     },
     "quitAndRestart": {
-      "@darwin": "Quit and Restart",
-      "@other": "Exit and restart"
+      "@darwin": "holya ar entulë",
+      "@other": "holya ar entulë"
     }
   },
   "copilotError": {

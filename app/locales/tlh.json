@@ -313,6 +313,14 @@
       "copilotByokModel.reasoningEffortLabel",
       "copilotByokModel.reasoningHint",
       "copilotByokModel.save",
+      "crash.errorTitle",
+      "crash.launchDescription",
+      "crash.launchTitle",
+      "crash.nativeErrorMessage",
+      "crash.nativeErrorTitle",
+      "crash.quit",
+      "crash.quitAndRestart",
+      "crash.runtimeErrorDescription",
       "createBranch.based-on-commit",
       "createBranch.based-on-label",
       "createBranch.branch-exists-error",
@@ -3994,22 +4002,22 @@
     }
   },
   "crash": {
-    "launchDescription": "GitHub Desktop encountered a catastrophic error that prevents it from launching. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
-    "runtimeErrorDescription": "GitHub Desktop has encountered an unrecoverable error and will need to restart. This has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop <link>issue tracker</link>.",
+    "launchDescription": "GitHub Desktop Qagh tIn tu' 'ej poSmoHlaHbe'. 'e' ra'ghomvaD ja'lu'pu', 'ach Qaghvam Datu'qa'chugh, GitHub Desktop <link>qay' tetlhDaq</link> qay' 'e' yIja'.",
+    "runtimeErrorDescription": "GitHub Desktop Qagh choHHa'laHbe'bogh tu' 'ej 'elHa' 'el nIS. 'e' ra'ghomvaD ja'lu'pu', 'ach Qaghvam Datu'qa'chugh, GitHub Desktop <link>qay' tetlhDaq</link> qay' 'e' yIja'.",
     "nativeErrorTitle": {
-      "@darwin": "Unrecoverable Error",
-      "@other": "Unrecoverable error"
+      "@darwin": "Qagh choHHa'laHbe'bogh",
+      "@other": "Qagh choHHa'laHbe'bogh"
     },
-    "nativeErrorMessage": "GitHub Desktop has encountered an unrecoverable error and will need to restart.\n\nThis has been reported to the team, but if you encounter this repeatedly please report this issue to the GitHub Desktop issue tracker.",
-    "launchTitle": "GitHub Desktop failed to launch",
-    "errorTitle": "GitHub Desktop encountered an error",
+    "nativeErrorMessage": "GitHub Desktop Qagh choHHa'laHbe'bogh tu' 'ej 'elHa' 'el nIS.\n\n'e' ra'ghomvaD ja'lu'pu', 'ach Qaghvam Datu'qa'chugh, GitHub Desktop qay' tetlhDaq qay' 'e' yIja'.",
+    "launchTitle": "GitHub Desktop poSmoHmeH luj.",
+    "errorTitle": "GitHub Desktop Qagh tu'.",
     "quit": {
-      "@darwin": "Quit",
-      "@other": "Exit"
+      "@darwin": "mev",
+      "@other": "mev"
     },
     "quitAndRestart": {
-      "@darwin": "Quit and Restart",
-      "@other": "Exit and restart"
+      "@darwin": "mev 'ej 'elHa' yI'el",
+      "@other": "mev 'ej 'elHa' yI'el"
     }
   },
   "copilotError": {
