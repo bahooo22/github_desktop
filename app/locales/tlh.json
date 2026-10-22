@@ -2894,7 +2894,7 @@
     "description-sr-label": "choH vem Del",
     "disable-spellcheck": "ghItlh legh yIchu'Ha'",
     "enable-spellcheck": "ghItlh legh yIchu'",
-    "error-word": "luj:",
+    "error-word": "Qagh",
     "generate-with-copilot": "CopilotDaq Del yIchenmoH",
     "generating-details": "Del chenmoHlu'taH…",
     "hook-failed": "{hookName} SIrIl lujpu'",
@@ -3131,7 +3131,7 @@
   },
   "installingUpdate": {
     "message": "De' chu' jombogh GitHub Desktop 'e' yISoQmoHQo'. DaH yISoQmoHchugh, jomwI'lIj DopmoHlaH.",
-    "quitAnyway": "yISoQmoH neH",
+    "quitAnyway": "mev neH",
     "title": "De' chu' jomlu'…"
   },
   "invalidatedToken": {

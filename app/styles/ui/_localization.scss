@@ -354,11 +354,19 @@ body.l10n-pick-mode {
 // only this rule turns it into a second line. It is scoped through the body
 // class rather than the language attribute because the same language renders
 // with and without the gloss, and buttons are where a two-line label first
-// showed up.
+// showed up. Dialogs are listed separately: their headings, paragraphs, list
+// items, field labels and banners are read as prose, while the rest of the
+// interface keeps normal white-space handling.
 body.gloss-enabled {
   .button-component .button-content,
   .component-tooltip,
-  .tab-container .tab {
+  .tab-container .tab,
+  .dialog-header h1,
+  .dialog-content p,
+  .dialog-content li,
+  .dialog-content label,
+  .dialog-error,
+  .dialog-success {
     white-space: pre-line;
   }
 }
