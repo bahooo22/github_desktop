@@ -765,7 +765,12 @@
       "@darwin": "Command Line Tool Installed",
       "@other": "Command line tool installed"
     },
-    "installed-info": "The command line tool has been installed at <strong>{path}</strong>."
+    "installed-info": "The command line tool has been installed at <strong>{path}</strong>.",
+    "help-usage": "GitHub Desktop CLI usage:",
+    "help-open-current": "Open the current directory",
+    "help-open-path": "Open the provided path",
+    "help-clone": "Clone the repository by url or name/owner",
+    "help-clone-hint": "(ex torvalds/linux), optionally checking out\nthe branch"
   },
   "moveToApplications": {
     "title": "Move GitHub Desktop to the Applications folder?",
@@ -2400,7 +2405,9 @@
       "languageDetection": "The interface language is detected even when the system reports no preferred languages",
       "translationProgress": "The translation progress counts strings by the plural rules of the interface language",
       "upstreamSync": "The interface is rebuilt on top of upstream 3.6.8-beta2, so the fork carries the same fixes as the current GitHub Desktop preview",
-      "missingWorktrees": "Worktree dialogs now point out a worktree whose folder is gone, in the interface language"
+      "missingWorktrees": "Worktree dialogs now point out a worktree whose folder is gone, in the interface language",
+      "upstreamSyncBeta3": "The interface is rebuilt on top of the fresh upstream merge, so the fork carries the same fixes as the current GitHub Desktop preview",
+      "cliHelpLocalized": "The CLI help is printed in the language chosen in Settings"
     }
   },
   "repositoriesList": {

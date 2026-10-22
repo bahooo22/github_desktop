@@ -325,6 +325,11 @@
       "cli.clone-url",
       "cli.dispatch",
       "cli.dispatch-title",
+      "cli.help-clone",
+      "cli.help-clone-hint",
+      "cli.help-open-current",
+      "cli.help-open-path",
+      "cli.help-usage",
       "cli.installed-info",
       "cli.installed-title",
       "cli.open-repository",
@@ -1171,6 +1176,7 @@
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
       "releaseNotes.fork.aboutBuildInfo",
+      "releaseNotes.fork.cliHelpLocalized",
       "releaseNotes.fork.interfaceLocalization",
       "releaseNotes.fork.languageDetection",
       "releaseNotes.fork.missingWorktrees",
@@ -1178,6 +1184,7 @@
       "releaseNotes.fork.translationEditor",
       "releaseNotes.fork.translationProgress",
       "releaseNotes.fork.upstreamSync",
+      "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
       "releaseNotes.other",
@@ -2482,7 +2489,12 @@
       "@darwin": "ra'SommI' jompu'",
       "@other": "ra'SommI' jompu'"
     },
-    "installed-info": "<strong>{path}</strong>Daq ra'SommI' jomlu'pu'."
+    "installed-info": "<strong>{path}</strong>Daq ra'SommI' jomlu'pu'.",
+    "help-usage": "GitHub Desktop CLI lo'meH mIw:",
+    "help-open-current": "DaH 'aplo' yIpoSmoH",
+    "help-open-path": "noblu'bogh He yIpoSmoH",
+    "help-clone": "URL pagh pong/ghajwI' yIlo' 'ej De' ngaSwI' yIvoy",
+    "help-clone-hint": "(ex torvalds/linux), 'ej bartIq yIwIv 'e' bIneHchugh"
   },
   "moveToApplications": {
     "title": "Deryatmey 'aplo'Daq GitHub Desktop vIH DaneH'a'?",
@@ -4117,7 +4129,9 @@
       "languageDetection": "patDaq wIvlu'bogh Holmey tu'lu'be'chugh, jIH Hol tu'laH taH neH",
       "translationProgress": "jIyweS Ser SIrghmey 'e' togH jIH Holmo' ghommey pabDaq.",
       "upstreamSync": "jIH Hol chen 3.6.8-beta2 yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
-      "missingWorktrees": "vum Qorwaghmey DaH taw tu'be'bogh vum 'e' jIH Holmo' cha'."
+      "missingWorktrees": "vum Qorwaghmey DaH taw tu'be'bogh vum 'e' jIH Holmo' cha'.",
+      "upstreamSyncBeta3": "jIH Hol chen upstream chu' yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
+      "cliHelpLocalized": "CLI QaH, DuHmeyDaq wIvlu'bogh Hol lo'."
     }
   },
   "repositoriesList": {

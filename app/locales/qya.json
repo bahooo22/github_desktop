@@ -325,6 +325,11 @@
       "cli.clone-url",
       "cli.dispatch",
       "cli.dispatch-title",
+      "cli.help-clone",
+      "cli.help-clone-hint",
+      "cli.help-open-current",
+      "cli.help-open-path",
+      "cli.help-usage",
       "cli.installed-info",
       "cli.installed-title",
       "cli.open-repository",
@@ -1170,6 +1175,7 @@
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
       "releaseNotes.fork.aboutBuildInfo",
+      "releaseNotes.fork.cliHelpLocalized",
       "releaseNotes.fork.interfaceLocalization",
       "releaseNotes.fork.languageDetection",
       "releaseNotes.fork.missingWorktrees",
@@ -1177,6 +1183,7 @@
       "releaseNotes.fork.translationEditor",
       "releaseNotes.fork.translationProgress",
       "releaseNotes.fork.upstreamSync",
+      "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
       "releaseNotes.other",
@@ -2481,7 +2488,12 @@
       "@darwin": "i axacarma tulcanë",
       "@other": "i axacarma tulcanë"
     },
-    "installed-info": "i axacarma tulcanë <strong>{path}</strong>essë."
+    "installed-info": "i axacarma tulcanë <strong>{path}</strong>essë.",
+    "help-usage": "GitHub Desktop CLI mahtanië:",
+    "help-open-current": "Apanta i colca sina",
+    "help-open-path": "Apanta i tië antaina",
+    "help-clone": "Ovëanta i haura URL hya essë/öamo",
+    "help-clone-hint": "(ex torvalds/linux), enetya cilë i olba"
   },
   "moveToApplications": {
     "title": "Levë i GitHub Desktop i maxarma cóminna?",
@@ -4116,7 +4128,9 @@
       "languageDetection": "I fanwa lambë hirnëa ilya lúmë, i auma lá quettëa i mairiëa lambëar",
       "translationProgress": "I lambelanga malyë onota i sermar i fanwa lambëo axanerello",
       "upstreamSync": "I fanwa lambë vinya carienë pá i minya 3.6.8-beta2, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
-      "missingWorktrees": "I hauramar tancatiessar tána i nómë lá hirnëa hauramar, i fanwa lambëssë"
+      "missingWorktrees": "I hauramar tancatiessar tána i nómë lá hirnëa hauramar, i fanwa lambëssë",
+      "upstreamSyncBeta3": "I fanwa lambë vinya carienë pá i vinya upstream cotya, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
+      "cliHelpLocalized": "I tuluhta carina i lambessë i cilina ciliessë."
     }
   },
   "repositoriesList": {

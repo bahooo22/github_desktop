@@ -323,6 +323,11 @@
       "cli.clone-url",
       "cli.dispatch",
       "cli.dispatch-title",
+      "cli.help-clone",
+      "cli.help-clone-hint",
+      "cli.help-open-current",
+      "cli.help-open-path",
+      "cli.help-usage",
       "cli.installed-info",
       "cli.installed-title",
       "cli.open-repository",
@@ -1175,6 +1180,7 @@
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
       "releaseNotes.fork.aboutBuildInfo",
+      "releaseNotes.fork.cliHelpLocalized",
       "releaseNotes.fork.interfaceLocalization",
       "releaseNotes.fork.languageDetection",
       "releaseNotes.fork.missingWorktrees",
@@ -1182,6 +1188,7 @@
       "releaseNotes.fork.translationEditor",
       "releaseNotes.fork.translationProgress",
       "releaseNotes.fork.upstreamSync",
+      "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
       "releaseNotes.other",
@@ -2515,7 +2522,12 @@
       "@darwin": "Komanda linia ilo instalita",
       "@other": "Komanda linia ilo instalita"
     },
-    "installed-info": "La komanda linia ilo estas instalita ĉe <strong>{path}</strong>."
+    "installed-info": "La komanda linia ilo estas instalita ĉe <strong>{path}</strong>.",
+    "help-usage": "Uzo de CLI GitHub Desktop:",
+    "help-open-current": "Malfermi la nunan dosierujon",
+    "help-open-path": "Malfermi la indikitan vojon",
+    "help-clone": "Kloni la deponejon laŭ URL aŭ nomo/posedanto",
+    "help-clone-hint": "(ekz. torvalds/linux), laŭvole kontrolante\nla branĉon"
   },
   "moveToApplications": {
     "title": "Movi GitHub Desktop al la Applications-dosierujo?",
@@ -4150,7 +4162,9 @@
       "languageDetection": "La lingvo de la interfaco estas detektita eĉ kiam la sistemo raportas nenion preferatan",
       "translationProgress": "La progreso de tradukado kalkulas ŝnurojn laŭ la reguloj de pluraj formoj de la lingvo de la interfaco",
       "upstreamSync": "La interfaco estas rekonstruita super suprenflua 3.6.8-beta2, do la forko portas la samajn korektojn kiel la nuna antaŭrigardo de GitHub Desktop",
-      "missingWorktrees": "Dialogoj pri laboraj dosierujoj nun indikas laboran dosierujon kies dosierujo malaperis, en la lingvo de la interfaco"
+      "missingWorktrees": "Dialogoj pri laboraj dosierujoj nun indikas laboran dosierujon kies dosierujo malaperis, en la lingvo de la interfaco",
+      "upstreamSyncBeta3": "La interfaco estas rekonstruita sur la freŝa kunfandiĝo de upstream, do la forko portas la samajn riparojn kiel la nuna antaŭrigardo de GitHub Desktop",
+      "cliHelpLocalized": "La helpo de CLI estas presata en la lingvo elektita en la agordoj"
     }
   },
   "repositoriesList": {

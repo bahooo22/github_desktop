@@ -323,6 +323,11 @@
       "cli.clone-url",
       "cli.dispatch",
       "cli.dispatch-title",
+      "cli.help-clone",
+      "cli.help-clone-hint",
+      "cli.help-open-current",
+      "cli.help-open-path",
+      "cli.help-usage",
       "cli.installed-info",
       "cli.installed-title",
       "cli.open-repository",
@@ -1175,6 +1180,7 @@
       "releaseNotes.bugfixes",
       "releaseNotes.enhancements",
       "releaseNotes.fork.aboutBuildInfo",
+      "releaseNotes.fork.cliHelpLocalized",
       "releaseNotes.fork.interfaceLocalization",
       "releaseNotes.fork.languageDetection",
       "releaseNotes.fork.missingWorktrees",
@@ -1182,6 +1188,7 @@
       "releaseNotes.fork.translationEditor",
       "releaseNotes.fork.translationProgress",
       "releaseNotes.fork.upstreamSync",
+      "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
       "releaseNotes.other",
@@ -2515,7 +2522,12 @@
       "@darwin": "Instrumentum CLI installatum",
       "@other": "Instrumentum CLI installatum"
     },
-    "installed-info": "Instrumentum CLI installatum est in <strong>{path}</strong>."
+    "installed-info": "Instrumentum CLI installatum est in <strong>{path}</strong>.",
+    "help-usage": "Usus CLI GitHub Desktop:",
+    "help-open-current": "Directorium praesens aperire",
+    "help-open-path": "Iter datum aperire",
+    "help-clone": "Repositorium per URL vel nomen/dominum clonare",
+    "help-clone-hint": "(exempli gratia torvalds/linux),\nad libitum ramum eligere"
   },
   "moveToApplications": {
     "title": "GitHub Desktop in the Applications folder movere?",
@@ -4150,7 +4162,9 @@
       "languageDetection": "Lingua interfacies detegitur etiam cum systema nullās linguās praeferendas nuntiāverit",
       "translationProgress": "Progressus translationis numerat stringēs secundum rēgulas pluralis linguae interfacies",
       "upstreamSync": "Interfacies super suprafluens 3.6.8-beta2 reaedificatur, ita ut furca eīdem correctionibus praedita sit ac praevia GitHub Desktop",
-      "missingWorktrees": "Dialogi laboris arbōris nunc ostendunt arborem laboris cuius theca abiecta est, in lingua interfacies"
+      "missingWorktrees": "Dialogi laboris arbōris nunc ostendunt arborem laboris cuius theca abiecta est, in lingua interfacies",
+      "upstreamSyncBeta3": "Interfacies super recentem upstream coniunctionem reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop praevisio fert",
+      "cliHelpLocalized": "Auxilium CLI lingua in optionibus electa imprimitur"
     }
   },
   "repositoriesList": {

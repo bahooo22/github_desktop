@@ -1,6 +1,9 @@
 import { join, resolve } from 'path'
 import parse from 'minimist'
 import { execFile, spawn } from 'child_process'
+import { localization, t } from '../lib/l10n/core'
+import { registerBuiltInLocales } from '../lib/l10n/builtins'
+import { formatCliUsage, getUserDataPath, readPreferredLanguage } from './help'
 
 const run = (...args: Array<string>) => {
   function cb(e: unknown | null, stderr?: string) {
@@ -36,26 +39,29 @@ const args = parse(process.argv.slice(2), {
   boolean: ['help'],
 })
 
+/**
+ * The CLI is a separate Node process without an Electron `app`, so it reads
+ * the language choice the main process wrote and loads the same catalogs the
+ * interface uses.
+ */
+function initializeLocalization(): void {
+  registerBuiltInLocales()
+  localization.setSystemLocales([
+    Intl.DateTimeFormat().resolvedOptions().locale,
+  ])
+  localization.setRequestedLocale(
+    readPreferredLanguage(getUserDataPath(process.platform, __APP_NAME__))
+  )
+}
+
 const usage = (exitCode = 1): never => {
   // On Windows the fork's entry point is installed under its own name, because
   // upstream writes `github` into its own `bin` and both directories are on
   // PATH (see `getWindowsCliCommandName`). Elsewhere the historical name stands.
   const command = __WIN32__ ? __WINDOWS_CLI_COMMAND_NAME__ : 'github'
-  const row = (args: string, description: string) =>
-    `  ${command}${args}`.padEnd(36) + description + '\n'
-  const indent = ' '.repeat(36)
 
-  process.stderr.write(
-    'GitHub Desktop CLI usage: \n' +
-      row('', 'Open the current directory') +
-      row(' open [path]', 'Open the provided path') +
-      row(
-        ' clone [-b branch] <url>',
-        'Clone the repository by url or name/owner'
-      ) +
-      `${indent}(ex torvalds/linux), optionally checking out\n` +
-      `${indent}the branch\n`
-  )
+  initializeLocalization()
+  process.stderr.write(formatCliUsage(command, t))
   process.exit(exitCode)
 }
 
