@@ -18,7 +18,8 @@
 архитектуру (`getUpdatesURL()`, `script/dist-info.ts:167`):
 
 - `latest-win-x64` и `latest-win-arm64` — Windows,
-- `latest-linux-x64` — Linux (portable-архив, обновлений Squirrel на Linux нет).
+- `latest-linux-x64` — Linux (portable-архив, `.deb` и AppImage; Squirrel-обновлений
+  на Linux нет, AppImage обновляется внешним AppImageUpdate по `.zsync`).
 
 Один тег на архитектуру нужен потому, что в релизе не может лежать два разных
 `RELEASES`: Squirrel.Windows дописывает это имя к адресу фида и читает оттуда
@@ -112,9 +113,11 @@ notes тега — там же лежит `builtAt`, по которому ви�
   `arm64`; создаётся прогоном `gh workflow run release-fork-windows.yml
   -f arch=arm64` (или обёртками `release-fork-windows-all.yml` /
   `release-fork-all.yml`). `first_run=true` добавляется только когда тега ещё нет.
-- Linux x64: `.../releases/tag/latest-linux-x64` — `desktop-linux-x64-portable.tar.gz`
-  (распаковать и запустить `desktop`) и `build-info.json`. Обновлений Squirrel на
-  Linux нет.
+- Linux x64: `.../releases/tag/latest-linux-x64` — `github-desktop-l10n.deb`
+  (`sudo dpkg -i`), `GitHubDesktopL10n-x86_64.AppImage` (+ `.zsync` для
+  AppImageUpdate), `desktop-linux-x64-portable.tar.gz` (распаковать и запустить
+  `desktop`) и `build-info.json`. Встроенных обновлений на Linux нет; `.deb`
+  обновляется вручную, AppImage — `appimageupdatetool -u`.
 
 ## Сборка одной командой в контейнере (Linux)
 
@@ -128,8 +131,15 @@ bash tools/i18n-lab/lab.sh up                       # образ + контей�
 bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"  # сама сборка
 ```
 
-Получится `Release/desktop-linux-x64-portable.tar.gz`. Каталог `Release/`
-исключён из git: в него складываются бинарные артефакты на гигабайты.
+Получится `Release/desktop-linux-x64-portable.tar.gz`,
+`Release/github-desktop-l10n.deb` и, если задан `APPIMAGETOOL`,
+`Release/GitHubDesktopL10n-x86_64.AppImage` вместе с `.zsync`. Пакеты собирает
+`script/package-linux.sh` из того же бандла, что уходит в tar.gz: `/opt`,
+симлинк `github-l10n`, `.desktop`, иконка и `DEBIAN/control` для deb; `AppDir` и
+`AppRun` для AppImage. Единственный внешний инструмент — `appimagetool`; workflow
+скачивает его с GitHub (тег `continuous`, поэтому SHA не пиннится: шаг проверяет,
+что скачался ELF, и печатает версию). Каталог `Release/` исключён из git: в него
+складываются бинарные артефакты на гигабайты.
 
 Тот же артефакт в тег фида публикует отдельный workflow
 `.github/workflows/release-fork-linux.yml` (`gh workflow run
@@ -859,14 +869,18 @@ rc=0:
 
 ## Чего в форке сознательно нет
 
-- Настоящих пакетов для Linux (`.deb`/`.rpm`/`.AppImage`): есть только
-  portable-архив. `script/package.ts` умеет собирать только `.app` (darwin) и
-  Squirrel-инсталлер (win32), а на любой другой платформе завершает процесс; для
-  Linux-пакетов нужны `electron-builder` или `rpmbuild` плюс `.desktop`-файл и
-  иконки, а образ контейнера (`tools/i18n-lab/Dockerfile`) этих инструментов не
-  содержит.
-- Обновлений на Linux: `autoUpdater` (электронный, `app/src/main-process/app-window.ts:6`)
-  на Linux не поддерживается, а фид написан под Squirrel.Windows.
+- `.rpm`, Flatpak и Snap: пакеты для RedHat и песочниц не собираются. AppImage
+  покрывает RedHat-дистрибутивы, `.deb` — Debian и Ubuntu; `script/package.ts`
+  по-прежнему умеет только `.app` и Squirrel-инсталлер, поэтому Linux-пакеты
+  собираются из готового portable-бандла скриптом `script/package-linux.sh`.
+- Встроенных обновлений на Linux: `autoUpdater` (электронный,
+  `app/src/main-process/app-window.ts:6`) на Linux не поддерживается, а фид
+  написан под Squirrel.Windows. AppImage обновляется внешним
+  `appimageupdatetool -u` по `.zsync` из тега фида; `.deb` — вручную, пока у
+  форка нет apt-репозитория.
+- AppImage на Ubuntu 24.04: squashfs монтируется без setuid, а unprivileged user
+  namespaces там ограничены AppArmor; если запуск падает на sandbox, нужен
+  `--no-sandbox`. В `AppRun` этот флаг по умолчанию не добавлен.
 - macOS-релизов: механизм обновлений для macOS в коде есть (тот же
   `autoUpdater`), но форк не собирает `.app` и не публикует mac-тег, а
   `getUpdatesURL()` по умолчанию возвращает всегда win-ный тег. На macOS

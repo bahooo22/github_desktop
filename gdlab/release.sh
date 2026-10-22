@@ -5,9 +5,11 @@
 #
 #   linux-portable (по умолчанию) — собирается здесь, в контейнере:
 #     yarn build:prod (DESKTOP_SKIP_PACKAGE=1) → gdlab/assemble-linux-bundle.sh
-#     → Release/desktop-linux-x64-portable.tar.gz
+#     → Release/desktop-linux-x64-portable.tar.gz, затем script/package-linux.sh
+#     → Release/github-desktop-l10n.deb и, если задан APPIMAGETOOL,
+#     Release/GitHubDesktopL10n-x86_64.AppImage (+ .zsync).
 #
-#     Этот же артефакт в тег фида публикует workflow release-fork-linux.yml
+#     Эти же артефакты в тег фида публикует workflow release-fork-linux.yml
 #     (`gh workflow run release-fork-linux.yml`); локальная сборка ничего не
 #     выкладывает и годится только для своей машины.
 #
@@ -56,4 +58,8 @@ ARCHIVE="$RELEASE_DIR/desktop-linux-x64-portable.tar.gz"
 log "архив → $ARCHIVE"
 tar czf "$ARCHIVE" -C "$ROOT/dist" desktop-linux-x64
 
-log "ГОТОВО: $ARCHIVE"
+log "пакеты .deb и AppImage…"
+bash "$ROOT/script/package-linux.sh" "$ROOT/dist/desktop-linux-x64" \
+  "$RELEASE_DIR" "${APPIMAGETOOL:-}"
+
+log "ГОТОВО: $RELEASE_DIR"

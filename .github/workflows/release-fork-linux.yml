@@ -9,6 +9,10 @@ on:
 env:
   NODE_VERSION: '24'
   RELEASE_CHANNEL: production
+  # Единственный тег appimagetool — continuous. SHA не пинним: тег меняется, и
+  # пин ломал бы сборку без предупреждения; шаг ниже проверяет, что скачался
+  # ELF, и печатает версию инструмента в лог.
+  APPIMAGETOOL_URL: https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage
   # Фид этой платформы — один тег latest-linux-x64: portable-сборка не
   # различается архитектурами в смысле фида (Squirrel на Linux нет), и второй
   # тег только удвоил бы прогон без пользы для клиента.
@@ -21,9 +25,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Дешёвый пропуск уже опубликованного коммита: у linux-сборки нет механизма
-  # обновлений вообще, поэтому здесь проверяется только совпадение sha из notes
-  # тега. Проверку версии по RELEASES gate делает лишь для windows.
+  # Дешёвый пропуск уже опубликованного коммита: встроенного механизма
+  # обновлений у linux-сборки нет (AppImage обновляется внешним AppImageUpdate),
+  # поэтому здесь проверяется только совпадение sha из notes тега. Проверку
+  # версии по RELEASES gate делает лишь для windows.
   gate:
     name: Check whether a release is needed
     runs-on: ubuntu-22.04
@@ -132,12 +137,33 @@ jobs:
           tar czf dist/desktop-linux-x64-portable.tar.gz -C dist
           desktop-linux-x64
 
+      - name: Download appimagetool
+        shell: bash
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: '1'
+        run: |
+          tool="$RUNNER_TEMP/appimagetool"
+          curl -fL --retry 3 -o "$tool" "$APPIMAGETOOL_URL"
+          chmod +x "$tool"
+          file "$tool" | grep -q 'ELF 64-bit'
+          echo "appimagetool: $("$tool" --version 2>&1 | head -1)"
+
+      - name: Package deb and AppImage
+        shell: bash
+        env:
+          APPIMAGE_EXTRACT_AND_RUN: '1'
+        run: |
+          bash script/package-linux.sh \
+            dist/desktop-linux-x64 dist "$RUNNER_TEMP/appimagetool"
+          test -s dist/github-desktop-l10n.deb
+          test -s dist/GitHubDesktopL10n-x86_64.AppImage
+          test -s dist/GitHubDesktopL10n-x86_64.AppImage.zsync
+
       - name: Write build info and release notes
         # Тот же ассет и те же notes, что в Windows-прогоне
-        # (.github/workflows/release-fork-windows.yml): у портативной linux-сборки
-        # нет вообще никакого механизма обновлений, поэтому хеш релиза —
-        # единственный способ сказать пользователю «то, что ты скачал, уже не
-        # последнее».
+        # (.github/workflows/release-fork-windows.yml): встроенного механизма
+        # обновлений у linux-сборки нет, поэтому хеш релиза — единственный способ
+        # сказать пользователю «то, что ты скачал, уже не последнее».
         shell: bash
         env:
           BUILD_INFO_ARCH: x64
@@ -161,7 +187,12 @@ jobs:
           gh release upload latest-linux-x64 \
             dist/desktop-linux-x64-portable.tar.gz \
             dist/build-info.json \
+            dist/github-desktop-l10n.deb \
+            dist/GitHubDesktopL10n-x86_64.AppImage \
+            dist/GitHubDesktopL10n-x86_64.AppImage.zsync \
             --clobber
-          # Блок хеша в notes — то же, что в Windows-прогоне: portable-сборка не
-          # обновляется сама, и «вышли новые сборки» ей сказать больше нечем.
+          # Блок хеша в notes — то же, что в Windows-прогоне: встроенного
+          # обновления у linux-сборки нет, и «вышли новые сборки» ей сказать
+          # больше нечем. AppImage обновляется внешним AppImageUpdate по .zsync,
+          # .deb — вручную.
           gh release edit latest-linux-x64 --notes-file dist/release-notes.md

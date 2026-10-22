@@ -155,6 +155,18 @@ runs:
         if [ -z "$PUBLISHED_SHA" ]; then
           echo "В notes релиза $TAG нет блока fork-build-info — сравнить коммит не с чем, собираем."
         elif [ "$PUBLISHED_SHA" = "$CURRENT_SHA" ]; then
+          if [ "$PLATFORM" = linux ]; then
+            # Первый прогон после добавления .deb/AppImage может совпасть по sha
+            # с уже опубликованным portable-релизом: без этой проверки гейт
+            # пропустил бы сборку, и пакеты не появились бы вовсе.
+            ASSETS="$(gh release view "$TAG" --json assets --jq '.assets[].name')"
+            if ! printf '%s\n' "$ASSETS" | grep -qx 'github-desktop-l10n.deb' ||
+              ! printf '%s\n' "$ASSETS" | grep -qx 'GitHubDesktopL10n-x86_64.AppImage'; then
+              echo "::notice::Релиз $CURRENT_SHA уже есть, но Linux-пакетов в нём нет — собираем."
+              echo "run=true" >>"$GITHUB_OUTPUT"
+              exit 0
+            fi
+          fi
           URL="https://github.com/$REPOSITORY/releases/tag/$TAG"
           echo "::notice::Релиз из коммита $CURRENT_SHA уже опубликован в $TAG — сборка не нужна."
           {

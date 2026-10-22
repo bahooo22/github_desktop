@@ -57,7 +57,9 @@ Electron 44.9.1 на Node 24.22 (`.node-version`).
   установщик на машину. Есть и portable-архив `…-portable.zip`.
 - **Linux x64:**
   [latest-linux-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-linux-x64) —
-  `desktop-linux-x64-portable.tar.gz`: распаковать и запустить `desktop`.
+  `github-desktop-l10n.deb` (`sudo dpkg -i`, ставит меню, иконку и команду
+  `github-l10n`), `GitHubDesktopL10n-x86_64.AppImage` (`chmod +x` и запустить)
+  или `desktop-linux-x64-portable.tar.gz` (распаковать и запустить `desktop`).
 - **Windows arm64:**
   [latest-win-arm64](https://github.com/bahooo22/github_desktop/releases/tag/latest-win-arm64) —
   тот же набор ассетов, что у x64, но с суффиксом `arm64`.
@@ -65,9 +67,11 @@ Electron 44.9.1 на Node 24.22 (`.node-version`).
   поэтому на macOS фид надо задавать явно.
 
 Самообновление работает только на Windows (Squirrel.Windows): там приложение
-само ходит в свой тег. Linux-portable пересобирается и перескачивается вручную,
-а о том, что вышли новые сборки, он узнаёт по хешу релиза и говорит это
-баннером.
+само ходит в свой тег. На Linux встроенного обновления нет: AppImage обновляется
+внешним `appimageupdatetool -u` по `.zsync` из того же тега, `.deb` и portable —
+перекачиванием вручную. О том, что вышли новые сборки, Linux-клиент узнаёт по
+хешу релиза и говорит это баннером. На Ubuntu 24.04 с ограниченным user
+namespace AppImage может потребовать `--no-sandbox`.
 
 Панель «Примечания к выпуску» показывает и апстримные релизы, и изменения
 форка: свои записи лежат в `changelog-fork.json` (апстримный `changelog.json`
@@ -80,11 +84,11 @@ Electron 44.9.1 на Node 24.22 (`.node-version`).
 | --- | --- |
 | Поднять контейнер стенда | `bash tools/i18n-lab/lab.sh up` |
 | Dev-сборка | `bash tools/i18n-lab/lab.sh exec "yarn build:dev"` |
-| Linux portable | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"` |
+| Linux: portable, `.deb` и AppImage | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"`; AppImage добавится, если в контейнере задан `APPIMAGETOOL=/путь/к/appimagetool` |
 | Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; `-f first_run=true` нужен ровно когда тег ещё пуст, иначе он выключит дельту |
 | Windows, обе архитектуры | `gh workflow run release-fork-windows-all.yml` |
 | Все три фида | `gh workflow run release-fork-all.yml` — win x64 + win arm64 + linux параллельно |
-| Linux portable в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`, входов нет |
+| Linux в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`: portable, `.deb`, AppImage, входов нет |
 | Проверить раскатанные бандлы | `yarn l10n:bundles` |
 
 Подробности — в [docs/fork-releases.md](docs/fork-releases.md): почему из Linux
@@ -103,7 +107,8 @@ OAuth-приложения —
 
 - Подписи Windows-инсталлера: секреты Azure ACS не передаются, поэтому
   SmartScreen покажет предупреждение при первом запуске.
-- Настоящих пакетов для Linux (`.deb`/`.rpm`/`.AppImage`) — только portable.
+- `.rpm`, Flatpak и Snap: для RedHat-дистрибутивов и прочих Linux-систем
+  предлагается AppImage, `.deb` — для Debian/Ubuntu.
 - macOS-сборок и, соответственно, обновлений на macOS.
 
 ## Where can I get it?
