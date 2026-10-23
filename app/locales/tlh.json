@@ -1725,7 +1725,12 @@
       "worktreeList.copyWorktreePath",
       "worktreeList.missing",
       "worktreeList.missingAria",
-      "worktreeList.noItemsFound"
+      "worktreeList.noItemsFound",
+      "releaseNotes.fork.upstreamSync368",
+      "releaseNotes.fork.linuxPackages",
+      "renameWorktreeDialog.could-not-determine-main",
+      "about.upstream-download",
+      "banners.upstreamReleaseAvailable"
     ]
   },
   "common": {
@@ -2461,6 +2466,7 @@
     "license-notices": "chaw' 'ej poS Hal vep",
     "responsible-use-copilot": "Copilot 'e' yIlo' 'ach yI'ol",
     "l10nCredit": "Hol mugh <authors>{authors}</authors>. <sha>{sha}</sha> {date} chenmoH.",
+    "upstream-download": "Official build yIHev",
     "upstream-behind": {
       "_one": "chen chu' tu'laH: <link>{version}</link> ({count} jonHa' 'em)",
       "_other": "chen chu' tu'laH: <link>{version}</link> ({count} jonHa' 'em)"
@@ -3613,6 +3619,7 @@
       "_other": "{count} choH vemmey taplu'pu'."
     },
     "osNotSupported": "De'wI' patvam QaHlu'be'. nIqHom De' chu' Qotlhlu'. <link>QaH De'</link>",
+    "upstreamReleaseAvailable": "Official GitHub Desktop {version} tu'lu'. <download>Official build yIHev</download>",
     "forkReleaseAvailable": {
       "_one": "puq chonnaQvam chen chu' tu'laH: {count} choH vem ruch. <link>chen paq</link>",
       "_other": "puq chonnaQvam chen chu' tu'laH: {count} choH vemmey ruch. <link>chen paq</link>"
@@ -4131,7 +4138,9 @@
       "upstreamSync": "jIH Hol chen 3.6.8-beta2 yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
       "missingWorktrees": "vum Qorwaghmey DaH taw tu'be'bogh vum 'e' jIH Holmo' cha'.",
       "upstreamSyncBeta3": "jIH Hol chen upstream chu' yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
-      "cliHelpLocalized": "CLI QaH, DuHmeyDaq wIvlu'bogh Hol lo'."
+      "cliHelpLocalized": "CLI QaH, DuHmeyDaq wIvlu'bogh Hol lo'.",
+      "upstreamSync368": "jIH Hol chen upstream 3.6.8 yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
+      "linuxPackages": "Linux: Debian 'ej AppImage. AppImage De' chu'meH AppImageUpdate lo'lu'."
     }
   },
   "repositoriesList": {
@@ -4670,7 +4679,8 @@
       "@darwin": "vum Qorwagh pong yIchoH",
       "@other": "vum Qorwagh pong yIchoH"
     },
-    "renameButton": "{name} yIchoH"
+    "renameButton": "{name} yIchoH",
+    "could-not-determine-main": "motlh vum Qorwagh Sambe'lu'."
   },
   "cloningRepository": {
     "title": "{repository} 'e' voylu'"

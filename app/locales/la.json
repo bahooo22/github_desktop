@@ -1758,7 +1758,12 @@
       "worktreeList.copyWorktreePath",
       "worktreeList.missing",
       "worktreeList.missingAria",
-      "worktreeList.noItemsFound"
+      "worktreeList.noItemsFound",
+      "releaseNotes.fork.upstreamSync368",
+      "releaseNotes.fork.linuxPackages",
+      "renameWorktreeDialog.could-not-determine-main",
+      "about.upstream-download",
+      "banners.upstreamReleaseAvailable"
     ]
   },
   "common": {
@@ -2494,6 +2499,7 @@
     "license-notices": "Litterae Licentiae et Notitia Apertae Fontis",
     "responsible-use-copilot": "Usus Responsabilis Copilot in GitHub Desktop",
     "l10nCredit": "Localizatio a <authors>{authors}</authors>. Constructa ex <sha>{sha}</sha> in {date}.",
+    "upstream-download": "Constructionem officialem recipere",
     "upstream-behind": {
       "_one": "Nova versio suprafluens est parata: <link>{version}</link> ({count} emissio retro)",
       "_other": "Nova versio suprafluens est parata: <link>{version}</link> (emissiones {count} retro)"
@@ -3646,6 +3652,7 @@
       "_other": "Squash {count} commitorum feliciter facta est."
     },
     "osNotSupported": "Hoc systema operativum iam non adiuvatur. Mutationes software desunt. <link>Detailia adiutorii</link>",
+    "upstreamReleaseAvailable": "Praesto est officialis GitHub Desktop {version} constructio. <download>Constructionem officialem recipere</download>",
     "forkReleaseAvailable": {
       "_one": "Nova constructio huius furcae habetur: {count} commitus ante. <link>Pagina editionis</link>",
       "_other": "Nova constructio huius furcae habetur: {count} committi ante. <link>Pagina editionis</link>"
@@ -4164,7 +4171,9 @@
       "upstreamSync": "Interfacies super suprafluens 3.6.8-beta2 reaedificatur, ita ut furca eīdem correctionibus praedita sit ac praevia GitHub Desktop",
       "missingWorktrees": "Dialogi laboris arbōris nunc ostendunt arborem laboris cuius theca abiecta est, in lingua interfacies",
       "upstreamSyncBeta3": "Interfacies super recentem upstream coniunctionem reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop praevisio fert",
-      "cliHelpLocalized": "Auxilium CLI lingua in optionibus electa imprimitur"
+      "cliHelpLocalized": "Auxilium CLI lingua in optionibus electa imprimitur",
+      "upstreamSync368": "Interfacies super upstream 3.6.8 reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop editio fert",
+      "linuxPackages": "Editio Linux duabus formis venit: Debian et AppImage; AppImage per AppImageUpdate se renovat"
     }
   },
   "repositoriesList": {
@@ -4703,7 +4712,8 @@
       "@darwin": "Renominare laboris arborem",
       "@other": "Renominare laboris arborem"
     },
-    "renameButton": "Renomina {name}"
+    "renameButton": "Renomina {name}",
+    "could-not-determine-main": "Laboris arbor principalis repositorii determinari non potuit."
   },
   "cloningRepository": {
     "title": "Clonare {repository}"

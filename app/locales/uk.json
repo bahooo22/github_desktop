@@ -694,6 +694,7 @@
     "license-notices": "Ліцензії та сповіщення про ПЗ з відкритим кодом",
     "responsible-use-copilot": "Відповідальне використання Copilot у GitHub Desktop",
     "l10nCredit": "Локалізація: <authors>{authors}</authors> (збірка <sha>{sha}</sha>, {date})",
+    "upstream-download": "Завантажити офіційну збірку",
     "upstream-behind": {
       "_one": "Доступна нова версія апстрима: <link>{version}</link> (відстаємо на {count} реліз)",
       "_few": "Доступна нова версія апстрима: <link>{version}</link> (відстаємо на {count} релізи)",
@@ -1806,6 +1807,7 @@
       "_other": "Успішно виконано об'єднання {count} коміта."
     },
     "osNotSupported": "Ця операційна система більше не підтримується. Оновлення програми вимкнено. <link>Відомості про підтримку</link>",
+    "upstreamReleaseAvailable": "Доступна офіційна збірка GitHub Desktop {version}. <download>Завантажити офіційну збірку</download>",
     "forkReleaseAvailable": {
       "_one": "Доступна нова збірка форка: попереду на {count} коміт. <link>Сторінка релізу</link>",
       "_few": "Доступна нова збірка форка: попереду на {count} коміти. <link>Сторінка релізу</link>",
@@ -2280,7 +2282,9 @@
       "upstreamSync": "Інтерфейс перебудовано поверх апстриму 3.6.8-beta2, тому форк несе ті самі виправлення, що й поточна тестова збірка GitHub Desktop",
       "missingWorktrees": "Діалоги видалення worktree повідомляють про відсутню папку мовою інтерфейсу",
       "upstreamSyncBeta3": "Інтерфейс перебудовано поверх свіжого мержу апстріму, тому форк несе ті самі виправлення, що й поточна тестова збірка GitHub Desktop",
-      "cliHelpLocalized": "Довідка CLI друкується мовою, вибраній у налаштуваннях"
+      "cliHelpLocalized": "Довідка CLI друкується мовою, вибраній у налаштуваннях",
+      "upstreamSync368": "Інтерфейс перебудовано поверх апстріму 3.6.8, тому форк несе ті самі виправлення, що й поточний випуск GitHub Desktop",
+      "linuxPackages": "Linux-випуск виходить пакетом Debian і AppImage, а AppImage оновлюється через AppImageUpdate"
     }
   },
   "repositoriesList": {
@@ -2757,7 +2761,8 @@
   },
   "renameWorktreeDialog": {
     "title": "Перейменувати worktree",
-    "renameButton": "Перейменувати {name}"
+    "renameButton": "Перейменувати {name}",
+    "could-not-determine-main": "Не вдалося визначити основний worktree репозиторію."
   },
   "cloningRepository": {
     "title": "Клонування {repository}"

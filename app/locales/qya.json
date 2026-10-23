@@ -1724,7 +1724,12 @@
       "worktreeList.copyWorktreePath",
       "worktreeList.missing",
       "worktreeList.missingAria",
-      "worktreeList.noItemsFound"
+      "worktreeList.noItemsFound",
+      "releaseNotes.fork.upstreamSync368",
+      "releaseNotes.fork.linuxPackages",
+      "renameWorktreeDialog.could-not-determine-main",
+      "about.upstream-download",
+      "banners.upstreamReleaseAvailable"
     ]
   },
   "common": {
@@ -2460,6 +2465,7 @@
     "license-notices": "i axanio canwalië ar i lérien ocaraitiëo canwar",
     "responsible-use-copilot": "i vanimëa yuhtië i Copilot GitHub Desktopissë",
     "l10nCredit": "i lambelanga carienë <authors>{authors}</authors>lo. Caru <sha>{sha}</sha>llo, {date}essë.",
+    "upstream-download": "á-tulya i official GitHub Desktop",
     "upstream-behind": {
       "_one": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryalë ca)",
       "_other": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryali ca)"
@@ -3612,6 +3618,7 @@
       "_other": "Malinë {count} minatacër."
     },
     "osNotSupported": "Lá mahtaina sína indya. Envinyatië nuhtaina. <link>Alyassë</link>",
+    "upstreamReleaseAvailable": "i official GitHub Desktop {version} tulë. <download>á-tulya</download>",
     "forkReleaseAvailable": {
       "_one": "Harya nelecco vinya: {count} minatacë epe. <link>Leryaressë</link>",
       "_other": "Harya nelecco vinya: {count} minatacër epe. <link>Leryaressë</link>"
@@ -4130,7 +4137,9 @@
       "upstreamSync": "I fanwa lambë vinya carienë pá i minya 3.6.8-beta2, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
       "missingWorktrees": "I hauramar tancatiessar tána i nómë lá hirnëa hauramar, i fanwa lambëssë",
       "upstreamSyncBeta3": "I fanwa lambë vinya carienë pá i vinya upstream cotya, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
-      "cliHelpLocalized": "I tuluhta carina i lambessë i cilina ciliessë."
+      "cliHelpLocalized": "I tuluhta carina i lambessë i cilina ciliessë.",
+      "upstreamSync368": "I fanwa lambë vinya carienë pá i upstream 3.6.8 cotya, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
+      "linuxPackages": "i Linux lerya tulë Debian ar AppImage; i AppImage leryalë AppImageUpdate ar."
     }
   },
   "repositoriesList": {
@@ -4669,7 +4678,8 @@
       "@darwin": "Vista i hauramo essë",
       "@other": "Vista i hauramo essë"
     },
-    "renameButton": "Vista {name}"
+    "renameButton": "Vista {name}",
+    "could-not-determine-main": "unistë hiryë i minya hauramar."
   },
   "cloningRepository": {
     "title": "ovëanta {repository}"

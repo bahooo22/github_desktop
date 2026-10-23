@@ -737,6 +737,7 @@
     "license-notices": "License and Open Source Notices",
     "responsible-use-copilot": "Responsible use of Copilot in GitHub Desktop",
     "l10nCredit": "Localization by <authors>{authors}</authors>. Built from <sha>{sha}</sha> on {date}.",
+    "upstream-download": "Download the official build",
     "upstream-behind": {
       "_one": "A new upstream version is available: <link>{version}</link> ({count} release behind)",
       "_other": "A new upstream version is available: <link>{version}</link> ({count} releases behind)"
@@ -1889,6 +1890,7 @@
       "_other": "Successfully squashed {count} commits."
     },
     "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>",
+    "upstreamReleaseAvailable": "Official GitHub Desktop {version} is available. <download>Download the official build</download>",
     "forkReleaseAvailable": {
       "_one": "A newer build of this fork is available: {count} commit ahead. <link>Release page</link>",
       "_other": "A newer build of this fork is available: {count} commits ahead. <link>Release page</link>"
@@ -2407,7 +2409,9 @@
       "upstreamSync": "The interface is rebuilt on top of upstream 3.6.8-beta2, so the fork carries the same fixes as the current GitHub Desktop preview",
       "missingWorktrees": "Worktree dialogs now point out a worktree whose folder is gone, in the interface language",
       "upstreamSyncBeta3": "The interface is rebuilt on top of the fresh upstream merge, so the fork carries the same fixes as the current GitHub Desktop preview",
-      "cliHelpLocalized": "The CLI help is printed in the language chosen in Settings"
+      "cliHelpLocalized": "The CLI help is printed in the language chosen in Settings",
+      "upstreamSync368": "The interface is rebuilt on top of upstream 3.6.8, so the fork carries the same fixes as the current GitHub Desktop release",
+      "linuxPackages": "The Linux release comes as a Debian package and an AppImage, and the AppImage updates through AppImageUpdate"
     }
   },
   "repositoriesList": {
@@ -2946,7 +2950,8 @@
       "@darwin": "Rename Worktree",
       "@other": "Rename worktree"
     },
-    "renameButton": "Rename {name}"
+    "renameButton": "Rename {name}",
+    "could-not-determine-main": "Could not determine the main worktree of the repository."
   },
   "cloningRepository": {
     "title": "Cloning {repository}"

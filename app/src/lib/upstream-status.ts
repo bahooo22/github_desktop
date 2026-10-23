@@ -63,8 +63,10 @@ export function compareUpstreamVersions(
   }
 }
 
-export async function getUpstreamStatus(): Promise<IUpstreamStatus | null> {
-  const cached = readCache()
+export async function getUpstreamStatus(
+  forceRefresh = false
+): Promise<IUpstreamStatus | null> {
+  const cached = forceRefresh ? undefined : readCache()
 
   if (cached !== undefined) {
     return compareUpstreamVersions(getVersion(), cached.upstreamVersions)
@@ -96,6 +98,25 @@ export async function getUpstreamStatus(): Promise<IUpstreamStatus | null> {
     log.debug(`[upstream-status] changelog lookup failed`, e)
     return null
   }
+}
+
+/** Where the official build of a version can be downloaded. */
+export function upstreamReleasePageUrl(version: string): string {
+  return `https://github.com/desktop/desktop/releases/tag/release-${version}`
+}
+
+/**
+ * Which official release the user told the banner about once already. Keyed by
+ * version, so the next upstream release asks again.
+ */
+const dismissedReleaseKey = 'upstream-release-dismissed'
+
+export function isUpstreamReleaseDismissed(version: string): boolean {
+  return localStorage.getItem(dismissedReleaseKey) === version
+}
+
+export function dismissUpstreamRelease(version: string) {
+  localStorage.setItem(dismissedReleaseKey, version)
 }
 
 function readCache(): ICachedCheck | undefined {

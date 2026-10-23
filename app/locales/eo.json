@@ -1758,7 +1758,12 @@
       "worktreeList.copyWorktreePath",
       "worktreeList.missing",
       "worktreeList.missingAria",
-      "worktreeList.noItemsFound"
+      "worktreeList.noItemsFound",
+      "releaseNotes.fork.upstreamSync368",
+      "releaseNotes.fork.linuxPackages",
+      "renameWorktreeDialog.could-not-determine-main",
+      "about.upstream-download",
+      "banners.upstreamReleaseAvailable"
     ]
   },
   "common": {
@@ -2494,6 +2499,7 @@
     "license-notices": "Permesiloj kaj Malfermita Fonto-Anoncetoj",
     "responsible-use-copilot": "Respondeca uzo de Copilot en GitHub Desktop",
     "l10nCredit": "Lokigo fare de <authors>{authors}</authors>. Farita de <sha>{sha}</sha> la {date}.",
+    "upstream-download": "Elŝuti la oficialan version",
     "upstream-behind": {
       "_one": "Nova suprenflua versio estas disponebla: <link>{version}</link> ({count} eldono malantaŭe)",
       "_other": "Nova suprenflua versio estas disponebla: <link>{version}</link> ({count} eldonoj malantaŭe)"
@@ -3646,6 +3652,7 @@
       "_other": "Sukcese kunpremitaj {count} komitoj."
     },
     "osNotSupported": "Ĉi tiu operacia sistemo jam ne estas subtenata. Programvarmaj ĝisdatigoj estis malaktivigitaj. <link>Detaloj pri subteno</link>",
+    "upstreamReleaseAvailable": "Havebla estas la oficiala GitHub Desktop {version}. <download>Elŝuti la oficialan version</download>",
     "forkReleaseAvailable": {
       "_one": "Disponas pli nova versio de ĉi tiu forko: antaŭen per {count} komito. <link>Paĝo pri eldono</link>",
       "_other": "Disponas pli nova versio de ĉi tiu forko: antaŭen per {count} komitoj. <link>Paĝo pri eldono</link>"
@@ -4164,7 +4171,9 @@
       "upstreamSync": "La interfaco estas rekonstruita super suprenflua 3.6.8-beta2, do la forko portas la samajn korektojn kiel la nuna antaŭrigardo de GitHub Desktop",
       "missingWorktrees": "Dialogoj pri laboraj dosierujoj nun indikas laboran dosierujon kies dosierujo malaperis, en la lingvo de la interfaco",
       "upstreamSyncBeta3": "La interfaco estas rekonstruita sur la freŝa kunfandiĝo de upstream, do la forko portas la samajn riparojn kiel la nuna antaŭrigardo de GitHub Desktop",
-      "cliHelpLocalized": "La helpo de CLI estas presata en la lingvo elektita en la agordoj"
+      "cliHelpLocalized": "La helpo de CLI estas presata en la lingvo elektita en la agordoj",
+      "upstreamSync368": "La interfaco estas rekonstruita sur upstream 3.6.8, do la forko portas la samajn riparojn kiel la nuna eldono de GitHub Desktop",
+      "linuxPackages": "La Linuksa eldono venas en du formoj: Debian kaj AppImage; la AppImage ĝisdatiĝas per AppImageUpdate"
     }
   },
   "repositoriesList": {
@@ -4703,7 +4712,8 @@
       "@darwin": "Renomi labora dosierujo",
       "@other": "Renomi labora dosierujo"
     },
-    "renameButton": "Renomi {name}"
+    "renameButton": "Renomi {name}",
+    "could-not-determine-main": "Ne eblis determini la ĉefan laboran dosierujon de la deponejo."
   },
   "cloningRepository": {
     "title": "Kloni {repository}"

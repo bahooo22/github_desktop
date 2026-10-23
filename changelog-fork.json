@@ -1,6 +1,14 @@
 {
   "releases": [
     {
+      "version": "3.6.8",
+      "pub_date": "2026-10-23T00:00:00Z",
+      "notes": [
+        { "kind": "improved", "key": "releaseNotes.fork.upstreamSync368" },
+        { "kind": "new", "key": "releaseNotes.fork.linuxPackages" }
+      ]
+    },
+    {
       "version": "3.6.8-beta3",
       "pub_date": "2026-10-22T00:00:00Z",
       "notes": [

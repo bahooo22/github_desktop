@@ -195,6 +195,11 @@ import {
   getForkReleaseStatus,
   isForkReleaseDismissed,
 } from '../lib/fork-release'
+import {
+  getUpstreamStatus,
+  isUpstreamReleaseDismissed,
+  upstreamReleasePageUrl,
+} from '../lib/upstream-status'
 import { offsetFromNow } from '../lib/offset-from'
 import { getNumber } from '../lib/local-storage'
 import { recordBuildFirstRun } from '../lib/first-run-of-build'
@@ -441,8 +446,9 @@ export class App extends React.Component<IAppProps, IAppState> {
    * Priority:
    * 1. OS Not Supported by Electron
    * 2. Fork release available
-   * 3. Accessibility Settings Banner
-   * 4. Thank you banner
+   * 3. Upstream release available
+   * 4. Accessibility Settings Banner
+   * 5. Thank you banner
    */
   private setOnOpenBanner() {
     if (isOSNoLongerSupportedByElectron()) {
@@ -456,11 +462,18 @@ export class App extends React.Component<IAppProps, IAppState> {
     }
 
     // Awaited only so the thank you card doesn't take the single banner slot
-    // before the fork check has had its say; nothing else here depends on it.
+    // before the release checks have had their say; nothing else here depends
+    // on them.
     this.showForkReleaseBanner().then(hasShown => {
-      if (!hasShown) {
-        this.checkIfThankYouIsInOrder()
+      if (hasShown) {
+        return
       }
+
+      this.showUpstreamReleaseBanner().then(hasShownUpstream => {
+        if (!hasShownUpstream) {
+          this.checkIfThankYouIsInOrder()
+        }
+      })
     })
   }
 
@@ -495,6 +508,43 @@ export class App extends React.Component<IAppProps, IAppState> {
       releaseSha: status.releaseSha,
       aheadBy: status.aheadBy,
       releasePageUrl: status.releasePageUrl,
+    })
+
+    return true
+  }
+
+  /**
+   * Offers the official GitHub Desktop release when the official channel has
+   * moved ahead, and returns whether it took the banner slot.
+   *
+   * The official build is a separate application: it installs beside the fork
+   * and arrives without this fork's localization, so the banner links to its
+   * download page rather than installing anything.
+   */
+  private async showUpstreamReleaseBanner(): Promise<boolean> {
+    if (__LINUX__) {
+      return false
+    }
+
+    const status = await getUpstreamStatus()
+
+    if (status === null || isUpstreamReleaseDismissed(status.latestVersion)) {
+      return false
+    }
+
+    const updateStatus = updateStore.state.status
+
+    if (
+      updateStatus === UpdateStatus.UpdateReady ||
+      updateStatus === UpdateStatus.UpdateAvailable
+    ) {
+      return false
+    }
+
+    this.setBanner({
+      type: BannerType.UpstreamReleaseAvailable,
+      version: status.latestVersion,
+      releasePageUrl: upstreamReleasePageUrl(status.latestVersion),
     })
 
     return true
@@ -729,6 +779,34 @@ export class App extends React.Component<IAppProps, IAppState> {
     }
 
     updateStore.checkForUpdates(inBackground, skipGuidCheck)
+    this.checkOfficialRelease(!inBackground)
+  }
+
+  /**
+   * Checks the official GitHub Desktop channel alongside Squirrel. A manual
+   * check bypasses the day-long cache; the result only raises a banner, since
+   * the official build installs as a separate application.
+   */
+  private async checkOfficialRelease(forceRefresh: boolean) {
+    if (__LINUX__) {
+      return
+    }
+
+    const status = await getUpstreamStatus(forceRefresh)
+
+    if (status === null || isUpstreamReleaseDismissed(status.latestVersion)) {
+      return
+    }
+
+    if (this.state.currentBanner !== null) {
+      return
+    }
+
+    this.setBanner({
+      type: BannerType.UpstreamReleaseAvailable,
+      version: status.latestVersion,
+      releasePageUrl: upstreamReleasePageUrl(status.latestVersion),
+    })
   }
 
   private updateBranchWithContributionTargetBranch() {
@@ -3946,13 +4024,14 @@ export class App extends React.Component<IAppProps, IAppState> {
     const updateBannerVisible =
       this.state.isUpdateAvailableBannerVisible ||
       this.state.isUpdateShowcaseVisible
-    const forkReleaseBanner =
+    const releaseBanner =
       this.state.currentBanner !== null &&
-      this.state.currentBanner.type === BannerType.ForkReleaseAvailable
+      (this.state.currentBanner.type === BannerType.ForkReleaseAvailable ||
+        this.state.currentBanner.type === BannerType.UpstreamReleaseAvailable)
         ? this.state.currentBanner
         : null
 
-    if (this.state.currentBanner !== null && forkReleaseBanner === null) {
+    if (this.state.currentBanner !== null && releaseBanner === null) {
       banner = renderBanner(
         this.state.currentBanner,
         this.props.dispatcher,
@@ -3960,9 +4039,9 @@ export class App extends React.Component<IAppProps, IAppState> {
       )
     } else if (updateBannerVisible) {
       banner = this.renderUpdateBanner()
-    } else if (forkReleaseBanner !== null) {
+    } else if (releaseBanner !== null) {
       banner = renderBanner(
-        forkReleaseBanner,
+        releaseBanner,
         this.props.dispatcher,
         this.onBannerDismissed
       )

@@ -24,7 +24,11 @@ import { formatDate } from '../../lib/format-date'
 import { formatBytes } from '../lib/bytes'
 import { t, Trans, localization } from '../../lib/l10n'
 import { buildFeedbackIssueUrl } from '../localization/translation-issue'
-import { getUpstreamStatus, IUpstreamStatus } from '../../lib/upstream-status'
+import {
+  getUpstreamStatus,
+  IUpstreamStatus,
+  upstreamReleasePageUrl,
+} from '../../lib/upstream-status'
 import {
   getForkReleaseStatus,
   IForkReleaseStatus,
@@ -436,6 +440,14 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           }}
           components={{ link: <LinkButton uri={ReleaseNotesUri} /> }}
         />
+        {(__WIN32__ || __DARWIN__) && (
+          <>
+            {' '}
+            <LinkButton uri={upstreamReleasePageUrl(status.latestVersion)}>
+              {t('about.upstream-download')}
+            </LinkButton>
+          </>
+        )}
       </p>
     )
   }

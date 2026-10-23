@@ -1,6 +1,7 @@
 import * as Path from 'path'
 import type { Repository } from '../../models/repository'
 import type { WorktreeEntry, WorktreeType } from '../../models/worktree'
+import { t } from '../l10n/core'
 import { pathExists } from '../path-exists'
 import { git } from './core'
 
@@ -173,7 +174,7 @@ export async function moveWorktree(
   )
 
   if (mainWorktree === undefined) {
-    throw new Error('Could not determine the main worktree of the repository')
+    throw new Error(t('renameWorktreeDialog.could-not-determine-main'))
   }
 
   await git(

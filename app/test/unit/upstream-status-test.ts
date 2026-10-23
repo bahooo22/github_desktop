@@ -1,7 +1,10 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
 
-import { compareUpstreamVersions } from '../../src/lib/upstream-status'
+import {
+  compareUpstreamVersions,
+  upstreamReleasePageUrl,
+} from '../../src/lib/upstream-status'
 
 describe('Upstream status', () => {
   it('reports how far behind the fork build is', () => {
@@ -25,5 +28,12 @@ describe('Upstream status', () => {
 
   it('ignores a build whose own version cannot be compared', () => {
     assert.strictEqual(compareUpstreamVersions('development', ['3.5.1']), null)
+  })
+
+  it('points at the official release page named after the version', () => {
+    assert.strictEqual(
+      upstreamReleasePageUrl('3.6.9'),
+      'https://github.com/desktop/desktop/releases/tag/release-3.6.9'
+    )
   })
 })

@@ -18,6 +18,7 @@ export enum BannerType {
   ConflictsFound = 'ConflictsFound',
   OSVersionNoLongerSupported = 'OSVersionNoLongerSupported',
   ForkReleaseAvailable = 'ForkReleaseAvailable',
+  UpstreamReleaseAvailable = 'UpstreamReleaseAvailable',
 }
 
 export type Banner =
@@ -130,5 +131,12 @@ export type Banner =
       /** How many commits that release carries on top of this build. */
       readonly aheadBy: number
       /** Where to get it — a portable build has no installer to run. */
+      readonly releasePageUrl: string
+    }
+  | {
+      readonly type: BannerType.UpstreamReleaseAvailable
+      /** The version the official channel has published. */
+      readonly version: string
+      /** Where to download it; it installs beside the fork. */
       readonly releasePageUrl: string
     }

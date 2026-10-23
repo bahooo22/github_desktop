@@ -20,6 +20,7 @@ import { SuccessBanner } from './success-banner'
 import { ConflictsFoundBanner } from './conflicts-found-banner'
 import { OSVersionNoLongerSupportedBanner } from './os-version-no-longer-supported-banner'
 import { ForkReleaseAvailable } from './fork-release-available'
+import { UpstreamReleaseAvailable } from './upstream-release-available'
 import { t } from '../../lib/l10n'
 
 export function renderBanner(
@@ -173,6 +174,15 @@ export function renderBanner(
           key="fork-release-available"
           releaseSha={banner.releaseSha}
           aheadBy={banner.aheadBy}
+          releasePageUrl={banner.releasePageUrl}
+          onDismissed={onDismissed}
+        />
+      )
+    case BannerType.UpstreamReleaseAvailable:
+      return (
+        <UpstreamReleaseAvailable
+          key="upstream-release-available"
+          version={banner.version}
           releasePageUrl={banner.releasePageUrl}
           onDismissed={onDismissed}
         />
