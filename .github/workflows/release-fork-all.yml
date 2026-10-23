@@ -45,3 +45,14 @@ jobs:
   linux:
     name: Linux x64 portable
     uses: ./.github/workflows/release-fork-linux.yml
+
+  macos:
+    strategy:
+      # Сборки независимы: падение одной архитектуры не отменяет другую.
+      fail-fast: false
+      matrix:
+        arch: [arm64, x64]
+    name: macOS ${{ matrix.arch }}
+    uses: ./.github/workflows/release-fork-macos.yml
+    with:
+      arch: ${{ matrix.arch }}

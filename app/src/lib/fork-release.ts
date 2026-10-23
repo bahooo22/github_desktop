@@ -50,6 +50,13 @@ export interface IForkBuildInfo {
   readonly builtAt: string
 }
 
+/** A downloadable asset of a fork release. */
+export interface IReleaseAsset {
+  readonly name: string
+  readonly url: string
+  readonly size: number
+}
+
 export interface IForkReleaseStatus {
   /** The commit the released build was made from. */
   readonly releaseSha: string
@@ -353,14 +360,16 @@ function isForkReleaseStatus(value: unknown): value is IForkReleaseStatus {
  * is also the answer when the check could not be made, because there is nothing
  * to say then either. Results are cached for a day per install.
  */
-export async function getForkReleaseStatus(): Promise<IForkReleaseStatus | null> {
+export async function getForkReleaseStatus(
+  forceRefresh = false
+): Promise<IForkReleaseStatus | null> {
   if (__FORK_FEED_URL__ === '') {
     return null
   }
 
   const currentSha = normalizeSha(__SHA__)
 
-  const cached = readCache(currentSha)
+  const cached = forceRefresh ? undefined : readCache(currentSha)
 
   if (cached !== undefined) {
     return cached.status
@@ -384,6 +393,79 @@ export async function getForkReleaseStatus(): Promise<IForkReleaseStatus | null>
  * exists for.
  */
 const dismissedReleaseKey = 'fork-release-dismissed'
+
+/**
+ * The release's assets whose names end with one of `extensions`, newest release
+ * first as the API lists them. Anything malformed is dropped: the caller only
+ * ever offers files it can name and link.
+ */
+export function parseReleaseAssets(
+  release: unknown,
+  extensions: ReadonlyArray<string>
+): ReadonlyArray<IReleaseAsset> {
+  if (release === null || typeof release !== 'object') {
+    return []
+  }
+
+  const assets = (release as Record<string, unknown>).assets
+
+  if (!Array.isArray(assets)) {
+    return []
+  }
+
+  const suffixes = extensions.map(e => e.toLowerCase())
+
+  return assets.flatMap(raw => {
+    if (raw === null || typeof raw !== 'object') {
+      return []
+    }
+
+    const asset = raw as Record<string, unknown>
+    const name = asset.name
+    const url = asset.browser_download_url
+
+    if (typeof name !== 'string' || typeof url !== 'string') {
+      return []
+    }
+
+    if (!suffixes.some(suffix => name.toLowerCase().endsWith(suffix))) {
+      return []
+    }
+
+    return [
+      {
+        name,
+        url,
+        size: typeof asset.size === 'number' ? asset.size : 0,
+      },
+    ]
+  })
+}
+
+/**
+ * Assets of the fork's newest release with the given extensions. Always reads
+ * the release afresh: the download links are used right away, and a day-old
+ * cached set could point at a replaced asset.
+ */
+export async function getReleaseAssets(
+  extensions: ReadonlyArray<string>
+): Promise<ReadonlyArray<IReleaseAsset>> {
+  if (__FORK_FEED_URL__ === '') {
+    return []
+  }
+
+  try {
+    const release = await fetchJson(
+      __FORK_FEED_URL__,
+      'application/vnd.github.v3+json'
+    )
+
+    return parseReleaseAssets(release, extensions)
+  } catch (e) {
+    log.debug(`[fork-release] asset lookup failed`, e)
+    return []
+  }
+}
 
 export function isForkReleaseDismissed(releaseSha: string): boolean {
   return localStorage.getItem(dismissedReleaseKey) === releaseSha

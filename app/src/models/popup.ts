@@ -60,6 +60,7 @@ export enum PopupType {
   LFSAttributeMismatch = 'LFSAttributeMismatch',
   UpstreamAlreadyExists = 'UpstreamAlreadyExists',
   ReleaseNotes = 'ReleaseNotes',
+  DownloadForkRelease = 'DownloadForkRelease',
   DeletePullRequest = 'DeletePullRequest',
   OversizedFiles = 'OversizedFiles',
   CommitConflictsWarning = 'CommitConflictsWarning',
@@ -255,6 +256,10 @@ export type PopupDetail =
   | {
       type: PopupType.ReleaseNotes
       newReleases: ReadonlyArray<ReleaseSummary>
+    }
+  | {
+      type: PopupType.DownloadForkRelease
+      version: string
     }
   | {
       type: PopupType.DeletePullRequest

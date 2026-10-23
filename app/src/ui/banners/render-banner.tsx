@@ -172,9 +172,11 @@ export function renderBanner(
       return (
         <ForkReleaseAvailable
           key="fork-release-available"
+          version={banner.version}
           releaseSha={banner.releaseSha}
           aheadBy={banner.aheadBy}
-          releasePageUrl={banner.releasePageUrl}
+          action={__WIN32__ ? 'download' : 'choose-package'}
+          dispatcher={dispatcher}
           onDismissed={onDismissed}
         />
       )

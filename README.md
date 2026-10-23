@@ -44,34 +44,53 @@ Electron 44.9.1 на Node 24.22 (`.node-version`).
 | Строки интерфейса | Тексты вынесены в `app/locales/en.json`, из него строятся ru и uk; скелет нового каталога даёт `yarn l10n:scaffold`; покрытие меряют `yarn l10n:parity`, `l10n:audit`, `l10n:upstream`, `l10n:menu`, а сколько строк ещё английских — `--untranslated <tag>`. Мнемоники проверяются по `builtInLocaleTags` — по тому же списку, по которому каталоги регистрируются, а значения, подставляемые внутрь чужой подписи, берутся через `tv()`: подсказка второй строки не должна появляться в середине метки меню |
 | Настройки → Язык | Выбор языка интерфейса, редактор переводов с сохранением в свой каталог и режим «выбрать строку кликом». Для языков, записанных транскрипцией, каталог задаёт `meta.gloss`, и в «Языке» появляется чекбокс «Показывать перевод-подсказку» с выбором вида. Подсказка всегда одна и та же словарная строка — `[кириллическое чтение] русский перевод`, где чтение курсивом, а подпись и перевод полужирным; режим решает только, куда она попадает: второй строкой под подписью, после тире в нативном меню (его подпись держит одну строку) либо во всплывающей подсказке над строкой. Вторая строка показывается в кнопках, вкладках, подсказках, заголовках, абзацах, списках, подписях полей и баннерах диалогов; остальной интерфейс сохраняет обычную обработку пробелов |
 | Идентификатор Squirrel | `GitHubDesktopL10n` вместо `GitHubDesktop`: отдельный каталог в `%LOCALAPPDATA%` и свой фид, поэтому форк и стоковая сборка не перезаписывают друг друга. Имя ярлыка разводится отдельно (`getWindowsShortcutName()`, `script/dist-info.ts`): Squirrel называет `.lnk` по `FileDescription` exe, и с апстримным значением обе редакции писали бы один `GitHub Desktop.lnk`. CLI ставится как `github-l10n`: каталоги `bin` у редакций разные, а имя команды было общее, так что `github` разыгрывался порядком `PATH` |
-| Релизы | Четыре workflow: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`, каждый прогон трогает только свой тег; `Release Fork (Windows all arches)` и `Release Fork (All platforms)` вызывают те же файлы матрицей, чтобы все фиды стартовали одной кнопкой. Дешёвая джоба `gate` перед сборкой пропускает уже опубликованный коммит (пишет ссылку на готовый релиз) и не даёт публиковать версию, которая в `RELEASES` уже лежит |
-| Обновления | Squirrel берёт пакеты только из фида форка: адрес вшит в сборку (`getUpdatesURL()`, `script/dist-info.ts:167`), а публикабельную сборку с апстримным фидом сборочный скрипт отвергает |
+| Релизы | Пять workflow: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`, `Release Fork (macOS)` — в `latest-macos-arm64` или `latest-macos-x64`, каждый прогон трогает только свой тег; `Release Fork (Windows all arches)` и `Release Fork (All platforms)` вызывают те же файлы матрицей, чтобы все фиды стартовали одной кнопкой. Дешёвая джоба `gate` перед сборкой пропускает уже опубликованный коммит (пишет ссылку на готовый релиз) и не даёт публиковать версию, которая в `RELEASES` уже лежит |
+| Обновления | Проверка автоматическая, скачивание — только по кнопке «Скачать» в баннере. Windows отдаёт фид Squirrel (`getUpdatesURL()`, `script/dist-info.ts:167`), Linux — диалог выбора `.deb`/AppImage, macOS — неподписанный zip; официальный канал только оповещает ссылкой |
 | Свежесть сборки | Отдельная проверка по хешу коммита: каждый релиз называет, из чего собран, приложение сравнивает хеш со своим `__SHA__` и показывает баннер со ссылкой на релиз |
 | Отзыв о переводе | Номер сборки в диалоге «О программе» ведёт в заранее заполненную issue этого репозитория |
 
 ### Где взять
 
-- **Windows x64:**
-  [latest-win-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-win-x64) —
+- **Windows x64:** тег
+  [latest-win-x64](
+  https://github.com/bahooo22/github_desktop/releases/tag/latest-win-x64) —
   ставить `GitHubDesktopL10nSetup-x64.exe`, а не `.msi`: второй лишь доставляет
   установщик на машину. Есть и portable-архив `…-portable.zip`.
-- **Linux x64:**
-  [latest-linux-x64](https://github.com/bahooo22/github_desktop/releases/tag/latest-linux-x64) —
+- **Linux x64:** тег
+  [latest-linux-x64](
+  https://github.com/bahooo22/github_desktop/releases/tag/latest-linux-x64) —
   `github-desktop-l10n.deb` (`sudo dpkg -i`, ставит меню, иконку и команду
   `github-l10n`), `GitHubDesktopL10n-x86_64.AppImage` (`chmod +x` и запустить)
   или `desktop-linux-x64-portable.tar.gz` (распаковать и запустить `desktop`).
-- **Windows arm64:**
-  [latest-win-arm64](https://github.com/bahooo22/github_desktop/releases/tag/latest-win-arm64) —
+- **Windows arm64:** тег
+  [latest-win-arm64](
+  https://github.com/bahooo22/github_desktop/releases/tag/latest-win-arm64) —
   тот же набор ассетов, что у x64, но с суффиксом `arm64`.
-- **macOS:** сборок нет; `getUpdatesURL()` по умолчанию возвращает win-ный тег,
-  поэтому на macOS фид надо задавать явно.
+- **macOS arm64:** тег
+  [latest-macos-arm64](
+  https://github.com/bahooo22/github_desktop/releases/tag/latest-macos-arm64) —
+  `GitHub Desktop L10n-arm64.zip`; распаковать и перетащить `.app` в
+  «Программы».
+- **macOS x64:** тег
+  [latest-macos-x64](
+  https://github.com/bahooo22/github_desktop/releases/tag/latest-macos-x64) —
+  `GitHub Desktop L10n-x64.zip`.
 
-Самообновление работает только на Windows (Squirrel.Windows): там приложение
-само ходит в свой тег. На Linux встроенного обновления нет: AppImage обновляется
-внешним `appimageupdatetool -u` по `.zsync` из того же тега, `.deb` и portable —
-перекачиванием вручную. О том, что вышли новые сборки, Linux-клиент узнаёт по
-хешу релиза и говорит это баннером. На Ubuntu 24.04 с ограниченным user
-namespace AppImage может потребовать `--no-sandbox`.
+Сборка macOS не подписана и не нотаризована, поэтому Gatekeeper блокирует первый
+запуск: откройте приложение через «Системные настройки» → «Конфиденциальность и
+безопасность» → «Открыть всё равно» либо снимите карантин
+`xattr -dr com.apple.quarantine "/Applications/GitHub Desktop L10n.app"`.
+У форка свой bundle ID и имя (`com.github.GitHubClientL10n`), поэтому он
+устанавливается рядом с официальным и не делит с ним настройки.
+
+Обновления устроены одинаково: приложение само узнаёт о новой сборке и
+показывает баннер, но ничего не скачивает до нажатия «Скачать». На Windows
+дальше работает Squirrel, на Linux открывается выбор `.deb`/AppImage (файл
+сохраняется в «Загрузки»), на macOS скачивается zip. AppImage можно обновлять и
+внешним `appimageupdatetool -u` по `.zsync` из того же тега. Официальный канал
+GitHub Desktop тоже только оповещает и даёт ссылку — официальная сборка ставится
+отдельно и без локализации. На Ubuntu 24.04 с ограниченным user namespace
+AppImage может потребовать `--no-sandbox`.
 
 Панель «Примечания к выпуску» показывает и апстримные релизы, и изменения
 форка: свои записи лежат в `changelog-fork.json` (апстримный `changelog.json`
@@ -109,7 +128,10 @@ OAuth-приложения —
   SmartScreen покажет предупреждение при первом запуске.
 - `.rpm`, Flatpak и Snap: для RedHat-дистрибутивов и прочих Linux-систем
   предлагается AppImage, `.deb` — для Debian/Ubuntu.
-- macOS-сборок и, соответственно, обновлений на macOS.
+- Подписи macOS-сборки: Apple Developer Program не оплачивается, поэтому zip
+  не подписан и не нотаризован, а первый запуск требует обхода Gatekeeper.
+- Автоматического скачивания обновлений: приложение только проверяет фиды и
+  оповещает; любой пакет скачивается после нажатия «Скачать».
 
 ## Where can I get it?
 

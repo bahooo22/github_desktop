@@ -1729,7 +1729,16 @@
       "releaseNotes.fork.linuxPackages",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
-      "banners.upstreamReleaseAvailable"
+      "banners.upstreamReleaseAvailable",
+      "banners.forkReleaseDownload",
+      "downloadForkRelease.title",
+      "downloadForkRelease.loading",
+      "downloadForkRelease.saved",
+      "downloadForkRelease.showInFolder",
+      "downloadForkRelease.downloading",
+      "downloadForkRelease.downloadingNoPercent",
+      "downloadForkRelease.error",
+      "downloadForkRelease.gatekeeper"
     ]
   },
   "common": {
@@ -3618,6 +3627,7 @@
       "_other": "Malinë {count} minatacër."
     },
     "osNotSupported": "Lá mahtaina sína indya. Envinyatië nuhtaina. <link>Alyassë</link>",
+    "forkReleaseDownload": "á-tulya",
     "upstreamReleaseAvailable": "i official GitHub Desktop {version} tulë. <download>á-tulya</download>",
     "forkReleaseAvailable": {
       "_one": "Harya nelecco vinya: {count} minatacë epe. <link>Leryaressë</link>",
@@ -4672,6 +4682,16 @@
       "@win32": "auhanta",
       "@other": "auhanta"
     }
+  },
+  "downloadForkRelease": {
+    "title": "á-tulya {version}",
+    "loading": "i leryalë parmar cearina…",
+    "saved": "Hirna: {path}",
+    "showInFolder": "tana i haurassë",
+    "downloading": "tulya… {percent}%",
+    "downloadingNoPercent": "tulya…",
+    "error": "unistë tulya i parma.",
+    "gatekeeper": "i app lá tecina Apple. System Settings → Privacy & Security → Open Anyway."
   },
   "renameWorktreeDialog": {
     "title": {

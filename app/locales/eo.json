@@ -1763,7 +1763,16 @@
       "releaseNotes.fork.linuxPackages",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
-      "banners.upstreamReleaseAvailable"
+      "banners.upstreamReleaseAvailable",
+      "banners.forkReleaseDownload",
+      "downloadForkRelease.title",
+      "downloadForkRelease.loading",
+      "downloadForkRelease.saved",
+      "downloadForkRelease.showInFolder",
+      "downloadForkRelease.downloading",
+      "downloadForkRelease.downloadingNoPercent",
+      "downloadForkRelease.error",
+      "downloadForkRelease.gatekeeper"
     ]
   },
   "common": {
@@ -3652,6 +3661,7 @@
       "_other": "Sukcese kunpremitaj {count} komitoj."
     },
     "osNotSupported": "Ĉi tiu operacia sistemo jam ne estas subtenata. Programvarmaj ĝisdatigoj estis malaktivigitaj. <link>Detaloj pri subteno</link>",
+    "forkReleaseDownload": "Elŝuti",
     "upstreamReleaseAvailable": "Havebla estas la oficiala GitHub Desktop {version}. <download>Elŝuti la oficialan version</download>",
     "forkReleaseAvailable": {
       "_one": "Disponas pli nova versio de ĉi tiu forko: antaŭen per {count} komito. <link>Paĝo pri eldono</link>",
@@ -4706,6 +4716,16 @@
       "@win32": "Reciklaĵo",
       "@other": "Rubujo"
     }
+  },
+  "downloadForkRelease": {
+    "title": "Elŝuti {version}",
+    "loading": "Serĉado de la dosieroj de la eldono…",
+    "saved": "Konservita en {path}",
+    "showInFolder": "Montri en dosierujo",
+    "downloading": "Elŝutado… {percent}%",
+    "downloadingNoPercent": "Elŝutado…",
+    "error": "Ne eblis elŝuti la dosieron.",
+    "gatekeeper": "La aplikaĵo ne estas subskribita de Apple. Post malpakado malfermu ĝin unufoje per System Settings → Privacy & Security → Open Anyway."
   },
   "renameWorktreeDialog": {
     "title": {

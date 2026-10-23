@@ -19,6 +19,10 @@ import { DesktopAliveEvent } from './stores/alive-store'
 import { CLIAction } from './cli-action'
 import { LocalizationState } from './l10n/types'
 import { IUpdateDownloadProgress } from './update-download-progress'
+import {
+  IReleaseAssetDownloadProgress,
+  ReleaseAssetDownloadResult,
+} from './release-asset-download'
 
 /**
  * Defines the simplex IPC channel names we use from the renderer
@@ -27,6 +31,9 @@ import { IUpdateDownloadProgress } from './update-download-progress'
  * the two over the untyped IPC framework.
  */
 export type RequestChannels = {
+  'release-asset-download-progress': (
+    progress: IReleaseAssetDownloadProgress
+  ) => void
   'select-all-window-contents': () => void
   'dialog-did-open': () => void
   'update-menu-state': (
@@ -126,6 +133,10 @@ export type RequestResponseChannels = {
   'is-in-application-folder': () => Promise<boolean | null>
   'move-to-applications-folder': () => Promise<void>
   'check-for-updates': (url: string) => Promise<Error | undefined>
+  'download-release-asset': (
+    url: string,
+    fileName: string
+  ) => Promise<ReleaseAssetDownloadResult>
   'get-current-window-state': () => Promise<WindowState | undefined>
   'get-current-window-zoom-factor': () => Promise<number | undefined>
   'resolve-proxy': (url: string) => Promise<string>

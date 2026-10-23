@@ -21,12 +21,7 @@ import { FetchType } from '../models/fetch'
 import { shouldRenderApplicationMenu } from './lib/features'
 import { matchExistingRepository } from '../lib/repository-matching'
 import { getVersion, getName } from './lib/app-proxy'
-import {
-  getOS,
-  isOSNoLongerSupportedByElectron,
-  isMacOSAndNoLongerSupportedByElectron,
-  isWindowsAndNoLongerSupportedByElectron,
-} from '../lib/get-os'
+import { getOS, isOSNoLongerSupportedByElectron } from '../lib/get-os'
 import { MenuEvent, isTestMenuEvent } from '../main-process/menu'
 import {
   Repository,
@@ -74,6 +69,7 @@ import { AppMenuBar } from './app-menu'
 import { UpdateAvailable, renderBanner } from './banners'
 import { Preferences } from './preferences'
 import { LocalizationEditor } from './localization/localization-editor'
+import { DownloadForkReleaseDialog } from './downloads/download-fork-release-dialog'
 import { CopilotSettingsDialog } from './preferences/copilot-settings-dialog'
 import { CopilotCustomProvidersDialog } from './preferences/copilot-custom-providers-dialog'
 import { EditCopilotBYOKProviderDialog } from './copilot/edit-byok-provider-dialog'
@@ -407,13 +403,13 @@ export class App extends React.Component<IAppProps, IAppState> {
 
     this.props.dispatcher.installGlobalLFSFilters(false)
 
-    // We only want to automatically check for updates on beta and prod
+    // Only the notification is automatic: the check reads the release feeds,
+    // and Squirrel is left alone until the user asks to download a build.
     if (
       __RELEASE_CHANNEL__ !== 'development' &&
       __RELEASE_CHANNEL__ !== 'test'
     ) {
-      setInterval(() => this.checkForUpdates(true), UpdateCheckInterval)
-      this.checkForUpdates(true)
+      setInterval(() => void this.checkForReleases(true), UpdateCheckInterval)
     } else if (await updateStore.isUpdateShowcase()) {
       // The only purpose of this call is so we can see the showcase on dev/test
       // env. Prod and beta environment will trigger this during automatic check
@@ -487,8 +483,12 @@ export class App extends React.Component<IAppProps, IAppState> {
    * its way — its banner installs the update, ours only links to the release
    * page.
    */
-  private async showForkReleaseBanner(): Promise<boolean> {
-    const status = await getForkReleaseStatus()
+  private async showForkReleaseBanner(forceRefresh = false): Promise<boolean> {
+    if (this.state.currentBanner !== null) {
+      return false
+    }
+
+    const status = await getForkReleaseStatus(forceRefresh)
 
     if (status === null || isForkReleaseDismissed(status.releaseSha)) {
       return false
@@ -507,7 +507,7 @@ export class App extends React.Component<IAppProps, IAppState> {
       type: BannerType.ForkReleaseAvailable,
       releaseSha: status.releaseSha,
       aheadBy: status.aheadBy,
-      releasePageUrl: status.releasePageUrl,
+      version: status.version,
     })
 
     return true
@@ -521,12 +521,14 @@ export class App extends React.Component<IAppProps, IAppState> {
    * and arrives without this fork's localization, so the banner links to its
    * download page rather than installing anything.
    */
-  private async showUpstreamReleaseBanner(): Promise<boolean> {
-    if (__LINUX__) {
+  private async showUpstreamReleaseBanner(
+    forceRefresh = false
+  ): Promise<boolean> {
+    if (__LINUX__ || this.state.currentBanner !== null) {
       return false
     }
 
-    const status = await getUpstreamStatus()
+    const status = await getUpstreamStatus(forceRefresh)
 
     if (status === null || isUpstreamReleaseDismissed(status.latestVersion)) {
       return false
@@ -756,57 +758,20 @@ export class App extends React.Component<IAppProps, IAppState> {
     this.props.dispatcher.setCommitMessageFocus(true)
   }
 
-  private checkForUpdates(
-    inBackground: boolean,
-    skipGuidCheck: boolean = false
-  ) {
-    if (__LINUX__ || __RELEASE_CHANNEL__ === 'development') {
-      return
-    }
-
-    if (isWindowsAndNoLongerSupportedByElectron()) {
-      log.error(
-        `Can't check for updates on Windows 8.1 or older. Next available update only supports Windows 10 and later`
-      )
-      return
-    }
-
-    if (isMacOSAndNoLongerSupportedByElectron()) {
-      log.error(
-        `Can't check for updates on macOS 12 or older. Next available update only supports macOS 13 and later`
-      )
-      return
-    }
-
-    updateStore.checkForUpdates(inBackground, skipGuidCheck)
-    this.checkOfficialRelease(!inBackground)
-  }
-
   /**
-   * Checks the official GitHub Desktop channel alongside Squirrel. A manual
-   * check bypasses the day-long cache; the result only raises a banner, since
-   * the official build installs as a separate application.
+   * Checks both release channels. Notification is the only thing that happens
+   * automatically: Squirrel is not asked to look at its feed here, so nothing
+   * is downloaded until the user presses Download in the banner.
    */
-  private async checkOfficialRelease(forceRefresh: boolean) {
-    if (__LINUX__) {
-      return
+  private async checkForReleases(forceRefresh: boolean) {
+    const forkShown = await this.showForkReleaseBanner(forceRefresh)
+    const upstreamShown = forkShown
+      ? false
+      : await this.showUpstreamReleaseBanner(forceRefresh)
+
+    if (!forkShown && !upstreamShown) {
+      updateStore.noteExternalCheck()
     }
-
-    const status = await getUpstreamStatus(forceRefresh)
-
-    if (status === null || isUpstreamReleaseDismissed(status.latestVersion)) {
-      return
-    }
-
-    if (this.state.currentBanner !== null) {
-      return
-    }
-
-    this.setBanner({
-      type: BannerType.UpstreamReleaseAvailable,
-      version: status.latestVersion,
-      releasePageUrl: upstreamReleasePageUrl(status.latestVersion),
-    })
   }
 
   private updateBranchWithContributionTargetBranch() {
@@ -2132,6 +2097,14 @@ export class App extends React.Component<IAppProps, IAppState> {
             onQuitAndInstall={this.onQuitAndInstall}
           />
         )
+      case PopupType.DownloadForkRelease:
+        return (
+          <DownloadForkReleaseDialog
+            key="download-fork-release"
+            version={popup.version}
+            onDismissed={onPopupDismissedFn}
+          />
+        )
       case PopupType.PublishRepository:
         return (
           <Publish
@@ -3394,8 +3367,7 @@ export class App extends React.Component<IAppProps, IAppState> {
     this.props.dispatcher.openShell(path, true)
   }
 
-  private onCheckForNonStaggeredUpdates = () =>
-    this.checkForUpdates(false, true)
+  private onCheckForNonStaggeredUpdates = () => void this.checkForReleases(true)
 
   private onSaveCopilotBYOKProvider = (
     provider: IBYOKProvider,

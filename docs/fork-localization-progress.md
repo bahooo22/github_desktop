@@ -4416,3 +4416,62 @@ Linux-сборок у апстрима нет. Отдельный ключ ба�
 Замеры. `--parity` — 1 758 ключей, issues 0; `--untranslated` — 25/25, 28, 20,
 52/55 из 2 023; готовность la и eo 1 758, tlh 1 723, qya 1 722. Тест
 `upstream-status-test` дополнен проверкой адреса релиза.
+
+## Проверка без скачивания и macOS-сборка (23.10.2026)
+
+Требование этапа: автоматическим остаётся только оповещение о новой версии;
+скачивание — всегда по нажатию пользователя, во всех системах. Раньше на
+Windows Squirrel при старте и каждые четыре часа проверял фид и сразу начинал
+грузить пакет: у Squirrel `update-available` уже означает начавшееся
+скачивание. Теперь ни один вызов Squirrel не стоит на пути старта: и старт, и
+интервал ведут в `checkForReleases()` — `getForkReleaseStatus()` и
+`getUpstreamStatus()` по GitHub API, без суточного кэша при ручной проверке
+из меню. Если API увидел релиз, поднимается баннер, но пакет до кнопки
+«Скачать» не скачивается; кнопка «Проверить обновления» в меню теперь работает
+и на Linux. Ручная проверка ставит отметку времени в `updateStore` через
+`noteExternalCheck()`, не трогая Squirrel.
+
+Кнопка «Скачать» ведёт себя по платформе: Windows — Squirrel
+(`updateStore.checkForUpdates`), Linux и macOS — диалог выбора пакета
+(`DownloadForkRelease`): `.deb` и `.AppImage` на Linux, zip на macOS. Файл
+сохраняет главный процесс по IPC `download-release-asset`: allowlist хостов
+(`github.com`, `release-assets.githubusercontent.com`,
+`objects.githubusercontent.com`), проверка имени и расширения, каталог
+«Загрузки», уникализация имени суффиксом « (N)», поток с прогрессом. Тесты чистых
+функций — `release-asset-download-test` (5 сценариев: выбор расширений, битые
+релизы, allowlist, имена, уникализация имени суффиксом « (N)»).
+
+macOS-сборка появилась как пятый релизный workflow
+(`release-fork-macos.yml`) и ветка в `release-fork-all.yml`. Она
+неподписанная: Apple Developer не оплачивается, поэтому build.ts при
+`DESKTOP_FORK_UNSIGNED_MACOS=1` пропускает keychain-шаг и подписывает ad-hoc
+(`identity: '-'`), а workflow публикует `GitHub Desktop L10n-<arch>.zip` в тег
+`latest-macos-arm64`/`latest-macos-x64`. Чтобы сборка не конфликтовала с
+официальным приложением, на darwin у форка свои имя и bundle ID («GitHub
+Desktop L10n», `com.github.GitHubClientL10n`): отдельные userData и Keychain,
+ярлык не спорит с апстримом. Squirrel.Mac не используется — обновление
+вручную; Gatekeeper при первом запуске требует «Открыть всё равно» или
+`xattr -dr com.apple.quarantine`. Оповещение о форковой сборке заработает
+после первого прогона workflow (`getForkFeedURL()` на darwin теперь возвращает
+тег фида); официальный канал оповещает и без него.
+
+Переводы. Девять новых ключей: кнопка `banners.forkReleaseDownload` и группа
+`downloadForkRelease` (title/loading/saved/showInFolder/downloading/
+downloadingNoPercent/error/gatekeeper) — во все семь каталогов; в la и eo —
+термины «скачивание» (`discensio`/`elŝuto`) и «Загрузки» (`Duluduvum`/
+`Elŝutoj`), в tlh и qya — `DujwI'` (носитель) и полные грамматические
+конструкции. Готовность дописана в `meta.ready` всех четырёх учебных
+каталогов.
+
+Замеры. `--parity` — 1 767 ключей, issues 0; `--untranslated` — 25/25, 28, 20,
+52/55 из 2 032 (прирост только из-за новых апстримных ключей этапа мержа);
+готовность la 1 767, eo 1 767, tlh 1 732, qya 1 731. Тесты:
+`release-asset-download-test` 5/5, `fork-release-test` 25/25, `test:script`
+36/36; полный `yarn test` — 2 548 тестов / 2 546 pass / 0 fail / 2 skipped
+(322 070 мс). Prettier, eslint и `compile:dev` чисто. Markdownlint README —
+38 находок против 41 в базовой линии: пять длинных строк-ссылок «Где взять»
+перевёрстаны, своих приростов нет.
+
+Итог. Автоматически приложение только узнаёт о новой версии и показывает
+баннер; любое скачивание — по кнопке, файлы падают в «Загрузки», macOS
+получил собственную неподписанную сборку и отдельные теги фида.

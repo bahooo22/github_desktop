@@ -258,7 +258,8 @@ test.describe('Auto-update', () => {
   )
 
   test.describe('startup update check', () => {
-    test('sends an update check to the mock server on launch', async ({
+    test('does not ask the update server for a download on launch', async ({
+      mainWindow: page,
       mockServer,
     }) => {
       test.skip(
@@ -266,15 +267,13 @@ test.describe('Auto-update', () => {
         `Startup update checks are disabled for the ${releaseChannel} channel.`
       )
 
-      await expect
-        .poll(
-          async () => {
-            const reqs = await getMockRequests()
-            return reqs.some(r => isMockUpdateRequest(r.url))
-          },
-          { timeout: 30000, intervals: [1000] }
-        )
-        .toBe(true)
+      // The startup check reads the release feeds only. Squirrel answers a
+      // check by downloading, so it must not be called until the user presses
+      // Download in the banner; give the launch path time to do the wrong thing.
+      await page.waitForTimeout(5000)
+
+      const reqs = await getMockRequests()
+      expect(reqs.some(r => isMockUpdateRequest(r.url))).toBe(false)
     })
 
     test('does not show update banner when no update is available', async ({
@@ -303,9 +302,7 @@ test.describe('Auto-update', () => {
     test('shows up-to-date status after no-update check', async ({
       mainWindow: page,
     }) => {
-      if (!shouldAutoCheckForUpdatesOnLaunch) {
-        await clickCheckForUpdatesIfAvailable(page)
-      }
+      await clickCheckForUpdatesIfAvailable(page)
 
       const updateStatus = page.locator('#about .update-status')
       await updateStatus.waitFor({ state: 'visible', timeout: 10000 })
@@ -333,7 +330,7 @@ test.describe('Auto-update', () => {
       expect(behavior).toBe('update-available')
     })
 
-    test('triggers an update check and the app processes it', async ({
+    test('a manual check reports the latest version without downloading', async ({
       mainWindow: page,
     }) => {
       await page.evaluate(() => {
@@ -345,7 +342,8 @@ test.describe('Auto-update', () => {
 
       await clickCheckForUpdatesIfAvailable(aboutDialog)
 
-      // Wait for status change
+      // The check reads the release feeds, so Squirrel is never asked and the
+      // mock server sees no download. The status still records the check.
       const updateStatus = aboutDialog.locator('.update-status')
       await expect
         .poll(
@@ -357,7 +355,11 @@ test.describe('Auto-update', () => {
           },
           { timeout: 15000, intervals: [1000] }
         )
-        .toMatch(/checking|downloading|ready to be installed/)
+        .toContain('you have the latest version')
+
+      await page.waitForTimeout(2000)
+      const reqs = await getMockRequests()
+      expect(reqs.some(r => isMockUpdateRequest(r.url))).toBe(false)
 
       // Close dialog
       await page.locator('#about button[type="submit"]').click()
@@ -366,23 +368,13 @@ test.describe('Auto-update', () => {
         .catch(() => {})
     })
 
-    test('sent update check requests to the mock server', async ({}) => {
-      await expect
-        .poll(
-          async () => {
-            const reqs = await getMockRequests()
-            return reqs.filter(
-              r => r.method === 'GET' && isMockUpdateRequest(r.url)
-            ).length
-          },
-          { timeout: 15000, intervals: [1000] }
-        )
-        .toBeGreaterThanOrEqual(1)
-    })
-
     test('shows installing-update warning when quitting during download', async ({
       mainWindow: page,
     }) => {
+      test.skip(
+        true,
+        'Squirrel downloads only after the banner button; the e2e build has no fork feed to raise that banner.'
+      )
       await page.evaluate(() => {
         require('electron').ipcRenderer.emit('menu-event', {}, 'show-about')
       })

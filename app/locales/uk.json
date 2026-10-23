@@ -1807,6 +1807,7 @@
       "_other": "Успішно виконано об'єднання {count} коміта."
     },
     "osNotSupported": "Ця операційна система більше не підтримується. Оновлення програми вимкнено. <link>Відомості про підтримку</link>",
+    "forkReleaseDownload": "Завантажити",
     "upstreamReleaseAvailable": "Доступна офіційна збірка GitHub Desktop {version}. <download>Завантажити офіційну збірку</download>",
     "forkReleaseAvailable": {
       "_one": "Доступна нова збірка форка: попереду на {count} коміт. <link>Сторінка релізу</link>",
@@ -2758,6 +2759,16 @@
     "openInShell": "Відкрити в оболонці",
     "revealInFileManager": "Показати у файловому менеджері",
     "trashName": "Кошик"
+  },
+  "downloadForkRelease": {
+    "title": "Завантажити {version}",
+    "loading": "Шукаємо файли релізу…",
+    "saved": "Збережено в {path}",
+    "showInFolder": "Показати в теці",
+    "downloading": "Завантажується… {percent}%",
+    "downloadingNoPercent": "Завантажується…",
+    "error": "Не вдалося завантажити файл.",
+    "gatekeeper": "Застосунок не підписано Apple. Після розпакування відкрийте його один раз через «Системні налаштування» → «Конфіденційність і безпека» → «Відкрити все одно»."
   },
   "renameWorktreeDialog": {
     "title": "Перейменувати worktree",

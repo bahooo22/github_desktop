@@ -19,14 +19,16 @@
 
 - `latest-win-x64` и `latest-win-arm64` — Windows,
 - `latest-linux-x64` — Linux (portable-архив, `.deb` и AppImage; Squirrel-обновлений
-  на Linux нет, AppImage обновляется внешним AppImageUpdate по `.zsync`).
+  на Linux нет, AppImage обновляется внешним AppImageUpdate по `.zsync`),
+- `latest-macos-arm64` и `latest-macos-x64` — macOS (неподписанный zip; Squirrel.Mac
+  не используется).
 
 Один тег на архитектуру нужен потому, что в релизе не может лежать два разных
 `RELEASES`: Squirrel.Windows дописывает это имя к адресу фида и читает оттуда
 список пакетов. Переопределить адрес можно сборочной переменной
-`DESKTOP_UPDATES_URL`. Тег всегда выбирается win-ный: `getUpdatesURL()` различает
-только x64 и arm64, поэтому для сборки под macOS адрес надо переопределять явно
-(сделанных macOS-релизов у форка нет).
+`DESKTOP_UPDATES_URL`. `getUpdatesURL()` выбирает только win-ный тег — Squirrel
+есть только на Windows; клиентская проверка сборок форка идёт через
+`getForkFeedURL()`, который для macOS возвращает `latest-macos-<arch>`.
 
 Поведение, специфичное для апстримного `central.github.com` (query
 `?version=&env=`, перезапись пути под arm64), отключено для форк-фида гейтом
@@ -118,6 +120,12 @@ notes тега — там же лежит `builtAt`, по которому ви�
   AppImageUpdate), `desktop-linux-x64-portable.tar.gz` (распаковать и запустить
   `desktop`) и `build-info.json`. Встроенных обновлений на Linux нет; `.deb`
   обновляется вручную, AppImage — `appimageupdatetool -u`.
+- macOS arm64/x64: `.../releases/tag/latest-macos-<arch>` — `GitHub Desktop
+  L10n-<arch>.zip` и `build-info.json`; создаётся прогоном
+  `release-fork-macos.yml -f arch=arm64` (или `x64`) либо обёрткой
+  `release-fork-all.yml`. Zip не подписан и не нотаризован: первый запуск
+  требует «Open Anyway» или снятия карантина; Squirrel.Mac не используется,
+  обновление скачивается вручную из приложения.
 
 ## Сборка одной командой в контейнере (Linux)
 
@@ -877,11 +885,17 @@ rc=0:
   `app/src/main-process/app-window.ts:6`) на Linux не поддерживается, а фид
   написан под Squirrel.Windows. AppImage обновляется внешним
   `appimageupdatetool -u` по `.zsync` из тега фида; `.deb` — вручную, пока у
-  форка нет apt-репозитория.
+  форка нет apt-репозитория. Скачивание из приложения — диалог `.deb`/AppImage,
+  файл сохраняется в «Загрузки».
+- Автоматического скачивания обновлений ни на одной платформе: проверка только
+  читает фиды и показывает баннер; Squirrel и скачивание пакетов запускаются
+  кнопкой «Скачать».
 - AppImage на Ubuntu 24.04: squashfs монтируется без setuid, а unprivileged user
   namespaces там ограничены AppArmor; если запуск падает на sandbox, нужен
   `--no-sandbox`. В `AppRun` этот флаг по умолчанию не добавлен.
-- macOS-релизов: механизм обновлений для macOS в коде есть (тот же
-  `autoUpdater`), но форк не собирает `.app` и не публикует mac-тег, а
-  `getUpdatesURL()` по умолчанию возвращает всегда win-ный тег. На macOS
-  обновления заработают только при явном `DESKTOP_UPDATES_URL`.
+- Подписи и нотаризации macOS-сборки: Apple Developer Program не оплачивается,
+  поэтому `.app` подписан ad-hoc (`DESKTOP_FORK_UNSIGNED_MACOS=1` в workflow),
+  Gatekeeper требует «Open Anyway», а Squirrel.Mac не может обновлять такую
+  сборку — обновление только вручную. Свой bundle ID
+  `com.github.GitHubClientL10n` и имя «GitHub Desktop L10n» не дают форку
+  конфликтовать с официальным приложением.

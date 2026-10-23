@@ -111,6 +111,20 @@ class UpdateStore {
     onAutoUpdaterDownloadProgress(this.onDownloadProgress)
   }
 
+  /**
+   * Records a release-feed check that did not involve Squirrel. Nothing was
+   * downloaded, so only "not checked yet" turns into "nothing to install"; an
+   * update that is already downloading or ready keeps its state.
+   */
+  public noteExternalCheck() {
+    this.touchLastChecked()
+
+    if (this.status === UpdateStatus.UpdateNotChecked) {
+      this.status = UpdateStatus.UpdateNotAvailable
+      this.emitDidChange()
+    }
+  }
+
   private touchLastChecked() {
     const now = new Date()
     this.lastSuccessfulCheck = now

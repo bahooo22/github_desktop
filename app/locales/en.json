@@ -1890,6 +1890,7 @@
       "_other": "Successfully squashed {count} commits."
     },
     "osNotSupported": "This operating system is no longer supported. Software updates have been disabled. <link>Support details</link>",
+    "forkReleaseDownload": "Download",
     "upstreamReleaseAvailable": "Official GitHub Desktop {version} is available. <download>Download the official build</download>",
     "forkReleaseAvailable": {
       "_one": "A newer build of this fork is available: {count} commit ahead. <link>Release page</link>",
@@ -2944,6 +2945,16 @@
       "@win32": "Recycle Bin",
       "@other": "Trash"
     }
+  },
+  "downloadForkRelease": {
+    "title": "Download {version}",
+    "loading": "Looking for the release files…",
+    "saved": "Saved to {path}",
+    "showInFolder": "Show in folder",
+    "downloading": "Downloading… {percent}%",
+    "downloadingNoPercent": "Downloading…",
+    "error": "Could not download the file.",
+    "gatekeeper": "The app is not signed by Apple. After unzipping, open it once via System Settings → Privacy & Security → Open Anyway."
   },
   "renameWorktreeDialog": {
     "title": {

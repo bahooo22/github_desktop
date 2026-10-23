@@ -249,21 +249,19 @@ export function getUpdatesURL() {
  * `Access-Control-Allow-Origin: *` and no cross-origin redirect (measured on
  * bahooo22/github_desktop, 2026-10-08), which is the transport that works.
  *
- * Empty string means "there is nothing to ask": the fork publishes no macOS
- * builds, so a mac build has no release tag of its own and the check stays off.
+ * The macOS build is unsigned and not updated by Squirrel, but the release tag
+ * still tells it when a newer zip has been published.
  */
 export function getForkFeedURL() {
   if (process.env.DESKTOP_FORK_FEED_URL !== undefined) {
     return process.env.DESKTOP_FORK_FEED_URL
   }
 
-  if (process.platform === 'darwin') {
-    return ''
-  }
-
   const tag =
     process.platform === 'linux'
       ? 'latest-linux-x64'
+      : process.platform === 'darwin'
+      ? `latest-macos-${getDistArchitecture()}`
       : getDistArchitecture() === 'arm64'
       ? 'latest-win-arm64'
       : 'latest-win-x64'

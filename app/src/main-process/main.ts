@@ -14,6 +14,7 @@ import {
 import * as Fs from 'fs'
 
 import { AppWindow } from './app-window'
+import { registerReleaseAssetDownload } from './download-release-asset'
 import { buildDefaultMenu, getAllMenuItems } from './menu'
 import {
   initializeMainProcessLocalization,
@@ -29,6 +30,7 @@ import {
   uninstallWindowsCLI,
 } from './squirrel-updater'
 import { fatalError } from '../lib/fatal-error'
+import { getProductName } from '../../package-info'
 
 import { log as writeLog } from './log'
 import { UNSAFE_openDirectory } from './shell'
@@ -181,6 +183,12 @@ function handleAppURL(url: string) {
     window.focus()
     window.sendURLAction(action)
   })
+}
+
+// The macOS build is a separate application; its own name gives it its own
+// application-support directory instead of upstream's.
+if (process.platform === 'darwin') {
+  app.setName(getProductName())
 }
 
 let isDuplicateInstance = false
@@ -588,6 +596,8 @@ app.on('ready', () => {
   ipcMain.handle('check-for-updates', async (_, url) =>
     mainWindow?.checkForUpdates(url)
   )
+
+  registerReleaseAssetDownload()
 
   ipcMain.on('quit-and-install-updates', () =>
     mainWindow?.quitAndInstallUpdate()

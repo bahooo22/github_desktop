@@ -130,8 +130,8 @@ export type Banner =
       readonly releaseSha: string
       /** How many commits that release carries on top of this build. */
       readonly aheadBy: number
-      /** Where to get it — a portable build has no installer to run. */
-      readonly releasePageUrl: string
+      /** The version the release states, for the download action. */
+      readonly version: string
     }
   | {
       readonly type: BannerType.UpstreamReleaseAvailable

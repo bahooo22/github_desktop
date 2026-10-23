@@ -1,0 +1,136 @@
+name: Release Fork (macOS)
+
+on:
+  workflow_dispatch:
+    inputs:
+      arch:
+        description: Architecture to build
+        required: true
+        default: arm64
+        type: choice
+        options: [arm64, x64]
+  # Вызов из .github/workflows/release-fork-all.yml.
+  workflow_call:
+    inputs:
+      arch:
+        description: Architecture to build (arm64 or x64)
+        required: true
+        type: string
+
+env:
+  NODE_VERSION: '24'
+  RELEASE_CHANNEL: production
+
+concurrency:
+  group: release-fork-macos-${{ inputs.arch }}
+  cancel-in-progress: false
+
+jobs:
+  # Гейт на ubuntu: macOS-раннер не тратится на проверку, опубликован ли уже
+  # этот коммит. Как и у linux, встроенного обновления у сборки нет (она
+  # неподписанная), поэтому проверяется только sha из notes и наличие zip.
+  gate:
+    name: Check whether a release is needed
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    outputs:
+      run: ${{ steps.gate.outputs.run }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 1
+          submodules: false
+
+      - uses: ./.github/actions/release-gate
+        id: gate
+        with:
+          tag: latest-macos-${{ inputs.arch }}
+          platform: macos
+
+  macos:
+    name: macOS ${{ inputs.arch }}
+    needs: gate
+    if: needs.gate.outputs.run == 'true'
+    runs-on: ${{ inputs.arch == 'arm64' && 'macos-14' || 'macos-13' }}
+    permissions:
+      contents: write
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+
+      # Те же кеши, что в linux-прогоне: YARN_CACHE_FOLDER, electron и dugite
+      # живут в RUNNER_TEMP, а не в рабочих каталогах checkout.
+      - name: Point the download caches at the runner temp
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/caches"
+          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP/caches/yarn" >> "$GITHUB_ENV"
+          echo "electron_config_cache=$RUNNER_TEMP/caches/electron" >> "$GITHUB_ENV"
+          mkdir -p "$RUNNER_TEMP/dugite"
+          echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
+
+      - name: Restore download caches
+        uses: actions/cache@v6
+        with:
+          path: ${{ runner.temp }}/caches
+          key:
+            ${{ runner.os }}-${{ inputs.arch }}-deps-${{ hashFiles('yarn.lock',
+            'app/yarn.lock', 'vendor/**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-${{ inputs.arch }}-deps-
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - run: yarn install --frozen-lockfile
+        env:
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+
+      - name: Build production app
+        env:
+          DESKTOP_FORK_UNSIGNED_MACOS: '1'
+          TARGET_ARCH: ${{ inputs.arch }}
+          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+        run: yarn build:prod
+
+      - name: Pack the .app into a zip
+        env:
+          TARGET_ARCH: ${{ inputs.arch }}
+        run: |
+          yarn package
+          test -s "dist/GitHub Desktop L10n-${{ inputs.arch }}.zip"
+
+      - name: Write build info and release notes
+        env:
+          BUILD_INFO_ARCH: ${{ inputs.arch }}
+        run: |
+          yarn release-build-info
+          test -s dist/build-info.json
+          grep -q 'fork-build-info' dist/release-notes.md
+
+      # Неподписанная сборка: Squirrel.Mac обновлять её не может, поэтому
+      # единственный ассет с приложением — zip, а notes несут build-info для
+      # клиентской проверки «вышла ли сборка новее установленной».
+      - name: Publish to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARCH: ${{ inputs.arch }}
+        shell: bash
+        run: |
+          TAG="latest-macos-$ARCH"
+          ZIP="dist/GitHub Desktop L10n-$ARCH.zip"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG уже существует — обновляю ассеты"
+          else
+            gh release create "$TAG" \
+              --title "Latest macOS $ARCH" \
+              --notes-file dist/release-notes.md
+          fi
+
+          gh release upload "$TAG" "$ZIP" dist/build-info.json --clobber
+          gh release edit "$TAG" --notes-file dist/release-notes.md

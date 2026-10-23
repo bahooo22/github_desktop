@@ -73,6 +73,14 @@ const isPublishableBuild = isPublishable()
 const isDevelopmentBuild = getChannel() === 'development'
 const shouldSkipPackaging = process.env.DESKTOP_SKIP_PACKAGE === '1'
 
+/**
+ * The fork's macOS build is published without an Apple developer identity. It
+ * is ad-hoc signed so it runs at all on Apple silicon, but it cannot be
+ * notarized; the workflow sets this flag to skip the keychain and the
+ * notarization check that a release build otherwise requires.
+ */
+const isUnsignedMacOSBuild = process.env.DESKTOP_FORK_UNSIGNED_MACOS === '1'
+
 const projectRoot = path.join(__dirname, '..')
 const entitlementsSuffix = isDevelopmentBuild ? '-dev' : ''
 const entitlementsPath = `${projectRoot}/script/entitlements${entitlementsSuffix}.plist`
@@ -98,7 +106,12 @@ generateLicenseMetadata(outRoot)
 
 moveAnalysisFiles()
 
-if (isGitHubActions() && process.platform === 'darwin' && isPublishableBuild) {
+if (
+  isGitHubActions() &&
+  process.platform === 'darwin' &&
+  isPublishableBuild &&
+  !isUnsignedMacOSBuild
+) {
   console.log('Setting up keychain…')
   cp.execSync(path.join(__dirname, 'setup-macos-keychain'))
 }
@@ -177,10 +190,14 @@ async function packageApp() {
   }
 
   // get notarization deets, unless we're not going to publish this
-  const osxNotarize = isPublishableBuild ? getNotarizationOptions() : undefined
+  const osxNotarize =
+    isPublishableBuild && !isUnsignedMacOSBuild
+      ? getNotarizationOptions()
+      : undefined
 
   if (
     isPublishableBuild &&
+    !isUnsignedMacOSBuild &&
     isGitHubActions() &&
     process.platform === 'darwin' &&
     osxNotarize === undefined
@@ -233,13 +250,16 @@ async function packageApp() {
         hardenedRuntime: true,
         entitlements: entitlementsPath,
       }),
-      type: isPublishableBuild ? 'distribution' : 'development',
-      // For development, we will use '-' as the identifier so that codesign
-      // will sign the app to run locally. We need to disable 'identity-validation'
-      // or otherwise it will replace '-' with one of the regular codesigning
-      // identities in our system.
-      identity: isDevelopmentBuild ? '-' : undefined,
-      identityValidation: !isDevelopmentBuild,
+      type:
+        isPublishableBuild && !isUnsignedMacOSBuild
+          ? 'distribution'
+          : 'development',
+      // '-' is codesign's ad-hoc identity: enough for the app to run locally
+      // and on Apple silicon, but not for Gatekeeper on another Mac. We need to
+      // disable 'identity-validation' or codesign would replace it with one of
+      // the regular identities installed on the machine.
+      identity: isDevelopmentBuild || isUnsignedMacOSBuild ? '-' : undefined,
+      identityValidation: !(isDevelopmentBuild || isUnsignedMacOSBuild),
     },
     osxNotarize,
     protocols: [

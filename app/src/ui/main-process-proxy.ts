@@ -5,6 +5,7 @@ import { stat } from 'fs/promises'
 import { isApplicationBundle } from '../lib/is-application-bundle'
 import { pathExists } from '../lib/path-exists'
 import { IUpdateDownloadProgress } from '../lib/update-download-progress'
+import { IReleaseAssetDownloadProgress } from '../lib/release-asset-download'
 
 /**
  * Creates a strongly typed proxy method for sending a duplex IPC message to the
@@ -234,6 +235,27 @@ export const setWindowZoomFactor = sendProxy('set-window-zoom-factor', 1)
 
 /** Tell the main process to check for app updates */
 export const checkForUpdates = invokeProxy('check-for-updates', 1)
+
+/** Ask the main process to save a release asset into the downloads folder */
+export const downloadReleaseAsset = invokeProxy('download-release-asset', 2)
+
+/** Progress of that download, sent while the file is being written */
+export function onReleaseAssetDownloadProgress(
+  eventHandler: (
+    evt: Electron.IpcRendererEvent,
+    progress: IReleaseAssetDownloadProgress
+  ) => void
+): () => void {
+  const listener = (
+    evt: Electron.IpcRendererEvent,
+    progress: IReleaseAssetDownloadProgress
+  ) => eventHandler(evt, progress)
+
+  ipcRenderer.on('release-asset-download-progress', listener)
+
+  return () =>
+    ipcRenderer.removeListener('release-asset-download-progress', listener)
+}
 
 /** Tell the main process to quit the app and install updates */
 export const quitAndInstallUpdate = sendProxy('quit-and-install-updates', 0)

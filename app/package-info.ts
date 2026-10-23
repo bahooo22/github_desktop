@@ -1,9 +1,16 @@
 import { bundleID, companyName, productName, version } from './package.json'
 
+/**
+ * The macOS build installs beside upstream, so it needs its own application
+ * name: the same `.app` name and bundle ID would make LaunchServices treat the
+ * two as one app and share Keychain and application-support data.
+ */
+const macOSProductName = `${productName} L10n`
+
 export function getProductName() {
-  return process.env.NODE_ENV === 'development'
-    ? `${productName}-dev`
-    : productName
+  const name = process.platform === 'darwin' ? macOSProductName : productName
+
+  return process.env.NODE_ENV === 'development' ? `${name}-dev` : name
 }
 
 export function getCompanyName() {
@@ -15,5 +22,7 @@ export function getVersion() {
 }
 
 export function getBundleID() {
-  return process.env.NODE_ENV === 'development' ? `${bundleID}Dev` : bundleID
+  const base = process.platform === 'darwin' ? `${bundleID}L10n` : bundleID
+
+  return process.env.NODE_ENV === 'development' ? `${base}Dev` : base
 }

@@ -11,7 +11,7 @@ inputs:
     required: true
   platform:
     description:
-      windows или linux. Проверка версии по RELEASES есть только у
+      windows, linux или macos. Проверка версии по RELEASES есть только у
       Squirrel.Windows.
     required: true
   first-run:

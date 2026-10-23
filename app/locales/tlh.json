@@ -1730,7 +1730,16 @@
       "releaseNotes.fork.linuxPackages",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
-      "banners.upstreamReleaseAvailable"
+      "banners.upstreamReleaseAvailable",
+      "banners.forkReleaseDownload",
+      "downloadForkRelease.title",
+      "downloadForkRelease.loading",
+      "downloadForkRelease.saved",
+      "downloadForkRelease.showInFolder",
+      "downloadForkRelease.downloading",
+      "downloadForkRelease.downloadingNoPercent",
+      "downloadForkRelease.error",
+      "downloadForkRelease.gatekeeper"
     ]
   },
   "common": {
@@ -3619,6 +3628,7 @@
       "_other": "{count} choH vemmey taplu'pu'."
     },
     "osNotSupported": "De'wI' patvam QaHlu'be'. nIqHom De' chu' Qotlhlu'. <link>QaH De'</link>",
+    "forkReleaseDownload": "yIHev",
     "upstreamReleaseAvailable": "Official GitHub Desktop {version} tu'lu'. <download>Official build yIHev</download>",
     "forkReleaseAvailable": {
       "_one": "puq chonnaQvam chen chu' tu'laH: {count} choH vem ruch. <link>chen paq</link>",
@@ -4673,6 +4683,16 @@
       "@win32": "veQ QermoHwI'",
       "@other": "veQ"
     }
+  },
+  "downloadForkRelease": {
+    "title": "{version} yIHev",
+    "loading": "release filemey Samlu'…",
+    "saved": "{path}Daq tu'lu'",
+    "showInFolder": "folderDaq yI'ang",
+    "downloading": "Hevlu'… {percent}%",
+    "downloadingNoPercent": "Hevlu'…",
+    "error": "file HevlaHbe'.",
+    "gatekeeper": "Apple pong qI'be'lu'. System Settings → Privacy & Security → Open Anyway."
   },
   "renameWorktreeDialog": {
     "title": {

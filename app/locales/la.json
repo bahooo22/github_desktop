@@ -1763,7 +1763,16 @@
       "releaseNotes.fork.linuxPackages",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
-      "banners.upstreamReleaseAvailable"
+      "banners.upstreamReleaseAvailable",
+      "banners.forkReleaseDownload",
+      "downloadForkRelease.title",
+      "downloadForkRelease.loading",
+      "downloadForkRelease.saved",
+      "downloadForkRelease.showInFolder",
+      "downloadForkRelease.downloading",
+      "downloadForkRelease.downloadingNoPercent",
+      "downloadForkRelease.error",
+      "downloadForkRelease.gatekeeper"
     ]
   },
   "common": {
@@ -3652,6 +3661,7 @@
       "_other": "Squash {count} commitorum feliciter facta est."
     },
     "osNotSupported": "Hoc systema operativum iam non adiuvatur. Mutationes software desunt. <link>Detailia adiutorii</link>",
+    "forkReleaseDownload": "Recipere",
     "upstreamReleaseAvailable": "Praesto est officialis GitHub Desktop {version} constructio. <download>Constructionem officialem recipere</download>",
     "forkReleaseAvailable": {
       "_one": "Nova constructio huius furcae habetur: {count} commitus ante. <link>Pagina editionis</link>",
@@ -4706,6 +4716,16 @@
       "@win32": "Cestino",
       "@other": "Cestino"
     }
+  },
+  "downloadForkRelease": {
+    "title": "{version} recipere",
+    "loading": "Fasciculi editionis quaeruntur…",
+    "saved": "In {path} servatum est",
+    "showInFolder": "In plica monstrare",
+    "downloading": "Recipitur… {percent}%",
+    "downloadingNoPercent": "Recipitur…",
+    "error": "Fasciculus recipi non potuit.",
+    "gatekeeper": "Applicatio ab Apple non signata est. Post exsolutionem eam semel per System Settings → Privacy & Security → Open Anyway aperi."
   },
   "renameWorktreeDialog": {
     "title": {
