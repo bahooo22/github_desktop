@@ -47,12 +47,9 @@ jobs:
     uses: ./.github/workflows/release-fork-linux.yml
 
   macos:
-    strategy:
-      # Сборки независимы: падение одной архитектуры не отменяет другую.
-      fail-fast: false
-      matrix:
-        arch: [arm64, x64]
-    name: macOS ${{ matrix.arch }}
+    # Только arm64: Intel-образ macos-13 удалён из actions/runner-images,
+    # поэтому x64-сборку на стандартных macOS-раннерах собрать негде.
+    name: macOS arm64
     uses: ./.github/workflows/release-fork-macos.yml
     with:
-      arch: ${{ matrix.arch }}
+      arch: arm64

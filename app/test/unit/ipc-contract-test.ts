@@ -20,6 +20,7 @@ describe('IPC channel contract', () => {
     : never
 
   const expectedRequestChannels = [
+    'release-asset-download-progress',
     'select-all-window-contents',
     'dialog-did-open',
     'update-menu-state',
@@ -91,6 +92,7 @@ describe('IPC channel contract', () => {
     'is-in-application-folder',
     'move-to-applications-folder',
     'check-for-updates',
+    'download-release-asset',
     'get-current-window-state',
     'get-current-window-zoom-factor',
     'resolve-proxy',

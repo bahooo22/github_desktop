@@ -8,12 +8,12 @@ on:
         required: true
         default: arm64
         type: choice
-        options: [arm64, x64]
+        options: [arm64]
   # Вызов из .github/workflows/release-fork-all.yml.
   workflow_call:
     inputs:
       arch:
-        description: Architecture to build (arm64 or x64)
+        description: Architecture to build (arm64)
         required: true
         type: string
 
@@ -53,7 +53,11 @@ jobs:
     name: macOS ${{ inputs.arch }}
     needs: gate
     if: needs.gate.outputs.run == 'true'
-    runs-on: ${{ inputs.arch == 'arm64' && 'macos-14' || 'macos-13' }}
+    # Образ — current из actions/runner-images: macos-13 удалён из списка
+    # целиком (Intel-раннеров у GitHub больше нет), macos-14 помечен deprecated.
+    # Поэтому публикация идёт только в latest-macos-arm64: x64-сборку на
+    # стандартных раннерах собрать негде.
+    runs-on: macos-15
     permissions:
       contents: write
     timeout-minutes: 60

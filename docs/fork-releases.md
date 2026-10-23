@@ -20,15 +20,18 @@
 - `latest-win-x64` и `latest-win-arm64` — Windows,
 - `latest-linux-x64` — Linux (portable-архив, `.deb` и AppImage; Squirrel-обновлений
   на Linux нет, AppImage обновляется внешним AppImageUpdate по `.zsync`),
-- `latest-macos-arm64` и `latest-macos-x64` — macOS (неподписанный zip; Squirrel.Mac
-  не используется).
+- `latest-macos-arm64` — macOS (неподписанный zip; Squirrel.Mac не используется).
+  Архитектуры x64 не будет: образ `macos-13` удалён из `actions/runner-images`,
+  и Intel-раннера для сборки на стандартных образах больше нет.
 
 Один тег на архитектуру нужен потому, что в релизе не может лежать два разных
 `RELEASES`: Squirrel.Windows дописывает это имя к адресу фида и читает оттуда
 список пакетов. Переопределить адрес можно сборочной переменной
 `DESKTOP_UPDATES_URL`. `getUpdatesURL()` выбирает только win-ный тег — Squirrel
 есть только на Windows; клиентская проверка сборок форка идёт через
-`getForkFeedURL()`, который для macOS возвращает `latest-macos-<arch>`.
+`getForkFeedURL()`, который для macOS возвращает `latest-macos-<arch>` — тег
+`latest-macos-x64` не публикуется, поэтому локальная Intel-сборка просто не
+получит оповещения о сборке форка.
 
 Поведение, специфичное для апстримного `central.github.com` (query
 `?version=&env=`, перезапись пути под arm64), отключено для форк-фида гейтом
@@ -120,9 +123,9 @@ notes тега — там же лежит `builtAt`, по которому ви�
   AppImageUpdate), `desktop-linux-x64-portable.tar.gz` (распаковать и запустить
   `desktop`) и `build-info.json`. Встроенных обновлений на Linux нет; `.deb`
   обновляется вручную, AppImage — `appimageupdatetool -u`.
-- macOS arm64/x64: `.../releases/tag/latest-macos-<arch>` — `GitHub Desktop
-  L10n-<arch>.zip` и `build-info.json`; создаётся прогоном
-  `release-fork-macos.yml -f arch=arm64` (или `x64`) либо обёрткой
+- macOS arm64: `.../releases/tag/latest-macos-arm64` — `GitHub Desktop
+  L10n-arm64.zip` и `build-info.json`; создаётся прогоном
+  `release-fork-macos.yml` (вход `arch` сейчас только `arm64`) либо обёрткой
   `release-fork-all.yml`. Zip не подписан и не нотаризован: первый запуск
   требует «Open Anyway» или снятия карантина; Squirrel.Mac не используется,
   обновление скачивается вручную из приложения.
@@ -780,6 +783,30 @@ HEAD `1c37b25e22`, в репозитории 0 релизов), то есть р
 `DUGITE_CACHE_DIR` ни в одном workflow не задавался и dugite клал его в `os.tmpdir()`,
 который никто не кэширует. Снято отдельным слотом кеша и повтором вокруг установки —
 см. «Кеши загрузок».
+
+Падение 23.10, коммит `418ed821dc`: краснеет `Build production app` сразу на всех
+платформах — `Linux x64 portable`, `Windows x64`, `Windows arm64` в прогоне
+`39912796649` и те же две win-джобы плюс `E2E Smoke Windows x64` в
+push-прогоне CI `39912759422`. Логи дают четыре строки `[tsl] ERROR` и все в
+одном файле — `app/test/unit/ipc-contract-test.ts`: эталонные списки каналов не
+знали `release-asset-download-progress` и `download-release-asset`, и
+`AssertExactUnion` превращает это в
+`TS2322: Type 'true' is not assignable to type 'never'`. Это ошибка типов, а
+`yarn test` её не видит: раннер транспайлит и идёт дальше. Видит
+её `compile:prod` — в логе ошибки ts-loader идут в каждом из пяти конфигов
+(main, renderer, crash, cli, highlighter), и webpack выходит с кодом 1. Замер на
+том же дереве в `gdlab`: `compile:dev` — rc 0, `tsc --noEmit -p tsconfig.json` —
+те же 4 ошибки за 34 с. Практическое правило отсюда: после любой правки
+`app/src/lib/ipc-shared.ts` (и вообще после любого добавления канала IPC) в набор
+гейтов обязан входить `tsc --noEmit -p tsconfig.json` — зелёного `yarn test` для
+прод-сборки недостаточно.
+
+Там же в логе появились пять `WARNING in ./app/package-info.ts` вида «Should not
+import the named export 'productName' … from default-exporting module»: их
+притащил импорт `getProductName()` в `app/src/main-process/main.ts`. Убрано —
+`main.ts` на macOS задаёт имя через `__APP_NAME__`, то есть ровно то значение,
+которое DefinePlugin подставляет в бандл и которое packager кладёт в пакет, так
+что расхождение двух источников имени стало невозможным.
 
 ## Бой 09.10 20:52: три фида заполнены по номеру коммита
 

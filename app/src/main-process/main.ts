@@ -30,7 +30,6 @@ import {
   uninstallWindowsCLI,
 } from './squirrel-updater'
 import { fatalError } from '../lib/fatal-error'
-import { getProductName } from '../../package-info'
 
 import { log as writeLog } from './log'
 import { UNSAFE_openDirectory } from './shell'
@@ -186,9 +185,10 @@ function handleAppURL(url: string) {
 }
 
 // The macOS build is a separate application; its own name gives it its own
-// application-support directory instead of upstream's.
+// application-support directory instead of upstream's. `__APP_NAME__` is the
+// same value the packager puts into the bundle, so the two cannot drift apart.
 if (process.platform === 'darwin') {
-  app.setName(getProductName())
+  app.setName(__APP_NAME__)
 }
 
 let isDuplicateInstance = false

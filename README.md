@@ -44,7 +44,7 @@ Electron 44.9.1 на Node 24.22 (`.node-version`).
 | Строки интерфейса | Тексты вынесены в `app/locales/en.json`, из него строятся ru и uk; скелет нового каталога даёт `yarn l10n:scaffold`; покрытие меряют `yarn l10n:parity`, `l10n:audit`, `l10n:upstream`, `l10n:menu`, а сколько строк ещё английских — `--untranslated <tag>`. Мнемоники проверяются по `builtInLocaleTags` — по тому же списку, по которому каталоги регистрируются, а значения, подставляемые внутрь чужой подписи, берутся через `tv()`: подсказка второй строки не должна появляться в середине метки меню |
 | Настройки → Язык | Выбор языка интерфейса, редактор переводов с сохранением в свой каталог и режим «выбрать строку кликом». Для языков, записанных транскрипцией, каталог задаёт `meta.gloss`, и в «Языке» появляется чекбокс «Показывать перевод-подсказку» с выбором вида. Подсказка всегда одна и та же словарная строка — `[кириллическое чтение] русский перевод`, где чтение курсивом, а подпись и перевод полужирным; режим решает только, куда она попадает: второй строкой под подписью, после тире в нативном меню (его подпись держит одну строку) либо во всплывающей подсказке над строкой. Вторая строка показывается в кнопках, вкладках, подсказках, заголовках, абзацах, списках, подписях полей и баннерах диалогов; остальной интерфейс сохраняет обычную обработку пробелов |
 | Идентификатор Squirrel | `GitHubDesktopL10n` вместо `GitHubDesktop`: отдельный каталог в `%LOCALAPPDATA%` и свой фид, поэтому форк и стоковая сборка не перезаписывают друг друга. Имя ярлыка разводится отдельно (`getWindowsShortcutName()`, `script/dist-info.ts`): Squirrel называет `.lnk` по `FileDescription` exe, и с апстримным значением обе редакции писали бы один `GitHub Desktop.lnk`. CLI ставится как `github-l10n`: каталоги `bin` у редакций разные, а имя команды было общее, так что `github` разыгрывался порядком `PATH` |
-| Релизы | Пять workflow: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`, `Release Fork (macOS)` — в `latest-macos-arm64` или `latest-macos-x64`, каждый прогон трогает только свой тег; `Release Fork (Windows all arches)` и `Release Fork (All platforms)` вызывают те же файлы матрицей, чтобы все фиды стартовали одной кнопкой. Дешёвая джоба `gate` перед сборкой пропускает уже опубликованный коммит (пишет ссылку на готовый релиз) и не даёт публиковать версию, которая в `RELEASES` уже лежит |
+| Релизы | Пять workflow: `Release Fork (Windows)` публикует в `latest-win-x64` или `latest-win-arm64` (вход `arch`), `Release Fork (Linux)` — в `latest-linux-x64`, `Release Fork (macOS)` — в `latest-macos-arm64` (x64 не собирается: Intel-образ `macos-13` удалён из `actions/runner-images`), каждый прогон трогает только свой тег; `Release Fork (Windows all arches)` и `Release Fork (All platforms)` вызывают те же файлы матрицей, чтобы все фиды стартовали одной кнопкой. Дешёвая джоба `gate` перед сборкой пропускает уже опубликованный коммит (пишет ссылку на готовый релиз) и не даёт публиковать версию, которая в `RELEASES` уже лежит |
 | Обновления | Проверка автоматическая, скачивание — только по кнопке «Скачать» в баннере. Windows отдаёт фид Squirrel (`getUpdatesURL()`, `script/dist-info.ts:167`), Linux — диалог выбора `.deb`/AppImage, macOS — неподписанный zip; официальный канал только оповещает ссылкой |
 | Свежесть сборки | Отдельная проверка по хешу коммита: каждый релиз называет, из чего собран, приложение сравнивает хеш со своим `__SHA__` и показывает баннер со ссылкой на релиз |
 | Отзыв о переводе | Номер сборки в диалоге «О программе» ведёт в заранее заполненную issue этого репозитория |
@@ -70,11 +70,8 @@ Electron 44.9.1 на Node 24.22 (`.node-version`).
   [latest-macos-arm64](
   https://github.com/bahooo22/github_desktop/releases/tag/latest-macos-arm64) —
   `GitHub Desktop L10n-arm64.zip`; распаковать и перетащить `.app` в
-  «Программы».
-- **macOS x64:** тег
-  [latest-macos-x64](
-  https://github.com/bahooo22/github_desktop/releases/tag/latest-macos-x64) —
-  `GitHub Desktop L10n-x64.zip`.
+  «Программы». Сборки для Intel не будет: `macos-13` удалён из стандартных
+  образов GitHub Actions, поэтому на раннере x64-архитектуру собрать негде.
 
 Сборка macOS не подписана и не нотаризована, поэтому Gatekeeper блокирует первый
 запуск: откройте приложение через «Системные настройки» → «Конфиденциальность и
@@ -106,8 +103,9 @@ AppImage может потребовать `--no-sandbox`.
 | Linux: portable, `.deb` и AppImage | `bash tools/i18n-lab/lab.sh exec "gdlab/release.sh"`; AppImage добавится, если в контейнере задан `APPIMAGETOOL=/путь/к/appimagetool` |
 | Windows | `gh workflow run release-fork-windows.yml -f arch=x64` (или `arch=arm64`) — только на windows-раннере; `-f first_run=true` нужен ровно когда тег ещё пуст, иначе он выключит дельту |
 | Windows, обе архитектуры | `gh workflow run release-fork-windows-all.yml` |
-| Все три фида | `gh workflow run release-fork-all.yml` — win x64 + win arm64 + linux параллельно |
+| Все четыре фида | `gh workflow run release-fork-all.yml` — win x64 + win arm64 + linux + macOS arm64 параллельно |
 | Linux в тег фида | `gh workflow run release-fork-linux.yml` — публикация в `latest-linux-x64`: portable, `.deb`, AppImage, входов нет |
+| macOS в тег фида | `gh workflow run release-fork-macos.yml` — `latest-macos-arm64`, вход `arch` сейчас только `arm64`: Intel-образ `macos-13` удалён из стандартных раннеров |
 | Проверить раскатанные бандлы | `yarn l10n:bundles` |
 
 Подробности — в [docs/fork-releases.md](docs/fork-releases.md): почему из Linux

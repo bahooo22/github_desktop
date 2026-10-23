@@ -4442,11 +4442,14 @@ Windows Squirrel при старте и каждые четыре часа пр�
 релизы, allowlist, имена, уникализация имени суффиксом « (N)»).
 
 macOS-сборка появилась как пятый релизный workflow
-(`release-fork-macos.yml`) и ветка в `release-fork-all.yml`. Она
+(`release-fork-macos.yml`) и джоба в `release-fork-all.yml`. Она
 неподписанная: Apple Developer не оплачивается, поэтому build.ts при
 `DESKTOP_FORK_UNSIGNED_MACOS=1` пропускает keychain-шаг и подписывает ad-hoc
-(`identity: '-'`), а workflow публикует `GitHub Desktop L10n-<arch>.zip` в тег
-`latest-macos-arm64`/`latest-macos-x64`. Чтобы сборка не конфликтовала с
+(`identity: '-'`), а workflow публикует `GitHub Desktop L10n-arm64.zip` в тег
+`latest-macos-arm64`. Архитектура одна: образ `macos-13` удалён из
+`actions/runner-images`, то есть Intel-раннера для x64-сборки на стандартных
+образах нет; сам прогон идёт на current-образе `macos-15` (`macos-14` уже
+deprecated). Чтобы сборка не конфликтовала с
 официальным приложением, на darwin у форка свои имя и bundle ID («GitHub
 Desktop L10n», `com.github.GitHubClientL10n`): отдельные userData и Keychain,
 ярлык не спорит с апстримом. Squirrel.Mac не используется — обновление
@@ -4454,6 +4457,20 @@ Desktop L10n», `com.github.GitHubClientL10n`): отдельные userData и K
 `xattr -dr com.apple.quarantine`. Оповещение о форковой сборке заработает
 после первого прогона workflow (`getForkFeedURL()` на darwin теперь возвращает
 тег фида); официальный канал оповещает и без него.
+
+Бой `418ed821dc` красным: `Build production app` упал на всех платформах
+одновременно, и логи показали причину — `[tsl] ERROR` в
+`app/test/unit/ipc-contract-test.ts`: список каналов не знал
+`release-asset-download-progress` и `download-release-asset`. Тип-ошибку
+`yarn test` не видит (раннер транспайлит), а `compile:prod` её ловит и выходит
+с кодом 1; `compile:dev` на том же дереве был зелёным. Разбор и практическое
+правило — в разделе «Что падает в прогонах и почему»
+[`docs/fork-releases.md`](docs/fork-releases.md). Этим же прогоном добавлен
+гейт `tsc --noEmit -p tsconfig.json`, а импорт `getProductName()` из
+`app/src/main-process/main.ts` заменён на `__APP_NAME__`: он убирал пять
+`WARNING in ./app/package-info.ts` про именованный импорт из
+default-exporting модуля и заодно снимает риск, что имя в бандле и имя пакета
+разойдётся.
 
 Переводы. Девять новых ключей: кнопка `banners.forkReleaseDownload` и группа
 `downloadForkRelease` (title/loading/saved/showInFolder/downloading/
@@ -4468,9 +4485,12 @@ downloadingNoPercent/error/gatekeeper) — во все семь каталого
 готовность la 1 767, eo 1 767, tlh 1 732, qya 1 731. Тесты:
 `release-asset-download-test` 5/5, `fork-release-test` 25/25, `test:script`
 36/36; полный `yarn test` — 2 548 тестов / 2 546 pass / 0 fail / 2 skipped
-(322 070 мс). Prettier, eslint и `compile:dev` чисто. Markdownlint README —
-38 находок против 41 в базовой линии: пять длинных строк-ссылок «Где взять»
-перевёрстаны, своих приростов нет.
+(322 070 мс до фикса контракта и 347 274 мс после). Prettier, eslint и
+`compile:dev` чисто. `tsc --noEmit -p tsconfig.json` — 0 ошибок за 43,5 с, а
+до правки контрактного теста там же лежат те 4 ошибки, что уронили
+прод-сборку. Markdownlint: README — 39 находок против 41 в базовой линии
+(пять длинных строк-ссылок «Где взять» перевёрстаны, x64-буллет убран),
+`docs/fork-releases.md` — 24 и дневник — 649, обе базовые линии без прироста.
 
 Итог. Автоматически приложение только узнаёт о новой версии и показывает
 баннер; любое скачивание — по кнопке, файлы падают в «Загрузки», macOS
