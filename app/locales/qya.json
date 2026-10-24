@@ -1727,6 +1727,8 @@
       "worktreeList.noItemsFound",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.linuxPackages",
+      "releaseNotes.fork.upstreamSync369",
+      "releaseNotes.fork.macOSArm64",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "banners.upstreamReleaseAvailable",
@@ -4149,7 +4151,9 @@
       "upstreamSyncBeta3": "I fanwa lambë vinya carienë pá i vinya upstream cotya, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
       "cliHelpLocalized": "I tuluhta carina i lambessë i cilina ciliessë.",
       "upstreamSync368": "I fanwa lambë vinya carienë pá i upstream 3.6.8 cotya, tenne i nelecco harya i GitHub Desktopo sina ertava leryalëar",
-      "linuxPackages": "i Linux lerya tulë Debian ar AppImage; i AppImage leryalë AppImageUpdate ar."
+      "linuxPackages": "i Linux lerya tulë Debian ar AppImage; i AppImage leryalë AppImageUpdate ar.",
+      "upstreamSync369": "I fanwa lambë vinya carienë pá i upstream 3.6.9-beta1 cotya, tenne i nelecco harya i GitHub Desktop beta sina ertava leryalëar",
+      "macOSArm64": "i macOS lerya Apple silicon, latest-macos-arm64 essë, i officialo minya tulcea."
     }
   },
   "repositoriesList": {

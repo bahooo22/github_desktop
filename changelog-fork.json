@@ -1,6 +1,14 @@
 {
   "releases": [
     {
+      "version": "3.6.9-beta1",
+      "pub_date": "2026-10-24T00:00:00Z",
+      "notes": [
+        { "kind": "improved", "key": "releaseNotes.fork.upstreamSync369" },
+        { "kind": "new", "key": "releaseNotes.fork.macOSArm64" }
+      ]
+    },
+    {
       "version": "3.6.8",
       "pub_date": "2026-10-23T00:00:00Z",
       "notes": [

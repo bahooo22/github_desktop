@@ -1761,6 +1761,8 @@
       "worktreeList.noItemsFound",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.linuxPackages",
+      "releaseNotes.fork.upstreamSync369",
+      "releaseNotes.fork.macOSArm64",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "banners.upstreamReleaseAvailable",
@@ -4183,7 +4185,9 @@
       "upstreamSyncBeta3": "La interfaco estas rekonstruita sur la freŝa kunfandiĝo de upstream, do la forko portas la samajn riparojn kiel la nuna antaŭrigardo de GitHub Desktop",
       "cliHelpLocalized": "La helpo de CLI estas presata en la lingvo elektita en la agordoj",
       "upstreamSync368": "La interfaco estas rekonstruita sur upstream 3.6.8, do la forko portas la samajn riparojn kiel la nuna eldono de GitHub Desktop",
-      "linuxPackages": "La Linuksa eldono venas en du formoj: Debian kaj AppImage; la AppImage ĝisdatiĝas per AppImageUpdate"
+      "linuxPackages": "La Linuksa eldono venas en du formoj: Debian kaj AppImage; la AppImage ĝisdatiĝas per AppImageUpdate",
+      "upstreamSync369": "La interfaco estas rekonstruita sur upstream 3.6.9-beta1, do la forko portas la samajn riparojn kiel la nuna beta de GitHub Desktop",
+      "macOSArm64": "La nesubskribita macOS-eldono por Apple silicon publikiĝas kiel latest-macos-arm64 kaj instaliĝas apud la oficiala aplikaĵo"
     }
   },
   "repositoriesList": {

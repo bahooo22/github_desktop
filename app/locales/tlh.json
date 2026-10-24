@@ -1728,6 +1728,8 @@
       "worktreeList.noItemsFound",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.linuxPackages",
+      "releaseNotes.fork.upstreamSync369",
+      "releaseNotes.fork.macOSArm64",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "banners.upstreamReleaseAvailable",
@@ -4150,7 +4152,9 @@
       "upstreamSyncBeta3": "jIH Hol chen upstream chu' yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
       "cliHelpLocalized": "CLI QaH, DuHmeyDaq wIvlu'bogh Hol lo'.",
       "upstreamSync368": "jIH Hol chen upstream 3.6.8 yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
-      "linuxPackages": "Linux: Debian 'ej AppImage. AppImage De' chu'meH AppImageUpdate lo'lu'."
+      "linuxPackages": "Linux: Debian 'ej AppImage. AppImage De' chu'meH AppImageUpdate lo'lu'.",
+      "upstreamSync369": "jIH Hol chen upstream 3.6.9-beta1 yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop beta DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
+      "macOSArm64": "macOS: Apple silicon De'. latest-macos-arm64 ngu'ghachDaq 'oH. official app poSDaq jomlu'."
     }
   },
   "repositoriesList": {

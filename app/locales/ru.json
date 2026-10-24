@@ -2285,7 +2285,9 @@
       "upstreamSyncBeta3": "Интерфейс пересобран поверх свежего мержа апстрима, поэтому форк несёт те же исправления, что и текущая превью-версия GitHub Desktop",
       "cliHelpLocalized": "Справка CLI печатается на языке, выбранном в настройках",
       "upstreamSync368": "Интерфейс пересобран поверх апстрима 3.6.8, поэтому форк несёт те же исправления, что и текущий выпуск GitHub Desktop",
-      "linuxPackages": "Linux-выпуск выходит пакетом Debian и AppImage, а AppImage обновляется через AppImageUpdate"
+      "linuxPackages": "Linux-выпуск выходит пакетом Debian и AppImage, а AppImage обновляется через AppImageUpdate",
+      "upstreamSync369": "Интерфейс собран поверх апстрима 3.6.9-beta1, поэтому форк несёт те же исправления, что и текущая бета GitHub Desktop",
+      "macOSArm64": "Неподписанная сборка macOS для Apple silicon публикуется в теге latest-macos-arm64 и ставится рядом с официальным приложением"
     }
   },
   "repositoriesList": {

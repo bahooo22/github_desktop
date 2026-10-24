@@ -1761,6 +1761,8 @@
       "worktreeList.noItemsFound",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.linuxPackages",
+      "releaseNotes.fork.upstreamSync369",
+      "releaseNotes.fork.macOSArm64",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "banners.upstreamReleaseAvailable",
@@ -4183,7 +4185,9 @@
       "upstreamSyncBeta3": "Interfacies super recentem upstream coniunctionem reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop praevisio fert",
       "cliHelpLocalized": "Auxilium CLI lingua in optionibus electa imprimitur",
       "upstreamSync368": "Interfacies super upstream 3.6.8 reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop editio fert",
-      "linuxPackages": "Editio Linux duabus formis venit: Debian et AppImage; AppImage per AppImageUpdate se renovat"
+      "linuxPackages": "Editio Linux duabus formis venit: Debian et AppImage; AppImage per AppImageUpdate se renovat",
+      "upstreamSync369": "Interfacies super upstream 3.6.9-beta1 reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop beta fert",
+      "macOSArm64": "Editio macOS non subscripta pro Apple silicon nomine latest-macos-arm64 publicatur et iuxta officialem applicationem installatur"
     }
   },
   "repositoriesList": {

@@ -33,9 +33,9 @@ uses [React](https://reactjs.org/).
 она выправила 8 уже закоммиченных форм (`gham` → `ghIgh mIw`, `latya` → `vehta`,
 `vehtaina`, `antacina`, `lávima`) и закрепила в глоссарии термины, оставленные
 сознательно. Остальное — апстрим: номер версии в
-`app/package.json` совпадает с апстримным (после мержа 23.10.2026 —
-`3.6.8`), а тулчейн форка — TypeScript 6.0.3, webpack 5.111,
-Electron 44.9.1 на Node 24.22 (`.node-version`).
+`app/package.json` совпадает с апстримным (после мержа 24.10.2026 —
+`3.6.9-beta1`), а тулчейн форка — TypeScript 6.0.3, webpack 5.111,
+Electron 44.9.1 на Node 24.22.1 (`.node-version`).
 
 ### Что здесь своё
 
