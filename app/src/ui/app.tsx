@@ -765,13 +765,17 @@ export class App extends React.Component<IAppProps, IAppState> {
    */
   private async checkForReleases(forceRefresh: boolean) {
     const forkShown = await this.showForkReleaseBanner(forceRefresh)
-    const upstreamShown = forkShown
-      ? false
-      : await this.showUpstreamReleaseBanner(forceRefresh)
 
-    if (!forkShown && !upstreamShown) {
-      updateStore.noteExternalCheck()
+    if (!forkShown) {
+      await this.showUpstreamReleaseBanner(forceRefresh)
     }
+
+    // A banner offers a build the user downloads by hand, while the status line
+    // in the About dialog answers about the auto updater: Squirrel was not asked
+    // and nothing is downloading. Tying the two together left a manual check
+    // without any answer at all — measured on the E2E run of 24.10.2026, where
+    // upstream's 3.6.9 release raised the banner and the dialog stayed silent.
+    updateStore.noteExternalCheck()
   }
 
   private updateBranchWithContributionTargetBranch() {
