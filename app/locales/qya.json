@@ -1733,6 +1733,7 @@
       "releaseNotes.fork.manualCheckAnswer",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
+      "about.installForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2479,6 +2480,10 @@
     "responsible-use-copilot": "i vanimëa yuhtië i Copilot GitHub Desktopissë",
     "l10nCredit": "i lambelanga carienë <authors>{authors}</authors>lo. Caru <sha>{sha}</sha>llo, {date}essë.",
     "upstream-download": "á-tulya i official GitHub Desktop",
+    "installForkUpdate": {
+      "@win32": "tulca i leryalë",
+      "@other": "á-tulya i vinya cara"
+    },
     "upstream-behind": {
       "_one": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryalë ca)",
       "_other": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryali ca)"

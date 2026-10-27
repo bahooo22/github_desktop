@@ -2095,6 +2095,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             applicationVersion={version}
             applicationArchitecture={process.arch}
             onCheckForNonStaggeredUpdates={this.onCheckForNonStaggeredUpdates}
+            onInstallForkRelease={this.onInstallForkRelease}
             onShowAcknowledgements={this.showAcknowledgements}
             onShowTermsAndConditions={this.showTermsAndConditions}
             updateState={this.state.updateState}
@@ -3372,6 +3373,23 @@ export class App extends React.Component<IAppProps, IAppState> {
   }
 
   private onCheckForNonStaggeredUpdates = () => void this.checkForReleases(true)
+
+  /**
+   * The About dialog's answer to a newer build of this fork, doing what the
+   * banner does with the same news: Squirrel installs our own package on
+   * Windows, everywhere else the user picks which file to download.
+   */
+  private onInstallForkRelease = (version: string) => {
+    if (__WIN32__) {
+      updateStore.checkForUpdates(false, false)
+      return
+    }
+
+    this.props.dispatcher.showPopup({
+      type: PopupType.DownloadForkRelease,
+      version,
+    })
+  }
 
   private onSaveCopilotBYOKProvider = (
     provider: IBYOKProvider,

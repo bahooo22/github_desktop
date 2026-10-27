@@ -1767,6 +1767,7 @@
       "releaseNotes.fork.manualCheckAnswer",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
+      "about.installForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2513,6 +2514,10 @@
     "responsible-use-copilot": "Respondeca uzo de Copilot en GitHub Desktop",
     "l10nCredit": "Lokigo fare de <authors>{authors}</authors>. Farita de <sha>{sha}</sha> la {date}.",
     "upstream-download": "Elŝuti la oficialan version",
+    "installForkUpdate": {
+      "@win32": "Instali ĝisdatigon",
+      "@other": "Elŝuti konstruaĵon"
+    },
     "upstream-behind": {
       "_one": "Nova suprenflua versio estas disponebla: <link>{version}</link> ({count} eldono malantaŭe)",
       "_other": "Nova suprenflua versio estas disponebla: <link>{version}</link> ({count} eldonoj malantaŭe)"

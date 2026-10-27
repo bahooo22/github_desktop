@@ -1734,6 +1734,7 @@
       "releaseNotes.fork.manualCheckAnswer",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
+      "about.installForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2480,6 +2481,10 @@
     "responsible-use-copilot": "Copilot 'e' yIlo' 'ach yI'ol",
     "l10nCredit": "Hol mugh <authors>{authors}</authors>. <sha>{sha}</sha> {date} chenmoH.",
     "upstream-download": "Official build yIHev",
+    "installForkUpdate": {
+      "@win32": "De' chu' yIjom",
+      "@other": "chen chu' yIHev"
+    },
     "upstream-behind": {
       "_one": "chen chu' tu'laH: <link>{version}</link> ({count} jonHa' 'em)",
       "_other": "chen chu' tu'laH: <link>{version}</link> ({count} jonHa' 'em)"

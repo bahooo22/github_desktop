@@ -62,6 +62,7 @@ export class AboutTestDialog extends React.Component<
         applicationVersion={version}
         applicationArchitecture={process.arch}
         onCheckForNonStaggeredUpdates={this.onCheckForNonStaggeredUpdates}
+        onInstallForkRelease={this.onInstallForkRelease}
         onShowAcknowledgements={this.props.onShowAcknowledgements}
         onShowTermsAndConditions={this.props.onShowTermsAndConditions}
         updateState={this.state.updateState}
@@ -91,6 +92,12 @@ export class AboutTestDialog extends React.Component<
       lastSuccessfulCheck: new Date(),
     })
   }
+
+  /**
+   * Диалог имитирует состояния Squirrel, а не релизные фиды: у сборки форка
+   * здесь нет ни версии, ни коммита, поэтому кнопка ничего не устанавливает.
+   */
+  private onInstallForkRelease = (_version: string) => {}
 
   public componentWillUnmount(): void {
     if (this.delayTimeoutId !== null) {

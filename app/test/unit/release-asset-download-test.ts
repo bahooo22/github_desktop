@@ -4,6 +4,7 @@ import assert from 'node:assert'
 import {
   isAllowedReleaseAssetName,
   isAllowedReleaseAssetUrl,
+  releaseAssetExtensionsFor,
   uniqueFileName,
 } from '../../src/lib/release-asset-download'
 import { parseReleaseAssets } from '../../src/lib/fork-release'
@@ -84,6 +85,42 @@ describe('Release assets', () => {
     assert.ok(isAllowedReleaseAssetName('app.zip'))
     assert.strictEqual(isAllowedReleaseAssetName('app.exe'), false)
     assert.strictEqual(isAllowedReleaseAssetName('app.zip.exe'), false)
+  })
+
+  it('allows an installer only on the official channel', () => {
+    assert.ok(
+      isAllowedReleaseAssetName(
+        'GitHubDesktopSetup-x64.exe',
+        releaseAssetExtensionsFor(
+          'https://central.github.com/deployments/desktop/desktop/latest/win32'
+        )
+      ),
+      'the channel endpoint is the one place an installer may come from'
+    )
+
+    // The URL picks the list, so the renderer cannot ask for an executable
+    // from a fork release, and neither channel accepts the other's types.
+    assert.strictEqual(
+      isAllowedReleaseAssetName(
+        'GitHubDesktopSetup-x64.deb',
+        releaseAssetExtensionsFor(
+          'https://central.github.com/deployments/desktop/desktop/latest/win32'
+        )
+      ),
+      false
+    )
+    assert.strictEqual(
+      isAllowedReleaseAssetName(
+        'app.exe',
+        releaseAssetExtensionsFor('https://github.com/bahooo22/x.exe')
+      ),
+      false
+    )
+    assert.strictEqual(
+      isAllowedReleaseAssetName('app.deb'),
+      true,
+      'without a list the strict fork default applies'
+    )
   })
 
   it('keeps a free name and numbers a taken one', () => {

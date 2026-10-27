@@ -13,7 +13,7 @@ import {
 } from '../../src/ui/localization/translation-issue'
 import { localization, t } from '../../src/lib/l10n'
 import { formatDate } from '../../src/lib/format-date'
-import { render, waitFor } from '../helpers/ui/render'
+import { render, waitFor, fireEvent } from '../helpers/ui/render'
 
 const cacheKey = 'upstream-changelog-check'
 const indicatorSelector = '[data-l10n-key="about.upstream-behind"]'
@@ -34,7 +34,8 @@ async function flushAsyncWork() {
 
 function renderAbout(
   updateState: Partial<IUpdateState> = {},
-  allowDevelopment: boolean = false
+  allowDevelopment: boolean = false,
+  onInstallForkRelease: (version: string) => void = () => {}
 ) {
   return render(
     <About
@@ -43,6 +44,7 @@ function renderAbout(
       applicationVersion="3.6.7-beta2"
       applicationArchitecture="x64"
       onCheckForNonStaggeredUpdates={() => {}}
+      onInstallForkRelease={onInstallForkRelease}
       onShowAcknowledgements={() => {}}
       onShowTermsAndConditions={() => {}}
       onQuitAndInstall={() => {}}
@@ -709,5 +711,164 @@ describe('about - the build age line', () => {
     // strict-режиме, и из-за этого падает весь набор E2E.
     assert.equal(document.querySelectorAll(statusSelector).length, 1)
     assert.equal(document.querySelectorAll(firstRunStatusSelector).length, 1)
+  })
+})
+
+/**
+ * Кнопки, которые ведут в скачивание: сборка форка и официальный канал. Оба
+ * статуса читаются из кэша в localStorage (`seedForkStatus`, `seedCache` выше),
+ * поэтому тест не ходит в сеть.
+ */
+
+/**
+ * `getUpstreamInstaller` смотрит на `process.platform`, а не на `__LINUX__`:
+ * стенд — linux, и без подмены не показать, что ряд официального скачивания
+ * появляется только там, где апстрим выпускает сборку.
+ */
+async function withPlatform(
+  platform: string,
+  run: () => Promise<void>
+): Promise<void> {
+  const descriptor = Object.getOwnPropertyDescriptor(process, 'platform')
+
+  Object.defineProperty(process, 'platform', {
+    value: platform,
+    configurable: true,
+  })
+
+  try {
+    await run()
+  } finally {
+    if (descriptor !== undefined) {
+      Object.defineProperty(process, 'platform', descriptor)
+    }
+  }
+}
+
+function findButton(pattern: RegExp): HTMLButtonElement | undefined {
+  return Array.from(document.querySelectorAll('button')).find(button =>
+    pattern.test(button.textContent ?? '')
+  )
+}
+
+describe('about - the download buttons', () => {
+  let restoreIpcSend: (() => void) | null = null
+  let restoreFeedUrl: (() => void) | null = null
+
+  beforeEach(() => {
+    restoreIpcSend = mockIpcSend()
+    localStorage.removeItem(cacheKey)
+    localStorage.removeItem(forkCacheKey)
+
+    // Без адреса фида `getForkReleaseStatus` отвечает null до чтения кэша, и
+    // строка о сборке форка не появилась бы никогда.
+    const previous = (globalThis as any).__FORK_FEED_URL__
+    ;(globalThis as any).__FORK_FEED_URL__ =
+      'https://api.github.com/repos/bahooo22/github_desktop/releases/tags/latest-win-x64'
+    restoreFeedUrl = () => {
+      ;(globalThis as any).__FORK_FEED_URL__ = previous
+    }
+  })
+
+  afterEach(() => {
+    restoreIpcSend?.()
+    restoreIpcSend = null
+    restoreFeedUrl?.()
+    restoreFeedUrl = null
+    localStorage.removeItem(cacheKey)
+    localStorage.removeItem(forkCacheKey)
+    localStorage.removeItem('fork-release-dismissed')
+  })
+
+  it('hands the fork release to the same action the banner uses', async () => {
+    seedForkStatus(3)
+
+    const requested = new Array<string>()
+    const view = renderAbout({}, false, version => {
+      requested.push(version)
+    })
+
+    await waitFor(() => assert.ok(document.querySelector(forkReleaseSelector)))
+
+    const button = findButton(/Install the update|Download the build/)
+    assert.notEqual(button, undefined, 'кнопка сборки форка в диалоге есть')
+
+    fireEvent.click(button!)
+
+    assert.deepEqual(
+      requested,
+      ['3.7.0'],
+      'диалог отдаёт ту же версию, что и баннер'
+    )
+
+    view.unmount()
+  })
+
+  it('offers the official installer only where upstream publishes one', async () => {
+    seedCache(['99999.0.0'])
+
+    await withPlatform('linux', async () => {
+      const view = renderAbout()
+
+      await waitFor(() => assert.ok(document.querySelector(indicatorSelector)))
+
+      assert.equal(
+        findButton(/Download the official build/),
+        undefined,
+        'на Linux апстрим сборки не выпускает, и кнопки скачивания нет'
+      )
+
+      view.unmount()
+    })
+
+    await withPlatform('win32', async () => {
+      const view = renderAbout()
+
+      await waitFor(() => assert.ok(document.querySelector(indicatorSelector)))
+
+      assert.notEqual(
+        findButton(/Download the official build/),
+        undefined,
+        'на Windows официальный инсталлер скачивается из диалога'
+      )
+
+      view.unmount()
+    })
+  })
+
+  it('keeps the auto-update status line unique next to the new rows', async () => {
+    seedForkStatus(3)
+    seedCache(['99999.0.0'])
+
+    // `renderUpdateDetails` returns nothing on Linux at all, so the guard for
+    // the E2E locator has to be measured on a platform that shows the line.
+    const previousLinux = (globalThis as any).__LINUX__
+    ;(globalThis as any).__LINUX__ = false
+
+    try {
+      await withPlatform('win32', async () => {
+        const view = renderAbout(
+          {
+            status: UpdateStatus.UpdateNotAvailable,
+            lastSuccessfulCheck: new Date(),
+          },
+          // Строка статуса в dev-канале не показывается вообще, а мерить
+          // уникальность e2e-локатора нужно именно при её наличии.
+          true
+        )
+
+        await waitFor(() =>
+          assert.ok(document.querySelector(forkReleaseSelector))
+        )
+
+        // Ряд официального скачивания и кнопка форка — свои классы; к
+        // апстримному e2e-локатору они добавиться не должны.
+        assert.equal(document.querySelectorAll(statusSelector).length, 1)
+
+        view.unmount()
+      })
+    } finally {
+      ;(globalThis as any).__LINUX__ = previousLinux
+    }
   })
 })

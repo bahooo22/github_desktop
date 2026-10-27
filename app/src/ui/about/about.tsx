@@ -24,16 +24,19 @@ import { formatDate } from '../../lib/format-date'
 import { formatBytes } from '../lib/bytes'
 import { t, Trans, localization } from '../../lib/l10n'
 import { buildFeedbackIssueUrl } from '../localization/translation-issue'
-import {
-  getUpstreamStatus,
-  IUpstreamStatus,
-  upstreamReleasePageUrl,
-} from '../../lib/upstream-status'
+import { getUpstreamStatus, IUpstreamStatus } from '../../lib/upstream-status'
+import { getUpstreamInstaller } from '../../lib/upstream-release'
 import {
   getForkReleaseStatus,
   IForkReleaseStatus,
 } from '../../lib/fork-release'
 import { getBuildFirstRun } from '../../lib/first-run-of-build'
+import { shell } from '../../lib/app-shell'
+import type { ReleaseAssetDownloadResult } from '../../lib/release-asset-download'
+import {
+  downloadReleaseAsset,
+  onReleaseAssetDownloadProgress,
+} from '../main-process-proxy'
 
 const logoPath = __DARWIN__
   ? 'static/logo-64x64@2x.png'
@@ -70,6 +73,13 @@ interface IAboutProps {
   /** A function to call to kick off a non-staggered update check. */
   readonly onCheckForNonStaggeredUpdates: () => void
 
+  /**
+   * Offers this fork's newer build the way the banner does: Squirrel installs
+   * it on Windows, everywhere else the package chooser opens. The dialog keeps
+   * no updater logic of its own, so the two surfaces cannot drift apart.
+   */
+  readonly onInstallForkRelease: (version: string) => void
+
   readonly onShowAcknowledgements: () => void
 
   /** A function to call when the user wants to see Terms and Conditions. */
@@ -88,6 +98,19 @@ interface IAboutProps {
 interface IAboutState {
   readonly upstreamStatus: IUpstreamStatus | null
   readonly forkReleaseStatus: IForkReleaseStatus | null
+
+  /**
+   * How far the official installer got. Its line gets a class of its own: the
+   * auto-update locator `#about .update-status` has to keep matching exactly
+   * one element, in unit tests and in the E2E run alike.
+   */
+  readonly upstreamDownload: IUpstreamDownload
+}
+
+interface IUpstreamDownload {
+  readonly state: 'idle' | 'downloading' | 'saved' | 'error'
+  readonly percent: number | null
+  readonly path: string | null
 }
 
 interface IUpdateInfoProps {
@@ -127,7 +150,11 @@ export class About extends React.Component<IAboutProps, IAboutState> {
   public constructor(props: IAboutProps) {
     super(props)
 
-    this.state = { upstreamStatus: null, forkReleaseStatus: null }
+    this.state = {
+      upstreamStatus: null,
+      forkReleaseStatus: null,
+      upstreamDownload: { state: 'idle', percent: null, path: null },
+    }
   }
 
   public componentDidMount() {
@@ -431,24 +458,65 @@ export class About extends React.Component<IAboutProps, IAboutState> {
     }
 
     return (
-      <p className="no-padding">
-        <Trans
-          k="about.upstream-behind"
-          params={{
-            version: status.latestVersion,
-            count: status.releasesBehind,
-          }}
-          components={{ link: <LinkButton uri={ReleaseNotesUri} /> }}
-        />
-        {(__WIN32__ || __DARWIN__) && (
-          <>
-            {' '}
-            <LinkButton uri={upstreamReleasePageUrl(status.latestVersion)}>
-              {t('about.upstream-download')}
-            </LinkButton>
-          </>
+      <>
+        <p className="no-padding">
+          <Trans
+            k="about.upstream-behind"
+            params={{
+              version: status.latestVersion,
+              count: status.releasesBehind,
+            }}
+            components={{ link: <LinkButton uri={ReleaseNotesUri} /> }}
+          />
+        </p>
+        {this.renderUpstreamDownloadRow()}
+      </>
+    )
+  }
+
+  /**
+   * The official build is a separate application, so this only ever saves the
+   * installer into the downloads folder — nothing is launched from here, and
+   * the user runs the file when they want the other app installed.
+   */
+  private renderUpstreamDownloadRow() {
+    const installer = getUpstreamInstaller(process.platform, process.arch)
+
+    if (installer === null) {
+      return null
+    }
+
+    const { state, percent, path } = this.state.upstreamDownload
+
+    return (
+      <Row className="upstream-download">
+        <Button
+          onClick={this.downloadOfficial}
+          disabled={state === 'downloading'}
+        >
+          {t('about.upstream-download')}
+        </Button>
+        {state === 'downloading' && (
+          <span className="upstream-download-status">
+            {percent === null
+              ? t('downloadForkRelease.downloadingNoPercent')
+              : t('downloadForkRelease.downloading', { percent })}
+          </span>
         )}
-      </p>
+        {state === 'error' && (
+          <span className="upstream-download-status">
+            {t('downloadForkRelease.error')}
+          </span>
+        )}
+        {state === 'saved' && path !== null && (
+          <span className="upstream-download-status">
+            {t('downloadForkRelease.saved', { path })}{' '}
+            <LinkButton onClick={this.onShowOfficialInFolder}>
+              {t('downloadForkRelease.showInFolder')}
+            </LinkButton>
+          </span>
+        )}
+      </Row>
     )
   }
 
@@ -466,18 +534,92 @@ export class About extends React.Component<IAboutProps, IAboutState> {
     }
 
     return (
-      <p className="no-padding">
-        <Trans
-          k="about.forkRelease"
-          params={{
-            sha: status.releaseSha.substring(0, 10),
-            date: formatDate(new Date(status.builtAt), { dateStyle: 'long' }),
-            count: status.aheadBy,
-          }}
-          components={{ link: <LinkButton uri={status.releasePageUrl} /> }}
-        />
-      </p>
+      <>
+        <p className="no-padding">
+          <Trans
+            k="about.forkRelease"
+            params={{
+              sha: status.releaseSha.substring(0, 10),
+              date: formatDate(new Date(status.builtAt), { dateStyle: 'long' }),
+              count: status.aheadBy,
+            }}
+            components={{ link: <LinkButton uri={status.releasePageUrl} /> }}
+          />
+        </p>
+        <Row className="fork-release-install">
+          <Button onClick={this.installForkRelease}>
+            {t('about.installForkUpdate')}
+          </Button>
+        </Row>
+      </>
     )
+  }
+
+  private installForkRelease = () => {
+    const status = this.state.forkReleaseStatus
+
+    if (status !== null) {
+      this.props.onInstallForkRelease(status.version)
+    }
+  }
+
+  private downloadOfficial = async () => {
+    const installer = getUpstreamInstaller(process.platform, process.arch)
+
+    if (installer === null) {
+      return
+    }
+
+    this.setState({
+      upstreamDownload: { state: 'downloading', percent: null, path: null },
+    })
+
+    // Подписка живёт ровно столько, сколько скачивание: канал общий с
+    // попапом выбора пакета, и слушать его в простое значило бы держать
+    // слушателя в диалоге, который ничего не качает.
+    const unsubscribe = onReleaseAssetDownloadProgress((_event, progress) => {
+      if (!this.mounted) {
+        return
+      }
+
+      this.setState({
+        upstreamDownload: {
+          state: 'downloading',
+          percent:
+            progress.total > 0
+              ? Math.round((progress.received / progress.total) * 100)
+              : null,
+          path: null,
+        },
+      })
+    })
+
+    let result: ReleaseAssetDownloadResult
+
+    try {
+      result = await downloadReleaseAsset(installer.url, installer.fileName)
+    } finally {
+      unsubscribe()
+    }
+
+    if (!this.mounted) {
+      return
+    }
+
+    this.setState({
+      upstreamDownload:
+        result.status === 'saved'
+          ? { state: 'saved', percent: null, path: result.path }
+          : { state: 'error', percent: null, path: null },
+    })
+  }
+
+  private onShowOfficialInFolder = () => {
+    const path = this.state.upstreamDownload.path
+
+    if (path !== null) {
+      shell.showItemInFolder(path)
+    }
   }
 
   public render() {

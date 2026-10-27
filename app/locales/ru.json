@@ -695,6 +695,10 @@
     "responsible-use-copilot": "Ответственное использование Copilot в GitHub Desktop",
     "l10nCredit": "Локализация: <authors>{authors}</authors> (сборка <sha>{sha}</sha>, {date})",
     "upstream-download": "Скачать официальную сборку",
+    "installForkUpdate": {
+      "@win32": "Установить обновление",
+      "@other": "Скачать сборку"
+    },
     "upstream-behind": {
       "_one": "Доступна новая версия апстрима: <link>{version}</link> (отстаём на {count} релиз)",
       "_few": "Доступна новая версия апстрима: <link>{version}</link> (отстаём на {count} релиза)",

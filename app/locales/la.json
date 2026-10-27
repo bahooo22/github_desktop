@@ -1767,6 +1767,7 @@
       "releaseNotes.fork.manualCheckAnswer",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
+      "about.installForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2513,6 +2514,10 @@
     "responsible-use-copilot": "Usus Responsabilis Copilot in GitHub Desktop",
     "l10nCredit": "Localizatio a <authors>{authors}</authors>. Constructa ex <sha>{sha}</sha> in {date}.",
     "upstream-download": "Constructionem officialem recipere",
+    "installForkUpdate": {
+      "@win32": "Instituere novam versionem",
+      "@other": "Constructionem recipere"
+    },
     "upstream-behind": {
       "_one": "Nova versio suprafluens est parata: <link>{version}</link> ({count} emissio retro)",
       "_other": "Nova versio suprafluens est parata: <link>{version}</link> (emissiones {count} retro)"

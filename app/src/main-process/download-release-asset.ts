@@ -9,6 +9,7 @@ import {
   isAllowedReleaseAssetName,
   isAllowedReleaseAssetUrl,
   ReleaseAssetDownloadResult,
+  releaseAssetExtensionsFor,
   uniqueFileName,
 } from '../lib/release-asset-download'
 
@@ -16,8 +17,9 @@ import {
  * Saves a release asset the user picked into the downloads folder. The
  * renderer never names a path: it passes the release's own asset URL and file
  * name, and both are checked against the allowlist here before anything is
- * written. The download goes through Electron's net module so GitHub's
- * redirects and the system proxy are handled for us.
+ * written. Which file types are allowed follows from the URL's channel, so the
+ * caller cannot widen the gate. The download goes through Electron's net module
+ * so GitHub's redirects and the system proxy are handled for us.
  */
 export function registerReleaseAssetDownload() {
   ipcMain.handle(
@@ -38,7 +40,10 @@ async function downloadAsset(
 
   const safeName = basename(fileName)
 
-  if (safeName !== fileName || !isAllowedReleaseAssetName(safeName)) {
+  if (
+    safeName !== fileName ||
+    !isAllowedReleaseAssetName(safeName, releaseAssetExtensionsFor(url))
+  ) {
     return { status: 'error', message: 'release asset name is not allowed' }
   }
 

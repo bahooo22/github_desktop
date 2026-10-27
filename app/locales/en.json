@@ -738,6 +738,10 @@
     "responsible-use-copilot": "Responsible use of Copilot in GitHub Desktop",
     "l10nCredit": "Localization by <authors>{authors}</authors>. Built from <sha>{sha}</sha> on {date}.",
     "upstream-download": "Download the official build",
+    "installForkUpdate": {
+      "@win32": "Install the update",
+      "@other": "Download the build"
+    },
     "upstream-behind": {
       "_one": "A new upstream version is available: <link>{version}</link> ({count} release behind)",
       "_other": "A new upstream version is available: <link>{version}</link> ({count} releases behind)"
