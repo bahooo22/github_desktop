@@ -2414,7 +2414,9 @@
       "upstreamSync368": "The interface is rebuilt on top of upstream 3.6.8, so the fork carries the same fixes as the current GitHub Desktop release",
       "linuxPackages": "The Linux release comes as a Debian package and an AppImage, and the AppImage updates through AppImageUpdate",
       "upstreamSync369": "The interface is rebuilt on top of upstream 3.6.9-beta1, so the fork carries the same fixes as the current GitHub Desktop beta",
-      "macOSArm64": "The unsigned macOS build for Apple silicon is published as latest-macos-arm64 and installs beside the official app"
+      "macOSArm64": "The unsigned macOS build for Apple silicon is published as latest-macos-arm64 and installs beside the official app",
+      "upstreamSync3610Beta1": "The interface is rebuilt on top of upstream 3.6.10-beta1, which already carries the 3.6.9 fixes, so the fork no longer trails the official channel",
+      "manualCheckAnswer": "Checking for updates now always answers with the version status line: a release banner used to suppress it, which made the check look broken"
     }
   },
   "repositoriesList": {

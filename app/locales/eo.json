@@ -1763,6 +1763,8 @@
       "releaseNotes.fork.linuxPackages",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.macOSArm64",
+      "releaseNotes.fork.upstreamSync3610Beta1",
+      "releaseNotes.fork.manualCheckAnswer",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "banners.upstreamReleaseAvailable",
@@ -4187,7 +4189,9 @@
       "upstreamSync368": "La interfaco estas rekonstruita sur upstream 3.6.8, do la forko portas la samajn riparojn kiel la nuna eldono de GitHub Desktop",
       "linuxPackages": "La Linuksa eldono venas en du formoj: Debian kaj AppImage; la AppImage ĝisdatiĝas per AppImageUpdate",
       "upstreamSync369": "La interfaco estas rekonstruita sur upstream 3.6.9-beta1, do la forko portas la samajn riparojn kiel la nuna beta de GitHub Desktop",
-      "macOSArm64": "La nesubskribita macOS-eldono por Apple silicon publikiĝas kiel latest-macos-arm64 kaj instaliĝas apud la oficiala aplikaĵo"
+      "macOSArm64": "La nesubskribita macOS-eldono por Apple silicon publikiĝas kiel latest-macos-arm64 kaj instaliĝas apud la oficiala aplikaĵo",
+      "upstreamSync3610Beta1": "La interfaco estas rekonstruita sur upstream 3.6.10-beta1, kiu jam enhavas la riparojn de 3.6.9, do la forko ne plu malfruas de la oficiala kanalo",
+      "manualCheckAnswer": "Kontrolo de ĝisdatigoj nun ĉiam montras la statan linion pri la versio: eldona bannero kaŝis ĝin, kaj la kontrolo ŝajnis difektita"
     }
   },
   "repositoriesList": {

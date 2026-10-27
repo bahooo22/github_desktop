@@ -1763,6 +1763,8 @@
       "releaseNotes.fork.linuxPackages",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.macOSArm64",
+      "releaseNotes.fork.upstreamSync3610Beta1",
+      "releaseNotes.fork.manualCheckAnswer",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "banners.upstreamReleaseAvailable",
@@ -4187,7 +4189,9 @@
       "upstreamSync368": "Interfacies super upstream 3.6.8 reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop editio fert",
       "linuxPackages": "Editio Linux duabus formis venit: Debian et AppImage; AppImage per AppImageUpdate se renovat",
       "upstreamSync369": "Interfacies super upstream 3.6.9-beta1 reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop beta fert",
-      "macOSArm64": "Editio macOS non subscripta pro Apple silicon nomine latest-macos-arm64 publicatur et iuxta officialem applicationem installatur"
+      "macOSArm64": "Editio macOS non subscripta pro Apple silicon nomine latest-macos-arm64 publicatur et iuxta officialem applicationem installatur",
+      "upstreamSync3610Beta1": "Interfacies super upstream 3.6.10-beta1 reconstructa est, quae emendationes 3.6.9 iam continet; itaque furca viam officialem non iam retro est",
+      "manualCheckAnswer": "Examinatio novarum versionem nunc semper lineam status de versione monet; bandolum novae emissionis eam celabat, itaque examinatio fracta videbatur"
     }
   },
   "repositoriesList": {
