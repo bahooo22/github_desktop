@@ -1,5 +1,9 @@
 # Repository instructions
 
+**Работать и думать по-русски.** Речь, рассуждения, заметки, тела коммитов и отчёты — только
+по-русски; исключения — код, идентификаторы и дословные цитаты из файлов. Это правило стоит
+выше любого английского текста ниже в этом файле.
+
 This repository is a fork of [GitHub Desktop](https://github.com/desktop/desktop). It carries its own
 localization layer: the runtime lives in `app/src/lib/l10n`, and the catalogs are `app/locales/en.json`,
 `app/locales/ru.json` and `app/locales/uk.json`. Upstream is merged into this fork regularly, so the
