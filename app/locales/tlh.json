@@ -1732,6 +1732,8 @@
       "releaseNotes.fork.macOSArm64",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.manualCheckAnswer",
+      "releaseNotes.fork.upstreamSync3610",
+      "releaseNotes.fork.aboutDownloadButtons",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
@@ -4163,7 +4165,9 @@
       "upstreamSync369": "jIH Hol chen upstream 3.6.9-beta1 yorDaq chenmoHlu'. puq chonnaQvam GitHub Desktop beta DaH tu'lu'bogh tI'ghach Hoch neH ghaj.",
       "macOSArm64": "macOS: Apple silicon De'. latest-macos-arm64 ngu'ghachDaq 'oH. official app poSDaq jomlu'.",
       "upstreamSync3610Beta1": "jIH Hol chen upstream 3.6.10-beta1 yorDaq chenmoHlu'. 3.6.9 tI'ghach Hoch ghaj. official channelDaq jonHa' 'em ghach neHbe'.",
-      "manualCheckAnswer": "De' chu' 'e' yI'ol: bopDaq nIqHom mI' chu' bIghaj tu'lu'."
+      "manualCheckAnswer": "De' chu' 'e' yI'ol: bopDaq nIqHom mI' chu' bIghaj tu'lu'.",
+      "upstreamSync3610": "jIH Hol chen upstream 3.6.10 yorDaq chenmoHlu'. GitHub Desktop tI'ghach Hoch ghaj. official channelDaq jonHa' 'em ghach neHbe'.",
+      "aboutDownloadButtons": "bopDaq: De' chu' yIjom 'ej Official build yIHev. file Downloads DajaqDaq tu'lu' neH."
     }
   },
   "repositoriesList": {

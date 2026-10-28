@@ -1,6 +1,14 @@
 {
   "releases": [
     {
+      "version": "3.6.10",
+      "pub_date": "2026-10-27T00:00:00Z",
+      "notes": [
+        { "kind": "improved", "key": "releaseNotes.fork.upstreamSync3610" },
+        { "kind": "new", "key": "releaseNotes.fork.aboutDownloadButtons" }
+      ]
+    },
+    {
       "version": "3.6.10-beta1",
       "pub_date": "2026-10-26T00:00:00Z",
       "notes": [

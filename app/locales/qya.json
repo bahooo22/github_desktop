@@ -1731,6 +1731,8 @@
       "releaseNotes.fork.macOSArm64",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.manualCheckAnswer",
+      "releaseNotes.fork.upstreamSync3610",
+      "releaseNotes.fork.aboutDownloadButtons",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
@@ -4162,7 +4164,9 @@
       "upstreamSync369": "I fanwa lambë vinya carienë pá i upstream 3.6.9-beta1 cotya, tenne i nelecco harya i GitHub Desktop beta sina ertava leryalëar",
       "macOSArm64": "i macOS lerya Apple silicon, latest-macos-arm64 essë, i officialo minya tulcea.",
       "upstreamSync3610Beta1": "I fanwa lambë vinya carienë pá i upstream 3.6.10-beta1 cotya; i 3.6.9 ertava leryalëar harya neH. tenne i nelecco úca i officialo leryali.",
-      "manualCheckAnswer": "tira lerië: sitonessë harya vinya lerië tulë."
+      "manualCheckAnswer": "tira lerië: sitonessë harya vinya lerië tulë.",
+      "upstreamSync3610": "I fanwa lambë vinya carienë pá i upstream 3.6.10 cotya; i GitHub Desktop ertava leryalëar harya neH. tenne i nelecco úca i officialo leryali.",
+      "aboutDownloadButtons": "i siton: á-tulya i vinya cara, á-tulya i official GitHub Desktop. i parma Downloads haurassë harya neH."
     }
   },
   "repositoriesList": {

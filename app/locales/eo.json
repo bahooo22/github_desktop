@@ -1765,6 +1765,8 @@
       "releaseNotes.fork.macOSArm64",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.manualCheckAnswer",
+      "releaseNotes.fork.upstreamSync3610",
+      "releaseNotes.fork.aboutDownloadButtons",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
@@ -4196,7 +4198,9 @@
       "upstreamSync369": "La interfaco estas rekonstruita sur upstream 3.6.9-beta1, do la forko portas la samajn riparojn kiel la nuna beta de GitHub Desktop",
       "macOSArm64": "La nesubskribita macOS-eldono por Apple silicon publikiĝas kiel latest-macos-arm64 kaj instaliĝas apud la oficiala aplikaĵo",
       "upstreamSync3610Beta1": "La interfaco estas rekonstruita sur upstream 3.6.10-beta1, kiu jam enhavas la riparojn de 3.6.9, do la forko ne plu malfruas de la oficiala kanalo",
-      "manualCheckAnswer": "Kontrolo de ĝisdatigoj nun ĉiam montras la statan linion pri la versio: eldona bannero kaŝis ĝin, kaj la kontrolo ŝajnis difektita"
+      "manualCheckAnswer": "Kontrolo de ĝisdatigoj nun ĉiam montras la statan linion pri la versio: eldona bannero kaŝis ĝin, kaj la kontrolo ŝajnis difektita",
+      "upstreamSync3610": "La interfaco estas rekonstruita sur upstream 3.6.10, do la forko havas la samajn riparojn kiel la nuna GitHub Desktop kaj ne plu malfruas de la oficiala kanalo",
+      "aboutDownloadButtons": "La dialogo «Pri» mem proponas ĝisdatigon: instali la forko-konstruaĵon aŭ elŝuti la oficialan. Nenio mem ekfunkcias; la dosiero iras en la elŝutan dosierujon"
     }
   },
   "repositoriesList": {

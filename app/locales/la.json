@@ -1765,6 +1765,8 @@
       "releaseNotes.fork.macOSArm64",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.manualCheckAnswer",
+      "releaseNotes.fork.upstreamSync3610",
+      "releaseNotes.fork.aboutDownloadButtons",
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
@@ -4196,7 +4198,9 @@
       "upstreamSync369": "Interfacies super upstream 3.6.9-beta1 reconstructa est, itaque furca easdem emendationes ac praesens GitHub Desktop beta fert",
       "macOSArm64": "Editio macOS non subscripta pro Apple silicon nomine latest-macos-arm64 publicatur et iuxta officialem applicationem installatur",
       "upstreamSync3610Beta1": "Interfacies super upstream 3.6.10-beta1 reconstructa est, quae emendationes 3.6.9 iam continet; itaque furca viam officialem non iam retro est",
-      "manualCheckAnswer": "Examinatio novarum versionem nunc semper lineam status de versione monet; bandolum novae emissionis eam celabat, itaque examinatio fracta videbatur"
+      "manualCheckAnswer": "Examinatio novarum versionem nunc semper lineam status de versione monet; bandolum novae emissionis eam celabat, itaque examinatio fracta videbatur",
+      "upstreamSync3610": "Interfacies super upstream 3.6.10 reconstructa est; itaque furca easdem emendationes ac GitHub Desktop hodiernum continet nec viam officialem iam retro est",
+      "aboutDownloadButtons": "Dialogus de applicatione per se novam versionem offert: constructionem furcae instituere aut officialem recipere. Nihil ultro incepit; file in folder Downloads mittitur"
     }
   },
   "repositoriesList": {
