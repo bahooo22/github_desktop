@@ -4,6 +4,7 @@ import {
   getTimeFormatPreference,
 } from '../models/formatting-preferences'
 import { enableFormattingPreferences } from './feature-flag'
+import { getDateFnsLocale } from './l10n/date-locale'
 import mem from 'mem'
 import QuickLRU from 'quick-lru'
 import { localization, t } from './l10n/core'
@@ -79,7 +80,7 @@ export function formatDate(
   }
 
   try {
-    return format(value, formatString)
+    return format(value, formatString, { locale: getDateFnsLocale() })
   } catch (e) {
     // In case the user has configured an invalid format pattern, we don't want
     // the app to crash, let's fall back to a default format and log the error

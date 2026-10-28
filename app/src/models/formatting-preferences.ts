@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import { enableFormattingPreferences } from '../lib/feature-flag'
+import { getDateFnsLocale } from '../lib/l10n/date-locale'
 
 const localeCountryCode =
   new URL(location.href).hash.match(/lc=([A-Z]{2})/)?.[1] ?? null
@@ -200,6 +201,20 @@ export interface INumberFormat {
  * greater than 12:00 to make it clear when the 12-hour formats are used.
  */
 const previewDate = new Date(2017, 9, 19, 14, 30, 45)
+
+/**
+ * A pattern is previewed in the language the interface is in right now.
+ *
+ * Read as a property rather than computed once at import time: the language can
+ * change without this module ever loading again, and a preview frozen at
+ * whatever language happened to be active when the bundle first ran would show
+ * `Oct 19, 2017` in a Russian interface that renders `19 октября 2017 г.`
+ * everywhere else.
+ */
+function preview(pattern: DateFormat | TimeFormat): string {
+  return format(previewDate, pattern, { locale: getDateFnsLocale() })
+}
+
 /**
  * All available date format patterns with their preview strings.
  */
@@ -227,7 +242,9 @@ export const dateFormats: ReadonlyArray<{
   ] as const
 ).map(pattern => ({
   pattern,
-  example: format(previewDate, pattern),
+  get example() {
+    return preview(pattern)
+  },
 }))
 
 /**
@@ -249,7 +266,9 @@ export const timeFormats: ReadonlyArray<{
   ] as const
 ).map(pattern => ({
   pattern,
-  example: format(previewDate, pattern),
+  get example() {
+    return preview(pattern)
+  },
 }))
 
 /**
