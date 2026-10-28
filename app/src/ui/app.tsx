@@ -2096,6 +2096,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             applicationArchitecture={process.arch}
             onCheckForNonStaggeredUpdates={this.onCheckForNonStaggeredUpdates}
             onInstallForkRelease={this.onInstallForkRelease}
+            onCheckForForkRelease={this.onCheckForForkRelease}
             onShowAcknowledgements={this.showAcknowledgements}
             onShowTermsAndConditions={this.showTermsAndConditions}
             updateState={this.state.updateState}
@@ -3389,6 +3390,21 @@ export class App extends React.Component<IAppProps, IAppState> {
       type: PopupType.DownloadForkRelease,
       version,
     })
+  }
+
+  /**
+   * The same question the fork row in the About dialog asks when it does have a
+   * newer build, only without an answer yet: Squirrel is asked on Windows,
+   * everywhere else the fork's feed is fetched so that the row can offer the
+   * package it found.
+   */
+  private onCheckForForkRelease = () => {
+    if (__WIN32__) {
+      updateStore.checkForUpdates(false, false)
+      return
+    }
+
+    this.checkForReleases(true)
   }
 
   private onSaveCopilotBYOKProvider = (

@@ -1737,6 +1737,7 @@
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
+      "about.checkForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2487,6 +2488,7 @@
       "@win32": "De' chu' yIjom",
       "@other": "chen chu' yIHev"
     },
+    "checkForkUpdate": "chen chu' 'e' yI'ol",
     "upstream-behind": {
       "_one": "chen chu' tu'laH: <link>{version}</link> ({count} jonHa' 'em)",
       "_other": "chen chu' tu'laH: <link>{version}</link> ({count} jonHa' 'em)"

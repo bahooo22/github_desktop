@@ -1770,6 +1770,7 @@
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
+      "about.checkForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2520,6 +2521,7 @@
       "@win32": "Instituere novam versionem",
       "@other": "Constructionem recipere"
     },
+    "checkForkUpdate": "Explorare constructionem novam",
     "upstream-behind": {
       "_one": "Nova versio suprafluens est parata: <link>{version}</link> ({count} emissio retro)",
       "_other": "Nova versio suprafluens est parata: <link>{version}</link> (emissiones {count} retro)"

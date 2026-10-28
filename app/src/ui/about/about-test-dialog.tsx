@@ -63,6 +63,7 @@ export class AboutTestDialog extends React.Component<
         applicationArchitecture={process.arch}
         onCheckForNonStaggeredUpdates={this.onCheckForNonStaggeredUpdates}
         onInstallForkRelease={this.onInstallForkRelease}
+        onCheckForForkRelease={this.onCheckForForkRelease}
         onShowAcknowledgements={this.props.onShowAcknowledgements}
         onShowTermsAndConditions={this.props.onShowTermsAndConditions}
         updateState={this.state.updateState}
@@ -98,6 +99,8 @@ export class AboutTestDialog extends React.Component<
    * здесь нет ни версии, ни коммита, поэтому кнопка ничего не устанавливает.
    */
   private onInstallForkRelease = (_version: string) => {}
+
+  private onCheckForForkRelease = () => {}
 
   public componentWillUnmount(): void {
     if (this.delayTimeoutId !== null) {

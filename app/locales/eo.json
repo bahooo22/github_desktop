@@ -1770,6 +1770,7 @@
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
+      "about.checkForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2520,6 +2521,7 @@
       "@win32": "Instali ĝisdatigon",
       "@other": "Elŝuti konstruaĵon"
     },
+    "checkForkUpdate": "Kontroli novan konstruaĵon",
     "upstream-behind": {
       "_one": "Nova suprenflua versio estas disponebla: <link>{version}</link> ({count} eldono malantaŭe)",
       "_other": "Nova suprenflua versio estas disponebla: <link>{version}</link> ({count} eldonoj malantaŭe)"

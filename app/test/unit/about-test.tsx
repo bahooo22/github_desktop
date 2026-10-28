@@ -35,7 +35,8 @@ async function flushAsyncWork() {
 function renderAbout(
   updateState: Partial<IUpdateState> = {},
   allowDevelopment: boolean = false,
-  onInstallForkRelease: (version: string) => void = () => {}
+  onInstallForkRelease: (version: string) => void = () => {},
+  onCheckForForkRelease: () => void = () => {}
 ) {
   return render(
     <About
@@ -45,6 +46,7 @@ function renderAbout(
       applicationArchitecture="x64"
       onCheckForNonStaggeredUpdates={() => {}}
       onInstallForkRelease={onInstallForkRelease}
+      onCheckForForkRelease={onCheckForForkRelease}
       onShowAcknowledgements={() => {}}
       onShowTermsAndConditions={() => {}}
       onQuitAndInstall={() => {}}
@@ -870,5 +872,58 @@ describe('about - the download buttons', () => {
     } finally {
       ;(globalThis as any).__LINUX__ = previousLinux
     }
+  })
+
+  it('keeps both rows when nothing newer was found', async () => {
+    // Замер 28.10: сборка с кнопками установлена, человек догнал и фид форка, и
+    // канал апстрима — и в диалоге не осталось ни одной кнопки, потому что оба
+    // ряда висели на статусе.
+    const installed = new Array<string>()
+    let checks = 0
+
+    await withPlatform('win32', async () => {
+      const view = renderAbout(
+        {},
+        false,
+        version => {
+          installed.push(version)
+        },
+        () => {
+          checks++
+        }
+      )
+
+      await flushAsyncWork()
+
+      assert.equal(
+        document.querySelector(indicatorSelector),
+        null,
+        'строка об отставании показывается только при отставании'
+      )
+
+      assert.notEqual(
+        findButton(/Download the official build/),
+        undefined,
+        'ряд официального инсталлера остаётся, когда мы не отстаём'
+      )
+
+      const button = findButton(/Check for a new build/)
+      assert.notEqual(
+        button,
+        undefined,
+        'ряд сборки форка остаётся и несёт подпись проверки'
+      )
+
+      fireEvent.click(button!)
+
+      assert.deepEqual(
+        installed,
+        [],
+        'без новой сборки передавать версию нечего'
+      )
+      assert.equal(checks, 1, 'клик без статуса зовёт проверку сборки')
+
+      view.unmount()
+    })
   })
 })

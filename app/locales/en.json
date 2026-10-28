@@ -742,6 +742,7 @@
       "@win32": "Install the update",
       "@other": "Download the build"
     },
+    "checkForkUpdate": "Check for a new build",
     "upstream-behind": {
       "_one": "A new upstream version is available: <link>{version}</link> ({count} release behind)",
       "_other": "A new upstream version is available: <link>{version}</link> ({count} releases behind)"

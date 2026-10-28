@@ -80,6 +80,13 @@ interface IAboutProps {
    */
   readonly onInstallForkRelease: (version: string) => void
 
+  /**
+   * Kicks off the same look for a newer build of this fork that the banner
+   * offers when it has one. Used when there is nothing to install yet, so the
+   * row can stay clickable even then.
+   */
+  readonly onCheckForForkRelease: () => void
+
   readonly onShowAcknowledgements: () => void
 
   /** A function to call when the user wants to see Terms and Conditions. */
@@ -450,25 +457,28 @@ export class About extends React.Component<IAboutProps, IAboutState> {
     )
   }
 
+  /**
+   * The line about the official channel is only worth showing when we are
+   * behind it, but the row that saves the official installer is always
+   * available: the file it downloads is the current one either way.
+   */
   private renderUpstreamStatus() {
     const status = this.state.upstreamStatus
 
-    if (status === null) {
-      return null
-    }
-
     return (
       <>
-        <p className="no-padding">
-          <Trans
-            k="about.upstream-behind"
-            params={{
-              version: status.latestVersion,
-              count: status.releasesBehind,
-            }}
-            components={{ link: <LinkButton uri={ReleaseNotesUri} /> }}
-          />
-        </p>
+        {status !== null && (
+          <p className="no-padding">
+            <Trans
+              k="about.upstream-behind"
+              params={{
+                version: status.latestVersion,
+                count: status.releasesBehind,
+              }}
+              components={{ link: <LinkButton uri={ReleaseNotesUri} /> }}
+            />
+          </p>
+        )}
         {this.renderUpstreamDownloadRow()}
       </>
     )
@@ -529,26 +539,28 @@ export class About extends React.Component<IAboutProps, IAboutState> {
   private renderForkRelease() {
     const status = this.state.forkReleaseStatus
 
-    if (status === null) {
-      return null
-    }
-
     return (
       <>
-        <p className="no-padding">
-          <Trans
-            k="about.forkRelease"
-            params={{
-              sha: status.releaseSha.substring(0, 10),
-              date: formatDate(new Date(status.builtAt), { dateStyle: 'long' }),
-              count: status.aheadBy,
-            }}
-            components={{ link: <LinkButton uri={status.releasePageUrl} /> }}
-          />
-        </p>
+        {status !== null && (
+          <p className="no-padding">
+            <Trans
+              k="about.forkRelease"
+              params={{
+                sha: status.releaseSha.substring(0, 10),
+                date: formatDate(new Date(status.builtAt), {
+                  dateStyle: 'long',
+                }),
+                count: status.aheadBy,
+              }}
+              components={{ link: <LinkButton uri={status.releasePageUrl} /> }}
+            />
+          </p>
+        )}
         <Row className="fork-release-install">
           <Button onClick={this.installForkRelease}>
-            {t('about.installForkUpdate')}
+            {status !== null
+              ? t('about.installForkUpdate')
+              : t('about.checkForkUpdate')}
           </Button>
         </Row>
       </>
@@ -558,9 +570,12 @@ export class About extends React.Component<IAboutProps, IAboutState> {
   private installForkRelease = () => {
     const status = this.state.forkReleaseStatus
 
-    if (status !== null) {
-      this.props.onInstallForkRelease(status.version)
+    if (status === null) {
+      this.props.onCheckForForkRelease()
+      return
     }
+
+    this.props.onInstallForkRelease(status.version)
   }
 
   private downloadOfficial = async () => {

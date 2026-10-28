@@ -1736,6 +1736,7 @@
       "renameWorktreeDialog.could-not-determine-main",
       "about.upstream-download",
       "about.installForkUpdate",
+      "about.checkForkUpdate",
       "banners.upstreamReleaseAvailable",
       "banners.forkReleaseDownload",
       "downloadForkRelease.title",
@@ -2486,6 +2487,7 @@
       "@win32": "tulca i leryalë",
       "@other": "á-tulya i vinya cara"
     },
+    "checkForkUpdate": "tira i vinya cara",
     "upstream-behind": {
       "_one": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryalë ca)",
       "_other": "i minya hauramo lerië vinya tulë: <link>{version}</link> ({count} leryali ca)"
