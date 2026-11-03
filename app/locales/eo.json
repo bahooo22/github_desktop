@@ -3,8 +3,13 @@
     "name": "Esperanto",
     "nativeName": "Esperanto",
     "direction": "ltr",
-    "pluralCategories": ["one", "other"],
-    "authors": ["BaHooo"],
+    "pluralCategories": [
+      "one",
+      "other"
+    ],
+    "authors": [
+      "BaHooo"
+    ],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -1820,7 +1825,9 @@
     "no-repository-selected": "Neniu deponejo elektita"
   },
   "account-picker": {
-    "account": "konto"
+    "account": "konto",
+    "choose-account-title": "Elekti konton",
+    "choose-account-placeholder": "Elekti konton…"
   },
   "settings": {
     "title": {
@@ -1854,7 +1861,8 @@
         "@other": "Ensaluti en GitHub Enterprise"
       },
       "dotcom-description": "Ensalutu por aliri viajn deponejojn.",
-      "enterprise-description": "Se vi uzas GitHub Enterprise en la laboro, ensalutu ĝin por akiri aliron al viaj deponejoj."
+      "enterprise-description": "Se vi uzas GitHub Enterprise en la laboro, ensalutu ĝin por akiri aliron al viaj deponejoj.",
+      "add-dotcom": "Aldoni GitHub.com-konton"
     },
     "language": {
       "title": "Lingvo",
@@ -2609,7 +2617,8 @@
     "enterprise-address": "Adreso de entrepreno",
     "browser-redirect-info": "Via retumilo redirektos vin reen al GitHub Desktop, kiam vi ensalutis. Se via retumilo petas vian permeson por lanĉi GitHub Desktop, bonvolu permesi ĝin.",
     "existing-account-warning": "Vi jam ensalutis en <ref>{host}</ref> per la konto <ref>{login}</ref>. Se vi daŭrigos, unue vi estos elsalutita.",
-    "credential-helper-info": "Git petas kredencialojn por aliri <ref>{url}</ref>."
+    "credential-helper-info": "Git petas kredencialojn por aliri <ref>{url}</ref>.",
+    "expected-login": "Ensalutu kiel <ref>{login}</ref> ĉe <ref>{host}</ref> por daŭrigi."
   },
   "terms": {
     "title": "Kondiĉoj de uzo de GitHub-aplikaĵoj de malfermita kodo",
@@ -2924,14 +2933,15 @@
     "path-placeholder": "deponeja vojo",
     "refresh-tooltip": "Refreŝigu la liston de deponejoj",
     "save-dialog-name-field-label": "Kloni kiel:",
-    "save-dialog-select-label": "Kloni kiel:",
+    "save-dialog-select-label": "Elekti",
     "sign-in": "Ensaluti",
     "title": "Kloni Deponejon",
     "url-label": "Deponeja URL aŭ GitHub-uzantnomo kaj deponejo",
     "url-placeholder": "URL aŭ uzantnomo/deponejo",
     "your-repositories": "Viaj Deponejoj",
     "no-matches": "Mi bedaŭrinde ne povis trovi iun deponejon, kiu kongruas kun <ref>{text}</ref>",
-    "no-repositories": "Ŝajnas ke ne ekzistas deponejoj por <ref>{login}</ref> sur {endpoint}. <link>Refreŝigu ĉi tiun liston</link>, se vi kreis deponejon lastatempe."
+    "no-repositories": "Ŝajnas ke ne ekzistas deponejoj por <ref>{login}</ref> sur {endpoint}. <link>Refreŝigu ĉi tiun liston</link>, se vi kreis deponejon lastatempe.",
+    "sign-in-to-enterprise": "Ensaluti en GitHub Enterprise"
   },
   "commitMessage": {
     "add-co-authors": "Aldoni kun-aŭtoroj",
@@ -3199,7 +3209,7 @@
     "no": "Ne",
     "title": "Nvalidigita Konto-Tokeno",
     "yes": "Jes",
-    "message": "Via konto-tokeno ne plu validas kaj vi estis elsalutita de via konto ĉe <ref>{endpoint}</ref>. Ĉu vi volas ensaluti denove?"
+    "message": "Via konto-tokeno ne plu validas kaj vi estis elsalutita de la konto <ref>{login}</ref> ĉe <ref>{endpoint}</ref>. Ĉu vi volas ensaluti denove?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -3478,7 +3488,7 @@
   },
   "publish": {
     "description": "Priskribo",
-    "dotcom-sign-in-description": "Ensalutu al via GitHub.com-konto por akiri aliron al viaj deponejoj.",
+    "dotcom-sign-in-description": "Ensalutu en vian GitHub.com-konton por publikigi vian deponejon.",
     "enterprise-sign-in-description": "Se vi uzas GitHub Enterprise ĉe la laboro, ensalutu al ĝi por ricevi aliron al viaj deponejoj.",
     "keep-private": "Teni ĉi tiun kodon privata",
     "name": "Nomo",
@@ -3487,7 +3497,8 @@
     "publish-repository-ok": "Publikigi Deponejon",
     "sign-in": "Ensaluti",
     "title": "Publikigi Deponejon",
-    "will-be-created-as": "Kreiĝos kiel {name}"
+    "will-be-created-as": "Kreiĝos kiel {name}",
+    "sign-in-to-enterprise": "Ensaluti en GitHub Enterprise"
   },
   "pushNeedsPull": {
     "fetch": "Preni",
@@ -3543,7 +3554,8 @@
     "fork-desc-new-branches": "Novaj branĉoj baziĝos sur la defaŭlta branĉo de <strong>{repository}</strong>.",
     "fork-desc-autocompletion": "Aŭtomata kompletigo de uzantoj kaj problemoj baziĝos sur <strong>{repository}</strong>.",
     "gitignore-description": "Redaktado de <ref>.gitignore</ref>. Ĉi tiu dosiero specifikas celintence ne sekvitajn dosierojn, kiujn Git devas ignori. Dosieroj jam sekvitaj de Git ne estas influitaj. <link>Lernu pli pri gitignore-dosieroj</link>",
-    "no-remote-message": "Publikigu vian deponejon sur GitHub. Ĉu vi bezonas helpon? <link>Lernu pli pri foraj deponejoj.</link>"
+    "no-remote-message": "Publikigu vian deponejon sur GitHub. Ĉu vi bezonas helpon? <link>Lernu pli pri foraj deponejoj.</link>",
+    "error-save-account": "Malsukcesis konservi la konton de la deponejo: {error}"
   },
   "reset": {
     "continue": "Kontinui",

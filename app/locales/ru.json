@@ -3,7 +3,9 @@
     "name": "русский",
     "nativeName": "Русский",
     "direction": "ltr",
-    "authors": ["BaHooo"]
+    "authors": [
+      "BaHooo"
+    ]
   },
   "common": {
     "cancel": "Отмена",
@@ -39,7 +41,9 @@
     "no-repository-selected": "Репозиторий не выбран"
   },
   "account-picker": {
-    "account": "Аккаунт"
+    "account": "Аккаунт",
+    "choose-account-title": "Выбрать учётную запись",
+    "choose-account-placeholder": "Выбрать учётную запись…"
   },
   "settings": {
     "title": {
@@ -64,7 +68,8 @@
       "sign-into-dotcom": "Войти в GitHub.com",
       "sign-into-enterprise": "Войти в Enterprise",
       "dotcom-description": "Войдите в аккаунт GitHub.com, чтобы получить доступ к своим репозиториям.",
-      "enterprise-description": "Если вы используете GitHub Enterprise на работе, войдите в него, чтобы получить доступ к своим репозиториям."
+      "enterprise-description": "Если вы используете GitHub Enterprise на работе, войдите в него, чтобы получить доступ к своим репозиториям.",
+      "add-dotcom": "Добавить учётную запись GitHub.com"
     },
     "language": {
       "title": "Язык интерфейса",
@@ -767,7 +772,8 @@
     "enterprise-address": "Адрес корпоративного сервера",
     "browser-redirect-info": "После входа браузер вернёт вас в GitHub Desktop. Если браузер запросит разрешение на запуск GitHub Desktop, предоставьте его.",
     "existing-account-warning": "Вы уже вошли в <ref>{host}</ref> под учётной записью <ref>{login}</ref>. Если вы продолжите, сначала будет выполнен выход из учётной записи.",
-    "credential-helper-info": "Git запрашивает учётные данные для доступа к <ref>{url}</ref>."
+    "credential-helper-info": "Git запрашивает учётные данные для доступа к <ref>{url}</ref>.",
+    "expected-login": "Войдите как <ref>{login}</ref> на <ref>{host}</ref>, чтобы продолжить."
   },
   "terms": {
     "title": "Условия использования приложений GitHub с открытым исходным кодом",
@@ -1090,14 +1096,15 @@
     "path-placeholder": "путь к репозиторию",
     "refresh-tooltip": "Обновить список репозиториев",
     "save-dialog-name-field-label": "Клонировать как:",
-    "save-dialog-select-label": "Клонировать как:",
+    "save-dialog-select-label": "Выбрать",
     "sign-in": "Войти",
     "title": "Клонировать репозиторий",
     "url-label": "URL репозитория или «имя пользователя GitHub и имя репозитория»",
     "url-placeholder": "URL или username/repository",
     "your-repositories": "Ваши репозитории",
     "no-matches": "Не удалось найти репозиторий, соответствующий <ref>{text}</ref>",
-    "no-repositories": "Похоже, у <ref>{login}</ref> нет репозиториев на {endpoint}. <link>Обновите список</link>, если вы недавно создали репозиторий."
+    "no-repositories": "Похоже, у <ref>{login}</ref> нет репозиториев на {endpoint}. <link>Обновите список</link>, если вы недавно создали репозиторий.",
+    "sign-in-to-enterprise": "Войти в GitHub Enterprise"
   },
   "commitMessage": {
     "add-co-authors": "Добавить соавторов",
@@ -1351,7 +1358,7 @@
     "no": "Нет",
     "title": "Токен аккаунта отозван",
     "yes": "Да",
-    "message": "Токен учётной записи больше не действителен, и вы вышли из учётной записи <ref>{endpoint}</ref>. Войти снова?"
+    "message": "Токен учётной записи больше не действителен, и вы вышли из учётной записи <ref>{login}</ref> на <ref>{endpoint}</ref>. Войти снова?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -1623,7 +1630,7 @@
   },
   "publish": {
     "description": "Описание",
-    "dotcom-sign-in-description": "Войдите в GitHub.com для публикации",
+    "dotcom-sign-in-description": "Войдите в учётную запись GitHub.com, чтобы опубликовать репозиторий.",
     "enterprise-sign-in-description": "Войдите в Enterprise для публикации",
     "keep-private": "Оставить приватным",
     "name": "Имя",
@@ -1632,7 +1639,8 @@
     "publish-repository-ok": "Опубликовать репозиторий",
     "sign-in": "Войти",
     "title": "Опубликовать репозиторий",
-    "will-be-created-as": "Будет создан как {name}"
+    "will-be-created-as": "Будет создан как {name}",
+    "sign-in-to-enterprise": "Войти в GitHub Enterprise"
   },
   "pushNeedsPull": {
     "fetch": "Получить",
@@ -1688,7 +1696,8 @@
     "fork-desc-new-branches": "Новые ветки будут создаваться от ветки по умолчанию в <strong>{repository}</strong>.",
     "fork-desc-autocompletion": "Автодополнение имён пользователей и задач будет работать по <strong>{repository}</strong>.",
     "gitignore-description": "Изменяется файл <ref>.gitignore</ref>. В нём перечислены файлы, которые Git намеренно игнорирует. Уже отслеживаемые Git файлы не затрагиваются. <link>Подробнее о файлах gitignore</link>",
-    "no-remote-message": "Опубликуйте свой репозиторий на GitHub. Нужна помощь? <link>Подробнее об удалённых репозиториях.</link>"
+    "no-remote-message": "Опубликуйте свой репозиторий на GitHub. Нужна помощь? <link>Подробнее об удалённых репозиториях.</link>",
+    "error-save-account": "Не удалось сохранить учётную запись репозитория: {error}"
   },
   "reset": {
     "continue": "Продолжить",

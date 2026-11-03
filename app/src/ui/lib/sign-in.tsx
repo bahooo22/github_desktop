@@ -8,11 +8,7 @@ import {
   SignInStep,
   IEndpointEntryState,
   IAuthenticationState,
-  IExistingAccountWarning,
 } from '../../lib/stores'
-import { Ref } from './ref'
-import { getHTMLURL } from '../../lib/api'
-import { Trans } from '../../lib/l10n'
 import { EnterpriseServerConfirmation } from './enterprise-server-confirmation'
 
 interface ISignInProps {
@@ -34,27 +30,7 @@ export class SignIn extends React.Component<ISignInProps, {}> {
     this.props.dispatcher.requestBrowserAuthentication()
   }
 
-  private renderExistingAccountWarningStep(state: IExistingAccountWarning) {
-    return (
-      <>
-        <Trans
-          as="p"
-          className="existing-account-warning"
-          k="signIn.existing-account-warning"
-          params={{
-            host: new URL(getHTMLURL(state.endpoint)).host,
-            login: state.existingAccount.login,
-          }}
-          components={{ ref: <Ref /> }}
-        />
-        {this.renderAuthenticationStep(state)}
-      </>
-    )
-  }
-
-  private renderEndpointEntryStep(
-    state: IEndpointEntryState | IExistingAccountWarning
-  ) {
+  private renderEndpointEntryStep(state: IEndpointEntryState) {
     const children = this.props.children as ReadonlyArray<JSX.Element>
     return (
       <EnterpriseServerEntry
@@ -66,15 +42,11 @@ export class SignIn extends React.Component<ISignInProps, {}> {
     )
   }
 
-  private renderAuthenticationStep(
-    state: IAuthenticationState | IExistingAccountWarning
-  ) {
+  private renderAuthenticationStep(state: IAuthenticationState) {
     const children = this.props.children as ReadonlyArray<JSX.Element>
-    const confirmation =
-      state.kind === SignInStep.Authentication &&
-      state.isUnrecognizedEnterpriseServer ? (
-        <EnterpriseServerConfirmation endpoint={state.endpoint} />
-      ) : null
+    const confirmation = state.isUnrecognizedEnterpriseServer ? (
+      <EnterpriseServerConfirmation endpoint={state.endpoint} />
+    ) : null
 
     return (
       <>
@@ -94,8 +66,6 @@ export class SignIn extends React.Component<ISignInProps, {}> {
     switch (state.kind) {
       case SignInStep.EndpointEntry:
         return this.renderEndpointEntryStep(state)
-      case SignInStep.ExistingAccountWarning:
-        return this.renderExistingAccountWarningStep(state)
       case SignInStep.Authentication:
         return this.renderAuthenticationStep(state)
       case SignInStep.Success:

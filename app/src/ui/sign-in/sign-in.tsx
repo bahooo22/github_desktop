@@ -5,7 +5,6 @@ import {
   SignInStep,
   IEndpointEntryState,
   IAuthenticationState,
-  IExistingAccountWarning,
 } from '../../lib/stores'
 import { assertNever } from '../../lib/fatal-error'
 import { Row } from '../lib/row'
@@ -14,6 +13,7 @@ import { Dialog, DialogError, DialogContent, DialogFooter } from '../dialog'
 
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Ref } from '../lib/ref'
+import { PopupType } from '../../models/popup'
 import { getHTMLURL } from '../../lib/api'
 import {
   EnterpriseServerConfirmation,
@@ -25,8 +25,6 @@ interface ISignInProps {
   readonly dispatcher: Dispatcher
   readonly signInState: SignInState | null
   readonly onDismissed: () => void
-  readonly isCredentialHelperSignIn?: boolean
-  readonly credentialHelperUrl?: string
 }
 
 interface ISignInState {
@@ -61,13 +59,12 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
   }
 
   public componentWillReceiveProps(nextProps: ISignInProps) {
-    if (nextProps.signInState !== this.props.signInState) {
-      if (
-        nextProps.signInState &&
-        nextProps.signInState.kind === SignInStep.Success
-      ) {
-        this.onDismissed()
-      }
+    if (
+      this.props.signInState?.kind !== SignInStep.Success &&
+      nextProps.signInState?.kind === SignInStep.Success
+    ) {
+      // The result callback may already have closed this and its parent dialog.
+      this.props.dispatcher.closePopup(PopupType.SignIn)
     }
   }
 
@@ -84,16 +81,10 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       case SignInStep.EndpointEntry:
         this.props.dispatcher.setSignInEndpoint(this.state.endpoint)
         break
-      case SignInStep.ExistingAccountWarning:
-        this.props.dispatcher
-          .removeAccount(state.existingAccount)
-          .then(() => this.props.dispatcher.setSignInEndpoint(state.endpoint))
-        break
       case SignInStep.Authentication:
         this.props.dispatcher.requestBrowserAuthentication()
         break
       case SignInStep.Success:
-        this.onDismissed()
         break
       default:
         assertNever(state, `Unknown sign in step ${stepKind}`)
@@ -122,9 +113,6 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
         disableSubmit = this.state.endpoint.length === 0
         primaryButtonText = t('signIn.continue')
         break
-      case SignInStep.ExistingAccountWarning:
-        primaryButtonText = continueWithBrowserLabel
-        break
       case SignInStep.Authentication:
         primaryButtonText = continueWithBrowserLabel
         break
@@ -141,24 +129,6 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
           onCancelButtonClick={this.onDismissed}
         />
       </DialogFooter>
-    )
-  }
-
-  private renderExistingAccountWarningStep(state: IExistingAccountWarning) {
-    return (
-      <DialogContent>
-        <p className="existing-account-warning">
-          <Trans
-            k="signIn.existing-account-warning"
-            params={{
-              host: new URL(getHTMLURL(state.endpoint)).host,
-              login: state.existingAccount.login,
-            }}
-            components={{ ref: <Ref /> }}
-          />
-        </p>
-        {getBrowserSignInInfoContent()}
-      </DialogContent>
     )
   }
 
@@ -187,20 +157,19 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
       )
     }
 
-    const credentialHelperInfo =
-      this.props.isCredentialHelperSignIn && this.props.credentialHelperUrl ? (
-        <p>
-          <Trans
-            k="signIn.credential-helper-info"
-            params={{ url: this.props.credentialHelperUrl }}
-            components={{ ref: <Ref /> }}
-          />
-        </p>
-      ) : undefined
-
     return (
       <DialogContent>
-        {credentialHelperInfo}
+        {state.expectedLogin !== undefined && (
+          <Trans
+            as="p"
+            k="signIn.expected-login"
+            params={{
+              login: state.expectedLogin,
+              host: new URL(getHTMLURL(state.endpoint)).host,
+            }}
+            components={{ ref: <Ref /> }}
+          />
+        )}
         {getBrowserSignInInfoContent()}
       </DialogContent>
     )
@@ -218,8 +187,6 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
     switch (state.kind) {
       case SignInStep.EndpointEntry:
         return this.renderEndpointEntryStep(state)
-      case SignInStep.ExistingAccountWarning:
-        return this.renderExistingAccountWarningStep(state)
       case SignInStep.Authentication:
         return this.renderAuthenticationStep(state)
       case SignInStep.Success:
@@ -273,6 +240,12 @@ export class SignIn extends React.Component<ISignInProps, ISignInState> {
   }
 
   private onDismissed = () => {
+    if (
+      this.props.signInState === null ||
+      this.props.signInState.kind === SignInStep.Success
+    ) {
+      return
+    }
     this.props.dispatcher.resetSignInState()
     this.props.onDismissed()
   }

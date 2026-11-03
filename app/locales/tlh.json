@@ -3,10 +3,15 @@
     "name": "Klingon",
     "nativeName": "tlhIngan Hol",
     "direction": "ltr",
-    "pluralCategories": ["one", "other"],
+    "pluralCategories": [
+      "one",
+      "other"
+    ],
     "gloss": "ru",
     "translit": "tlh",
-    "authors": ["BaHooo"],
+    "authors": [
+      "BaHooo"
+    ],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -1787,7 +1792,15 @@
     "no-repository-selected": "De' ngaSwI' 'e' wIvpu'be'"
   },
   "account-picker": {
-    "account": "mab"
+    "account": "mab",
+    "choose-account-title": {
+      "@darwin": "Choose an Account",
+      "@other": "Choose an account"
+    },
+    "choose-account-placeholder": {
+      "@darwin": "Choose an Account…",
+      "@other": "Choose an account…"
+    }
   },
   "settings": {
     "title": {
@@ -1821,7 +1834,8 @@
         "@other": "GitHub Enterprise mabDaq yIngaQHa'moH"
       },
       "dotcom-description": "GitHub.com mabDaq yIngaQHa'moH. De' ngaSwI' lIj 'e' naw'laH.",
-      "enterprise-description": "ghIghDaq GitHub Enterprise 'e' yIlo'chugh, mabDaq yIngaQHa'moH 'ej De' ngaSwI' lIj 'e' naw'laH."
+      "enterprise-description": "ghIghDaq GitHub Enterprise 'e' yIlo'chugh, mabDaq yIngaQHa'moH 'ej De' ngaSwI' lIj 'e' naw'laH.",
+      "add-dotcom": "Add GitHub.com account"
     },
     "language": {
       "title": "Hol",
@@ -2576,7 +2590,8 @@
     "enterprise-address": "GitHub Enterprise URL",
     "browser-redirect-info": "ngaQHa'moHpu', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'.",
     "existing-account-warning": "<ref>{host}</ref>Daq bIngaQHa'moHpu' 'ej <ref>{login}</ref> mab Dalo'taH. bItaHchugh, wa'DIch bIngaQmoHlu'.",
-    "credential-helper-info": "<ref>{url}</ref> naw'meH ngoq tlhob Git."
+    "credential-helper-info": "<ref>{url}</ref> naw'meH ngoq tlhob Git.",
+    "expected-login": "Sign in as <ref>{login}</ref> on <ref>{host}</ref> to continue."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",
@@ -2891,14 +2906,18 @@
     "path-placeholder": "De' ngaSwI' taw",
     "refresh-tooltip": "De' ngaSwI' tetlh yIchoHqa'",
     "save-dialog-name-field-label": "yIvoy:",
-    "save-dialog-select-label": "yIvoy:",
+    "save-dialog-select-label": "yIvoy",
     "sign-in": "yIngaQHa'moH",
     "title": "De' ngaSwI' yIvoy",
     "url-label": "De' ngaSwI' URL pagh GitHub pong je",
     "url-placeholder": "URL pagh pong/De' ngaSwI'",
     "your-repositories": "De' ngaSwI' lIj",
     "no-matches": "jIQoch: <ref>{text}</ref> rur De' ngaSwI' tu'laHbe'.",
-    "no-repositories": "<ref>{login}</ref> ghajbe' {endpoint}. De' ngaSwI' tu'lu'be'. <link>tetlh yIchoHqa'</link>."
+    "no-repositories": "<ref>{login}</ref> ghajbe' {endpoint}. De' ngaSwI' tu'lu'be'. <link>tetlh yIchoHqa'</link>.",
+    "sign-in-to-enterprise": {
+      "@darwin": "Sign In to GitHub Enterprise",
+      "@other": "Sign in to GitHub Enterprise"
+    }
   },
   "commitMessage": {
     "add-co-authors": "boq qonwI'mey yIchel",
@@ -3166,7 +3185,7 @@
     "no": "HISlaHbe'",
     "title": "mab ngoq ghenbe'",
     "yes": "HISlaH",
-    "message": "lIj mab ngoq ghenbe' 'ach <ref>{endpoint}</ref> mabvo' bIngaQHa'moHbe'lu'. ngaQHa'moHqa' 'e' DaneH'a'?"
+    "message": "lIj mab ngoq ghenbe' 'ach <ref>{login}</ref> mab <ref>{endpoint}</ref> mabvo' bIngaQHa'moHbe'lu'. ngaQHa'moHqa' 'e' DaneH'a'?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -3445,7 +3464,7 @@
   },
   "publish": {
     "description": "QIjwI'",
-    "dotcom-sign-in-description": "GitHub.com mab 'e' yIngaQHa'moH 'ach lIj De' ngaSwI'pu' naw'meH.",
+    "dotcom-sign-in-description": "Sign in to your GitHub.com account to publish your repository.",
     "enterprise-sign-in-description": "vumDaq GitHub Enterprise 'e' lo'chugh, GitHub Enterprise 'e' yIngaQHa'moH 'ach lIj De' ngaSwI'pu' naw'meH.",
     "keep-private": "ngoqvam 'e' pegh yIpol",
     "name": "pong",
@@ -3454,7 +3473,11 @@
     "publish-repository-ok": "De' ngaSwI' 'e' yI'ang",
     "sign-in": "yIngaQHa'moH",
     "title": "De' ngaSwI' 'e' yI'ang",
-    "will-be-created-as": "De' ngaSwI' {name} pong chenmoHlu'."
+    "will-be-created-as": "De' ngaSwI' {name} pong chenmoHlu'.",
+    "sign-in-to-enterprise": {
+      "@darwin": "Sign In to GitHub Enterprise",
+      "@other": "Sign in to GitHub Enterprise"
+    }
   },
   "pushNeedsPull": {
     "fetch": "yIqem",
@@ -3510,7 +3533,8 @@
     "fork-desc-new-branches": "bartIq chu' <strong>{repository}</strong> motlh bartIqDaq chen.",
     "fork-desc-autocompletion": "lo'wI' je qechmey <strong>{repository}</strong>vo' Hevlu'.",
     "gitignore-description": "<ref>.gitignore</ref> Del. De'vam ghochbe'lu'bogh yI'ang. <link>gitignore De' yIghoj</link>.",
-    "no-remote-message": "De' ngaSwI' lIj GitHubDaq yIngeH. QaH 'ut'a'? <link>HopwI' De' yIghoj</link>."
+    "no-remote-message": "De' ngaSwI' lIj GitHubDaq yIngeH. QaH 'ut'a'? <link>HopwI' De' yIghoj</link>.",
+    "error-save-account": "Failed saving the repository account: {error}"
   },
   "reset": {
     "continue": "yItaH",

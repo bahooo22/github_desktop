@@ -3,10 +3,15 @@
     "name": "Quenya",
     "nativeName": "Quenya",
     "direction": "ltr",
-    "pluralCategories": ["one", "other"],
+    "pluralCategories": [
+      "one",
+      "other"
+    ],
     "gloss": "ru",
     "translit": "qya",
-    "authors": ["BaHooo"],
+    "authors": [
+      "BaHooo"
+    ],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -1786,7 +1791,15 @@
     "no-repository-selected": "lá haura cilienë"
   },
   "account-picker": {
-    "account": "essë"
+    "account": "essë",
+    "choose-account-title": {
+      "@darwin": "Choose an Account",
+      "@other": "Choose an account"
+    },
+    "choose-account-placeholder": {
+      "@darwin": "Choose an Account…",
+      "@other": "Choose an account…"
+    }
   },
   "settings": {
     "title": {
@@ -1820,7 +1833,8 @@
         "@other": "tulë i GitHub Enterpriseissë"
       },
       "dotcom-description": "Tulë i GitHub.comissë imya essëva. Imin: latya i imyaro haura.",
-      "enterprise-description": "Yá mahta lyë GitHub Enterprise i mólëssë, tulë i GitHub Enterpriseissë. Imin: latya i imyaro haura."
+      "enterprise-description": "Yá mahta lyë GitHub Enterprise i mólëssë, tulë i GitHub Enterpriseissë. Imin: latya i imyaro haura.",
+      "add-dotcom": "Add GitHub.com account"
     },
     "language": {
       "title": "i lambë",
@@ -2575,7 +2589,8 @@
     "enterprise-address": "GitHub Enterprise URL",
     "browser-redirect-info": "i browser sina lelyuva lyë enta i GitHub Desktopanna yá tyulë. yá i browser sina mansëa i lávë itan latya i GitHub Desktop, anta i lávë.",
     "existing-account-warning": "Tensi tyulë i <ref>{host}</ref>essë, ar i essëlya ná <ref>{login}</ref>. Yá cacarë, minyallumë autuvalyë.",
-    "credential-helper-info": "Git mansëa i tengwë na latya <ref>{url}</ref>."
+    "credential-helper-info": "Git mansëa i tengwë na latya <ref>{url}</ref>.",
+    "expected-login": "Sign in as <ref>{login}</ref> on <ref>{host}</ref> to continue."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",
@@ -2890,14 +2905,18 @@
     "path-placeholder": "Haura tië",
     "refresh-tooltip": "Envinyata i haurar",
     "save-dialog-name-field-label": "Ovëanta ve:",
-    "save-dialog-select-label": "Ovëanta ve:",
+    "save-dialog-select-label": "cennë",
     "sign-in": "Tulë",
     "title": "Ovëanta haura",
     "url-label": "Haura URL hya GitHub essë ar haura",
     "url-placeholder": "URL hya essë/haura",
     "your-repositories": "Haurar lya",
     "no-matches": "Lá hirnë haura ve <ref>{text}</ref>.",
-    "no-repositories": "Lá harya <ref>{login}</ref> haurar {endpoint}ssë. <link>Cenë ata</link>."
+    "no-repositories": "Lá harya <ref>{login}</ref> haurar {endpoint}ssë. <link>Cenë ata</link>.",
+    "sign-in-to-enterprise": {
+      "@darwin": "Sign In to GitHub Enterprise",
+      "@other": "Sign in to GitHub Enterprise"
+    }
   },
   "commitMessage": {
     "add-co-authors": "Napan i parmahtor",
@@ -3165,7 +3184,7 @@
     "no": "lá",
     "title": "i essëo tengwë úvanima",
     "yes": "sá",
-    "message": "i tengwëly i esselyo úvanima, ar lyë útyuli i <ref>{endpoint}</ref> esselyallo. sáquetatya entulë?"
+    "message": "i tengwëly i esselyo úvanima, ar lyë útyuli i <ref>{login}</ref> essë <ref>{endpoint}</ref> essello. sáquetatya entulë?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -3444,7 +3463,7 @@
   },
   "publish": {
     "description": "istalë",
-    "dotcom-sign-in-description": "tulu i GitHub.com esselyanna, itan cenatya i hauralyar.",
+    "dotcom-sign-in-description": "Sign in to your GitHub.com account to publish your repository.",
     "enterprise-sign-in-description": "yá lyë yuhta GitHub Enterprise i mólëassë, tulu sina itan cenatya i hauralyar.",
     "keep-private": "rehta pahta i tengwesta sina",
     "name": "essë",
@@ -3453,7 +3472,11 @@
     "publish-repository-ok": "etanta i haura",
     "sign-in": "tulu",
     "title": "etanta i haura",
-    "will-be-created-as": "cara vë {name}"
+    "will-be-created-as": "cara vë {name}",
+    "sign-in-to-enterprise": {
+      "@darwin": "Sign In to GitHub Enterprise",
+      "@other": "Sign in to GitHub Enterprise"
+    }
   },
   "pushNeedsPull": {
     "fetch": "tulya",
@@ -3509,7 +3532,8 @@
     "fork-desc-new-branches": "Olyar vinyar nauvar <strong>{repository}</strong>o sitina olballo.",
     "fork-desc-autocompletion": "Yuhtië ar quentier nauvar <strong>{repository}</strong>llo.",
     "gitignore-description": "<ref>.gitignore</ref> tengwista. Sina cómë tana i úratta cómi. <link>Isti i .gitignore cómi</link>.",
-    "no-remote-message": "Nirë i haura lya GitHubenna. Ma mauya alya? <link>Ista i palan haurar</link>."
+    "no-remote-message": "Nirë i haura lya GitHubenna. Ma mauya alya? <link>Ista i palan haurar</link>.",
+    "error-save-account": "Failed saving the repository account: {error}"
   },
   "reset": {
     "continue": "cacara",

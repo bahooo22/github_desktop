@@ -41,7 +41,15 @@
     "no-repository-selected": "No repository selected"
   },
   "account-picker": {
-    "account": "Account"
+    "account": "Account",
+    "choose-account-title": {
+      "@darwin": "Choose an Account",
+      "@other": "Choose an account"
+    },
+    "choose-account-placeholder": {
+      "@darwin": "Choose an Account…",
+      "@other": "Choose an account…"
+    }
   },
   "settings": {
     "title": {
@@ -75,7 +83,8 @@
         "@other": "Sign into GitHub Enterprise"
       },
       "dotcom-description": "Sign in to your GitHub.com account to access your repositories.",
-      "enterprise-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories."
+      "enterprise-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories.",
+      "add-dotcom": "Add GitHub.com account"
     },
     "language": {
       "title": "Language",
@@ -830,7 +839,8 @@
     "enterprise-address": "Enterprise address",
     "browser-redirect-info": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop, please allow it.",
     "existing-account-warning": "You're already signed in to <ref>{host}</ref> with the account <ref>{login}</ref>. If you continue, you will first be signed out.",
-    "credential-helper-info": "Git requesting credentials to access <ref>{url}</ref>."
+    "credential-helper-info": "Git requesting credentials to access <ref>{url}</ref>.",
+    "expected-login": "Sign in as <ref>{login}</ref> on <ref>{host}</ref> to continue."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",
@@ -1145,14 +1155,18 @@
     "path-placeholder": "repository path",
     "refresh-tooltip": "Refresh the list of repositories",
     "save-dialog-name-field-label": "Clone As:",
-    "save-dialog-select-label": "Clone As:",
+    "save-dialog-select-label": "Select",
     "sign-in": "Sign In",
     "title": "Clone a Repository",
     "url-label": "Repository URL or GitHub username and repository",
     "url-placeholder": "URL or username/repository",
     "your-repositories": "Your Repositories",
     "no-matches": "Sorry, I can't find any repository matching <ref>{text}</ref>",
-    "no-repositories": "Looks like there are no repositories for <ref>{login}</ref> on {endpoint}. <link>Refresh this list</link> if you have created a repository recently."
+    "no-repositories": "Looks like there are no repositories for <ref>{login}</ref> on {endpoint}. <link>Refresh this list</link> if you have created a repository recently.",
+    "sign-in-to-enterprise": {
+      "@darwin": "Sign In to GitHub Enterprise",
+      "@other": "Sign in to GitHub Enterprise"
+    }
   },
   "commitMessage": {
     "add-co-authors": "Add co-authors",
@@ -1420,7 +1434,7 @@
     "no": "No",
     "title": "Invalidated Account Token",
     "yes": "Yes",
-    "message": "Your account token is no longer valid and you have been signed out from your <ref>{endpoint}</ref> account. Do you want to sign in again?"
+    "message": "Your account token is no longer valid and you have been signed out from your <ref>{login}</ref> account on <ref>{endpoint}</ref>. Do you want to sign in again?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -1699,7 +1713,7 @@
   },
   "publish": {
     "description": "Description",
-    "dotcom-sign-in-description": "Sign in to your GitHub.com account to access your repositories.",
+    "dotcom-sign-in-description": "Sign in to your GitHub.com account to publish your repository.",
     "enterprise-sign-in-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories.",
     "keep-private": "Keep this code private",
     "name": "Name",
@@ -1708,7 +1722,11 @@
     "publish-repository-ok": "Publish Repository",
     "sign-in": "Sign In",
     "title": "Publish Repository",
-    "will-be-created-as": "Will be created as {name}"
+    "will-be-created-as": "Will be created as {name}",
+    "sign-in-to-enterprise": {
+      "@darwin": "Sign In to GitHub Enterprise",
+      "@other": "Sign in to GitHub Enterprise"
+    }
   },
   "pushNeedsPull": {
     "fetch": "Fetch",
@@ -1764,7 +1782,8 @@
     "fork-desc-new-branches": "New branches will be based on <strong>{repository}</strong>'s default branch.",
     "fork-desc-autocompletion": "Autocompletion of user and issues will be based on <strong>{repository}</strong>.",
     "gitignore-description": "Editing <ref>.gitignore</ref>. This file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected. <link>Learn more about gitignore files</link>",
-    "no-remote-message": "Publish your repository to GitHub. Need help? <link>Learn more about remote repositories.</link>"
+    "no-remote-message": "Publish your repository to GitHub. Need help? <link>Learn more about remote repositories.</link>",
+    "error-save-account": "Failed saving the repository account: {error}"
   },
   "reset": {
     "continue": "Continue",

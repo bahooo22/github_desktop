@@ -3,8 +3,13 @@
     "name": "Latin",
     "nativeName": "Latina",
     "direction": "ltr",
-    "pluralCategories": ["one", "other"],
-    "authors": ["BaHooo"],
+    "pluralCategories": [
+      "one",
+      "other"
+    ],
+    "authors": [
+      "BaHooo"
+    ],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -1820,7 +1825,9 @@
     "no-repository-selected": "Repositorium non electum"
   },
   "account-picker": {
-    "account": "sessio"
+    "account": "sessio",
+    "choose-account-title": "Eligere sessionem",
+    "choose-account-placeholder": "Eligere sessionem…"
   },
   "settings": {
     "title": {
@@ -1854,7 +1861,8 @@
         "@other": "Inire in repositorium societatis"
       },
       "dotcom-description": "Inire in sessio tuam in GitHub.com ad accedere repositoriis tuis.",
-      "enterprise-description": "Si usus es repositorio societatis in officio, inire in illud ut accedas repositoriis tuis."
+      "enterprise-description": "Si usus es repositorio societatis in officio, inire in illud ut accedas repositoriis tuis.",
+      "add-dotcom": "Addere sessionem GitHub.com"
     },
     "language": {
       "title": "Lingua",
@@ -2609,7 +2617,8 @@
     "enterprise-address": "Adressus Instituti",
     "browser-redirect-info": "Narigator tuus te iterum ad GitHub Desktop remittet cum inivisti. Si narigator tuus petit ut permissionem adhibeas ad GitHub Desktop instaurandum, id sponde.",
     "existing-account-warning": "Iam in <ref>{host}</ref> cum sessione <ref>{login}</ref> inivisti. Si pergis, primum exibis.",
-    "credential-helper-info": "Git petit credentiales ad accedendum ad <ref>{url}</ref>."
+    "credential-helper-info": "Git petit credentiales ad accedendum ad <ref>{url}</ref>.",
+    "expected-login": "Inire ut <ref>{login}</ref> apud <ref>{host}</ref> ut pergas."
   },
   "terms": {
     "title": "Conditiones et Clauses Applicationum GitHub Open Source",
@@ -2924,14 +2933,15 @@
     "path-placeholder": "via repositorii",
     "refresh-tooltip": "Listam repositoriorum renovare",
     "save-dialog-name-field-label": "Clonare ut:",
-    "save-dialog-select-label": "Clonare ut:",
+    "save-dialog-select-label": "Eligere",
     "sign-in": "Inire",
     "title": "Repositorium clonare",
     "url-label": "URL repositorii vel nomen usus GitHub et repositorium",
     "url-placeholder": "URL vel usus/repositorium",
     "your-repositories": "Repositoria tua",
     "no-matches": "Doleo, nullum repositorium cum <ref>{text}</ref> congruens inveniri potuit.",
-    "no-repositories": "Videtur nullum repositorium esse pro <ref>{login}</ref> in {endpoint}. <link>Hanc listam renovare</link> si repositorium recentiter creaveris."
+    "no-repositories": "Videtur nullum repositorium esse pro <ref>{login}</ref> in {endpoint}. <link>Hanc listam renovare</link> si repositorium recentiter creaveris.",
+    "sign-in-to-enterprise": "Inire in GitHub Enterprise"
   },
   "commitMessage": {
     "add-co-authors": "Addere socios",
@@ -3199,7 +3209,7 @@
     "no": "Non",
     "title": "Tokenus sessiois invalidatus",
     "yes": "Sī",
-    "message": "Tokenus sessionis tuae iam non valet et ex tua sessione <ref>{endpoint}</ref> egressus es. Vīsne iterum inire?"
+    "message": "Tokenus sessionis tuae iam non valet et ex sessione <ref>{login}</ref> apud <ref>{endpoint}</ref> egressus es. Vīsne iterum inire?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -3478,7 +3488,7 @@
   },
   "publish": {
     "description": "Descriptio",
-    "dotcom-sign-in-description": "Inire sessio ad repositoria accedenda.",
+    "dotcom-sign-in-description": "Inire in sessionem tuam GitHub.com ut repositorium edas.",
     "enterprise-sign-in-description": "Si GitHub Enterprise in officina uteris, inire ad repositoria accedenda.",
     "keep-private": "Hoc codicem privatum servare",
     "name": "Nomen",
@@ -3487,7 +3497,8 @@
     "publish-repository-ok": "Repositorium publicare",
     "sign-in": "Inire",
     "title": "Repositorium publicare",
-    "will-be-created-as": "Creabitur ut {name}"
+    "will-be-created-as": "Creabitur ut {name}",
+    "sign-in-to-enterprise": "Inire in GitHub Enterprise"
   },
   "pushNeedsPull": {
     "fetch": "Arcessere",
@@ -3543,7 +3554,8 @@
     "fork-desc-new-branches": "Novae rami fundabuntur super ramo praedefinito <strong>{repository}</strong>.",
     "fork-desc-autocompletion": "Autocompletio nominum sociorum et questionum fundabitur super <strong>{repository}</strong>.",
     "gitignore-description": "Emendare <ref>.gitignore</ref>. Hic fileus determinat files non tractatos quos Git negligere debet. Files iam tractati a Git non afficiuntur. <link>Discere de fileis gitignore</link>",
-    "no-remote-message": "Repositorium tuum ad GitHub publicare. Opus auxilio? <link>Discere de repositoriis remotis.</link>"
+    "no-remote-message": "Repositorium tuum ad GitHub publicare. Opus auxilio? <link>Discere de repositoriis remotis.</link>",
+    "error-save-account": "Non potuit servare sessionem repositorii: {error}"
   },
   "reset": {
     "continue": "pergere",

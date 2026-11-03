@@ -4840,3 +4840,77 @@ app/test/unit/fork-changelog-test.ts` — 43/43, с `menu-test` — 60/60.
 только в окне. Полный `yarn test` на финальном дереве — 2 563 теста / 2 561 pass
 / 0 fail / 2 skipped за 271 456 мс против 2 558 / 2 556 в базовой линии: +5
 тестов (четыре про даты, один про ряды кнопок).
+## Мерж PR #23044 (03.11.2026)
+
+Апстрим влил `Merge pull request #23044 from desktop/niik-clone-account-picker` —
+102 коммита, 121 файл, `+12 123/-1 670` от merge base. Ветка форка к тому моменту
+уже приняла dependabot-блок (`fast-uri 3.1.9`, `undici 6.29.1`,
+`postcss-selector-parser 6.1.5`) мержем `60f5c0fc45`, а короткая дельта
+`#23094` (stateful-regex в валидации имён) — мержем `2c9c2d53a4`.
+
+PR переписывает выбор аккаунта: `groupAccountsByHost`, `getAccountKey`,
+`resolveCloneInfo`, единый `PopoverDropdown` в пикере и отказ от вкладок
+GitHub.com/Enterprise в диалоге клонирования. Именно эти файлы у нас локализованы,
+поэтому `git merge-tree` предсказал 11 контентных конфликтов:
+
+- `app/src/ui/account-picker.tsx`
+- `app/src/ui/clone-repository/clone-repository.tsx`
+- `app/src/ui/invalidated-token/invalidated-token.tsx`
+- `app/src/ui/lib/sign-in.tsx`
+- `app/src/ui/preferences/accounts.tsx`
+- `app/src/ui/preferences/test-token-expiration-dialog.tsx`
+- `app/src/ui/publish-repository/publish.tsx`
+- `app/src/ui/repository-settings/no-remote.tsx`
+- `app/src/ui/repository-settings/remote.tsx`
+- `app/src/ui/repository-settings/repository-settings.tsx`
+- `app/src/ui/sign-in/sign-in.tsx`
+
+Приём резолва: структура и логика берутся у апстрима целиком (`git checkout
+--theirs`), в них возвращаются форковые `t()` и `<Trans>`; там, где апстрим удалил
+шаг (`SignInStep.ExistingAccountWarning` в `lib/sign-in.tsx`, вкладки клонирования),
+перевод не восстанавливается. Ленивые места сохранены: `getBrowserSignInInfoContent()`
+вместо модульной JSX-константы и `private get presets()` вместо массива на уровне
+модуля, иначе смена языка не доходит до подписей.
+
+Изменения в каталогах — 10 ключей:
+
+- значение `invalidatedToken.message` переписано под новый литерал с логином
+  (`<ref>{login}</ref> ... on <ref>{endpoint}</ref>`);
+- значение `publish.dotcom-sign-in-description` — «…to publish your repository»;
+- `cloneRepository.save-dialog-select-label` исправлен: хранил «Clone As:» вместо
+  апстримного «Select» (кнопка диалога сохранения);
+- новые ключи: `signIn.expected-login`, `account-picker.choose-account-title`,
+  `account-picker.choose-account-placeholder`, `settings.accounts.add-dotcom`,
+  `repositorySettings.error-save-account`, `publish.sign-in-to-enterprise`,
+  `cloneRepository.sign-in-to-enterprise`.
+
+Замеры после правок (сняты на хосте, без контейнера):
+
+- маркеров конфликта в `app/src`, `app/locales`, `script`, `docs` — 0;
+- `t()`-вызовов в `test-token-expiration-dialog.tsx` — 26 из 26 ключей группы,
+  в `clone-repository.tsx` — 13 (три ключа вкладок апстрим упразднил);
+- лист-ключ `en.json` — 2 052; `tlh` и `qya` совпадают с `en` по структуре
+  (0 отсутствует, 0 лишних); `la` и `eo` расходятся только оформлением вариантов
+  `@darwin`/`@other` — там, где у `en` пара, у них одна строка;
+- несовпадений плейсхолдеров и разметочных тегов между `en` и шестью остальными
+  каталогами — 0;
+- байты каталогов: CRLF и отступ 2 сохранены, дельть каждого каталога —
+  19-35 изменённых строк вместо полной перезаписи файла.
+
+Принятый остаток (важно):
+
+- `tlh` и `qya` получили 8 новых ключей заглушками `en` (16 форм) и не занесены в
+  `meta.ready`: перевод требует зондов по словарю, а они живут в контейнере;
+- гейты `tsc --noEmit`, `yarn test`, `yarn l10n:parity`, `l10n:audit`,
+  `l10n:upstream`, `l10n:bundles`, `yarn lint` и `yarn markdownlint` НЕ сняты —
+  контейнер закрыт, на хосте `node` отсутствует. Мерж не проверен ни типами, ни
+  тестами; в релиз это дерево брать нельзя, пока набор не зелёный;
+- `README` и `changelog-fork.json` не правились: версия апстрима осталась 3.6.10,
+  запись под неё есть с 28.10, поэтому гейт `fork-changelog-test` новой не требует;
+  заметка выпуска пишется после зелёного прогона, а не до него;
+- в основном рабочем дереве на момент мержа лежал чужой незакоммиченный мерж того же
+  PR (45 изменённых файлов, 36 из них — копии апстрима, `account-picker.tsx` с
+  маркером конфликта). Он сохранён как `foreign-wip-20261103.patch` (234 784 байта,
+  6 469 строк) плюс копии `app/src/lib/clone-info.ts` и
+  `app/src/lib/group-accounts-by-host.ts`; в это дерево мерж делался изолированно,
+  на ветке `upstream-merge-1103` в `E:/tmp/gdb-merge-1103`.

@@ -3,7 +3,9 @@
     "name": "українська",
     "nativeName": "Українська",
     "direction": "ltr",
-    "authors": ["BaHooo"]
+    "authors": [
+      "BaHooo"
+    ]
   },
   "common": {
     "cancel": "Скасувати",
@@ -39,7 +41,9 @@
     "no-repository-selected": "Репозиторій не вибрано"
   },
   "account-picker": {
-    "account": "Обліковий запис"
+    "account": "Обліковий запис",
+    "choose-account-title": "Вибрати обліковий запис",
+    "choose-account-placeholder": "Вибрати обліковий запис…"
   },
   "settings": {
     "title": {
@@ -64,7 +68,8 @@
       "sign-into-dotcom": "Увійти в GitHub.com",
       "sign-into-enterprise": "Увійти в Enterprise",
       "dotcom-description": "Увійдіть в обліковий запис GitHub.com, щоб отримати доступ до своїх репозиторіїв.",
-      "enterprise-description": "Якщо ви використовуєте GitHub Enterprise на роботі, увійдіть у нього, щоб отримати доступ до своїх репозиторіїв."
+      "enterprise-description": "Якщо ви використовуєте GitHub Enterprise на роботі, увійдіть у нього, щоб отримати доступ до своїх репозиторіїв.",
+      "add-dotcom": "Додати обліковий запис GitHub.com"
     },
     "language": {
       "title": "Мова інтерфейсу",
@@ -767,7 +772,8 @@
     "enterprise-address": "Адреса корпоративного сервера",
     "browser-redirect-info": "Після входу браузер поверне вас до GitHub Desktop. Якщо браузер запитає дозвіл на запуск GitHub Desktop, надайте його.",
     "existing-account-warning": "Ви вже увійшли до <ref>{host}</ref> під обліковим записом <ref>{login}</ref>. Якщо ви продовжите, спочатку буде виконано вихід з облікового запису.",
-    "credential-helper-info": "Git запитує облікові дані для доступу до <ref>{url}</ref>."
+    "credential-helper-info": "Git запитує облікові дані для доступу до <ref>{url}</ref>.",
+    "expected-login": "Увійдіть як <ref>{login}</ref> на <ref>{host}</ref>, щоб продовжити."
   },
   "terms": {
     "title": "Умови використання застосунків GitHub з відкритим кодом",
@@ -1090,14 +1096,15 @@
     "path-placeholder": "шлях до репозиторію",
     "refresh-tooltip": "Оновити список репозиторіїв",
     "save-dialog-name-field-label": "Клонувати як:",
-    "save-dialog-select-label": "Клонувати як:",
+    "save-dialog-select-label": "Вибрати",
     "sign-in": "Увійти",
     "title": "Клонувати репозиторій",
     "url-label": "URL репозиторію або «ім'я користувача GitHub і назва репозиторію»",
     "url-placeholder": "URL або username/repository",
     "your-repositories": "Ваші репозиторії",
     "no-matches": "Не вдалося знайти репозиторій, що відповідає <ref>{text}</ref>",
-    "no-repositories": "Схоже, у <ref>{login}</ref> немає репозиторіїв на {endpoint}. <link>Оновіть список</link>, якщо ви нещодавно створили репозиторій."
+    "no-repositories": "Схоже, у <ref>{login}</ref> немає репозиторіїв на {endpoint}. <link>Оновіть список</link>, якщо ви нещодавно створили репозиторій.",
+    "sign-in-to-enterprise": "Увійти до GitHub Enterprise"
   },
   "commitMessage": {
     "add-co-authors": "Додати співавторів",
@@ -1351,7 +1358,7 @@
     "no": "Ні",
     "title": "Токен облікового запису відкликано",
     "yes": "Так",
-    "message": "Токен облікового запису більше недійсний, і ви вийшли з облікового запису <ref>{endpoint}</ref>. Увійти знову?"
+    "message": "Токен облікового запису більше недійсний, і ви вийшли з облікового запису <ref>{login}</ref> на <ref>{endpoint}</ref>. Увійти знову?"
   },
   "lfs": {
     "attributeMismatch": {
@@ -1623,7 +1630,7 @@
   },
   "publish": {
     "description": "Опис",
-    "dotcom-sign-in-description": "Увійдіть до GitHub.com для публікації",
+    "dotcom-sign-in-description": "Увійдіть до облікового запису GitHub.com, щоб опублікувати репозиторій.",
     "enterprise-sign-in-description": "Увійдіть до Enterprise для публікації",
     "keep-private": "Залишити приватним",
     "name": "Ім'я",
@@ -1632,7 +1639,8 @@
     "publish-repository-ok": "Опублікувати репозиторій",
     "sign-in": "Увійти",
     "title": "Опублікувати репозиторій",
-    "will-be-created-as": "Буде створено як {name}"
+    "will-be-created-as": "Буде створено як {name}",
+    "sign-in-to-enterprise": "Увійти до GitHub Enterprise"
   },
   "pushNeedsPull": {
     "fetch": "Отримати",
@@ -1688,7 +1696,8 @@
     "fork-desc-new-branches": "Нові гілки створюватимуться від типової гілки у <strong>{repository}</strong>.",
     "fork-desc-autocompletion": "Автодоповнення імен користувачів і задач працюватиме за <strong>{repository}</strong>.",
     "gitignore-description": "Змінюється файл <ref>.gitignore</ref>. У ньому перелічені файли, які Git навмисно ігнорує. Файли, які вже відстежуються Git, не зачігаються. <link>Докладніше про файли gitignore</link>",
-    "no-remote-message": "Опублікуйте свій репозиторій на GitHub. Потрібна допомога? <link>Докладніше про віддалені репозиторії.</link>"
+    "no-remote-message": "Опублікуйте свій репозиторій на GitHub. Потрібна допомога? <link>Докладніше про віддалені репозиторії.</link>",
+    "error-save-account": "Не вдалося зберегти обліковий запис репозиторію: {error}"
   },
   "reset": {
     "continue": "Продовжити",
