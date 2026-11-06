@@ -146,7 +146,8 @@ export const createHooksProxy = (
   getShellEnv: (cwd: string) => Promise<ShellEnvResult>,
   tmpHooksDir: string,
   onHookProgress?: HookCallbackOptions['onHookProgress'],
-  onHookFailure?: HookCallbackOptions['onHookFailure']
+  onHookFailure?: HookCallbackOptions['onHookFailure'],
+  capturedGitParameters?: string
 ) => {
   return async (conn: Connection) => {
     const startTime = Date.now()
@@ -251,7 +252,14 @@ export const createHooksProxy = (
         cwd: proxyCwd,
         // GITHUB_DESKTOP lets hooks know they're run from GitHub Desktop.
         // See https://github.com/desktop/desktop/issues/19001
-        env: { ...shellEnv.env, ...safeEnv, GITHUB_DESKTOP: '1' },
+        env: {
+          ...shellEnv.env,
+          ...safeEnv,
+          GITHUB_DESKTOP: '1',
+          ...(capturedGitParameters === undefined
+            ? {}
+            : { GIT_CONFIG_PARAMETERS: capturedGitParameters }),
+        },
         signal: abortController.signal,
       })
         .on('close', (code, signal) => resolve({ code, signal }))

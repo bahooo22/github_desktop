@@ -65,18 +65,21 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: yarn
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            app/package-lock.json
+            vendor/*/package-lock.json
       # Встроенный Git для dugite качается при каждой установке зависимостей
-      # (script/post-install.ts:47 → yarn --cwd app install → dugite
+      # (script/post-install.ts → npm ci --prefix app → dugite
       # script/download-git.js), и по умолчанию — в os.tmpdir(), то есть мимо
       # любого кеша. Переменная DUGITE_CACHE_DIR для этого и есть: config.js:46-56
       # берёт каталог из неё, а download-git.js:122-130, найдя там архив, не идёт
       # в сеть вовсе.
       #
-      # Ключ — ровно по app/yarn.lock: версия dugite зафиксирована там
-      # (app/yarn.lock:714-716), а embedded-git.json приезжает внутри архива
-      # пакета, то есть до install его в дереве нет и hashFiles по нему
-      # невозможен.
+      # Ключ — ровно по app/package-lock.json: версия dugite зафиксирована там,
+      # а embedded-git.json приезжает внутри архива пакета, то есть до install
+      # его в дереве нет и hashFiles по нему невозможен.
       #
       # restore-keys здесь нет и быть не может: при несовпадении контрольной
       # суммы download-git.js:123-127 удаляет архив и тут же зовёт unpackFile
@@ -88,7 +91,7 @@ jobs:
         uses: actions/cache@v6
         with:
           path: ${{ runner.temp }}/dugite
-          key: ${{ runner.os }}-dugite-${{ hashFiles('app/yarn.lock') }}
+          key: ${{ runner.os }}-dugite-${{ hashFiles('app/package-lock.json') }}
       - name: Point dugite at the cached archive
         shell: bash
         run: |
@@ -104,14 +107,14 @@ jobs:
         shell: bash
         run: |
           for attempt in 1 2 3; do
-            yarn && exit 0
-            echo "::warning::yarn упал (попытка ${attempt}/3)"
+            npm ci && exit 0
+            echo "::warning::npm ci упал (попытка ${attempt}/3)"
             [ "$attempt" -lt 3 ] && sleep $((attempt * 30))
           done
           exit 1
-      - run: yarn validate-electron-version
-      - run: yarn lint
-      - run: yarn validate-changelog
+      - run: npm run validate-electron-version
+      - run: npm run lint
+      - run: npm run validate-changelog
       - name: Ensure a clean working directory
         run: git diff --name-status --exit-code
   build:
@@ -147,12 +150,12 @@ jobs:
           arch: ${{ matrix.arch }}
       - name: Validate macOS version
         if: runner.os == 'macOS'
-        run: yarn validate-macos-version
+        run: npm run validate-macos-version
       - name: Run desktop-trampoline tests
         run: |
           cd vendor/desktop-trampoline
-          yarn install
-          yarn test
+          npm ci
+          npm test
       - name: Validate notarization API-key secrets
         if:
           runner.os == 'macOS' && contains(fromJSON('["production", "beta",
@@ -184,7 +187,7 @@ jobs:
           app-store-connect-api-key-base64-private-key:
             ${{ secrets.GATEWATCHER_APP_STORE_CONNECT_API_BASE64_PRIVATE_KEY }}
       - name: Build production app
-        run: yarn build:prod
+        run: npm run build:prod
         env:
           DESKTOP_OAUTH_CLIENT_ID: ${{ secrets.DESKTOP_OAUTH_CLIENT_ID }}
           DESKTOP_OAUTH_CLIENT_SECRET:
@@ -204,15 +207,17 @@ jobs:
           npm_config_arch: ${{ matrix.arch }}
           TARGET_ARCH: ${{ matrix.arch }}
       - name: Prepare testing environment
-        run: yarn test:setup
+        run: npm run test:setup
         env:
           npm_config_arch: ${{ matrix.arch }}
       - name: Run unit tests
         if: |
           (runner.os == 'Windows' && matrix.arch == 'x64') || (runner.os == 'macOS' && matrix.arch == 'arm64')
-        run: yarn test:unit
+        run: npm run test:unit
       - name: Run script tests
-        run: yarn test:script
+        run: npm run test:script
+        env:
+          npm_config_arch: ${{ matrix.arch }}
       - if: runner.os == 'Windows'
         uses: ./.github/actions/setup-windows-signing
         with:
@@ -220,7 +225,7 @@ jobs:
           azure-client-id: ${{ secrets.AZURE_CODE_SIGNING_CLIENT_ID }}
           azure-tenant-id: ${{ secrets.AZURE_CODE_SIGNING_TENANT_ID }}
       - name: Package production app
-        run: yarn package
+        run: npm run package
         env:
           npm_config_arch: ${{ matrix.arch }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_CODE_SIGNING_TENANT_ID }}
@@ -298,7 +303,7 @@ jobs:
           app-store-connect-api-key-base64-private-key:
             ${{ secrets.GATEWATCHER_APP_STORE_CONNECT_API_BASE64_PRIVATE_KEY }}
       - name: Build production app
-        run: yarn build:prod
+        run: npm run build:prod
         env:
           DESKTOP_E2E_UPDATES_URL: http://127.0.0.1:51789/update
           DESKTOP_OAUTH_CLIENT_ID: ${{ secrets.DESKTOP_OAUTH_CLIENT_ID }}
@@ -319,7 +324,7 @@ jobs:
           npm_config_arch: ${{ matrix.arch }}
           TARGET_ARCH: ${{ matrix.arch }}
       - name: Prepare testing environment
-        run: yarn test:setup
+        run: npm run test:setup
         env:
           npm_config_arch: ${{ matrix.arch }}
       - if: runner.os == 'Windows'
@@ -329,7 +334,7 @@ jobs:
           azure-client-id: ${{ secrets.AZURE_CODE_SIGNING_CLIENT_ID }}
           azure-tenant-id: ${{ secrets.AZURE_CODE_SIGNING_TENANT_ID }}
       - name: Package production app
-        run: yarn package
+        run: npm run package
         env:
           npm_config_arch: ${{ matrix.arch }}
           AZURE_TENANT_ID: ${{ secrets.AZURE_CODE_SIGNING_TENANT_ID }}
@@ -397,7 +402,7 @@ jobs:
 
           Add-Content -Path $env:GITHUB_ENV -Value "DESKTOP_E2E_APP_PATH=$installedExe"
       - name: Run packaged E2E smoke tests
-        run: yarn test:e2e:run:packaged
+        run: npm run test:e2e:run:packaged
       - name: Upload E2E artifacts
         if: ${{ always() }}
         uses: actions/upload-artifact@v7

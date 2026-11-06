@@ -30,6 +30,9 @@ interface IAuthorHandleProps {
   /** Whether the input element has the focus */
   readonly isInputFocused: boolean
 
+  /** Whether the author may be removed. */
+  readonly readOnly: boolean
+
   /** Callback to invoke when the user presses a key */
   readonly onKeyDown: (
     index: number,
@@ -60,20 +63,25 @@ export class AuthorHandle extends React.Component<IAuthorHandleProps> {
 
   private getAriaLabel() {
     const { author } = this.props
+    const instruction = this.props.readOnly
+      ? ''
+      : t('authorHandle.removeInstruction')
     if (isKnownAuthor(author)) {
-      return t('authorHandle.knownAriaLabel', {
+      const label = t('authorHandle.knownAriaLabel', {
         author: getFullTextForAuthor(author),
       })
+      return instruction ? `${label} ${instruction}` : label
     }
 
     const isError = author.state === 'error'
     const stateAriaLabel = isError
       ? t('authorHandle.userNotFound')
       : t('authorHandle.searching')
-    return t('authorHandle.unknownAriaLabel', {
+    const label = t('authorHandle.unknownAriaLabel', {
       username: author.username,
       state: stateAriaLabel,
     })
+    return instruction ? `${label}, ${instruction}` : label
   }
 
   private getClassName() {
@@ -132,6 +140,7 @@ export class AuthorHandle extends React.Component<IAuthorHandleProps> {
         role="option"
         aria-label={this.getAriaLabel()}
         aria-selected={isFocused}
+        aria-disabled={this.props.readOnly || undefined}
         onKeyDown={this.onKeyDown}
         onClick={this.onHandleClick}
         tabIndex={this.getTabIndex()}
@@ -148,7 +157,14 @@ export class AuthorHandle extends React.Component<IAuthorHandleProps> {
             symbol={author.state === 'error' ? octicons.stop : syncClockwise}
           />
         )}
-        <button onClick={this.onRemoveClick} tabIndex={-1}>
+        <button
+          onClick={this.onRemoveClick}
+          tabIndex={-1}
+          disabled={this.props.readOnly}
+          aria-label={t('authorHandle.removeAriaLabel', {
+            author: getDisplayTextForAuthor(author),
+          })}
+        >
           <Octicon className="delete" symbol={octicons.x} />
         </button>
       </div>
