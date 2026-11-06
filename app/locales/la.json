@@ -3,13 +3,8 @@
     "name": "Latin",
     "nativeName": "Latina",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ],
-    "authors": [
-      "BaHooo"
-    ],
+    "pluralCategories": ["one", "other"],
+    "authors": ["BaHooo"],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -103,8 +98,51 @@
       "appStore.pulling",
       "appStore.pushingTo",
       "appStore.refreshingRepository",
+      "assistedCommit.animateCopilot",
+      "assistedCommit.commitsKeptLocally",
+      "assistedCommit.commitsPushed",
+      "assistedCommit.copilotWorking",
+      "assistedCommit.createEmptyCommit",
+      "assistedCommit.details",
+      "assistedCommit.emptyCommitDescription",
+      "assistedCommit.finishingRefresh",
+      "assistedCommit.letCopilotWrite",
+      "assistedCommit.openDetails",
+      "assistedCommit.pushStopped",
+      "assistedCommit.pushStoppedWithError",
+      "assistedCommit.pushedRefreshFailed",
+      "assistedCommit.recoveryNeedsAttention",
+      "assistedCommit.refreshBeforeContinuing",
+      "assistedCommit.retryPush",
+      "assistedCommit.retryRefresh",
+      "assistedCommit.retryRollback",
+      "assistedCommit.runStopped",
+      "assistedCommit.runStoppedWithError",
+      "assistedCommit.selectChangesHint",
+      "assistedCommit.selectionNeedsReview",
+      "assistedCommit.splitSelected",
+      "assistedCommit.splittingAria",
+      "assistedCommit.splittingDescription",
+      "assistedCommit.status.analyzing",
+      "assistedCommit.status.awaitingConsent",
+      "assistedCommit.status.cancelling",
+      "assistedCommit.status.capturing",
+      "assistedCommit.status.closing",
+      "assistedCommit.status.creatingCommit",
+      "assistedCommit.status.finishing",
+      "assistedCommit.status.preparing",
+      "assistedCommit.status.preparingPush",
+      "assistedCommit.status.pushing",
+      "assistedCommit.status.refreshing",
+      "assistedCommit.status.refreshingPush",
+      "assistedCommit.status.rollingBack",
+      "assistedCommit.status.summarizing",
+      "assistedCommit.status.validating",
+      "assistedCommit.unknownState",
       "authentication.browserRedirect",
       "authorHandle.knownAriaLabel",
+      "authorHandle.removeAriaLabel",
+      "authorHandle.removeInstruction",
       "authorHandle.searching",
       "authorHandle.unknownAriaLabel",
       "authorHandle.userNotFound",
@@ -713,6 +751,7 @@
       "downloadForkRelease.error",
       "downloadForkRelease.gatekeeper",
       "downloadForkRelease.loading",
+      "downloadForkRelease.noAssets",
       "downloadForkRelease.saved",
       "downloadForkRelease.showInFolder",
       "downloadForkRelease.title",
@@ -1666,8 +1705,10 @@
       "toolbar.detachedHeadTooltip",
       "toolbar.fetchFrom",
       "toolbar.fetchFromDescription",
+      "toolbar.finishOrCancelBeforeSyncing",
       "toolbar.forcePushTo",
       "toolbar.forcePushWarning",
+      "toolbar.localCommitRun",
       "toolbar.onCommit",
       "toolbar.overwriteOn",
       "toolbar.publishBranch",
@@ -2947,11 +2988,17 @@
   },
   "commitMessage": {
     "add-co-authors": "Addere socios",
-    "allow-empty-commit": "Permittere commitum vacuum",
+    "allow-empty-commit": {
+      "@darwin": "Permittere commitum vacuum",
+      "@other": "Permittere commitum vacuum"
+    },
     "amend": "Emendare",
     "amend-last-commit": "{verb} ultimum commitum",
     "amending": "Emendans",
-    "bypass-hooks": "Evadere ganchos commiti",
+    "bypass-hooks": {
+      "@darwin": "Evadere ganchos commiti",
+      "@other": "Evadere ganchos commiti"
+    },
     "commit": "Commitere",
     "commit-title": "{verb} ad {branch}",
     "committed-just-now": "Commitatum modo - {summary} (Sha: {sha})",
@@ -4293,7 +4340,9 @@
     "detachedHead": "Caput detachatum",
     "detachedHeadTooltip": "Nunc in capite detachato",
     "rebasingBranch": "Ramus rebaseatur",
-    "rebasingTooltip": "Ramus rebaseatur {branch}"
+    "rebasingTooltip": "Ramus rebaseatur {branch}",
+    "localCommitRun": "Cursus commitandi localis",
+    "finishOrCancelBeforeSyncing": "Perfice vel revoca ante synchronizationem"
   },
   "revertProgress": {
     "title": "Revertendo…",
@@ -4525,7 +4574,9 @@
     "knownAriaLabel": "{author} Backspace vel delete premere ut auferas",
     "unknownAriaLabel": "{username}, {state}, Backspace vel delete premere ut auferas",
     "userNotFound": "non repertus",
-    "searching": "quaeritur"
+    "searching": "quaeritur",
+    "removeInstruction": "preme backspace vel delete ut removas",
+    "removeAriaLabel": "Removere {author}"
   },
   "refNameTextBox": {
     "errorNotValidName": "Error: {name} nomen non validum est.",
@@ -4760,7 +4811,8 @@
     "downloading": "Recipitur… {percent}%",
     "downloadingNoPercent": "Recipitur…",
     "error": "Fasciculus recipi non potuit.",
-    "gatekeeper": "Applicatio ab Apple non signata est. Post exsolutionem eam semel per System Settings → Privacy & Security → Open Anyway aperi."
+    "gatekeeper": "Applicatio ab Apple non signata est. Post exsolutionem eam semel per System Settings → Privacy & Security → Open Anyway aperi.",
+    "noAssets": "In hac editione nullae thecae ad deponendum sunt."
   },
   "renameWorktreeDialog": {
     "title": {
@@ -4777,5 +4829,53 @@
     "killedBySignal": "{hookName} hook abrogatus a signo {signal} post {duration}s",
     "failedWithCode": "{hookName} hook non successit cum codice {code} post {duration}s",
     "done": "{hookName} hook factum post {duration}s"
+  },
+  "assistedCommit": {
+    "pushStopped": "Pellere desitum est",
+    "commitsKeptLocally": "Omnes commiti huius cursus localiter servati sunt.",
+    "finishingRefresh": "Repositorii renovationem perficimus…",
+    "retryPush": "Pellere rursus",
+    "details": "Singula",
+    "commitsPushed": "Commiti pulsi sunt",
+    "runStopped": "Cursus commitandi desitus est",
+    "pushedRefreshFailed": "Commiti pulsi sunt, sed Desktop renovationem perficere non potuit.",
+    "recoveryNeedsAttention": "Ad pergendum, recuperatio necessaria est.",
+    "refreshBeforeContinuing": "Repositorium renova ut pergas.",
+    "openDetails": "Singula aperi ut plura scias.",
+    "selectionNeedsReview": "Quaedam mutationes electae motae vel mutatae sunt. Eas recognosce et rursus elige.",
+    "retryRollback": "Revocationem rursus",
+    "retryRefresh": "Renovationem rursus",
+    "copilotWorking": "Copilot iam operatur…",
+    "splittingDescription": "Mutationes in commitos dividimus et nuntios eorum scribimus.",
+    "createEmptyCommit": "Commitum vacuum crea",
+    "emptyCommitDescription": "Unum commitum sine mutationibus thecarum neque analysi Copilot crea.",
+    "selectChangesHint": "Mutationes ad commitandum elige; Copilot eas in commitos dividet et nuntios eorum scribet.",
+    "splitSelected": {
+      "_one": "Copilot {count:number} thecam electam in commitos dividet et nuntios eorum scribet.",
+      "_other": "Copilot {count:number} thecas electas in commitos dividet et nuntios eorum scribet."
+    },
+    "letCopilotWrite": "Copilot commitos tuos scribat",
+    "animateCopilot": "Copilot anima",
+    "splittingAria": "Copilot mutationes in commitos dividit",
+    "pushStoppedWithError": "Pellere desitum est; commiti locales servati: {message}",
+    "runStoppedWithError": "Cursus commitandi desitus est: {message}",
+    "unknownState": "Status cursus commitandi ignotus",
+    "status": {
+      "cancelling": "Cursum commitandi revocamus…",
+      "awaitingConsent": "Consensum tuum exspectamus",
+      "preparing": "Mutationes electas paramus…",
+      "capturing": "Mutationes electas figimus…",
+      "analyzing": "Mutationes electas disponimus…",
+      "summarizing": "Unum nuntium pro omnibus mutationibus electis scribimus…",
+      "validating": "Totum commitandi consilium probamus…",
+      "creatingCommit": "Commitus {index:number} ex {total:number} creatur: {title}",
+      "rollingBack": "Commitos huius cursus revocamus…",
+      "refreshing": "Mutationes electas renovamus…",
+      "closing": "Commitos locales perficimus…",
+      "finishing": "Commitos locales renovamus…",
+      "preparingPush": "Commitos pellere paramus…",
+      "pushing": "Commitos pellimus…",
+      "refreshingPush": "Commitos pulsos renovamus…"
+    }
   }
 }

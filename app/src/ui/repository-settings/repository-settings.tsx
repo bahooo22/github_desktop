@@ -27,6 +27,7 @@ import { Account, isSameAccount } from '../../models/account'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
 import { Select } from '../lib/select'
+import { t } from '../../lib/l10n'
 
 interface IRepositorySettingsProps {
   readonly initialSelectedTab?: RepositorySettingsTab

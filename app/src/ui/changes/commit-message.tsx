@@ -1511,7 +1511,7 @@ export class CommitMessage extends React.Component<
         type: 'checkbox',
         checked: this.props.skipCommitHooks,
         enabled: !this.isBusy,
-        label: __DARWIN__ ? t('commitMessage.bypass-hooks') : 'Bypass Commit hooks',
+        label: t('commitMessage.bypass-hooks'),
         action: () => {
           this.updateCommitOptions({
             skipCommitHooks: !this.props.skipCommitHooks,
@@ -1539,7 +1539,7 @@ export class CommitMessage extends React.Component<
         type: 'checkbox',
         checked: this.props.allowEmptyCommit,
         enabled: !this.isBusy,
-        label: __DARWIN__ ? t('commitMessage.allow-empty-commit') : 'Allow empty commit',
+        label: t('commitMessage.allow-empty-commit'),
         action: () => {
           this.updateCommitOptions({
             allowEmptyCommit: !this.props.allowEmptyCommit,
@@ -1939,7 +1939,9 @@ export class CommitMessage extends React.Component<
     const isCommitting =
       this.props.isCommitting || this.props.isCreatingCopilotAssistedCommits
 
-    const amendVerb = isCommitting ? t('commitMessage.amending') : t('commitMessage.amend')
+    const amendVerb = isCommitting
+      ? t('commitMessage.amending')
+      : t('commitMessage.amend')
     const commitVerb = isCommitting ? t('commitMessage.committing') : 'Commit'
     const isAmending = commitToAmend !== null
 
@@ -2166,17 +2168,13 @@ export class CommitMessage extends React.Component<
         delay={0}
         tooltip={
           <>
-            <div className="title">
-              {t('commitMessage.length-hint-title')}
-            </div>
+            <div className="title">{t('commitMessage.length-hint-title')}</div>
             <div className="description">
               {t('commitMessage.length-hint-description')}
             </div>
           </>
         }
-        ariaLiveMessage={
-          t('commitMessage.length-hint-title')
-        }
+        ariaLiveMessage={t('commitMessage.length-hint-title')}
         direction={TooltipDirection.NORTH}
         className="length-hint"
         tooltipClassName="length-hint-tooltip"
@@ -2249,7 +2247,10 @@ export class CommitMessage extends React.Component<
       <div className={cn}>
         <div className="description">{text}</div>
         {onShowCommitProgress && (
-          <Button tooltip={t('commitMessage.show-progress')} onClick={onShowCommitProgress}>
+          <Button
+            tooltip={t('commitMessage.show-progress')}
+            onClick={onShowCommitProgress}
+          >
             <Octicon symbol={octicons.terminal} />
           </Button>
         )}

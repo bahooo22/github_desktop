@@ -10,6 +10,7 @@ import { AriaLiveContainer } from '../accessibility/aria-live-container'
 import { AssistedCommitRunState } from '../../models/assisted-commit-run'
 import { Button } from '../lib/button'
 import { assertNever } from '../../lib/fatal-error'
+import { t } from '../../lib/l10n'
 
 /** The one-shot animations the mascot plays in response to the user. */
 type CopilotReaction = 'celebrate' | 'tickle' | 'jump-wiggle'
@@ -221,12 +222,14 @@ export class CopilotCommitPanel extends React.Component<
     if (state?.kind === 'push-error') {
       return (
         <div className="assisted-commit-error" role="alert">
-          <div className="title">Push stopped</div>
+          <div className="title">{t('assistedCommit.pushStopped')}</div>
           <div className="description">
-            All commits from this run were kept locally.
+            {t('assistedCommit.commitsKeptLocally')}
           </div>
           {state.settling && (
-            <div className="description">Finishing repository refresh…</div>
+            <div className="description">
+              {t('assistedCommit.finishingRefresh')}
+            </div>
           )}
           <div className="assisted-commit-actions">
             {this.props.onRetryPush !== undefined && (
@@ -234,7 +237,7 @@ export class CopilotCommitPanel extends React.Component<
                 onClick={this.props.onRetryPush}
                 disabled={state.settling}
               >
-                Retry push
+                {t('assistedCommit.retryPush')}
               </Button>
             )}
             {this.props.onDismissError !== undefined && (
@@ -246,7 +249,9 @@ export class CopilotCommitPanel extends React.Component<
               </Button>
             )}
             {this.props.onErrorDetails !== undefined && (
-              <Button onClick={this.props.onErrorDetails}>Details</Button>
+              <Button onClick={this.props.onErrorDetails}>
+                {t('assistedCommit.details')}
+              </Button>
             )}
           </div>
         </div>
@@ -256,23 +261,27 @@ export class CopilotCommitPanel extends React.Component<
       return (
         <div className="assisted-commit-error" role="alert">
           <div className="title">
-            {state.pushed ? 'Commits pushed' : 'Commit run stopped'}
+            {state.pushed
+              ? t('assistedCommit.commitsPushed')
+              : t('assistedCommit.runStopped')}
           </div>
           <div className="description">
             {state.pushed
-              ? 'Your commits were pushed, but Desktop could not finish refreshing.'
+              ? t('assistedCommit.pushedRefreshFailed')
               : state.retry === 'recovery'
-              ? 'Recovery needs attention before you can continue.'
+              ? t('assistedCommit.recoveryNeedsAttention')
               : state.retry === 'refresh'
-              ? 'Refresh the repository before continuing.'
-              : 'Open Details for more information.'}
+              ? t('assistedCommit.refreshBeforeContinuing')
+              : t('assistedCommit.openDetails')}
           </div>
           {state.settling && (
-            <div className="description">Finishing repository refresh…</div>
+            <div className="description">
+              {t('assistedCommit.finishingRefresh')}
+            </div>
           )}
           {state.selectionNeedsReview && (
             <div className="description">
-              Some selected changes moved or changed. Review and reselect them.
+              {t('assistedCommit.selectionNeedsReview')}
             </div>
           )}
           <div className="assisted-commit-actions">
@@ -282,8 +291,8 @@ export class CopilotCommitPanel extends React.Component<
                 disabled={state.settling}
               >
                 {state.retry === 'recovery'
-                  ? 'Retry rollback'
-                  : 'Retry refresh'}
+                  ? t('assistedCommit.retryRollback')
+                  : t('assistedCommit.retryRefresh')}
               </Button>
             )}
             {state.retry === null && this.props.onDismissError !== undefined && (
@@ -295,7 +304,9 @@ export class CopilotCommitPanel extends React.Component<
               </Button>
             )}
             {this.props.onErrorDetails !== undefined && (
-              <Button onClick={this.props.onErrorDetails}>Details</Button>
+              <Button onClick={this.props.onErrorDetails}>
+                {t('assistedCommit.details')}
+              </Button>
             )}
           </div>
         </div>
@@ -346,9 +357,11 @@ export class CopilotCommitPanel extends React.Component<
     if (isWorking) {
       return (
         <>
-          <div className="title working">Copilot is on it…</div>
+          <div className="title working">
+            {t('assistedCommit.copilotWorking')}
+          </div>
           <div className="description">
-            Splitting your changes into commits and writing their messages.
+            {t('assistedCommit.splittingDescription')}
           </div>
         </>
       )
@@ -357,9 +370,9 @@ export class CopilotCommitPanel extends React.Component<
     if (filesSelectedCount === 0 && allowEmptyCommit) {
       return (
         <>
-          <div className="title">Create an empty commit</div>
+          <div className="title">{t('assistedCommit.createEmptyCommit')}</div>
           <div className="description">
-            Create one commit without file changes or Copilot analysis.
+            {t('assistedCommit.emptyCommitDescription')}
           </div>
         </>
       )
@@ -367,14 +380,12 @@ export class CopilotCommitPanel extends React.Component<
 
     const description =
       filesSelectedCount === 0
-        ? 'Select the changes you want to commit and Copilot will split them into commits and write their messages.'
-        : `Copilot will split the ${filesSelectedCount} selected ${
-            filesSelectedCount === 1 ? 'file' : 'files'
-          } into commits and write their messages.`
+        ? t('assistedCommit.selectChangesHint')
+        : t('assistedCommit.splitSelected', { count: filesSelectedCount })
 
     return (
       <>
-        <div className="title">Let Copilot write your commits</div>
+        <div className="title">{t('assistedCommit.letCopilotWrite')}</div>
         <div className="description">{description}</div>
       </>
     )
@@ -404,7 +415,7 @@ export class CopilotCommitPanel extends React.Component<
             type="button"
             className={headClassName}
             ref={this.headRef}
-            aria-label="Animate Copilot"
+            aria-label={t('assistedCommit.animateCopilot')}
             aria-disabled={isThinking}
             onMouseEnter={this.onHeadMouseEnter}
             onClick={this.onHeadClick}
@@ -430,7 +441,7 @@ export class CopilotCommitPanel extends React.Component<
                 this.props.runState.kind !== 'idle'
               ? getRunStatus(this.props.runState)
               : this.props.isWorking
-              ? 'Copilot is splitting your changes into commits'
+              ? t('assistedCommit.splittingAria')
               : null
           }
         />
@@ -451,45 +462,51 @@ function getRunStatus(
     state.kind !== 'closing' &&
     state.cancelRequested
   ) {
-    return 'Cancelling the commit run…'
+    return t('assistedCommit.status.cancelling')
   }
   switch (state.kind) {
     case 'awaiting-consent':
-      return 'Waiting for your consent'
+      return t('assistedCommit.status.awaitingConsent')
     case 'preparing':
-      return 'Preparing selected changes…'
+      return t('assistedCommit.status.preparing')
     case 'capturing':
-      return 'Freezing selected changes…'
+      return t('assistedCommit.status.capturing')
     case 'analyzing':
-      return 'Planning selected changes…'
+      return t('assistedCommit.status.analyzing')
     case 'summarizing-selection':
-      return 'Writing one message for all selected changes…'
+      return t('assistedCommit.status.summarizing')
     case 'validating':
-      return 'Checking the complete commit plan…'
+      return t('assistedCommit.status.validating')
     case 'committing':
-      return `Creating commit ${state.index + 1} of ${state.total}: ${
-        state.title
-      }`
+      return t('assistedCommit.status.creatingCommit', {
+        index: state.index + 1,
+        total: state.total,
+        title: state.title,
+      })
     case 'rolling-back':
-      return 'Undoing commits from this run…'
+      return t('assistedCommit.status.rollingBack')
     case 'refreshing':
-      return 'Refreshing selected changes…'
+      return t('assistedCommit.status.refreshing')
     case 'closing':
-      return 'Finalizing local commits…'
+      return t('assistedCommit.status.closing')
     case 'finishing':
-      return 'Refreshing local commits…'
+      return t('assistedCommit.status.finishing')
     case 'preparing-push':
-      return 'Preparing to push commits…'
+      return t('assistedCommit.status.preparingPush')
     case 'pushing':
       return state.phase === 'push'
-        ? 'Pushing commits…'
-        : 'Refreshing pushed commits…'
+        ? t('assistedCommit.status.pushing')
+        : t('assistedCommit.status.refreshingPush')
     case 'push-error':
-      return `Push stopped; local commits kept: ${state.error.message}`
+      return t('assistedCommit.pushStoppedWithError', {
+        message: state.error.message,
+      })
     case 'error':
-      return `Commit run stopped: ${state.error.message}`
+      return t('assistedCommit.runStoppedWithError', {
+        message: state.error.message,
+      })
     default:
-      return assertNever(state, 'Unknown assisted commit run state')
+      return assertNever(state, t('assistedCommit.unknownState'))
   }
 }
 

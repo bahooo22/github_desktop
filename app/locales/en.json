@@ -1170,11 +1170,17 @@
   },
   "commitMessage": {
     "add-co-authors": "Add co-authors",
-    "allow-empty-commit": "Allow Empty Commit",
+    "allow-empty-commit": {
+      "@darwin": "Allow Empty Commit",
+      "@other": "Allow empty commit"
+    },
     "amend": "Amend",
     "amend-last-commit": "{verb} last commit",
     "amending": "Amending",
-    "bypass-hooks": "Bypass Commit Hooks",
+    "bypass-hooks": {
+      "@darwin": "Bypass Commit Hooks",
+      "@other": "Bypass Commit hooks"
+    },
     "commit": "Commit",
     "commit-title": "{verb} to {branch}",
     "committed-just-now": "Committed Just now - {summary} (Sha: {sha})",
@@ -2519,7 +2525,9 @@
     "detachedHead": "Detached HEAD",
     "detachedHeadTooltip": "Currently on a detached HEAD",
     "rebasingBranch": "Rebasing branch",
-    "rebasingTooltip": "Rebasing {branch}"
+    "rebasingTooltip": "Rebasing {branch}",
+    "localCommitRun": "Local commit run",
+    "finishOrCancelBeforeSyncing": "Finish or cancel before syncing"
   },
   "revertProgress": {
     "title": "Reverting…",
@@ -2751,7 +2759,9 @@
     "knownAriaLabel": "{author} press backspace or delete to remove",
     "unknownAriaLabel": "{username}, {state}, press backspace or delete to remove",
     "userNotFound": "user not found",
-    "searching": "searching"
+    "searching": "searching",
+    "removeInstruction": "press backspace or delete to remove",
+    "removeAriaLabel": "Remove {author}"
   },
   "refNameTextBox": {
     "errorNotValidName": "Error: {name} is not a valid name.",
@@ -2986,7 +2996,8 @@
     "downloading": "Downloading… {percent}%",
     "downloadingNoPercent": "Downloading…",
     "error": "Could not download the file.",
-    "gatekeeper": "The app is not signed by Apple. After unzipping, open it once via System Settings → Privacy & Security → Open Anyway."
+    "gatekeeper": "The app is not signed by Apple. After unzipping, open it once via System Settings → Privacy & Security → Open Anyway.",
+    "noAssets": "This release has no files to download."
   },
   "renameWorktreeDialog": {
     "title": {
@@ -3003,5 +3014,53 @@
     "killedBySignal": "{hookName} hook killed by signal {signal} after {duration}s",
     "failedWithCode": "{hookName} hook failed with code {code} after {duration}s",
     "done": "{hookName} hook done after {duration}s"
+  },
+  "assistedCommit": {
+    "pushStopped": "Push stopped",
+    "commitsKeptLocally": "All commits from this run were kept locally.",
+    "finishingRefresh": "Finishing repository refresh…",
+    "retryPush": "Retry push",
+    "details": "Details",
+    "commitsPushed": "Commits pushed",
+    "runStopped": "Commit run stopped",
+    "pushedRefreshFailed": "Your commits were pushed, but Desktop could not finish refreshing.",
+    "recoveryNeedsAttention": "Recovery needs attention before you can continue.",
+    "refreshBeforeContinuing": "Refresh the repository before continuing.",
+    "openDetails": "Open Details for more information.",
+    "selectionNeedsReview": "Some selected changes moved or changed. Review and reselect them.",
+    "retryRollback": "Retry rollback",
+    "retryRefresh": "Retry refresh",
+    "copilotWorking": "Copilot is on it…",
+    "splittingDescription": "Splitting your changes into commits and writing their messages.",
+    "createEmptyCommit": "Create an empty commit",
+    "emptyCommitDescription": "Create one commit without file changes or Copilot analysis.",
+    "selectChangesHint": "Select the changes you want to commit and Copilot will split them into commits and write their messages.",
+    "splitSelected": {
+      "_one": "Copilot will split the {count:number} selected file into commits and write their messages.",
+      "_other": "Copilot will split the {count:number} selected files into commits and write their messages."
+    },
+    "letCopilotWrite": "Let Copilot write your commits",
+    "animateCopilot": "Animate Copilot",
+    "splittingAria": "Copilot is splitting your changes into commits",
+    "pushStoppedWithError": "Push stopped; local commits kept: {message}",
+    "runStoppedWithError": "Commit run stopped: {message}",
+    "unknownState": "Unknown assisted commit run state",
+    "status": {
+      "cancelling": "Cancelling the commit run…",
+      "awaitingConsent": "Waiting for your consent",
+      "preparing": "Preparing selected changes…",
+      "capturing": "Freezing selected changes…",
+      "analyzing": "Planning selected changes…",
+      "summarizing": "Writing one message for all selected changes…",
+      "validating": "Checking the complete commit plan…",
+      "creatingCommit": "Creating commit {index:number} of {total:number}: {title}",
+      "rollingBack": "Undoing commits from this run…",
+      "refreshing": "Refreshing selected changes…",
+      "closing": "Finalizing local commits…",
+      "finishing": "Refreshing local commits…",
+      "preparingPush": "Preparing to push commits…",
+      "pushing": "Pushing commits…",
+      "refreshingPush": "Refreshing pushed commits…"
+    }
   }
 }

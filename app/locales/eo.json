@@ -3,13 +3,8 @@
     "name": "Esperanto",
     "nativeName": "Esperanto",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ],
-    "authors": [
-      "BaHooo"
-    ],
+    "pluralCategories": ["one", "other"],
+    "authors": ["BaHooo"],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -103,8 +98,51 @@
       "appStore.pulling",
       "appStore.pushingTo",
       "appStore.refreshingRepository",
+      "assistedCommit.animateCopilot",
+      "assistedCommit.commitsKeptLocally",
+      "assistedCommit.commitsPushed",
+      "assistedCommit.copilotWorking",
+      "assistedCommit.createEmptyCommit",
+      "assistedCommit.details",
+      "assistedCommit.emptyCommitDescription",
+      "assistedCommit.finishingRefresh",
+      "assistedCommit.letCopilotWrite",
+      "assistedCommit.openDetails",
+      "assistedCommit.pushStopped",
+      "assistedCommit.pushStoppedWithError",
+      "assistedCommit.pushedRefreshFailed",
+      "assistedCommit.recoveryNeedsAttention",
+      "assistedCommit.refreshBeforeContinuing",
+      "assistedCommit.retryPush",
+      "assistedCommit.retryRefresh",
+      "assistedCommit.retryRollback",
+      "assistedCommit.runStopped",
+      "assistedCommit.runStoppedWithError",
+      "assistedCommit.selectChangesHint",
+      "assistedCommit.selectionNeedsReview",
+      "assistedCommit.splitSelected",
+      "assistedCommit.splittingAria",
+      "assistedCommit.splittingDescription",
+      "assistedCommit.status.analyzing",
+      "assistedCommit.status.awaitingConsent",
+      "assistedCommit.status.cancelling",
+      "assistedCommit.status.capturing",
+      "assistedCommit.status.closing",
+      "assistedCommit.status.creatingCommit",
+      "assistedCommit.status.finishing",
+      "assistedCommit.status.preparing",
+      "assistedCommit.status.preparingPush",
+      "assistedCommit.status.pushing",
+      "assistedCommit.status.refreshing",
+      "assistedCommit.status.refreshingPush",
+      "assistedCommit.status.rollingBack",
+      "assistedCommit.status.summarizing",
+      "assistedCommit.status.validating",
+      "assistedCommit.unknownState",
       "authentication.browserRedirect",
       "authorHandle.knownAriaLabel",
+      "authorHandle.removeAriaLabel",
+      "authorHandle.removeInstruction",
       "authorHandle.searching",
       "authorHandle.unknownAriaLabel",
       "authorHandle.userNotFound",
@@ -713,6 +751,7 @@
       "downloadForkRelease.error",
       "downloadForkRelease.gatekeeper",
       "downloadForkRelease.loading",
+      "downloadForkRelease.noAssets",
       "downloadForkRelease.saved",
       "downloadForkRelease.showInFolder",
       "downloadForkRelease.title",
@@ -1666,8 +1705,10 @@
       "toolbar.detachedHeadTooltip",
       "toolbar.fetchFrom",
       "toolbar.fetchFromDescription",
+      "toolbar.finishOrCancelBeforeSyncing",
       "toolbar.forcePushTo",
       "toolbar.forcePushWarning",
+      "toolbar.localCommitRun",
       "toolbar.onCommit",
       "toolbar.overwriteOn",
       "toolbar.publishBranch",
@@ -2947,11 +2988,17 @@
   },
   "commitMessage": {
     "add-co-authors": "Aldoni kun-aŭtoroj",
-    "allow-empty-commit": "Permesi malplenan komiton",
+    "allow-empty-commit": {
+      "@darwin": "Permesi malplenan komiton",
+      "@other": "Permesi malplenan komiton"
+    },
     "amend": "Amendi",
     "amend-last-commit": "{verb} la lastan komiton",
     "amending": "Amendo",
-    "bypass-hooks": "Traromi komitajn gutojn",
+    "bypass-hooks": {
+      "@darwin": "Traromi komitajn gutojn",
+      "@other": "Traromi komitajn gutojn"
+    },
     "commit": "Komitado",
     "commit-title": "{verb} al {branch}",
     "committed-just-now": "Komitata nun - {summary} (Sha: {sha})",
@@ -4293,7 +4340,9 @@
     "detachedHead": "Forligita kapo",
     "detachedHeadTooltip": "Nune sur forligita kapo",
     "rebasingBranch": "Rebazado de branĉo",
-    "rebasingTooltip": "Rebazi {branch}"
+    "rebasingTooltip": "Rebazi {branch}",
+    "localCommitRun": "Loka komita kurso",
+    "finishOrCancelBeforeSyncing": "Finu aŭ nuligu antaŭ sinkronigo"
   },
   "revertProgress": {
     "title": "Revertado…",
@@ -4525,7 +4574,9 @@
     "knownAriaLabel": "{author} premu Backspace aŭ Delete por forigi",
     "unknownAriaLabel": "{username}, {state}, premu Backspace aŭ Delete por forigi",
     "userNotFound": "Uzanto ne trovita",
-    "searching": "Serĉado"
+    "searching": "Serĉado",
+    "removeInstruction": "premu backspace aŭ delete por forigi",
+    "removeAriaLabel": "Forigi {author}"
   },
   "refNameTextBox": {
     "errorNotValidName": "Eraro: {name} ne estas valida nomo.",
@@ -4760,7 +4811,8 @@
     "downloading": "Elŝutado… {percent}%",
     "downloadingNoPercent": "Elŝutado…",
     "error": "Ne eblis elŝuti la dosieron.",
-    "gatekeeper": "La aplikaĵo ne estas subskribita de Apple. Post malpakado malfermu ĝin unufoje per System Settings → Privacy & Security → Open Anyway."
+    "gatekeeper": "La aplikaĵo ne estas subskribita de Apple. Post malpakado malfermu ĝin unufoje per System Settings → Privacy & Security → Open Anyway.",
+    "noAssets": "Ĉi tiu eldono havas neniujn dosierojn por elŝuti."
   },
   "renameWorktreeDialog": {
     "title": {
@@ -4777,5 +4829,53 @@
     "killedBySignal": "{hookName} ganĉo mortigita de signalo {signal} post {duration}s",
     "failedWithCode": "{hookName} ganĉo malsukcesis kun kodo {code} post {duration}s",
     "done": "{hookName} ganĉo finita post {duration}s"
+  },
+  "assistedCommit": {
+    "pushStopped": "Puŝado haltigita",
+    "commitsKeptLocally": "Ĉiuj komitoj de ĉi tiu kurso konserviĝis loke.",
+    "finishingRefresh": "Finas la refreŝigon de la deponejo…",
+    "retryPush": "Reprovi puŝadon",
+    "details": "Detaloj",
+    "commitsPushed": "Komitoj puŝitaj",
+    "runStopped": "Komita kurso haltigita",
+    "pushedRefreshFailed": "Viaj komitoj estis puŝitaj, sed Desktop ne povis fini la refreŝigon.",
+    "recoveryNeedsAttention": "Restaŭro necesas antaŭ ol daŭrigi.",
+    "refreshBeforeContinuing": "Refreŝigu la deponejon por daŭrigi.",
+    "openDetails": "Malfermu „Detaloj“ por pliaj informoj.",
+    "selectionNeedsReview": "Iuj elektitaj ŝanĝoj moviĝis aŭ ŝanĝiĝis. Kontrolu kaj reelektu ilin.",
+    "retryRollback": "Reprovi malfaron",
+    "retryRefresh": "Reprovi refreŝigon",
+    "copilotWorking": "Copilot jam laboras…",
+    "splittingDescription": "Ni dividas viajn ŝanĝojn en komitojn kaj skribas iliajn mesaĝojn.",
+    "createEmptyCommit": "Krei malplenan komiton",
+    "emptyCommitDescription": "Krei unu komiton sen dosierŝanĝoj aŭ Copilot-analizo.",
+    "selectChangesHint": "Elektu la ŝanĝojn por komiti, kaj Copilot dividos ilin en komitojn kaj skribos iliajn mesaĝojn.",
+    "splitSelected": {
+      "_one": "Copilot dividos la {count:number} elektitan dosieron en komitojn kaj skribos ĝiajn mesaĝojn.",
+      "_other": "Copilot dividos la {count:number} elektitajn dosierojn en komitojn kaj skribos iliajn mesaĝojn."
+    },
+    "letCopilotWrite": "Lasu Copilot skribi viajn komitojn",
+    "animateCopilot": "Animigi Copilot",
+    "splittingAria": "Copilot dividas viajn ŝanĝojn en komitojn",
+    "pushStoppedWithError": "Puŝado haltigita; lokaj komitoj konservitaj: {message}",
+    "runStoppedWithError": "Komita kurso haltigita: {message}",
+    "unknownState": "Nekonata stato de komita kurso",
+    "status": {
+      "cancelling": "Ni nuligas la komitan kurson…",
+      "awaitingConsent": "Atendante vian konsenton",
+      "preparing": "Ni preparas elektitajn ŝanĝojn…",
+      "capturing": "Ni fiksas elektitajn ŝanĝojn…",
+      "analyzing": "Ni planas elektitajn ŝanĝojn…",
+      "summarizing": "Ni skribas unu mesaĝon por ĉiuj elektitaj ŝanĝoj…",
+      "validating": "Ni kontrolas la kompletan komitan planon…",
+      "creatingCommit": "Ni kreas komiton {index:number} el {total:number}: {title}",
+      "rollingBack": "Ni malfaras komitojn de ĉi tiu kurso…",
+      "refreshing": "Ni refreŝigas elektitajn ŝanĝojn…",
+      "closing": "Ni finas lokajn komitojn…",
+      "finishing": "Ni refreŝigas lokajn komitojn…",
+      "preparingPush": "Ni preparas puŝi komitojn…",
+      "pushing": "Ni puŝas komitojn…",
+      "refreshingPush": "Ni refreŝigas puŝitajn komitojn…"
+    }
   }
 }

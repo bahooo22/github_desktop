@@ -3,9 +3,7 @@
     "name": "українська",
     "nativeName": "Українська",
     "direction": "ltr",
-    "authors": [
-      "BaHooo"
-    ]
+    "authors": ["BaHooo"]
   },
   "common": {
     "cancel": "Скасувати",
@@ -1108,11 +1106,17 @@
   },
   "commitMessage": {
     "add-co-authors": "Додати співавторів",
-    "allow-empty-commit": "Дозволити порожній коміт",
+    "allow-empty-commit": {
+      "@darwin": "Дозволити порожній коміт",
+      "@other": "Дозволити порожній коміт"
+    },
     "amend": "Виправити",
     "amend-last-commit": "{verb} останній коміт",
     "amending": "Виправлення",
-    "bypass-hooks": "Пропустити хуки коміту",
+    "bypass-hooks": {
+      "@darwin": "Пропустити хуки коміту",
+      "@other": "Пропустити хуки коміту"
+    },
     "commit": "Коміт",
     "commit-title": "{verb} у гілку {branch}",
     "committed-just-now": "Коміт виконано щойно — {summary} (Sha: {sha})",
@@ -2382,7 +2386,9 @@
     "detachedHead": "Від'єднаний HEAD",
     "detachedHeadTooltip": "Ви перебуваєте на від'єднаному HEAD (detached HEAD) — коміт вибрано напряму, а не як верхівку гілки",
     "rebasingBranch": "Виконується rebase",
-    "rebasingTooltip": "Виконується rebase (перенесення ваших комітів) поверх {branch}"
+    "rebasingTooltip": "Виконується rebase (перенесення ваших комітів) поверх {branch}",
+    "localCommitRun": "Локальний запуск комітів",
+    "finishOrCancelBeforeSyncing": "Завершіть або скасуйте перед синхронізацією"
   },
   "revertProgress": {
     "title": "Триває відкат…",
@@ -2603,7 +2609,9 @@
     "knownAriaLabel": "{author} — натисніть Backspace або Delete, щоб видалити",
     "unknownAriaLabel": "{username}, {state}, натисніть Backspace або Delete, щоб видалити",
     "userNotFound": "користувача не знайдено",
-    "searching": "триває пошук"
+    "searching": "триває пошук",
+    "removeInstruction": "натисніть backspace або delete, щоб видалити",
+    "removeAriaLabel": "Видалити {author}"
   },
   "refNameTextBox": {
     "errorNotValidName": "Помилка: {name} не є допустимою назвою.",
@@ -2790,7 +2798,8 @@
     "downloading": "Завантажується… {percent}%",
     "downloadingNoPercent": "Завантажується…",
     "error": "Не вдалося завантажити файл.",
-    "gatekeeper": "Застосунок не підписано Apple. Після розпакування відкрийте його один раз через «Системні налаштування» → «Конфіденційність і безпека» → «Відкрити все одно»."
+    "gatekeeper": "Застосунок не підписано Apple. Після розпакування відкрийте його один раз через «Системні налаштування» → «Конфіденційність і безпека» → «Відкрити все одно».",
+    "noAssets": "У цьому релізі немає файлів для завантаження."
   },
   "renameWorktreeDialog": {
     "title": "Перейменувати worktree",
@@ -2804,5 +2813,55 @@
     "killedBySignal": "Хук {hookName} завершився сигналом {signal} через {duration} с",
     "failedWithCode": "Хук {hookName} завершився з кодом {code} через {duration} с",
     "done": "Хук {hookName} виконано за {duration} с"
+  },
+  "assistedCommit": {
+    "pushStopped": "Надсилання зупинено",
+    "commitsKeptLocally": "Усі коміти цього запуску збережено локально.",
+    "finishingRefresh": "Завершуємо оновлення репозиторію…",
+    "retryPush": "Повторити надсилання",
+    "details": "Подробиці",
+    "commitsPushed": "Коміти надіслано",
+    "runStopped": "Запуск комітів зупинено",
+    "pushedRefreshFailed": "Коміти надіслано, але Desktop не зміг завершити оновлення.",
+    "recoveryNeedsAttention": "Перед продовженням потрібне відновлення.",
+    "refreshBeforeContinuing": "Оновіть репозиторій, щоб продовжити.",
+    "openDetails": "Відкрийте «Подробиці», щоб дізнатися більше.",
+    "selectionNeedsReview": "Деякі вибрані зміни перемістилися або змінилися. Перевірте та виберіть їх знову.",
+    "retryRollback": "Повторити відкат",
+    "retryRefresh": "Повторити оновлення",
+    "copilotWorking": "Copilot уже працює…",
+    "splittingDescription": "Розбиваємо зміни на коміти та пишемо їхні повідомлення.",
+    "createEmptyCommit": "Створити порожній коміт",
+    "emptyCommitDescription": "Створити один коміт без змін файлів і аналізу Copilot.",
+    "selectChangesHint": "Виберіть зміни для коміту — Copilot розіб’є їх на коміти та напише повідомлення.",
+    "splitSelected": {
+      "_one": "Copilot розіб’є {count:number} вибраний файл на коміти й напише їхні повідомлення.",
+      "_few": "Copilot розіб’є {count:number} вибраних файли на коміти й напише їхні повідомлення.",
+      "_many": "Copilot розіб’є {count:number} вибраних файлів на коміти й напише їхні повідомлення.",
+      "_other": "Copilot розіб’є {count:number} вибраних файлу на коміти й напише їхні повідомлення."
+    },
+    "letCopilotWrite": "Нехай Copilot напише ваші коміти",
+    "animateCopilot": "Анімувати Copilot",
+    "splittingAria": "Copilot розбиває зміни на коміти",
+    "pushStoppedWithError": "Надсилання зупинено; локальні коміти збережено: {message}",
+    "runStoppedWithError": "Запуск комітів зупинено: {message}",
+    "unknownState": "Невідомий стан запуску комітів",
+    "status": {
+      "cancelling": "Скасовуємо запуск комітів…",
+      "awaitingConsent": "Очікування вашої згоди",
+      "preparing": "Готуємо вибрані зміни…",
+      "capturing": "Фіксуємо вибрані зміни…",
+      "analyzing": "Плануємо вибрані зміни…",
+      "summarizing": "Пишемо одне повідомлення для всіх вибраних змін…",
+      "validating": "Перевіряємо повний план комітів…",
+      "creatingCommit": "Створюємо коміт {index:number} з {total:number}: {title}",
+      "rollingBack": "Скасовуємо коміти цього запуску…",
+      "refreshing": "Оновлюємо вибрані зміни…",
+      "closing": "Завершуємо локальні коміти…",
+      "finishing": "Оновлюємо локальні коміти…",
+      "preparingPush": "Готуємося надіслати коміти…",
+      "pushing": "Надсилаємо коміти…",
+      "refreshingPush": "Оновлюємо надіслані коміти…"
+    }
   }
 }

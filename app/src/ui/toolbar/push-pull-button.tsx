@@ -441,8 +441,8 @@ export class PushPullButton extends React.Component<
         <ToolbarButton
           {...this.defaultButtonProps()}
           icon={octicons.gitCommit}
-          title="Local commit run"
-          description="Finish or cancel before syncing"
+          title={t('toolbar.localCommitRun')}
+          description={t('toolbar.finishOrCancelBeforeSyncing')}
           disabled={true}
         />
       )
@@ -528,7 +528,7 @@ export class PushPullButton extends React.Component<
       <ToolbarButton
         {...this.defaultButtonProps()}
         title={progress.title}
-        description={progress.description || 'Hang on…'}
+        description={progress.description || t('common.hangOn')}
         progressValue={progress.value}
         icon={syncClockwise}
         iconClassName={networkActionInProgress ? 'spin' : ''}

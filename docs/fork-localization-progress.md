@@ -4937,16 +4937,43 @@ GitHub.com/Enterprise в диалоге клонирования. Именно �
 - `AGENTS.md`, `README.md`, `docs/fork-releases.md`: команды и раздел кешей —
   npm-форма; хроника прошлых прогонов оставлена как история;
 - `changelog-fork.json`: запись `3.6.11-beta1` с двумя заметками
-  (`upstreamSync3611`, `copilotCommit`) и ключи в семи каталогах; `la` и `eo`
-  переведены, `tlh` и `qya` получили английский текст без отметки в
-  `meta.ready` — терминов этой темы (npm, workflow, Copilot commit) в каталогах
-  нет, а формы без зондов не выдумывались.
+  (`upstreamSync3611`, `copilotCommit`) и ключи в семи каталогах; `la`, `eo`,
+  `tlh` и `qya` переведены, у `tlh` и `qya` формы сверены зондами по словарям
+  boQwI' и Eldamo и отмечены в `meta.ready`.
 
 Замеры на хосте: `grep -c 'yarn\|YARN'` по трём workflow, `gdlab/*.sh` и
 `AGENTS.md` — 0; `npm run l10n:parity` и тесты требуют контейнера на npm, он
 пересобирается этим же этапом.
 
-Принятый остаток: гейты (`npm ci`, `npm run lint`, `npm test`, `test:script`,
-`tsc --noEmit`, `l10n:*`, `markdownlint`) снимаются после переноса коммитов в
-основное дерево, которое до сих пор занято живым GitHub Desktop; `tlh` и `qya`
-для двух заметок релиза не переведены.
+Гейты сняты после переноса коммитов в основное дерево: `npm ci` на образе
+`node:24.22.1` + `npm@11.17.0`, `tsc --noEmit`, `npm test`, `npm run
+test:script` (46/46), `npm run test:eslint` (6/6), `npm run check:eslint`,
+`npm run l10n:parity` (1830/1830, 0 расхождений) — зелёные. Первый прогон
+тестов упал на `t is not defined` в `repository-settings.tsx`: при резолве
+мержа десять вызовов `t()` остались без импорта, tsc это видел, но пайп в
+`tail` скрывал код возврата.
+
+## Новые строки 3.6.11-beta1 (06.11.2026)
+
+Апстрим принёс экран assisted commit: панель `copilot-commit-panel.tsx`
+(41 строка), новые ветки в `commit-message.tsx` и статус панели в
+`push-pull-button.tsx`. Все видимые литералы переведены через `t()`, ключи
+заведены в семи каталогах группой `assistedCommit`; плюрал `splitSelected`
+имеет четыре формы в `ru`/`uk` и две в остальных каталогах. Заодно закрыты
+`authorHandle.removeInstruction`/`removeAriaLabel` и
+`downloadForkRelease.noAssets` — они появились в коде, но в каталогах их не
+было.
+
+Два дефекта резолва исправлены здесь же: `repository-settings.tsx` вызывал
+`t()` без импорта (десять мест, `ReferenceError` в тестах), а в
+`commit-message.tsx` пункты «Bypass Commit Hooks» и «Allow Empty Commit»
+оставались английскими на не-macOS — теперь это варианты `@darwin`/`@other`
+одного ключа.
+
+Замеры: `l10n:parity` — 1830 путей в каждом каталоге, 0 расхождений;
+плейсхолдеры новых ключей совпадают с `en` побайтово (0 расхождений);
+`meta.ready` у `la`/`eo` вырос до 1818, у `tlh` — 1781, у `qya` — 1780.
+Зонды: `l10n_check_klingon.py` по 41 новому ключу — 172 слова, единственная
+неподтверждённая форма `Delmeychaj` уже встречается в каталоге четыре раза;
+`l10n_check_quenya.py` — только устоявшиеся неологизмы каталога
+(`minatacë`, `ahyanië`, `cilienë` и производные).
