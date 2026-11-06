@@ -1,4 +1,8 @@
-FROM node:24.19.0-bookworm
+FROM node:24.22.1-bookworm
+
+# package.json требует npm >= 11.17.0; официальный образ несёт npm из Node,
+# и версию фиксируем явно, чтобы `npm ci` не зависел от тега образа.
+RUN npm install -g npm@11.17.0 && npm --version
 
 # Electron 44 (Chromium) runtime + Xvfb for headful runs, plus the toolchain
 # node-gyp needs for the native modules in vendor/.

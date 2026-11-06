@@ -66,13 +66,13 @@ jobs:
         with:
           submodules: recursive
 
-      # Те же кеши, что в linux-прогоне: YARN_CACHE_FOLDER, electron и dugite
+      # Те же кеши, что в linux-прогоне: npm-кеш, electron и dugite
       # живут в RUNNER_TEMP, а не в рабочих каталогах checkout.
       - name: Point the download caches at the runner temp
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/caches"
-          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP/caches/yarn" >> "$GITHUB_ENV"
+          echo "npm_config_cache=$RUNNER_TEMP/caches/npm" >> "$GITHUB_ENV"
           echo "electron_config_cache=$RUNNER_TEMP/caches/electron" >> "$GITHUB_ENV"
           mkdir -p "$RUNNER_TEMP/dugite"
           echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
@@ -82,37 +82,34 @@ jobs:
         with:
           path: ${{ runner.temp }}/caches
           key:
-            ${{ runner.os }}-${{ inputs.arch }}-deps-${{ hashFiles('yarn.lock',
-            'app/yarn.lock', 'vendor/**/yarn.lock') }}
+            ${{ runner.os }}-${{ inputs.arch }}-deps-${{ hashFiles('package-lock.json',
+            'app/package-lock.json', 'vendor/*/package-lock.json') }}
           restore-keys: ${{ runner.os }}-${{ inputs.arch }}-deps-
 
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: yarn install --frozen-lockfile
-        env:
-          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+      - run: npm ci
 
       - name: Build production app
         env:
           DESKTOP_FORK_UNSIGNED_MACOS: '1'
           TARGET_ARCH: ${{ inputs.arch }}
-          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
-        run: yarn build:prod
+        run: npm run build:prod
 
       - name: Pack the .app into a zip
         env:
           TARGET_ARCH: ${{ inputs.arch }}
         run: |
-          yarn package
+          npm run package
           test -s "dist/GitHub Desktop L10n-${{ inputs.arch }}.zip"
 
       - name: Write build info and release notes
         env:
           BUILD_INFO_ARCH: ${{ inputs.arch }}
         run: |
-          yarn release-build-info
+          npm run release-build-info
           test -s dist/build-info.json
           grep -q 'fork-build-info' dist/release-notes.md
 

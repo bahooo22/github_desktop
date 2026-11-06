@@ -151,14 +151,13 @@ jobs:
       # этом не стартует вообще. GITHUB_ENV живёт до конца прогона и действует
       # на все последующие шаги.
       #
-      # Смысл значений прежний: вендорённый yarn 1.21.1 без YARN_CACHE_FOLDER
-      # отдаёт `yarn cache dir` = /usr/local/share/.cache/yarn/v6 (замер
-      # 09.10.2026 в gdlab), то есть кеш по угаданному пути молча сохранял бы
+      # Смысл значений прежний: cacheRoot у npm по умолчанию лежит в профиле
+      # пользователя (~/.npm), то есть кеш по угаданному пути молча сохранял бы
       # пустую папку, а node_modules/electron/install.js:44 читает
       # electron_config_cache прямо в cacheRoot.
       #
       # Разделители — обратные слэши: RUNNER_TEMP на windows-раннере сам по
-      # себе вида D:\a\_temp, и смешивать их в значении, которое уйдёт в yarn и
+      # себе вида D:\a\_temp, и смешивать их в значении, которое уйдёт в npm и
       # @electron/get, не стали. mkdir при этом ходит через bash, а он прямые
       # слэши понимает; сам шаг явно объявлен bash, потому что без defaults на
       # windows-раннере дефолтный shell — pwsh.
@@ -171,23 +170,24 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/caches"
-          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP\\caches\\yarn" >> "$GITHUB_ENV"
+          echo "npm_config_cache=$RUNNER_TEMP\\caches\\npm" >> "$GITHUB_ENV"
           echo "electron_config_cache=$RUNNER_TEMP\\caches\\electron" >> "$GITHUB_ENV"
           mkdir -p "$RUNNER_TEMP/dugite"
           echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
 
-      # `cache: yarn` у setup-node тут заменён явным actions/cache по двум
-      # причинам. Первая: setup-node кеширует только yarn-кеш и только по хешу
-      # КОРНЕВОГО yarn.lock, а тяжёлая часть зависимостей лежит в app/yarn.lock
-      # — промах по корню сбрасывал кеш целиком и докачивал всё заново. Здесь
-      # ключ считается по всем lock-файлам дерева: `git ls-files | grep
-      # yarn.lock` даёт пять (корень, app и три в vendor/*). Список явный, а не
-      # `**/yarn.lock`, потому что матчить ли `**/` файл в корне зависит от
-      # реализации glob в @actions/glob — а недокументированное поведение, от
-      # которого зависит инвалидация кеша, нам не нужно.
+      # `cache: npm` у setup-node тут заменён явным actions/cache по двум
+      # причинам. Первая: setup-node кеширует npm-кеш и только по хешу
+      # КОРНЕВОГО package-lock.json, а тяжёлая часть зависимостей лежит в
+      # app/package-lock.json — промах по корню сбрасывал кеш целиком и
+      # докачивал всё заново. Здесь ключ считается по всем lock-файлам дерева:
+      # `git ls-files | grep package-lock.json` даёт пять (корень, app и три в
+      # vendor/*). Список явный, а не `**/package-lock.json`, потому что матчить
+      # ли `**/` файл в корне зависит от реализации glob в @actions/glob — а
+      # недокументированное поведение, от которого зависит инвалидация кеша, нам
+      # не нужно.
       #
       # Вторая причина: кешу нужен и electron-архив (~100 МБ за прогон), который
-      # в yarn-кеш не попадает вообще.
+      # в npm-кеш не попадает вообще.
       #
       # Архитектура в ключевом имени обязательна: arm64-прогон досстанавливает
       # пакеты, которых в x64-кеше нет (шаг Install target-architecture native
@@ -201,8 +201,8 @@ jobs:
         with:
           path: ${{ runner.temp }}/caches
           key:
-            ${{ runner.os }}-deps-${{ env.ARCH }}-${{ hashFiles('yarn.lock',
-            'app/yarn.lock', 'vendor/**/yarn.lock') }}
+            ${{ runner.os }}-deps-${{ env.ARCH }}-${{ hashFiles('package-lock.json',
+            'app/package-lock.json', 'vendor/*/package-lock.json') }}
           restore-keys: ${{ runner.os }}-deps-${{ env.ARCH }}-
 
       # Архив встроенного Git (dugite) — в ОТДЕЛЬНОМ каталоге и отдельным слотом,
@@ -214,7 +214,7 @@ jobs:
       # другой версии Git при смене lock-файла, поэтому здесь ключ только точный
       # и фолбэка нет вовсе.
       #
-      # Версия dugite зафиксирована в app/yarn.lock (:714-716), а embedded-git.json
+      # Версия dugite зафиксирована в app/package-lock.json, а embedded-git.json
       # приезжает внутри архива пакета — hashFiles по нему до install невозможен,
       # так что инвалидация идёт по lock-файлу.
       - name: Restore the embedded Git archive
@@ -223,93 +223,46 @@ jobs:
           path: ${{ runner.temp }}/dugite
           key:
             ${{ runner.os }}-dugite-${{ env.ARCH }}-${{
-            hashFiles('app/yarn.lock') }}
+            hashFiles('app/package-lock.json') }}
 
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: yarn install --frozen-lockfile
+      - run: npm ci
         # Флаги компилятора сюда не передаются: printenvz задаёт свои cflags в
         # vendor/printenvz/binding.gyp, и gyp кладёт их в target-атрибут, который
         # никакие npm_config_cflags не перекрывают. Конфликт
         # _FORTIFY_SOURCE решён в самом binding.gyp.
         #
-        # DeprecationWarning DEP0169 (`url.parse()`) и DEP0040 (`punycode`) в
-        # этом логе — не наши: в script/ и app/src нет ни одного url.parse и ни
-        # одного require('punycode'), а `node --trace-deprecation` указывает на
-        # vendor/yarn-1.21.1.js:38638 (GitResolver.isVersion) — вендоренный yarn
-        # из .yarnrc (`yarn-path`), а не на наш код. url.parse есть и в yarn
-        # 1.22.22 (по 15 вызовов в каждом бандле), поэтому пересъёмка вендоренной
-        # версии предупреждения не сняла бы; punycode же в 1.21.1 отдан webpack'ом
-        # наружу как нативный модуль (`module.exports = require("punycode")`), а
-        # 1.22.22 несёт пользовательский пакет — DEP0040 даёт только вендоренный.
-        #
-        # Гасим ровно эти два кода, чтобы ExperimentalWarning и остальные
-        # DeprecationWarning остались видны. Список кодов передаётся повтором
-        # флага:
-        # `--disable-warning=DEP0169,DEP0040` node принимает, но не применяет
-        # (замер 08.10.2026 в gdlab на node 24.19: с запятой предупреждения
-        # остаются, с двумя флагами — 0 строк при rc=0). Окружение наследуют все
-        # вложенные процессы post-install.ts (yarn --cwd app install,
-        # electron/install.js, compile:script), поэтому достаточно одного шага.
+        # npm_config_arch переключает optionalDependencies на целевую
+        # архитектуру — этим npm отличается от yarn 1, который смотрел на
+        # process.arch раннера и требовал досстановки платформенных пакетов
+        # вручную (шаг с `yarn add --optional` удалён вместе с yarn).
         env:
-          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+          npm_config_arch: ${{ env.ARCH }}
+          TARGET_ARCH: ${{ env.ARCH }}
 
-      # Нативные пакеты целевой архитектуры. Yarn 1 выбирает optionalDependencies
-      # по хосту: он смотрит на process.platform/process.arch машины-раннера, а не
-      # на npm_config_arch — то же ограничение и тот же обход, что в апстримном
-      # .github/actions/setup-ci-environment/action.yml:41-53, где так досстанавливают
-      # @github/copilot-sdk-win32-arm64. На windows-2022 (x64) поэтому никогда не
-      # появляется платформенный пакет для arm64, а сборка на него опирается:
+      # Нативные пакеты целевой архитектуры. npm ставит их сам по
+      # npm_config_arch (см. шаг выше), но сборка на них опирается жёстко:
       # app/webpack.common.ts:72 просит script/webpack-koffi.ts собрать целевой
-      # @koromix/koffi-<platform>-<arch> и резолвит его заранее — в файле это
-      # названо прямо: отсутствующая цель должна ронять сборку, а не давать
-      # приложение без SDK. Прогон arch=arm64 09.10.2026 упал ровно здесь:
-      # «Cannot find module '@koromix/koffi-win32-arm64'» с rc=2, ещё до первого
-      # webpack-компилята.
+      # @koromix/koffi-<platform>-<arch> и резолвит его заранее — отсутствующая
+      # цель должна ронять сборку, а не давать приложение без SDK. Прогон
+      # arch=arm64 09.10.2026 упал ровно здесь: «Cannot find module
+      # '@koromix/koffi-win32-arm64'» с rc=2, ещё до первого webpack-компилята.
       #
-      # Версии берутся из optionalDependencies уже установленных родителей
-      # (koffi@3.2.1 → @koromix/koffi-win32-arm64@3.2.1,
-      # @github/copilot-sdk@1.0.13 → …-win32-arm64@1.0.13), поэтому состав
-      # node_modules не уезжает от app/yarn.lock: пакет берётся ровно той версии,
-      # которую lock уже зафиксировал. --ignore-platform отключает фильтрацию по
-      # хосту, --optional не переводит пакет в обязательные зависимости,
-      # --ignore-scripts не даёт нативным пакетам ничего собирать.
-      # Для x64-прогона шаг — no-op: его пакет ставится обычным install.
-      - name: Install target-architecture native runtimes
+      # Шаг проверяет, а не досстанавливает: koffi резолвится ровно тем вызовом,
+      # на котором падает сборка (script/webpack-koffi.ts:12 зовёт require.resolve
+      # из app/node_modules), а пакет SDK проверяется директорией — у
+      # @github/copilot-sdk-<os>-<arch> нет поля main, и require.resolve на нём
+      # падает даже когда пакет на месте (замер 09.10.2026 в gdlab:
+      # @koromix/koffi-linux-x64 резолвится, @github/copilot-sdk-linux-x64 нет,
+      # и общая проверка ломала бы даже рабочий x64-прогон).
+      - name: Verify target-architecture native runtimes
         shell: bash
         env:
           TARGET_ARCH: ${{ env.ARCH }}
         run: |
-          add_target_runtime() {
-            parent="$1"
-            prefix="$2"
-            pkg="$prefix-$(node -p 'process.platform')-$TARGET_ARCH"
-            version="$(cd app && node -p "require('./node_modules/$parent/package.json').optionalDependencies['$pkg']")"
-            if [ -z "$version" ] || [ "$version" = "undefined" ]; then
-              echo "::error::В $parent нет optionalDependencies для $pkg: целевая архитектура $TARGET_ARCH этим пакетом не поддерживается"
-              exit 1
-            fi
-            if [ -d "app/node_modules/$pkg" ]; then
-              echo "$pkg@$version уже установлен этим install"
-              return
-            fi
-            echo "Досстанавливаю $pkg@$version (целевая архитектура $TARGET_ARCH)"
-            (cd app && yarn add --optional --ignore-platform --ignore-scripts "$pkg@$version")
-          }
-
-          add_target_runtime "koffi" "@koromix/koffi"
-          add_target_runtime "@github/copilot-sdk" "@github/copilot-sdk"
-
-          # Проверка вместо доверия выводу yarn add. Koffi резолвится ровно тем
-          # вызовом, на котором падает сборка (script/webpack-koffi.ts:12 зовёт
-          # require.resolve из app/node_modules), поэтому шаг подтверждает прохождение
-          # будущего сбоя, а не наличие папки. Пакет SDK проверяется директорией: у
-          # @github/copilot-sdk-<os>-<arch> нет поля main, и require.resolve на нём
-          # падает даже когда пакет на месте — замер 09.10.2026 в gdlab:
-          # @koromix/koffi-linux-x64 резолвится, @github/copilot-sdk-linux-x64 нет, и
-          # если бы проверка была общей, шаг ломал бы даже рабочий x64-прогон.
           PLATFORM="$(node -p 'process.platform')"
           if ! node -e "console.log(require.resolve('@koromix/koffi-$PLATFORM-$TARGET_ARCH', { paths: ['./app/node_modules'] }))" >/dev/null; then
             echo "::error::@koromix/koffi-$PLATFORM-$TARGET_ARCH не резолвится из app/node_modules — build:prod упадёт на нём"
@@ -327,17 +280,13 @@ jobs:
       # fs_admin.node, desktop-notifications.node и git/, и renderer падает на
       # require() них, оставляя пустое белое окно.
       - name: Build production app
-        run: yarn build:prod
+        run: npm run build:prod
         env:
           npm_config_arch: ${{ env.ARCH }}
           # script/build.ts:203 берёт архитектуру packager'а именно отсюда: без
           # этого arm64-прогон собрал бы x64-нативы (в ci.yml эти две строки идут
           # парой).
           TARGET_ARCH: ${{ env.ARCH }}
-          # copyDependencies (script/build.ts:87 → :351) запускает ещё один
-          # `yarn install` — уже в out/, и он печатает те же DEP0169/DEP0040,
-          # поэтому флаг нужен не только на шаге установки.
-          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
 
       - name: Package Windows installer
         # Подпись включается в script/package.ts только при
@@ -345,7 +294,7 @@ jobs:
         # Мы намеренно не передаём AZURE_TENANT_ID / AZURE_CLIENT_ID, поэтому
         # electron-winstaller выпускает неподписанный инсталлер. Когда появится
         # свой сертификат — добавить setup-windows-signing по образцу ci.yml.
-        run: yarn package
+        run: npm run package
         env:
           npm_config_arch: ${{ env.ARCH }}
           # Номер коммита из gate: script/package.ts отдаёт его в
@@ -359,7 +308,7 @@ jobs:
             https://github.com/${{ github.repository
             }}/releases/download/latest-win-${{ env.ARCH }}/
           # Первый прогон: удалённого RELEASES ещё нет, а SyncReleases.exe с
-          # ненулевым кодом выхода роняет весь yarn package
+          # ненулевым кодом выхода роняет весь npm run package
           # (electron-winstaller lib/index.js:272-274 плюс reject в
           # lib/spawn-promise.js). Флаг выключает и дельту, и remoteReleases,
           # оставляя канал production.
@@ -426,7 +375,7 @@ jobs:
           # клиента и RELEASES разойдутся.
           DESKTOP_FORK_BUILD_NUMBER: ${{ env.FORK_BUILD_NUMBER }}
         run: |
-          yarn release-build-info
+          npm run release-build-info
           # Клиент на битый или отсутствующий блок молчит, то есть молчание
           # стало бы тихой регрессией проверки — убеждаемся, что оба файла на
           # диске и notes действительно содержат блок.

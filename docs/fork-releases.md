@@ -50,7 +50,7 @@
 исключение, если канал публикабельный (`production`/`beta`/`test`), — ошибка
 получается в логе сборки, а не на машине пользователя. Непубликуемые каналы
 исключение не затрагивает. Проверка покрыта тестом `script/dist-info-test.ts`
-(`yarn test:script`).
+(`npm run test:script`).
 
 **Следствие смены идентификатора:** Windows-установка живёт в
 `%LOCALAPPDATA%\GitHubDesktopL10n`, отдельно от апстримного
@@ -160,7 +160,7 @@ release-fork-linux.yml`, входов у него нет). Локальная с
 ## Сборка Windows: только на windows-раннере
 
 Цель `gdlab/release.sh win-portable` намеренно запрещена (скрипт печатает
-подсказку и выходит с кодом 2). Причина: `yarn build:prod` внутри Linux-контейнера
+подсказку и выходит с кодом 2). Причина: `npm run build:prod` внутри Linux-контейнера
 кладёт в `out/` нативные компоненты, собранные под Linux, а `@electron/packager`
 берёт то, что уже лежит в `node_modules` целевой платформы, и не подменяет их.
 Замер `out/` после production-сборки: четыре `.node` — `keytar.node`,
@@ -224,7 +224,7 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
    дешёвая проверка до всякой сборки: один короткий checkout (`fetch-depth: 1`,
    без подмодулей), `actions/setup-node` на `env.NODE_VERSION` (файл gate читают
    `node --experimental-strip-types`, а это Node 22.6+; в checkout с
-   `fetch-depth: 1` зависимостей нет, поэтому вместо `yarn` — прямой запуск
+   `fetch-depth: 1` зависимостей нет, поэтому вместо `npm ci` — прямой запуск
    `.ts`) и пара запросов к API релизов. Логика живёт в
    `.github/actions/release-gate/action.yml`, результаты — outputs `run`,
    `build-number` и `version`, на `run` сборочная джоба подписана через `needs` +
@@ -289,10 +289,10 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
    прав, и код у обоих 403. Ошибиться тут дорого: приняв первое за второе,
    оператор решает, что мерка ему недоступна в принципе, и идёт за логом,
    которого на самом деле не нужно.
-2. `yarn build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
+2. `npm run build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
    архитектуре (без `TARGET_ARCH` arm64-прогон собрал бы x64-нативы — см.
    `script/build.ts:203`).
-3. `yarn package` со `DESKTOP_UPDATES_URL`, указывающим на ассеты этого же тега,
+3. `npm run package` со `DESKTOP_UPDATES_URL`, указывающим на ассеты этого же тега,
    `DESKTOP_FORK_BUILD_NUMBER` из output gate (версия публикации — см. следующий
    раздел) и `DESKTOP_SKIP_DELTA=1` при `first_run=true`. Флаг нужен для самого
    первого релиза: удалённого `RELEASES` ещё нет, а `electron-winstaller` при
@@ -324,39 +324,38 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
 
 Прогон не скачивает зависимости с нуля: шаг `Restore download caches`
 (`actions/cache@v6`) кеширует `${{ runner.temp }}/caches`, куда указывают
-`YARN_CACHE_FOLDER` и `electron_config_cache`. Задаёт их отдельный первый шаг —
+`npm_config_cache` и `electron_config_cache`. Задаёт их отдельный первый шаг —
 `Point the download caches at the runner temp` через `$GITHUB_ENV`, а не `env`
 джобы: контекст `runner` вне шагов недоступен, и GitHub отвергает весь файл ещё
 на компиляции (прогоны #1 от 09.10.2026 упали именно так, без единого job).
-Директории заданы явно, а не «обычным путём»: вендорённый yarn 1.21.1 без
-переменной на `yarn cache dir` отдаёт `/usr/local/share/.cache/yarn/v6`, а не
-`~/.cache/yarn` (замер 09.10.2026 в gdlab), так что кеш по угаданному пути молча
-сохранял бы пустую папку; `node_modules/electron/install.js:44` читает
+Директории заданы явно, а не «обычным путём»: cacheRoot у npm по умолчанию лежит
+в профиле пользователя (`~/.npm`), так что кеш по угаданному пути молча сохранял
+бы пустую папку; `node_modules/electron/install.js:44` читает
 `electron_config_cache` прямо в `cacheRoot`.
 
-Явный шаг вместо `cache: yarn` у `actions/setup-node` — по двум причинам:
+Явный шаг вместо `cache: npm` у `actions/setup-node` — по двум причинам:
 
-- setup-node хеширует только корневой `yarn.lock`, а тяжёлая часть зависимостей
-  лежит в `app/yarn.lock`: изменение app-лока при неизменном корневом оставляло
-  устаревший слот, а изменение корневого сбрасывало кеш целиком и докачивало
-  всё. Новый ключ считается по всем пяти lock-файлам дерева (`yarn.lock`,
-  `app/yarn.lock` и три в `vendor/`).
-- Архив Electron (порядка ста мегабайт за прогон) в yarn-кеш не попадает вообще:
+- setup-node хеширует только корневой `package-lock.json`, а тяжёлая часть
+  зависимостей лежит в `app/package-lock.json`: изменение app-лока при неизменном
+  корневом оставляло устаревший слот, а изменение корневого сбрасывало кеш целиком
+  и докачивало всё. Новый ключ считается по всем пяти lock-файлам дерева
+  (`package-lock.json`, `app/package-lock.json` и три в `vendor/`).
+- Архив Electron (порядка ста мегабайт за прогон) в npm-кеш не попадает вообще:
   его качает post-install, и теперь он в кеше тем же шагом.
 
 В ключе windows-прогона есть архитектура, потому что actions/cache пишет в слот
-только первым прогоном: arm64-прогон досстанавливает пакеты, которых в x64-кеше
-нет (шаг `Install target-architecture native runtimes`), а без суффикса x64 занял
-бы общий слот — arm64-нативы не кэшировались бы никогда. `restore-keys` оставлен
-префиксом без хеша, чтобы смена одного lock-файла добирала недостающее, а не
-качало гигабайт заново.
+только первым прогоном: arm64-прогон ставит пакеты, которых в x64-кеше нет
+(`npm ci` с `npm_config_arch`), а без суффикса x64 занял бы общий слот —
+arm64-нативы не кэшировались бы никогда. `restore-keys` оставлен префиксом без
+хеша, чтобы смена одного lock-файла добирала недостающее, а не качало гигабайт
+заново.
 
 Архив встроенного Git (`dugite`) кэшируется отдельно и по другим правилам. Он не
 попадает в `caches`: `app/node_modules/dugite/script/config.js:46-56` берёт
 каталог из `DUGITE_CACHE_DIR`, иначе — `os.tmpdir()`, а tmpdir раннера не кэширует
 никто, поэтому до 14.10.2026 архив (~40 МБ) качался каждым прогоном заново. Для
 него заведён отдельный каталог `${{ runner.temp }}/dugite` и отдельный слот с
-ключем ровно по `app/yarn.lock` (версия `dugite` зафиксирована там, а
+ключем ровно по `app/package-lock.json` (версия `dugite` зафиксирована там, а
 `embedded-git.json` приезжает внутри архива пакета — `hashFiles` по нему до
 `install` невозможен).
 
@@ -369,20 +368,20 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
 Тем же шагом `DUGITE_CACHE_DIR` добавлен в апстримные `ci.yml` (джоб `lint`) и
 `.github/actions/setup-ci-environment/action.yml`: прогон `38572695088` упал на
 `getaddrinfo ENOTFOUND release-assets.githubusercontent.com` ровно на этом
-скачивании, а dugite-архив там не кэшировался вовсе — `cache: yarn` у
-`actions/setup-node` накрывает только yarn-пакеты и только по хешу корневого
-lock-файла. Вокруг `yarn` там же добавлен повтор из трёх попыток —
+скачивании, а dugite-архив там не кэшировался вовсе — `cache: npm` у
+`actions/setup-node` накрывает только npm-пакеты и только по хешу корневого
+lock-файла. Вокруг `npm ci` там же добавлен повтор из трёх попыток —
 `download-git.js:74-77` выходит с кодом 1 на первой сетевой ошибке, а первый
-прогон после смены `app/yarn.lock` обязан скачать архив, то есть сеть в нём всё
-ещё нужна. В релизных workflow повтора нет: их установка начинается с
+прогон после смены `app/package-lock.json` обязан скачать архив, то есть сеть в
+нём всё ещё нужна. В релизных workflow повтора нет: их установка начинается с
 проверочного джоба, и ретрай удлинил бы его на минуты.
 
 Сколько именно экономит, видно только по живому прогону: строки `Cache hit` и
 сохранение кеша в шаге кеша. Кеш держит архивы, а не готовые `node_modules`, —
-yarn 1 всё равно раскладывает дерево локально, поэтому выигрыш в сетевых
-качиваниях, а не в распаковке. `cache: yarn` у `actions/setup-node` в `ci.yml` и
+npm всё равно раскладывает дерево локально, поэтому выигрыш в сетевых
+качиваниях, а не в распаковке. `cache: npm` у `actions/setup-node` в `ci.yml` и
 `.github/actions/setup-ci-environment/action.yml` при этом оставлен как есть:
-он покрывает yarn-пакеты, а dugite-архив — отдельный слот, и плодить конфликты
+он покрывает npm-пакеты, а dugite-архив — отдельный слот, и плодить конфликты
 при следующем мерже апстрима из-за этого не приходится.
 
 **Подписи нет.** `script/package.ts` включает подпись только при
@@ -424,12 +423,12 @@ Defender строже относится к неподписанным `.nupkg`.
 `docs/contributing/setup-windows.md`), затем:
 
 ```powershell
-yarn install --frozen-lockfile
+npm ci
 $env:RELEASE_CHANNEL = 'production'
 $env:npm_config_arch = 'x64'
 $env:TARGET_ARCH = 'x64'
-yarn build:prod
-yarn package
+npm run build:prod
+npm run package
 ```
 
 Артефакты появятся в `dist\`: `GitHubDesktopL10n-win32-x64\` (portable),
@@ -438,7 +437,7 @@ yarn package
 ## Как проверить собранное перед раздачей
 
 ```bash
-yarn l10n:bundles   # node script/i18n-freshness.mjs --bundles
+npm run l10n:bundles   # node script/i18n-freshness.mjs --bundles
 ```
 
 Режим сравнивает `out/` со всеми раскатанными копиями бандла (`bin/resources/app`,
@@ -709,7 +708,7 @@ UI в этом случае молчит: отсутствие информац�
 
 - `notes.key` — не текст, а ключ каталога: примечания переводятся вместе с
   интерфейсом (`releaseNotes.fork.*` в `app/locales/{en,ru,uk}.json`), и
-  паритет каталогов за это отвечает (`yarn l10n:parity`).
+  паритет каталогов за это отвечает (`npm run l10n:parity`).
 - `kind` принимает те же значения, что разбор апстрима: `new`, `added`,
   `improved`, `fixed`, `removed`, `pretext`; неизвестный уходит в «Прочее».
 - `version` — апстримный номер сборки (`appPackage.version`), а не отдельная
@@ -792,13 +791,13 @@ push-прогоне CI `39912759422`. Логи дают четыре строк�
 знали `release-asset-download-progress` и `download-release-asset`, и
 `AssertExactUnion` превращает это в
 `TS2322: Type 'true' is not assignable to type 'never'`. Это ошибка типов, а
-`yarn test` её не видит: раннер транспайлит и идёт дальше. Видит
+`npm test` её не видит: раннер транспайлит и идёт дальше. Видит
 её `compile:prod` — в логе ошибки ts-loader идут в каждом из пяти конфигов
 (main, renderer, crash, cli, highlighter), и webpack выходит с кодом 1. Замер на
 том же дереве в `gdlab`: `compile:dev` — rc 0, `tsc --noEmit -p tsconfig.json` —
 те же 4 ошибки за 34 с. Практическое правило отсюда: после любой правки
 `app/src/lib/ipc-shared.ts` (и вообще после любого добавления канала IPC) в набор
-гейтов обязан входить `tsc --noEmit -p tsconfig.json` — зелёного `yarn test` для
+гейтов обязан входить `tsc --noEmit -p tsconfig.json` — зелёного `npm test` для
 прод-сборки недостаточно.
 
 Там же в логе появились пять `WARNING in ./app/package-info.ts` вида «Should not

@@ -4914,3 +4914,39 @@ GitHub.com/Enterprise в диалоге клонирования. Именно �
   6 469 строк) плюс копии `app/src/lib/clone-info.ts` и
   `app/src/lib/group-accounts-by-host.ts`; в это дерево мерж делался изолированно,
   на ветке `upstream-merge-1103` в `E:/tmp/gdb-merge-1103`.
+## Переход форка на npm (06.11.2026)
+
+Апстрим мигрировал с yarn на npm (PR #22983): в дереве больше нет
+`vendor/yarn-1.21.1.js`, `.yarnrc` и ни одного `yarn.lock`, установка идёт через
+`npm ci`, скрипты — через `npm run`. Форк держал yarn в пяти местах, и все они
+переведены этим коммитом.
+
+Что переписано:
+
+- три релизных workflow (`release-fork-{windows,linux,macos}.yml`): кеш по
+  `package-lock.json` (корень, `app/` и `vendor/*/`), `npm_config_cache` вместо
+  `YARN_CACHE_FOLDER`, `npm ci` вместо `yarn install --frozen-lockfile`,
+  `npm run build:prod|package|release-build-info`; шаг `yarn add --optional` для
+  целевых нативных пакетов заменён проверкой (`npm ci` ставит их сам по
+  `npm_config_arch`), а `NODE_OPTIONS` с DEP0169/DEP0040 убран — эти
+  предупреждения давал вендоренный yarn;
+- `gdlab/release.sh` и `gdlab/assemble-linux-bundle.sh`: `npm run build:prod`,
+  сообщения и комментарии;
+- `tools/i18n-lab/Dockerfile`: `node:24.22.1-bookworm` и явный
+  `npm install -g npm@11.17.0` под `engines` из `package.json`;
+- `AGENTS.md`, `README.md`, `docs/fork-releases.md`: команды и раздел кешей —
+  npm-форма; хроника прошлых прогонов оставлена как история;
+- `changelog-fork.json`: запись `3.6.11-beta1` с двумя заметками
+  (`upstreamSync3611`, `copilotCommit`) и ключи в семи каталогах; `la` и `eo`
+  переведены, `tlh` и `qya` получили английский текст без отметки в
+  `meta.ready` — терминов этой темы (npm, workflow, Copilot commit) в каталогах
+  нет, а формы без зондов не выдумывались.
+
+Замеры на хосте: `grep -c 'yarn\|YARN'` по трём workflow, `gdlab/*.sh` и
+`AGENTS.md` — 0; `npm run l10n:parity` и тесты требуют контейнера на npm, он
+пересобирается этим же этапом.
+
+Принятый остаток: гейты (`npm ci`, `npm run lint`, `npm test`, `test:script`,
+`tsc --noEmit`, `l10n:*`, `markdownlint`) снимаются после переноса коммитов в
+основное дерево, которое до сих пор занято живым GitHub Desktop; `tlh` и `qya`
+для двух заметок релиза не переведены.

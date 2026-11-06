@@ -29,20 +29,20 @@ Preserve its sections and generate or update the skill's
 
 ## Checks before committing
 
-Install dependencies first (`yarn`), then run these from the repository root.
+Install dependencies first (`npm ci`), then run these from the repository root.
 
-- `yarn lint` - Prettier over the source globs plus ESLint with the repository's own rules from
-  `eslint-rules/`; `yarn eslint` already passes `--rulesdir ./eslint-rules`, so do not run a bare
-  `eslint` over application sources. `yarn lint:fix` applies the autofixes.
-- `yarn test` - unit tests on the Node.js built-in runner. Narrow a run with
-  `yarn test app/test/unit/<file>-test.ts`.
-- `yarn test:script` and `yarn test:eslint` - build scripts and the custom ESLint rules.
-- `yarn l10n:parity`, `yarn l10n:audit`, `yarn l10n:upstream` and `yarn l10n:bundles` - translation
-  coverage and freshness of the catalogs. Required for any change under `app/locales/` or
+- `npm run lint` - Prettier over the source globs plus ESLint with the repository's own rules from
+  `eslint-rules/`; `npm run eslint` already passes `--rulesdir ./eslint-rules`, so do not run a bare
+  `eslint` over application sources. `npm run lint:fix` applies the autofixes.
+- `npm test` - unit tests on the Node.js built-in runner. Narrow a run with
+  `npm test -- app/test/unit/<file>-test.ts`.
+- `npm run test:script` and `npm run test:eslint` - build scripts and the custom ESLint rules.
+- `npm run l10n:parity`, `npm run l10n:audit`, `npm run l10n:upstream` and `npm run l10n:bundles` -
+  translation coverage and freshness of the catalogs. Required for any change under `app/locales/` or
   `app/src/lib/l10n/`.
-- `yarn check:eslint` - type-checks `eslint-rules/`. Application sources are type-checked by
-  `yarn compile:dev`.
-- `yarn markdownlint` - documentation.
+- `npm run check:eslint` - type-checks `eslint-rules/`. Application sources are type-checked by
+  `npm run compile:dev`.
+- `npm run markdownlint` - documentation.
 
 ## Where to read more
 

@@ -2,7 +2,7 @@
 # Сборка linux/x64 portable без @electron/packager.
 #
 # Повод: packager в локальном контейнере неработоспособен — вложенный
-# @electron/asar объявляет glob@^13, а yarn --frozen-lockfile эту копию не
+# @electron/asar объявляет glob@^13, а npm ci эту копию не
 # материализует. Здесь повторяется ровно то, что делает packager для linux:
 # runtime Electron из node_modules/electron/dist + resources/app из out/.
 #
@@ -16,7 +16,7 @@ NAME="desktop"
 DEST="$ROOT/dist/$NAME-linux-x64"
 
 [ -f "$RUNTIME/electron" ] || { echo "нет electron-runtimes в $RUNTIME"; exit 1; }
-[ -f "$ROOT/out/main.js" ] || { echo "нет собранного out/ в $ROOT — сначала yarn build:prod"; exit 1; }
+[ -f "$ROOT/out/main.js" ] || { echo "нет собранного out/ в $ROOT — сначала npm run build:prod"; exit 1; }
 
 rm -rf "$DEST"
 mkdir -p "$DEST/resources"

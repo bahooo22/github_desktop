@@ -73,22 +73,23 @@ jobs:
         shell: bash
         run: |
           mkdir -p "$RUNNER_TEMP/caches"
-          echo "YARN_CACHE_FOLDER=$RUNNER_TEMP/caches/yarn" >> "$GITHUB_ENV"
+          echo "npm_config_cache=$RUNNER_TEMP/caches/npm" >> "$GITHUB_ENV"
           echo "electron_config_cache=$RUNNER_TEMP/caches/electron" >> "$GITHUB_ENV"
           mkdir -p "$RUNNER_TEMP/dugite"
           echo "DUGITE_CACHE_DIR=$RUNNER_TEMP/dugite" >> "$GITHUB_ENV"
 
       # Кеш по тем же причинам, что в windows-прогоне
-      # (.github/workflows/release-fork-windows.yml): `cache: yarn` у setup-node
-      # смотрит только на корневой yarn.lock, а тяжелое лежит в app/yarn.lock.
-      # Суффикса архитектуры здесь нет: у linux один фид и одна архитектура.
+      # (.github/workflows/release-fork-windows.yml): штатный `cache: npm` у
+      # setup-node смотрит только на корневой package-lock.json, а тяжёлое
+      # лежит в app/package-lock.json. Суффикса архитектуры здесь нет: у linux
+      # один фид и одна архитектура.
       - name: Restore download caches
         uses: actions/cache@v6
         with:
           path: ${{ runner.temp }}/caches
           key:
-            ${{ runner.os }}-deps-${{ hashFiles('yarn.lock', 'app/yarn.lock',
-            'vendor/**/yarn.lock') }}
+            ${{ runner.os }}-deps-${{ hashFiles('package-lock.json',
+            'app/package-lock.json', 'vendor/*/package-lock.json') }}
           restore-keys: ${{ runner.os }}-deps-
 
       # Архив встроенного Git — отдельным слотом и без restore-keys: при
@@ -96,36 +97,27 @@ jobs:
       # app/node_modules/dugite/script/download-git.js:123-127 удаляет архив и
       # тут же зовёт unpackFile на уже удалённый путь, установка падает вместо
       # перескачки. Префиксный фолбэк выше (caches) подсовывал бы архив другой
-      # версии Git. Ключ — по app/yarn.lock, там зафиксирована версия dugite;
-      # hashFiles по embedded-git.json до install невозможен. Подробности — в
-      # .github/workflows/release-fork-windows.yml и .github/workflows/ci.yml.
+      # версии Git. Ключ — по app/package-lock.json: там зафиксирована версия
+      # dugite; hashFiles по embedded-git.json до install невозможен. Подробности
+      # — в .github/workflows/release-fork-windows.yml и .github/workflows/ci.yml.
       - name: Restore the embedded Git archive
         uses: actions/cache@v6
         with:
           path: ${{ runner.temp }}/dugite
-          key: ${{ runner.os }}-dugite-${{ hashFiles('app/yarn.lock') }}
+          key: ${{ runner.os }}-dugite-${{ hashFiles('app/package-lock.json') }}
 
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ env.NODE_VERSION }}
 
-      - run: yarn install --frozen-lockfile
-        # Гасим ровно DEP0169 и DEP0040 вендоренного yarn, чтобы ExperimentalWarning
-        # и остальные DeprecationWarning остались видны. Источник предупреждений,
-        # почему запись через запятую не работает и где снят замер — комментарий к
-        # шагу установки в .github/workflows/release-fork-windows.yml.
-        env:
-          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
+      - run: npm ci
 
       - name: Build production app
         # DESKTOP_SKIP_PACKAGE=1 — штатный флаг script/build.ts:73: на linux
         # packaging всё равно не делает ничего полезнее ручной раскладки рантайма.
         env:
           DESKTOP_SKIP_PACKAGE: '1'
-          # copyDependencies (script/build.ts:87 → :351) зовёт `yarn install` уже
-          # в out/, поэтому флаг нужен и здесь.
-          NODE_OPTIONS: '--disable-warning=DEP0169 --disable-warning=DEP0040'
-        run: yarn build:prod
+        run: npm run build:prod
 
       - name: Assemble portable bundle
         run:
@@ -168,7 +160,7 @@ jobs:
         env:
           BUILD_INFO_ARCH: x64
         run: |
-          yarn release-build-info
+          npm run release-build-info
           test -s dist/build-info.json
           grep -q 'fork-build-info' dist/release-notes.md
 

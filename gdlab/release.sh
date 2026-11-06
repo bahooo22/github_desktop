@@ -4,7 +4,7 @@
 # Использование: gdlab/release.sh [linux-portable|win-portable]
 #
 #   linux-portable (по умолчанию) — собирается здесь, в контейнере:
-#     yarn build:prod (DESKTOP_SKIP_PACKAGE=1) → gdlab/assemble-linux-bundle.sh
+#     npm run build:prod (DESKTOP_SKIP_PACKAGE=1) → gdlab/assemble-linux-bundle.sh
 #     → Release/desktop-linux-x64-portable.tar.gz, затем script/package-linux.sh
 #     → Release/github-desktop-l10n.deb и, если задан APPIMAGETOOL,
 #     Release/GitHubDesktopL10n-x86_64.AppImage (+ .zsync).
@@ -39,16 +39,10 @@ if [ "$TARGET" = win-portable ]; then
 fi
 
 [ "$TARGET" = linux-portable ] || { log "неизвестная цель: $TARGET"; exit 1; }
-[ -d "$ROOT/node_modules" ] || { log "нет node_modules — запусти yarn install"; exit 1; }
+[ -d "$ROOT/node_modules" ] || { log "нет node_modules — запусти npm ci"; exit 1; }
 
-log "yarn build:prod…"
-# DeprecationWarning DEP0169/DEP0040 печатает вендоренный yarn (.yarnrc →
-# vendor/yarn-1.21.1.js), а не наш код: build:prod вызывает copyDependencies,
-# та — `yarn install` в out/. Коды гасятся повтором флага; запись через запятую
-# node принимает, но игнорирует. Обоснование — комментарий к шагу установки в
-# .github/workflows/release-fork-windows.yml.
-export NODE_OPTIONS="--disable-warning=DEP0169 --disable-warning=DEP0040"
-(cd "$ROOT" && RELEASE_CHANNEL=production DESKTOP_SKIP_PACKAGE=1 yarn build:prod)
+log "npm run build:prod…"
+(cd "$ROOT" && RELEASE_CHANNEL=production DESKTOP_SKIP_PACKAGE=1 npm run build:prod)
 
 log "сборка portable-бандла…"
 bash "$ROOT/gdlab/assemble-linux-bundle.sh" "$ROOT"
