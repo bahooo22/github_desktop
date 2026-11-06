@@ -4977,3 +4977,10 @@ test:script` (46/46), `npm run test:eslint` (6/6), `npm run check:eslint`,
 неподтверждённая форма `Delmeychaj` уже встречается в каталоге четыре раза;
 `l10n_check_quenya.py` — только устоявшиеся неологизмы каталога
 (`minatacë`, `ahyanië`, `cilienë` и производные).
+
+Точные итоги прогонов: `npm test` — 3875 тестов, 3862 pass, 11 fail,
+2 skipped (в теле коммита `5818dc51d4` указано «13 fail» — это сложение
+fail и skipped, арифметическая ошибка). Общий `markdownlint` красный шире,
+чем `Python/`, `tmp/` и `app/node_modules`: в него входят апстримные
+`docs/` (130 замечаний), `bin/` и `out/`; файлов форка
+(`docs/fork-releases.md`, этот дневник) среди них нет.
