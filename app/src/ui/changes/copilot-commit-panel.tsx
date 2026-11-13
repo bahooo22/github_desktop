@@ -36,7 +36,6 @@ interface ICopilotCommitPanelProps {
   readonly runState?: AssistedCommitRunState
   readonly onCancel?: () => void
   readonly onRetryRecovery?: () => void
-  readonly onRetryPush?: () => void
   readonly onDismissError?: () => void
   readonly onErrorDetails?: () => void
 
@@ -219,56 +218,12 @@ export class CopilotCommitPanel extends React.Component<
   private renderCaption() {
     const { isWorking, filesSelectedCount, allowEmptyCommit } = this.props
     const state = this.props.runState
-    if (state?.kind === 'push-error') {
-      return (
-        <div className="assisted-commit-error" role="alert">
-          <div className="title">{t('assistedCommit.pushStopped')}</div>
-          <div className="description">
-            {t('assistedCommit.commitsKeptLocally')}
-          </div>
-          {state.settling && (
-            <div className="description">
-              {t('assistedCommit.finishingRefresh')}
-            </div>
-          )}
-          <div className="assisted-commit-actions">
-            {this.props.onRetryPush !== undefined && (
-              <Button
-                onClick={this.props.onRetryPush}
-                disabled={state.settling}
-              >
-                {t('assistedCommit.retryPush')}
-              </Button>
-            )}
-            {this.props.onDismissError !== undefined && (
-              <Button
-                onClick={this.props.onDismissError}
-                disabled={state.settling}
-              >
-                Dismiss
-              </Button>
-            )}
-            {this.props.onErrorDetails !== undefined && (
-              <Button onClick={this.props.onErrorDetails}>
-                {t('assistedCommit.details')}
-              </Button>
-            )}
-          </div>
-        </div>
-      )
-    }
     if (state?.kind === 'error') {
       return (
         <div className="assisted-commit-error" role="alert">
-          <div className="title">
-            {state.pushed
-              ? t('assistedCommit.commitsPushed')
-              : t('assistedCommit.runStopped')}
-          </div>
+          <div className="title">{t('assistedCommit.runStopped')}</div>
           <div className="description">
-            {state.pushed
-              ? t('assistedCommit.pushedRefreshFailed')
-              : state.retry === 'recovery'
+            {state.retry === 'recovery'
               ? t('assistedCommit.recoveryNeedsAttention')
               : state.retry === 'refresh'
               ? t('assistedCommit.refreshBeforeContinuing')
@@ -300,7 +255,7 @@ export class CopilotCommitPanel extends React.Component<
                 onClick={this.props.onDismissError}
                 disabled={state.settling}
               >
-                Dismiss
+                {t('assistedCommit.dismiss')}
               </Button>
             )}
             {this.props.onErrorDetails !== undefined && (
@@ -319,37 +274,20 @@ export class CopilotCommitPanel extends React.Component<
           {state.kind === 'committing' && (
             <div className="description commit-title">{state.title}</div>
           )}
-          {state.kind === 'pushing' && state.phase === 'push' && (
-            <div className="description">
-              {Math.round(
-                clamp(
-                  state.progress !== null &&
-                    Number.isFinite(state.progress.value)
-                    ? state.progress.value
-                    : 0,
-                  0,
-                  1
-                ) * 100
-              )}
-              %
+          {this.props.onCancel !== undefined && (
+            <div className="assisted-commit-actions">
+              <Button
+                onClick={this.props.onCancel}
+                disabled={
+                  state.kind === 'rolling-back' ||
+                  state.kind === 'refreshing' ||
+                  state.kind === 'closing'
+                }
+              >
+                {t('common.cancel')}
+              </Button>
             </div>
           )}
-          {this.props.onCancel !== undefined &&
-            state.kind !== 'pushing' &&
-            (state.kind !== 'preparing-push' || state.canCancel) && (
-              <div className="assisted-commit-actions">
-                <Button
-                  onClick={this.props.onCancel}
-                  disabled={
-                    state.kind === 'rolling-back' ||
-                    state.kind === 'refreshing' ||
-                    state.kind === 'closing'
-                  }
-                >
-                  Cancel
-                </Button>
-              </div>
-            )}
         </>
       )
     }
@@ -434,8 +372,7 @@ export class CopilotCommitPanel extends React.Component<
         <div className="caption">{this.renderCaption()}</div>
         <AriaLiveContainer
           message={
-            this.props.runState?.kind === 'error' ||
-            this.props.runState?.kind === 'push-error'
+            this.props.runState?.kind === 'error'
               ? null
               : this.props.runState !== undefined &&
                 this.props.runState.kind !== 'idle'
@@ -454,8 +391,6 @@ function getRunStatus(
   state: Exclude<AssistedCommitRunState, { readonly kind: 'idle' }>
 ): string {
   if (
-    state.kind !== 'push-error' &&
-    state.kind !== 'pushing' &&
     state.kind !== 'error' &&
     state.kind !== 'rolling-back' &&
     state.kind !== 'refreshing' &&
@@ -491,16 +426,6 @@ function getRunStatus(
       return t('assistedCommit.status.closing')
     case 'finishing':
       return t('assistedCommit.status.finishing')
-    case 'preparing-push':
-      return t('assistedCommit.status.preparingPush')
-    case 'pushing':
-      return state.phase === 'push'
-        ? t('assistedCommit.status.pushing')
-        : t('assistedCommit.status.refreshingPush')
-    case 'push-error':
-      return t('assistedCommit.pushStoppedWithError', {
-        message: state.error.message,
-      })
     case 'error':
       return t('assistedCommit.runStoppedWithError', {
         message: state.error.message,

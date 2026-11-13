@@ -130,7 +130,7 @@ jobs:
       # списке, не вычёркивает комбинацию — она её добавляет.
       matrix:
         ${{ fromJSON(github.repository == 'desktop/desktop' &&
-        '{"os":["macos-14-xlarge","windows-2022"],"arch":["x64","arm64"],"include":[{"os":"macos-14-xlarge","friendlyName":"macOS"},{"os":"windows-2022","friendlyName":"Windows"}]}'
+        '{"os":["macos-15-xlarge","windows-2022"],"arch":["x64","arm64"],"include":[{"os":"macos-15-xlarge","friendlyName":"macOS"},{"os":"windows-2022","friendlyName":"Windows"}]}'
         ||
         '{"os":["windows-2022"],"arch":["x64","arm64"],"include":[{"os":"windows-2022","friendlyName":"Windows"}]}')
         }}
@@ -252,11 +252,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         ${{ fromJSON(github.repository == 'desktop/desktop' &&
         '{"include":[{"os":"macos-14-xlarge","friendlyName":"macOS","arch":"arm64"},{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}'
         ||
         '{"include":[{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}')
         }}
+=======
+        include:
+          - os: macos-15-xlarge
+            friendlyName: macOS
+            arch: arm64
+          - os: windows-2022
+            friendlyName: Windows
+            arch: x64
+>>>>>>> upstream/development
     timeout-minutes: 60
     environment: ${{ inputs.environment }}
     env:
