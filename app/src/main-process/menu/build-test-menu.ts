@@ -1,3 +1,6 @@
+// l10n-ignore-file: меню появляется только при enableTestMenuItems(), а в
+// релизных каналах buildTestMenu() возвращает пустой список — ни одна из этих
+// подписей до пользователя не доходит.
 import { MenuItemConstructorOptions } from 'electron'
 import { enableTestMenuItems } from '../../lib/feature-flag'
 import { emit, separator } from './build-default-menu'

@@ -1,3 +1,6 @@
+// l10n-ignore-file: эти строки — фикстуры, которые тестовое меню подставляет в
+// диалоги и баннеры, чтобы проверить их внешний вид; как содержимое они не
+// читаются и переводу не подлежат.
 import { TestMenuEvent } from '../../../main-process/menu'
 import {
   isRepositoryWithGitHubRepository,

@@ -668,6 +668,9 @@ export function runAudit() {
 
   for (const path of sourceFiles(sourcesDir)) {
     const code = readFileSync(path, 'utf8')
+    if (ignoresWholeFile(code)) {
+      continue
+    }
     for (const { line, text, kind } of extractVisibleLiteralsFromSource(
       code,
       path
@@ -1023,13 +1026,36 @@ export function isDiagnosticCallee(callee) {
 export const L10N_IGNORE_ANNOTATION = 'l10n-ignore'
 
 /**
+ * A file can step out of the audit as a whole, too. The developer menu and the
+ * test UI components hold dozens of labels no user ever sees, and writing the
+ * annotation above every one of them would bury the annotation that says
+ * "this payload is read by a machine". One line at the top of such a file
+ * states it once.
+ */
+export const L10N_IGNORE_FILE = `${L10N_IGNORE_ANNOTATION}-file`
+
+/** Only the head of a file may declare this: deeper down the line there is no
+ * telling a directive apart from an annotation of one literal. */
+const FILE_DIRECTIVE_LINES = 10
+
+export function ignoresWholeFile(code) {
+  return code
+    .split('\n', FILE_DIRECTIVE_LINES)
+    .some(line => line.includes(L10N_IGNORE_FILE))
+}
+
+/**
  * Does the literal carry the ignore annotation, on its own line or in the six
  * lines above it? An annotation is written above the whole statement, and a
- * template can sit several lines below the `const` that starts it.
+ * template can sit several lines below the `const` that starts it. The
+ * negative lookahead keeps the file directive from acting as an annotation:
+ * `l10n-ignore-file` says nothing about the literal it stands near.
  */
+const IGNORE_ANNOTATION_PATTERN = new RegExp(`${L10N_IGNORE_ANNOTATION}(?!-)`)
+
 export function hasIgnoreAnnotation(lines, lineNumber) {
   for (let i = Math.max(0, lineNumber - 7); i < lineNumber; i++) {
-    if (lines[i] !== undefined && lines[i].includes(L10N_IGNORE_ANNOTATION)) {
+    if (lines[i] !== undefined && IGNORE_ANNOTATION_PATTERN.test(lines[i])) {
       return true
     }
   }

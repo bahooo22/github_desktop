@@ -79,6 +79,10 @@ export function isDiagnosticCallee(callee: string): boolean
 export function isPathBuildingCallee(callee: string): boolean
 /** Annotation that excuses a machine-read string from the audit. */
 export const L10N_IGNORE_ANNOTATION: 'l10n-ignore'
+/** Directive that takes a whole file out of the audit, in its head. */
+export const L10N_IGNORE_FILE: string
+/** Does the file declare the directive among its first ten lines? */
+export function ignoresWholeFile(code: string): boolean
 /** Is the literal on this 1-based line excused by the annotation? */
 export function hasIgnoreAnnotation(
   lines: ReadonlyArray<string>,

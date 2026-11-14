@@ -13,6 +13,7 @@ import {
   extractVisibleLiteralsFromSource,
   flattenCatalogLeaves,
   hasIgnoreAnnotation,
+  ignoresWholeFile,
   innermostCallee,
   isDiagnosticCallee,
   isLegalVisibleLiteral,
@@ -356,6 +357,37 @@ describe('l10n freshness', () => {
       !marked.includes('\\ No newline at end of file'),
       'the annotation must excuse the machine marker'
     )
+  })
+
+  it('excuses a whole file whose head declares the directive', () => {
+    const code = [
+      `// l10n-ignore-file: only reachable behind a development flag`,
+      `export const labels = ['Install', 'Uninstall']`,
+    ].join('\n')
+    assert.equal(ignoresWholeFile(code), true)
+    assert.equal(
+      ignoresWholeFile(code.split('\n').slice(1).join('\n')),
+      false,
+      'without the directive the same file stays in the audit'
+    )
+    assert.equal(
+      ignoresWholeFile(`${'const x = 1\n'.repeat(10)}${code}`),
+      false,
+      'a directive below the head of the file is not a directive'
+    )
+    // The directive says nothing about a neighbouring literal: the line
+    // annotation must not pick it up, or one comment would excuse a whole list.
+    assert.equal(hasIgnoreAnnotation(code.split('\n'), 2), false)
+
+    for (const path of [
+      'app/src/main-process/menu/build-test-menu.ts',
+      'app/src/ui/lib/test-ui-components/test-ui-components.ts',
+    ]) {
+      assert.ok(
+        ignoresWholeFile(readFileSync(join(process.cwd(), path), 'utf8')),
+        `${path} declares itself test-only`
+      )
+    }
   })
 
   it('treats product names and technical strings as legal', () => {
