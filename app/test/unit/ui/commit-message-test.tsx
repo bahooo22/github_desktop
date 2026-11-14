@@ -39,6 +39,7 @@ import { CommitOptions } from '../../../src/lib/app-state'
 import { AssistedCommitRunState } from '../../../src/models/assisted-commit-run'
 import { ErrorWithMetadata } from '../../../src/lib/error-with-metadata'
 import { ISerializableMenuItem } from '../../../src/lib/menu-item'
+import { t } from '../../../src/lib/l10n'
 import {
   getCommitMode,
   storeCommitMode,
@@ -49,14 +50,10 @@ import {
 } from '../../helpers/app-store-test-harness'
 const PreviewFeaturesEnv = 'GITHUB_DESKTOP_PREVIEW_FEATURES'
 const previousPreviewFeatures = process.env[PreviewFeaturesEnv]
-const AddCoAuthorsLabel = __DARWIN__ ? 'Add Co-Authors' : 'Add co-authors'
-const SkipHooksLabel = __DARWIN__
-  ? 'Bypass Commit Hooks'
-  : 'Bypass Commit hooks'
-const SignOffLabel = __DARWIN__
-  ? 'Add Signed-off-by Trailer'
-  : 'Add Signed-off-by trailer'
-const AllowEmptyLabel = __DARWIN__ ? 'Allow Empty Commit' : 'Allow empty commit'
+const AddCoAuthorsLabel = t('commitMessage.add-co-authors')
+const SkipHooksLabel = t('commitMessage.bypass-hooks')
+const SignOffLabel = t('commitMessage.signed-off-by-trailer')
+const AllowEmptyLabel = t('commitMessage.allow-empty-commit')
 
 type CommitMessageProps = React.ComponentProps<typeof CommitMessage>
 type CopilotButtonProps = {

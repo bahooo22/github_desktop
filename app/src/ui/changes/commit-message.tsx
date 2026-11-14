@@ -1233,11 +1233,7 @@ export class CommitMessage extends React.Component<
 
   private get toggleCoAuthorsText(): string {
     return this.props.showCoAuthoredBy
-      ? __DARWIN__
-        ? 'Remove Co-Authors'
-        : t('commitMessage.remove-co-authors')
-      : __DARWIN__
-      ? 'Add Co-Authors'
+      ? t('commitMessage.remove-co-authors')
       : t('commitMessage.add-co-authors')
   }
 
@@ -1264,9 +1260,7 @@ export class CommitMessage extends React.Component<
     const noChangesAvailable = !commitToAmend && noFilesSelected
 
     return {
-      label: __DARWIN__
-        ? 'Generate Commit Message with Copilot'
-        : t('commitMessage.copilot-tooltip'),
+      label: t('commitMessage.copilot-tooltip'),
       action: () => {
         if (this.isBusy) {
           return
@@ -1324,12 +1318,8 @@ export class CommitMessage extends React.Component<
   }
 
   private getCommitSpellcheckEnabilityMenuItem(isEnabled: boolean): IMenuItem {
-    const enableLabel = __DARWIN__
-      ? 'Enable Commit Spellcheck'
-      : t('commitMessage.enable-spellcheck')
-    const disableLabel = __DARWIN__
-      ? 'Disable Commit Spellcheck'
-      : t('commitMessage.disable-spellcheck')
+    const enableLabel = t('commitMessage.enable-spellcheck')
+    const disableLabel = t('commitMessage.disable-spellcheck')
     return {
       label: isEnabled ? disableLabel : enableLabel,
       action: () => this.props.onCommitSpellcheckEnabledChanged(!isEnabled),
@@ -1515,9 +1505,7 @@ export class CommitMessage extends React.Component<
       type: 'checkbox',
       checked: this.props.signOffCommits,
       enabled: !this.isBusy,
-      label: __DARWIN__
-        ? 'Add Signed-off-by Trailer'
-        : t('commitMessage.signed-off-by-trailer'),
+      label: t('commitMessage.signed-off-by-trailer'),
       action: () => {
         this.updateCommitOptions({
           signOffCommits: !this.props.signOffCommits,
@@ -1890,9 +1878,7 @@ export class CommitMessage extends React.Component<
       return
     }
 
-    const header = __DARWIN__
-      ? 'Commit Message Rule Failures'
-      : t('commitMessage.rule-failures-title')
+    const header = t('commitMessage.rule-failures-title')
     return (
       <Popover
         anchor={this.summaryTextInput}

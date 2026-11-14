@@ -1170,7 +1170,10 @@
     }
   },
   "commitMessage": {
-    "add-co-authors": "Add co-authors",
+    "add-co-authors": {
+      "@darwin": "Add Co-Authors",
+      "@other": "Add co-authors"
+    },
     "allow-empty-commit": {
       "@darwin": "Allow Empty Commit",
       "@other": "Allow empty commit"
@@ -1188,15 +1191,24 @@
     "committing": "Committing",
     "committing-changes": "Committing Changes",
     "configure-options": "Configure commit options",
-    "copilot-tooltip": "Generate commit message with Copilot",
+    "copilot-tooltip": {
+      "@darwin": "Generate Commit Message with Copilot",
+      "@other": "Generate commit message with Copilot"
+    },
     "copilot-tooltip-cancel": "Cancel generating commit details",
     "copilot-tooltip-no-files": "Generate commit message with Copilot. Files must be selected to generate a commit message.",
     "create-group": "Create commit",
     "description-label": "Description",
     "description-placeholder": "Description",
     "description-sr-label": "Commit description",
-    "disable-spellcheck": "Disable commit spellcheck",
-    "enable-spellcheck": "Enable commit spellcheck",
+    "disable-spellcheck": {
+      "@darwin": "Disable Commit Spellcheck",
+      "@other": "Disable commit spellcheck"
+    },
+    "enable-spellcheck": {
+      "@darwin": "Enable Commit Spellcheck",
+      "@other": "Enable commit spellcheck"
+    },
     "error-word": "Error",
     "generate-with-copilot": "Generate commit message with Copilot",
     "generating-details": "Generating commit details…",
@@ -1208,14 +1220,23 @@
     "length-hint-title": "Great commit summaries contain fewer than 50 characters. Place extra information in the description field.",
     "new-badge": "New",
     "optimizing-repository": "Optimizing repository…",
-    "remove-co-authors": "Remove co-authors",
+    "remove-co-authors": {
+      "@darwin": "Remove Co-Authors",
+      "@other": "Remove co-authors"
+    },
     "rule-failure-aria": "{prefix}: Commit message fails repository rules{bypass}. View details.",
     "rule-failure-bypass": ", but you can bypass them",
     "rule-failures-leading": "This commit message",
-    "rule-failures-title": "Commit message rule failures",
+    "rule-failures-title": {
+      "@darwin": "Commit Message Rule Failures",
+      "@other": "Commit message rule failures"
+    },
     "select-files": "Select one or more files to commit",
     "show-progress": "Show commit progress",
-    "signed-off-by-trailer": "Add Signed-off-by trailer",
+    "signed-off-by-trailer": {
+      "@darwin": "Add Signed-off-by Trailer",
+      "@other": "Add Signed-off-by trailer"
+    },
     "summary-label": "Commit summary",
     "summary-required": "A commit summary is required to commit",
     "summary-sr-label": "Commit summary",
