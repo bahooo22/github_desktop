@@ -5,6 +5,7 @@ import { join } from 'node:path'
 // The freshness checker is a plain .mjs CLI utility (no allowJs in tsconfig);
 // script/i18n-freshness.d.mts carries its types, tsx runs the JavaScript.
 import {
+  changelogNoteKeys,
   collectCatalogStrings,
   compareCatalogParity,
   countUntranslatedLeaves,
@@ -14,7 +15,12 @@ import {
   innermostCallee,
   isDiagnosticCallee,
   isLegalVisibleLiteral,
+  isPathBuildingCallee,
   isUserFacingLiteral,
+  keysRequestedFromSource,
+  keysRequestedInSource,
+  keysRequestedInSources,
+  requestedKeysMissingFromCatalog,
 } from '../../../script/i18n-freshness.mjs'
 
 function loadCatalog(tag: string) {
@@ -180,6 +186,18 @@ describe('l10n freshness', () => {
     assert.equal(isDiagnosticCallee('showPopup'), false)
     assert.equal(isDiagnosticCallee('showErrorDialog'), false)
     assert.equal(isDiagnosticCallee(''), false)
+
+    // The main process helper takes the level as its first argument, so the
+    // callee is a bare `log` and the dotted pattern does not see it.
+    assert.equal(innermostCallee(`      log('error', `), 'log')
+    assert.equal(isDiagnosticCallee('log'), true)
+
+    // `join(home, 'Library', 'Application Support', appName)` is a directory
+    // name: asking to localize it would move the support folder.
+    assert.equal(innermostCallee(`    return join(home, 'Library', `), 'join')
+    assert.equal(isPathBuildingCallee('join'), true)
+    assert.equal(isPathBuildingCallee('path.resolve'), true)
+    assert.equal(isPathBuildingCallee('showPopup'), false)
   })
 
   it('treats product names and technical strings as legal', () => {
@@ -259,5 +277,79 @@ describe('untranslated counter', () => {
       compared: 1,
       unmatched: 1,
     })
+  })
+})
+
+// Seven catalogs can agree with each other and still be missing an entry,
+// because the source asks for it and en never had it: turning an upstream
+// literal into `t()` without adding the key puts the key itself on the button,
+// since that is what the runtime returns for an unknown request. The loose
+// git-grep list cannot be used here - it reads prose like `Not a key.` as a
+// request, which would blame the catalog for 145 strings that ask for nothing.
+describe('keys the source asks for', () => {
+  // Walking app/src with the TypeScript parser costs about three seconds, and
+  // both cases below need the same result.
+  const requested = keysRequestedInSources()
+
+  it('counts only t() and Trans k= as requests', () => {
+    const code = [
+      "t('a.b')",
+      "t('c.d', { count: 1 })",
+      'const el = <Trans k="e.f" params={{ x }} />',
+      't(`menu.${id}`)',
+      "const prose = 'Not a key.'",
+      "showError('git.pull.failed')",
+      't(name)',
+    ].join('\n')
+
+    const { exact, prefixes } = keysRequestedFromSource(code, 'probe.tsx')
+
+    assert.deepEqual([...exact.keys()], ['a.b', 'c.d', 'e.f'])
+    assert.deepEqual([...prefixes.keys()], ['menu.'])
+  })
+
+  it('has nothing to report on the shipped catalog', () => {
+    assert.deepEqual(
+      requestedKeysMissingFromCatalog(loadCatalog('en'), requested),
+      []
+    )
+  })
+
+  it('names the call site whose leaf is taken out of the catalog', () => {
+    const catalog = loadCatalog('en')
+    const leaves = flattenCatalogLeaves(catalog)
+    const victim = [...requested.exact].find(([key]) => leaves.has(key))
+    assert.ok(victim !== undefined, 'no request resolves to a real leaf')
+
+    const [key, where] = victim
+    const path = key.split('.')
+    let node: Record<string, unknown> = catalog
+    for (const segment of path.slice(0, -1)) {
+      node = node[segment] as Record<string, unknown>
+    }
+    delete node[path[path.length - 1]]
+
+    assert.deepEqual(requestedKeysMissingFromCatalog(catalog, requested), [
+      `${where}: ${key}`,
+    ])
+  })
+
+  // `--upstream` reads the other direction off the loose grep pass, and that
+  // pass cannot see a key the source only quotes through data:
+  // `fork-changelog.ts` resolves `t(note.key)` for every note of the fork.
+  it('keeps every release note of the fork requested', () => {
+    const notes = changelogNoteKeys()
+    assert.ok(notes.length > 0, 'changelog-fork.json has no notes')
+
+    const requested = keysRequestedInSource()
+    assert.ok(requested !== null, 'git grep failed')
+
+    for (const key of notes) {
+      assert.ok(requested.exact.has(key), `${key} counted as dead`)
+    }
+
+    // Without this the assertions above would also pass on a measure that
+    // treats every key as requested.
+    assert.equal(requested.exact.has('releaseNotes.fork.noSuchRelease'), false)
   })
 })

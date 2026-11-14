@@ -653,6 +653,28 @@ function git(args) {
 }
 
 /**
+ * Keys the release-notes panel asks for.
+ *
+ * `fork-changelog.ts` passes `note.key` straight into `t()`, so the key lives
+ * in `changelog-fork.json` and no source file ever quotes it - a grep over
+ * app/src would call all of them dead and `--upstream` would blame the
+ * catalogs for the fork's own release history.
+ */
+export function changelogNoteKeys() {
+  const changelog = JSON.parse(
+    readFileSync(join(projectRoot, 'changelog-fork.json'), 'utf8')
+  )
+
+  const keys = []
+  for (const release of changelog.releases) {
+    for (const note of release.notes) {
+      keys.push(note.key)
+    }
+  }
+  return keys
+}
+
+/**
  * Which catalog keys the source asks for. Once a string is localized its
  * English text leaves app/src and only the key stays, so a key nobody renders
  * can only be recognized by its key, never by its text.
@@ -661,14 +683,31 @@ function git(args) {
  * object literals and hands the value to `t()` later. So every quoted token
  * that is shaped like a key counts as a request, and a template literal
  * contributes its static prefix: `t(\`menu.${id}\`)` keeps every `menu.*` alive.
+ *
+ * The double-quoted pass exists because JSX attributes are written with double
+ * quotes by our own style: `<Trans k="about.up-to-date-rich" />`. Reading only
+ * single quotes called 229 localized keys dead, every one of them rendered
+ * through `k=`.
+ *
+ * Keys asked for through data rather than code are added below, on top of what
+ * the greps can see.
  */
-function keysRequestedInSource() {
+export function keysRequestedInSource() {
   const quoted = git([
     'grep',
     '-h',
     '-o',
     '-E',
     "'[A-Za-z][^']*'",
+    '--',
+    'app/src',
+  ])
+  const doubleQuoted = git([
+    'grep',
+    '-h',
+    '-o',
+    '-E',
+    '"[a-z][a-zA-Z0-9_-]*(\\.[a-zA-Z0-9_-]+)+"',
     '--',
     'app/src',
   ])
@@ -681,7 +720,7 @@ function keysRequestedInSource() {
     '--',
     'app/src',
   ])
-  if (quoted.status > 1 || templates.status > 1) {
+  if (quoted.status > 1 || doubleQuoted.status > 1 || templates.status > 1) {
     console.error('git grep failed')
     return null
   }
@@ -689,17 +728,18 @@ function keysRequestedInSource() {
   const exact = new Set()
   const prefixes = new Set()
 
-  for (const line of quoted.stdout ? quoted.stdout.split('\n') : []) {
-    const token = line.slice(1, -1)
-    // `settings.notifications` yes, `Not a key.` no: prose has spaces, and a
-    // key always has a section in front of the dot.
-    if (!token.includes('.') || /\s/.test(token)) {
-      continue
-    }
-    if (token.endsWith('.')) {
-      prefixes.add(token)
-    } else {
-      exact.add(token)
+  for (const line of [quoted.stdout ?? '', doubleQuoted.stdout ?? '']) {
+    for (const token of line.split('\n').map(part => part.slice(1, -1))) {
+      // `settings.notifications` yes, `Not a key.` no: prose has spaces, and a
+      // key always has a section in front of the dot.
+      if (!token.includes('.') || /\s/.test(token)) {
+        continue
+      }
+      if (token.endsWith('.')) {
+        prefixes.add(token)
+      } else {
+        exact.add(token)
+      }
     }
   }
 
@@ -708,6 +748,10 @@ function keysRequestedInSource() {
     if (token.includes('.')) {
       prefixes.add(token)
     }
+  }
+
+  for (const key of changelogNoteKeys()) {
+    exact.add(key)
   }
 
   return { exact, prefixes }
@@ -723,6 +767,124 @@ function isRequested(key, requested) {
     }
   }
   return false
+}
+
+/**
+ * The keys one file asks the catalog for, read off the syntax tree instead of
+ * off every quoted token: `t('a.b')`, ``t(`a.b${x}`)`` and `<Trans k="a.b"/>`.
+ *
+ * `keysRequestedInSource` above is deliberately loose - it only has to keep a
+ * key alive, so an extra false request costs nothing. Used the same way the
+ * other direction would blame prose for a missing entry, and a real
+ * `t('assistedCommit.dismiss')` whose key was never added is not a hint: the
+ * runtime answers such a call with the key itself, so the user reads
+ * `assistedCommit.dismiss` in the button.
+ *
+ * A template literal contributes only its static prefix, because
+ * ``t(`menu.${id}`)`` keeps the whole `menu.` family alive rather than asking
+ * for one key that can be checked.
+ */
+export function keysRequestedFromSource(code, fileName) {
+  const kind = fileName.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS
+  const sourceFile = ts.createSourceFile(
+    fileName,
+    code,
+    ts.ScriptTarget.Latest,
+    true,
+    kind
+  )
+
+  const exact = new Map()
+  const prefixes = new Map()
+
+  const record = (map, text, node) => {
+    // A request has a section in front of the dot; anything else cannot name a
+    // catalog entry and is not our business.
+    if (typeof text === 'string' && text.includes('.')) {
+      const line =
+        sourceFile.getLineAndCharacterOfPosition(node.getStart(sourceFile))
+          .line + 1
+      if (!map.has(text)) {
+        map.set(text, line)
+      }
+    }
+  }
+
+  const visit = node => {
+    if (
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      node.expression.text === 't' &&
+      node.arguments.length > 0
+    ) {
+      const arg = node.arguments[0]
+      if (ts.isStringLiteral(arg) || ts.isNoSubstitutionTemplateLiteral(arg)) {
+        record(exact, arg.text, arg)
+      } else if (ts.isTemplateExpression(arg) && arg.head.text.includes('.')) {
+        record(prefixes, arg.head.text, arg)
+      }
+    } else if (
+      ts.isJsxAttribute(node) &&
+      node.name.getText(sourceFile) === 'k'
+    ) {
+      const init = node.initializer
+      if (init !== undefined && ts.isStringLiteral(init)) {
+        record(exact, init.text, init)
+      }
+    }
+    node.forEachChild(visit)
+  }
+
+  sourceFile.forEachChild(visit)
+  return { exact, prefixes }
+}
+
+/**
+ * Requests the reference catalog cannot answer: `t()` call sites and `k=`
+ * attributes whose key is not a leaf of en.json. Translations are covered by
+ * `compareCatalogParity`, which reports any leaf en has and they lack.
+ */
+export function requestedKeysMissingFromCatalog(catalog, requested) {
+  const leaves = flattenCatalogLeaves(catalog)
+  const { exact, prefixes } = requested ?? keysRequestedInSources()
+  const findings = []
+
+  for (const [key, where] of exact) {
+    if (!leaves.has(key)) {
+      findings.push(`${where}: ${key}`)
+    }
+  }
+  const keys = [...leaves.keys()]
+  for (const [prefix, where] of prefixes) {
+    if (!keys.some(key => key.startsWith(prefix))) {
+      findings.push(`${where}: ${prefix}*`)
+    }
+  }
+
+  return findings
+}
+
+/**
+ * Every request in `app/src`, mapped to the `file:line` that makes it. Read by
+ * the parity gate, and by its own test, which removes one of these very leaves
+ * from a copy of the catalog to show the finding is not vacuous.
+ */
+export function keysRequestedInSources() {
+  const exact = new Map()
+  const prefixes = new Map()
+
+  for (const path of sourceFiles(sourcesDir)) {
+    const code = readFileSync(path, 'utf8')
+    const request = keysRequestedFromSource(code, path)
+    for (const [key, line] of request.exact) {
+      exact.set(key, `${displayPath(path)}:${line}`)
+    }
+    for (const [prefix, line] of request.prefixes) {
+      prefixes.set(prefix, `${displayPath(path)}:${line}`)
+    }
+  }
+
+  return { exact, prefixes }
 }
 
 /** Pulls phrase-like literals out of raw added diff lines (line based, no AST). */
@@ -757,7 +919,22 @@ function addedLineLiterals(line) {
 }
 
 const DIAGNOSTIC_METHODS =
-  /^(?:log|logger|console|winreg)\.(?:debug|info|log|warn|error|trace|exception|critical|record)/
+  /^(?:(?:log|logger|console|winreg)\.(?:debug|info|log|warn|error|trace|exception|critical|record)|log)$/
+
+// `log('error', 'Failed to read the feed…')` is the main process helper, not
+// `log.error(…)`: the level is its first argument, so the callee is a bare
+// name and the dotted pattern alone walked past it and asked to localize a
+// log line.
+const PATH_BUILDERS = /^(?:path\.)?(?:join|resolve|normalize|dirname|basename)$/
+
+/**
+ * Is this the head of a call that builds a filesystem path? `join(home,
+ * 'Library', 'Application Support', appName)` is a macOS directory name, and
+ * translating it would move the application support folder of the fork.
+ */
+export function isPathBuildingCallee(callee) {
+  return PATH_BUILDERS.test(callee.trim())
+}
 
 /** How much added code above a literal to look at to find the call it lands in. */
 const CONTEXT_LINES = 6
@@ -907,7 +1084,8 @@ export function runUpstream(ref) {
         continue
       }
       const head = `${context.join('\n')}\n${literal.before}`
-      if (isDiagnosticCallee(innermostCallee(head))) {
+      const callee = innermostCallee(head)
+      if (isDiagnosticCallee(callee) || isPathBuildingCallee(callee)) {
         continue
       }
       missing.add(`${currentFile} ${text}`)
@@ -959,13 +1137,21 @@ function printCapped(list, cap = 50) {
 }
 
 export function runParity() {
-  const { counts, issues } = compareCatalogParity(loadCatalogs())
+  const catalogs = loadCatalogs()
+  const { counts, issues } = compareCatalogParity(catalogs)
   for (const [tag, count] of Object.entries(counts)) {
     console.log(`${tag}: ${count} leaf keys`)
   }
   printCapped(issues, 100)
   console.log(`parity issues: ${issues.length}`)
-  return issues.length > 0 ? 1 : 0
+
+  // Shape agreement between catalogs says nothing about a key the source asks
+  // for and en never had, so this is the half that catches it.
+  const gaps = requestedKeysMissingFromCatalog(catalogs[0].tree)
+  printCapped(gaps, 100)
+  console.log(`requested keys missing from en: ${gaps.length}`)
+
+  return issues.length + gaps.length > 0 ? 1 : 0
 }
 
 /**

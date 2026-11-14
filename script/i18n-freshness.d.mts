@@ -26,6 +26,30 @@ export interface ICatalogParityResult {
   readonly issues: ReadonlyArray<string>
 }
 
+/**
+ * Key requests found in one file, mapped to the line that asked. A prefix
+ * entry comes from ``t(`menu.${id}`)`` and stands for the whole family.
+ */
+export interface IKeyRequests {
+  readonly exact: Map<string, number>
+  readonly prefixes: Map<string, number>
+}
+
+/** The same requests over the whole source tree, mapped to `file:line`. */
+export interface IKeyRequestSites {
+  readonly exact: Map<string, string>
+  readonly prefixes: Map<string, string>
+}
+
+/**
+ * Requests collected off `git grep`: a bare set of tokens, because a loose
+ * reading has no line to blame.
+ */
+export interface IKeyRequestTokens {
+  readonly exact: Set<string>
+  readonly prefixes: Set<string>
+}
+
 /** How much of a catalog is still the English text of the same place. */
 export interface IUntranslatedCount {
   readonly untranslated: number
@@ -48,6 +72,8 @@ export function isUserFacingLiteral(text: string): boolean
 export function innermostCallee(text: string): string
 /** True for logger/`throw new Error` calls, whose text never reaches the UI. */
 export function isDiagnosticCallee(callee: string): boolean
+/** True for `join(...)`/`resolve(...)`, whose arguments are path segments. */
+export function isPathBuildingCallee(callee: string): boolean
 export function extractVisibleLiteralsFromSource(
   code: string,
   fileName: string
@@ -63,6 +89,20 @@ export function countUntranslatedLeaves(
 export function compareCatalogParity(
   catalogs: ReadonlyArray<ICatalogEntry | readonly [string, CatalogTree]>
 ): ICatalogParityResult
+/** Key of every release-note of the fork, from `changelog-fork.json`. */
+export function changelogNoteKeys(): ReadonlyArray<string>
+/** Requests seen by `git grep` over app/src, or null when grep failed. */
+export function keysRequestedInSource(): IKeyRequestTokens | null
+export function keysRequestedFromSource(
+  code: string,
+  fileName: string
+): IKeyRequests
+export function keysRequestedInSources(): IKeyRequestSites
+/** Requests `catalog` cannot answer, as `file:line: key` findings. */
+export function requestedKeysMissingFromCatalog(
+  catalog: CatalogTree,
+  requested?: IKeyRequestSites
+): ReadonlyArray<string>
 
 /** CLI modes; each returns the process exit code for its findings. */
 export function runAudit(): number
