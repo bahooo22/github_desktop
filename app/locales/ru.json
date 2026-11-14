@@ -1150,7 +1150,7 @@
     "optimizing-repository": "Оптимизация репозитория…",
     "remove-co-authors": "Убрать соавторов",
     "rule-failure-aria": "{prefix}: сообщение коммита нарушает правила репозитория{bypass}. Показать подробности.",
-    "rule-failure-bypass": "Обойти нарушение правила",
+    "rule-failure-bypass": ", но их можно обойти",
     "rule-failures-leading": "Это сообщение коммита",
     "rule-failures-title": "Нарушения правил сообщений коммита",
     "select-files": "Выберите один или несколько файлов для коммита",
