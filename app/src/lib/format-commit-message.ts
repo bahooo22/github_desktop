@@ -30,6 +30,8 @@ export async function formatCommitMessage(
   // all get trimmed away and replaced with a single newline (since
   // all commit messages needs to end with a newline for git
   // interpret-trailers to work)
+  // l10n-ignore: это тело сообщения коммита, которое читает git
+  // (`interpret-trailers`), а не человек в окне — переводить нечего.
   const message = `${summary}\n\n${description || ''}\n`.replace(/\s+$/, '\n')
 
   return trailers !== undefined && trailers.length > 0

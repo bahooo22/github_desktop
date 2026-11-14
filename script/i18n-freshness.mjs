@@ -263,6 +263,7 @@ function templateToText(node) {
 }
 
 function collectStringLiterals(node, out) {
+  const sourceFile = node.getSourceFile()
   const visit = current => {
     if (
       ts.isTemplateExpression(current) ||
@@ -270,12 +271,12 @@ function collectStringLiterals(node, out) {
     ) {
       const text = templateToText(current)
       if (text !== null) {
-        out.push(text)
+        out.push({ text, pos: current.getStart(sourceFile) })
       }
       return
     }
     if (ts.isStringLiteralLike(current)) {
-      out.push(current.text)
+      out.push({ text: current.text, pos: current.getStart(sourceFile) })
     }
     current.forEachChild(visit)
   }
@@ -299,22 +300,31 @@ export function extractVisibleLiteralsFromSource(code, fileName) {
   )
 
   const found = []
+  const sourceLines = code.split('\n')
   const push = (text, pos, kind) => {
     const normalized = normalizePhrase(text)
-    if (isUserFacingLiteral(normalized)) {
-      found.push({
-        line: sourceFile.getLineAndCharacterOfPosition(pos).line + 1,
-        text: normalized,
-        kind,
-      })
+    const line = sourceFile.getLineAndCharacterOfPosition(pos).line + 1
+    if (
+      !isUserFacingLiteral(normalized) ||
+      hasIgnoreAnnotation(sourceLines, line)
+    ) {
+      return
     }
+    // Текст перед литералом показывает, в какой вызов он попал: сообщение
+    // лога или `assertNever` читает разработчик, а путь внутри `join` парсит
+    // операционная система. Без этого аудит требовал ключ для обеих строк.
+    const callee = innermostCallee(code.slice(Math.max(0, pos - 400), pos))
+    if (isDiagnosticCallee(callee) || isPathBuildingCallee(callee)) {
+      return
+    }
+    found.push({ line, text: normalized, kind })
   }
 
   const collectFrom = node => {
     const literals = []
     collectStringLiterals(node, literals)
     for (const literal of literals) {
-      push(literal, node.getStart(sourceFile), 'code')
+      push(literal.text, literal.pos, 'code')
     }
   }
 
@@ -927,6 +937,15 @@ const DIAGNOSTIC_METHODS =
 // log line.
 const PATH_BUILDERS = /^(?:path\.)?(?:join|resolve|normalize|dirname|basename)$/
 
+// The helpers of `app/src/lib/fatal-error.ts` all throw their message text
+// (`assertNever` → `throw new Error(message)`), so the string ends up in a
+// stack trace for a developer and never in a window.
+const ASSERTION_HELPERS =
+  /^(?:assert(?:Never|NonNullable)|fatalError|forceUnwrap)$/
+
+/** How much added code above a literal to look at to find the call it lands in. */
+const CONTEXT_LINES = 6
+
 /**
  * Is this the head of a call that builds a filesystem path? `join(home,
  * 'Library', 'Application Support', appName)` is a macOS directory name, and
@@ -935,9 +954,6 @@ const PATH_BUILDERS = /^(?:path\.)?(?:join|resolve|normalize|dirname|basename)$/
 export function isPathBuildingCallee(callee) {
   return PATH_BUILDERS.test(callee.trim())
 }
-
-/** How much added code above a literal to look at to find the call it lands in. */
-const CONTEXT_LINES = 6
 
 /**
  * Is this the head of a call that writes to the log or raises, rather than
@@ -952,7 +968,34 @@ export function isDiagnosticCallee(callee) {
   if (DIAGNOSTIC_METHODS.test(name.replace(/\s+/g, ''))) {
     return true
   }
+  if (ASSERTION_HELPERS.test(name)) {
+    return true
+  }
   return /^(?:throw\s+)?new\s+[\w$.]*(?:Error|Exception)$/.test(name)
+}
+
+/**
+ * Some strings are read by a machine and not by a person: the commit message
+ * template that `git interpret-trailers` parses, the `\ No newline at end of
+ * file` marker `git apply` expects, a timing written only into a debug line.
+ * Nothing about their shape says so, so the code says it out loud with an
+ * `l10n-ignore` annotation on the literal or just above it, and the audit
+ * honors that instead of asking to translate a payload.
+ */
+export const L10N_IGNORE_ANNOTATION = 'l10n-ignore'
+
+/**
+ * Does the literal carry the ignore annotation, on its own line or in the six
+ * lines above it? An annotation is written above the whole statement, and a
+ * template can sit several lines below the `const` that starts it.
+ */
+export function hasIgnoreAnnotation(lines, lineNumber) {
+  for (let i = Math.max(0, lineNumber - 7); i < lineNumber; i++) {
+    if (lines[i] !== undefined && lines[i].includes(L10N_IGNORE_ANNOTATION)) {
+      return true
+    }
+  }
+  return false
 }
 
 /** Quote aware scan that returns the innermost open bracket's callee. */

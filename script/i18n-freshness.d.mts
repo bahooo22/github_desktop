@@ -70,10 +70,20 @@ export function isLegalVisibleLiteral(text: string): boolean
 export function isUserFacingLiteral(text: string): boolean
 /** Callee of the innermost still-open bracket in a piece of source text. */
 export function innermostCallee(text: string): string
-/** True for logger/`throw new Error` calls, whose text never reaches the UI. */
+/**
+ * True for logger, `throw new Error` and the assertion helpers of
+ * `fatal-error.ts`, whose text never reaches the UI.
+ */
 export function isDiagnosticCallee(callee: string): boolean
 /** True for `join(...)`/`resolve(...)`, whose arguments are path segments. */
 export function isPathBuildingCallee(callee: string): boolean
+/** Annotation that excuses a machine-read string from the audit. */
+export const L10N_IGNORE_ANNOTATION: 'l10n-ignore'
+/** Is the literal on this 1-based line excused by the annotation? */
+export function hasIgnoreAnnotation(
+  lines: ReadonlyArray<string>,
+  lineNumber: number
+): boolean
 export function extractVisibleLiteralsFromSource(
   code: string,
   fileName: string

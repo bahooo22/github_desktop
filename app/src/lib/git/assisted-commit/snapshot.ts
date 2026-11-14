@@ -1024,6 +1024,8 @@ export async function captureAssistedCommitSnapshot(
                   )
                   .map(lineBytes)
               )
+              // l10n-ignore: `\ No newline at end of file` печатает и ждёт
+              // сам git при `git apply`, то есть это часть формата диффа.
               const hunkText = hunk.lines
                 .map(
                   line =>

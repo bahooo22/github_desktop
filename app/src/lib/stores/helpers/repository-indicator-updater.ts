@@ -48,6 +48,7 @@ export class RepositoryIndicatorUpdater {
           : Date.now() - this.lastRefreshStartedAt
 
       const timeout = Math.max(RefreshInterval - timeSinceLastRefresh, 0) + skew
+      // l10n-ignore: текст уходит только в log.debug ниже, в окне его нет.
       const lastRefreshText = isFinite(timeSinceLastRefresh)
         ? `${(timeSinceLastRefresh / 1000).toFixed(3)}s ago`
         : 'never'

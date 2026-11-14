@@ -12,6 +12,7 @@ import {
   extractPlaceholders,
   extractVisibleLiteralsFromSource,
   flattenCatalogLeaves,
+  hasIgnoreAnnotation,
   innermostCallee,
   isDiagnosticCallee,
   isLegalVisibleLiteral,
@@ -198,6 +199,79 @@ describe('l10n freshness', () => {
     assert.equal(isPathBuildingCallee('join'), true)
     assert.equal(isPathBuildingCallee('path.resolve'), true)
     assert.equal(isPathBuildingCallee('showPopup'), false)
+  })
+
+  it('excuses machine-read text from the audit', () => {
+    // The helpers of fatal-error.ts throw their message, so the text ends up
+    // in a stack trace; the assertion is what keeps it out of the audit.
+    assert.equal(isDiagnosticCallee('assertNever'), true)
+    assert.equal(isDiagnosticCallee('assertNonNullable'), true)
+    assert.equal(isDiagnosticCallee('fatalError'), true)
+    assert.equal(isDiagnosticCallee('forceUnwrap'), true)
+
+    const textsOf = (callee: string) =>
+      extractVisibleLiteralsFromSource(
+        [
+          `export function render(props: any) {`,
+          `  const text = props.done`,
+          `    ? 'Committing changes'`,
+          `    : ${callee}(props.status, 'Unknown hook status: ' + props.status)`,
+          `  return <div title={'Push ' + props.remote}>{text}</div>`,
+          `}`,
+        ].join('\n'),
+        'x.tsx'
+      ).map((literal: { text: string }) => literal.text)
+
+    // normalizePhrase drops the trailing space, so compare with the text the
+    // measure really produces: an expectation carrying the raw literal would
+    // pass even if nothing was excluded.
+    const sorted = (texts: ReadonlyArray<string>) => [...texts].sort()
+    assert.deepEqual(sorted(textsOf('showPopup')), [
+      'Committing changes',
+      'Push',
+      'Unknown hook status:',
+    ])
+    assert.deepEqual(sorted(textsOf('assertNever')), [
+      'Committing changes',
+      'Push',
+    ])
+    assert.deepEqual(sorted(textsOf('fatalError')), [
+      'Committing changes',
+      'Push',
+    ])
+
+    // An `l10n-ignore` annotation is written above the statement, while the
+    // template it excuses can sit several lines lower; the window is six.
+    const lines = [
+      `// l10n-ignore: git parses this payload`,
+      `const hunkText = hunk.lines`,
+      `  .map(`,
+      `    line =>`,
+      `      line.noTrailingNewLine`,
+      `        ? '\\\\ No newline at end of file'`,
+      `        : ''`,
+      `  )`,
+    ]
+    assert.equal(hasIgnoreAnnotation(lines, 6), true)
+    assert.equal(hasIgnoreAnnotation(lines, 7), true)
+    assert.equal(hasIgnoreAnnotation(lines, 12), false)
+
+    const annotated = lines.join('\n')
+    const plain = lines.slice(1).join('\n')
+    const marked = extractVisibleLiteralsFromSource(annotated, 'x.tsx').map(
+      (literal: { text: string }) => literal.text
+    )
+    const unmarked = extractVisibleLiteralsFromSource(plain, 'x.tsx').map(
+      (literal: { text: string }) => literal.text
+    )
+    assert.ok(
+      unmarked.includes('\\ No newline at end of file'),
+      'without the annotation the marker stays a finding'
+    )
+    assert.ok(
+      !marked.includes('\\ No newline at end of file'),
+      'the annotation must excuse the machine marker'
+    )
   })
 
   it('treats product names and technical strings as legal', () => {
