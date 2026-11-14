@@ -99,13 +99,12 @@ const commitModeOptions: ReadonlyArray<
   {
     id: 'manual',
     label: t('commitMessage.commit'),
-    description: 'Write the commit summary and description yourself.',
+    description: t('commitMessage.manual-description'),
   },
   {
     id: 'copilot',
-    label: 'Commit with Copilot',
-    description:
-      'Copilot splits the selected changes into commits and writes their messages.',
+    label: t('commitMessage.copilot-mode'),
+    description: t('commitMessage.copilot-mode-description'),
   },
 ]
 
@@ -1420,7 +1419,9 @@ export class CommitMessage extends React.Component<
         >
           <AriaLiveContainer
             message={
-              isGeneratingCommitMessage ? 'Generating commit details…' : ''
+              isGeneratingCommitMessage
+                ? t('commitMessage.generating-details')
+                : ''
             }
           />
           <Octicon
@@ -1491,7 +1492,7 @@ export class CommitMessage extends React.Component<
           this.props.canPushAfterCommit !== false &&
           this.props.commitToAmend === null &&
           !this.props.repository.isTutorialRepository,
-        label: 'Push after committing',
+        label: t('commitMessage.push-after-committing'),
         action: this.onPushAfterCommitChanged,
       })
     }
@@ -2060,7 +2061,7 @@ export class CommitMessage extends React.Component<
       <>
         {loading}
         {isGeneratingCommitMessage
-          ? 'Generating commit details…'
+          ? t('commitMessage.generating-details')
           : this.getButtonText()}
       </>
     )
@@ -2084,7 +2085,7 @@ export class CommitMessage extends React.Component<
         ? undefined
         : t('commitMessage.select-files')
       : isGeneratingCommitMessage
-      ? 'Generating commit details…'
+      ? t('commitMessage.generating-details')
       : this.getButtonTooltip(buttonEnabled)
 
     const ariaDescribedBy =
@@ -2136,7 +2137,7 @@ export class CommitMessage extends React.Component<
     const { isGeneratingCommitMessage } = this.props
     const buttonEnabled = this.isManualCommitButtonEnabled()
     const tooltip = isGeneratingCommitMessage
-      ? 'Generating commit details…'
+      ? t('commitMessage.generating-details')
       : this.getButtonTooltip(buttonEnabled)
 
     return (

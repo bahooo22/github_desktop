@@ -3,15 +3,10 @@
     "name": "Quenya",
     "nativeName": "Quenya",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ],
+    "pluralCategories": ["one", "other"],
     "gloss": "ru",
     "translit": "qya",
-    "authors": [
-      "BaHooo"
-    ],
+    "authors": ["BaHooo"],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -106,21 +101,16 @@
       "appStore.pushingTo",
       "appStore.refreshingRepository",
       "assistedCommit.animateCopilot",
-      "assistedCommit.commitsKeptLocally",
-      "assistedCommit.commitsPushed",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
       "assistedCommit.details",
+      "assistedCommit.dismiss",
       "assistedCommit.emptyCommitDescription",
       "assistedCommit.finishingRefresh",
       "assistedCommit.letCopilotWrite",
       "assistedCommit.openDetails",
-      "assistedCommit.pushStopped",
-      "assistedCommit.pushStoppedWithError",
-      "assistedCommit.pushedRefreshFailed",
       "assistedCommit.recoveryNeedsAttention",
       "assistedCommit.refreshBeforeContinuing",
-      "assistedCommit.retryPush",
       "assistedCommit.retryRefresh",
       "assistedCommit.retryRollback",
       "assistedCommit.runStopped",
@@ -138,10 +128,7 @@
       "assistedCommit.status.creatingCommit",
       "assistedCommit.status.finishing",
       "assistedCommit.status.preparing",
-      "assistedCommit.status.preparingPush",
-      "assistedCommit.status.pushing",
       "assistedCommit.status.refreshing",
-      "assistedCommit.status.refreshingPush",
       "assistedCommit.status.rollingBack",
       "assistedCommit.status.summarizing",
       "assistedCommit.status.validating",
@@ -458,6 +445,8 @@
       "commitMessage.committing",
       "commitMessage.committing-changes",
       "commitMessage.configure-options",
+      "commitMessage.copilot-mode",
+      "commitMessage.copilot-mode-description",
       "commitMessage.copilot-tooltip",
       "commitMessage.copilot-tooltip-cancel",
       "commitMessage.copilot-tooltip-no-files",
@@ -476,10 +465,12 @@
       "commitMessage.length-hint-aria",
       "commitMessage.length-hint-description",
       "commitMessage.length-hint-title",
+      "commitMessage.manual-description",
       "commitMessage.new-badge",
       "commitMessage.no-write-access",
       "commitMessage.optimizing-repository",
       "commitMessage.protected-branch",
+      "commitMessage.push-after-committing",
       "commitMessage.remove-co-authors",
       "commitMessage.rule-failure-aria",
       "commitMessage.rule-failure-bypass",
@@ -539,6 +530,7 @@
       "contextMenu.openIn",
       "contextMenu.openInExternalEditor",
       "contextMenu.openInShell",
+      "contextMenu.openWithDefaultProgram",
       "contextMenu.revealInFileManager",
       "contextMenu.trashName",
       "copilotApp.notFoundMessage",
@@ -1253,6 +1245,7 @@
       "releaseNotes.fork.upstreamSync3610",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.upstreamSync3611",
+      "releaseNotes.fork.upstreamSync3612",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.upstreamSyncBeta3",
@@ -1291,6 +1284,12 @@
       "repositoriesList.showWorktrees",
       "repositoriesList.uncommittedChanges",
       "repository.sidebar",
+      "repositoryAccount.assignedTo",
+      "repositoryAccount.chooseAccount",
+      "repositoryAccount.chooseAnotherAccount",
+      "repositoryAccount.signIn",
+      "repositoryAccount.title",
+      "repositoryAccount.useAccount",
       "repositoryAlias.alias",
       "repositoryAlias.description",
       "repositoryAlias.no-effect-note",
@@ -3024,7 +3023,11 @@
     },
     "commit-button-plain": "{verb} <strong>{branch}</strong>nna",
     "no-write-access": "Lá tencil <strong>{name}</strong>nna. <link>Carë nelecco</link>?",
-    "protected-branch": "<strong>{branch}</strong> ná tirna. <link>Vistë i olba</link>?"
+    "protected-branch": "<strong>{branch}</strong> ná tirna. <link>Vistë i olba</link>?",
+    "manual-description": "Téca i minatacëo menta ar i ostecë mánen.",
+    "copilot-mode": "Minatacë Copilotnen",
+    "copilot-mode-description": "Copilot hyarya i cilienë ahyanië minatecinna ar téca i mentar.",
+    "push-after-committing": "Nirë minatacëllo"
   },
   "createBranch": {
     "based-on-commit": "i olba vinyalya caruva sundo i hauramo llo: i minatacë '{summary}' ({sha}).",
@@ -4248,7 +4251,8 @@
       "upstreamSync3610": "I fanwa lambë vinya carienë pá i upstream 3.6.10 cotya; i GitHub Desktop ertava leryalëar harya neH. tenne i nelecco úca i officialo leryali.",
       "aboutDownloadButtons": "i siton: á-tulya i vinya cara, á-tulya i official GitHub Desktop. i parma Downloads haurassë harya neH.",
       "upstreamSync3611": "I fanwa lambë vinya carienë pá i upstream 3.6.11-beta1 cotya. Sí i projet carina npmnen, lá yarnnen, ar i fork leryalë carier hilyuvar.",
-      "copilotCommit": "Minatacë Copilotnen: polë hyarya i cilienë ahyanië minatecinna ar téca i mentar."
+      "copilotCommit": "Minatacë Copilotnen: polë hyarya i cilienë ahyanië minatecinna ar téca i mentar.",
+      "upstreamSync3612": "I fanwa lambë vinya carienë pá i upstream 3.6.11 ar 3.6.12-beta1 cotya. Sí haura essë cilienë, ar i minatacë nirien."
     }
   },
   "repositoriesList": {
@@ -4781,6 +4785,10 @@
       "@win32": "Tana i Explorerissë",
       "@other": "Tana i cómi mahtandossë"
     },
+    "openWithDefaultProgram": {
+      "@darwin": "Apanta i sitina carmassë",
+      "@other": "Apanta i sitina carmassë"
+    },
     "trashName": {
       "@win32": "auhanta",
       "@other": "auhanta"
@@ -4814,14 +4822,10 @@
     "done": "i ampa {hookName} hritya {duration} lúmessen"
   },
   "assistedCommit": {
-    "pushStopped": "Nirë nuhtaina",
-    "commitsKeptLocally": "Ilyar i minatacë i cariëo sina rehtanë nómessë.",
     "finishingRefresh": "Hrityala i haurao envinyatië…",
-    "retryPush": "Enquet i nirienë",
+    "dismiss": "Haitë",
     "details": "Hraitasta",
-    "commitsPushed": "Minatacë nirnë",
     "runStopped": "Nuhtanë i carië minatacëo",
-    "pushedRefreshFailed": "Nirnë i minatacelya, mal lá polë Desktop hritya i envinyatië.",
     "recoveryNeedsAttention": "Nanquerë mahta sí itan lelyuva.",
     "refreshBeforeContinuing": "Envinyata i haura itan lelyuva.",
     "openDetails": "Apa i hraitasta itan enyalë má.",
@@ -4840,7 +4844,6 @@
     "letCopilotWrite": "Lavyë Copilot téca i minatacelya.",
     "animateCopilot": "Á levë Copilot",
     "splittingAria": "Copilot hyarë i ahyanielya minatecinna",
-    "pushStoppedWithError": "Nirë nuhtaina; nómëa minatacë rehtanë: {message}",
     "runStoppedWithError": "Nuhtanë i carië minatacëo: {message}",
     "unknownState": "Lá ista i cariëo minatacëo tarmë",
     "status": {
@@ -4855,10 +4858,15 @@
       "rollingBack": "Nancarala i minatacë i cariëo sina…",
       "refreshing": "Envinyatala i cilienë ahyanië…",
       "closing": "Hrityala i nómëa minatacë…",
-      "finishing": "Envinyatala i nómëa minatacë…",
-      "preparingPush": "Tulcala i nirienë minatacëo…",
-      "pushing": "Nirë i minatacë…",
-      "refreshingPush": "Envinyatala i nirnë minatacë…"
+      "finishing": "Envinyatala i nómëa minatacë…"
     }
+  },
+  "repositoryAccount": {
+    "title": "Haurao essë",
+    "assignedTo": "{endpoint}issë i {name} haura ná i @{login} essëva. Tulë itan cacarë yuhta sina essë.",
+    "chooseAnotherAccount": "á-cilë hyaitë essë",
+    "chooseAccount": "Cilë i essë itan yuhta i GitHub APIo iquiriessen ar i HTTPS tyuliëssë {name} hauro {endpoint}issë. Sina lá vista i Git parmahtor esselya ar i tencalya.",
+    "signIn": "Tulë",
+    "useAccount": "á-yuhta i essë"
   }
 }

@@ -6036,7 +6036,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
     options?: PushOptions
   ): Promise<void> {
     const gitStore = this.gitStoreCache.get(repository)
-    const pushTitle = `Pushing to ${remote.name}`
+    const pushTitle = t('appStore.pushingTo', { remote: remote.name })
     const pushWeight = (2.5 / 3.5) * 0.9
     const fetchWeight = (1 / 3.5) * 0.9
     this.updatePushPullFetchProgress(repository, {
@@ -6088,11 +6088,11 @@ export class AppStore extends TypedBaseStore<IAppState> {
         value: pushWeight + progress.value * fetchWeight,
       })
     })
-    const title = __DARWIN__ ? 'Refreshing Repository' : 'Refreshing repository'
+    const title = t('appStore.refreshingRepository')
     this.updatePushPullFetchProgress(repository, {
       kind: 'generic',
       title,
-      description: 'Fast-forwarding branches',
+      description: t('appStore.fastForwardingBranches'),
       value: pushWeight + fetchWeight,
     })
     await this.fastForwardBranches(repository)

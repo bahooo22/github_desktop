@@ -3,15 +3,10 @@
     "name": "Klingon",
     "nativeName": "tlhIngan Hol",
     "direction": "ltr",
-    "pluralCategories": [
-      "one",
-      "other"
-    ],
+    "pluralCategories": ["one", "other"],
     "gloss": "ru",
     "translit": "tlh",
-    "authors": [
-      "BaHooo"
-    ],
+    "authors": ["BaHooo"],
     "ready": [
       "about.beta-channel",
       "about.build",
@@ -106,21 +101,16 @@
       "appStore.pushingTo",
       "appStore.refreshingRepository",
       "assistedCommit.animateCopilot",
-      "assistedCommit.commitsKeptLocally",
-      "assistedCommit.commitsPushed",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
       "assistedCommit.details",
+      "assistedCommit.dismiss",
       "assistedCommit.emptyCommitDescription",
       "assistedCommit.finishingRefresh",
       "assistedCommit.letCopilotWrite",
       "assistedCommit.openDetails",
-      "assistedCommit.pushStopped",
-      "assistedCommit.pushStoppedWithError",
-      "assistedCommit.pushedRefreshFailed",
       "assistedCommit.recoveryNeedsAttention",
       "assistedCommit.refreshBeforeContinuing",
-      "assistedCommit.retryPush",
       "assistedCommit.retryRefresh",
       "assistedCommit.retryRollback",
       "assistedCommit.runStopped",
@@ -138,10 +128,7 @@
       "assistedCommit.status.creatingCommit",
       "assistedCommit.status.finishing",
       "assistedCommit.status.preparing",
-      "assistedCommit.status.preparingPush",
-      "assistedCommit.status.pushing",
       "assistedCommit.status.refreshing",
-      "assistedCommit.status.refreshingPush",
       "assistedCommit.status.rollingBack",
       "assistedCommit.status.summarizing",
       "assistedCommit.status.validating",
@@ -458,6 +445,8 @@
       "commitMessage.committing",
       "commitMessage.committing-changes",
       "commitMessage.configure-options",
+      "commitMessage.copilot-mode",
+      "commitMessage.copilot-mode-description",
       "commitMessage.copilot-tooltip",
       "commitMessage.copilot-tooltip-cancel",
       "commitMessage.copilot-tooltip-no-files",
@@ -476,10 +465,12 @@
       "commitMessage.length-hint-aria",
       "commitMessage.length-hint-description",
       "commitMessage.length-hint-title",
+      "commitMessage.manual-description",
       "commitMessage.new-badge",
       "commitMessage.no-write-access",
       "commitMessage.optimizing-repository",
       "commitMessage.protected-branch",
+      "commitMessage.push-after-committing",
       "commitMessage.remove-co-authors",
       "commitMessage.rule-failure-aria",
       "commitMessage.rule-failure-bypass",
@@ -539,6 +530,7 @@
       "contextMenu.openIn",
       "contextMenu.openInExternalEditor",
       "contextMenu.openInShell",
+      "contextMenu.openWithDefaultProgram",
       "contextMenu.revealInFileManager",
       "contextMenu.trashName",
       "copilotApp.notFoundMessage",
@@ -1254,6 +1246,7 @@
       "releaseNotes.fork.upstreamSync3610",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.upstreamSync3611",
+      "releaseNotes.fork.upstreamSync3612",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.upstreamSyncBeta3",
@@ -1292,6 +1285,12 @@
       "repositoriesList.showWorktrees",
       "repositoriesList.uncommittedChanges",
       "repository.sidebar",
+      "repositoryAccount.assignedTo",
+      "repositoryAccount.chooseAccount",
+      "repositoryAccount.chooseAnotherAccount",
+      "repositoryAccount.signIn",
+      "repositoryAccount.title",
+      "repositoryAccount.useAccount",
       "repositoryAlias.alias",
       "repositoryAlias.description",
       "repositoryAlias.no-effect-note",
@@ -3025,7 +3024,11 @@
     },
     "commit-button-plain": "{verb} <strong>{branch}</strong>Daq",
     "no-write-access": "<strong>{name}</strong>Daq ghItlh naw' Hutlh. <link>puq chonnaQ yIchenmoH</link>?",
-    "protected-branch": "<strong>{branch}</strong> Qanlu'. <link>bartIq yIchoH</link>?"
+    "protected-branch": "<strong>{branch}</strong> Qanlu'. <link>bartIq yIchoH</link>?",
+    "manual-description": "choH vem pong 'ej Del bIghItlh.",
+    "copilot-mode": "CopilotDaq vem yIchenmoH",
+    "copilot-mode-description": "Copilot wIvlu'bogh choHmey vemmeyDaq chev 'ej Delmeychaj qon.",
+    "push-after-committing": "vem chenmoHpu' 'ej vemmey yIyuv"
   },
   "createBranch": {
     "based-on-commit": "lIj bartIq chu' 'oH lIj De' ngaSwI'Daq choH vem '{summary}' ({sha})Daq waw' chenmoHbogh.",
@@ -4249,7 +4252,8 @@
       "upstreamSync3610": "jIH Hol chen upstream 3.6.10 yorDaq chenmoHlu'. GitHub Desktop tI'ghach Hoch ghaj. official channelDaq jonHa' 'em ghach neHbe'.",
       "aboutDownloadButtons": "bopDaq: De' chu' yIjom 'ej Official build yIHev. file Downloads DajaqDaq tu'lu' neH.",
       "upstreamSync3611": "jIH Hol chen upstream 3.6.11-beta1 yorDaq chenmoHlu'. DaH npm lo'lu', yarn lo'be'lu', 'ej fork jonHa' mIwmey 'e' tlha'.",
-      "copilotCommit": "CopilotDaq vem yIchenmoH: Copilot wIvlu'bogh choHmey vemmeyDaq chevlaH 'ej Delmeychaj qonlaH."
+      "copilotCommit": "CopilotDaq vem yIchenmoH: Copilot wIvlu'bogh choHmey vemmeyDaq chevlaH 'ej Delmeychaj qonlaH.",
+      "upstreamSync3612": "jIH Hol chen upstream 3.6.11 'ej 3.6.12-beta1 yorDaq chenmoHlu'. DaH De' ngaSwI' mab yIwIv laH, 'ej vem chenmoHpu' vemmey yIyuv laH."
     }
   },
   "repositoriesList": {
@@ -4782,6 +4786,10 @@
       "@win32": "ExplorerDaq yI'ang",
       "@other": "De' patDaq yI'ang"
     },
+    "openWithDefaultProgram": {
+      "@darwin": "motlh DI'wI'Daq yIpoSmoH",
+      "@other": "motlh DI'wI'Daq yIpoSmoH"
+    },
     "trashName": {
       "@win32": "veQ QermoHwI'",
       "@other": "veQ"
@@ -4815,14 +4823,10 @@
     "done": "{hookName} SIrIl pItlh {duration} retlhvo'"
   },
   "assistedCommit": {
-    "pushStopped": "yuvghach mevlu'",
-    "commitsKeptLocally": "vumghachvam vemmey Hoch Sum polpu'.",
     "finishingRefresh": "De' ngaSwI' choHqa'ghach rInmoHlu'taH…",
-    "retryPush": "yuv yIwaHqa'",
+    "dismiss": "yIteq",
     "details": "Del",
-    "commitsPushed": "vemmey yuvlu'pu'",
     "runStopped": "vumghach mevlu'",
-    "pushedRefreshFailed": "vemmey yuvlu'pu' 'ach De' ngaSwI' choHqa' 'e' rInmoHlaHbe' Desktop.",
     "recoveryNeedsAttention": "bIghoSlaHmeH, cheghmoHghach poQlu'.",
     "refreshBeforeContinuing": "bIghoSmeH De' ngaSwI' yIchoHqa'.",
     "openDetails": "Del yIpoSmoH 'e' yIlegh.",
@@ -4841,7 +4845,6 @@
     "letCopilotWrite": "Copilot vemmeylIj yIqon 'e' yIchaw'.",
     "animateCopilot": "Copilot yIvIHmoH",
     "splittingAria": "Copilot choHmeylIj vemmeyDaq chevtaH.",
-    "pushStoppedWithError": "yuvghach mevlu'; Sum vemmey polpu': {message}",
     "runStoppedWithError": "vumghach mevlu': {message}",
     "unknownState": "vumghach Dotlh Sovlu'be'",
     "status": {
@@ -4856,10 +4859,15 @@
       "rollingBack": "vumghachvam vemmey DopmoHlu'taH…",
       "refreshing": "wIvlu'bogh choHmey choHqa'lu'taH…",
       "closing": "Sum vemmey rInmoHlu'taH…",
-      "finishing": "Sum vemmey choHqa'lu'taH…",
-      "preparingPush": "vem yuvmeH cherlu'taH…",
-      "pushing": "vem yuvlu'taH…",
-      "refreshingPush": "yuvlu'bogh vemmey choHqa'lu'taH…"
+      "finishing": "Sum vemmey choHqa'lu'taH…"
     }
+  },
+  "repositoryAccount": {
+    "title": "De' ngaSwI' mab",
+    "assignedTo": "{endpoint}Daq {name} De' ngaSwI' @{login} mab ghaj. yIngaQHa'moH 'ej mabvam bIlo'taH.",
+    "chooseAnotherAccount": "mab latlh 'e' yIwIv",
+    "chooseAccount": "GitHub API lo'meH 'ej HTTPS ngaQHa'moHmeH, {endpoint}Daq {name} De' ngaSwI'vaD mab 'e' yIwIv. lIj Git qonwI' pong je lIj ngeH choHbe'.",
+    "signIn": "yIngaQHa'moH",
+    "useAccount": "mab 'e' yIlo'"
   }
 }

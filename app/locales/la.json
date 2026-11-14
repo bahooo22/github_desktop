@@ -99,21 +99,16 @@
       "appStore.pushingTo",
       "appStore.refreshingRepository",
       "assistedCommit.animateCopilot",
-      "assistedCommit.commitsKeptLocally",
-      "assistedCommit.commitsPushed",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
       "assistedCommit.details",
+      "assistedCommit.dismiss",
       "assistedCommit.emptyCommitDescription",
       "assistedCommit.finishingRefresh",
       "assistedCommit.letCopilotWrite",
       "assistedCommit.openDetails",
-      "assistedCommit.pushStopped",
-      "assistedCommit.pushStoppedWithError",
-      "assistedCommit.pushedRefreshFailed",
       "assistedCommit.recoveryNeedsAttention",
       "assistedCommit.refreshBeforeContinuing",
-      "assistedCommit.retryPush",
       "assistedCommit.retryRefresh",
       "assistedCommit.retryRollback",
       "assistedCommit.runStopped",
@@ -131,10 +126,7 @@
       "assistedCommit.status.creatingCommit",
       "assistedCommit.status.finishing",
       "assistedCommit.status.preparing",
-      "assistedCommit.status.preparingPush",
-      "assistedCommit.status.pushing",
       "assistedCommit.status.refreshing",
-      "assistedCommit.status.refreshingPush",
       "assistedCommit.status.rollingBack",
       "assistedCommit.status.summarizing",
       "assistedCommit.status.validating",
@@ -454,6 +446,8 @@
       "commitMessage.committing",
       "commitMessage.committing-changes",
       "commitMessage.configure-options",
+      "commitMessage.copilot-mode",
+      "commitMessage.copilot-mode-description",
       "commitMessage.copilot-tooltip",
       "commitMessage.copilot-tooltip-cancel",
       "commitMessage.copilot-tooltip-no-files",
@@ -472,10 +466,12 @@
       "commitMessage.length-hint-aria",
       "commitMessage.length-hint-description",
       "commitMessage.length-hint-title",
+      "commitMessage.manual-description",
       "commitMessage.new-badge",
       "commitMessage.no-write-access",
       "commitMessage.optimizing-repository",
       "commitMessage.protected-branch",
+      "commitMessage.push-after-committing",
       "commitMessage.remove-co-authors",
       "commitMessage.rule-failure-aria",
       "commitMessage.rule-failure-bypass",
@@ -535,6 +531,7 @@
       "contextMenu.openIn",
       "contextMenu.openInExternalEditor",
       "contextMenu.openInShell",
+      "contextMenu.openWithDefaultProgram",
       "contextMenu.revealInFileManager",
       "contextMenu.trashName",
       "copilotApp.notFoundMessage",
@@ -1253,6 +1250,7 @@
       "releaseNotes.fork.upstreamSync3610",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.upstreamSync3611",
+      "releaseNotes.fork.upstreamSync3612",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.upstreamSyncBeta3",
@@ -1291,6 +1289,12 @@
       "repositoriesList.showWorktrees",
       "repositoriesList.uncommittedChanges",
       "repository.sidebar",
+      "repositoryAccount.assignedTo",
+      "repositoryAccount.chooseAccount",
+      "repositoryAccount.chooseAnotherAccount",
+      "repositoryAccount.signIn",
+      "repositoryAccount.title",
+      "repositoryAccount.useAccount",
       "repositoryAlias.alias",
       "repositoryAlias.description",
       "repositoryAlias.no-effect-note",
@@ -3044,7 +3048,11 @@
     },
     "commit-button-plain": "{verb} ad <strong>{branch}</strong>",
     "no-write-access": "Non habes accessum scriptorem ad <strong>{name}</strong>. Vis <link>furcam creare</link>?",
-    "protected-branch": "<strong>{branch}</strong> est furca protecta. Vis <link>ramos commutare</link>?"
+    "protected-branch": "<strong>{branch}</strong> est furca protecta. Vis <link>ramos commutare</link>?",
+    "manual-description": "Summarium commiti descriptionemque ipse scribe.",
+    "copilot-mode": "Commitere cum Copilot",
+    "copilot-mode-description": "Copilot mutationes electas in commitos dividit et nuntios eorum scribit.",
+    "push-after-committing": "Pellere post commitum"
   },
   "createBranch": {
     "based-on-commit": "Novus tuus ramus in commito '{summary}' ({sha}) ex repositorio tuo fundabitur.",
@@ -4265,7 +4273,8 @@
       "upstreamSync3610": "Interfacies super upstream 3.6.10 reconstructa est; itaque furca easdem emendationes ac GitHub Desktop hodiernum continet nec viam officialem iam retro est",
       "aboutDownloadButtons": "Dialogus de applicatione per se novam versionem offert: constructionem furcae instituere aut officialem recipere. Nihil ultro incepit; file in folder Downloads mittitur",
       "upstreamSync3611": "Interfacies super upstream 3.6.11-beta1 reconstructa est; opus iam per npm, non per yarn, aedificatur",
-      "copilotCommit": "Per Copilot committere licet: tabula commissionum mutata selecta in plures commissiones dividit et nuntios scribit"
+      "copilotCommit": "Per Copilot committere licet: tabula commissionum mutata selecta in plures commissiones dividit et nuntios scribit",
+      "upstreamSync3612": "Interfacies super upstream 3.6.11 et 3.6.12-beta1 reconstructa est; commitus manualis per se ipsum pelli potest, et unicuique repositorio sua sessio attribui potest"
     }
   },
   "repositoriesList": {
@@ -4798,6 +4807,10 @@
       "@win32": "Monstra in Exploratore",
       "@other": "Monstra in gestore fichorum tuorum"
     },
+    "openWithDefaultProgram": {
+      "@darwin": "Apri in programme praesenti",
+      "@other": "Apri in programme praesenti"
+    },
     "trashName": {
       "@win32": "Cestino",
       "@other": "Cestino"
@@ -4831,14 +4844,10 @@
     "done": "{hookName} hook factum post {duration}s"
   },
   "assistedCommit": {
-    "pushStopped": "Pellere desitum est",
-    "commitsKeptLocally": "Omnes commiti huius cursus localiter servati sunt.",
     "finishingRefresh": "Repositorii renovationem perficimus…",
-    "retryPush": "Pellere rursus",
+    "dismiss": "Abrogare",
     "details": "Singula",
-    "commitsPushed": "Commiti pulsi sunt",
     "runStopped": "Cursus commitandi desitus est",
-    "pushedRefreshFailed": "Commiti pulsi sunt, sed Desktop renovationem perficere non potuit.",
     "recoveryNeedsAttention": "Ad pergendum, recuperatio necessaria est.",
     "refreshBeforeContinuing": "Repositorium renova ut pergas.",
     "openDetails": "Singula aperi ut plura scias.",
@@ -4857,7 +4866,6 @@
     "letCopilotWrite": "Copilot commitos tuos scribat",
     "animateCopilot": "Copilot anima",
     "splittingAria": "Copilot mutationes in commitos dividit",
-    "pushStoppedWithError": "Pellere desitum est; commiti locales servati: {message}",
     "runStoppedWithError": "Cursus commitandi desitus est: {message}",
     "unknownState": "Status cursus commitandi ignotus",
     "status": {
@@ -4872,10 +4880,15 @@
       "rollingBack": "Commitos huius cursus revocamus…",
       "refreshing": "Mutationes electas renovamus…",
       "closing": "Commitos locales perficimus…",
-      "finishing": "Commitos locales renovamus…",
-      "preparingPush": "Commitos pellere paramus…",
-      "pushing": "Commitos pellimus…",
-      "refreshingPush": "Commitos pulsos renovamus…"
+      "finishing": "Commitos locales renovamus…"
     }
+  },
+  "repositoryAccount": {
+    "title": "Sessio Repositorii",
+    "assignedTo": "Repositorium {name} sessioni @{login} apud {endpoint} attribuitur. Ini, ut hac sessione uti pergas.",
+    "chooseAnotherAccount": "Eligere aliam sessionem",
+    "chooseAccount": "Elige sessionem qua petitionibus GitHub API et authenticationi HTTPS pro {name} apud {endpoint} utere. Hoc nomen auctoris Git indicemque electronicum non mutat.",
+    "signIn": "Inire",
+    "useAccount": "Sessione uti"
   }
 }

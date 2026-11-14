@@ -99,21 +99,16 @@
       "appStore.pushingTo",
       "appStore.refreshingRepository",
       "assistedCommit.animateCopilot",
-      "assistedCommit.commitsKeptLocally",
-      "assistedCommit.commitsPushed",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
       "assistedCommit.details",
+      "assistedCommit.dismiss",
       "assistedCommit.emptyCommitDescription",
       "assistedCommit.finishingRefresh",
       "assistedCommit.letCopilotWrite",
       "assistedCommit.openDetails",
-      "assistedCommit.pushStopped",
-      "assistedCommit.pushStoppedWithError",
-      "assistedCommit.pushedRefreshFailed",
       "assistedCommit.recoveryNeedsAttention",
       "assistedCommit.refreshBeforeContinuing",
-      "assistedCommit.retryPush",
       "assistedCommit.retryRefresh",
       "assistedCommit.retryRollback",
       "assistedCommit.runStopped",
@@ -131,10 +126,7 @@
       "assistedCommit.status.creatingCommit",
       "assistedCommit.status.finishing",
       "assistedCommit.status.preparing",
-      "assistedCommit.status.preparingPush",
-      "assistedCommit.status.pushing",
       "assistedCommit.status.refreshing",
-      "assistedCommit.status.refreshingPush",
       "assistedCommit.status.rollingBack",
       "assistedCommit.status.summarizing",
       "assistedCommit.status.validating",
@@ -454,6 +446,8 @@
       "commitMessage.committing",
       "commitMessage.committing-changes",
       "commitMessage.configure-options",
+      "commitMessage.copilot-mode",
+      "commitMessage.copilot-mode-description",
       "commitMessage.copilot-tooltip",
       "commitMessage.copilot-tooltip-cancel",
       "commitMessage.copilot-tooltip-no-files",
@@ -472,10 +466,12 @@
       "commitMessage.length-hint-aria",
       "commitMessage.length-hint-description",
       "commitMessage.length-hint-title",
+      "commitMessage.manual-description",
       "commitMessage.new-badge",
       "commitMessage.no-write-access",
       "commitMessage.optimizing-repository",
       "commitMessage.protected-branch",
+      "commitMessage.push-after-committing",
       "commitMessage.remove-co-authors",
       "commitMessage.rule-failure-aria",
       "commitMessage.rule-failure-bypass",
@@ -535,6 +531,7 @@
       "contextMenu.openIn",
       "contextMenu.openInExternalEditor",
       "contextMenu.openInShell",
+      "contextMenu.openWithDefaultProgram",
       "contextMenu.revealInFileManager",
       "contextMenu.trashName",
       "copilotApp.notFoundMessage",
@@ -1253,6 +1250,7 @@
       "releaseNotes.fork.upstreamSync3610",
       "releaseNotes.fork.upstreamSync3610Beta1",
       "releaseNotes.fork.upstreamSync3611",
+      "releaseNotes.fork.upstreamSync3612",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.upstreamSyncBeta3",
@@ -1291,6 +1289,12 @@
       "repositoriesList.showWorktrees",
       "repositoriesList.uncommittedChanges",
       "repository.sidebar",
+      "repositoryAccount.assignedTo",
+      "repositoryAccount.chooseAccount",
+      "repositoryAccount.chooseAnotherAccount",
+      "repositoryAccount.signIn",
+      "repositoryAccount.title",
+      "repositoryAccount.useAccount",
       "repositoryAlias.alias",
       "repositoryAlias.description",
       "repositoryAlias.no-effect-note",
@@ -3044,7 +3048,11 @@
     },
     "commit-button-plain": "{verb} al <strong>{branch}</strong>",
     "no-write-access": "Vi ne havas skriban rajton por <strong>{name}</strong>. Ĉu vi volas <link>krei forkon</link>?",
-    "protected-branch": "<strong>{branch}</strong> estas protektita branĉo. Ĉu vi volas <link>ŝanĝi branĉojn</link>?"
+    "protected-branch": "<strong>{branch}</strong> estas protektita branĉo. Ĉu vi volas <link>ŝanĝi branĉojn</link>?",
+    "manual-description": "Skribu mem la resumon kaj la priskribon de la komito.",
+    "copilot-mode": "Komiti kun Copilot",
+    "copilot-mode-description": "Copilot dividas la elektitajn ŝanĝojn en komitojn kaj skribas iliajn mesaĝojn.",
+    "push-after-committing": "Puŝi post komitado"
   },
   "createBranch": {
     "based-on-commit": "Via nova branĉo baziĝos sur la komito '{summary}' ({sha}) de via deponejo.",
@@ -4265,7 +4273,8 @@
       "upstreamSync3610": "La interfaco estas rekonstruita sur upstream 3.6.10, do la forko havas la samajn riparojn kiel la nuna GitHub Desktop kaj ne plu malfruas de la oficiala kanalo",
       "aboutDownloadButtons": "La dialogo «Pri» mem proponas ĝisdatigon: instali la forko-konstruaĵon aŭ elŝuti la oficialan. Nenio mem ekfunkcias; la dosiero iras en la elŝutan dosierujon",
       "upstreamSync3611": "La interfaco estas rekonstruita sur upstream 3.6.11-beta1; la projekto nun konstruiĝas per npm anstataŭ yarn",
-      "copilotCommit": "Eblas kommiti per Copilot: la kommita panelo dividas elektitajn ŝanĝojn en kommitojn kaj skribas iliajn mesaĝojn"
+      "copilotCommit": "Eblas kommiti per Copilot: la kommita panelo dividas elektitajn ŝanĝojn en kommitojn kaj skribas iliajn mesaĝojn",
+      "upstreamSync3612": "La interfaco estas rekonstruita sur upstream 3.6.11 kaj 3.6.12-beta1; mana komito povas sin mem puŝi poste, kaj ĉiu deponejo povas ricevi sian propran konton"
     }
   },
   "repositoriesList": {
@@ -4798,6 +4807,10 @@
       "@win32": "Montri en Eksplorilo",
       "@other": "Montri en via Dosierumilo"
     },
+    "openWithDefaultProgram": {
+      "@darwin": "Malfermi en defaŭlta programo",
+      "@other": "Malfermi en defaŭlta programo"
+    },
     "trashName": {
       "@win32": "Reciklaĵo",
       "@other": "Rubujo"
@@ -4831,14 +4844,10 @@
     "done": "{hookName} ganĉo finita post {duration}s"
   },
   "assistedCommit": {
-    "pushStopped": "Puŝado haltigita",
-    "commitsKeptLocally": "Ĉiuj komitoj de ĉi tiu kurso konserviĝis loke.",
     "finishingRefresh": "Finas la refreŝigon de la deponejo…",
-    "retryPush": "Reprovi puŝadon",
+    "dismiss": "Malakcepti",
     "details": "Detaloj",
-    "commitsPushed": "Komitoj puŝitaj",
     "runStopped": "Komita kurso haltigita",
-    "pushedRefreshFailed": "Viaj komitoj estis puŝitaj, sed Desktop ne povis fini la refreŝigon.",
     "recoveryNeedsAttention": "Restaŭro necesas antaŭ ol daŭrigi.",
     "refreshBeforeContinuing": "Refreŝigu la deponejon por daŭrigi.",
     "openDetails": "Malfermu „Detaloj“ por pliaj informoj.",
@@ -4857,7 +4866,6 @@
     "letCopilotWrite": "Lasu Copilot skribi viajn komitojn",
     "animateCopilot": "Animigi Copilot",
     "splittingAria": "Copilot dividas viajn ŝanĝojn en komitojn",
-    "pushStoppedWithError": "Puŝado haltigita; lokaj komitoj konservitaj: {message}",
     "runStoppedWithError": "Komita kurso haltigita: {message}",
     "unknownState": "Nekonata stato de komita kurso",
     "status": {
@@ -4872,10 +4880,15 @@
       "rollingBack": "Ni malfaras komitojn de ĉi tiu kurso…",
       "refreshing": "Ni refreŝigas elektitajn ŝanĝojn…",
       "closing": "Ni finas lokajn komitojn…",
-      "finishing": "Ni refreŝigas lokajn komitojn…",
-      "preparingPush": "Ni preparas puŝi komitojn…",
-      "pushing": "Ni puŝas komitojn…",
-      "refreshingPush": "Ni refreŝigas puŝitajn komitojn…"
+      "finishing": "Ni refreŝigas lokajn komitojn…"
     }
+  },
+  "repositoryAccount": {
+    "title": "Konto de deponejo",
+    "assignedTo": "La deponejo {name} estas asignita al la konto @{login} ĉe {endpoint}. Ensalutu por daŭre uzi tiun konton.",
+    "chooseAnotherAccount": "Elekti alian konton",
+    "chooseAccount": "Elektu la konton, uzotan por GitHub-API-petoj kaj HTTPS-aŭtentigo por {name} ĉe {endpoint}. Tio ne ŝanĝas vian aŭtoran nomon aŭ retpoŝtadreson en Git.",
+    "signIn": "Ensaluti",
+    "useAccount": "Uzi konton"
   }
 }
