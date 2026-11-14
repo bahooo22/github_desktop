@@ -88,7 +88,7 @@ import {
 } from '../dropdown-select-button'
 import { CSSTransition } from 'react-transition-group'
 import { CopilotCommitPanel } from './copilot-commit-panel'
-import { t } from '../../lib/l10n'
+import { t, Trans } from '../../lib/l10n'
 
 /** Duration (in milliseconds) of the transition between commit modes */
 const CommitModeTransitionDuration = 300
@@ -1680,11 +1680,13 @@ export class CommitMessage extends React.Component<
     if (commitToAmend !== null) {
       return (
         <CommitWarning icon={CommitWarningIcon.Information}>
-          Your changes will modify your <strong>most recent commit</strong>.{' '}
-          <LinkButton onClick={this.props.onStopAmending}>
-            Stop amending
-          </LinkButton>{' '}
-          to make these changes as a new commit.
+          <Trans
+            k="commitMessage.amend-notice"
+            components={{
+              strong: <strong />,
+              link: <LinkButton onClick={this.props.onStopAmending} />,
+            }}
+          />
         </CommitWarning>
       )
     } else {
@@ -1760,12 +1762,14 @@ export class CommitMessage extends React.Component<
     if (showNoWriteAccess) {
       return (
         <CommitWarning icon={CommitWarningIcon.Warning}>
-          You don't have write access to <strong>{repository.name}</strong>.
-          Want to{' '}
-          <LinkButton onClick={this.props.onShowCreateForkDialog}>
-            create a fork
-          </LinkButton>
-          ?
+          <Trans
+            k="commitMessage.no-write-access"
+            params={{ name: repository.name }}
+            components={{
+              strong: <strong />,
+              link: <LinkButton onClick={this.props.onShowCreateForkDialog} />,
+            }}
+          />
         </CommitWarning>
       )
     } else if (showBranchProtected) {
@@ -1779,9 +1783,14 @@ export class CommitMessage extends React.Component<
 
       return (
         <CommitWarning icon={CommitWarningIcon.Warning}>
-          <strong>{branch}</strong> is a protected branch. Want to{' '}
-          <LinkButton onClick={this.onSwitchBranch}>switch branches</LinkButton>
-          ?
+          <Trans
+            k="commitMessage.protected-branch"
+            params={{ branch }}
+            components={{
+              strong: <strong />,
+              link: <LinkButton onClick={this.onSwitchBranch} />,
+            }}
+          />
         </CommitWarning>
       )
     } else if (repoRuleWarningToDisplay === 'publish') {

@@ -39,7 +39,8 @@ import { CommitOptions } from '../../../src/lib/app-state'
 import { AssistedCommitRunState } from '../../../src/models/assisted-commit-run'
 import { ErrorWithMetadata } from '../../../src/lib/error-with-metadata'
 import { ISerializableMenuItem } from '../../../src/lib/menu-item'
-import { t } from '../../../src/lib/l10n'
+import { localization, t } from '../../../src/lib/l10n'
+import { withoutMarkup } from '../../../src/lib/l10n/format'
 import {
   getCommitMode,
   storeCommitMode,
@@ -2503,5 +2504,125 @@ describe('CommitMessage', () => {
       assert.strictEqual(requests.length, 1)
       assert.deepStrictEqual(requests[0].trailers, [])
     })
+  })
+})
+
+describe('localized commit warnings', () => {
+  afterEach(() => {
+    localization.setRequestedLocale(null)
+  })
+
+  /**
+   * Mounting the component reads Git configuration of its repository, so the
+   * path has to exist; the working directory of the test runner is the Desktop
+   * repository itself, which is only read from. Same reason as the
+   * `createMountableRepository` of the `commit modes` block.
+   */
+  function createMountedRepository() {
+    const { gitHubRepository } = createRepository()
+    return new Repository(process.cwd(), 123, gitHubRepository, false)
+  }
+
+  const mountedRepository = createMountedRepository()
+
+  function createAmendedCommit() {
+    const author = new CommitIdentity(
+      'Mona Lisa',
+      'mona@example.com',
+      new Date()
+    )
+
+    return new Commit(
+      'abc1234',
+      'abc1234',
+      'Summary',
+      '',
+      author,
+      author,
+      [],
+      [],
+      []
+    )
+  }
+
+  const warningCases = [
+    {
+      key: 'commitMessage.amend-notice',
+      props: { commitToAmend: createAmendedCommit() },
+      params: {},
+    },
+    {
+      key: 'commitMessage.no-write-access',
+      props: { showNoWriteAccess: true },
+      params: { name: mountedRepository.name },
+    },
+    {
+      key: 'commitMessage.protected-branch',
+      props: { showBranchProtected: true },
+      params: { branch: 'main' },
+    },
+  ]
+
+  function renderWarning(props: Partial<CommitMessageProps>, key: string) {
+    const { container } = render(
+      <CommitMessage
+        {...createProps({ repository: mountedRepository, ...props })}
+      />
+    )
+    const node = container.querySelector(`[data-l10n-key="${key}"]`)
+    assert.ok(node !== null, `${key} renders the node of its catalog entry`)
+    return node
+  }
+
+  it('renders each warning as one message from the catalog', () => {
+    for (const { key, props, params } of warningCases) {
+      // Byte for byte, including the spaces the tags used to sit next to.
+      assert.equal(
+        renderWarning(props, key).textContent,
+        withoutMarkup(t(key, params))
+      )
+    }
+  })
+
+  it('keeps the markup the catalog declares', () => {
+    for (const { key, props } of warningCases) {
+      const node = renderWarning(props, key)
+
+      assert.ok(node.querySelector('strong') !== null, `${key} keeps <strong>`)
+      assert.ok(
+        node.querySelector('a.link-button-component') !== null,
+        `${key} keeps <link>`
+      )
+    }
+  })
+
+  it('hands the catalog link over to its handler', () => {
+    let stopped = 0
+
+    render(
+      <CommitMessage
+        {...createProps({
+          repository: mountedRepository,
+          commitToAmend: createAmendedCommit(),
+          onStopAmending: () => stopped++,
+        })}
+      />
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Stop amending' }))
+    assert.equal(stopped, 1)
+  })
+
+  it('takes the whole sentence from the russian catalog', () => {
+    const params = { name: mountedRepository.name }
+    const key = 'commitMessage.no-write-access'
+    const english = withoutMarkup(t(key, params))
+
+    localization.setRequestedLocale('ru')
+
+    const text = renderWarning({ showNoWriteAccess: true }, key).textContent
+    assert.equal(text, withoutMarkup(t(key, params)))
+    assert.notEqual(text, english, 'a switched locale is what changed the text')
+    assert.ok(text !== null && text.includes(params.name))
   })
 })
