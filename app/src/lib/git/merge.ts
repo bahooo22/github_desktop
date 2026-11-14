@@ -90,6 +90,8 @@ export async function merge(
     : MergeResult.Success
 }
 
+// l10n-ignore: строку сравнивает со своим stdout `git merge` выше (:88),
+// переводить нельзя — перестанет распознаваться «уже актуально».
 const noopMergeMessage = 'Already up to date.\n'
 
 /**

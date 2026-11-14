@@ -97,6 +97,8 @@ export async function moveStashEntry(
   { stashSha, parents, tree }: IStashEntry,
   branchName: string
 ) {
+  // l10n-ignore: сообщение уходит аргументом `-m` в `git commit-tree` ниже, то
+  // есть становится записью stash в истории репозитория, а не текстом окна.
   const message = `On ${branchName}: ${createDesktopStashMessage(branchName)}`
   const parentArgs = parents.flatMap(p => ['-p', p])
 

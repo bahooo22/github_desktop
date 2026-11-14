@@ -8,6 +8,8 @@ import { GitProgressParser } from './git'
  * have to check out some files at the end. We assume that these
  * delta updates are fairly quick though.
  */
+// l10n-ignore: эти заголовки git сравнивает со своим выводом дословно
+// (GitProgressParser.parse), поэтому перевод срывает сопоставление шага.
 const steps = [
   { title: 'remote: Compressing objects', weight: 0.1 },
   { title: 'Receiving objects', weight: 0.7 },

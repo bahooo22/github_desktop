@@ -870,6 +870,8 @@ export async function captureAssistedCommitSnapshot(
       const utf8 = [baseBytes, fullBytes].every(
         b => !b.includes(0) && Buffer.from(b.toString('utf8'), 'utf8').equals(b)
       )
+      // l10n-ignore: заглушка вместо распавшихся хунков: строка попадает в
+      // поле diff снапшота и её читают git-инструменты, а не человек в окне.
       const diff = large
         ? {
             text: `Selected content change: ${JSON.stringify(

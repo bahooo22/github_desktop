@@ -1,5 +1,7 @@
 import { GitProgressParser } from './git'
 
+// l10n-ignore: этот заголовок git сравнивает со своим выводом дословно
+// (GitProgressParser.parse), поэтому перевод срывает сопоставление шага.
 const steps = [{ title: 'Checking out files', weight: 1 }]
 
 /**

@@ -3,6 +3,8 @@ import { readFile, writeFile } from 'fs/promises'
 
 const GitDescriptionPath = '.git/description'
 
+// l10n-ignore: это содержимое файла `.git/description`, а не текст окна: его
+// пишут и читают git-инструменты, и апстримное значение совпадает побайтово.
 export const DefaultGitDescription =
   "Unnamed repository; edit this file 'description' to name the repository.\n"
 

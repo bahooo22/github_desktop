@@ -4,6 +4,8 @@ import { GitProgressParser } from './git'
  * Highly approximate (some would say outright inaccurate) division
  * of the individual progress reporting steps in a push operation
  */
+// l10n-ignore: эти заголовки git сравнивает со своим выводом дословно
+// (GitProgressParser.parse), поэтому перевод срывает сопоставление шага.
 const steps = [
   { title: 'Compressing objects', weight: 0.2 },
   { title: 'Writing objects', weight: 0.7 },
