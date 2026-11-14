@@ -2202,7 +2202,10 @@ export class CommitMessage extends React.Component<
       <button
         id="commit-message-failure-hint"
         className="commit-message-failure-hint button-component"
-        aria-label={`${ariaLabelPrefix}: Commit message fails repository rules${bypassMessage}. View details.`}
+        aria-label={t('commitMessage.rule-failure-aria', {
+          prefix: ariaLabelPrefix,
+          bypass: bypassMessage,
+        })}
         aria-haspopup="dialog"
         aria-expanded={this.state.isRuleFailurePopoverOpen}
         onClick={this.toggleRuleFailurePopover}

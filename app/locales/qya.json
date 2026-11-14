@@ -48,6 +48,7 @@
       "acknowledgements.unknown-license",
       "addRepository.add-local-repository",
       "addRepository.add-repository-ok",
+      "addRepository.assistedRunBlocked",
       "addRepository.bare-repository-error",
       "addRepository.choose",
       "addRepository.create-new-repository",
@@ -587,6 +588,7 @@
       "copilotByokProvider.unchangedSecret",
       "copilotByokProvider.untitledModel",
       "copilotByokProvider.wireApiCompletions",
+      "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
       "copilotDisclaimer.learnMore",
@@ -798,9 +800,11 @@
       "hookFailed.ignoreAndContinue",
       "hookFailed.message",
       "hookFailed.title",
+      "hooks.aborted",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
+      "hooks.stdinBufferFailed",
       "iconPreview.title",
       "installGit.install",
       "installGit.message",
@@ -1215,6 +1219,7 @@
       "pushPullButton.neverFetched",
       "pushPullButton.pullRemote",
       "pushPullButton.pullRemoteWithRebase",
+      "pushPullButton.pushRemote",
       "rebase.forcePush.dontShowAgain",
       "rebase.forcePush.message",
       "rebase.forcePush.ok",
@@ -1666,6 +1671,7 @@
       "thankYouCard.openCard",
       "thankYouCard.or",
       "thankYouCard.throwAway",
+      "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
@@ -1673,18 +1679,28 @@
       "toolbar.currentWorktreeButton",
       "toolbar.detachedHead",
       "toolbar.detachedHeadTooltip",
+      "toolbar.fetchAction",
       "toolbar.fetchFrom",
       "toolbar.fetchFromDescription",
       "toolbar.finishOrCancelBeforeSyncing",
+      "toolbar.forcePushAction",
       "toolbar.forcePushTo",
       "toolbar.forcePushWarning",
       "toolbar.localCommitRun",
       "toolbar.onCommit",
       "toolbar.overwriteOn",
+      "toolbar.progressComplete",
       "toolbar.publishBranch",
+      "toolbar.publishBranchToGitHub",
+      "toolbar.publishBranchToRemote",
       "toolbar.publishRepository",
       "toolbar.publishRepositoryDescription",
+      "toolbar.pullAction",
+      "toolbar.pullPushFetchAction",
+      "toolbar.pushAction",
       "toolbar.pushPullButton",
+      "toolbar.pushPullFetchOptions",
+      "toolbar.rebaseInProgress",
       "toolbar.rebasingBranch",
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
@@ -2718,7 +2734,8 @@
     "readme-overwrite-warning": "Harya <ref>README.md</ref> sina nómë. Cilë ar envinyata README.md.",
     "repository-will-be-created": "Haura nauva carina <ref>{path}</ref>ssë.",
     "subfolder-warning": "<ref>{path}</ref> nómë ná Git haurao undu. <link>Cenë i submodule</link>.",
-    "unsafe-repository-trust": "Hyana quén harya sina Git haura. Napan ar carë ninquelë. <link>Cilë i latië sina nómë</link>."
+    "unsafe-repository-trust": "Hyana quén harya sina Git haura. Napan ar carë ninquelë. <link>Cilë i latië sina nómë</link>.",
+    "assistedRunBlocked": "Hritya hya apta i carië minatacëo, epë i haura carë sina nómë."
   },
   "appMenu": {
     "application-menu": "i GitHub Desktopo menu"
@@ -4329,7 +4346,18 @@
     "rebasingBranch": "sundo vinya carë i olbamo",
     "rebasingTooltip": "sundo vinya carë i {branch}assë",
     "localCommitRun": "Nómëa carië minatacëo",
-    "finishOrCancelBeforeSyncing": "Hritya hya apta itan lelya"
+    "finishOrCancelBeforeSyncing": "Hritya hya apta itan lelya",
+    "progressComplete": "{action} metta",
+    "pullPushFetchAction": "lucë, nirë hya tulya",
+    "pushAction": "nirë",
+    "pullAction": "lucë",
+    "fetchAction": "tulya",
+    "forcePushAction": "nirë turmoin",
+    "pushPullFetchOptions": "cilmë i nirë, lucë hya tulya",
+    "rebaseInProgress": "rebase mi",
+    "cannotPublishDetachedHead": "Lá harya etanta i leryanë HEAD",
+    "publishBranchToGitHub": "Etanta i olba sina i GitHubissë",
+    "publishBranchToRemote": "Etanta i olba sina i palan hauranna"
   },
   "revertProgress": {
     "title": "Nancar…",
@@ -4531,7 +4559,8 @@
     "poweredByAi": "I Copilot yuhta i AI, ar polë carë loimar.",
     "learnMore": "<link>Nolya pá i Copilot GitHub Desktopissë.</link>",
     "generateCommitMessage": "Cenë ar vista i minatacëo menta carina, epë yuhta.",
-    "conflictResolution": "Cenë i cotyar selyar, epë yuhta i parmannar."
+    "conflictResolution": "Cenë i cotyar selyar, epë yuhta i parmannar.",
+    "assistedCommit": "Copilot hyaryuva i cilienë ahyanielya, ar GitHub Desktop caruva erë hya enetya nómëa minatacë ar téca i mentar. Copilot lá vista i hauralya cómi. Á apta epë i nómëa yuhta, itan nancar i sina cariëo minatacë. Sí i nirë apa i minatacë vehtaina, ilya nómëa minatacë rehta yá i nirë yesta, equi i nirë loita."
   },
   "repoRules": {
     "fails": {
@@ -4649,7 +4678,8 @@
     "lastFetched": "Tulya <time/>",
     "neverFetched": "Lá tulyana",
     "pullRemote": "Lucë {remoteName}",
-    "pullRemoteWithRebase": "Lucë {remoteName} ar ensundo"
+    "pullRemoteWithRebase": "Lucë {remoteName} ar ensundo",
+    "pushRemote": "Nirë {remoteName}"
   },
   "testTokenExpirationDialog": {
     "title": "Tyasta i tengwëo tellúmë",
@@ -4819,7 +4849,9 @@
   "hooks": {
     "killedBySignal": "i ampa {hookName} {signal}nen ú-qualta {duration} lúmessen",
     "failedWithCode": "i ampa {hookName} {code} tengwasten ú-lyanë {duration} lúmessen",
-    "done": "i ampa {hookName} hritya {duration} lúmessen"
+    "done": "i ampa {hookName} hritya {duration} lúmessen",
+    "aborted": "Nuhtanë i ampa {hookName}",
+    "stdinBufferFailed": "Lá harya rehta i stdin i {hookName} ampa: {error}"
   },
   "assistedCommit": {
     "finishingRefresh": "Hrityala i haurao envinyatië…",

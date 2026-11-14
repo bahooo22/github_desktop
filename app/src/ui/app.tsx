@@ -3069,12 +3069,7 @@ export class App extends React.Component<IAppProps, IAppState> {
             onAccepted={popup.onAccepted}
             onDismissed={onPopupDismissedFn}
           >
-            Copilot will plan your selected changes, and GitHub Desktop will
-            create one or more local commits with their generated messages.
-            Copilot will not edit your files. You can cancel before local
-            acceptance to undo commits created by this run. If Push after
-            committing is enabled, all local commits are kept once pushing
-            starts, even if the push fails.
+            {t('copilotDisclaimer.assistedCommit')}
           </CopilotDisclaimer>
         )
       }

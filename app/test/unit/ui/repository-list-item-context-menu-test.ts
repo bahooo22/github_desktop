@@ -7,6 +7,7 @@ import { Repository } from '../../../src/models/repository'
 import { CloningRepository } from '../../../src/models/cloning-repository'
 import type { Repositoryish } from '../../../src/ui/repositories-list/group-repositories'
 import { IMenuItem } from '../../../src/lib/menu-item'
+import { t } from '../../../src/lib/l10n'
 
 const endpoint = 'https://ghe.example.com/api/v3'
 const otherEndpoint = 'https://api.github.com'
@@ -158,7 +159,7 @@ describe('repository list context menu Account submenu', () => {
 })
 
 describe('repository list context menu Repository Settings item', () => {
-  const label = __DARWIN__ ? 'Repository Settings…' : 'Repository settings…'
+  const label = t('menu.show-repository-settings')
   const labels = (repo: Repositoryish, accounts: ReadonlyArray<Account> = []) =>
     getMenu(repo, accounts).map(i => i.label)
 

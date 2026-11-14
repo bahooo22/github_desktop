@@ -852,7 +852,8 @@
     "readme-overwrite-warning": "У цьому каталозі вже є файл <ref>README.md</ref>. Якщо встановити цей прапорець, наявний файл буде перезаписано.",
     "repository-will-be-created": "Репозиторій буде створено за шляхом <ref>{path}</ref>.",
     "subfolder-warning": "Каталог <ref>{path}</ref> схожий на вкладений каталог репозиторію Git. <link>Дізнайтеся про підмодулі.</link>",
-    "unsafe-repository-trust": "Схоже, цей репозиторій Git належить іншому користувачеві вашого комп'ютера. Додавання неповірених репозиторіїв може призвести до автоматичного запуску файлів із репозиторію. Якщо ви довіряєте власнику каталогу, ви можете <link>додати виняток для цього каталогу</link>, щоб продовжити."
+    "unsafe-repository-trust": "Схоже, цей репозиторій Git належить іншому користувачеві вашого комп'ютера. Додавання неповірених репозиторіїв може призвести до автоматичного запуску файлів із репозиторію. Якщо ви довіряєте власнику каталогу, ви можете <link>додати виняток для цього каталогу</link>, щоб продовжити.",
+    "assistedRunBlocked": "Завершіть або скасуйте запуск комітів, перш ніж створювати репозиторій у цьому каталозі."
   },
   "appMenu": {
     "application-menu": "Меню застосунку"
@@ -2393,7 +2394,18 @@
     "rebasingBranch": "Виконується rebase",
     "rebasingTooltip": "Виконується rebase (перенесення ваших комітів) поверх {branch}",
     "localCommitRun": "Локальний запуск комітів",
-    "finishOrCancelBeforeSyncing": "Завершіть або скасуйте перед синхронізацією"
+    "finishOrCancelBeforeSyncing": "Завершіть або скасуйте перед синхронізацією",
+    "progressComplete": "{action}: готово",
+    "pullPushFetchAction": "Отримання, надсилання або запит змін",
+    "pushAction": "Надсилання",
+    "pullAction": "Отримання",
+    "fetchAction": "Запит змін",
+    "forcePushAction": "Примусове надсилання",
+    "pushPullFetchOptions": "Параметри надсилання, отримання та запиту",
+    "rebaseInProgress": "Виконується rebase",
+    "cannotPublishDetachedHead": "Не можна опублікувати від'єднаний HEAD",
+    "publishBranchToGitHub": "Опублікувати цю гілку на GitHub",
+    "publishBranchToRemote": "Опублікувати цю гілку у віддаленому репозиторії"
   },
   "revertProgress": {
     "title": "Триває відкат…",
@@ -2581,7 +2593,8 @@
     "poweredByAi": "Copilot працює на основі штучного інтелекту, тому можливі помилки.",
     "learnMore": "<link>Детальніше про Copilot у GitHub Desktop.</link>",
     "generateCommitMessage": "Уважно перевірте та відредагуйте згенероване повідомлення перед використанням.",
-    "conflictResolution": "Уважно перевірте запропоновані варіанти вирішення, перш ніж застосовувати їх до ваших файлів."
+    "conflictResolution": "Уважно перевірте запропоновані варіанти вирішення, перш ніж застосовувати їх до ваших файлів.",
+    "assistedCommit": "Copilot складе план для вибраних змін, а GitHub Desktop створить один або кілька локальних комітів зі згенерованими повідомленнями. Copilot не редагуватиме ваші файли. До локального застосування можна скасувати прогон — його коміти буде вилучено. Якщо ввімкнено надсилання після коміту, усі локальні коміти зберігаються після початку надсилання, навіть якщо воно завершується помилкою."
   },
   "repoRules": {
     "fails": {
@@ -2692,7 +2705,8 @@
     "lastFetched": "Останній запит змін виконано <time/>",
     "neverFetched": "Зміни ще не завантажувалися",
     "pullRemote": "Отримати зміни з {remoteName}",
-    "pullRemoteWithRebase": "Отримати зміни з {remoteName} з rebase"
+    "pullRemoteWithRebase": "Отримати зміни з {remoteName} з rebase",
+    "pushRemote": "Надіслати до {remoteName}"
   },
   "testTokenExpirationDialog": {
     "title": "Тест закінчення терміна токена",
@@ -2818,7 +2832,9 @@
   "hooks": {
     "killedBySignal": "Хук {hookName} завершився сигналом {signal} через {duration} с",
     "failedWithCode": "Хук {hookName} завершився з кодом {code} через {duration} с",
-    "done": "Хук {hookName} виконано за {duration} с"
+    "done": "Хук {hookName} виконано за {duration} с",
+    "aborted": "Хук {hookName} перервано",
+    "stdinBufferFailed": "Не вдалося буферизувати stdin для хука {hookName}: {error}"
   },
   "assistedCommit": {
     "finishingRefresh": "Завершуємо оновлення репозиторію…",

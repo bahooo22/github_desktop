@@ -232,10 +232,11 @@ export const createHooksProxy = (
         })
       } catch (error) {
         const message = abortController.signal.aborted
-          ? `hook ${hookName} aborted`
-          : `Failed to buffer stdin for ${hookName} hook: ${
-              error instanceof Error ? error.message : String(error)
-            }`
+          ? t('hooks.aborted', { hookName })
+          : t('hooks.stdinBufferFailed', {
+              hookName,
+              error: error instanceof Error ? error.message : String(error),
+            })
 
         debug(message, error instanceof Error ? error : undefined)
         await exitWithError(conn, message)

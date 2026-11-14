@@ -46,6 +46,7 @@
       "acknowledgements.unknown-license",
       "addRepository.add-local-repository",
       "addRepository.add-repository-ok",
+      "addRepository.assistedRunBlocked",
       "addRepository.bare-repository-error",
       "addRepository.choose",
       "addRepository.create-new-repository",
@@ -592,6 +593,7 @@
       "copilotByokProvider.untitledModel",
       "copilotByokProvider.wireApiCompletions",
       "copilotByokProvider.wireApiResponses",
+      "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
       "copilotDisclaimer.learnMore",
@@ -803,9 +805,11 @@
       "hookFailed.ignoreAndContinue",
       "hookFailed.message",
       "hookFailed.title",
+      "hooks.aborted",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
+      "hooks.stdinBufferFailed",
       "iconPreview.title",
       "installGit.install",
       "installGit.message",
@@ -1220,6 +1224,7 @@
       "pushPullButton.neverFetched",
       "pushPullButton.pullRemote",
       "pushPullButton.pullRemoteWithRebase",
+      "pushPullButton.pushRemote",
       "rebase.forcePush.dontShowAgain",
       "rebase.forcePush.message",
       "rebase.forcePush.ok",
@@ -1700,6 +1705,7 @@
       "thankYouCard.openCard",
       "thankYouCard.or",
       "thankYouCard.throwAway",
+      "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
@@ -1707,18 +1713,28 @@
       "toolbar.currentWorktreeButton",
       "toolbar.detachedHead",
       "toolbar.detachedHeadTooltip",
+      "toolbar.fetchAction",
       "toolbar.fetchFrom",
       "toolbar.fetchFromDescription",
       "toolbar.finishOrCancelBeforeSyncing",
+      "toolbar.forcePushAction",
       "toolbar.forcePushTo",
       "toolbar.forcePushWarning",
       "toolbar.localCommitRun",
       "toolbar.onCommit",
       "toolbar.overwriteOn",
+      "toolbar.progressComplete",
       "toolbar.publishBranch",
+      "toolbar.publishBranchToGitHub",
+      "toolbar.publishBranchToRemote",
       "toolbar.publishRepository",
       "toolbar.publishRepositoryDescription",
+      "toolbar.pullAction",
+      "toolbar.pullPushFetchAction",
+      "toolbar.pushAction",
       "toolbar.pushPullButton",
+      "toolbar.pushPullFetchOptions",
+      "toolbar.rebaseInProgress",
       "toolbar.rebasingBranch",
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
@@ -2746,7 +2762,8 @@
     "readme-overwrite-warning": "Hoc directorium iam fīlum <ref>README.md</ref> continet. Hoc quadratum eligere erit ut fīlum iam existentem superponas.",
     "repository-will-be-created": "Repositorium erit creatum in <ref>{path}</ref>.",
     "subfolder-warning": "Directorium <ref>{path}</ref> videtur esse subdirectorium repositorii Git. <link>Scire de submodulis.</link>",
-    "unsafe-repository-trust": "Repositorium Git videtur esse ab alio usuario possidēri in tua machina. Repositoria non credita addere fīla in repositorio posse exequi potest. Si dominum directorii confidis, <link>exceptionem huius directorii addere</link> potes ut pergas."
+    "unsafe-repository-trust": "Repositorium Git videtur esse ab alio usuario possidēri in tua machina. Repositoria non credita addere fīla in repositorio posse exequi potest. Si dominum directorii confidis, <link>exceptionem huius directorii addere</link> potes ut pergas.",
+    "assistedRunBlocked": "Cursum commitandi perfice vel revoca antequam repositorium in hoc directorio creas."
   },
   "appMenu": {
     "application-menu": "Menū applicatiōnis"
@@ -4351,7 +4368,18 @@
     "rebasingBranch": "Ramus rebaseatur",
     "rebasingTooltip": "Ramus rebaseatur {branch}",
     "localCommitRun": "Cursus commitandi localis",
-    "finishOrCancelBeforeSyncing": "Perfice vel revoca ante synchronizationem"
+    "finishOrCancelBeforeSyncing": "Perfice vel revoca ante synchronizationem",
+    "progressComplete": "{action} perfectum",
+    "pullPushFetchAction": "Trahere, pellere vel arcessere",
+    "pushAction": "Pellere",
+    "pullAction": "Trahere",
+    "fetchAction": "Arcessere",
+    "forcePushAction": "Pellere cum vi",
+    "pushPullFetchOptions": "Optiones pellendi, trahendi atque arcessendi",
+    "rebaseInProgress": "Rebase in cursu",
+    "cannotPublishDetachedHead": "Caput detachatum publicare non possumus",
+    "publishBranchToGitHub": "Hunc ramum in GitHub publicare",
+    "publishBranchToRemote": "Hunc ramum in repositorio remoto publicare"
   },
   "revertProgress": {
     "title": "Revertendo…",
@@ -4553,7 +4581,8 @@
     "poweredByAi": "Copilot ab AI adiuvatur, igitur errores possibiles sunt.",
     "learnMore": "<link>Plura de Copilot in GitHub Desktop discere.</link>",
     "generateCommitMessage": "Generatum nuntium diligenter inspice et emendā ante usum.",
-    "conflictResolution": "Suggestas resolutiones diligenter inspice ante ut eas in tuis scriptis applicēs."
+    "conflictResolution": "Suggestas resolutiones diligenter inspice ante ut eas in tuis scriptis applicēs.",
+    "assistedCommit": "Copilot mutationes electas disponet, et GitHub Desktop unum vel plures commitos locales nuntiis generatorum creabit. Copilot thecas tuas non emendabit. Antequam adprobationem localem revocare potes, ut commiti huius cursus tollantur. Si 'post commitum pellere' activatum est, omnes commiti locales servantur ubi pulsio coepit, etiam si pulsio defecit."
   },
   "repoRules": {
     "fails": {
@@ -4671,7 +4700,8 @@
     "lastFetched": "Ultimo arcessum <time/>",
     "neverFetched": "Nunquam arcessum",
     "pullRemote": "Arcessere {remoteName}",
-    "pullRemoteWithRebase": "Arcessere {remoteName} cum rebase"
+    "pullRemoteWithRebase": "Arcessere {remoteName} cum rebase",
+    "pushRemote": "Pellere {remoteName}"
   },
   "testTokenExpirationDialog": {
     "title": "Testus Expirationis Tokenis",
@@ -4841,7 +4871,9 @@
   "hooks": {
     "killedBySignal": "{hookName} hook abrogatus a signo {signal} post {duration}s",
     "failedWithCode": "{hookName} hook non successit cum codice {code} post {duration}s",
-    "done": "{hookName} hook factum post {duration}s"
+    "done": "{hookName} hook factum post {duration}s",
+    "aborted": "Ganchus {hookName} interruptus est",
+    "stdinBufferFailed": "Stdin in buffer ponere pro ganchu {hookName} non potuit: {error}"
   },
   "assistedCommit": {
     "finishingRefresh": "Repositorii renovationem perficimus…",

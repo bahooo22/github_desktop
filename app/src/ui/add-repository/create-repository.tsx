@@ -699,10 +699,7 @@ export class CreateRepository extends React.Component<
       >
         {this.renderInvalidPathError()}
         {protectedDestination && (
-          <DialogError>
-            Finish or cancel the assisted commit run before creating a
-            repository in this directory.
-          </DialogError>
+          <DialogError>{t('addRepository.assistedRunBlocked')}</DialogError>
         )}
 
         <DialogContent>

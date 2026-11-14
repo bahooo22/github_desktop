@@ -48,6 +48,7 @@
       "acknowledgements.unknown-license",
       "addRepository.add-local-repository",
       "addRepository.add-repository-ok",
+      "addRepository.assistedRunBlocked",
       "addRepository.bare-repository-error",
       "addRepository.choose",
       "addRepository.create-new-repository",
@@ -588,6 +589,7 @@
       "copilotByokProvider.unchangedSecret",
       "copilotByokProvider.untitledModel",
       "copilotByokProvider.wireApiCompletions",
+      "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
       "copilotDisclaimer.learnMore",
@@ -799,9 +801,11 @@
       "hookFailed.ignoreAndContinue",
       "hookFailed.message",
       "hookFailed.title",
+      "hooks.aborted",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
+      "hooks.stdinBufferFailed",
       "iconPreview.title",
       "installGit.install",
       "installGit.message",
@@ -1216,6 +1220,7 @@
       "pushPullButton.neverFetched",
       "pushPullButton.pullRemote",
       "pushPullButton.pullRemoteWithRebase",
+      "pushPullButton.pushRemote",
       "rebase.forcePush.dontShowAgain",
       "rebase.forcePush.message",
       "rebase.forcePush.ok",
@@ -1667,6 +1672,7 @@
       "thankYouCard.openCard",
       "thankYouCard.or",
       "thankYouCard.throwAway",
+      "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
@@ -1674,18 +1680,28 @@
       "toolbar.currentWorktreeButton",
       "toolbar.detachedHead",
       "toolbar.detachedHeadTooltip",
+      "toolbar.fetchAction",
       "toolbar.fetchFrom",
       "toolbar.fetchFromDescription",
       "toolbar.finishOrCancelBeforeSyncing",
+      "toolbar.forcePushAction",
       "toolbar.forcePushTo",
       "toolbar.forcePushWarning",
       "toolbar.localCommitRun",
       "toolbar.onCommit",
       "toolbar.overwriteOn",
+      "toolbar.progressComplete",
       "toolbar.publishBranch",
+      "toolbar.publishBranchToGitHub",
+      "toolbar.publishBranchToRemote",
       "toolbar.publishRepository",
       "toolbar.publishRepositoryDescription",
+      "toolbar.pullAction",
+      "toolbar.pullPushFetchAction",
+      "toolbar.pushAction",
       "toolbar.pushPullButton",
+      "toolbar.pushPullFetchOptions",
+      "toolbar.rebaseInProgress",
       "toolbar.rebasingBranch",
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
@@ -2719,7 +2735,8 @@
     "readme-overwrite-warning": "README.md ghaj <ref>tawvam</ref>. yIchelchugh, ghItlhqa'lu' README.md.",
     "repository-will-be-created": "De' ngaSwI' <ref>{path}</ref>Daq chenlu'.",
     "subfolder-warning": "<ref>{path}</ref> taw De' ngaSwI' bIngDaq 'oH. <link>yIlegh</link>.",
-    "unsafe-repository-trust": "latlh lo'wI' ghaj De' ngaSwI'. yIchelchugh, De' ngaSwI' De'mey QaplaH. <link>tawvamDaq chaw' yIchel</link> 'e' yIneHchugh, yIghoS."
+    "unsafe-repository-trust": "latlh lo'wI' ghaj De' ngaSwI'. yIchelchugh, De' ngaSwI' De'mey QaplaH. <link>tawvamDaq chaw' yIchel</link> 'e' yIneHchugh, yIghoS.",
+    "assistedRunBlocked": "'aplo'vamDaq De' ngaSwI' chenmoHmeH vumghach yIrInmoH pagh yIqIl"
   },
   "appMenu": {
     "application-menu": "GitHub Desktop HIDjolev"
@@ -4330,7 +4347,18 @@
     "rebasingBranch": "waw' chu' chenmoHbogh bartIq",
     "rebasingTooltip": "{branch} 'e' waw' chu' yIchenmoH",
     "localCommitRun": "Sum vumghach",
-    "finishOrCancelBeforeSyncing": "yIrInmoH pagh yIqIl 'ej yIghoS"
+    "finishOrCancelBeforeSyncing": "yIrInmoH pagh yIqIl 'ej yIghoS",
+    "progressComplete": "{action} rIn",
+    "pullPushFetchAction": "Hoq, yuv pagh qem",
+    "pushAction": "yuv",
+    "pullAction": "Hoq",
+    "fetchAction": "qem",
+    "forcePushAction": "HoS yuv",
+    "pushPullFetchOptions": "yuv, Hoq 'ej qem wIvmey",
+    "rebaseInProgress": "rebase SerDaq",
+    "cannotPublishDetachedHead": "ngaQmoHbe'bogh nach 'e' 'anglaHbe'",
+    "publishBranchToGitHub": "GitHubDaq bartIqvam 'e' yI'ang",
+    "publishBranchToRemote": "Hopbogh De' ngaSwI'vamDaq bartIqvam 'e' yI'ang"
   },
   "revertProgress": {
     "title": "choHHa'lu'taH…",
@@ -4532,7 +4560,8 @@
     "poweredByAi": "Copilot AI lo'lu', Qaghmey DuH.",
     "learnMore": "<link>GitHub DesktopDaq Copilot De' yIghoj.</link>",
     "generateCommitMessage": "choH vem Del chenmoHlu'bogh yI'ol 'ej yIchoH.",
-    "conflictResolution": "yol tI' chupbogh yI'ol 'ej De' tetlhmeyDaq yIlo'."
+    "conflictResolution": "yol tI' chupbogh yI'ol 'ej De' tetlhmeyDaq yIlo'.",
+    "assistedCommit": "Copilot wIvlu'bogh choHmey waHlu'. GitHub Desktop Sum vemmey chenmoHlu' 'ej Del chenmoHlu'bogh chel. Copilot De' tetlhmeylIj choHbe'. rInmoHlu'be'chugh, vumghachvam vemmey DopmoHlaH. 'oH choH rInmoH 'e' yI'ang wIvlu' taHchugh, yuvDI' Hoch Sum vemmey po'lu'. vabDot yuv luj."
   },
   "repoRules": {
     "fails": {
@@ -4650,7 +4679,8 @@
     "lastFetched": "Qav qemlu'pu' <time/>",
     "neverFetched": "wej qemlu'be'",
     "pullRemote": "{remoteName} 'e' yIHoq",
-    "pullRemoteWithRebase": "{remoteName} 'e' yIHoq 'ej yIchenmoHqa'"
+    "pullRemoteWithRebase": "{remoteName} 'e' yIHoq 'ej yIchenmoHqa'",
+    "pushRemote": "{remoteName} 'e' yIyuv"
   },
   "testTokenExpirationDialog": {
     "title": "QujwI' lIw vanghach 'e' yIwaH",
@@ -4820,7 +4850,9 @@
   "hooks": {
     "killedBySignal": "{hookName} SIrIl ghoptel {signal}Daq HoHlu' {duration} retlhvo'",
     "failedWithCode": "{hookName} SIrIl {code} ngoq 'e' qey {duration} retlhvo'",
-    "done": "{hookName} SIrIl pItlh {duration} retlhvo'"
+    "done": "{hookName} SIrIl pItlh {duration} retlhvo'",
+    "aborted": "{hookName} SIrIl qIllu'",
+    "stdinBufferFailed": "{hookName} SIrIlvaD stdin QaHlu'be': {error}"
   },
   "assistedCommit": {
     "finishingRefresh": "De' ngaSwI' choHqa'ghach rInmoHlu'taH…",

@@ -224,7 +224,7 @@ const buildRepositorySettingsMenuItems = (
 
   return [
     {
-      label: __DARWIN__ ? 'Repository Settings…' : 'Repository settings…',
+      label: t('menu.show-repository-settings'),
       action: () => config.onShowRepositorySettings(repository),
     },
   ]

@@ -46,6 +46,7 @@
       "acknowledgements.unknown-license",
       "addRepository.add-local-repository",
       "addRepository.add-repository-ok",
+      "addRepository.assistedRunBlocked",
       "addRepository.bare-repository-error",
       "addRepository.choose",
       "addRepository.create-new-repository",
@@ -592,6 +593,7 @@
       "copilotByokProvider.untitledModel",
       "copilotByokProvider.wireApiCompletions",
       "copilotByokProvider.wireApiResponses",
+      "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
       "copilotDisclaimer.learnMore",
@@ -803,9 +805,11 @@
       "hookFailed.ignoreAndContinue",
       "hookFailed.message",
       "hookFailed.title",
+      "hooks.aborted",
       "hooks.done",
       "hooks.failedWithCode",
       "hooks.killedBySignal",
+      "hooks.stdinBufferFailed",
       "iconPreview.title",
       "installGit.install",
       "installGit.message",
@@ -1220,6 +1224,7 @@
       "pushPullButton.neverFetched",
       "pushPullButton.pullRemote",
       "pushPullButton.pullRemoteWithRebase",
+      "pushPullButton.pushRemote",
       "rebase.forcePush.dontShowAgain",
       "rebase.forcePush.message",
       "rebase.forcePush.ok",
@@ -1700,6 +1705,7 @@
       "thankYouCard.openCard",
       "thankYouCard.or",
       "thankYouCard.throwAway",
+      "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
@@ -1707,18 +1713,28 @@
       "toolbar.currentWorktreeButton",
       "toolbar.detachedHead",
       "toolbar.detachedHeadTooltip",
+      "toolbar.fetchAction",
       "toolbar.fetchFrom",
       "toolbar.fetchFromDescription",
       "toolbar.finishOrCancelBeforeSyncing",
+      "toolbar.forcePushAction",
       "toolbar.forcePushTo",
       "toolbar.forcePushWarning",
       "toolbar.localCommitRun",
       "toolbar.onCommit",
       "toolbar.overwriteOn",
+      "toolbar.progressComplete",
       "toolbar.publishBranch",
+      "toolbar.publishBranchToGitHub",
+      "toolbar.publishBranchToRemote",
       "toolbar.publishRepository",
       "toolbar.publishRepositoryDescription",
+      "toolbar.pullAction",
+      "toolbar.pullPushFetchAction",
+      "toolbar.pushAction",
       "toolbar.pushPullButton",
+      "toolbar.pushPullFetchOptions",
+      "toolbar.rebaseInProgress",
       "toolbar.rebasingBranch",
       "toolbar.rebasingTooltip",
       "toolbar.warningTitle",
@@ -2746,7 +2762,8 @@
     "readme-overwrite-warning": "Ĉi tiu dosierujo jam enhavas <ref>README.md</ref>-dosieron. Marki ĉi tiun kastelon rezultigos, ke la ekzistanta dosiero estos anstataŭita.",
     "repository-will-be-created": "La deponejo estos kreita ĉe <ref>{path}</ref>.",
     "subfolder-warning": "La dosierujo <ref>{path}</ref> ŝajnas esti subdosierujo de Git-deponejo. <link>Lerni pri submoduloj.</link>",
-    "unsafe-repository-trust": "La Git-deponejo ŝajnas aparteni al alia uzanto sur via maŝino. Aldoni nedependajn deponejojn povas aŭtomate ekzekuti dosierojn en la deponejo. Se vi fidas la posedanton de la dosierujo, vi povas <link>aldoni escepton por ĉi tiu dosierujo</link> por daŭrigi."
+    "unsafe-repository-trust": "La Git-deponejo ŝajnas aparteni al alia uzanto sur via maŝino. Aldoni nedependajn deponejojn povas aŭtomate ekzekuti dosierojn en la deponejo. Se vi fidas la posedanton de la dosierujo, vi povas <link>aldoni escepton por ĉi tiu dosierujo</link> por daŭrigi.",
+    "assistedRunBlocked": "Fini aŭ nuligu la komitan kurson antaŭ ol krei deponejon en ĉi tiu dosierujo."
   },
   "appMenu": {
     "application-menu": "Aplikada menuo"
@@ -4351,7 +4368,18 @@
     "rebasingBranch": "Rebazado de branĉo",
     "rebasingTooltip": "Rebazi {branch}",
     "localCommitRun": "Loka komita kurso",
-    "finishOrCancelBeforeSyncing": "Finu aŭ nuligu antaŭ sinkronigo"
+    "finishOrCancelBeforeSyncing": "Finu aŭ nuligu antaŭ sinkronigo",
+    "progressComplete": "{action} finiĝis",
+    "pullPushFetchAction": "Tiro, puŝo aŭ preno",
+    "pushAction": "Puŝo",
+    "pullAction": "Tiro",
+    "fetchAction": "Preno",
+    "forcePushAction": "Forta puŝo",
+    "pushPullFetchOptions": "Opcioj pri puŝo, tiro kaj preno",
+    "rebaseInProgress": "Rebazado daŭras",
+    "cannotPublishDetachedHead": "Ne eblas publikigi forligitan kapon",
+    "publishBranchToGitHub": "Publikigi ĉi tiun branĉon al GitHub",
+    "publishBranchToRemote": "Publikigi ĉi tiun branĉon al la fora deponejo"
   },
   "revertProgress": {
     "title": "Revertado…",
@@ -4553,7 +4581,8 @@
     "poweredByAi": "Copilot funkcias per AI, do eraroj eblas.",
     "learnMore": "<link>Pliajn informojn pri Copilot en GitHub Desktop.</link>",
     "generateCommitMessage": "Legu kaj redaktu la generitan mesaĝon atente antaŭ uzo.",
-    "conflictResolution": "Legu la sugestitajn solvojn atente antaŭ apliki ilin al viaj dosieroj."
+    "conflictResolution": "Legu la sugestitajn solvojn atente antaŭ apliki ilin al viaj dosieroj.",
+    "assistedCommit": "Copilot planos viajn elektitajn ŝanĝojn, kaj GitHub Desktop kreos unu aŭ plurajn lokajn komitojn kun iliaj generitaj mesaĝoj. Copilot ne redaktos viajn dosierojn. Vi povas nuligi antaŭ loka akcepto por malfari la komitojn de ĉi tiu kurso. Se «Puŝi post komitado» estas ebligita, ĉiuj lokaj komitoj restas kiam la puŝado komenciĝas, eĉ se la puŝo malsukcesas."
   },
   "repoRules": {
     "fails": {
@@ -4671,7 +4700,8 @@
     "lastFetched": "Laste prenitaj <time/>",
     "neverFetched": "Neniam prenitaj",
     "pullRemote": "Tiri {remoteName}",
-    "pullRemoteWithRebase": "Tiri {remoteName} kun rebazo"
+    "pullRemoteWithRebase": "Tiri {remoteName} kun rebazo",
+    "pushRemote": "Puŝi {remoteName}"
   },
   "testTokenExpirationDialog": {
     "title": "Testo de la malvalidiĝo de la tokeno",
@@ -4841,7 +4871,9 @@
   "hooks": {
     "killedBySignal": "{hookName} ganĉo mortigita de signalo {signal} post {duration}s",
     "failedWithCode": "{hookName} ganĉo malsukcesis kun kodo {code} post {duration}s",
-    "done": "{hookName} ganĉo finita post {duration}s"
+    "done": "{hookName} ganĉo finita post {duration}s",
+    "aborted": "Ganĉo {hookName} ĉesigita",
+    "stdinBufferFailed": "Malsukcesis bufri stdin por ganĉo {hookName}: {error}"
   },
   "assistedCommit": {
     "finishingRefresh": "Finas la refreŝigon de la deponejo…",

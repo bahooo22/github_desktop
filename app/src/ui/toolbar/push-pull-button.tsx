@@ -216,13 +216,28 @@ export class PushPullButton extends React.Component<
     }
 
     if (progressComplete) {
+      const action = this.state.actionInProgress
       this.setState({
-        screenReaderStateMessage: `${
-          this.state.actionInProgress ?? 'Pull, push, or fetch'
-        } complete`,
+        screenReaderStateMessage: t('toolbar.progressComplete', {
+          action:
+            action === null
+              ? t('toolbar.pullPushFetchAction')
+              : this.getActionName(action),
+        }),
         actionInProgress: null,
       })
     }
+  }
+
+  /** Имя действия для озвучки: `'push'` как есть озвучивать нельзя. */
+  private getActionName(action: ActionInProgress): string {
+    return action === 'push'
+      ? t('toolbar.pushAction')
+      : action === 'pull'
+      ? t('toolbar.pullAction')
+      : action === 'fetch'
+      ? t('toolbar.fetchAction')
+      : t('toolbar.forcePushAction')
   }
 
   private isPullPushFetchProgress(kind: string): kind is ActionInProgress {
@@ -237,7 +252,9 @@ export class PushPullButton extends React.Component<
     }
 
     const { description, title, kind } = progress
-    const screenReaderStateMessage = `${title} ${description ?? 'Hang on…'}`
+    const screenReaderStateMessage = `${title} ${
+      description ?? t('common.hangOn')
+    }`
     const actionInProgress: ActionInProgress | null =
       this.state.actionInProgress === null && this.isPullPushFetchProgress(kind)
         ? kind
@@ -263,7 +280,7 @@ export class PushPullButton extends React.Component<
       buttonClassName: 'push-pull-button',
       style: ToolbarButtonStyle.Subtitle,
       dropdownStyle: ToolbarDropdownStyle.MultiOption,
-      ariaLabel: 'Push, pull, fetch options',
+      ariaLabel: t('toolbar.pushPullFetchOptions'),
       dropdownState: this.props.isDropdownOpen ? 'open' : 'closed',
       enableFocusTrap: this.props.enableFocusTrap,
       onDropdownStateChanged: this.props.onDropdownStateChanged,
@@ -554,8 +571,8 @@ export class PushPullButton extends React.Component<
 
   private detachedHeadButton(rebaseInProgress: boolean) {
     const description = rebaseInProgress
-      ? 'Rebase in progress'
-      : 'Cannot publish detached HEAD'
+      ? t('toolbar.rebaseInProgress')
+      : t('toolbar.cannotPublishDetachedHead')
 
     return (
       <ToolbarButton
@@ -574,8 +591,8 @@ export class PushPullButton extends React.Component<
     shouldNudge: boolean
   ) {
     const description = isGitHub
-      ? 'Publish this branch to GitHub'
-      : 'Publish this branch to the remote'
+      ? t('toolbar.publishBranchToGitHub')
+      : t('toolbar.publishBranchToRemote')
 
     const className = classNames(
       this.defaultDropdownProps().className,
@@ -664,7 +681,7 @@ export class PushPullButton extends React.Component<
     return (
       <ToolbarDropdown
         {...this.defaultDropdownProps()}
-        title={`Push ${remoteName}`}
+        title={t('pushPullButton.pushRemote', { remoteName })}
         description={renderLastFetched(lastFetched)}
         icon={octicons.arrowUp}
         onClick={onClick}
