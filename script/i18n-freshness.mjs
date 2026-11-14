@@ -544,6 +544,34 @@ function leafPlaceholders(leaf) {
 }
 
 /**
+ * The distinct tag names a leaf declares, as a sorted list. The count of each
+ * tag is deliberately not compared: a plural group repeats the same markup in
+ * every form, and `en` and the conservative catalogs do not agree on how many
+ * forms a group has.
+ *
+ * A name only counts when the leaf really delimits it, as `<x/>` or as an
+ * opening and a closing tag of the same name. Without that the slots of the
+ * feedback issue template (`<what is wrong>`, `<yes/no, which>`) read as
+ * markup, and so does any translation that fills such a slot with one word.
+ */
+function leafMarkup(leaf) {
+  const names = new Set()
+  const texts = typeof leaf === 'string' ? [leaf] : Object.values(leaf)
+  for (const text of texts) {
+    const value = String(text)
+    for (const match of value.matchAll(/<([a-zA-Z][-\w]*)\/?>/g)) {
+      const name = match[1]
+      const delimited =
+        value.includes(`</${name}>`) || value.includes(`<${name}/>`)
+      if (delimited) {
+        names.add(name)
+      }
+    }
+  }
+  return [...names].sort()
+}
+
+/**
  * Compares translated catalogs against the reference catalog (en first).
  * Returns { counts, issues } - empty issues means parity.
  */
@@ -578,6 +606,14 @@ export function compareCatalogParity(catalogs) {
       if (basePh !== otherPh) {
         issues.push(
           `${tag}: ${key} placeholders differ (${basePh} vs ${otherPh})`
+        )
+      }
+
+      const baseMarkup = leafMarkup(base).join(',')
+      const otherMarkup = leafMarkup(other).join(',')
+      if (baseMarkup !== otherMarkup) {
+        issues.push(
+          `${tag}: ${key} markup differs (${baseMarkup} vs ${otherMarkup})`
         )
       }
     }

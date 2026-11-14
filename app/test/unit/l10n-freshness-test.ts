@@ -159,6 +159,84 @@ describe('l10n freshness', () => {
     assert.deepEqual(legal.issues, [])
   })
 
+  it('compares the markup tags a leaf declares', () => {
+    const reference = {
+      commitMessage: {
+        'no-write-access':
+          'You do not have write access to <strong>{name}</strong>. <link>Create a fork</link>.',
+        'rule-failures-title': '<rules>One or more rules</rules> failed',
+      },
+    }
+
+    const broken = compareCatalogParity([
+      { tag: 'en', tree: reference },
+      {
+        tag: 'xx',
+        tree: {
+          commitMessage: {
+            // Потеря <strong> не видна ни по ключам, ни по плейсхолдерам:
+            // имя репозитория просто перестаёт быть выделенным.
+            'no-write-access':
+              'Нет доступа на запись к {name}. <link>Создать форк</link>.',
+            'rule-failures-title': '<rules>Одно или несколько правил</rules>',
+          },
+        },
+      },
+    ])
+
+    assert.deepEqual(
+      broken.issues.filter(issue => issue.includes('markup differs')),
+      [
+        'xx: commitMessage.no-write-access markup differs (link,strong vs link)',
+      ],
+      `expected exactly the lost <strong> in ${JSON.stringify(broken.issues)}`
+    )
+
+    // Разное число форм одного и того же листа — не потеря разметки: `ru`, `uk`
+    // и `qya` имеют один, два или три ряда чисел там, где `en` имеет два.
+    const legal = compareCatalogParity([
+      { tag: 'en', tree: reference },
+      {
+        tag: 'yy',
+        tree: {
+          commitMessage: {
+            'no-write-access':
+              'Нет доступа на запись к <strong>{name}</strong>. <link>Создать форк</link>.',
+            'rule-failures-title': '<rules>Одно или несколько правил</rules>',
+          },
+        },
+      },
+    ])
+    assert.deepEqual(legal.issues, [])
+
+    const pluralForms = compareCatalogParity([
+      {
+        tag: 'en',
+        tree: {
+          rules: {
+            count: {
+              _one: '<strong>{count}</strong> rule',
+              _other: '<strong>{count}</strong> rules',
+            },
+          },
+        },
+      },
+      {
+        tag: 'zz',
+        tree: {
+          rules: {
+            count: {
+              _one: '<strong>{count}</strong> правило',
+              _few: '<strong>{count}</strong> правила',
+              _many: '<strong>{count}</strong> правил',
+              _other: '<strong>{count}</strong> правила',
+            },
+          },
+        },
+      },
+    ])
+    assert.deepEqual(pluralForms.issues, [])
+  })
   it('tells log and throw text apart from interface text', () => {
     assert.equal(
       innermostCallee(`    log.warn(`),
