@@ -1114,6 +1114,10 @@
     "amend": "Виправити",
     "amend-last-commit": "{verb} останній коміт",
     "amending": "Виправлення",
+    "assisted-author-warning": "Адрес електронної пошти автора коміту порушує правила цього репозиторію.",
+    "assisted-author-warning-bypass": "Адрес електронної пошти автора коміту порушує правила цього репозиторію. Ці правила можна обійти.",
+    "author-email-leading-text": "Адрес електронної пошти автора коміту",
+    "update-author-email": "Оновити email автора",
     "bypass-hooks": {
       "@darwin": "Пропустити хуки коміту",
       "@other": "Пропустити хуки коміту"
@@ -1169,6 +1173,8 @@
     "manual-description": "Зводку та опис коміту напишіть самостійно.",
     "copilot-mode": "Коміт через Copilot",
     "copilot-mode-description": "Copilot розіб’є вибрані зміни на коміти й напише їхні повідомлення.",
+    "choose-commit-mode": "Виберіть спосіб коміту",
+    "commit-with-copilot": "{{action}} через Copilot",
     "push-after-committing": "Надіслати після коміту"
   },
   "createBranch": {

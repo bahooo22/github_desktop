@@ -1027,15 +1027,18 @@ export class CommitMessage extends React.Component<
       >
         <div id={this.assistedAuthorWarningID} role="alert">
           <p>
-            Your commit author email does not meet this repository's rules.
-            {canBypass && ' You can bypass these rules.'}
+            {t(
+              canBypass
+                ? 'commitMessage.assisted-author-warning-bypass'
+                : 'commitMessage.assisted-author-warning'
+            )}
           </p>
           {repository.gitHubRepository !== null && branch !== null && (
             <RepoRulesMetadataFailureList
               repository={repository.gitHubRepository}
               branch={branch}
               failures={repoRuleCommitAuthorFailures}
-              leadingText="The commit author email"
+              leadingText={t('commitMessage.author-email-leading-text')}
             />
           )}
         </div>
@@ -1044,7 +1047,7 @@ export class CommitMessage extends React.Component<
           onClick={this.onOpenRepositorySettings}
           disabled={this.isBusy}
         >
-          Update author email
+          {t('commitMessage.update-author-email')}
         </Button>
       </CommitWarning>
     )
@@ -2064,9 +2067,11 @@ export class CommitMessage extends React.Component<
 
     const tooltip = isCopilotCommitMode
       ? buttonEnabled
-        ? `${this.getButtonTitle()} with Copilot`
+        ? t('commitMessage.commit-with-copilot', {
+            action: this.getButtonTitle(),
+          })
         : this.hasCommitAuthorRuleFailure
-        ? "Your commit author email does not meet this repository's rules."
+        ? t('commitMessage.assisted-author-warning')
         : anyFilesSelected || allowEmptyCommit
         ? undefined
         : t('commitMessage.select-files')
@@ -2093,7 +2098,7 @@ export class CommitMessage extends React.Component<
         tooltipDismissable={false}
         onlyShowTooltipWhenOverflowed={buttonEnabled}
         ariaDescribedBy={ariaDescribedBy}
-        dropdownAriaLabel="Choose how to commit"
+        dropdownAriaLabel={t('commitMessage.choose-commit-mode')}
         onCheckedOptionChange={this.onCommitModeChanged}
         onSubmit={this.onSubmit}
         renderInvokeButtonContent={

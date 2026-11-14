@@ -1181,6 +1181,10 @@
     "amend": "Amend",
     "amend-last-commit": "{verb} last commit",
     "amending": "Amending",
+    "assisted-author-warning": "Your commit author email does not meet this repository's rules.",
+    "assisted-author-warning-bypass": "Your commit author email does not meet this repository's rules. You can bypass these rules.",
+    "author-email-leading-text": "The commit author email",
+    "update-author-email": "Update author email",
     "bypass-hooks": {
       "@darwin": "Bypass Commit Hooks",
       "@other": "Bypass Commit hooks"
@@ -1252,6 +1256,8 @@
     "manual-description": "Write the commit summary and description yourself.",
     "copilot-mode": "Commit with Copilot",
     "copilot-mode-description": "Copilot splits the selected changes into commits and writes their messages.",
+    "choose-commit-mode": "Choose how to commit",
+    "commit-with-copilot": "{{action}} with Copilot",
     "push-after-committing": "Push after committing"
   },
   "createBranch": {
