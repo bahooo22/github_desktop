@@ -10,6 +10,7 @@ import { unescape as decodeFilePath } from 'querystring'
 import { Repository } from '../../models/repository'
 import { getRepositoryType } from './rev-parse'
 import { listWorktrees } from './worktree'
+import { t } from '../l10n/core'
 import {
   canonicalMutationPath,
   getAssistedCommitProtectedPaths,
@@ -228,7 +229,7 @@ async function cloneCore(
   if (progressCallback) {
     args.push('--progress')
 
-    const title = `Cloning into ${path}`
+    const title = t('cloningRepository.cloningInto', { path })
     const kind = 'clone'
 
     opts = await executionOptionsWithProgress(

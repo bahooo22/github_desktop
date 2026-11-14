@@ -1387,6 +1387,10 @@
       "update": "Оновити фільтри",
       "message": "Фільтри Git LFS уже налаштовані в <config>глобальній конфігурації Git</config>, але їхні значення не збігаються з очікуваними. Оновити їх зараз?"
     },
+    "checkingOut": "Вилучення",
+    "downloading": "Завантаження",
+    "fileProgress": "{verb} {fileName} (завершено {finishedFiles} з приблизно {fileCount}, {transferProgress})",
+    "fileTitle": "{verb} «{fileName}»",
     "initialize": {
       "ok": "Ініціалізувати Git LFS",
       "title": "Ініціалізувати Git LFS",
@@ -1397,7 +1401,8 @@
         "_other": "{count:number} репозиторіїв використовують <lfs>Git LFS</lfs>. Щоб вносити в них зміни, потрібно спочатку ініціалізувати Git LFS. Зробити це зараз?"
       }
     },
-    "notNow": "Не зараз"
+    "notNow": "Не зараз",
+    "uploading": "Надсилання"
   },
   "mergeConflicts": {
     "commitWarning": {
@@ -2790,7 +2795,17 @@
     "checkingOut": "Перемикання",
     "fastForwardingBranches": "Перемотування гілок",
     "pushingTo": "Надсилання у {remote}",
-    "pulling": "Отримання змін з {remote}"
+    "pulling": "Отримання змін з {remote}",
+    "fetching": "Запит змін з {remote}",
+    "checkingOutBranch": "Перемикання на гілку {branch}",
+    "checkingOutCommit": {
+      "@darwin": "Перемикання на коміт",
+      "@other": "Перемикання на коміт"
+    },
+    "switchingToBranch": {
+      "@darwin": "Перемикання на гілку",
+      "@other": "Перемикання на гілку"
+    }
   },
   "revealDirectory": {
     "title": {
@@ -2839,6 +2854,7 @@
     "could-not-determine-main": "Не вдалося визначити основний worktree репозиторію."
   },
   "cloningRepository": {
+    "cloningInto": "Клонування у {path}",
     "title": "Клонування {repository}"
   },
   "hooks": {
@@ -2897,5 +2913,16 @@
     "chooseAccount": "Виберіть обліковий запис для запитів до GitHub API та HTTPS-автентифікації для {name} на {endpoint}. Це не змінить ім’я та адресу електронної пошти автора в Git.",
     "signIn": "Увійти",
     "useAccount": "Використати обліковий запис"
+  },
+  "submodule": {
+    "updated": "Підмодулі оновлено",
+    "updating": "Оновлення підмодулів",
+    "updatingLine": "Оновлення підмодулів: {line}"
+  },
+  "gitError": {
+    "unknownError": "Невідома помилка (код виходу {exitCode})"
+  },
+  "gitignore": {
+    "symbolicLinkRoot": "Не можна використовувати символьне посилання як кореневий файл .gitignore"
   }
 }

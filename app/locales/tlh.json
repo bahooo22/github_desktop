@@ -97,10 +97,14 @@
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
+      "appStore.checkingOutBranch",
+      "appStore.checkingOutCommit",
       "appStore.fastForwardingBranches",
+      "appStore.fetching",
       "appStore.pulling",
       "appStore.pushingTo",
       "appStore.refreshingRepository",
+      "appStore.switchingToBranch",
       "assistedCommit.animateCopilot",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
@@ -401,6 +405,7 @@
       "cloneRepository.url-label",
       "cloneRepository.url-placeholder",
       "cloneRepository.your-repositories",
+      "cloningRepository.cloningInto",
       "cloningRepository.title",
       "commitDragElement.copyTo",
       "commitDragElement.insertHere",
@@ -788,9 +793,11 @@
       "gitEmail.learnMoreAria",
       "gitEmail.matchesAccount",
       "gitEmail.notAttributable",
+      "gitError.unknownError",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
+      "gitignore.symbolicLinkRoot",
       "history.branchFilter",
       "history.cannotReorder",
       "history.cannotSquash",
@@ -835,10 +842,15 @@
       "lfs.attributeMismatch.message",
       "lfs.attributeMismatch.title",
       "lfs.attributeMismatch.update",
+      "lfs.checkingOut",
+      "lfs.downloading",
+      "lfs.fileProgress",
+      "lfs.fileTitle",
       "lfs.initialize.many-repositories",
       "lfs.initialize.ok",
       "lfs.initialize.title",
       "lfs.notNow",
+      "lfs.uploading",
       "localChangesOverwritten.action.checkout",
       "localChangesOverwritten.action.cherryPick",
       "localChangesOverwritten.action.clone",
@@ -1635,6 +1647,9 @@
       "stashDiffHeader.restore",
       "stashDiffHeader.restoreDescription",
       "stashDiffHeader.title",
+      "submodule.updated",
+      "submodule.updating",
+      "submodule.updatingLine",
       "successBanner.undo",
       "successfulCherryPick.copied",
       "suggestedActions.branchAria",
@@ -3297,6 +3312,10 @@
       },
       "message": "<config>lIj git pat De' HochDaq</config> Git LFS QIbmey ghunlu'pu', pagh motlh tu'qommey 'oHbe'. DaH yIchoH DaneH'a'?"
     },
+    "checkingOut": "wIwIvtaH",
+    "downloading": "Hevlu'",
+    "fileProgress": "{verb} {fileName} ({fileCount} wa'mah 'e' {finishedFiles} rInpu', {transferProgress})",
+    "fileTitle": "{verb} \"{fileName}\"",
     "initialize": {
       "ok": "Git LFS 'e' yItagh",
       "title": "Git LFS 'e' yItagh",
@@ -3308,7 +3327,8 @@
     "notNow": {
       "@darwin": "DaH 'oHbe'",
       "@other": "DaH 'oHbe'"
-    }
+    },
+    "uploading": "yuvlu'"
   },
   "mergeConflicts": {
     "commitWarning": {
@@ -4789,7 +4809,17 @@
     "checkingOut": "wIwIvtaH",
     "fastForwardingBranches": "bartIqmey qemlu'taH",
     "pushingTo": "{remote} HopwI'vaD yuvlu'taH",
-    "pulling": "{remote} 'e' yIHoq"
+    "pulling": "{remote} 'e' yIHoq",
+    "fetching": "{remote} 'e' yIqem",
+    "checkingOutBranch": "{branch} 'e' wIwIvtaH",
+    "checkingOutCommit": {
+      "@darwin": "vem 'e' wIwIvtaH",
+      "@other": "vem 'e' wIwIvtaH"
+    },
+    "switchingToBranch": {
+      "@darwin": "wIwIvtaH",
+      "@other": "wIwIvtaH"
+    }
   },
   "revealDirectory": {
     "title": {
@@ -4869,6 +4899,7 @@
     "could-not-determine-main": "motlh vum Qorwagh Sambe'lu'."
   },
   "cloningRepository": {
+    "cloningInto": "{path}Daq voylu'taH",
     "title": "{repository} 'e' voylu'"
   },
   "hooks": {
@@ -4925,5 +4956,16 @@
     "chooseAccount": "GitHub API lo'meH 'ej HTTPS ngaQHa'moHmeH, {endpoint}Daq {name} De' ngaSwI'vaD mab 'e' yIwIv. lIj Git qonwI' pong je lIj ngeH choHbe'.",
     "signIn": "yIngaQHa'moH",
     "useAccount": "mab 'e' yIlo'"
+  },
+  "submodule": {
+    "updated": "bobcho'mey choHpu'",
+    "updating": "bobcho'mey choHqa'lu'taH",
+    "updatingLine": "bobcho'mey choHqa'lu'taH: {line}"
+  },
+  "gitError": {
+    "unknownError": "Qagh Sovbe'lu' (exit code {exitCode})"
+  },
+  "gitignore": {
+    "symbolicLinkRoot": "root .gitignore file 'oH symbolic link chaw'be'lu'"
   }
 }

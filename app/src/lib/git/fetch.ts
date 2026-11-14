@@ -5,6 +5,7 @@ import { FetchProgressParser, executionOptionsWithProgress } from '../progress'
 import { IRemote } from '../../models/remote'
 import { ITrackingBranch } from '../../models/branch'
 import { envForRemoteOperation } from './environment'
+import { t } from '../l10n/core'
 
 async function getFetchArgs(
   remote: string,
@@ -49,7 +50,7 @@ export async function fetch(
   }
 
   if (progressCallback) {
-    const title = `Fetching ${remote.name}`
+    const title = t('appStore.fetching', { remote: remote.name })
     const kind = 'fetch'
 
     opts = await executionOptionsWithProgress(

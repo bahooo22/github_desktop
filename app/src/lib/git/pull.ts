@@ -12,6 +12,7 @@ import { PullProgressParser, executionOptionsWithProgress } from '../progress'
 import { IRemote } from '../../models/remote'
 import { envForRemoteOperation } from './environment'
 import { getConfigValue } from './config'
+import { t } from '../l10n/core'
 
 /**
  * Pull from the specified remote.
@@ -64,7 +65,7 @@ export async function pull(
   }
 
   if (options?.progressCallback) {
-    const title = `Pulling ${remote.name}`
+    const title = t('appStore.pulling', { remote: remote.name })
     const kind = 'pull'
 
     opts = await executionOptionsWithProgress(

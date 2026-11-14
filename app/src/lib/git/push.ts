@@ -5,6 +5,7 @@ import { PushProgressParser, executionOptionsWithProgress } from '../progress'
 import { IRemote } from '../../models/remote'
 import { envForRemoteOperation } from './environment'
 import { Branch } from '../../models/branch'
+import { t } from '../l10n/core'
 
 export type PushOptions = {
   /**
@@ -76,7 +77,7 @@ export async function push(
 
   if (progressCallback) {
     args.push('--progress')
-    const title = `Pushing to ${remote.name}`
+    const title = t('appStore.pushingTo', { remote: remote.name })
     const kind = 'push'
 
     opts = await executionOptionsWithProgress(

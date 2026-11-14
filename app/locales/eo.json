@@ -95,10 +95,14 @@
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
+      "appStore.checkingOutBranch",
+      "appStore.checkingOutCommit",
       "appStore.fastForwardingBranches",
+      "appStore.fetching",
       "appStore.pulling",
       "appStore.pushingTo",
       "appStore.refreshingRepository",
+      "appStore.switchingToBranch",
       "assistedCommit.animateCopilot",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
@@ -402,6 +406,7 @@
       "cloneRepositoryTabs.dotcomTab",
       "cloneRepositoryTabs.enterpriseTab",
       "cloneRepositoryTabs.urlTab",
+      "cloningRepository.cloningInto",
       "cloningRepository.title",
       "commitDragElement.copyTo",
       "commitDragElement.insertHere",
@@ -792,9 +797,11 @@
       "gitEmail.learnMoreAria",
       "gitEmail.matchesAccount",
       "gitEmail.notAttributable",
+      "gitError.unknownError",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
+      "gitignore.symbolicLinkRoot",
       "history.branchFilter",
       "history.cannotReorder",
       "history.cannotSquash",
@@ -839,10 +846,15 @@
       "lfs.attributeMismatch.message",
       "lfs.attributeMismatch.title",
       "lfs.attributeMismatch.update",
+      "lfs.checkingOut",
+      "lfs.downloading",
+      "lfs.fileProgress",
+      "lfs.fileTitle",
       "lfs.initialize.many-repositories",
       "lfs.initialize.ok",
       "lfs.initialize.title",
       "lfs.notNow",
+      "lfs.uploading",
       "localChangesOverwritten.action.checkout",
       "localChangesOverwritten.action.cherryPick",
       "localChangesOverwritten.action.clone",
@@ -1639,6 +1651,9 @@
       "stashDiffHeader.restore",
       "stashDiffHeader.restoreDescription",
       "stashDiffHeader.title",
+      "submodule.updated",
+      "submodule.updating",
+      "submodule.updatingLine",
       "successBanner.undo",
       "successfulCherryPick.copied",
       "suggestedActions.branchAria",
@@ -3321,6 +3336,10 @@
       },
       "message": "Git LFS-filtriloj jam estas konfiguritaj en <config>via ĝenerala git-konfiguro</config>, sed ne la valoroj, kiujn ĝi atendas. Ĉu vi ŝatus ĝisdatigi ilin nun?"
     },
+    "checkingOut": "Elprenado",
+    "downloading": "Elŝutado",
+    "fileProgress": "{verb} {fileName} ({finishedFiles} el proksimume {fileCount} kompletaj, {transferProgress})",
+    "fileTitle": "{verb} „{fileName}“",
     "initialize": {
       "ok": "Iniciati Git LFS",
       "title": "Iniciati Git LFS",
@@ -3332,7 +3351,8 @@
     "notNow": {
       "@darwin": "Ne nun",
       "@other": "Ne nun"
-    }
+    },
+    "uploading": "Alŝutado"
   },
   "mergeConflicts": {
     "commitWarning": {
@@ -4810,7 +4830,17 @@
     "checkingOut": "Elprenado de branĉo",
     "fastForwardingBranches": "Rapida antaŭenigo de branĉoj",
     "pushingTo": "Puŝado al {remote}",
-    "pulling": "Tiro de {remote}"
+    "pulling": "Tiro de {remote}",
+    "fetching": "Preno de {remote}",
+    "checkingOutBranch": "Elprenado de branĉo {branch}",
+    "checkingOutCommit": {
+      "@darwin": "Elprenado de komito",
+      "@other": "Elprenado de komito"
+    },
+    "switchingToBranch": {
+      "@darwin": "Elprenado de branĉo",
+      "@other": "Elprenado de branĉo"
+    }
   },
   "revealDirectory": {
     "title": {
@@ -4890,6 +4920,7 @@
     "could-not-determine-main": "Ne eblis determini la ĉefan laboran dosierujon de la deponejo."
   },
   "cloningRepository": {
+    "cloningInto": "Kloni en {path}",
     "title": "Kloni {repository}"
   },
   "hooks": {
@@ -4946,5 +4977,16 @@
     "chooseAccount": "Elektu la konton, uzotan por GitHub-API-petoj kaj HTTPS-aŭtentigo por {name} ĉe {endpoint}. Tio ne ŝanĝas vian aŭtoran nomon aŭ retpoŝtadreson en Git.",
     "signIn": "Ensaluti",
     "useAccount": "Uzi konton"
+  },
+  "submodule": {
+    "updated": "Submoduloj ĝisdatigitaj",
+    "updating": "Ĝisdatigo de submoduloj",
+    "updatingLine": "Ĝisdatigo de submoduloj: {line}"
+  },
+  "gitError": {
+    "unknownError": "Nekonata eraro (elira kodo {exitCode})"
+  },
+  "gitignore": {
+    "symbolicLinkRoot": "Ne eblas uzi simbolan ligilon kiel la radikan .gitignore"
   }
 }

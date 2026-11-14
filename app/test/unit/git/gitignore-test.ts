@@ -15,6 +15,16 @@ import {
   appendIgnoreFile,
 } from '../../../src/lib/git'
 import { setupLocalConfig } from '../../helpers/local-config'
+import { t } from '../../../src/lib/l10n'
+
+/**
+ * The message comes from the catalogs now, so the expectation is read from the
+ * same source: a run under a Russian interface rejects with a Russian message.
+ * The helper is a function so the key is resolved per run, not at import.
+ */
+const symbolicLinkRejection = () => ({
+  message: t('gitignore.symbolicLinkRoot'),
+})
 
 describe('gitignore', () => {
   describe('readGitIgnoreAtRoot', () => {
@@ -47,10 +57,7 @@ describe('gitignore', () => {
       await writeFile(targetPath, 'target contents')
       await symlink(targetPath, Path.join(repo.path, '.gitignore'))
 
-      await assert.rejects(
-        readGitIgnoreAtRoot(repo),
-        /Cannot use a symbolic link as the root .gitignore file/
-      )
+      await assert.rejects(readGitIgnoreAtRoot(repo), symbolicLinkRejection())
     })
 
     it('rejects a dangling symbolic link', async t => {
@@ -59,10 +66,7 @@ describe('gitignore', () => {
 
       await symlink(targetPath, Path.join(repo.path, '.gitignore'))
 
-      await assert.rejects(
-        readGitIgnoreAtRoot(repo),
-        /Cannot use a symbolic link as the root .gitignore file/
-      )
+      await assert.rejects(readGitIgnoreAtRoot(repo), symbolicLinkRejection())
     })
 
     it('when autocrlf=true and safecrlf=true, appends CRLF to file', async t => {
@@ -136,7 +140,7 @@ describe('gitignore', () => {
 
       await assert.rejects(
         saveGitIgnore(repo, 'node_modules\n'),
-        /Cannot use a symbolic link as the root .gitignore file/
+        symbolicLinkRejection()
       )
       assert.equal(await readFile(targetPath, 'utf8'), 'target contents')
     })
@@ -149,7 +153,7 @@ describe('gitignore', () => {
 
       await assert.rejects(
         saveGitIgnore(repo, 'node_modules\n'),
-        /Cannot use a symbolic link as the root .gitignore file/
+        symbolicLinkRejection()
       )
     })
 

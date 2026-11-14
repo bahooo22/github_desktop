@@ -9,6 +9,7 @@ import {
 } from 'dugite'
 
 import { assertNever } from '../fatal-error'
+import { t } from '../l10n/core'
 import * as GitPerf from '../../ui/lib/git-perf'
 import * as Path from 'path'
 import { isErrnoException } from '../errno-exception'
@@ -194,7 +195,7 @@ export class GitError extends Error {
     } else if (result.stdout.length) {
       message = coerceToString(result.stdout)
     } else {
-      message = `Unknown error (exit code ${result.exitCode})`
+      message = t('gitError.unknownError', { exitCode: result.exitCode })
       rawMessage = false
     }
 

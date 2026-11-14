@@ -95,10 +95,14 @@
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
+      "appStore.checkingOutBranch",
+      "appStore.checkingOutCommit",
       "appStore.fastForwardingBranches",
+      "appStore.fetching",
       "appStore.pulling",
       "appStore.pushingTo",
       "appStore.refreshingRepository",
+      "appStore.switchingToBranch",
       "assistedCommit.animateCopilot",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
@@ -402,6 +406,7 @@
       "cloneRepositoryTabs.dotcomTab",
       "cloneRepositoryTabs.enterpriseTab",
       "cloneRepositoryTabs.urlTab",
+      "cloningRepository.cloningInto",
       "cloningRepository.title",
       "commitDragElement.copyTo",
       "commitDragElement.insertHere",
@@ -792,9 +797,11 @@
       "gitEmail.learnMoreAria",
       "gitEmail.matchesAccount",
       "gitEmail.notAttributable",
+      "gitError.unknownError",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
+      "gitignore.symbolicLinkRoot",
       "history.branchFilter",
       "history.cannotReorder",
       "history.cannotSquash",
@@ -839,10 +846,15 @@
       "lfs.attributeMismatch.message",
       "lfs.attributeMismatch.title",
       "lfs.attributeMismatch.update",
+      "lfs.checkingOut",
+      "lfs.downloading",
+      "lfs.fileProgress",
+      "lfs.fileTitle",
       "lfs.initialize.many-repositories",
       "lfs.initialize.ok",
       "lfs.initialize.title",
       "lfs.notNow",
+      "lfs.uploading",
       "localChangesOverwritten.action.checkout",
       "localChangesOverwritten.action.cherryPick",
       "localChangesOverwritten.action.clone",
@@ -1639,6 +1651,9 @@
       "stashDiffHeader.restore",
       "stashDiffHeader.restoreDescription",
       "stashDiffHeader.title",
+      "submodule.updated",
+      "submodule.updating",
+      "submodule.updatingLine",
       "successBanner.undo",
       "successfulCherryPick.copied",
       "suggestedActions.branchAria",
@@ -3321,6 +3336,10 @@
       },
       "message": "Filtrum Git LFS iam in <config>configuratio globali git</config> constitutum est, sed non ea quae expectat. Visne illa iam mutare?"
     },
+    "checkingOut": "Eligere",
+    "downloading": "Recipere",
+    "fileProgress": "{verb} {fileName} ({finishedFiles} ex circiter {fileCount} completae, {transferProgress})",
+    "fileTitle": "{verb} “{fileName}”",
     "initialize": {
       "ok": "Git LFS initiare",
       "title": "Git LFS initiare",
@@ -3332,7 +3351,8 @@
     "notNow": {
       "@darwin": "Nunc non",
       "@other": "Nunc non"
-    }
+    },
+    "uploading": "Uploadare"
   },
   "mergeConflicts": {
     "commitWarning": {
@@ -4810,7 +4830,17 @@
     "checkingOut": "Ramum eligere",
     "fastForwardingBranches": "Ramos praecurrere",
     "pushingTo": "Ad {remote} pellere",
-    "pulling": "Arcessere {remote}"
+    "pulling": "Arcessere {remote}",
+    "fetching": "Petere ex {remote}",
+    "checkingOutBranch": "Ramum eligere {branch}",
+    "checkingOutCommit": {
+      "@darwin": "Committionem exire",
+      "@other": "Committionem exire"
+    },
+    "switchingToBranch": {
+      "@darwin": "Ramum eligere",
+      "@other": "Ramum eligere"
+    }
   },
   "revealDirectory": {
     "title": {
@@ -4890,6 +4920,7 @@
     "could-not-determine-main": "Laboris arbor principalis repositorii determinari non potuit."
   },
   "cloningRepository": {
+    "cloningInto": "Clonare in {path}",
     "title": "Clonare {repository}"
   },
   "hooks": {
@@ -4946,5 +4977,16 @@
     "chooseAccount": "Elige sessionem qua petitionibus GitHub API et authenticationi HTTPS pro {name} apud {endpoint} utere. Hoc nomen auctoris Git indicemque electronicum non mutat.",
     "signIn": "Inire",
     "useAccount": "Sessione uti"
+  },
+  "submodule": {
+    "updated": "Submoduli renovati sunt",
+    "updating": "Submodulos renovare",
+    "updatingLine": "Submodulos renovare: {line}"
+  },
+  "gitError": {
+    "unknownError": "Error ignotus (numerus exitus {exitCode})"
+  },
+  "gitignore": {
+    "symbolicLinkRoot": "Non potest vinculum symbolicum ut radicalem .gitignore file adhibere"
   }
 }

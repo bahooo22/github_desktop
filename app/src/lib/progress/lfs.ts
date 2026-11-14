@@ -2,6 +2,7 @@ import { getTempFilePath } from '../file-system'
 import { IGitProgress, IGitProgressInfo, IGitOutput } from './git'
 import { formatBytes } from '../../ui/lib/bytes'
 import { open } from 'fs/promises'
+import { t } from '../l10n/core'
 
 /** Create the Git LFS progress reporting file and return the path. */
 export async function createLFSProgressFile(): Promise<string> {
@@ -98,12 +99,18 @@ export class GitLFSProgressParser {
 
     const verb = this.directionToHumanFacingVerb(direction)
     const info: IGitProgressInfo = {
-      title: `${verb} "${fileName}"`,
+      title: t('lfs.fileTitle', { verb, fileName }),
       value: totalTransferred,
       total: totalEstimated,
       percent: 0,
       done: false,
-      text: `${verb} ${fileName} (${finishedFiles} out of an estimated ${fileCount} completed, ${transferProgress})`,
+      text: t('lfs.fileProgress', {
+        verb,
+        fileName,
+        finishedFiles,
+        fileCount,
+        transferProgress,
+      }),
     }
 
     return {
@@ -116,13 +123,13 @@ export class GitLFSProgressParser {
   private directionToHumanFacingVerb(direction: string): string {
     switch (direction) {
       case 'download':
-        return 'Downloading'
+        return t('lfs.downloading')
       case 'upload':
-        return 'Uploading'
+        return t('lfs.uploading')
       case 'checkout':
-        return 'Checking out'
+        return t('lfs.checkingOut')
       default:
-        return 'Downloading'
+        return t('lfs.downloading')
     }
   }
 }

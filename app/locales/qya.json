@@ -97,10 +97,14 @@
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
+      "appStore.checkingOutBranch",
+      "appStore.checkingOutCommit",
       "appStore.fastForwardingBranches",
+      "appStore.fetching",
       "appStore.pulling",
       "appStore.pushingTo",
       "appStore.refreshingRepository",
+      "appStore.switchingToBranch",
       "assistedCommit.animateCopilot",
       "assistedCommit.copilotWorking",
       "assistedCommit.createEmptyCommit",
@@ -401,6 +405,7 @@
       "cloneRepository.url-label",
       "cloneRepository.url-placeholder",
       "cloneRepository.your-repositories",
+      "cloningRepository.cloningInto",
       "cloningRepository.title",
       "commitDragElement.copyTo",
       "commitDragElement.insertHere",
@@ -787,9 +792,11 @@
       "gitEmail.learnMoreAria",
       "gitEmail.matchesAccount",
       "gitEmail.notAttributable",
+      "gitError.unknownError",
       "gitUser.configureManually",
       "gitUser.useGitHubAccount",
       "gitUser.yourNamePlaceholder",
+      "gitignore.symbolicLinkRoot",
       "history.branchFilter",
       "history.cannotReorder",
       "history.cannotSquash",
@@ -834,10 +841,15 @@
       "lfs.attributeMismatch.message",
       "lfs.attributeMismatch.title",
       "lfs.attributeMismatch.update",
+      "lfs.checkingOut",
+      "lfs.downloading",
+      "lfs.fileProgress",
+      "lfs.fileTitle",
       "lfs.initialize.many-repositories",
       "lfs.initialize.ok",
       "lfs.initialize.title",
       "lfs.notNow",
+      "lfs.uploading",
       "localChangesOverwritten.action.checkout",
       "localChangesOverwritten.action.cherryPick",
       "localChangesOverwritten.action.clone",
@@ -1634,6 +1646,9 @@
       "stashDiffHeader.restore",
       "stashDiffHeader.restoreDescription",
       "stashDiffHeader.title",
+      "submodule.updated",
+      "submodule.updating",
+      "submodule.updatingLine",
       "successBanner.undo",
       "successfulCherryPick.copied",
       "suggestedActions.branchAria",
@@ -3296,6 +3311,10 @@
       },
       "message": "<config>i ambarya Git partië</config> harya tensi i Git LFS siltyar, ar i Git LFS lá harya i siltyar sina. Sáquetatya enhanya i siltyar síra?"
     },
+    "checkingOut": "cilë",
+    "downloading": "tulya",
+    "fileProgress": "{verb} {fileName} ({finishedFiles} carina {fileCount}llo, {transferProgress})",
+    "fileTitle": "{verb} \"{fileName}\"",
     "initialize": {
       "ok": "Á yesta i Git LFS",
       "title": "Á yesta i Git LFS",
@@ -3307,7 +3326,8 @@
     "notNow": {
       "@darwin": "Lá síra",
       "@other": "Lá síra"
-    }
+    },
+    "uploading": "nirë"
   },
   "mergeConflicts": {
     "commitWarning": {
@@ -4788,7 +4808,17 @@
     "checkingOut": "Cilë",
     "fastForwardingBranches": "Nirë linta i olbar",
     "pushingTo": "Nirë i {remote} palan haura",
-    "pulling": "Lucë i {remote} palan haura"
+    "pulling": "Lucë i {remote} palan haura",
+    "fetching": "tulya {remote}",
+    "checkingOutBranch": "cilë i olba {branch}",
+    "checkingOutCommit": {
+      "@darwin": "cilë i minatacë",
+      "@other": "cilë i minatacë"
+    },
+    "switchingToBranch": {
+      "@darwin": "cilë i olba",
+      "@other": "cilë i olba"
+    }
   },
   "revealDirectory": {
     "title": {
@@ -4868,6 +4898,7 @@
     "could-not-determine-main": "unistë hiryë i minya hauramar."
   },
   "cloningRepository": {
+    "cloningInto": "ovëanta {path}anna",
     "title": "ovëanta {repository}"
   },
   "hooks": {
@@ -4924,5 +4955,16 @@
     "chooseAccount": "Cilë i essë itan yuhta i GitHub APIo iquiriessen ar i HTTPS tyuliëssë {name} hauro {endpoint}issë. Sina lá vista i Git parmahtor esselya ar i tencalya.",
     "signIn": "Tulë",
     "useAccount": "á-yuhta i essë"
+  },
+  "submodule": {
+    "updated": "I submoduleo enhanyanë",
+    "updating": "Enhanya i submoduleo",
+    "updatingLine": "Enhanya i submoduleo: {line}"
+  },
+  "gitError": {
+    "unknownError": "Loima úhírëa (exit code {exitCode})"
+  },
+  "gitignore": {
+    "symbolicLinkRoot": "Lá polë carë i root .gitignore symbolic link"
   }
 }

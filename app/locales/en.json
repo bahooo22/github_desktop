@@ -1492,6 +1492,10 @@
       },
       "message": "Git LFS filters are already configured in <config>your global git config</config> but are not the values it expects. Would you like to update them now?"
     },
+    "checkingOut": "Checking out",
+    "downloading": "Downloading",
+    "fileProgress": "{verb} {fileName} ({finishedFiles} out of an estimated {fileCount} completed, {transferProgress})",
+    "fileTitle": "{verb} \"{fileName}\"",
     "initialize": {
       "ok": "Initialize Git LFS",
       "title": "Initialize Git LFS",
@@ -1503,7 +1507,8 @@
     "notNow": {
       "@darwin": "Not Now",
       "@other": "Not now"
-    }
+    },
+    "uploading": "Uploading"
   },
   "mergeConflicts": {
     "commitWarning": {
@@ -2984,7 +2989,17 @@
     "checkingOut": "Checking out",
     "fastForwardingBranches": "Fast-forwarding branches",
     "pushingTo": "Pushing to {remote}",
-    "pulling": "Pulling {remote}"
+    "pulling": "Pulling {remote}",
+    "fetching": "Fetching {remote}",
+    "checkingOutBranch": "Checking out branch {branch}",
+    "checkingOutCommit": {
+      "@darwin": "Checking out Commit",
+      "@other": "Checking out commit"
+    },
+    "switchingToBranch": {
+      "@darwin": "Switching to Branch",
+      "@other": "Switching to branch"
+    }
   },
   "revealDirectory": {
     "title": {
@@ -3064,6 +3079,7 @@
     "could-not-determine-main": "Could not determine the main worktree of the repository."
   },
   "cloningRepository": {
+    "cloningInto": "Cloning into {path}",
     "title": "Cloning {repository}"
   },
   "hooks": {
@@ -3120,5 +3136,16 @@
     "chooseAccount": "Choose the account to use for GitHub API requests and HTTPS authentication for {name} on {endpoint}. This does not change your Git author name or email.",
     "signIn": "Sign in",
     "useAccount": "Use account"
+  },
+  "submodule": {
+    "updated": "Submodules updated",
+    "updating": "Updating submodules",
+    "updatingLine": "Updating submodules: {line}"
+  },
+  "gitError": {
+    "unknownError": "Unknown error (exit code {exitCode})"
+  },
+  "gitignore": {
+    "symbolicLinkRoot": "Cannot use a symbolic link as the root .gitignore file"
   }
 }

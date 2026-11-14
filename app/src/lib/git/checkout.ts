@@ -16,6 +16,7 @@ import { ManualConflictResolution } from '../../models/manual-conflict-resolutio
 import { CommitOneLine, shortenSHA } from '../../models/commit'
 import { IRemote } from '../../models/remote'
 import { updateSubmodulesAfterOperation } from './submodule'
+import { t } from '../l10n/core'
 
 export type ProgressCallback = (progress: ICheckoutProgress) => void
 
@@ -108,7 +109,7 @@ export async function checkoutBranch(
   progressCallback?: ProgressCallback,
   allowFileProtocol: boolean = false
 ): Promise<true> {
-  const title = `Checking out branch ${branch.name}`
+  const title = t('appStore.checkingOutBranch', { branch: branch.name })
   const opts = await getCheckoutOpts(
     repository,
     title,
@@ -117,7 +118,7 @@ export async function checkoutBranch(
     progressCallback
       ? clampProgress(0, CheckoutStepWeight, progressCallback)
       : undefined,
-    `Switching to ${__DARWIN__ ? 'Branch' : 'branch'}`
+    t('appStore.switchingToBranch')
   )
 
   const baseArgs = getCheckoutArgs(progressCallback)
@@ -169,7 +170,7 @@ export async function checkoutCommit(
   progressCallback?: ProgressCallback,
   allowFileProtocol: boolean = false
 ): Promise<true> {
-  const title = `Checking out ${__DARWIN__ ? 'Commit' : 'commit'}`
+  const title = t('appStore.checkingOutCommit')
   const target = shortenSHA(commit.sha)
   const opts = await getCheckoutOpts(
     repository,

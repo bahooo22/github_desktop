@@ -4,12 +4,10 @@ import { Repository } from '../../models/repository'
 import { getConfigValue } from './config'
 import { lstat, open, type FileHandle } from 'fs/promises'
 import { isErrnoException } from '../errno-exception'
-
-const symbolicLinkErrorMessage =
-  'Cannot use a symbolic link as the root .gitignore file'
+import { t } from '../l10n/core'
 
 function createSymbolicLinkError(): Error {
-  return new Error(symbolicLinkErrorMessage)
+  return new Error(t('gitignore.symbolicLinkRoot'))
 }
 
 async function ensureGitIgnoreIsNotSymbolicLink(
