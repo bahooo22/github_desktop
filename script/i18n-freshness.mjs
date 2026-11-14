@@ -280,7 +280,9 @@ function collectStringLiterals(node, out) {
     }
     current.forEachChild(visit)
   }
-  node.forEachChild(visit)
+  // Обход начинается с самого узла: инициализатор вида `label="Close"` - это и
+  // есть строковый литерал, без его детей, и спуск от него ничего не находил.
+  visit(node)
   return out
 }
 

@@ -80,10 +80,12 @@ describe('l10n freshness', () => {
       `    <div aria-label="branch list item">`,
       `      Choose a branch to compare`,
       `      <Footer okButtonText={props.buttonText || 'Close'} />`,
+      `      <Checkbox label="Clear repository account assignments" />`,
       `      <span className="panel blankslate">ignored</span>`,
       `    </div>`,
       `  )`,
       `}`,
+      `const item: any = { label: 'Repository Settings', action: () => {} }`,
     ].join('\n')
 
     const texts: Array<string> = extractVisibleLiteralsFromSource(
@@ -95,6 +97,10 @@ describe('l10n freshness', () => {
     assert.ok(texts.includes('Current branch'))
     assert.ok(texts.includes('Choose a branch to compare'))
     assert.ok(texts.includes('Close'))
+    // Литерал может быть инициализатором сам, без фигурных скобок: тогда у
+    // него нет детей, и обход, начатый от детей, его пропускал.
+    assert.ok(texts.includes('Clear repository account assignments'))
+    assert.ok(texts.includes('Repository Settings'))
     assert.ok(!texts.includes('panel blankslate'))
     assert.ok(!texts.includes('ignored'))
   })
