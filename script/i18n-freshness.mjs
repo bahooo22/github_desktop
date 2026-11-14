@@ -1279,6 +1279,63 @@ function englishFor(enLeaf, form) {
 }
 
 /**
+ * The most untranslated forms each catalog is accepted with, measured on the
+ * catalogs themselves on 14.11.2026 rather than wished for. A zero would be red
+ * the day it lands and stay red: every constructed language keeps brands
+ * (`GitHub Desktop`), the `terms` glossary rows and pure placeholder templates
+ * (`{verb} {fileName}`) byte-for-byte English on purpose, and a natural language
+ * has no measure that would tell those apart from an unpainted UI string.
+ * Lowering a number is what a translation batch is for; raising one is a
+ * decision, and the decision belongs in `docs/fork-localization-progress.md`
+ * together with the number.
+ */
+export const UNTRANSLATED_CEILINGS = Object.freeze({
+  ru: 28,
+  uk: 28,
+  la: 31,
+  eo: 23,
+  tlh: 56,
+  qya: 59,
+})
+
+/**
+ * Compare measured counts against the ceilings. Equality passes: a ceiling is
+ * the highest accepted number, so `>` and not `>=` is the difference between a
+ * gate that lets a batch land and one that blames it for its own measurement.
+ * `missing` is a catalog with no entry, `stale` an entry with no catalog - both
+ * are how a fifth language added to `app/locales` shows up here.
+ */
+export function checkUntranslatedCeilings(
+  counts,
+  ceilings = UNTRANSLATED_CEILINGS
+) {
+  const violations = []
+  const missing = []
+  const stale = []
+  const under = []
+
+  for (const [tag, count] of Object.entries(counts)) {
+    const ceiling = ceilings[tag]
+
+    if (ceiling === undefined) {
+      missing.push(tag)
+    } else if (count > ceiling) {
+      violations.push({ tag, count, ceiling })
+    } else if (count < ceiling) {
+      under.push({ tag, count, ceiling })
+    }
+  }
+
+  for (const tag of Object.keys(ceilings)) {
+    if (!(tag in counts)) {
+      stale.push(tag)
+    }
+  }
+
+  return { violations, missing, stale, under }
+}
+
+/**
  * Count the strings of a target catalog that are byte-for-byte the English text
  * of the same place. A variant record carries one text per form, so its forms
  * are judged one by one: comparing the records with `===` never matches, and
@@ -1310,27 +1367,108 @@ export function countUntranslatedLeaves(enLeaves, targetLeaves) {
   return { untranslated, compared, unmatched }
 }
 
-/** CLI mode: print how much of `<tag>` is still the English text. */
-export function runUntranslated(tag) {
-  const enTree = readJson(join(localesDir, 'en.json'))
-  const targetPath = join(localesDir, `${tag}.json`)
+/**
+ * CLI mode. With a tag: how much of it is still the English text, measured
+ * against that tag's ceiling. Without a tag: the same over every catalog but
+ * `en`, which is the gate CI runs - a catalog that gains English copies it did
+ * not have before is red there, and a batch that paints them lowers the number.
+ */
+export function runUntranslated(tag = undefined) {
+  const enLeaves = flattenCatalogLeaves(readJson(join(localesDir, 'en.json')))
 
-  if (!existsSync(targetPath)) {
-    console.error(`catalog not found: ${targetPath}`)
-    return 1
+  if (tag !== undefined) {
+    const targetPath = join(localesDir, `${tag}.json`)
+
+    if (!existsSync(targetPath)) {
+      console.error(`catalog not found: ${targetPath}`)
+      return 1
+    }
+
+    const { untranslated, compared, unmatched } = countUntranslatedLeaves(
+      enLeaves,
+      flattenCatalogLeaves(readJson(targetPath))
+    )
+    const ceiling = UNTRANSLATED_CEILINGS[tag]
+
+    console.log(
+      `${tag}: ${untranslated} untranslated leaves of ${compared} compared` +
+        (unmatched === 0 ? '' : `, ${unmatched} without an English original`) +
+        (ceiling === undefined
+          ? ', no ceiling'
+          : `, ceiling ${ceiling}` +
+            (untranslated > ceiling ? ' - BREACHED' : ''))
+    )
+
+    // A tag outside the table keeps the old rule of any English copy at all:
+    // adding a catalog to app/locales then costs a measured number here rather
+    // than slipping past the gate unnoticed.
+    if (ceiling === undefined) {
+      return untranslated > 0 ? 1 : 0
+    }
+
+    return untranslated > ceiling ? 1 : 0
   }
 
-  const targetTree = readJson(targetPath)
-  const { untranslated, compared, unmatched } = countUntranslatedLeaves(
-    flattenCatalogLeaves(enTree),
-    flattenCatalogLeaves(targetTree)
-  )
+  const counts = {}
+  const measurements = {}
 
-  console.log(
-    `${tag}: ${untranslated} untranslated leaves of ${compared} compared` +
-      (unmatched === 0 ? '' : `, ${unmatched} without an English original`)
-  )
-  return untranslated > 0 ? 1 : 0
+  for (const entry of loadCatalogs()) {
+    if (entry.tag === 'en') {
+      continue
+    }
+
+    const result = countUntranslatedLeaves(
+      enLeaves,
+      flattenCatalogLeaves(entry.tree)
+    )
+    counts[entry.tag] = result.untranslated
+    measurements[entry.tag] = result
+  }
+
+  const { violations, missing, stale, under } =
+    checkUntranslatedCeilings(counts)
+
+  for (const [tag, { compared, unmatched, untranslated }] of Object.entries(
+    measurements
+  )) {
+    console.log(
+      `${tag}: ${untranslated} untranslated leaves of ${compared} compared` +
+        (unmatched === 0 ? '' : `, ${unmatched} without an English original`) +
+        `, ceiling ${UNTRANSLATED_CEILINGS[tag] ?? 'none'}`
+    )
+  }
+
+  for (const { tag: broken, count, ceiling } of violations) {
+    console.error(
+      `${broken}: ${count} untranslated forms is over the ceiling of ${ceiling}. ` +
+        'Either translate the forms - run `npm run l10n:untranslated ' +
+        `${broken}` +
+        '` to see how many there are - or raise UNTRANSLATED_CEILINGS in this ' +
+        'file and write the number and its reason in ' +
+        'docs/fork-localization-progress.md.'
+    )
+  }
+
+  for (const tag of missing) {
+    console.error(
+      `${tag}: no ceiling in UNTRANSLATED_CEILINGS - measure it and add it.`
+    )
+  }
+
+  for (const tag of stale) {
+    console.error(
+      `${tag}: UNTRANSLATED_CEILINGS ceilings a catalog that does not load.`
+    )
+  }
+
+  for (const { tag, count, ceiling } of under) {
+    console.log(
+      `${tag}: ${count} is under its ceiling of ${ceiling} - lower it once the ` +
+        'number has been re-measured.'
+    )
+  }
+
+  return violations.length + missing.length + stale.length > 0 ? 1 : 0
 }
 
 // ---------------------------------------------------------------------------
@@ -1467,16 +1605,11 @@ function main() {
   } else if (mode === '--bundles') {
     process.exitCode = runBundles()
   } else if (mode === '--untranslated') {
-    const tag = args[1]
-    if (!tag) {
-      console.error('usage: --untranslated <tag>')
-      process.exitCode = 1
-    } else {
-      process.exitCode = runUntranslated(tag)
-    }
+    const tag = args[1] && !args[1].startsWith('--') ? args[1] : undefined
+    process.exitCode = runUntranslated(tag)
   } else {
     console.log(
-      'usage: node script/i18n-freshness.mjs [--audit | --parity | --upstream [ref] | --bundles | --untranslated <tag>]'
+      'usage: node script/i18n-freshness.mjs [--audit | --parity | --upstream [ref] | --bundles | --untranslated [<tag>]]'
     )
     process.exitCode = mode === undefined ? 1 : 0
   }

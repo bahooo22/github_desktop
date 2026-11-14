@@ -115,6 +115,8 @@ jobs:
       - run: npm run validate-electron-version
       - run: npm run lint
       - run: npm run validate-changelog
+      - name: Untranslated form ceilings (fork measure)
+        run: npm run l10n:untranslated
       - name: Ensure a clean working directory
         run: git diff --name-status --exit-code
   build:

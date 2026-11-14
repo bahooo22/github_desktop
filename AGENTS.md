@@ -37,9 +37,11 @@ Install dependencies first (`npm ci`), then run these from the repository root.
 - `npm test` - unit tests on the Node.js built-in runner. Narrow a run with
   `npm test -- app/test/unit/<file>-test.ts`.
 - `npm run test:script` and `npm run test:eslint` - build scripts and the custom ESLint rules.
-- `npm run l10n:parity`, `npm run l10n:audit`, `npm run l10n:upstream` and `npm run l10n:bundles` -
-  translation coverage and freshness of the catalogs. Required for any change under `app/locales/` or
-  `app/src/lib/l10n/`.
+- `npm run l10n:parity`, `npm run l10n:audit`, `npm run l10n:upstream`, `npm run l10n:bundles` and
+  `npm run l10n:untranslated` - translation coverage and freshness of the catalogs. Required for any
+  change under `app/locales/` or `app/src/lib/l10n/`. Without a tag, `npm run l10n:untranslated`
+  compares every catalog with the ceilings of `UNTRANSLATED_CEILINGS` in `script/i18n-freshness.mjs`,
+  and that gate is a step of the `lint` job in CI.
 - `npm run check:eslint` - type-checks `eslint-rules/`. Application sources are type-checked by
   `npm run compile:dev`.
 - `npm run markdownlint` - documentation.

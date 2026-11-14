@@ -6,6 +6,7 @@ import { join } from 'node:path'
 // script/i18n-freshness.d.mts carries its types, tsx runs the JavaScript.
 import {
   changelogNoteKeys,
+  checkUntranslatedCeilings,
   collectCatalogStrings,
   compareCatalogParity,
   countUntranslatedLeaves,
@@ -23,6 +24,7 @@ import {
   keysRequestedInSource,
   keysRequestedInSources,
   requestedKeysMissingFromCatalog,
+  UNTRANSLATED_CEILINGS,
 } from '../../../script/i18n-freshness.mjs'
 
 function loadCatalog(tag: string) {
@@ -467,6 +469,70 @@ describe('untranslated counter', () => {
       compared: 1,
       unmatched: 1,
     })
+  })
+})
+
+// The gate CI runs. A ceiling is the highest number of English copies a catalog
+// is accepted with, measured off the catalog itself: brands, the `terms`
+// glossary and pure placeholder templates stay English in a constructed
+// language on purpose, so the alternative to a measured number is a gate that
+// is red on the day it lands.
+describe('untranslated ceilings', () => {
+  it('blames a count over its ceiling and notes one under it', () => {
+    const { violations, under } = checkUntranslatedCeilings(
+      { ru: 3, tlh: 1 },
+      { ru: 2, tlh: 5 }
+    )
+
+    assert.deepEqual(violations, [{ tag: 'ru', count: 3, ceiling: 2 }])
+    assert.deepEqual(under, [{ tag: 'tlh', count: 1, ceiling: 5 }])
+  })
+
+  it('accepts a count equal to its ceiling', () => {
+    // Writing the comparison as `>=` makes this the case that goes red, and a
+    // catalog sitting exactly on the accepted number is the normal state right
+    // after the batch that lowered it.
+    const { violations, under } = checkUntranslatedCeilings(
+      { ru: 2 },
+      { ru: 2 }
+    )
+
+    assert.deepEqual(violations, [])
+    assert.deepEqual(under, [])
+  })
+
+  it('asks for a ceiling of a catalog the table does not have', () => {
+    const { missing } = checkUntranslatedCeilings({ sd: 4 }, { ru: 2 })
+
+    assert.deepEqual(missing, ['sd'])
+  })
+
+  it('reports a ceiling whose catalog was not measured', () => {
+    const { stale } = checkUntranslatedCeilings({ ru: 1 }, { ru: 2, qya: 59 })
+
+    assert.deepEqual(stale, ['qya'])
+  })
+
+  it('holds every shipped catalog at or under its ceiling', () => {
+    const en = flattenCatalogLeaves(loadCatalog('en'))
+    const tags = ['ru', 'uk', 'la', 'eo', 'tlh', 'qya']
+    const counts: Record<string, number> = {}
+
+    for (const tag of tags) {
+      counts[tag] = countUntranslatedLeaves(
+        en,
+        flattenCatalogLeaves(loadCatalog(tag))
+      ).untranslated
+    }
+
+    assert.deepEqual(Object.keys(UNTRANSLATED_CEILINGS), tags)
+
+    for (const tag of tags) {
+      assert.ok(
+        counts[tag] <= UNTRANSLATED_CEILINGS[tag],
+        `${tag}: ${counts[tag]} untranslated forms over a ceiling of ${UNTRANSLATED_CEILINGS[tag]}`
+      )
+    }
   })
 })
 

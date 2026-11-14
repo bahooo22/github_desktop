@@ -57,6 +57,26 @@ export interface IUntranslatedCount {
   readonly unmatched: number
 }
 
+/** One tag whose measured count sits on one side of its ceiling. */
+export interface IUntranslatedCeilingPair {
+  readonly tag: string
+  readonly count: number
+  readonly ceiling: number
+}
+
+/**
+ * The four ways the ceiling table and the catalogs can disagree. `violations`
+ * and `missing` are red, `stale` is red because it means the table describes a
+ * catalog that no longer loads, and `under` is only the hint that a ceiling can
+ * be lowered.
+ */
+export interface IUntranslatedCeilingResult {
+  readonly violations: ReadonlyArray<IUntranslatedCeilingPair>
+  readonly missing: ReadonlyArray<string>
+  readonly stale: ReadonlyArray<string>
+  readonly under: ReadonlyArray<IUntranslatedCeilingPair>
+}
+
 export const PRODUCT_NAMES: ReadonlyArray<string>
 export const VISIBLE_NAMES: ReadonlySet<string>
 export const VISIBLE_SUFFIXES: ReadonlyArray<string>
@@ -100,6 +120,12 @@ export function countUntranslatedLeaves(
   enLeaves: Map<string, CatalogLeaf>,
   targetLeaves: Map<string, CatalogLeaf>
 ): IUntranslatedCount
+/** The highest accepted number of untranslated forms per tag. */
+export const UNTRANSLATED_CEILINGS: Readonly<Record<string, number>>
+export function checkUntranslatedCeilings(
+  counts: Readonly<Record<string, number>>,
+  ceilings?: Readonly<Record<string, number>>
+): IUntranslatedCeilingResult
 export function compareCatalogParity(
   catalogs: ReadonlyArray<ICatalogEntry | readonly [string, CatalogTree]>
 ): ICatalogParityResult
@@ -123,3 +149,5 @@ export function runAudit(): number
 export function runUpstream(ref: string | undefined): number
 export function runParity(): number
 export function runBundles(): number
+/** One catalog against its ceiling, or every catalog but `en` as the gate. */
+export function runUntranslated(tag?: string): number
