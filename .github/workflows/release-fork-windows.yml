@@ -201,8 +201,9 @@ jobs:
         with:
           path: ${{ runner.temp }}/caches
           key:
-            ${{ runner.os }}-deps-${{ env.ARCH }}-${{ hashFiles('package-lock.json',
-            'app/package-lock.json', 'vendor/*/package-lock.json') }}
+            ${{ runner.os }}-deps-${{ env.ARCH }}-${{
+            hashFiles('package-lock.json', 'app/package-lock.json',
+            'vendor/*/package-lock.json') }}
           restore-keys: ${{ runner.os }}-deps-${{ env.ARCH }}-
 
       # Архив встроенного Git (dugite) — в ОТДЕЛЬНОМ каталоге и отдельным слотом,

@@ -33,10 +33,7 @@ export const releaseAssetExtensions: ReadonlyArray<string> = [
  * Kept apart from the list above so a fork release can never hand out an
  * executable — the caller does not choose which list applies, the URL does.
  */
-const upstreamInstallerExtensions: ReadonlyArray<string> = [
-  '.exe',
-  '.zip',
-]
+const upstreamInstallerExtensions: ReadonlyArray<string> = ['.exe', '.zip']
 
 /**
  * The official channel's endpoint, the only URL that may carry an installer

@@ -729,18 +729,14 @@ export class CloneRepository extends React.Component<
   /** Validate the destination before cloning can create files in it. */
   private async validateClonePath(path: string | null): Promise<null | Error> {
     if (path === null) {
-      return new Error(
-        t('cloneRepository.error-unable-to-read-path')
-      )
+      return new Error(t('cloneRepository.error-unable-to-read-path'))
     }
 
     if (
       __DARWIN__ &&
       Path.basename(Path.resolve(path)).toLowerCase().endsWith('.app')
     ) {
-      return new Error(
-        t('cloneRepository.error-app-suffix')
-      )
+      return new Error(t('cloneRepository.error-app-suffix'))
     }
 
     try {
@@ -758,16 +754,12 @@ export class CloneRepository extends React.Component<
       if (directoryFiles.length === 0) {
         return null
       } else {
-        return new Error(
-          t('cloneRepository.error-folder-not-empty')
-        )
+        return new Error(t('cloneRepository.error-folder-not-empty'))
       }
     } catch (error) {
       if (error.code === 'ENOTDIR') {
         // path refers to a file or other file system entry
-        return new Error(
-          t('cloneRepository.error-path-is-file')
-        )
+        return new Error(t('cloneRepository.error-path-is-file'))
       }
 
       if (error.code === 'ENOENT') {
@@ -778,9 +770,7 @@ export class CloneRepository extends React.Component<
       log.error(
         'CloneRepository: Path validation failed. Error: ' + error.message
       )
-      return new Error(
-        t('cloneRepository.error-unable-to-read-path')
-      )
+      return new Error(t('cloneRepository.error-unable-to-read-path'))
     }
   }
 

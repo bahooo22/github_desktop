@@ -251,22 +251,15 @@ jobs:
       id-token: write
     strategy:
       fail-fast: false
+      # Та же условная матрица целиком в JSON, что и у `build`: отдельную
+      # строку `include` job-level `if` не вычёркивает, а форковая ветка
+      # обязана остаться — она и есть признак форка.
       matrix:
-<<<<<<< HEAD
         ${{ fromJSON(github.repository == 'desktop/desktop' &&
-        '{"include":[{"os":"macos-14-xlarge","friendlyName":"macOS","arch":"arm64"},{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}'
+        '{"include":[{"os":"macos-15-xlarge","friendlyName":"macOS","arch":"arm64"},{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}'
         ||
         '{"include":[{"os":"windows-2022","friendlyName":"Windows","arch":"x64"}]}')
         }}
-=======
-        include:
-          - os: macos-15-xlarge
-            friendlyName: macOS
-            arch: arm64
-          - os: windows-2022
-            friendlyName: Windows
-            arch: x64
->>>>>>> upstream/development
     timeout-minutes: 60
     environment: ${{ inputs.environment }}
     env:

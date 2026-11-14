@@ -82,8 +82,9 @@ jobs:
         with:
           path: ${{ runner.temp }}/caches
           key:
-            ${{ runner.os }}-${{ inputs.arch }}-deps-${{ hashFiles('package-lock.json',
-            'app/package-lock.json', 'vendor/*/package-lock.json') }}
+            ${{ runner.os }}-${{ inputs.arch }}-deps-${{
+            hashFiles('package-lock.json', 'app/package-lock.json',
+            'vendor/*/package-lock.json') }}
           restore-keys: ${{ runner.os }}-${{ inputs.arch }}-deps-
 
       - uses: actions/setup-node@v6
