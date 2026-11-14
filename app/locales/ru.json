@@ -1723,7 +1723,10 @@
     "fork-desc-autocompletion": "Автодополнение имён пользователей и задач будет работать по <strong>{repository}</strong>.",
     "gitignore-description": "Изменяется файл <ref>.gitignore</ref>. В нём перечислены файлы, которые Git намеренно игнорирует. Уже отслеживаемые Git файлы не затрагиваются. <link>Подробнее о файлах gitignore</link>",
     "no-remote-message": "Опубликуйте свой репозиторий на GitHub. Нужна помощь? <link>Подробнее об удалённых репозиториях.</link>",
-    "error-save-account": "Не удалось сохранить учётную запись репозитория: {error}"
+    "error-save-account": "Не удалось сохранить учётную запись репозитория: {error}",
+    "account-none": "Нет (не назначена)",
+    "account-signed-out": "@{login} (вы вышли)",
+    "account-description": "Учётная запись используется для запросов к GitHub API и HTTPS-аутентификации. Это не меняет имя и адрес электронной почты автора в Git."
   },
   "reset": {
     "continue": "Продолжить",
@@ -1910,7 +1913,13 @@
     "exitTutorial": {
       "@darwin": "Выйти из обучения",
       "@other": "В&ыйти из обучения"
-    }
+    },
+    "summaryInstallEditor": "Установите текстовый редактор",
+    "summaryCreateBranch": "Создайте ветку",
+    "summaryEditFile": "Измените файл",
+    "summaryMakeCommit": "Выполните коммит",
+    "summaryPublishToGithub": "Опубликуйте на GitHub",
+    "summaryOpenPullRequest": "Откройте pull request"
   },
   "testNotifications": {
     "noPullRequests": "Pull request'ы не найдены",
@@ -2571,7 +2580,9 @@
     "userNotFound": "Не удалось найти пользователя с именем {username}",
     "searching": "Поиск @{username}",
     "errorUserNotFound": "Ошибка: пользователь {username} не найден",
-    "coAuthors": "Соавторы:"
+    "coAuthors": "Соавторы:",
+    "added": "{username} добавлен",
+    "removed": "{username} удалён"
   },
   "suggestedActions": {
     "branchAria": "Предложенные действия для этой ветки"
@@ -2704,7 +2715,9 @@
     "title": "Добавить worktree",
     "worktreeNameLabel": "Имя worktree",
     "branchNameLabel": "Имя ветки",
-    "createWorktree": "Создать worktree"
+    "createWorktree": "Создать worktree",
+    "worktreeNamePlaceholder": "имя worktree",
+    "worktreePathPlaceholder": "путь к worktree"
   },
   "updateBranch": {
     "mergeCommitLabel": "Создать коммит слияния",

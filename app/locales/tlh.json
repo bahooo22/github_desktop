@@ -80,6 +80,8 @@
       "addWorktreeDialog.willCheckOutExistingBranch",
       "addWorktreeDialog.willCheckOutRemoteBranch",
       "addWorktreeDialog.worktreeNameLabel",
+      "addWorktreeDialog.worktreeNamePlaceholder",
+      "addWorktreeDialog.worktreePathPlaceholder",
       "addWorktreeDialog.worktreeWillBeCreated",
       "app.current-repository",
       "app.no-repositories",
@@ -145,8 +147,10 @@
       "authorHandle.searching",
       "authorHandle.unknownAriaLabel",
       "authorHandle.userNotFound",
+      "authorInput.added",
       "authorInput.coAuthors",
       "authorInput.errorUserNotFound",
+      "authorInput.removed",
       "authorInput.searching",
       "authorInput.userNotFound",
       "avatar.forUser",
@@ -1326,6 +1330,7 @@
       "repositoryPath.invalidCharsReplaced",
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
+      "repositorySettings.account-description",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1760,6 +1765,10 @@
       "tutorialPanel.openPullRequest",
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
+      "tutorialPanel.summaryCreateBranch",
+      "tutorialPanel.summaryEditFile",
+      "tutorialPanel.summaryMakeCommit",
+      "tutorialPanel.summaryOpenPullRequest",
       "tutorialPanelSkip.skip",
       "tutorialWelcome.altCloud",
       "tutorialWelcome.altCode",
@@ -3652,7 +3661,10 @@
     "fork-desc-autocompletion": "lo'wI' je qechmey <strong>{repository}</strong>vo' Hevlu'.",
     "gitignore-description": "<ref>.gitignore</ref> Del. De'vam ghochbe'lu'bogh yI'ang. <link>gitignore De' yIghoj</link>.",
     "no-remote-message": "De' ngaSwI' lIj GitHubDaq yIngeH. QaH 'ut'a'? <link>HopwI' De' yIghoj</link>.",
-    "error-save-account": "Failed saving the repository account: {error}"
+    "error-save-account": "Failed saving the repository account: {error}",
+    "account-none": "pagh (ghajbe')",
+    "account-signed-out": "@{login} 'e' yIngaQmoHpu'",
+    "account-description": "GitHub API lo'meH 'ej HTTPS ngaQHa'moHmeH mabvam 'e' bIlo'. lIj Git qonwI' pong je lIj ngeH choHbe'."
   },
   "reset": {
     "continue": "yItaH",
@@ -3846,7 +3858,13 @@
     "exitTutorial": {
       "@darwin": "ghojmeH mIw 'e' yIbup",
       "@other": "gh&ojmeH mIw 'e' yIbup"
-    }
+    },
+    "summaryInstallEditor": "ghItlh DI'wI' 'e' yIjom",
+    "summaryCreateBranch": "bartIq 'e' yIchenmoH",
+    "summaryEditFile": "De' 'e' yIchoH",
+    "summaryMakeCommit": "choH vem 'e' yIchenmoH",
+    "summaryPublishToGithub": "GitHubDaq De' ngaSwI' 'e' yI'ang",
+    "summaryOpenPullRequest": "qem tlhob 'e' yIpoSmoH"
   },
   "testNotifications": {
     "noPullRequests": "qem tlhob tu'lu'be'.",
@@ -4559,7 +4577,9 @@
     "userNotFound": "{username} pong ghot Sambe'lu'.",
     "searching": "@{username} Samlu'taH.",
     "errorUserNotFound": "Qagh: {username} ghot Sambe'lu'.",
-    "coAuthors": "ghajwI'pu'"
+    "coAuthors": "ghajwI'pu'",
+    "added": "{username} 'oH chellu'.",
+    "removed": "{username} 'oH teqlu'."
   },
   "suggestedActions": {
     "branchAria": "bartIqvamDaq nargh nabmey"
@@ -4705,7 +4725,9 @@
     "createWorktree": {
       "@darwin": "vum 'e' chenmoH",
       "@other": "vum 'e' chenmoH"
-    }
+    },
+    "worktreeNamePlaceholder": "vum pong",
+    "worktreePathPlaceholder": "vum Qorwagh He"
   },
   "updateBranch": {
     "mergeCommitLabel": "merghbogh choH vem yIchenmoH",

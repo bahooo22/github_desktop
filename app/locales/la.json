@@ -78,6 +78,8 @@
       "addWorktreeDialog.willCheckOutExistingBranch",
       "addWorktreeDialog.willCheckOutRemoteBranch",
       "addWorktreeDialog.worktreeNameLabel",
+      "addWorktreeDialog.worktreeNamePlaceholder",
+      "addWorktreeDialog.worktreePathPlaceholder",
       "addWorktreeDialog.worktreeWillBeCreated",
       "app.current-repository",
       "app.no-repositories",
@@ -143,8 +145,10 @@
       "authorHandle.searching",
       "authorHandle.unknownAriaLabel",
       "authorHandle.userNotFound",
+      "authorInput.added",
       "authorInput.coAuthors",
       "authorInput.errorUserNotFound",
+      "authorInput.removed",
       "authorInput.searching",
       "authorInput.userNotFound",
       "avatar.forUser",
@@ -1330,6 +1334,7 @@
       "repositoryPath.invalidCharsReplaced",
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
+      "repositorySettings.account-description",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1793,6 +1798,12 @@
       "tutorialPanel.openPullRequest",
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
+      "tutorialPanel.summaryCreateBranch",
+      "tutorialPanel.summaryEditFile",
+      "tutorialPanel.summaryInstallEditor",
+      "tutorialPanel.summaryMakeCommit",
+      "tutorialPanel.summaryOpenPullRequest",
+      "tutorialPanel.summaryPublishToGithub",
       "tutorialPanelSkip.skip",
       "tutorialWelcome.altCloud",
       "tutorialWelcome.altCode",
@@ -3673,7 +3684,10 @@
     "fork-desc-autocompletion": "Autocompletio nominum sociorum et questionum fundabitur super <strong>{repository}</strong>.",
     "gitignore-description": "Emendare <ref>.gitignore</ref>. Hic fileus determinat files non tractatos quos Git negligere debet. Files iam tractati a Git non afficiuntur. <link>Discere de fileis gitignore</link>",
     "no-remote-message": "Repositorium tuum ad GitHub publicare. Opus auxilio? <link>Discere de repositoriis remotis.</link>",
-    "error-save-account": "Non potuit servare sessionem repositorii: {error}"
+    "error-save-account": "Non potuit servare sessionem repositorii: {error}",
+    "account-none": "Nulla (non attributa)",
+    "account-signed-out": "@{login} (exivit)",
+    "account-description": "Haec sessio petitionibus GitHub API et authenticationi HTTPS utitur. Hoc nomen auctoris Git indicemque electronicum non mutat."
   },
   "reset": {
     "continue": "pergere",
@@ -3867,7 +3881,13 @@
     "exitTutorial": {
       "@darwin": "Exeuntia Eruditionis",
       "@other": "E&xeuntia eruditio"
-    }
+    },
+    "summaryInstallEditor": "Editorem textus instituere",
+    "summaryCreateBranch": "Ramum creare",
+    "summaryEditFile": "File emendare",
+    "summaryMakeCommit": "Commitum facere",
+    "summaryPublishToGithub": "In GitHub publicare",
+    "summaryOpenPullRequest": "Petitionem iungendi aperire"
   },
   "testNotifications": {
     "noPullRequests": "Nullae petitiones iungendi repertae sunt",
@@ -4580,7 +4600,9 @@
     "userNotFound": "Non potest inveniri usus cum nomine {username}",
     "searching": "Quaeritur @{username}",
     "errorUserNotFound": "Error: Usus {username} non inventus",
-    "coAuthors": "Co-Auctores"
+    "coAuthors": "Co-Auctores",
+    "added": "{username} additus",
+    "removed": "{username} remotum"
   },
   "suggestedActions": {
     "branchAria": "Actiones propositae pro hoc ramo"
@@ -4726,7 +4748,9 @@
     "createWorktree": {
       "@darwin": "Laboris arborem creare",
       "@other": "Laboris arborem creare"
-    }
+    },
+    "worktreeNamePlaceholder": "nomen laboris arboris",
+    "worktreePathPlaceholder": "iter laboris arboris"
   },
   "updateBranch": {
     "mergeCommitLabel": "Crea unum commitus coalescendi",

@@ -1832,7 +1832,10 @@
     "fork-desc-autocompletion": "Autocompletion of user and issues will be based on <strong>{repository}</strong>.",
     "gitignore-description": "Editing <ref>.gitignore</ref>. This file specifies intentionally untracked files that Git should ignore. Files already tracked by Git are not affected. <link>Learn more about gitignore files</link>",
     "no-remote-message": "Publish your repository to GitHub. Need help? <link>Learn more about remote repositories.</link>",
-    "error-save-account": "Failed saving the repository account: {error}"
+    "error-save-account": "Failed saving the repository account: {error}",
+    "account-none": "None (unassigned)",
+    "account-signed-out": "@{login} (signed out)",
+    "account-description": "The account used for GitHub API requests and HTTPS authentication. This does not change your Git author name or email."
   },
   "reset": {
     "continue": "Continue",
@@ -2026,7 +2029,13 @@
     "exitTutorial": {
       "@darwin": "Exit Tutorial",
       "@other": "E&xit tutorial"
-    }
+    },
+    "summaryInstallEditor": "Install a text editor",
+    "summaryCreateBranch": "Create a branch",
+    "summaryEditFile": "Edit a file",
+    "summaryMakeCommit": "Make a commit",
+    "summaryPublishToGithub": "Publish to GitHub",
+    "summaryOpenPullRequest": "Open a pull request"
   },
   "testNotifications": {
     "noPullRequests": "No pull requests found",
@@ -2739,7 +2748,9 @@
     "userNotFound": "Could not find user with username {username}",
     "searching": "Searching for @{username}",
     "errorUserNotFound": "Error: user {username} not found",
-    "coAuthors": "Co-Authors"
+    "coAuthors": "Co-Authors",
+    "added": "Added {username}",
+    "removed": "Removed {username}"
   },
   "suggestedActions": {
     "branchAria": "Suggested actions for this branch"
@@ -2885,7 +2896,9 @@
     "createWorktree": {
       "@darwin": "Create Worktree",
       "@other": "Create worktree"
-    }
+    },
+    "worktreeNamePlaceholder": "worktree name",
+    "worktreePathPlaceholder": "worktree path"
   },
   "updateBranch": {
     "mergeCommitLabel": "Create a merge commit",

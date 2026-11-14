@@ -364,7 +364,9 @@ export class AuthorInput extends React.Component<
       }
     }
 
-    let actionDescription = `Removed ${authorToRemove.username}`
+    let actionDescription = t('authorInput.removed', {
+      username: authorToRemove.username ?? '',
+    })
     if (isKnownAuthor(authorToRemove)) {
       actionDescription += ` (${authorToRemove.name})`
     }
@@ -486,7 +488,9 @@ export class AuthorInput extends React.Component<
     const newAuthors = [...this.authorsForUpdate, authorToAdd]
     this.emitAuthorsUpdated(newAuthors)
 
-    let actionDescription = `Added ${authorToAdd.username}`
+    let actionDescription = t('authorInput.added', {
+      username: authorToAdd.username ?? '',
+    })
     if (!isKnownAuthor(authorToAdd)) {
       this.attemptUnknownAuthorSearch(authorToAdd)
     } else {
@@ -567,7 +571,9 @@ export class AuthorInput extends React.Component<
     )
     if (failed !== undefined) {
       this.setState({
-        lastActionDescription: `Error: user ${failed.username} not found`,
+        lastActionDescription: t('authorInput.errorUserNotFound', {
+          username: failed.username ?? '',
+        }),
       })
     }
   }

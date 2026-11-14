@@ -78,6 +78,8 @@
       "addWorktreeDialog.willCheckOutExistingBranch",
       "addWorktreeDialog.willCheckOutRemoteBranch",
       "addWorktreeDialog.worktreeNameLabel",
+      "addWorktreeDialog.worktreeNamePlaceholder",
+      "addWorktreeDialog.worktreePathPlaceholder",
       "addWorktreeDialog.worktreeWillBeCreated",
       "app.current-repository",
       "app.no-repositories",
@@ -143,8 +145,10 @@
       "authorHandle.searching",
       "authorHandle.unknownAriaLabel",
       "authorHandle.userNotFound",
+      "authorInput.added",
       "authorInput.coAuthors",
       "authorInput.errorUserNotFound",
+      "authorInput.removed",
       "authorInput.searching",
       "authorInput.userNotFound",
       "avatar.forUser",
@@ -1330,6 +1334,9 @@
       "repositoryPath.invalidCharsReplaced",
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
+      "repositorySettings.account-description",
+      "repositorySettings.account-none",
+      "repositorySettings.account-signed-out",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1793,6 +1800,12 @@
       "tutorialPanel.openPullRequest",
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
+      "tutorialPanel.summaryCreateBranch",
+      "tutorialPanel.summaryEditFile",
+      "tutorialPanel.summaryInstallEditor",
+      "tutorialPanel.summaryMakeCommit",
+      "tutorialPanel.summaryOpenPullRequest",
+      "tutorialPanel.summaryPublishToGithub",
       "tutorialPanelSkip.skip",
       "tutorialWelcome.altCloud",
       "tutorialWelcome.altCode",
@@ -3673,7 +3686,10 @@
     "fork-desc-autocompletion": "Aŭtomata kompletigo de uzantoj kaj problemoj baziĝos sur <strong>{repository}</strong>.",
     "gitignore-description": "Redaktado de <ref>.gitignore</ref>. Ĉi tiu dosiero specifikas celintence ne sekvitajn dosierojn, kiujn Git devas ignori. Dosieroj jam sekvitaj de Git ne estas influitaj. <link>Lernu pli pri gitignore-dosieroj</link>",
     "no-remote-message": "Publikigu vian deponejon sur GitHub. Ĉu vi bezonas helpon? <link>Lernu pli pri foraj deponejoj.</link>",
-    "error-save-account": "Malsukcesis konservi la konton de la deponejo: {error}"
+    "error-save-account": "Malsukcesis konservi la konton de la deponejo: {error}",
+    "account-none": "Neniu (ne asignita)",
+    "account-signed-out": "@{login} (elsalutita)",
+    "account-description": "Tiu konto estas uzata por GitHub-API-petoj kaj HTTPS-aŭtentigo. Tio ne ŝanĝas vian aŭtoran nomon aŭ retpoŝtadreson en Git."
   },
   "reset": {
     "continue": "Kontinui",
@@ -3867,7 +3883,13 @@
     "exitTutorial": {
       "@darwin": "Eliru Trejnon",
       "@other": "&Eliru trejnon"
-    }
+    },
+    "summaryInstallEditor": "Instali tekstredaktilon",
+    "summaryCreateBranch": "Krei branĉon",
+    "summaryEditFile": "Redakti dosieron",
+    "summaryMakeCommit": "Fari komiton",
+    "summaryPublishToGithub": "Publikigi sur GitHub",
+    "summaryOpenPullRequest": "Malfermi peton pri kunigo"
   },
   "testNotifications": {
     "noPullRequests": "Neniu peto pri kunigo trovita",
@@ -4580,7 +4602,9 @@
     "userNotFound": "Ne eblas trovi uzanton kun uzantnomo {username}",
     "searching": "Serĉante por @{username}",
     "errorUserNotFound": "Eraro: uzanto {username} ne trovita",
-    "coAuthors": "Kunlaborantoj"
+    "coAuthors": "Kunlaborantoj",
+    "added": "Aldonita {username}",
+    "removed": "Forigita {username}"
   },
   "suggestedActions": {
     "branchAria": "Sugestitaj agoj por tiu branĉo"
@@ -4726,7 +4750,9 @@
     "createWorktree": {
       "@darwin": "Krei laboran dosierujon",
       "@other": "Krei laboran dosierujon"
-    }
+    },
+    "worktreeNamePlaceholder": "nomo de labora dosierujo",
+    "worktreePathPlaceholder": "vojo de labora dosierujo"
   },
   "updateBranch": {
     "mergeCommitLabel": "Kreu kunfandan komiton",

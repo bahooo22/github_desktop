@@ -1723,7 +1723,10 @@
     "fork-desc-autocompletion": "Автодоповнення імен користувачів і задач працюватиме за <strong>{repository}</strong>.",
     "gitignore-description": "Змінюється файл <ref>.gitignore</ref>. У ньому перелічені файли, які Git навмисно ігнорує. Файли, які вже відстежуються Git, не зачігаються. <link>Докладніше про файли gitignore</link>",
     "no-remote-message": "Опублікуйте свій репозиторій на GitHub. Потрібна допомога? <link>Докладніше про віддалені репозиторії.</link>",
-    "error-save-account": "Не вдалося зберегти обліковий запис репозиторію: {error}"
+    "error-save-account": "Не вдалося зберегти обліковий запис репозиторію: {error}",
+    "account-none": "Немає (не призначено)",
+    "account-signed-out": "@{login} (ви вийшли)",
+    "account-description": "Обліковий запис використовується для запитів до GitHub API та HTTPS-автентифікації. Це не змінить ім’я та адресу електронної пошти автора в Git."
   },
   "reset": {
     "continue": "Продовжити",
@@ -1910,7 +1913,13 @@
     "exitTutorial": {
       "@darwin": "Вийти з навчання",
       "@other": "Ви&йти з навчання"
-    }
+    },
+    "summaryInstallEditor": "Встановіть текстовий редактор",
+    "summaryCreateBranch": "Створіть гілку",
+    "summaryEditFile": "Змініть файл",
+    "summaryMakeCommit": "Виконайте коміт",
+    "summaryPublishToGithub": "Опублікуйте на GitHub",
+    "summaryOpenPullRequest": "Відкрийте pull request"
   },
   "testNotifications": {
     "noPullRequests": "Pull request не знайдено",
@@ -2571,7 +2580,9 @@
     "userNotFound": "Не вдалося знайти користувача з іменем {username}",
     "searching": "Пошук @{username}",
     "errorUserNotFound": "Помилка: користувач {username} не знайдений",
-    "coAuthors": "Співавтори:"
+    "coAuthors": "Співавтори:",
+    "added": "{username} додано",
+    "removed": "{username} видалено"
   },
   "suggestedActions": {
     "branchAria": "Запропоновані дії для цієї гілки"
@@ -2704,7 +2715,9 @@
     "title": "Додати worktree",
     "worktreeNameLabel": "Назва worktree",
     "branchNameLabel": "Назва гілки",
-    "createWorktree": "Створити worktree"
+    "createWorktree": "Створити worktree",
+    "worktreeNamePlaceholder": "назва worktree",
+    "worktreePathPlaceholder": "шлях до worktree"
   },
   "updateBranch": {
     "mergeCommitLabel": "Створити коміт злиття",

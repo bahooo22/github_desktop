@@ -184,8 +184,8 @@ export class AddWorktreeDialog extends React.Component<
             onFullPathChanged={this.onFullPathChanged}
             onNameChanged={this.onWorktreeNameChanged}
             nameLabel={t('addWorktreeDialog.worktreeNameLabel')}
-            namePlaceholder="worktree name"
-            pathPlaceholder="worktree path"
+            namePlaceholder={t('addWorktreeDialog.worktreeNamePlaceholder')}
+            pathPlaceholder={t('addWorktreeDialog.worktreePathPlaceholder')}
           />
 
           <Row>

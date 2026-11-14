@@ -80,6 +80,8 @@
       "addWorktreeDialog.willCheckOutExistingBranch",
       "addWorktreeDialog.willCheckOutRemoteBranch",
       "addWorktreeDialog.worktreeNameLabel",
+      "addWorktreeDialog.worktreeNamePlaceholder",
+      "addWorktreeDialog.worktreePathPlaceholder",
       "addWorktreeDialog.worktreeWillBeCreated",
       "app.current-repository",
       "app.no-repositories",
@@ -147,6 +149,7 @@
       "authorHandle.userNotFound",
       "authorInput.coAuthors",
       "authorInput.errorUserNotFound",
+      "authorInput.removed",
       "authorInput.searching",
       "authorInput.userNotFound",
       "avatar.forUser",
@@ -1325,6 +1328,7 @@
       "repositoryPath.invalidCharsReplaced",
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
+      "repositorySettings.account-description",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1759,6 +1763,11 @@
       "tutorialPanel.openPullRequest",
       "tutorialPanel.openPullRequestAction",
       "tutorialPanel.publishToGithub",
+      "tutorialPanel.summaryCreateBranch",
+      "tutorialPanel.summaryEditFile",
+      "tutorialPanel.summaryInstallEditor",
+      "tutorialPanel.summaryMakeCommit",
+      "tutorialPanel.summaryOpenPullRequest",
       "tutorialPanelSkip.skip",
       "tutorialWelcome.altCloud",
       "tutorialWelcome.altCode",
@@ -3651,7 +3660,10 @@
     "fork-desc-autocompletion": "Yuhtië ar quentier nauvar <strong>{repository}</strong>llo.",
     "gitignore-description": "<ref>.gitignore</ref> tengwista. Sina cómë tana i úratta cómi. <link>Isti i .gitignore cómi</link>.",
     "no-remote-message": "Nirë i haura lya GitHubenna. Ma mauya alya? <link>Ista i palan haurar</link>.",
-    "error-save-account": "Failed saving the repository account: {error}"
+    "error-save-account": "Failed saving the repository account: {error}",
+    "account-none": "Lá essë",
+    "account-signed-out": "@{login} (lóya)",
+    "account-description": "Sina essë yuhta i GitHub APIo iquiriessen ar i HTTPS tyuliëssë. Sina lá vista i Git parmahtor esselya ar i tencalya."
   },
   "reset": {
     "continue": "cacara",
@@ -3845,7 +3857,13 @@
     "exitTutorial": {
       "@darwin": "Lelyë i parandëollo",
       "@other": "Lel&yë i parandëollo"
-    }
+    },
+    "summaryInstallEditor": "Tulca i sarma tecindo",
+    "summaryCreateBranch": "Apanta i olba",
+    "summaryEditFile": "Ahya i cómi",
+    "summaryMakeCommit": "Carë i minatacë",
+    "summaryPublishToGithub": "Etanta GitHubissë",
+    "summaryOpenPullRequest": "Apantë i luciquista"
   },
   "testNotifications": {
     "noPullRequests": "i luciquistar lá hirna.",
@@ -4558,7 +4576,9 @@
     "userNotFound": "Lá hirin i quén i essë {username}.",
     "searching": "Henta @{username}…",
     "errorUserNotFound": "Loima: lá hirin i quén {username}.",
-    "coAuthors": "hya tecindor"
+    "coAuthors": "hya tecindor",
+    "added": "yantanë {username}",
+    "removed": "haitanë {username}"
   },
   "suggestedActions": {
     "branchAria": "i cardí i mentien i olbas sina"
@@ -4704,7 +4724,9 @@
     "createWorktree": {
       "@darwin": "Carë i hauramar",
       "@other": "Carë i hauramar"
-    }
+    },
+    "worktreeNamePlaceholder": "hauramo essë",
+    "worktreePathPlaceholder": "hauramo tië"
   },
   "updateBranch": {
     "mergeCommitLabel": "Carë minatacë erta",

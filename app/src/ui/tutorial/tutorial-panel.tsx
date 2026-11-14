@@ -115,7 +115,7 @@ export class TutorialPanel extends React.Component<
         </div>
         <ol>
           <TutorialStepInstructions
-            summaryText="Install a text editor"
+            summaryText={t('tutorialPanel.summaryInstallEditor')}
             isComplete={this.isStepComplete}
             isNextStepTodo={this.isStepNextTodo}
             sectionId={TutorialStep.PickEditor}
@@ -170,7 +170,7 @@ export class TutorialPanel extends React.Component<
             )}
           </TutorialStepInstructions>
           <TutorialStepInstructions
-            summaryText="Create a branch"
+            summaryText={t('tutorialPanel.summaryCreateBranch')}
             isComplete={this.isStepComplete}
             isNextStepTodo={this.isStepNextTodo}
             sectionId={TutorialStep.CreateBranch}
@@ -190,7 +190,7 @@ export class TutorialPanel extends React.Component<
             </div>
           </TutorialStepInstructions>
           <TutorialStepInstructions
-            summaryText="Edit a file"
+            summaryText={t('tutorialPanel.summaryEditFile')}
             isComplete={this.isStepComplete}
             isNextStepTodo={this.isStepNextTodo}
             sectionId={TutorialStep.EditFile}
@@ -216,7 +216,7 @@ export class TutorialPanel extends React.Component<
             )}
           </TutorialStepInstructions>
           <TutorialStepInstructions
-            summaryText="Make a commit"
+            summaryText={t('tutorialPanel.summaryMakeCommit')}
             isComplete={this.isStepComplete}
             isNextStepTodo={this.isStepNextTodo}
             sectionId={TutorialStep.MakeCommit}
@@ -226,7 +226,7 @@ export class TutorialPanel extends React.Component<
             <p className="description">{t('tutorialPanel.makeCommit')}</p>
           </TutorialStepInstructions>
           <TutorialStepInstructions
-            summaryText="Publish to GitHub"
+            summaryText={t('tutorialPanel.summaryPublishToGithub')}
             isComplete={this.isStepComplete}
             isNextStepTodo={this.isStepNextTodo}
             sectionId={TutorialStep.PushBranch}
@@ -239,7 +239,7 @@ export class TutorialPanel extends React.Component<
             </div>
           </TutorialStepInstructions>
           <TutorialStepInstructions
-            summaryText="Open a pull request"
+            summaryText={t('tutorialPanel.summaryOpenPullRequest')}
             isComplete={this.isStepComplete}
             isNextStepTodo={this.isStepNextTodo}
             sectionId={TutorialStep.OpenPullRequest}
