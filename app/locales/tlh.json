@@ -41,6 +41,8 @@
       "about.upstream-download",
       "about.version",
       "account-picker.account",
+      "account-picker.choose-account-placeholder",
+      "account-picker.choose-account-title",
       "acknowledgements.intro",
       "acknowledgements.libraries",
       "acknowledgements.license",
@@ -408,6 +410,7 @@
       "cloneRepository.save-dialog-name-field-label",
       "cloneRepository.save-dialog-select-label",
       "cloneRepository.sign-in",
+      "cloneRepository.sign-in-to-enterprise",
       "cloneRepository.title",
       "cloneRepository.url-label",
       "cloneRepository.url-placeholder",
@@ -1254,6 +1257,7 @@
       "publish.organization",
       "publish.publish-repository-ok",
       "publish.sign-in",
+      "publish.sign-in-to-enterprise",
       "publish.title",
       "publish.will-be-created-as",
       "pullRequestList.loadingPullRequests",
@@ -1364,6 +1368,7 @@
       "repositorySettings.account-description",
       "repositorySettings.account-signed-out-item",
       "repositorySettings.error-read-gitignore",
+      "repositorySettings.error-save-account",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
       "repositorySettings.fork-behavior-tab",
@@ -1450,6 +1455,7 @@
       "settings.accessibility.title",
       "settings.accessibility.underline-description",
       "settings.accessibility.underline-links",
+      "settings.accounts.add-dotcom",
       "settings.accounts.add-enterprise",
       "settings.accounts.dotcom-description",
       "settings.accounts.enterprise-description",
@@ -1660,6 +1666,7 @@
       "signIn.credential-helper-info",
       "signIn.enterprise-address",
       "signIn.existing-account-warning",
+      "signIn.expected-login",
       "signIn.title",
       "ssh.confirmConnect",
       "ssh.hostAuthenticity",
@@ -1933,12 +1940,12 @@
   "account-picker": {
     "account": "mab",
     "choose-account-title": {
-      "@darwin": "Choose an Account",
-      "@other": "Choose an account"
+      "@darwin": "mab 'e' yIwIv",
+      "@other": "mab 'e' yIwIv"
     },
     "choose-account-placeholder": {
-      "@darwin": "Choose an Account…",
-      "@other": "Choose an account…"
+      "@darwin": "mab 'e' yIwIv…",
+      "@other": "mab 'e' yIwIv…"
     }
   },
   "settings": {
@@ -1974,7 +1981,7 @@
       },
       "dotcom-description": "GitHub.com mabDaq yIngaQHa'moH. De' ngaSwI' lIj 'e' naw'laH.",
       "enterprise-description": "ghIghDaq GitHub Enterprise 'e' yIlo'chugh, mabDaq yIngaQHa'moH 'ej De' ngaSwI' lIj 'e' naw'laH.",
-      "add-dotcom": "Add GitHub.com account"
+      "add-dotcom": "GitHub.com mab 'e' yIchel"
     },
     "language": {
       "title": "Hol",
@@ -2732,7 +2739,7 @@
     "browser-redirect-info": "ngaQHa'moHpu', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'.",
     "existing-account-warning": "<ref>{host}</ref>Daq bIngaQHa'moHpu' 'ej <ref>{login}</ref> mab Dalo'taH. bItaHchugh, wa'DIch bIngaQmoHlu'.",
     "credential-helper-info": "<ref>{url}</ref> naw'meH ngoq tlhob Git.",
-    "expected-login": "Sign in as <ref>{login}</ref> on <ref>{host}</ref> to continue."
+    "expected-login": "<ref>{login}</ref> mab 'e' <ref>{host}</ref>Daq yIngaQHa'moH 'ej yItaH."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",
@@ -3059,8 +3066,8 @@
     "no-matches": "jIQoch: <ref>{text}</ref> rur De' ngaSwI' tu'laHbe'.",
     "no-repositories": "<ref>{login}</ref> ghajbe' {endpoint}. De' ngaSwI' tu'lu'be'. <link>tetlh yIchoHqa'</link>.",
     "sign-in-to-enterprise": {
-      "@darwin": "Sign In to GitHub Enterprise",
-      "@other": "Sign in to GitHub Enterprise"
+      "@darwin": "GitHub Enterprise mabDaq yIngaQHa'moH",
+      "@other": "GitHub Enterprise mabDaq yIngaQHa'moH"
     }
   },
   "commitMessage": {
@@ -3638,7 +3645,7 @@
   },
   "publish": {
     "description": "QIjwI'",
-    "dotcom-sign-in-description": "Sign in to your GitHub.com account to publish your repository.",
+    "dotcom-sign-in-description": "GitHub.com mabDaq yIngaQHa'moH. De' ngaSwI' lIj 'e' yI'ang.",
     "enterprise-sign-in-description": "vumDaq GitHub Enterprise 'e' lo'chugh, GitHub Enterprise 'e' yIngaQHa'moH 'ach lIj De' ngaSwI'pu' naw'meH.",
     "keep-private": "ngoqvam 'e' pegh yIpol",
     "name": "pong",
@@ -3649,8 +3656,8 @@
     "title": "De' ngaSwI' 'e' yI'ang",
     "will-be-created-as": "De' ngaSwI' {name} pong chenmoHlu'.",
     "sign-in-to-enterprise": {
-      "@darwin": "Sign In to GitHub Enterprise",
-      "@other": "Sign in to GitHub Enterprise"
+      "@darwin": "GitHub Enterprise mabDaq yIngaQHa'moH",
+      "@other": "GitHub Enterprise mabDaq yIngaQHa'moH"
     }
   },
   "pushNeedsPull": {
@@ -3708,7 +3715,7 @@
     "fork-desc-autocompletion": "lo'wI' je qechmey <strong>{repository}</strong>vo' Hevlu'.",
     "gitignore-description": "<ref>.gitignore</ref> Del. De'vam ghochbe'lu'bogh yI'ang. <link>gitignore De' yIghoj</link>.",
     "no-remote-message": "De' ngaSwI' lIj GitHubDaq yIngeH. QaH 'ut'a'? <link>HopwI' De' yIghoj</link>.",
-    "error-save-account": "Failed saving the repository account: {error}",
+    "error-save-account": "De' ngaSwI' mab polmeH luj: {error}",
     "account-none": "pagh (ghajbe')",
     "account-signed-out": "@{login} 'e' yIngaQmoHpu'",
     "account-description": "GitHub API lo'meH 'ej HTTPS ngaQHa'moHmeH mabvam 'e' bIlo'. lIj Git qonwI' pong je lIj ngeH choHbe'.",

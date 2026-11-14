@@ -41,6 +41,8 @@
       "about.upstream-download",
       "about.version",
       "account-picker.account",
+      "account-picker.choose-account-placeholder",
+      "account-picker.choose-account-title",
       "acknowledgements.intro",
       "acknowledgements.libraries",
       "acknowledgements.license",
@@ -407,6 +409,7 @@
       "cloneRepository.save-dialog-name-field-label",
       "cloneRepository.save-dialog-select-label",
       "cloneRepository.sign-in",
+      "cloneRepository.sign-in-to-enterprise",
       "cloneRepository.title",
       "cloneRepository.url-label",
       "cloneRepository.url-placeholder",
@@ -1252,6 +1255,7 @@
       "publish.organization",
       "publish.publish-repository-ok",
       "publish.sign-in",
+      "publish.sign-in-to-enterprise",
       "publish.title",
       "publish.will-be-created-as",
       "pullRequestList.loadingPullRequests",
@@ -1362,6 +1366,7 @@
       "repositorySettings.account-description",
       "repositorySettings.account-signed-out-item",
       "repositorySettings.error-read-gitignore",
+      "repositorySettings.error-save-account",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
       "repositorySettings.fork-behavior-tab",
@@ -1448,6 +1453,7 @@
       "settings.accessibility.title",
       "settings.accessibility.underline-description",
       "settings.accessibility.underline-links",
+      "settings.accounts.add-dotcom",
       "settings.accounts.add-enterprise",
       "settings.accounts.dotcom-description",
       "settings.accounts.enterprise-description",
@@ -1658,6 +1664,7 @@
       "signIn.credential-helper-info",
       "signIn.enterprise-address",
       "signIn.existing-account-warning",
+      "signIn.expected-login",
       "signIn.title",
       "ssh.confirmConnect",
       "ssh.hostAuthenticity",
@@ -1932,12 +1939,12 @@
   "account-picker": {
     "account": "essë",
     "choose-account-title": {
-      "@darwin": "Choose an Account",
-      "@other": "Choose an account"
+      "@darwin": "Cilë essë",
+      "@other": "Cilë essë"
     },
     "choose-account-placeholder": {
-      "@darwin": "Choose an Account…",
-      "@other": "Choose an account…"
+      "@darwin": "Cilë essë…",
+      "@other": "Cilë essë…"
     }
   },
   "settings": {
@@ -1973,7 +1980,7 @@
       },
       "dotcom-description": "Tulë i GitHub.comissë imya essëva. Imin: latya i imyaro haura.",
       "enterprise-description": "Yá mahta lyë GitHub Enterprise i mólëssë, tulë i GitHub Enterpriseissë. Imin: latya i imyaro haura.",
-      "add-dotcom": "Add GitHub.com account"
+      "add-dotcom": "yanta i GitHub.com essë"
     },
     "language": {
       "title": "i lambë",
@@ -2731,7 +2738,7 @@
     "browser-redirect-info": "i browser sina lelyuva lyë enta i GitHub Desktopanna yá tyulë. yá i browser sina mansëa i lávë itan latya i GitHub Desktop, anta i lávë.",
     "existing-account-warning": "Tensi tyulë i <ref>{host}</ref>essë, ar i essëlya ná <ref>{login}</ref>. Yá cacarë, minyallumë autuvalyë.",
     "credential-helper-info": "Git mansëa i tengwë na latya <ref>{url}</ref>.",
-    "expected-login": "Sign in as <ref>{login}</ref> on <ref>{host}</ref> to continue."
+    "expected-login": "Tulë i <ref>{host}</ref>essë <ref>{login}</ref> essëva ar cacarë."
   },
   "terms": {
     "title": "GitHub Open Source Applications Terms and Conditions",
@@ -3058,8 +3065,8 @@
     "no-matches": "Lá hirnë haura ve <ref>{text}</ref>.",
     "no-repositories": "Lá harya <ref>{login}</ref> haurar {endpoint}ssë. <link>Cenë ata</link>.",
     "sign-in-to-enterprise": {
-      "@darwin": "Sign In to GitHub Enterprise",
-      "@other": "Sign in to GitHub Enterprise"
+      "@darwin": "Tulë i GitHub Enterpriseissë",
+      "@other": "tulë i GitHub Enterpriseissë"
     }
   },
   "commitMessage": {
@@ -3637,7 +3644,7 @@
   },
   "publish": {
     "description": "istalë",
-    "dotcom-sign-in-description": "Sign in to your GitHub.com account to publish your repository.",
+    "dotcom-sign-in-description": "Tulë i GitHub.comissë imya essëva. Etanta i haura lya.",
     "enterprise-sign-in-description": "yá lyë yuhta GitHub Enterprise i mólëassë, tulu sina itan cenatya i hauralyar.",
     "keep-private": "rehta pahta i tengwesta sina",
     "name": "essë",
@@ -3648,8 +3655,8 @@
     "title": "etanta i haura",
     "will-be-created-as": "cara vë {name}",
     "sign-in-to-enterprise": {
-      "@darwin": "Sign In to GitHub Enterprise",
-      "@other": "Sign in to GitHub Enterprise"
+      "@darwin": "Tulë i GitHub Enterpriseissë",
+      "@other": "tulë i GitHub Enterpriseissë"
     }
   },
   "pushNeedsPull": {
@@ -3707,7 +3714,7 @@
     "fork-desc-autocompletion": "Yuhtië ar quentier nauvar <strong>{repository}</strong>llo.",
     "gitignore-description": "<ref>.gitignore</ref> tengwista. Sina cómë tana i úratta cómi. <link>Isti i .gitignore cómi</link>.",
     "no-remote-message": "Nirë i haura lya GitHubenna. Ma mauya alya? <link>Ista i palan haurar</link>.",
-    "error-save-account": "Failed saving the repository account: {error}",
+    "error-save-account": "Loica i haura essë polië: {error}",
     "account-none": "Lá essë",
     "account-signed-out": "@{login} (lóya)",
     "account-description": "Sina essë yuhta i GitHub APIo iquiriessen ar i HTTPS tyuliëssë. Sina lá vista i Git parmahtor esselya ar i tencalya.",
