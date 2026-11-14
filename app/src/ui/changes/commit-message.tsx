@@ -1800,24 +1800,24 @@ export class CommitMessage extends React.Component<
         <CommitWarning
           icon={canBypass ? CommitWarningIcon.Warning : CommitWarningIcon.Error}
         >
-          The branch name <strong>{branch}</strong> fails{' '}
-          <RepoRulesetsForBranchLink
-            repository={repository.gitHubRepository}
-            branch={branch}
-          >
-            one or more rules
-          </RepoRulesetsForBranchLink>{' '}
-          that {canBypass ? 'would' : 'will'} prevent it from being published
-          {canBypass && ', but you can bypass them. Proceed with caution!'}
-          {!canBypass && (
-            <>
-              . Want to{' '}
-              <LinkButton onClick={this.onSwitchBranch}>
-                switch branches
-              </LinkButton>
-              ?
-            </>
-          )}
+          <Trans
+            k={
+              canBypass
+                ? 'commitMessage.rules-publish-blocked-bypass'
+                : 'commitMessage.rules-publish-blocked'
+            }
+            params={{ branch: branch ?? '' }}
+            components={{
+              strong: <strong />,
+              rules: (
+                <RepoRulesetsForBranchLink
+                  repository={repository.gitHubRepository}
+                  branch={branch}
+                />
+              ),
+              link: <LinkButton onClick={this.onSwitchBranch} />,
+            }}
+          />
         </CommitWarning>
       )
     } else if (repoRuleWarningToDisplay === 'commitSigning') {
@@ -1827,19 +1827,26 @@ export class CommitMessage extends React.Component<
         <CommitWarning
           icon={canBypass ? CommitWarningIcon.Warning : CommitWarningIcon.Error}
         >
-          <RepoRulesetsForBranchLink
-            repository={repository.gitHubRepository}
-            branch={branch}
-          >
-            One or more rules
-          </RepoRulesetsForBranchLink>{' '}
-          apply to the branch <strong>{branch}</strong> that require signed
-          commits
-          {canBypass && ', but you can bypass them. Proceed with caution!'}
-          {!canBypass && '.'}{' '}
-          <LinkButton uri="https://docs.github.com/authentication/managing-commit-signature-verification/signing-commits">
-            Learn more about commit signing.
-          </LinkButton>
+          <Trans
+            k={
+              canBypass
+                ? 'commitMessage.rules-signing-required-bypass'
+                : 'commitMessage.rules-signing-required'
+            }
+            params={{ branch: branch ?? '' }}
+            components={{
+              strong: <strong />,
+              rules: (
+                <RepoRulesetsForBranchLink
+                  repository={repository.gitHubRepository}
+                  branch={branch}
+                />
+              ),
+              link: (
+                <LinkButton uri="https://docs.github.com/authentication/managing-commit-signature-verification/signing-commits" />
+              ),
+            }}
+          />
         </CommitWarning>
       )
     } else if (repoRuleWarningToDisplay === 'basic') {
@@ -1849,24 +1856,24 @@ export class CommitMessage extends React.Component<
         <CommitWarning
           icon={canBypass ? CommitWarningIcon.Warning : CommitWarningIcon.Error}
         >
-          <RepoRulesetsForBranchLink
-            repository={repository.gitHubRepository}
-            branch={branch}
-          >
-            One or more rules
-          </RepoRulesetsForBranchLink>{' '}
-          apply to the branch <strong>{branch}</strong> that{' '}
-          {canBypass ? 'would' : 'will'} prevent pushing
-          {canBypass && ', but you can bypass them. Proceed with caution!'}
-          {!canBypass && (
-            <>
-              . Want to{' '}
-              <LinkButton onClick={this.onSwitchBranch}>
-                switch branches
-              </LinkButton>
-              ?
-            </>
-          )}
+          <Trans
+            k={
+              canBypass
+                ? 'commitMessage.rules-push-blocked-bypass'
+                : 'commitMessage.rules-push-blocked'
+            }
+            params={{ branch: branch ?? '' }}
+            components={{
+              strong: <strong />,
+              rules: (
+                <RepoRulesetsForBranchLink
+                  repository={repository.gitHubRepository}
+                  branch={branch}
+                />
+              ),
+              link: <LinkButton onClick={this.onSwitchBranch} />,
+            }}
+          />
         </CommitWarning>
       )
     } else {

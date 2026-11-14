@@ -2625,4 +2625,128 @@ describe('localized commit warnings', () => {
     assert.notEqual(text, english, 'a switched locale is what changed the text')
     assert.ok(text !== null && text.includes(params.name))
   })
+
+  /**
+   * The repository rule warnings only appear when `useRepoRulesLogic` accepts
+   * the account and the repository, so every case below needs an account.
+   */
+  const ruleWarningCases = [
+    {
+      key: 'commitMessage.rules-publish-blocked',
+      enforce: (rules: RepoRulesInfo) => {
+        rules.creationRestricted = true
+      },
+    },
+    {
+      key: 'commitMessage.rules-publish-blocked-bypass',
+      enforce: (rules: RepoRulesInfo) => {
+        rules.creationRestricted = 'bypass'
+      },
+    },
+    {
+      key: 'commitMessage.rules-push-blocked',
+      enforce: (rules: RepoRulesInfo) => {
+        rules.basicCommitWarning = true
+      },
+    },
+    {
+      key: 'commitMessage.rules-push-blocked-bypass',
+      enforce: (rules: RepoRulesInfo) => {
+        rules.basicCommitWarning = 'bypass'
+      },
+    },
+    {
+      key: 'commitMessage.rules-signing-required',
+      enforce: (rules: RepoRulesInfo) => {
+        rules.signedCommitsRequired = true
+      },
+    },
+    {
+      key: 'commitMessage.rules-signing-required-bypass',
+      enforce: (rules: RepoRulesInfo) => {
+        rules.signedCommitsRequired = 'bypass'
+      },
+    },
+  ]
+
+  const ruleParams = { branch: 'main' }
+
+  function renderRuleWarning(rules: RepoRulesInfo, key: string) {
+    return renderWarning(
+      { repoRulesInfo: rules, repositoryAccount: createAccount() },
+      key
+    )
+  }
+
+  it('renders each repository rule warning from its catalog entry', () => {
+    for (const { key, enforce } of ruleWarningCases) {
+      const rules = new RepoRulesInfo()
+      enforce(rules)
+
+      assert.equal(
+        renderRuleWarning(rules, key).textContent,
+        withoutMarkup(t(key, ruleParams)),
+        key
+      )
+    }
+  })
+
+  it('keeps the rules link apart from the link of the action', () => {
+    for (const { key, enforce } of ruleWarningCases) {
+      const rules = new RepoRulesInfo()
+      enforce(rules)
+
+      const node = renderRuleWarning(rules, key)
+      const catalog = t(key, ruleParams)
+      const declared = (tag: string) => (catalog.includes(`<${tag}>`) ? 1 : 0)
+
+      // `rules` is a LinkButton too, so the count of `link` can only be read
+      // off the total: one anchor per declared tag name.
+      assert.equal(
+        node.querySelectorAll('a.repo-rulesets-for-branch-link').length,
+        declared('rules'),
+        `${key} renders <rules> as its own element`
+      )
+      assert.equal(
+        node.querySelectorAll('a.link-button-component').length,
+        declared('rules') + declared('link'),
+        `${key} renders every link the catalog declares and no more`
+      )
+      assert.equal(
+        node.querySelectorAll('strong').length,
+        declared('strong'),
+        `${key} keeps the branch name highlighted`
+      )
+    }
+  })
+
+  it('points the signing warning at the commit signing docs', () => {
+    const rules = new RepoRulesInfo()
+    rules.signedCommitsRequired = true
+
+    const docs = renderRuleWarning(
+      rules,
+      'commitMessage.rules-signing-required'
+    ).querySelector('a[href*="signing-commits"]')
+
+    assert.ok(docs !== null, 'the documentation link comes from components')
+    assert.ok(
+      docs?.getAttribute('href')?.startsWith('https://docs.github.com/'),
+      'and still opens the docs externally'
+    )
+  })
+
+  it('takes the russian rule warning from the catalog as one sentence', () => {
+    const key = 'commitMessage.rules-push-blocked'
+    const rules = new RepoRulesInfo()
+    rules.basicCommitWarning = true
+    const english = withoutMarkup(t(key, ruleParams))
+
+    localization.setRequestedLocale('ru')
+
+    const text = renderRuleWarning(rules, key).textContent
+    assert.equal(text, withoutMarkup(t(key, ruleParams)))
+    assert.notEqual(text, english, 'a switched locale is what changed the text')
+    assert.ok(text !== null && text.includes(ruleParams.branch))
+  })
 })

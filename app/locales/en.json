@@ -1235,6 +1235,12 @@
       "@darwin": "Commit Message Rule Failures",
       "@other": "Commit message rule failures"
     },
+    "rules-publish-blocked": "The branch name <strong>{branch}</strong> fails <rules>one or more rules</rules> that will prevent it from being published. Want to <link>switch branches</link>?",
+    "rules-publish-blocked-bypass": "The branch name <strong>{branch}</strong> fails <rules>one or more rules</rules> that would prevent it from being published, but you can bypass them. Proceed with caution!",
+    "rules-push-blocked": "<rules>One or more rules</rules> apply to the branch <strong>{branch}</strong> that will prevent pushing. Want to <link>switch branches</link>?",
+    "rules-push-blocked-bypass": "<rules>One or more rules</rules> apply to the branch <strong>{branch}</strong> that would prevent pushing, but you can bypass them. Proceed with caution!",
+    "rules-signing-required": "<rules>One or more rules</rules> apply to the branch <strong>{branch}</strong> that require signed commits. <link>Learn more about commit signing.</link>",
+    "rules-signing-required-bypass": "<rules>One or more rules</rules> apply to the branch <strong>{branch}</strong> that require signed commits, but you can bypass them. Proceed with caution! <link>Learn more about commit signing.</link>",
     "select-files": "Select one or more files to commit",
     "show-progress": "Show commit progress",
     "signed-off-by-trailer": {
