@@ -19,6 +19,3 @@ const crudCharactersRe = /^[\x00-\x20.,:;<>"\\']+$/
 export function gitAuthorNameIsValid(name: string): boolean {
   return !crudCharactersRe.test(name)
 }
-
-export const InvalidGitAuthorNameMessage =
-  'Name is invalid, it consists only of disallowed characters.'

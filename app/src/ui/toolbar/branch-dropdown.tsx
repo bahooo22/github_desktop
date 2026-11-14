@@ -196,7 +196,10 @@ export class BranchDropdown extends React.Component<IBranchDropdownProps> {
 
       if (checkoutProgress.value > 0) {
         const friendlyProgress = Math.round(checkoutProgress.value * 100)
-        description = `${description} (${friendlyProgress}%)`
+        description = t('toolbar.checkoutProgress', {
+          description,
+          progress: friendlyProgress,
+        })
       }
 
       tooltip = t('toolbar.checkingOutTooltip', {

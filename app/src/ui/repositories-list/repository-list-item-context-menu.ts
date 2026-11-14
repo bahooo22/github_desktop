@@ -191,7 +191,9 @@ const buildAccountMenuItems = (
 
   if (signedOut) {
     submenu.push({
-      label: `@${assigned.login} (Signed out)`,
+      label: t('repositorySettings.account-signed-out-item', {
+        login: assigned.login,
+      }),
       type: 'checkbox',
       checked: true,
       enabled: false,

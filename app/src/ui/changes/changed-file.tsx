@@ -74,9 +74,11 @@ export class ChangedFile extends React.Component<IChangedFileProps, {}> {
         ? t('changes.file.partially-included')
         : t('changes.file.not-included')
 
-    const pathScreenReaderMessage = `${path} ${mapStatus(
-      status
-    )} ${includedText}`
+    const pathScreenReaderMessage = t('changes.fileScreenReader', {
+      path,
+      status: mapStatus(status),
+      included: includedText,
+    })
 
     return (
       <div className="file">

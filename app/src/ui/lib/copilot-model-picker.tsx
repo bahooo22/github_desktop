@@ -465,13 +465,17 @@ export class CopilotModelPicker extends React.Component<
       this.props.value
     )
     const buttonItem = this.getItemByValue(groups, this.props.value)
-    const buttonAriaLabel = `${this.props.label}: ${
-      buttonItem === undefined ? 'None' : getCopilotModelTitle(buttonItem)
-    }`
+    const buttonAriaLabel = t('copilotModelPicker.buttonAria', {
+      label: this.props.label,
+      model:
+        buttonItem === undefined
+          ? t('copilotModelPicker.none')
+          : getCopilotModelTitle(buttonItem),
+    })
     return (
       <PopoverDropdown
         className="copilot-model-picker"
-        contentTitle="Choose a model"
+        contentTitle={t('copilotModelPicker.chooseModel')}
         contentHeaderAccessory={
           this.props.onConfigureCustomProviders === undefined ? undefined : (
             <LinkButton onClick={this.onConfigureCustomProviders}>
@@ -500,7 +504,7 @@ export class CopilotModelPicker extends React.Component<
           onSelectionChanged={this.onSelectionChanged}
           getItemAriaLabel={this.getItemAriaLabel}
           getGroupAriaLabel={this.getGroupAriaLabel}
-          placeholderText="Filter models"
+          placeholderText={t('copilotModelPicker.filterModels')}
           renderNoItems={this.renderNoItems}
         />
       </PopoverDropdown>

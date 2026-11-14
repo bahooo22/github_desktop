@@ -23,7 +23,9 @@
       "@darwin": "Open Preferences",
       "@other": "Open options"
     },
-    "hangOn": "Hang on…"
+    "hangOn": "Hang on…",
+    "copied": "Copied!",
+    "nameInvalid": "Name is invalid, it consists only of disallowed characters."
   },
   "app": {
     "select-repository": {
@@ -716,7 +718,9 @@
     "add-to-dictionary": {
       "@darwin": "Add to Dictionary",
       "@other": "Add to dictionary"
-    }
+    },
+    "spellcheckEnglish": "Set spellcheck to English",
+    "spellcheckSystemLanguage": "Set spellcheck to system language"
   },
   "about": {
     "title": "About {name}",
@@ -942,7 +946,8 @@
     "view-pr-on-github": "View Pull Request on GitHub",
     "noBranchFound": "Sorry, I can't find that branch",
     "createNewBranchInstead": "Do you want to create a new branch instead?",
-    "createBranchShortcutProTip": "ProTip! Press <shortcut/> to quickly create a new branch from anywhere within the app"
+    "createBranchShortcutProTip": "ProTip! Press <shortcut/> to quickly create a new branch from anywhere within the app",
+    "chooseBaseBranch": "Choose a base branch"
   },
   "changes": {
     "adjust-filters": "Adjust the filters to see all {count} changes",
@@ -1092,7 +1097,8 @@
     },
     "pull-branch-discoverability": "Always available in the toolbar when there are remote changes or <shortcut/>",
     "push-branch-discoverability": "Always available in the toolbar when there are local commits waiting to be pushed or <shortcut/>",
-    "select-editor-description": "Select your editor in <link>{settings}</link>"
+    "select-editor-description": "Select your editor in <link>{settings}</link>",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "Completeness indicator. {completed} completed, {inProgress} in progress, {queued} queued.",
@@ -1727,7 +1733,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> {verb} your pull request <date>{date}</date>"
-    }
+    },
+    "checksFailedTitle": "Pull Request checks failed",
+    "commentTitle": "@{login} commented on your pull request",
+    "reviewTitle": "@{login} {verb} your pull request"
   },
   "openPullRequest": {
     "file-does-not-exist": "File does not exist on disk",
@@ -1835,7 +1844,8 @@
     "error-save-account": "Failed saving the repository account: {error}",
     "account-none": "None (unassigned)",
     "account-signed-out": "@{login} (signed out)",
-    "account-description": "The account used for GitHub API requests and HTTPS authentication. This does not change your Git author name or email."
+    "account-description": "The account used for GitHub API requests and HTTPS authentication. This does not change your Git author name or email.",
+    "account-signed-out-item": "@{login} (Signed out)"
   },
   "reset": {
     "continue": "Continue",
@@ -1932,7 +1942,8 @@
     "trial": "If this is a GitHub Enterprise trial.",
     "unsure": "If you are unsure of what to do, cancel and contact your system administrator.",
     "unusualTld": "If your GitHub Enterprise instance is run on an unusual top-level domain.",
-    "message": "GitHub Desktop cannot verify the identity of {host}. The certificate ({subjectName}) is invalid or untrusted. <strong>This may indicate attackers are trying to steal your data.</strong>"
+    "message": "GitHub Desktop cannot verify the identity of {host}. The certificate ({subjectName}) is invalid or untrusted. <strong>This may indicate attackers are trying to steal your data.</strong>",
+    "trustHint": "Could not securely connect to the server, because its certificate is not trusted. Attackers might be trying to steal your information.\n\nTo connect unsafely, which may put your data at risk, you can “Always trust” the certificate and try again."
   },
   "upstreamAlreadyExists": {
     "confirm": "Would you like to update the remote to use the expected URL?",
@@ -2086,7 +2097,8 @@
     "retryClone": {
       "@darwin": "Retry Clone",
       "@other": "Retry clone"
-    }
+    },
+    "retryPush": "Retry push"
   },
   "selectedCommits": {
     "noFilesInCommit": "No files in commit",
@@ -2135,6 +2147,10 @@
     "noEditorConfigured": {
       "@darwin": "No editor configured in Preferences > Advanced",
       "@other": "No editor configured in Options > Advanced"
+    },
+    "conflictCount": {
+      "_one": "1 conflict",
+      "_other": "{count} conflicts"
     }
   },
   "configureGitUser": {
@@ -2361,7 +2377,11 @@
     "noModelsFound": "No models found.",
     "configureCustomProviders": "Configure custom providers…",
     "defaultSuffix": "{name} (default)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "None",
+    "chooseModel": "Choose a model",
+    "filterModels": "Filter models",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git is requesting permission to sign in to this server:",
@@ -2402,7 +2422,8 @@
   "commitMessageOverride": {
     "title": "Commit message override",
     "body": "The commit message you have entered will be overridden by the generated commit message.",
-    "copilotTip": "Tip: You can use <link>Copilot Instructions</link> to customize how commit messages are generated."
+    "copilotTip": "Tip: You can use <link>Copilot Instructions</link> to customize how commit messages are generated.",
+    "override": "Override"
   },
   "history": {
     "dateLabel": "Date:",
@@ -2457,14 +2478,16 @@
     "dialogTitle": {
       "@darwin": "Open With…",
       "@other": "Open with…"
-    }
+    },
+    "open": "Open"
   },
   "editorError": {
     "title": {
       "@darwin": "Unable to Open External Editor",
       "@other": "Unable to open external editor"
     },
-    "download": "Download {name}"
+    "download": "Download {name}",
+    "notFound": "The editor '{name}' could not be found. Please open {menuItemName} and choose an available editor."
   },
   "shellError": {
     "title": {
@@ -2553,7 +2576,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Resize handle"
+    "decreased": "decreased",
+    "increased": "increased",
+    "resizeHandle": "Resize handle",
+    "widthResize": "{description} width {direction}. Set to {percent}%"
   },
   "stash": {
     "fileListDescription": "Stash file list"
@@ -2591,7 +2617,8 @@
     "rebaseInProgress": "Rebase in progress",
     "cannotPublishDetachedHead": "Cannot publish detached HEAD",
     "publishBranchToGitHub": "Publish this branch to GitHub",
-    "publishBranchToRemote": "Publish this branch to the remote"
+    "publishBranchToRemote": "Publish this branch to the remote",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "Reverting…",
@@ -2619,7 +2646,8 @@
     "addRepositoryButton": {
       "@darwin": "Add Repository",
       "@other": "Add repository"
-    }
+    },
+    "pushingRepository": "Pushing repository to {endpoint}"
   },
   "pushBranchCommits": {
     "publishTitle": "Your branch must be published before opening a pull request.",
@@ -2724,7 +2752,8 @@
     "copyTags": {
       "_one": "Copy Tag",
       "_other": "Copy Tags"
-    }
+    },
+    "commits": "Commits"
   },
   "authentication": {
     "browserRedirect": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop please allow it to."
@@ -2761,6 +2790,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "The compared branch (<ref/>) is up to date with your branch",
+    "noHistory": "No history",
     "yourBranchUpToDate": "Your branch is up to date with the compared branch (<ref/>)"
   },
   "branchNameWarnings": {
@@ -2796,7 +2826,8 @@
     "learnMore": "<link>Learn more about Copilot in GitHub Desktop.</link>",
     "generateCommitMessage": "Review and edit the generated message carefully before use.",
     "conflictResolution": "Review the suggested resolutions carefully before applying them to your files.",
-    "assistedCommit": "Copilot will plan your selected changes, and GitHub Desktop will create one or more local commits with their generated messages. Copilot will not edit your files. You can cancel before local acceptance to undo commits created by this run. If Push after committing is enabled, all local commits are kept once pushing starts, even if the push fails."
+    "assistedCommit": "Copilot will plan your selected changes, and GitHub Desktop will create one or more local commits with their generated messages. Copilot will not edit your files. You can cancel before local acceptance to undo commits created by this run. If Push after committing is enabled, all local commits are kept once pushing starts, even if the push fails.",
+    "iUnderstand": "I understand"
   },
   "repoRules": {
     "fails": {
@@ -3081,7 +3112,10 @@
     "downloadingNoPercent": "Downloading…",
     "error": "Could not download the file.",
     "gatekeeper": "The app is not signed by Apple. After unzipping, open it once via System Settings → Privacy & Security → Open Anyway.",
-    "noAssets": "This release has no files to download."
+    "noAssets": "This release has no files to download.",
+    "errorHost": "release asset host is not allowed",
+    "errorName": "release asset name is not allowed",
+    "errorStatus": "release asset answered with {statusCode}"
   },
   "renameWorktreeDialog": {
     "title": {
@@ -3160,5 +3194,25 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "Cannot use a symbolic link as the root .gitignore file"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} result",
+      "_other": "{count} results"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} result {message}",
+      "_other": "{count} results {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{count} repository is assigned to @{login} on {endpoint}.",
+      "_other": "{count} repositories are assigned to @{login} on {endpoint}."
+    },
+    "clear-assignments-label": "Clear repository account assignments",
+    "keep-assignments": "Keep these assignments to use this account when you sign in again, or clear them to choose an account the next time you use these repositories.",
+    "sign-out": "Sign out",
+    "title": "Sign out of @{login}?"
   }
 }

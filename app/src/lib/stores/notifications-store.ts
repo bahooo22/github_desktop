@@ -22,6 +22,7 @@ import { getCommit } from '../git'
 import { getAccountForRepository } from '../get-account-for-repository'
 import { getBoolean, setBoolean } from '../local-storage'
 import { showNotification } from '../notifications/show-notification'
+import { t } from '../l10n/core'
 import { StatsStore } from '../stats'
 import { truncateWithEllipsis } from '../truncate-with-ellipsis'
 import {
@@ -198,7 +199,9 @@ export class NotificationsStore {
       return
     }
 
-    const title = `@${comment.user.login} commented on your pull request`
+    const title = t('notifications.commentTitle', {
+      login: comment.user.login,
+    })
     const body = `${pullRequest.title} #${
       pullRequest.pullRequestNumber
     }\n${truncateWithEllipsis(comment.body, 50)}`
@@ -288,7 +291,10 @@ export class NotificationsStore {
     }
 
     const reviewVerb = getVerbForPullRequestReview(review)
-    const title = `@${review.user.login} ${reviewVerb} your pull request`
+    const title = t('notifications.reviewTitle', {
+      login: review.user.login,
+      verb: reviewVerb,
+    })
     const body = `${pullRequest.title} #${
       pullRequest.pullRequestNumber
     }\n${truncateWithEllipsis(review.body, 50)}`
@@ -423,7 +429,7 @@ export class NotificationsStore {
       numberOfFailedChecks === 1 ? 'check was' : 'checks were'
 
     const shortSHA = shortenSHA(commitSHA)
-    const title = 'Pull Request checks failed'
+    const title = t('notifications.checksFailedTitle')
     const body = `${pullRequest.title} #${pullRequest.pullRequestNumber} (${shortSHA})\n${numberOfFailedChecks} ${pluralChecks} not successful.`
     const onClick = () => {
       this.statsStore.increment('checksFailedNotificationClicked')

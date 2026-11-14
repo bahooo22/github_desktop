@@ -167,7 +167,7 @@ export class OpenWithExternalEditor extends React.Component<
         </DialogContent>
         <DialogFooter>
           <OkCancelButtonGroup
-            okButtonText="Open"
+            okButtonText={t('openWithEditor.open')}
             okButtonDisabled={disabled}
             onCancelButtonClick={this.props.onDismissed}
           />

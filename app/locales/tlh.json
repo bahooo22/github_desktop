@@ -96,6 +96,7 @@
       "appError.pushFailed",
       "appError.retryClone",
       "appError.retryCloning",
+      "appError.retryPush",
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
@@ -181,6 +182,7 @@
       "branchNameWarnings.nameExistsOnRemote",
       "branchNameWarnings.trackingWarning",
       "branches.checkout-in-new-worktree",
+      "branches.chooseBaseBranch",
       "branches.copy-name",
       "branches.createBranchShortcutProTip",
       "branches.createNewBranchInstead",
@@ -250,6 +252,7 @@
       "changes.file.included",
       "changes.file.not-included",
       "changes.file.partially-included",
+      "changes.fileScreenReader",
       "changes.files-selected",
       "changes.files-too-large",
       "changes.filter-placeholder",
@@ -421,6 +424,7 @@
       "commitList.cherryPickCommit",
       "commitList.cherryPickCommits",
       "commitList.chooseLocation",
+      "commitList.commits",
       "commitList.copySha",
       "commitList.copyTags",
       "commitList.createBranchFromCommit",
@@ -507,12 +511,14 @@
       "commitMessage.warning-word",
       "commitMessageOverride.body",
       "commitMessageOverride.copilotTip",
+      "commitMessageOverride.override",
       "commitMessageOverride.title",
       "commitProgress.close",
       "commitProgress.title",
       "common.add",
       "common.cancel",
       "common.close",
+      "common.copied",
       "common.discard",
       "common.do-not-show-again",
       "common.done",
@@ -521,6 +527,7 @@
       "common.invalidDate",
       "common.learnMore",
       "common.name",
+      "common.nameInvalid",
       "common.ok",
       "common.openPreferences",
       "common.remove",
@@ -530,11 +537,17 @@
       "configLockFile.exists",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "confirmAccountSignOut.assignments-count",
+      "confirmAccountSignOut.clear-assignments-label",
+      "confirmAccountSignOut.keep-assignments",
+      "confirmAccountSignOut.sign-out",
+      "confirmAccountSignOut.title",
       "confirmDiscardStash.title",
       "confirmDiscardStash.warning",
       "confirmExitTutorial.leaveWarning",
       "confirmExitTutorial.title",
       "conflicts.allResolved",
+      "conflicts.conflictCount",
       "conflicts.fileDoesNotExistOn",
       "conflicts.fileResolutionOptions",
       "conflicts.manualConflict",
@@ -613,6 +626,7 @@
       "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
+      "copilotDisclaimer.iUnderstand",
       "copilotDisclaimer.learnMore",
       "copilotDisclaimer.poweredByAi",
       "copilotError.billingIssue",
@@ -622,10 +636,14 @@
       "copilotError.retryAfterDate",
       "copilotError.retryAfterSeconds",
       "copilotError.sessionQuotaExceeded",
+      "copilotModelPicker.buttonAria",
+      "copilotModelPicker.chooseModel",
       "copilotModelPicker.configureCustomProviders",
       "copilotModelPicker.defaultSuffix",
+      "copilotModelPicker.filterModels",
       "copilotModelPicker.itemAria",
       "copilotModelPicker.noModelsFound",
+      "copilotModelPicker.none",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -765,6 +783,9 @@
       "downloadForkRelease.downloading",
       "downloadForkRelease.downloadingNoPercent",
       "downloadForkRelease.error",
+      "downloadForkRelease.errorHost",
+      "downloadForkRelease.errorName",
+      "downloadForkRelease.errorStatus",
       "downloadForkRelease.gatekeeper",
       "downloadForkRelease.loading",
       "downloadForkRelease.noAssets",
@@ -772,11 +793,14 @@
       "downloadForkRelease.showInFolder",
       "downloadForkRelease.title",
       "editorError.download",
+      "editorError.notFound",
       "editorError.title",
       "enterprise.addressLabel",
       "enterpriseServerConfirmation.confirmAddress",
       "enterpriseServerConfirmation.signInRequest",
       "enterpriseServerConfirmation.trustWarning",
+      "filterList.resultCount",
+      "filterList.resultCountWithMessage",
       "forks.create-fork-manually",
       "forks.do-you-want-to-fork",
       "forks.error-details",
@@ -819,6 +843,7 @@
       "history.showingChangesFrom",
       "history.showingChangesFromPlain",
       "historyCompare.comparedBranchUpToDate",
+      "historyCompare.noHistory",
       "historyCompare.yourBranchUpToDate",
       "hookFailed.abort",
       "hookFailed.ignoreAndContinue",
@@ -1005,6 +1030,8 @@
       "menu.show-stashed-changes",
       "menu.show-user-guides",
       "menu.show-worktrees-list",
+      "menu.spellcheckEnglish",
+      "menu.spellcheckSystemLanguage",
       "menu.squash-and-merge-branch",
       "menu.stash-all-changes",
       "menu.stash-all-changes-confirm",
@@ -1176,9 +1203,12 @@
       "notifications.checksFailed.standBy",
       "notifications.checksFailed.stepsIncoming",
       "notifications.checksFailed.summary",
+      "notifications.checksFailedTitle",
+      "notifications.commentTitle",
       "notifications.dismiss",
       "notifications.markdownCommentTitle",
       "notifications.openInBrowser",
+      "notifications.reviewTitle",
       "notifications.switchToPullRequest",
       "notifications.switchToRepositoryAndPullRequest",
       "notifications.timeline.summary",
@@ -1208,6 +1238,7 @@
       "openPullRequest.showing-all-commits",
       "openPullRequest.title",
       "openWithEditor.dialogTitle",
+      "openWithEditor.open",
       "openWithEditor.selectEditor",
       "password.toggleVisibility",
       "password.toggleVisibilityAria",
@@ -1331,6 +1362,7 @@
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
       "repositorySettings.account-description",
+      "repositorySettings.account-signed-out-item",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1361,7 +1393,10 @@
       "reset.continue",
       "reset.title",
       "reset.warning",
+      "resizable.decreased",
+      "resizable.increased",
       "resizable.resizeHandle",
+      "resizable.widthResize",
       "revealDirectory.detail",
       "revealDirectory.message",
       "revealDirectory.revealButton",
@@ -1706,6 +1741,7 @@
       "thankYouCard.throwAway",
       "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
+      "toolbar.checkoutProgress",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
       "toolbar.currentBranchIsTooltip",
@@ -1751,6 +1787,7 @@
       "tutorial.exploreTitle",
       "tutorial.openAtomSite",
       "tutorial.openInBrowserButton",
+      "tutorial.pushingRepository",
       "tutorialPanel.altChecklist",
       "tutorialPanel.createBranch",
       "tutorialPanel.defaultEditor",
@@ -1793,6 +1830,7 @@
       "untrustedCertificate.ok",
       "untrustedCertificate.title",
       "untrustedCertificate.trial",
+      "untrustedCertificate.trustHint",
       "untrustedCertificate.unsure",
       "untrustedCertificate.unusualTld",
       "updateAvailableBanner.architecture",
@@ -1873,7 +1911,9 @@
       "@darwin": "DuHmey yIpoSmoH",
       "@other": "DuHmey yIpoSmoH"
     },
-    "hangOn": "yIloS…"
+    "hangOn": "yIloS…",
+    "copied": "woHlu'!",
+    "nameInvalid": "pong muj. ngutlhmey chaw'be'lu'bogh neH ghaj."
   },
   "app": {
     "select-repository": {
@@ -2566,7 +2606,9 @@
     "add-to-dictionary": {
       "@darwin": "mu'ghomDaq yIchel",
       "@other": "mu'ghomDaq yIchel"
-    }
+    },
+    "spellcheckEnglish": "ghItlh leghmeH English Hol 'e' yIghun",
+    "spellcheckSystemLanguage": "ghItlh leghmeH De'wI' pat Hol 'e' yIghun"
   },
   "about": {
     "title": "{name} bop",
@@ -2792,7 +2834,8 @@
     "view-pr-on-github": "qem tlhob 'e' GitHubDaq yI'ang",
     "noBranchFound": "jIQoS. bartIqvam jItu'laHbe'.",
     "createNewBranchInstead": "bartIq chu' 'e' chenmoH'a'?",
-    "createBranchShortcutProTip": "<shortcut/> yI'uy 'ej bartIq chu' 'e' chenmoH"
+    "createBranchShortcutProTip": "<shortcut/> yI'uy 'ej bartIq chu' 'e' chenmoH",
+    "chooseBaseBranch": "waw' bartIq yIwIv"
   },
   "changes": {
     "adjust-filters": "QIbmey 'e' yIchoH 'ej {count} choHmey Hoch yIlegh",
@@ -2942,7 +2985,8 @@
     },
     "pull-branch-discoverability": "reH qIt SeHjan tetlhDaq, Hop choHmey tu'lu'chugh, 'oH <shortcut/> je",
     "push-branch-discoverability": "reH qIt SeHjan tetlhDaq, Sum choH vempu' yuv loS tu'lu'chugh, 'oH <shortcut/> je",
-    "select-editor-description": "<link>{settings}</link>Daq lIj DI'wI' 'e' yIwIv"
+    "select-editor-description": "<link>{settings}</link>Daq lIj DI'wI' 'e' yIwIv",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "naQ patlh. {completed} rInpu', {inProgress} SerDaq, {queued} loSbogh.",
@@ -3556,7 +3600,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> <date>{date}</date> lIj qem tlhob {verb}"
-    }
+    },
+    "checksFailedTitle": "qem tlhob 'ol vemmey lujpu'",
+    "commentTitle": "@{login} lIj qem tlhob QInHom chenmoHlu'",
+    "reviewTitle": "@{login} lIj qem tlhob {verb}"
   },
   "openPullRequest": {
     "file-does-not-exist": "qawHaqDaq De' tu'lu'be'",
@@ -3664,7 +3711,8 @@
     "error-save-account": "Failed saving the repository account: {error}",
     "account-none": "pagh (ghajbe')",
     "account-signed-out": "@{login} 'e' yIngaQmoHpu'",
-    "account-description": "GitHub API lo'meH 'ej HTTPS ngaQHa'moHmeH mabvam 'e' bIlo'. lIj Git qonwI' pong je lIj ngeH choHbe'."
+    "account-description": "GitHub API lo'meH 'ej HTTPS ngaQHa'moHmeH mabvam 'e' bIlo'. lIj Git qonwI' pong je lIj ngeH choHbe'.",
+    "account-signed-out-item": "@{login} 'e' yIngaQmoHpu'"
   },
   "reset": {
     "continue": "yItaH",
@@ -3761,7 +3809,8 @@
     "trial": "GitHub Enterprise waH 'oHchugh.",
     "unsure": "Sovbe'chugh, yIqIl 'ej De'wI' pat SeHwI' yI'ol.",
     "unusualTld": "lIj GitHub Enterprise pong motlhbe'chugh.",
-    "message": "GitHub Desktop {host} pong 'olbe'. Qoyje' ({subjectName}) ghenbe' pagh voqbe'bogh 'oH. <strong>jaghpu' lIj De' nIH 'e' DuH.</strong>"
+    "message": "GitHub Desktop {host} pong 'olbe'. Qoyje' ({subjectName}) ghenbe' pagh voqbe'bogh 'oH. <strong>jaghpu' lIj De' nIH 'e' DuH.</strong>",
+    "trustHint": "turwI' pong 'olbe', Qoyje' voqbe'bogh 'oHmo'. jaghpu' lIj De' nIH 'e' DuH.\n\nQoblu' DaneHchugh, Qoyje' 'e' yIvoq 'ej yInIDqa'."
   },
   "upstreamAlreadyExists": {
     "confirm": "pIHlu'bogh URL lo'meH, HopwI' yIchoH DaneH'a'?",
@@ -3915,7 +3964,8 @@
     "retryClone": {
       "@darwin": "yIvoyqa'",
       "@other": "yIvoyqa'"
-    }
+    },
+    "retryPush": "yIyuvqa'"
   },
   "selectedCommits": {
     "noFilesInCommit": "choH vemDaq De' tu'lu'be'.",
@@ -3964,6 +4014,10 @@
     "noEditorConfigured": {
       "@darwin": "DuHmey > 'Itlh: DI'wI' tu'lu'be'.",
       "@other": "DuHmey > 'Itlh: DI'wI' tu'lu'be'."
+    },
+    "conflictCount": {
+      "_one": "1 yol",
+      "_other": "{count} yol"
     }
   },
   "configureGitUser": {
@@ -4190,7 +4244,11 @@
     "noModelsFound": "ghantoH Sambe'lu'.",
     "configureCustomProviders": "tIgh peSwI'mey yIghun…",
     "defaultSuffix": "{name} (motlh)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "pagh",
+    "chooseModel": "ghantoH yIwIv",
+    "filterModels": "ghantoHmey yIQIb",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git turwI'vamDaq ngaQHa'moHmeH chaw' tlhob:",
@@ -4231,7 +4289,8 @@
   "commitMessageOverride": {
     "title": "choH vem Del choHlu'",
     "body": "bIghItlhpu'bogh choH vem Del, chenmoHlu'bogh Delmo' choHlu'.",
-    "copilotTip": "chup: choH vem Del chenmoHmeH <link>Copilot Instructions</link> yIlo'."
+    "copilotTip": "chup: choH vem Del chenmoHmeH <link>Copilot Instructions</link> yIlo'.",
+    "override": "Del yIchoH"
   },
   "history": {
     "dateLabel": "jaj:",
@@ -4286,14 +4345,16 @@
     "dialogTitle": {
       "@darwin": "SommI' yIpoSmoH…",
       "@other": "SommI' yIpoSmoH…"
-    }
+    },
+    "open": "yIpoSmoH"
   },
   "editorError": {
     "title": {
       "@darwin": "DI'wI' 'e' poSmoHlaHbe'",
       "@other": "DI'wI' 'e' poSmoHlaHbe'"
     },
-    "download": "{name} 'e' lI'"
+    "download": "{name} 'e' lI'",
+    "notFound": "SommI' '{name}' jItu'laHbe'. {menuItemName} yIpoSmoH 'ej SommI' tu'lu'bogh 'e' yIwIv."
   },
   "shellError": {
     "title": {
@@ -4382,7 +4443,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "vItlh choHwI' jI'ev"
+    "decreased": "bIng",
+    "increased": "Dung",
+    "resizeHandle": "vItlh choHwI' jI'ev",
+    "widthResize": "{description} juch {direction}. {percent}% ghun"
   },
   "stash": {
     "fileListDescription": "polwI' De' tetlh"
@@ -4420,7 +4484,8 @@
     "rebaseInProgress": "rebase SerDaq",
     "cannotPublishDetachedHead": "ngaQmoHbe'bogh nach 'e' 'anglaHbe'",
     "publishBranchToGitHub": "GitHubDaq bartIqvam 'e' yI'ang",
-    "publishBranchToRemote": "Hopbogh De' ngaSwI'vamDaq bartIqvam 'e' yI'ang"
+    "publishBranchToRemote": "Hopbogh De' ngaSwI'vamDaq bartIqvam 'e' yI'ang",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "choHHa'lu'taH…",
@@ -4448,7 +4513,8 @@
     "addRepositoryButton": {
       "@darwin": "De' ngaSwI' yIchel",
       "@other": "De' ngaSwI' yIchel"
-    }
+    },
+    "pushingRepository": "{endpoint}Daq De' ngaSwI' 'e' yuvlu'"
   },
   "pushBranchCommits": {
     "publishTitle": "qem tlhob 'oH poSmoH chenmoHpa', lIj bartIq 'e' yI'ang DaneH.",
@@ -4553,7 +4619,8 @@
     "copyTags": {
       "_one": "tag yIwoH",
       "_other": "permey yIwoH"
-    }
+    },
+    "commits": "choH vemmey"
   },
   "authentication": {
     "browserRedirect": "ngaQHa'moHpu', lIj leghwI' GitHub DesktopDaq yIghoSqa'. GitHub Desktop poSmoHmeH lIj leghwI' 'e' bIqolchugh, chaw'."
@@ -4590,6 +4657,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "<ref/> bartIq, lIj bartIq je rap.",
+    "noHistory": "qun tu'lu'be'",
     "yourBranchUpToDate": "lIj bartIq, <ref/> bartIq je rap."
   },
   "branchNameWarnings": {
@@ -4625,7 +4693,8 @@
     "learnMore": "<link>GitHub DesktopDaq Copilot De' yIghoj.</link>",
     "generateCommitMessage": "choH vem Del chenmoHlu'bogh yI'ol 'ej yIchoH.",
     "conflictResolution": "yol tI' chupbogh yI'ol 'ej De' tetlhmeyDaq yIlo'.",
-    "assistedCommit": "Copilot wIvlu'bogh choHmey waHlu'. GitHub Desktop Sum vemmey chenmoHlu' 'ej Del chenmoHlu'bogh chel. Copilot De' tetlhmeylIj choHbe'. rInmoHlu'be'chugh, vumghachvam vemmey DopmoHlaH. 'oH choH rInmoH 'e' yI'ang wIvlu' taHchugh, yuvDI' Hoch Sum vemmey po'lu'. vabDot yuv luj."
+    "assistedCommit": "Copilot wIvlu'bogh choHmey waHlu'. GitHub Desktop Sum vemmey chenmoHlu' 'ej Del chenmoHlu'bogh chel. Copilot De' tetlhmeylIj choHbe'. rInmoHlu'be'chugh, vumghachvam vemmey DopmoHlaH. 'oH choH rInmoH 'e' yI'ang wIvlu' taHchugh, yuvDI' Hoch Sum vemmey po'lu'. vabDot yuv luj.",
+    "iUnderstand": "vISov"
   },
   "repoRules": {
     "fails": {
@@ -4910,7 +4979,10 @@
     "downloadingNoPercent": "Hevlu'…",
     "error": "file HevlaHbe'.",
     "gatekeeper": "Apple pong qI'be'lu'. System Settings → Privacy & Security → Open Anyway.",
-    "noAssets": "vam jonHa'vaD filemey tu'lu'be'."
+    "noAssets": "vam jonHa'vaD filemey tu'lu'be'.",
+    "errorHost": "release asset host chaw'be'lu'",
+    "errorName": "release asset pong chaw'be'lu'",
+    "errorStatus": "release asset {statusCode} jatlh"
   },
   "renameWorktreeDialog": {
     "title": {
@@ -4989,5 +5061,25 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "root .gitignore file 'oH symbolic link chaw'be'lu'"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} Samlu'",
+      "_other": "{count} Samlu'"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} Samlu' {message}",
+      "_other": "{count} Samlu' {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{endpoint}Daq {count} De' ngaSwI' @{login} mab ghaj.",
+      "_other": "{endpoint}Daq {count} De' ngaSwI'pu' @{login} mab ghaj."
+    },
+    "clear-assignments-label": "De' ngaSwI'meyDaq mab ghajbogh 'e' yIqaw",
+    "keep-assignments": "De' ngaSwI'vamDaq mab ghajbogh 'e' yIchaw'. mabvo' yIngaQHa'moHqa' laH. De' ngaSwI'mey bIlo'pa' mab 'e' yIwIv DaneHchugh, mab ghajbogh 'e' yIqaw.",
+    "sign-out": "yIngaQmoH",
+    "title": "@{login} mabvo' yIngaQmoH DaneH'a'?"
   }
 }

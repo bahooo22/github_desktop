@@ -3,6 +3,7 @@ import { IFoundEditor } from './found-editor'
 import { getAvailableEditors as getAvailableEditorsDarwin } from './darwin'
 import { getAvailableEditors as getAvailableEditorsWindows } from './win32'
 import { getAvailableEditors as getAvailableEditorsLinux } from './linux'
+import { t } from '../l10n/core'
 
 let editorCache: ReadonlyArray<IFoundEditor<string>> | null = null
 
@@ -57,8 +58,10 @@ export async function findEditorOrDefault(
   if (name) {
     const match = editors.find(p => p.editor === name) || null
     if (!match) {
-      const menuItemName = __DARWIN__ ? 'Settings' : 'Options'
-      const message = `The editor '${name}' could not be found. Please open ${menuItemName} and choose an available editor.`
+      const message = t('editorError.notFound', {
+        name,
+        menuItemName: t('settings.title'),
+      })
 
       throw new ExternalEditorError(message, { openPreferences: true })
     }

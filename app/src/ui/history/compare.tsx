@@ -223,7 +223,7 @@ export class CompareSidebar extends React.Component<
 
     let emptyListMessage: string | JSX.Element
     if (formState.kind === HistoryTabMode.History) {
-      emptyListMessage = 'No history'
+      emptyListMessage = t('historyCompare.noHistory')
     } else {
       const currentlyComparedBranchName = formState.comparisonBranch.name
 

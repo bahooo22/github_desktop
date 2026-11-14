@@ -8,6 +8,7 @@ import { Dispatcher, defaultErrorHandler } from '../../ui/dispatcher'
 import { API, APICheckConclusion, IAPIComment } from '../api'
 import { getAccountForRepository } from '../get-account-for-repository'
 import { showNotification } from '../notifications/show-notification'
+import { t } from '../l10n/core'
 import {
   isValidNotificationPullRequestReview,
   ValidNotificationPullRequestReview,
@@ -237,7 +238,7 @@ export class NotificationsDebugStore {
       numberOfFailedChecks === 1 ? 'check was' : 'checks were'
 
     const shortSHA = shortenSHA(commitSha)
-    const title = 'Pull Request checks failed'
+    const title = t('notifications.checksFailedTitle')
     const body = `${pullRequest.title} #${pullRequest.pullRequestNumber} (${shortSHA})\n${numberOfFailedChecks} ${pluralChecks} not successful.`
     const onClick = () => {
       dispatcher.onChecksFailedNotification(repository, pullRequest, checks)

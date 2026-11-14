@@ -1,10 +1,7 @@
 import { describe, it } from 'node:test'
 import assert from 'node:assert'
-import {
-  SpellcheckEnglishLabel,
-  getSpellCheckLanguageMenuItemOptions,
-  SpellcheckSystemLabel,
-} from '../../../src/main-process/menu/build-spell-check-menu'
+import { getSpellCheckLanguageMenuItemOptions } from '../../../src/main-process/menu/build-spell-check-menu'
+import { t } from '../../../src/lib/l10n/core'
 import { getAvailableSpellcheckerLanguages } from '../../helpers/menus/available-spellchecker-languages-helper'
 
 describe('spell-checker-menu', () => {
@@ -35,7 +32,10 @@ describe('spell-checker-menu', () => {
       getAvailableSpellcheckerLanguages()
     )
 
-    assert.equal(spellcheckerMenuItem?.label, SpellcheckSystemLabel)
+    assert.equal(
+      spellcheckerMenuItem?.label,
+      t('menu.spellcheckSystemLanguage')
+    )
   })
 
   it('returns set to english label when spellchecker language is no english', () => {
@@ -45,6 +45,6 @@ describe('spell-checker-menu', () => {
       getAvailableSpellcheckerLanguages()
     )
 
-    assert.equal(spellcheckerMenuItem?.label, SpellcheckEnglishLabel)
+    assert.equal(spellcheckerMenuItem?.label, t('menu.spellcheckEnglish'))
   })
 })

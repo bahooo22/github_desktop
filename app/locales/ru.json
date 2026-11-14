@@ -21,7 +21,9 @@
     "email": "Эл. почта",
     "name": "Имя",
     "openPreferences": "Открыть настройки",
-    "hangOn": "Подождите…"
+    "hangOn": "Подождите…",
+    "copied": "Скопировано!",
+    "nameInvalid": "Имя недействительно, оно состоит только из недопустимых символов."
   },
   "app": {
     "select-repository": {
@@ -667,7 +669,9 @@
     "add-to-dictionary": {
       "@darwin": "Добавить в словарь",
       "@other": "Добавить в словарь"
-    }
+    },
+    "spellcheckEnglish": "Проверять правописание по-английски",
+    "spellcheckSystemLanguage": "Проверять правописание по языку системы"
   },
   "about": {
     "title": "О приложении {name}",
@@ -873,7 +877,8 @@
     "view-pr-on-github": "Показать PR на GitHub",
     "noBranchFound": "Не удаётся найти эту ветку.",
     "createNewBranchInstead": "Хотите вместо этого создать новую ветку?",
-    "createBranchShortcutProTip": "Совет! Нажмите <shortcut/>, чтобы быстро создать новую ветку из любого места приложения"
+    "createBranchShortcutProTip": "Совет! Нажмите <shortcut/>, чтобы быстро создать новую ветку из любого места приложения",
+    "chooseBaseBranch": "Выберите базовую ветку"
   },
   "changes": {
     "adjust-filters": "Настройте фильтры, чтобы увидеть все {count} изменений",
@@ -1034,7 +1039,8 @@
     },
     "pull-branch-discoverability": "Всегда доступно на панели инструментов, когда есть удалённые изменения, или <shortcut/>",
     "push-branch-discoverability": "Всегда доступно на панели инструментов, когда локальные коммиты ожидают отправки, или <shortcut/>",
-    "select-editor-description": "Выберите редактор в <link>{settings}</link>"
+    "select-editor-description": "Выберите редактор в <link>{settings}</link>",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "Индикатор полноты. Завершено: {completed}, в процессе: {inProgress}, в очереди: {queued}.",
@@ -1615,7 +1621,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> {verb} ваш пул-реквест <date>{date}</date>"
-    }
+    },
+    "checksFailedTitle": "Проверки pull request не пройдены",
+    "commentTitle": "@{login} прокомментировал(а) ваш pull request",
+    "reviewTitle": "@{login} {verb} ваш pull request"
   },
   "openPullRequest": {
     "file-does-not-exist": "Файл не существует на диске",
@@ -1726,7 +1735,8 @@
     "error-save-account": "Не удалось сохранить учётную запись репозитория: {error}",
     "account-none": "Нет (не назначена)",
     "account-signed-out": "@{login} (вы вышли)",
-    "account-description": "Учётная запись используется для запросов к GitHub API и HTTPS-аутентификации. Это не меняет имя и адрес электронной почты автора в Git."
+    "account-description": "Учётная запись используется для запросов к GitHub API и HTTPS-аутентификации. Это не меняет имя и адрес электронной почты автора в Git.",
+    "account-signed-out-item": "@{login} (вы вышли)"
   },
   "reset": {
     "continue": "Продолжить",
@@ -1813,7 +1823,8 @@
     "trial": "Если это пробная версия GitHub Enterprise.",
     "unsure": "Если вы не знаете, как поступить, отмените действие и обратитесь к системному администратору.",
     "unusualTld": "Если ваш экземпляр GitHub Enterprise работает на необычном домене верхнего уровня.",
-    "message": "GitHub Desktop не может подтвердить подлинность {host}. Сертификат ({subjectName}) недействителен или не вызывает доверия. <strong>Это может означать, что злоумышленники пытаются украсть ваши данные.</strong>"
+    "message": "GitHub Desktop не может подтвердить подлинность {host}. Сертификат ({subjectName}) недействителен или не вызывает доверия. <strong>Это может означать, что злоумышленники пытаются украсть ваши данные.</strong>",
+    "trustHint": "Не удалось безопасно подключиться к серверу, потому что его сертификат не вызывает доверия. Возможно, злоумышленники пытаются украсть ваши данные.\n\nЧтобы подключиться небезопасно, что может поставить ваши данные под угрозу, можно выбрать «Всегда доверять» для этого сертификата и повторить попытку."
   },
   "upstreamAlreadyExists": {
     "confirm": "Обновить удалённый репозиторий, чтобы использовать ожидающий URL?",
@@ -1969,7 +1980,8 @@
     "commitFailed": "Коммит не выполнен",
     "generic": "Ошибка",
     "retryCloning": "Хотите повторить клонирование <ref/>?",
-    "retryClone": "Повторить клонирование"
+    "retryClone": "Повторить клонирование",
+    "retryPush": "Повторить отправку"
   },
   "selectedCommits": {
     "noFilesInCommit": "В коммите нет файлов",
@@ -2019,7 +2031,13 @@
     "targetBranch": "целевая ветка",
     "openInEditor": "Открыть в {editor}",
     "openInEditorGeneric": "Открыть в редакторе",
-    "noEditorConfigured": "Редактор не выбран в «Настройках → Дополнительно»"
+    "noEditorConfigured": "Редактор не выбран в «Настройках → Дополнительно»",
+    "conflictCount": {
+      "_one": "1 конфликт",
+      "_few": "{count} конфликта",
+      "_many": "{count} конфликтов",
+      "_other": "{count} конфликта"
+    }
   },
   "configureGitUser": {
     "exampleCommit": "Пример коммита",
@@ -2210,7 +2228,11 @@
     "noModelsFound": "Модели не найдены.",
     "configureCustomProviders": "Настроить пользовательских провайдеров…",
     "defaultSuffix": "{name} (по умолчанию)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "Нет",
+    "chooseModel": "Выберите модель",
+    "filterModels": "Фильтр моделей",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git запрашивает разрешение на вход на этот сервер:",
@@ -2251,7 +2273,8 @@
   "commitMessageOverride": {
     "title": "Переопределение сообщения коммита",
     "body": "Введённое вами сообщение коммита будет перезаписано сгенерированным сообщением.",
-    "copilotTip": "Совет: с помощью <link>Copilot Instructions</link> можно настроить создание сообщений коммитов."
+    "copilotTip": "Совет: с помощью <link>Copilot Instructions</link> можно настроить создание сообщений коммитов.",
+    "override": "Переопределить"
   },
   "history": {
     "dateLabel": "Дата:",
@@ -2306,11 +2329,13 @@
     "dialogTitle": {
       "@darwin": "Открыть в…",
       "@other": "Открыть в…"
-    }
+    },
+    "open": "Открыть"
   },
   "editorError": {
     "title": "Не удалось открыть внешний редактор",
-    "download": "Скачать {name}"
+    "download": "Скачать {name}",
+    "notFound": "Редактор «{name}» не найден. Откройте {menuItemName} и выберите доступный редактор."
   },
   "shellError": {
     "title": "Не удалось открыть оболочку"
@@ -2393,7 +2418,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Перетащите, чтобы изменить размер"
+    "decreased": "уменьшилась",
+    "increased": "увеличилась",
+    "resizeHandle": "Перетащите, чтобы изменить размер",
+    "widthResize": "{description}: ширина {direction}. Установлено {percent}%"
   },
   "stash": {
     "fileListDescription": "Список файлов stash"
@@ -2431,7 +2459,8 @@
     "rebaseInProgress": "Выполняется rebase",
     "cannotPublishDetachedHead": "Нельзя опубликовать откреплённый HEAD",
     "publishBranchToGitHub": "Опубликовать эту ветку в GitHub",
-    "publishBranchToRemote": "Опубликовать эту ветку в удалённом репозитории"
+    "publishBranchToRemote": "Опубликовать эту ветку в удалённом репозитории",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "Идёт откат…",
@@ -2450,7 +2479,8 @@
     "doneImageAlt": "Аплодирующие руки",
     "openInBrowserButton": "Открыть в браузере",
     "createRepositoryButton": "Создать репозиторий",
-    "addRepositoryButton": "Добавить репозиторий"
+    "addRepositoryButton": "Добавить репозиторий",
+    "pushingRepository": "Отправка репозитория в {endpoint}"
   },
   "pushBranchCommits": {
     "publishTitle": "Ветку нужно опубликовать перед созданием pull request.",
@@ -2556,7 +2586,8 @@
       "_few": "Копировать тега",
       "_many": "Копировать тегов",
       "_other": "Копировать тега"
-    }
+    },
+    "commits": "Коммиты"
   },
   "authentication": {
     "browserRedirect": "После входа браузер вернёт вас в GitHub Desktop. Если браузер запросит разрешение на запуск GitHub Desktop, разрешите его."
@@ -2593,6 +2624,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "Сравниваемая ветка (<ref/>) актуальна по отношению к вашей ветке",
+    "noHistory": "Истории нет",
     "yourBranchUpToDate": "Ваша ветка актуальна по отношению к сравниваемой ветке (<ref/>)"
   },
   "branchNameWarnings": {
@@ -2622,7 +2654,8 @@
     "learnMore": "<link>Подробнее о Copilot в GitHub Desktop.</link>",
     "generateCommitMessage": "Внимательно проверьте и отредактируйте сформированное сообщение перед его использованием.",
     "conflictResolution": "Внимательно проверьте предложенные варианты решения, прежде чем применять их к вашим файлам.",
-    "assistedCommit": "Copilot составит план для выбранных изменений, а GitHub Desktop создаст один или несколько локальных коммитов с сгенерированными сообщениями. Copilot не будет редактировать ваши файлы. До локального применения можно отменить прогон — его коммиты удалятся. Если включена отправка после коммита, все локальные коммиты остаются после начала отправки, даже если она завершается ошибкой."
+    "assistedCommit": "Copilot составит план для выбранных изменений, а GitHub Desktop создаст один или несколько локальных коммитов с сгенерированными сообщениями. Copilot не будет редактировать ваши файлы. До локального применения можно отменить прогон — его коммиты удалятся. Если включена отправка после коммита, все локальные коммиты остаются после начала отправки, даже если она завершается ошибкой.",
+    "iUnderstand": "Понятно"
   },
   "repoRules": {
     "fails": {
@@ -2859,7 +2892,10 @@
     "downloadingNoPercent": "Скачивается…",
     "error": "Не удалось скачать файл.",
     "gatekeeper": "Приложение не подписано Apple. После распаковки откройте его один раз через «Системные настройки» → «Конфиденциальность и безопасность» → «Открыть всё равно».",
-    "noAssets": "В этом релизе нет файлов для скачивания."
+    "noAssets": "В этом релизе нет файлов для скачивания.",
+    "errorHost": "хост релизного файла не разрешён",
+    "errorName": "имя релизного файла не разрешено",
+    "errorStatus": "релизный файл ответил со статусом {statusCode}"
   },
   "renameWorktreeDialog": {
     "title": "Переименовать worktree",
@@ -2937,5 +2973,31 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "Нельзя использовать символическую ссылку в качестве корневого файла .gitignore"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} результат",
+      "_few": "{count} результата",
+      "_many": "{count} результатов",
+      "_other": "{count} результата"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} результат {message}",
+      "_few": "{count} результата {message}",
+      "_many": "{count} результатов {message}",
+      "_other": "{count} результата {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{count} репозиторий привязан к учётной записи @{login} на {endpoint}.",
+      "_few": "{count} репозитория привязаны к учётной записи @{login} на {endpoint}.",
+      "_many": "{count} репозиториев привязаны к учётной записи @{login} на {endpoint}.",
+      "_other": "{count} репозитория привязаны к учётной записи @{login} на {endpoint}."
+    },
+    "clear-assignments-label": "Удалить привязки учётных записей к репозиториям",
+    "keep-assignments": "Сохраните эти привязки, чтобы использовать эту учётную запись после повторного входа, или удалите их, чтобы выбрать учётную запись при следующем использовании этих репозиториев.",
+    "sign-out": "Выйти",
+    "title": "Выйти из учётной записи @{login}?"
   }
 }

@@ -13,6 +13,7 @@ import { Row } from '../lib/row'
 
 import { match, IMatch, IMatches } from '../../lib/fuzzy-find'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
+import { t } from '../../lib/l10n'
 
 /** An item in the filter list. */
 export interface IFilterListItem {
@@ -295,8 +296,9 @@ export class FilterList<
     }
 
     const itemRows = this.state.rows.filter(row => row.kind === 'item')
-    const resultsPluralized = itemRows.length === 1 ? 'result' : 'results'
-    const screenReaderMessage = `${itemRows.length} ${resultsPluralized}`
+    const screenReaderMessage = t('filterList.resultCount', {
+      count: itemRows.length,
+    })
 
     return (
       <AriaLiveContainer

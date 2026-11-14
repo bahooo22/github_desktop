@@ -5,6 +5,7 @@ import { sleep } from '../lib/promise'
 import { Button } from './lib/button'
 import { AriaLiveContainer } from './accessibility/aria-live-container'
 import { writeClipboardText } from './main-process-proxy'
+import { t } from '../lib/l10n'
 
 interface ICopyButtonProps {
   readonly copyContent: string
@@ -52,7 +53,7 @@ export class CopyButton extends React.Component<
     const { ariaLabel } = this.props
     const { showCopied } = this.state
 
-    const copiedMessage = 'Copied!'
+    const copiedMessage = t('common.copied')
     const ariaMessage = showCopied ? copiedMessage : ''
     return (
       <Button

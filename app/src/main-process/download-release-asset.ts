@@ -12,6 +12,7 @@ import {
   releaseAssetExtensionsFor,
   uniqueFileName,
 } from '../lib/release-asset-download'
+import { t } from '../lib/l10n/core'
 
 /**
  * Saves a release asset the user picked into the downloads folder. The
@@ -35,7 +36,7 @@ async function downloadAsset(
   fileName: string
 ): Promise<ReleaseAssetDownloadResult> {
   if (!isAllowedReleaseAssetUrl(url)) {
-    return { status: 'error', message: 'release asset host is not allowed' }
+    return { status: 'error', message: t('downloadForkRelease.errorHost') }
   }
 
   const safeName = basename(fileName)
@@ -44,7 +45,7 @@ async function downloadAsset(
     safeName !== fileName ||
     !isAllowedReleaseAssetName(safeName, releaseAssetExtensionsFor(url))
   ) {
-    return { status: 'error', message: 'release asset name is not allowed' }
+    return { status: 'error', message: t('downloadForkRelease.errorName') }
   }
 
   const directory = app.getPath('downloads')
@@ -70,7 +71,9 @@ async function downloadAsset(
       if (response.statusCode !== 200) {
         resolve({
           status: 'error',
-          message: `release asset answered with ${response.statusCode}`,
+          message: t('downloadForkRelease.errorStatus', {
+            statusCode: response.statusCode,
+          }),
         })
         return
       }

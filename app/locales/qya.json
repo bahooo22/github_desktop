@@ -96,6 +96,7 @@
       "appError.pushFailed",
       "appError.retryClone",
       "appError.retryCloning",
+      "appError.retryPush",
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
@@ -180,6 +181,7 @@
       "branchNameWarnings.nameExistsOnRemote",
       "branchNameWarnings.trackingWarning",
       "branches.checkout-in-new-worktree",
+      "branches.chooseBaseBranch",
       "branches.copy-name",
       "branches.createBranchShortcutProTip",
       "branches.createNewBranchInstead",
@@ -249,6 +251,7 @@
       "changes.file.included",
       "changes.file.not-included",
       "changes.file.partially-included",
+      "changes.fileScreenReader",
       "changes.files-selected",
       "changes.files-too-large",
       "changes.filter-placeholder",
@@ -420,6 +423,7 @@
       "commitList.cherryPickCommit",
       "commitList.cherryPickCommits",
       "commitList.chooseLocation",
+      "commitList.commits",
       "commitList.copySha",
       "commitList.copyTags",
       "commitList.createBranchFromCommit",
@@ -506,12 +510,14 @@
       "commitMessage.warning-word",
       "commitMessageOverride.body",
       "commitMessageOverride.copilotTip",
+      "commitMessageOverride.override",
       "commitMessageOverride.title",
       "commitProgress.close",
       "commitProgress.title",
       "common.add",
       "common.cancel",
       "common.close",
+      "common.copied",
       "common.discard",
       "common.do-not-show-again",
       "common.done",
@@ -520,6 +526,7 @@
       "common.invalidDate",
       "common.learnMore",
       "common.name",
+      "common.nameInvalid",
       "common.ok",
       "common.openPreferences",
       "common.remove",
@@ -529,11 +536,17 @@
       "configLockFile.exists",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "confirmAccountSignOut.assignments-count",
+      "confirmAccountSignOut.clear-assignments-label",
+      "confirmAccountSignOut.keep-assignments",
+      "confirmAccountSignOut.sign-out",
+      "confirmAccountSignOut.title",
       "confirmDiscardStash.title",
       "confirmDiscardStash.warning",
       "confirmExitTutorial.leaveWarning",
       "confirmExitTutorial.title",
       "conflicts.allResolved",
+      "conflicts.conflictCount",
       "conflicts.fileDoesNotExistOn",
       "conflicts.fileResolutionOptions",
       "conflicts.manualConflict",
@@ -611,6 +624,7 @@
       "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
+      "copilotDisclaimer.iUnderstand",
       "copilotDisclaimer.learnMore",
       "copilotDisclaimer.poweredByAi",
       "copilotError.billingIssue",
@@ -620,10 +634,14 @@
       "copilotError.retryAfterDate",
       "copilotError.retryAfterSeconds",
       "copilotError.sessionQuotaExceeded",
+      "copilotModelPicker.buttonAria",
+      "copilotModelPicker.chooseModel",
       "copilotModelPicker.configureCustomProviders",
       "copilotModelPicker.defaultSuffix",
+      "copilotModelPicker.filterModels",
       "copilotModelPicker.itemAria",
       "copilotModelPicker.noModelsFound",
+      "copilotModelPicker.none",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -763,6 +781,9 @@
       "downloadForkRelease.downloading",
       "downloadForkRelease.downloadingNoPercent",
       "downloadForkRelease.error",
+      "downloadForkRelease.errorHost",
+      "downloadForkRelease.errorName",
+      "downloadForkRelease.errorStatus",
       "downloadForkRelease.gatekeeper",
       "downloadForkRelease.loading",
       "downloadForkRelease.noAssets",
@@ -770,11 +791,14 @@
       "downloadForkRelease.showInFolder",
       "downloadForkRelease.title",
       "editorError.download",
+      "editorError.notFound",
       "editorError.title",
       "enterprise.addressLabel",
       "enterpriseServerConfirmation.confirmAddress",
       "enterpriseServerConfirmation.signInRequest",
       "enterpriseServerConfirmation.trustWarning",
+      "filterList.resultCount",
+      "filterList.resultCountWithMessage",
       "forks.create-fork-manually",
       "forks.do-you-want-to-fork",
       "forks.error-details",
@@ -817,6 +841,7 @@
       "history.showingChangesFrom",
       "history.showingChangesFromPlain",
       "historyCompare.comparedBranchUpToDate",
+      "historyCompare.noHistory",
       "historyCompare.yourBranchUpToDate",
       "hookFailed.abort",
       "hookFailed.ignoreAndContinue",
@@ -1003,6 +1028,8 @@
       "menu.show-stashed-changes",
       "menu.show-user-guides",
       "menu.show-worktrees-list",
+      "menu.spellcheckEnglish",
+      "menu.spellcheckSystemLanguage",
       "menu.squash-and-merge-branch",
       "menu.stash-all-changes",
       "menu.stash-all-changes-confirm",
@@ -1174,9 +1201,12 @@
       "notifications.checksFailed.standBy",
       "notifications.checksFailed.stepsIncoming",
       "notifications.checksFailed.summary",
+      "notifications.checksFailedTitle",
+      "notifications.commentTitle",
       "notifications.dismiss",
       "notifications.markdownCommentTitle",
       "notifications.openInBrowser",
+      "notifications.reviewTitle",
       "notifications.switchToPullRequest",
       "notifications.switchToRepositoryAndPullRequest",
       "notifications.timeline.summary",
@@ -1206,6 +1236,7 @@
       "openPullRequest.showing-all-commits",
       "openPullRequest.title",
       "openWithEditor.dialogTitle",
+      "openWithEditor.open",
       "openWithEditor.selectEditor",
       "password.toggleVisibility",
       "password.toggleVisibilityAria",
@@ -1329,6 +1360,7 @@
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
       "repositorySettings.account-description",
+      "repositorySettings.account-signed-out-item",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1359,7 +1391,10 @@
       "reset.continue",
       "reset.title",
       "reset.warning",
+      "resizable.decreased",
+      "resizable.increased",
       "resizable.resizeHandle",
+      "resizable.widthResize",
       "revealDirectory.detail",
       "revealDirectory.message",
       "revealDirectory.revealButton",
@@ -1704,6 +1739,7 @@
       "thankYouCard.throwAway",
       "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
+      "toolbar.checkoutProgress",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
       "toolbar.currentBranchIsTooltip",
@@ -1749,6 +1785,7 @@
       "tutorial.exploreTitle",
       "tutorial.openAtomSite",
       "tutorial.openInBrowserButton",
+      "tutorial.pushingRepository",
       "tutorialPanel.altChecklist",
       "tutorialPanel.createBranch",
       "tutorialPanel.defaultEditor",
@@ -1792,6 +1829,7 @@
       "untrustedCertificate.ok",
       "untrustedCertificate.title",
       "untrustedCertificate.trial",
+      "untrustedCertificate.trustHint",
       "untrustedCertificate.unsure",
       "untrustedCertificate.unusualTld",
       "updateAvailableBanner.architecture",
@@ -1872,7 +1910,9 @@
       "@darwin": "apanta cilmë",
       "@other": "apanta cilmë"
     },
-    "hangOn": "larta…"
+    "hangOn": "larta…",
+    "copied": "Ovëantainë!",
+    "nameInvalid": "I essë úvanima: tengwar úcávima neH harya."
   },
   "app": {
     "select-repository": {
@@ -2565,7 +2605,9 @@
     "add-to-dictionary": {
       "@darwin": "yanta i quettastanna",
       "@other": "yanta i quettastanna"
-    }
+    },
+    "spellcheckEnglish": "Cilë i tengwesta cenda na English lambë",
+    "spellcheckSystemLanguage": "Cilë i tengwesta cenda na lambë auma"
   },
   "about": {
     "title": "siton {name}",
@@ -2791,7 +2833,8 @@
     "view-pr-on-github": "cenë i luciquista i GitHubissë",
     "noBranchFound": "Lá polë hirnë i olba sina.",
     "createNewBranchInstead": "Sís carë vinya olba?",
-    "createBranchShortcutProTip": "<shortcut/> nirë na carë vinya olba"
+    "createBranchShortcutProTip": "<shortcut/> nirë na carë vinya olba",
+    "chooseBaseBranch": "Cilë i sundo olba"
   },
   "changes": {
     "adjust-filters": "Vista i siltyar, itan cenë ilya {count} ahyanië",
@@ -2941,7 +2984,8 @@
     },
     "pull-branch-discoverability": "Ilya lúmë férima i cortangwa nyassë yá ëa palan ahyanië ar <shortcut/>",
     "push-branch-discoverability": "Ilya lúmë férima i cortangwa nyassë yá ëa nómëa minatacë i lartar nirienë ar <shortcut/>",
-    "select-editor-description": "Cilë i tecindolya i <link>{settings}</link>issë"
+    "select-editor-description": "Cilë i tecindolya i <link>{settings}</link>issë",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "Tengwë i quanta hentar. {completed} carina, {inProgress} empatyellessë, {queued} lartar.",
@@ -3555,7 +3599,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> {verb} i luciquistalya <date>{date}</date>"
-    }
+    },
+    "checksFailedTitle": "I hentar i luciquistao loitanë",
+    "commentTitle": "@{login} nyarnanë i luciquistalya",
+    "reviewTitle": "@{login} {verb} i luciquistalya"
   },
   "openPullRequest": {
     "file-does-not-exist": "I cómë lá ëa i cómissen",
@@ -3663,7 +3710,8 @@
     "error-save-account": "Failed saving the repository account: {error}",
     "account-none": "Lá essë",
     "account-signed-out": "@{login} (lóya)",
-    "account-description": "Sina essë yuhta i GitHub APIo iquiriessen ar i HTTPS tyuliëssë. Sina lá vista i Git parmahtor esselya ar i tencalya."
+    "account-description": "Sina essë yuhta i GitHub APIo iquiriessen ar i HTTPS tyuliëssë. Sina lá vista i Git parmahtor esselya ar i tencalya.",
+    "account-signed-out-item": "@{login} (lóya)"
   },
   "reset": {
     "continue": "cacara",
@@ -3760,7 +3808,8 @@
     "trial": "Yá ná tyastië GitHub Enterprise.",
     "unsure": "Yá lá istal, apta ar cenë i nostalëo heru.",
     "unusualTld": "Yá i GitHub Enterprise essë ná hyanya.",
-    "message": "Lá polë GitHub Desktop tyasta i {host} essë. I lávë tengwë ({subjectName}) ná úvanima hya lá sataina. <strong>Sina tana i nalantari pilar i ahyanielya.</strong>"
+    "message": "Lá polë GitHub Desktop tyasta i {host} essë. I lávë tengwë ({subjectName}) ná úvanima hya lá sataina. <strong>Sina tana i nalantari pilar i ahyanielya.</strong>",
+    "trustHint": "Lá polë tyulë i indyanna, i lávë tengwë ná ú sataina. Sina tana i nalantari pilar i ahyanielya.\n\nYá tyulë i indyanna ú sataina, i ahyanielya raxëa nauva. Lyë ista satarya i lávë tengwë ilya lúmë ar ricë ata."
   },
   "upstreamAlreadyExists": {
     "confirm": "sáquetatya vista i palan haura, itan yuhta i URL ya mauya?",
@@ -3914,7 +3963,8 @@
     "retryClone": {
       "@darwin": "Á ovëanta enquet",
       "@other": "Á ovëanta enquet"
-    }
+    },
+    "retryPush": "Á nirienë enquet"
   },
   "selectedCommits": {
     "noFilesInCommit": "I cómi lá ëa i minatacëassë.",
@@ -3963,6 +4013,10 @@
     "noEditorConfigured": {
       "@darwin": "i cilmë > tumba partiëssë lá harya i tecindo.",
       "@other": "i cilmë > tumba partiëssë lá harya i tecindo."
+    },
+    "conflictCount": {
+      "_one": "1 cotya",
+      "_other": "{count} cotyar"
     }
   },
   "configureGitUser": {
@@ -4189,7 +4243,11 @@
     "noModelsFound": "Lá hírinë i cantemmar.",
     "configureCustomProviders": "Tulca i sito antindor…",
     "defaultSuffix": "{name} (sítina)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "Lá",
+    "chooseModel": "Cilë i cantemma",
+    "filterModels": "Silta i cantemmar",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git mansëa i lávë itan tyulë i indyanna sina:",
@@ -4230,7 +4288,8 @@
   "commitMessageOverride": {
     "title": "Vista i minatacëo menta",
     "body": "I minatacëo menta carina vistuva i menta i lyë.",
-    "copilotTip": "Mentë: yuhta i <link>Copilot Instructions</link> itan vista i menta carina."
+    "copilotTip": "Mentë: yuhta i <link>Copilot Instructions</link> itan vista i menta carina.",
+    "override": "Vista i menta"
   },
   "history": {
     "dateLabel": "Aurë:",
@@ -4285,14 +4344,16 @@
     "dialogTitle": {
       "@darwin": "Apanta ar carma…",
       "@other": "Apanta ar carma…"
-    }
+    },
+    "open": "Apanta"
   },
   "editorError": {
     "title": {
       "@darwin": "unistë latyë i ocaraitien",
       "@other": "unistë latyë i ocaraitien"
     },
-    "download": "á-tulya {name}"
+    "download": "á-tulya {name}",
+    "notFound": "I carma '{name}' ú hirinë. Á apanta i {menuItemName} ar cilë i carma nanwa."
   },
   "shellError": {
     "title": {
@@ -4381,7 +4442,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "i tolma i vista"
+    "decreased": "undo",
+    "increased": "or",
+    "resizeHandle": "i tolma i vista",
+    "widthResize": "I landa {description} {direction}. {percent}% na carina"
   },
   "stash": {
     "fileListDescription": "i rehtaléo cómi"
@@ -4419,7 +4483,8 @@
     "rebaseInProgress": "rebase mi",
     "cannotPublishDetachedHead": "Lá harya etanta i leryanë HEAD",
     "publishBranchToGitHub": "Etanta i olba sina i GitHubissë",
-    "publishBranchToRemote": "Etanta i olba sina i palan hauranna"
+    "publishBranchToRemote": "Etanta i olba sina i palan hauranna",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "Nancar…",
@@ -4447,7 +4512,8 @@
     "addRepositoryButton": {
       "@darwin": "Napan i haura",
       "@other": "Napan i haura"
-    }
+    },
+    "pushingRepository": "nirë i haura i {endpoint}anna"
   },
   "pushBranchCommits": {
     "publishTitle": "Étanta i olba lyava i luciquista fai apantienë.",
@@ -4552,7 +4618,8 @@
     "copyTags": {
       "_one": "Ovëantë i tag",
       "_other": "Ovëantë i tag"
-    }
+    },
+    "commits": "minatacër"
   },
   "authentication": {
     "browserRedirect": "i browser sina lelyuva lyë enta i GitHub Desktopanna yá tyulë. yá i browser sina mansëa i lávë itan latya i GitHub Desktop, anta i lávë."
@@ -4589,6 +4656,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "I olba <ref/>, i olbalya ar, nar er.",
+    "noHistory": "Lá nyárë",
     "yourBranchUpToDate": "I olbalya ar i olba <ref/> nar er."
   },
   "branchNameWarnings": {
@@ -4624,7 +4692,8 @@
     "learnMore": "<link>Nolya pá i Copilot GitHub Desktopissë.</link>",
     "generateCommitMessage": "Cenë ar vista i minatacëo menta carina, epë yuhta.",
     "conflictResolution": "Cenë i cotyar selyar, epë yuhta i parmannar.",
-    "assistedCommit": "Copilot hyaryuva i cilienë ahyanielya, ar GitHub Desktop caruva erë hya enetya nómëa minatacë ar téca i mentar. Copilot lá vista i hauralya cómi. Á apta epë i nómëa yuhta, itan nancar i sina cariëo minatacë. Sí i nirë apa i minatacë vehtaina, ilya nómëa minatacë rehta yá i nirë yesta, equi i nirë loita."
+    "assistedCommit": "Copilot hyaryuva i cilienë ahyanielya, ar GitHub Desktop caruva erë hya enetya nómëa minatacë ar téca i mentar. Copilot lá vista i hauralya cómi. Á apta epë i nómëa yuhta, itan nancar i sina cariëo minatacë. Sí i nirë apa i minatacë vehtaina, ilya nómëa minatacë rehta yá i nirë yesta, equi i nirë loita.",
+    "iUnderstand": "Istanyë"
   },
   "repoRules": {
     "fails": {
@@ -4909,7 +4978,10 @@
     "downloadingNoPercent": "tulya…",
     "error": "unistë tulya i parma.",
     "gatekeeper": "i app lá tecina Apple. System Settings → Privacy & Security → Open Anyway.",
-    "noAssets": "Sina leryalë lá harya parmar na tulya."
+    "noAssets": "Sina leryalë lá harya parmar na tulya.",
+    "errorHost": "I release-asseta hostë úcávima",
+    "errorName": "I release-asseta essë úcávima",
+    "errorStatus": "I release-asseta hanquenta {statusCode}"
   },
   "renameWorktreeDialog": {
     "title": {
@@ -4988,5 +5060,25 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "Lá polë carë i root .gitignore symbolic link"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} hirinë",
+      "_other": "{count} hirinë"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} hirinë {message}",
+      "_other": "{count} hirinë {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{endpoint}issë ëa {count} haura i ná i @{login} essëva.",
+      "_other": "{endpoint}issë ëa {count} haurar i ná i @{login} essëva."
+    },
+    "clear-assignments-label": "Fehta i haurao essë",
+    "keep-assignments": "Rehta ilya i haurar i ná i essë sina, itan yuhta i sina essë yá tulë ata. Fehta sina, itan cilë hyana essë yá tyulë i haurar.",
+    "sign-out": "lóya",
+    "title": "Lóya i @{login} essello?"
   }
 }

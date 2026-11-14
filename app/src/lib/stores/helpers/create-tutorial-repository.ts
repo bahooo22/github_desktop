@@ -13,6 +13,7 @@ import { IRemote } from '../../../models/remote'
 import { getDefaultBranch } from '../../helpers/default-branch'
 import { envForRemoteOperation } from '../../git/environment'
 import { pathExists } from '../../path-exists'
+import { t } from '../../l10n/core'
 
 const nl = __WIN32__ ? '\r\n' : '\n'
 const InitialReadmeContents =
@@ -65,7 +66,9 @@ async function pushRepo(
   remoteBranchName: string,
   progressCb: (title: string, value: number, description?: string) => void
 ) {
-  const pushTitle = `Pushing repository to ${account.friendlyEndpoint}`
+  const pushTitle = t('tutorial.pushingRepository', {
+    endpoint: account.friendlyEndpoint,
+  })
   progressCb(pushTitle, 0)
 
   const pushOpts = await executionOptionsWithProgress(

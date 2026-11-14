@@ -94,6 +94,7 @@
       "appError.pushFailed",
       "appError.retryClone",
       "appError.retryCloning",
+      "appError.retryPush",
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
@@ -179,6 +180,7 @@
       "branchNameWarnings.nameExistsOnRemote",
       "branchNameWarnings.trackingWarning",
       "branches.checkout-in-new-worktree",
+      "branches.chooseBaseBranch",
       "branches.copy-name",
       "branches.createBranchShortcutProTip",
       "branches.createNewBranchInstead",
@@ -248,6 +250,7 @@
       "changes.file.included",
       "changes.file.not-included",
       "changes.file.partially-included",
+      "changes.fileScreenReader",
       "changes.files-selected",
       "changes.files-too-large",
       "changes.filter-placeholder",
@@ -422,6 +425,7 @@
       "commitList.cherryPickCommit",
       "commitList.cherryPickCommits",
       "commitList.chooseLocation",
+      "commitList.commits",
       "commitList.copySha",
       "commitList.copyTags",
       "commitList.createBranchFromCommit",
@@ -508,12 +512,14 @@
       "commitMessage.warning-word",
       "commitMessageOverride.body",
       "commitMessageOverride.copilotTip",
+      "commitMessageOverride.override",
       "commitMessageOverride.title",
       "commitProgress.close",
       "commitProgress.title",
       "common.add",
       "common.cancel",
       "common.close",
+      "common.copied",
       "common.discard",
       "common.do-not-show-again",
       "common.done",
@@ -522,6 +528,7 @@
       "common.invalidDate",
       "common.learnMore",
       "common.name",
+      "common.nameInvalid",
       "common.ok",
       "common.openPreferences",
       "common.remove",
@@ -531,11 +538,17 @@
       "configLockFile.exists",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "confirmAccountSignOut.assignments-count",
+      "confirmAccountSignOut.clear-assignments-label",
+      "confirmAccountSignOut.keep-assignments",
+      "confirmAccountSignOut.sign-out",
+      "confirmAccountSignOut.title",
       "confirmDiscardStash.title",
       "confirmDiscardStash.warning",
       "confirmExitTutorial.leaveWarning",
       "confirmExitTutorial.title",
       "conflicts.allResolved",
+      "conflicts.conflictCount",
       "conflicts.fileDoesNotExistOn",
       "conflicts.fileResolutionOptions",
       "conflicts.manualConflict",
@@ -617,6 +630,7 @@
       "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
+      "copilotDisclaimer.iUnderstand",
       "copilotDisclaimer.learnMore",
       "copilotDisclaimer.poweredByAi",
       "copilotError.billingIssue",
@@ -626,10 +640,14 @@
       "copilotError.retryAfterDate",
       "copilotError.retryAfterSeconds",
       "copilotError.sessionQuotaExceeded",
+      "copilotModelPicker.buttonAria",
+      "copilotModelPicker.chooseModel",
       "copilotModelPicker.configureCustomProviders",
       "copilotModelPicker.defaultSuffix",
+      "copilotModelPicker.filterModels",
       "copilotModelPicker.itemAria",
       "copilotModelPicker.noModelsFound",
+      "copilotModelPicker.none",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -769,6 +787,9 @@
       "downloadForkRelease.downloading",
       "downloadForkRelease.downloadingNoPercent",
       "downloadForkRelease.error",
+      "downloadForkRelease.errorHost",
+      "downloadForkRelease.errorName",
+      "downloadForkRelease.errorStatus",
       "downloadForkRelease.gatekeeper",
       "downloadForkRelease.loading",
       "downloadForkRelease.noAssets",
@@ -776,11 +797,14 @@
       "downloadForkRelease.showInFolder",
       "downloadForkRelease.title",
       "editorError.download",
+      "editorError.notFound",
       "editorError.title",
       "enterprise.addressLabel",
       "enterpriseServerConfirmation.confirmAddress",
       "enterpriseServerConfirmation.signInRequest",
       "enterpriseServerConfirmation.trustWarning",
+      "filterList.resultCount",
+      "filterList.resultCountWithMessage",
       "forks.create-fork-manually",
       "forks.do-you-want-to-fork",
       "forks.error-details",
@@ -823,6 +847,7 @@
       "history.showingChangesFrom",
       "history.showingChangesFromPlain",
       "historyCompare.comparedBranchUpToDate",
+      "historyCompare.noHistory",
       "historyCompare.yourBranchUpToDate",
       "hookFailed.abort",
       "hookFailed.ignoreAndContinue",
@@ -1009,6 +1034,8 @@
       "menu.show-stashed-changes",
       "menu.show-user-guides",
       "menu.show-worktrees-list",
+      "menu.spellcheckEnglish",
+      "menu.spellcheckSystemLanguage",
       "menu.squash-and-merge-branch",
       "menu.stash-all-changes",
       "menu.stash-all-changes-confirm",
@@ -1180,9 +1207,12 @@
       "notifications.checksFailed.standBy",
       "notifications.checksFailed.stepsIncoming",
       "notifications.checksFailed.summary",
+      "notifications.checksFailedTitle",
+      "notifications.commentTitle",
       "notifications.dismiss",
       "notifications.markdownCommentTitle",
       "notifications.openInBrowser",
+      "notifications.reviewTitle",
       "notifications.switchToPullRequest",
       "notifications.switchToRepositoryAndPullRequest",
       "notifications.timeline.summary",
@@ -1212,6 +1242,7 @@
       "openPullRequest.showing-all-commits",
       "openPullRequest.title",
       "openWithEditor.dialogTitle",
+      "openWithEditor.open",
       "openWithEditor.selectEditor",
       "password.toggleVisibility",
       "password.toggleVisibilityAria",
@@ -1337,6 +1368,7 @@
       "repositorySettings.account-description",
       "repositorySettings.account-none",
       "repositorySettings.account-signed-out",
+      "repositorySettings.account-signed-out-item",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1367,7 +1399,10 @@
       "reset.continue",
       "reset.title",
       "reset.warning",
+      "resizable.decreased",
+      "resizable.increased",
       "resizable.resizeHandle",
+      "resizable.widthResize",
       "revealDirectory.detail",
       "revealDirectory.message",
       "revealDirectory.revealButton",
@@ -1741,6 +1776,7 @@
       "thankYouCard.throwAway",
       "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
+      "toolbar.checkoutProgress",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
       "toolbar.currentBranchIsTooltip",
@@ -1786,6 +1822,7 @@
       "tutorial.exploreTitle",
       "tutorial.openAtomSite",
       "tutorial.openInBrowserButton",
+      "tutorial.pushingRepository",
       "tutorialPanel.altChecklist",
       "tutorialPanel.createBranch",
       "tutorialPanel.defaultEditor",
@@ -1830,6 +1867,7 @@
       "untrustedCertificate.ok",
       "untrustedCertificate.title",
       "untrustedCertificate.trial",
+      "untrustedCertificate.trustHint",
       "untrustedCertificate.unsure",
       "untrustedCertificate.unusualTld",
       "updateAvailableBanner.architecture",
@@ -1910,7 +1948,9 @@
       "@darwin": "Malfermi Preferencojn",
       "@other": "Malfermi opciojn"
     },
-    "hangOn": "Atendu…"
+    "hangOn": "Atendu…",
+    "copied": "Kopite!",
+    "nameInvalid": "La nomo estas nevalida, ĝi konsistas nur el malpermesitaj signoj."
   },
   "app": {
     "select-repository": {
@@ -2597,7 +2637,9 @@
     "add-to-dictionary": {
       "@darwin": "Aldoni al vortaro",
       "@other": "Aldonu al vortaro"
-    }
+    },
+    "spellcheckEnglish": "Kontrolu la literumadon angle",
+    "spellcheckSystemLanguage": "Kontrolu la literumadon per la sistema lingvo"
   },
   "about": {
     "title": "Pri {name}",
@@ -2823,7 +2865,8 @@
     "view-pr-on-github": "Vidi peton pri kunigo en GitHub",
     "noBranchFound": "Mi ne povas trovi tiun branĉon",
     "createNewBranchInstead": "Ĉu vi volas krei novan branĉon anstataŭe?",
-    "createBranchShortcutProTip": "ProTip! Premu <shortcut/> por rapide krei novan branĉon de iu ajn loko ene de la aplikaĵo"
+    "createBranchShortcutProTip": "ProTip! Premu <shortcut/> por rapide krei novan branĉon de iu ajn loko ene de la aplikaĵo",
+    "chooseBaseBranch": "Elektu bazbranĉon"
   },
   "changes": {
     "adjust-filters": "Aĝustu la filtrilojn por vidi ĉiujn {count} ŝanĝojn",
@@ -2973,7 +3016,8 @@
     },
     "pull-branch-discoverability": "Semper havebla en la ilobaro, kiam ekzistas foraj ŝanĝoj, aŭ <shortcut/>",
     "push-branch-discoverability": "Semper havebla en la ilobaro, kiam ekzistas lokaj komitoj atendantaj esti puŝitaj, aŭ <shortcut/>",
-    "select-editor-description": "Elektu vian redaktilon en <link>{settings}</link>"
+    "select-editor-description": "Elektu vian redaktilon en <link>{settings}</link>",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "Indikilo de kompleto. {completed} kompletigitaj, {inProgress} daŭre, {queued} en vico.",
@@ -3584,7 +3628,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> {verb} vian peton pri kunigo <date>{date}</date>"
-    }
+    },
+    "checksFailedTitle": "La ekzamenoj de la peto pri kunigo malsukcesis",
+    "commentTitle": "@{login} komentis pri via peto pri kunigo",
+    "reviewTitle": "@{login} {verb} vian peton pri kunigo"
   },
   "openPullRequest": {
     "file-does-not-exist": "Dosiero ne ekzistas sur disko",
@@ -3689,7 +3736,8 @@
     "error-save-account": "Malsukcesis konservi la konton de la deponejo: {error}",
     "account-none": "Neniu (ne asignita)",
     "account-signed-out": "@{login} (elsalutita)",
-    "account-description": "Tiu konto estas uzata por GitHub-API-petoj kaj HTTPS-aŭtentigo. Tio ne ŝanĝas vian aŭtoran nomon aŭ retpoŝtadreson en Git."
+    "account-description": "Tiu konto estas uzata por GitHub-API-petoj kaj HTTPS-aŭtentigo. Tio ne ŝanĝas vian aŭtoran nomon aŭ retpoŝtadreson en Git.",
+    "account-signed-out-item": "@{login} (elsalutita)"
   },
   "reset": {
     "continue": "Kontinui",
@@ -3786,7 +3834,8 @@
     "trial": "Se ĉi tio estas probversio de GitHub Enterprise.",
     "unsure": "Se vi ne scias, kion fari, nuligu kaj kontaktu vian sisteman administranton.",
     "unusualTld": "Se via GitHub Enterprise-instanco estas funkciigata sur nekomuna domajno de supra nivelo.",
-    "message": "GitHub Desktop ne povas verifi la identecon de {host}. La certifikato ({subjectName}) estas nevalida aŭ nekredinda. <strong>Tio eble indikas, ke atakantoj provas rabii vian daton.</strong>"
+    "message": "GitHub Desktop ne povas verifi la identecon de {host}. La certifikato ({subjectName}) estas nevalida aŭ nekredinda. <strong>Tio eble indikas, ke atakantoj provas rabii vian daton.</strong>",
+    "trustHint": "Ne eblis sekure konekti al la servilo, ĉar ĝia certifikato ne estas kredinda. Eble atakantoj provas ŝteli viajn datumojn.\n\nPor konekti nesekure, kio povas endanĝerigi viajn datumojn, vi povas “Ĉiam fidi” la certifikaton kaj provi denove."
   },
   "upstreamAlreadyExists": {
     "confirm": "Ĉu vi volas ĝisdatigi la foran deponejon por uzi la atendatan URL-on?",
@@ -3940,7 +3989,8 @@
     "retryClone": {
       "@darwin": "Ripeti kloniĝon",
       "@other": "Ripeti kloniĝon"
-    }
+    },
+    "retryPush": "Ripeti puŝon"
   },
   "selectedCommits": {
     "noFilesInCommit": "Neniu dosiero en komito",
@@ -3989,6 +4039,10 @@
     "noEditorConfigured": {
       "@darwin": "Neniu redaktilo agordita en Agordoj > Avangardo",
       "@other": "Neniu redaktilo agordita en Eblecoj > Avangardo"
+    },
+    "conflictCount": {
+      "_one": "1 konflikto",
+      "_other": "{count} konfliktoj"
     }
   },
   "configureGitUser": {
@@ -4215,7 +4269,11 @@
     "noModelsFound": "Neniuj modeloj trovitaj.",
     "configureCustomProviders": "Konfiguru kajstomajn provizorojn…",
     "defaultSuffix": "{name} (defaŭlta)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "Neniu",
+    "chooseModel": "Elektu modelon",
+    "filterModels": "Filtri modelojn",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git petas permeson ensaluti al tiu servilo:",
@@ -4256,7 +4314,8 @@
   "commitMessageOverride": {
     "title": "Komita mesaĝo superigo",
     "body": "La komita mesaĝo, kiun vi enmetis, estos superigita de la generita komita mesaĝo.",
-    "copilotTip": "Sugesto: Vi povas uzi <link>instrukciojn por Copilot</link> por personaligi kiel komitaj mesaĝoj estas generitaj."
+    "copilotTip": "Sugesto: Vi povas uzi <link>instrukciojn por Copilot</link> por personaligi kiel komitaj mesaĝoj estas generitaj.",
+    "override": "Superigu"
   },
   "history": {
     "dateLabel": "Dato:",
@@ -4311,14 +4370,16 @@
     "dialogTitle": {
       "@darwin": "Malfermi kun…",
       "@other": "Malfermi kun…"
-    }
+    },
+    "open": "Malfermu"
   },
   "editorError": {
     "title": {
       "@darwin": "Ne eblas malfermi eksteran redaktilon",
       "@other": "Ne eblas malfermi eksteran redaktilon"
     },
-    "download": "Elŝutu {name}"
+    "download": "Elŝutu {name}",
+    "notFound": "La redaktilo '{name}' ne troviĝis. Bonvolu malfermi {menuItemName} kaj elekti disponeblan redaktilon."
   },
   "shellError": {
     "title": {
@@ -4407,7 +4468,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Grandŝanĝa manipulilo"
+    "decreased": "malpliiĝinta",
+    "increased": "kreskita",
+    "resizeHandle": "Grandŝanĝa manipulilo",
+    "widthResize": "Larĝo de {description} {direction}. Agordita al {percent}%"
   },
   "stash": {
     "fileListDescription": "Listo de flankenmetitaj dosieroj"
@@ -4445,7 +4509,8 @@
     "rebaseInProgress": "Rebazado daŭras",
     "cannotPublishDetachedHead": "Ne eblas publikigi forligitan kapon",
     "publishBranchToGitHub": "Publikigi ĉi tiun branĉon al GitHub",
-    "publishBranchToRemote": "Publikigi ĉi tiun branĉon al la fora deponejo"
+    "publishBranchToRemote": "Publikigi ĉi tiun branĉon al la fora deponejo",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "Revertado…",
@@ -4473,7 +4538,8 @@
     "addRepositoryButton": {
       "@darwin": "Aldonu deponejon",
       "@other": "Aldonu deponejon"
-    }
+    },
+    "pushingRepository": "Puŝi deponejon al {endpoint}"
   },
   "pushBranchCommits": {
     "publishTitle": "Via branĉo devas esti publikigita antaŭ ol malfermi peton pri kunigo.",
@@ -4578,7 +4644,8 @@
     "copyTags": {
       "_one": "Kopii Etikedon",
       "_other": "Kopii Etikedojn"
-    }
+    },
+    "commits": "Komitoj"
   },
   "authentication": {
     "browserRedirect": "Via retumilo redirektos vin reen al GitHub Desktop post kiam vi ensalutis. Se via retumilo petas vian permeson por lanĉi GitHub Desktop, bonvolu permesi ĝin."
@@ -4615,6 +4682,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "La komparata branĉo (<ref/>) estas aktuala kun via branĉo",
+    "noHistory": "Neniu historio",
     "yourBranchUpToDate": "Via branĉo estas aktuala kun la komparata branĉo (<ref/>)"
   },
   "branchNameWarnings": {
@@ -4650,7 +4718,8 @@
     "learnMore": "<link>Pliajn informojn pri Copilot en GitHub Desktop.</link>",
     "generateCommitMessage": "Legu kaj redaktu la generitan mesaĝon atente antaŭ uzo.",
     "conflictResolution": "Legu la sugestitajn solvojn atente antaŭ apliki ilin al viaj dosieroj.",
-    "assistedCommit": "Copilot planos viajn elektitajn ŝanĝojn, kaj GitHub Desktop kreos unu aŭ plurajn lokajn komitojn kun iliaj generitaj mesaĝoj. Copilot ne redaktos viajn dosierojn. Vi povas nuligi antaŭ loka akcepto por malfari la komitojn de ĉi tiu kurso. Se «Puŝi post komitado» estas ebligita, ĉiuj lokaj komitoj restas kiam la puŝado komenciĝas, eĉ se la puŝo malsukcesas."
+    "assistedCommit": "Copilot planos viajn elektitajn ŝanĝojn, kaj GitHub Desktop kreos unu aŭ plurajn lokajn komitojn kun iliaj generitaj mesaĝoj. Copilot ne redaktos viajn dosierojn. Vi povas nuligi antaŭ loka akcepto por malfari la komitojn de ĉi tiu kurso. Se «Puŝi post komitado» estas ebligita, ĉiuj lokaj komitoj restas kiam la puŝado komenciĝas, eĉ se la puŝo malsukcesas.",
+    "iUnderstand": "Mi komprenas"
   },
   "repoRules": {
     "fails": {
@@ -4935,7 +5004,10 @@
     "downloadingNoPercent": "Elŝutado…",
     "error": "Ne eblis elŝuti la dosieron.",
     "gatekeeper": "La aplikaĵo ne estas subskribita de Apple. Post malpakado malfermu ĝin unufoje per System Settings → Privacy & Security → Open Anyway.",
-    "noAssets": "Ĉi tiu eldono havas neniujn dosierojn por elŝuti."
+    "noAssets": "Ĉi tiu eldono havas neniujn dosierojn por elŝuti.",
+    "errorHost": "La gastigo de la eldonaĵo ne estas permesita",
+    "errorName": "La nomo de la eldonaĵo ne estas permesita",
+    "errorStatus": "La eldonaĵo respondis per {statusCode}"
   },
   "renameWorktreeDialog": {
     "title": {
@@ -5014,5 +5086,25 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "Ne eblas uzi simbolan ligilon kiel la radikan .gitignore"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} rezulto",
+      "_other": "{count} rezultoj"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} rezulto {message}",
+      "_other": "{count} rezultoj {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{count} deponejo estas asignita al la konto @{login} ĉe {endpoint}.",
+      "_other": "{count} deponejoj estas asignitaj al la konto @{login} ĉe {endpoint}."
+    },
+    "clear-assignments-label": "Forigi la asignojn de la deponejoj",
+    "keep-assignments": "Konservu ĉi tiujn asignojn por uzi tiun konton kiam vi denove ensalutos, aŭ forigu ilin por elekti konton la sekvan fojon kiam vi uzos ĉi tiujn deponejojn.",
+    "sign-out": "Elsaluti",
+    "title": "Elsaluti la konton @{login}?"
   }
 }

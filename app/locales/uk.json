@@ -21,7 +21,9 @@
     "email": "Ел. пошта",
     "name": "Ім'я",
     "openPreferences": "Відкрити налаштування",
-    "hangOn": "Зачекайте…"
+    "hangOn": "Зачекайте…",
+    "copied": "Скопійовано!",
+    "nameInvalid": "Ім'я недійсне, воно складається лише з недозволених символів."
   },
   "app": {
     "select-repository": {
@@ -667,7 +669,9 @@
     "add-to-dictionary": {
       "@darwin": "Додати до словника",
       "@other": "Додати до словника"
-    }
+    },
+    "spellcheckEnglish": "Перевіряти правопис англійською",
+    "spellcheckSystemLanguage": "Перевіряти правопис мовою системи"
   },
   "about": {
     "title": "Про застосунок {name}",
@@ -873,7 +877,8 @@
     "view-pr-on-github": "Переглянути PR на GitHub",
     "noBranchFound": "Не вдається знайти цю гілку.",
     "createNewBranchInstead": "Бажаєте натомість створити нову гілку?",
-    "createBranchShortcutProTip": "Порада! Натисніть <shortcut/>, щоб швидко створити нову гілку з будь-якого місця застосунку"
+    "createBranchShortcutProTip": "Порада! Натисніть <shortcut/>, щоб швидко створити нову гілку з будь-якого місця застосунку",
+    "chooseBaseBranch": "Виберіть базову гілку"
   },
   "changes": {
     "adjust-filters": "Налаштуйте фільтри, щоб побачити всі {count} змін",
@@ -1034,7 +1039,8 @@
     },
     "pull-branch-discoverability": "Завжди доступно на панелі інструментів, коли є віддалені зміни, або <shortcut/>",
     "push-branch-discoverability": "Завжди доступно на панелі інструментів, коли локальні коміти очікують на надсилання, або <shortcut/>",
-    "select-editor-description": "Виберіть редактор у <link>{settings}</link>"
+    "select-editor-description": "Виберіть редактор у <link>{settings}</link>",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "Індикатор повноти. Завершено: {completed}, в процесі: {inProgress}, у черзі: {queued}.",
@@ -1615,7 +1621,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> {verb} ваш pull request <date>{date}</date>"
-    }
+    },
+    "checksFailedTitle": "Перевірки pull request не пройдено",
+    "commentTitle": "@{login} прокоментував(ла) ваш pull request",
+    "reviewTitle": "@{login} {verb} ваш pull request"
   },
   "openPullRequest": {
     "file-does-not-exist": "Файл не існує на диску",
@@ -1726,7 +1735,8 @@
     "error-save-account": "Не вдалося зберегти обліковий запис репозиторію: {error}",
     "account-none": "Немає (не призначено)",
     "account-signed-out": "@{login} (ви вийшли)",
-    "account-description": "Обліковий запис використовується для запитів до GitHub API та HTTPS-автентифікації. Це не змінить ім’я та адресу електронної пошти автора в Git."
+    "account-description": "Обліковий запис використовується для запитів до GitHub API та HTTPS-автентифікації. Це не змінить ім’я та адресу електронної пошти автора в Git.",
+    "account-signed-out-item": "@{login} (ви вийшли)"
   },
   "reset": {
     "continue": "Продовжити",
@@ -1813,7 +1823,8 @@
     "trial": "Якщо це пробна версія GitHub Enterprise.",
     "unsure": "Якщо ви не знаєте, як вчинити, скасуйте дію та зв'яжіться з системним адміністратором.",
     "unusualTld": "Якщо ваш екземпляр GitHub Enterprise працює на незвичайному домені верхнього рівня.",
-    "message": "GitHub Desktop не може підтвердити автентичність {host}. Сертифікат ({subjectName}) недійсний або не є довіреним. <strong>Це може означати, що зловмисники намагаються вкрасти ваші дані.</strong>"
+    "message": "GitHub Desktop не може підтвердити автентичність {host}. Сертифікат ({subjectName}) недійсний або не є довіреним. <strong>Це може означати, що зловмисники намагаються вкрасти ваші дані.</strong>",
+    "trustHint": "Не вдалося безпечно під'єднатися до сервера, бо його сертифікат не є довіреним. Можливо, зловмисники намагаються вкрасти ваші дані.\n\nЩоб під'єднатися небезпечно, що може поставити ваші дані під загрозу, можна обрати «Завжди довіряти» для цього сертифіката й повторити спробу."
   },
   "upstreamAlreadyExists": {
     "confirm": "Оновити віддалений репозиторій, щоб використати очікуваний URL?",
@@ -1969,7 +1980,8 @@
     "commitFailed": "Коміт не виконано",
     "generic": "Помилка",
     "retryCloning": "Бажаєте повторити клонування <ref/>?",
-    "retryClone": "Повторити клонування"
+    "retryClone": "Повторити клонування",
+    "retryPush": "Повторити надсилання"
   },
   "selectedCommits": {
     "noFilesInCommit": "У коміті немає файлів",
@@ -2019,7 +2031,13 @@
     "targetBranch": "цільова гілка",
     "openInEditor": "Відкрити в {editor}",
     "openInEditorGeneric": "Відкрити в редакторі",
-    "noEditorConfigured": "Редактор не вибрано у «Налаштуваннях → Додатково»"
+    "noEditorConfigured": "Редактор не вибрано у «Налаштуваннях → Додатково»",
+    "conflictCount": {
+      "_one": "1 конфлікт",
+      "_few": "{count} конфлікти",
+      "_many": "{count} конфліктів",
+      "_other": "{count} конфлікту"
+    }
   },
   "configureGitUser": {
     "exampleCommit": "Приклад коміту",
@@ -2210,7 +2228,11 @@
     "noModelsFound": "Моделі не знайдено.",
     "configureCustomProviders": "Налаштувати користувацьких провайдерів…",
     "defaultSuffix": "{name} (за замовчуванням)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "Немає",
+    "chooseModel": "Виберіть модель",
+    "filterModels": "Фільтр моделей",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git запитує дозвіл на вхід до цього сервера:",
@@ -2251,7 +2273,8 @@
   "commitMessageOverride": {
     "title": "Перевизначення повідомлення коміту",
     "body": "Введене вами повідомлення коміту буде перезаписано згенерованим повідомленням.",
-    "copilotTip": "Порада: за допомогою <link>Copilot Instructions</link> можна налаштувати створення повідомлень комітів."
+    "copilotTip": "Порада: за допомогою <link>Copilot Instructions</link> можна налаштувати створення повідомлень комітів.",
+    "override": "Перевизначити"
   },
   "history": {
     "dateLabel": "Дата:",
@@ -2306,11 +2329,13 @@
     "dialogTitle": {
       "@darwin": "Відкрити в…",
       "@other": "Відкрити в…"
-    }
+    },
+    "open": "Відкрити"
   },
   "editorError": {
     "title": "Не вдалося відкрити зовнішній редактор",
-    "download": "Завантажити {name}"
+    "download": "Завантажити {name}",
+    "notFound": "Редактор «{name}» не знайдено. Відкрийте {menuItemName} і виберіть доступний редактор."
   },
   "shellError": {
     "title": "Не вдалося відкрити оболонку"
@@ -2393,7 +2418,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Перетягніть, щоб змінити розмір"
+    "decreased": "зменшилася",
+    "increased": "збільшилася",
+    "resizeHandle": "Перетягніть, щоб змінити розмір",
+    "widthResize": "{description}: ширина {direction}. Встановлено {percent}%"
   },
   "stash": {
     "fileListDescription": "Список файлів stash"
@@ -2431,7 +2459,8 @@
     "rebaseInProgress": "Виконується rebase",
     "cannotPublishDetachedHead": "Не можна опублікувати від'єднаний HEAD",
     "publishBranchToGitHub": "Опублікувати цю гілку на GitHub",
-    "publishBranchToRemote": "Опублікувати цю гілку у віддаленому репозиторії"
+    "publishBranchToRemote": "Опублікувати цю гілку у віддаленому репозиторії",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "Триває відкат…",
@@ -2450,7 +2479,8 @@
     "doneImageAlt": "Руки, що плескають",
     "openInBrowserButton": "Відкрити в браузері",
     "createRepositoryButton": "Створити репозиторій",
-    "addRepositoryButton": "Додати репозиторій"
+    "addRepositoryButton": "Додати репозиторій",
+    "pushingRepository": "Надсилання репозиторію до {endpoint}"
   },
   "pushBranchCommits": {
     "publishTitle": "Гілку потрібно опублікувати перед створенням pull request.",
@@ -2556,7 +2586,8 @@
       "_few": "Копіювати теги",
       "_many": "Копіювати тегів",
       "_other": "Копіювати тега"
-    }
+    },
+    "commits": "Коміти"
   },
   "authentication": {
     "browserRedirect": "Після входу браузер поверне вас до GitHub Desktop. Якщо браузер запитає дозвіл на запуск GitHub Desktop, надайте його."
@@ -2593,6 +2624,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "Порівнювана гілка (<ref/>) актуальна щодо вашої гілки",
+    "noHistory": "Історії немає",
     "yourBranchUpToDate": "Ваша гілка актуальна щодо порівнюваної гілки (<ref/>)"
   },
   "branchNameWarnings": {
@@ -2622,7 +2654,8 @@
     "learnMore": "<link>Детальніше про Copilot у GitHub Desktop.</link>",
     "generateCommitMessage": "Уважно перевірте та відредагуйте згенероване повідомлення перед використанням.",
     "conflictResolution": "Уважно перевірте запропоновані варіанти вирішення, перш ніж застосовувати їх до ваших файлів.",
-    "assistedCommit": "Copilot складе план для вибраних змін, а GitHub Desktop створить один або кілька локальних комітів зі згенерованими повідомленнями. Copilot не редагуватиме ваші файли. До локального застосування можна скасувати прогон — його коміти буде вилучено. Якщо ввімкнено надсилання після коміту, усі локальні коміти зберігаються після початку надсилання, навіть якщо воно завершується помилкою."
+    "assistedCommit": "Copilot складе план для вибраних змін, а GitHub Desktop створить один або кілька локальних комітів зі згенерованими повідомленнями. Copilot не редагуватиме ваші файли. До локального застосування можна скасувати прогон — його коміти буде вилучено. Якщо ввімкнено надсилання після коміту, усі локальні коміти зберігаються після початку надсилання, навіть якщо воно завершується помилкою.",
+    "iUnderstand": "Зрозуміло"
   },
   "repoRules": {
     "fails": {
@@ -2859,7 +2892,10 @@
     "downloadingNoPercent": "Завантажується…",
     "error": "Не вдалося завантажити файл.",
     "gatekeeper": "Застосунок не підписано Apple. Після розпакування відкрийте його один раз через «Системні налаштування» → «Конфіденційність і безпека» → «Відкрити все одно».",
-    "noAssets": "У цьому релізі немає файлів для завантаження."
+    "noAssets": "У цьому релізі немає файлів для завантаження.",
+    "errorHost": "хост релізного файлу не дозволений",
+    "errorName": "ім'я релізного файлу не дозволене",
+    "errorStatus": "релізний файл відповів зі статусом {statusCode}"
   },
   "renameWorktreeDialog": {
     "title": "Перейменувати worktree",
@@ -2937,5 +2973,31 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "Не можна використовувати символьне посилання як кореневий файл .gitignore"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} результат",
+      "_few": "{count} результати",
+      "_many": "{count} результатів",
+      "_other": "{count} результата"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} результат {message}",
+      "_few": "{count} результати {message}",
+      "_many": "{count} результатів {message}",
+      "_other": "{count} результата {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{count} репозиторій прив’язано до облікового запису @{login} на {endpoint}.",
+      "_few": "{count} репозиторії прив’язано до облікового запису @{login} на {endpoint}.",
+      "_many": "{count} репозиторіїв прив’язано до облікового запису @{login} на {endpoint}.",
+      "_other": "{count} репозиторія прив’язано до облікового запису @{login} на {endpoint}."
+    },
+    "clear-assignments-label": "Видалити прив’язки облікових записів до репозиторіїв",
+    "keep-assignments": "Залиште ці прив’язки, щоб використовувати цей обліковий запис після повторного входу, або видаліть їх, щоб вибрати обліковий запис під час наступного використання цих репозиторіїв.",
+    "sign-out": "Вийти",
+    "title": "Вийти з облікового запису @{login}?"
   }
 }

@@ -179,11 +179,15 @@ export class Resizable extends React.Component<
 
   private updateResizeMessage(direction: ResizeDirection) {
     const directionMessage =
-      direction === ResizeDirection.Increase ? 'increased' : 'decreased'
+      direction === ResizeDirection.Increase
+        ? t('resizable.increased')
+        : t('resizable.decreased')
     this.setState({
-      resizeMessage: `${
-        this.props.description
-      } width ${directionMessage}. Set to ${this.getResizePercentage()}%`,
+      resizeMessage: t('resizable.widthResize', {
+        description: this.props.description,
+        direction: directionMessage,
+        percent: this.getResizePercentage(),
+      }),
     })
   }
 

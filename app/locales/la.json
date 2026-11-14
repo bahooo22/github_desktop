@@ -94,6 +94,7 @@
       "appError.pushFailed",
       "appError.retryClone",
       "appError.retryCloning",
+      "appError.retryPush",
       "appError.seeLfs",
       "appMenu.application-menu",
       "appStore.checkingOut",
@@ -179,6 +180,7 @@
       "branchNameWarnings.nameExistsOnRemote",
       "branchNameWarnings.trackingWarning",
       "branches.checkout-in-new-worktree",
+      "branches.chooseBaseBranch",
       "branches.copy-name",
       "branches.createBranchShortcutProTip",
       "branches.createNewBranchInstead",
@@ -248,6 +250,7 @@
       "changes.file.included",
       "changes.file.not-included",
       "changes.file.partially-included",
+      "changes.fileScreenReader",
       "changes.files-selected",
       "changes.files-too-large",
       "changes.filter-placeholder",
@@ -422,6 +425,7 @@
       "commitList.cherryPickCommit",
       "commitList.cherryPickCommits",
       "commitList.chooseLocation",
+      "commitList.commits",
       "commitList.copySha",
       "commitList.copyTags",
       "commitList.createBranchFromCommit",
@@ -508,12 +512,14 @@
       "commitMessage.warning-word",
       "commitMessageOverride.body",
       "commitMessageOverride.copilotTip",
+      "commitMessageOverride.override",
       "commitMessageOverride.title",
       "commitProgress.close",
       "commitProgress.title",
       "common.add",
       "common.cancel",
       "common.close",
+      "common.copied",
       "common.discard",
       "common.do-not-show-again",
       "common.done",
@@ -522,6 +528,7 @@
       "common.invalidDate",
       "common.learnMore",
       "common.name",
+      "common.nameInvalid",
       "common.ok",
       "common.openPreferences",
       "common.remove",
@@ -531,11 +538,17 @@
       "configLockFile.exists",
       "configureGitUser.exampleCommit",
       "configureGitUser.exampleCommitSummary",
+      "confirmAccountSignOut.assignments-count",
+      "confirmAccountSignOut.clear-assignments-label",
+      "confirmAccountSignOut.keep-assignments",
+      "confirmAccountSignOut.sign-out",
+      "confirmAccountSignOut.title",
       "confirmDiscardStash.title",
       "confirmDiscardStash.warning",
       "confirmExitTutorial.leaveWarning",
       "confirmExitTutorial.title",
       "conflicts.allResolved",
+      "conflicts.conflictCount",
       "conflicts.fileDoesNotExistOn",
       "conflicts.fileResolutionOptions",
       "conflicts.manualConflict",
@@ -617,6 +630,7 @@
       "copilotDisclaimer.assistedCommit",
       "copilotDisclaimer.conflictResolution",
       "copilotDisclaimer.generateCommitMessage",
+      "copilotDisclaimer.iUnderstand",
       "copilotDisclaimer.learnMore",
       "copilotDisclaimer.poweredByAi",
       "copilotError.billingIssue",
@@ -626,10 +640,14 @@
       "copilotError.retryAfterDate",
       "copilotError.retryAfterSeconds",
       "copilotError.sessionQuotaExceeded",
+      "copilotModelPicker.buttonAria",
+      "copilotModelPicker.chooseModel",
       "copilotModelPicker.configureCustomProviders",
       "copilotModelPicker.defaultSuffix",
+      "copilotModelPicker.filterModels",
       "copilotModelPicker.itemAria",
       "copilotModelPicker.noModelsFound",
+      "copilotModelPicker.none",
       "crash.errorTitle",
       "crash.launchDescription",
       "crash.launchTitle",
@@ -769,6 +787,9 @@
       "downloadForkRelease.downloading",
       "downloadForkRelease.downloadingNoPercent",
       "downloadForkRelease.error",
+      "downloadForkRelease.errorHost",
+      "downloadForkRelease.errorName",
+      "downloadForkRelease.errorStatus",
       "downloadForkRelease.gatekeeper",
       "downloadForkRelease.loading",
       "downloadForkRelease.noAssets",
@@ -776,11 +797,14 @@
       "downloadForkRelease.showInFolder",
       "downloadForkRelease.title",
       "editorError.download",
+      "editorError.notFound",
       "editorError.title",
       "enterprise.addressLabel",
       "enterpriseServerConfirmation.confirmAddress",
       "enterpriseServerConfirmation.signInRequest",
       "enterpriseServerConfirmation.trustWarning",
+      "filterList.resultCount",
+      "filterList.resultCountWithMessage",
       "forks.create-fork-manually",
       "forks.do-you-want-to-fork",
       "forks.error-details",
@@ -823,6 +847,7 @@
       "history.showingChangesFrom",
       "history.showingChangesFromPlain",
       "historyCompare.comparedBranchUpToDate",
+      "historyCompare.noHistory",
       "historyCompare.yourBranchUpToDate",
       "hookFailed.abort",
       "hookFailed.ignoreAndContinue",
@@ -1009,6 +1034,8 @@
       "menu.show-stashed-changes",
       "menu.show-user-guides",
       "menu.show-worktrees-list",
+      "menu.spellcheckEnglish",
+      "menu.spellcheckSystemLanguage",
       "menu.squash-and-merge-branch",
       "menu.stash-all-changes",
       "menu.stash-all-changes-confirm",
@@ -1180,9 +1207,12 @@
       "notifications.checksFailed.standBy",
       "notifications.checksFailed.stepsIncoming",
       "notifications.checksFailed.summary",
+      "notifications.checksFailedTitle",
+      "notifications.commentTitle",
       "notifications.dismiss",
       "notifications.markdownCommentTitle",
       "notifications.openInBrowser",
+      "notifications.reviewTitle",
       "notifications.switchToPullRequest",
       "notifications.switchToRepositoryAndPullRequest",
       "notifications.timeline.summary",
@@ -1212,6 +1242,7 @@
       "openPullRequest.showing-all-commits",
       "openPullRequest.title",
       "openWithEditor.dialogTitle",
+      "openWithEditor.open",
       "openWithEditor.selectEditor",
       "password.toggleVisibility",
       "password.toggleVisibilityAria",
@@ -1335,6 +1366,7 @@
       "repositoryPath.sanitizedLive",
       "repositoryPath.willBeCreatedAs",
       "repositorySettings.account-description",
+      "repositorySettings.account-signed-out-item",
       "repositorySettings.error-read-gitignore",
       "repositorySettings.error-save-gitignore",
       "repositorySettings.error-set-remote",
@@ -1365,7 +1397,10 @@
       "reset.continue",
       "reset.title",
       "reset.warning",
+      "resizable.decreased",
+      "resizable.increased",
       "resizable.resizeHandle",
+      "resizable.widthResize",
       "revealDirectory.detail",
       "revealDirectory.message",
       "revealDirectory.revealButton",
@@ -1739,6 +1774,7 @@
       "thankYouCard.throwAway",
       "toolbar.cannotPublishDetachedHead",
       "toolbar.checkingOutTooltip",
+      "toolbar.checkoutProgress",
       "toolbar.currentBranch",
       "toolbar.currentBranchButton",
       "toolbar.currentBranchIsTooltip",
@@ -1784,6 +1820,7 @@
       "tutorial.exploreTitle",
       "tutorial.openAtomSite",
       "tutorial.openInBrowserButton",
+      "tutorial.pushingRepository",
       "tutorialPanel.altChecklist",
       "tutorialPanel.createBranch",
       "tutorialPanel.defaultEditor",
@@ -1828,6 +1865,7 @@
       "untrustedCertificate.ok",
       "untrustedCertificate.title",
       "untrustedCertificate.trial",
+      "untrustedCertificate.trustHint",
       "untrustedCertificate.unsure",
       "untrustedCertificate.unusualTld",
       "updateAvailableBanner.architecture",
@@ -1908,7 +1946,9 @@
       "@darwin": "Aperi Optiones",
       "@other": "Aperi optiones"
     },
-    "hangOn": "Exspecta…"
+    "hangOn": "Exspecta…",
+    "copied": "Copiatum!",
+    "nameInvalid": "Nomen invalidum est; ex solis characteribus prohibitis constat."
   },
   "app": {
     "select-repository": {
@@ -2595,7 +2635,9 @@
     "add-to-dictionary": {
       "@darwin": "Addere in Dictionarium",
       "@other": "Adde ad dictio"
-    }
+    },
+    "spellcheckEnglish": "Orthographiam Anglice probare",
+    "spellcheckSystemLanguage": "Orthographiam lingua systematis probare"
   },
   "about": {
     "title": "De {name}",
@@ -2821,7 +2863,8 @@
     "view-pr-on-github": "Spectare Petitio Iungendi in GitHub",
     "noBranchFound": "Misere, ego illud ramum non invenio.",
     "createNewBranchInstead": "Vultisne novum ramum creare propter hoc?",
-    "createBranchShortcutProTip": "ProTip! Premere <shortcut/> celeriter creare novum ramum ex quacunque parte applicatio."
+    "createBranchShortcutProTip": "ProTip! Premere <shortcut/> celeriter creare novum ramum ex quacunque parte applicatio.",
+    "chooseBaseBranch": "Elige ramum fundamentalem"
   },
   "changes": {
     "adjust-filters": "Filtros adiuva ut omnes {count} mutationes videas",
@@ -2971,7 +3014,8 @@
     },
     "pull-branch-discoverability": "Semper in barra instrumentorum quando mutationes remotae sunt vel <shortcut/>",
     "push-branch-discoverability": "Semper in barra instrumentorum quando commitus localis expectatur ut pellatur vel <shortcut/>",
-    "select-editor-description": "Editorem tuum elige in <link>{settings}</link>"
+    "select-editor-description": "Editorem tuum elige in <link>{settings}</link>",
+    "fileScreenReader": "{path} {status} {included}"
   },
   "checkRuns": {
     "completeness-aria": "Nota completudinis. {completed} completae, {inProgress} in cursu, {queued} in mora.",
@@ -3582,7 +3626,10 @@
     },
     "timeline": {
       "summary": "<user>{login}</user> {verb} petitionem iungendi tuam <date>{date}</date>"
-    }
+    },
+    "checksFailedTitle": "Examinationes petitionis iungendi fractae sunt",
+    "commentTitle": "@{login} in petitionem iungendi tuam commentatus est",
+    "reviewTitle": "@{login} {verb} petitionem iungendi tuam"
   },
   "openPullRequest": {
     "file-does-not-exist": "Fasciculus non existit in disco",
@@ -3687,7 +3734,8 @@
     "error-save-account": "Non potuit servare sessionem repositorii: {error}",
     "account-none": "Nulla (non attributa)",
     "account-signed-out": "@{login} (exivit)",
-    "account-description": "Haec sessio petitionibus GitHub API et authenticationi HTTPS utitur. Hoc nomen auctoris Git indicemque electronicum non mutat."
+    "account-description": "Haec sessio petitionibus GitHub API et authenticationi HTTPS utitur. Hoc nomen auctoris Git indicemque electronicum non mutat.",
+    "account-signed-out-item": "@{login} (exivit)"
   },
   "reset": {
     "continue": "pergere",
@@ -3784,7 +3832,8 @@
     "trial": "Si hoc est experimentum GitHub Enterprise.",
     "unsure": "Si dubitas quid facias, abroga et contacta administratorem systematis.",
     "unusualTld": "Si exemplar GitHub Enterprise in dominio superioris ordinis insolito operatur.",
-    "message": "GitHub Desktop non potest identitatem {host} verificare. Certificatum ({subjectName}) invalidum est aut non creditum. <strong>Hoc indicare potest hostes tentare ut data tua furari.</strong>"
+    "message": "GitHub Desktop non potest identitatem {host} verificare. Certificatum ({subjectName}) invalidum est aut non creditum. <strong>Hoc indicare potest hostes tentare ut data tua furari.</strong>",
+    "trustHint": "Cum servo secure coniungi non potuit, quod certificatum eius non creditum est. Fortasse hostes data tua furari conantur.\n\nUt non secure coniungas — quo periculum in data tua incidis — certificatum “Semper crede” eligere et iterum conari potes."
   },
   "upstreamAlreadyExists": {
     "confirm": "Vultne repositorium ad remota URL expectatum mutare?",
@@ -3938,7 +3987,8 @@
     "retryClone": {
       "@darwin": "Iterare Clonationem",
       "@other": "Iterare clonationem"
-    }
+    },
+    "retryPush": "Iterare pulsionem"
   },
   "selectedCommits": {
     "noFilesInCommit": "Nulla sunt in commitus",
@@ -3987,6 +4037,10 @@
     "noEditorConfigured": {
       "@darwin": "Nullus editor configuratus in Praeferentiis > Subtiliter",
       "@other": "Nullus editor configuratus in Optionibus > Subtiliter"
+    },
+    "conflictCount": {
+      "_one": "1 conflictus",
+      "_other": "{count} conflictus"
     }
   },
   "configureGitUser": {
@@ -4213,7 +4267,11 @@
     "noModelsFound": "Nulla modelia inventa sunt.",
     "configureCustomProviders": "Configurae providores proprios…",
     "defaultSuffix": "{name} (praesens)",
-    "itemAria": "{title}, {subtitle}"
+    "itemAria": "{title}, {subtitle}",
+    "none": "Nullum",
+    "chooseModel": "Elige modulum",
+    "filterModels": "Filtra modulos",
+    "buttonAria": "{label}: {model}"
   },
   "enterpriseServerConfirmation": {
     "signInRequest": "Git rogat permissionem ut in hunc serverem inire possis:",
@@ -4254,7 +4312,8 @@
   "commitMessageOverride": {
     "title": "Substitutio scripti commiti",
     "body": "Scriptum commiti quod ingressus es substituetur a scripto commiti generato.",
-    "copilotTip": "Suggerentia: <link>Instructiones Copilot</link> uti potes ad modum generationis scriptorum commiti customizandum."
+    "copilotTip": "Suggerentia: <link>Instructiones Copilot</link> uti potes ad modum generationis scriptorum commiti customizandum.",
+    "override": "Substitue"
   },
   "history": {
     "dateLabel": "Data:",
@@ -4309,14 +4368,16 @@
     "dialogTitle": {
       "@darwin": "Aperi cum…",
       "@other": "Aperi cum…"
-    }
+    },
+    "open": "Aperi"
   },
   "editorError": {
     "title": {
       "@darwin": "Editor externus non potest aperiri.",
       "@other": "Editor externus non potest aperiri."
     },
-    "download": "Descende {name}"
+    "download": "Descende {name}",
+    "notFound": "Editor '{name}' non inventus est. Aperi {menuItemName} et elige editorem praesto."
   },
   "shellError": {
     "title": {
@@ -4405,7 +4466,10 @@
     }
   },
   "resizable": {
-    "resizeHandle": "Manipulus magnitudinis"
+    "decreased": "diminuta",
+    "increased": "aucta",
+    "resizeHandle": "Manipulus magnitudinis",
+    "widthResize": "Latitudo {description} {direction}. In {percent}% positum"
   },
   "stash": {
     "fileListDescription": "Enumeratio fasciculi condendi"
@@ -4443,7 +4507,8 @@
     "rebaseInProgress": "Rebase in cursu",
     "cannotPublishDetachedHead": "Caput detachatum publicare non possumus",
     "publishBranchToGitHub": "Hunc ramum in GitHub publicare",
-    "publishBranchToRemote": "Hunc ramum in repositorio remoto publicare"
+    "publishBranchToRemote": "Hunc ramum in repositorio remoto publicare",
+    "checkoutProgress": "{description} ({progress}%)"
   },
   "revertProgress": {
     "title": "Revertendo…",
@@ -4471,7 +4536,8 @@
     "addRepositoryButton": {
       "@darwin": "Adde Repositorium",
       "@other": "Adde repositorium"
-    }
+    },
+    "pushingRepository": "Repositorium ad {endpoint} pellere"
   },
   "pushBranchCommits": {
     "publishTitle": "Ramus tuus ante petitionem iungendi publicanda est.",
@@ -4576,7 +4642,8 @@
     "copyTags": {
       "_one": "Copiare Tag",
       "_other": "Copiare Tags"
-    }
+    },
+    "commits": "Committi"
   },
   "authentication": {
     "browserRedirect": "Narigator tuus te iterum ad GitHub Desktop rediret cum inieris. Si narigator tuus permissum tuum ad GitHub Desktop iniciare rogat, permittite id."
@@ -4613,6 +4680,7 @@
   },
   "historyCompare": {
     "comparedBranchUpToDate": "Ramus comparatus (<ref/>) cum ramo tuo congruit",
+    "noHistory": "Nulla historia",
     "yourBranchUpToDate": "Ramus tuus cum ramo comparato congruit (<ref/>)"
   },
   "branchNameWarnings": {
@@ -4648,7 +4716,8 @@
     "learnMore": "<link>Plura de Copilot in GitHub Desktop discere.</link>",
     "generateCommitMessage": "Generatum nuntium diligenter inspice et emendā ante usum.",
     "conflictResolution": "Suggestas resolutiones diligenter inspice ante ut eas in tuis scriptis applicēs.",
-    "assistedCommit": "Copilot mutationes electas disponet, et GitHub Desktop unum vel plures commitos locales nuntiis generatorum creabit. Copilot thecas tuas non emendabit. Antequam adprobationem localem revocare potes, ut commiti huius cursus tollantur. Si 'post commitum pellere' activatum est, omnes commiti locales servantur ubi pulsio coepit, etiam si pulsio defecit."
+    "assistedCommit": "Copilot mutationes electas disponet, et GitHub Desktop unum vel plures commitos locales nuntiis generatorum creabit. Copilot thecas tuas non emendabit. Antequam adprobationem localem revocare potes, ut commiti huius cursus tollantur. Si 'post commitum pellere' activatum est, omnes commiti locales servantur ubi pulsio coepit, etiam si pulsio defecit.",
+    "iUnderstand": "Intellego"
   },
   "repoRules": {
     "fails": {
@@ -4933,7 +5002,10 @@
     "downloadingNoPercent": "Recipitur…",
     "error": "Fasciculus recipi non potuit.",
     "gatekeeper": "Applicatio ab Apple non signata est. Post exsolutionem eam semel per System Settings → Privacy & Security → Open Anyway aperi.",
-    "noAssets": "In hac editione nullae thecae ad deponendum sunt."
+    "noAssets": "In hac editione nullae thecae ad deponendum sunt.",
+    "errorHost": "Hostis rei editionis prohibitus est",
+    "errorName": "Nomen rei editionis prohibitum est",
+    "errorStatus": "Res editionis respondit {statusCode}"
   },
   "renameWorktreeDialog": {
     "title": {
@@ -5012,5 +5084,25 @@
   },
   "gitignore": {
     "symbolicLinkRoot": "Non potest vinculum symbolicum ut radicalem .gitignore file adhibere"
+  },
+  "filterList": {
+    "resultCount": {
+      "_one": "{count} resultatum",
+      "_other": "{count} resultata"
+    },
+    "resultCountWithMessage": {
+      "_one": "{count} resultatum {message}",
+      "_other": "{count} resultata {message}"
+    }
+  },
+  "confirmAccountSignOut": {
+    "assignments-count": {
+      "_one": "{count} repositorium sessioni @{login} apud {endpoint} attribuitur.",
+      "_other": "{count} repositoria sessioni @{login} apud {endpoint} attribuuntur."
+    },
+    "clear-assignments-label": "Dele attributiones sessionum repositoriorum",
+    "keep-assignments": "Serva has attributiones, ut hac sessione iterum uti pergas; aut dele eas, ut sessionem eligas cum haec repositoria iterum adhibebis.",
+    "sign-out": "Exire",
+    "title": "Exire sessione @{login}?"
   }
 }

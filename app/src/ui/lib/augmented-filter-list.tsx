@@ -11,6 +11,7 @@ import { Row } from '../lib/row'
 
 import { match, IMatch, IMatches } from '../../lib/fuzzy-find'
 import { AriaLiveContainer } from '../accessibility/aria-live-container'
+import { t } from '../../lib/l10n'
 import {
   InvalidRowIndexPath,
   RowIndexPath,
@@ -355,10 +356,12 @@ export class AugmentedSectionFilterList<
     }
 
     const itemRows = this.state.rows.flat().filter(row => row.kind === 'item')
-    const resultsPluralized = itemRows.length === 1 ? 'result' : 'results'
     const postNoResultsMessage =
       itemRows.length === 0 ? this.props.postNoResultsMessage : ''
-    const screenReaderMessage = `${itemRows.length} ${resultsPluralized} ${postNoResultsMessage}`
+    const screenReaderMessage = t('filterList.resultCountWithMessage', {
+      count: itemRows.length,
+      message: postNoResultsMessage,
+    })
 
     const tracked = `${this.state.filterValue} ${
       this.props.filterMethod ? 'fm' : ''

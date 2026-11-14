@@ -3,6 +3,7 @@ import { Account } from '../../models/account'
 import { Dialog, DialogContent, DialogFooter } from '../dialog'
 import { OkCancelButtonGroup } from '../dialog/ok-cancel-button-group'
 import { Checkbox, CheckboxValue } from '../lib/checkbox'
+import { t } from '../../lib/l10n'
 
 interface IConfirmAccountSignOutProps {
   readonly account: Account
@@ -44,23 +45,23 @@ export class ConfirmAccountSignOut extends React.Component<
     return (
       <Dialog
         id="confirm-account-sign-out"
-        title={`Sign out of @${account.login}?`}
+        title={t('confirmAccountSignOut.title', {
+          login: account.login,
+        })}
         onSubmit={this.onSubmit}
         onDismissed={this.onDismissed}
       >
         <DialogContent>
           <p>
-            {repositoryCount}{' '}
-            {repositoryCount === 1 ? 'repository is' : 'repositories are'}{' '}
-            assigned to @{account.login} on {account.friendlyEndpoint}.
+            {t('confirmAccountSignOut.assignments-count', {
+              count: repositoryCount,
+              login: account.login,
+              endpoint: account.friendlyEndpoint,
+            })}
           </p>
-          <p>
-            Keep these assignments to use this account when you sign in again,
-            or clear them to choose an account the next time you use these
-            repositories.
-          </p>
+          <p>{t('confirmAccountSignOut.keep-assignments')}</p>
           <Checkbox
-            label="Clear repository account assignments"
+            label={t('confirmAccountSignOut.clear-assignments-label')}
             value={
               this.state.clearAssignments ? CheckboxValue.On : CheckboxValue.Off
             }
@@ -68,7 +69,9 @@ export class ConfirmAccountSignOut extends React.Component<
           />
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup okButtonText="Sign out" />
+          <OkCancelButtonGroup
+            okButtonText={t('confirmAccountSignOut.sign-out')}
+          />
         </DialogFooter>
       </Dialog>
     )

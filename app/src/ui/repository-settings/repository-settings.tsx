@@ -19,10 +19,7 @@ import { ForkSettings } from './fork-settings'
 import { ForkContributionTarget } from '../../models/workflow-preferences'
 import { GitConfigLocation, GitConfig } from './git-config'
 import { getConfigValue, getGlobalConfigValue } from '../../lib/git/config'
-import {
-  gitAuthorNameIsValid,
-  InvalidGitAuthorNameMessage,
-} from '../lib/identifier-rules'
+import { gitAuthorNameIsValid } from '../lib/identifier-rules'
 import { Account, isSameAccount } from '../../models/account'
 import { Octicon } from '../octicons'
 import * as octicons from '../octicons/octicons.generated'
@@ -513,7 +510,7 @@ export class RepositorySettings extends React.Component<
       this.setState({ saveDisabled: false })
     } else {
       this.setState({ saveDisabled: true })
-      errors.push(InvalidGitAuthorNameMessage)
+      errors.push(t('common.nameInvalid'))
     }
 
     this.setState({ committerName, errors })

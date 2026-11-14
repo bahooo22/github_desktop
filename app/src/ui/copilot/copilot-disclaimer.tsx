@@ -60,7 +60,10 @@ export class CopilotDisclaimer extends React.Component<ICopilotDisclaimerProps> 
           </p>
         </DialogContent>
         <DialogFooter>
-          <OkCancelButtonGroup destructive={true} okButtonText="I understand" />
+          <OkCancelButtonGroup
+            destructive={true}
+            okButtonText={t('copilotDisclaimer.iUnderstand')}
+          />
         </DialogFooter>
       </Dialog>
     )
