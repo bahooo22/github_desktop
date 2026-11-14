@@ -4,6 +4,7 @@ function onCompleted(startTime: number, messagePrefix: string): () => void {
   return () => {
     const rawTime = performance.now() - startTime
     const timeInSeconds = (rawTime / 1000).toFixed(3)
+    // l10n-ignore: строка уходит только в лог, пользователю не показывается
     const message = `[Timing] ${messagePrefix} took ${timeInSeconds}s`
     log.info(message)
   }

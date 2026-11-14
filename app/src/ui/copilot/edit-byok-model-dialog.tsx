@@ -71,6 +71,7 @@ export class EditCopilotBYOKModelDialog extends React.Component<
         <DialogContent>
           <Row className="copilot-byok-field">
             <TextBox
+              /* l10n-ignore: имя модели как пример, а не подпись интерфейса */
               label={t('copilotByokModel.displayNameLabel')}
               value={this.state.name}
               onValueChanged={this.onNameChanged}

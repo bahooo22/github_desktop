@@ -718,6 +718,7 @@ export class FilterChangesList extends React.Component<
       const pathComponents = path.split('/').slice(0, -1)
       if (pathComponents.length > 0) {
         const submenu = pathComponents.map((_, index) => {
+          // l10n-ignore: путь с разделителем git, его читает git
           const label = `/${pathComponents
             .slice(0, pathComponents.length - index)
             .join('/')}`

@@ -162,6 +162,7 @@ export async function executeAssistedCommitRun(
                 snapshot,
                 createSingleAssistedCommitPlan(snapshot, {
                   reason: 'empty-selection',
+                  // l10n-ignore: заголовок сообщения коммита, его читает git
                   title: 'Empty commit',
                 }),
                 options

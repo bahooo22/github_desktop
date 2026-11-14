@@ -745,6 +745,7 @@ export class TestNotifications extends React.Component<
           {this.renderCurrentStep()}
         </DialogContent>
         <DialogFooter>
+          {/* l10n-ignore: экран вызывается только из test-ui-components */}
           <OkCancelButtonGroup
             okButtonText="Close"
             okButtonDisabled={false}

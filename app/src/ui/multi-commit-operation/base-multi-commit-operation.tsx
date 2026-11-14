@@ -109,6 +109,7 @@ export abstract class BaseMultiCommitOperation extends React.Component<IMultiCom
    */
   protected endFlowInvalidState(): void {
     const { step, operationDetail } = this.props.state
+    // l10n-ignore: сообщение в лог и телеметрию, диалог к этому моменту закрыт
     const errorMessage = `[${operationDetail.kind}] - Invalid state - ${operationDetail.kind} ended during ${step.kind}.`
     this.onFlowEnded()
     log.error(errorMessage)

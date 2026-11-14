@@ -81,6 +81,7 @@ function prepareErrorMessage(error: Error) {
       })
       .join('\n')
   } else {
+    // l10n-ignore: имя и текст исключения, подписи интерфейса здесь нет
     message = `${error.name}: ${error.message}`
   }
 

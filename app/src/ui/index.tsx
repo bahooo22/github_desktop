@@ -189,6 +189,7 @@ const sendErrorWithContext = (
   }
 }
 
+// l10n-ignore: с этой строкой Chromium-сообщение сравнивается кодом
 const resizeLoopCompletedMessage =
   'ResizeObserver loop completed with undelivered notifications.'
 

@@ -43,6 +43,8 @@ export class IconPreviewDialog extends React.Component<IIconPreviewDialogProps> 
 
   private renderIcon(name: string, height: string, icon: OcticonSymbolVariant) {
     const sizeText = `${icon.h}x${icon.w}`
+    // l10n-ignore: имя иконки и её размер; попап TestIcons открывается только
+    // из test-ui-components
     const title = `${name} - ${sizeText}`
 
     return (

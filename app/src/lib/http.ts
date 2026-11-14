@@ -41,9 +41,11 @@ export class APIError extends Error {
       const errors = apiError.errors
       const additionalMessages = errors && errors.map(e => e.message).join(', ')
       if (additionalMessages) {
+        // l10n-ignore: склейка уже переведённого сообщения API со списком полей
         message = `${message} (${additionalMessages})`
       }
     } else {
+      // l10n-ignore: url и статус ответа, текст технического исключения
       message = `API error ${response.url}: ${response.statusText} (${response.status})`
     }
 

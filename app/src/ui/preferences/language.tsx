@@ -116,6 +116,7 @@ export class Language extends React.Component<
       return key
     }
 
+    // l10n-ignore: родные названия языков, они не переводятся
     const label = `${locale.name} (${locale.nativeName})`
 
     return locale.source === 'user'
