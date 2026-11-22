@@ -5,7 +5,7 @@ import {
   parseModelKey,
   type IBYOKProvider,
 } from '../../lib/copilot/byok'
-import { enableCopilotConflictResolution } from '../../lib/feature-flag'
+import { enableCopilotAssistedCommit } from '../../lib/feature-flag'
 import {
   DefaultCopilotModel,
   type CopilotFeature,
@@ -62,6 +62,14 @@ export class CopilotUserSettings extends React.Component<ICopilotUserSettingsPro
     )
   }
 
+  private onAssistedCommitModelChanged = (model: string) => {
+    this.props.onSelectedCopilotModelChanged(
+      this.props.account,
+      'assisted-commit',
+      model
+    )
+  }
+
   private onAlwaysUseCopilotForConflictResolutionChanged = (
     event: React.FormEvent<HTMLInputElement>
   ) => {
@@ -110,41 +118,52 @@ export class CopilotUserSettings extends React.Component<ICopilotUserSettingsPro
             />
           </p>
         </Row>
-        {this.renderFeatureModelPicker(
-          copilotModels,
-          'commit-message-generation',
-          t('settings.copilot.commit-message-generation'),
-          this.onCommitMessageModelChanged,
-          350
-        )}
-        <p className="settings-description">
-          <LinkButton uri="https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop#write-a-commit-message-and-push-your-changes">
-            {t('settings.copilot.learn-more-commit-messages')}
-          </LinkButton>
-        </p>
-        {enableCopilotConflictResolution() && (
-          <>
+        <div className="copilot-section">
+          {this.renderFeatureModelPicker(
+            copilotModels,
+            'commit-message-generation',
+            t('settings.copilot.commit-message-generation'),
+            this.onCommitMessageModelChanged,
+            350
+          )}
+          <p className="settings-description">
+            <LinkButton uri="https://docs.github.com/en/desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project-in-github-desktop#write-a-commit-message-and-push-your-changes">
+              {t('settings.copilot.learn-more-commit-messages')}
+            </LinkButton>
+          </p>
+        </div>
+        {enableCopilotAssistedCommit(this.props.account) && (
+          <div className="copilot-section">
             {this.renderFeatureModelPicker(
               copilotModels,
-              'conflict-resolution',
-              t('settings.copilot.conflict-resolution'),
-              this.onConflictResolutionModelChanged,
+              'assisted-commit',
+              t('settings.copilot.assisted-commit'),
+              this.onAssistedCommitModelChanged,
               280
             )}
-            <p className="settings-description">
-              {t('settings.copilot.conflict-model-changes')}
-            </p>
-            <Checkbox
-              label={t('settings.copilot.always-use-copilot-conflicts')}
-              value={
-                this.props.alwaysUseCopilotForConflictResolution
-                  ? CheckboxValue.On
-                  : CheckboxValue.Off
-              }
-              onChange={this.onAlwaysUseCopilotForConflictResolutionChanged}
-            />
-          </>
+          </div>
         )}
+        <div className="copilot-section">
+          {this.renderFeatureModelPicker(
+            copilotModels,
+            'conflict-resolution',
+            t('settings.copilot.conflict-resolution'),
+            this.onConflictResolutionModelChanged,
+            280
+          )}
+          <p className="settings-description">
+            {t('settings.copilot.conflict-model-changes')}
+          </p>
+          <Checkbox
+            label={t('settings.copilot.always-use-copilot-conflicts')}
+            value={
+              this.props.alwaysUseCopilotForConflictResolution
+                ? CheckboxValue.On
+                : CheckboxValue.Off
+            }
+            onChange={this.onAlwaysUseCopilotForConflictResolutionChanged}
+          />
+        </div>
       </>
     )
   }

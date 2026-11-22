@@ -5,10 +5,7 @@ import { MenuEvent } from './menu-event'
 import { truncateWithEllipsis } from '../../lib/truncate-with-ellipsis'
 import { getLogDirectoryPath } from '../../lib/logging/get-log-path'
 import { UNSAFE_openDirectory } from '../shell'
-import {
-  enableCopilotAppHandoff,
-  enableWorktreeSupport,
-} from '../../lib/feature-flag'
+import { enableWorktreeSupport } from '../../lib/feature-flag'
 import { MenuLabelsEvent } from '../../models/menu-labels'
 import * as ipcWebContents from '../ipc-webcontents'
 import { mkdir } from 'fs/promises'
@@ -420,16 +417,12 @@ export function buildDefaultMenuTemplate({
         accelerator: 'CmdOrCtrl+Shift+A',
         click: emit('open-external-editor'),
       },
-      ...(enableCopilotAppHandoff()
-        ? [
-            {
-              label: t('menu.open-in-copilot-app'),
-              id: 'open-in-copilot-app',
-              accelerator: 'CmdOrCtrl+Shift+J',
-              click: emit('open-in-copilot-app'),
-            },
-          ]
-        : []),
+      {
+        label: t('menu.open-in-copilot-app'),
+        id: 'open-in-copilot-app',
+        accelerator: 'CmdOrCtrl+Shift+J',
+        click: emit('open-in-copilot-app'),
+      },
       {
         label: t('menu.open-with-external-editor'),
         id: 'open-with-external-editor',

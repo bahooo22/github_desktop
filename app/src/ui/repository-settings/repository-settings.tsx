@@ -363,6 +363,9 @@ export class RepositorySettings extends React.Component<
           repository,
           this.state.selectedLogin
         )
+        this.props.dispatcher.incrementMetric(
+          'repositoryAccountChangedFromSettingsCount'
+        )
       } catch (e) {
         errors.push(t('repositorySettings.error-save-account', { error: e }))
       }
