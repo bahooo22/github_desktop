@@ -2107,7 +2107,7 @@ app/test/unit/main-process/menu-test.ts` — 17 тестов, 17 пройден,
 `[кар винья но:тар хаура…]` читается с `italic` при весе 400, оригинал — 600.
 
 Мутационная самопроверка новой меры меню, обе половины. Подсказку убрать из
-inline-метки (`core.ts:500` → `${text}`) — тест падает ровно
+inline-метки (`app/src/lib/l10n/core.ts:500` → `${text}`) — тест падает ровно
 «no Cyrillic gloss reached a menu label» (16 пройден / 1 падение). Счистку
 мнемоник выключить только для меток, у которых есть свой маркер, — падает
 вторая проверка, «access keys survived inside a gloss» (`menu-test.ts:457`,
@@ -4730,7 +4730,7 @@ Prettier и eslint — 0, markdownlint: README 39 находок и дневни
 программе» показывала `Oct 28, 2026`, хотя всё вокруг было по-русски.
 
 Причина. `enableFormattingPreferences()` в форке возвращает `true`
-(`app/src/lib/feature-flag.ts:130`), поэтому живёт не апстримная ветка
+(`app/src/lib/feature-flag.ts:115`), поэтому живёт не апстримная ветка
 `Intl.DateTimeFormat`, а ветка date-fns — а `format(value, pattern)` без
 явной локали всегда берёт en-US, сколько бы языков ни было в каталогах.
 `Intl` здесь не помог бы: он форматирует по шаблону, а пользователь выбирает

@@ -52,7 +52,7 @@ using Dev secrets» (28.02.2025). В сборках форка он `true` и п
 
 `code_challenge` в `app/src` не встречается (`grep` находит только `grant_type` в
 `oauth-token.ts:122`), то есть это web application flow без PKCE, а возврат кода
-идёт через кастомную схему (`main.ts:120-131`), а не loopback. Публичность
+идёт через кастомную схему (`app/src/main-process/main.ts:121-131`), а не loopback. Публичность
 значений проверялась и в тестах: `app/test/globals.mts:12` задаёт
 `__DEV_SECRETS__: false`, а обе пары констант обнуляются по `process.env.TEST_ENV`.
 

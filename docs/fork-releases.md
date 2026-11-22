@@ -296,7 +296,7 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
    `DESKTOP_FORK_BUILD_NUMBER` из output gate (версия публикации — см. следующий
    раздел) и `DESKTOP_SKIP_DELTA=1` при `first_run=true`. Флаг нужен для самого
    первого релиза: удалённого `RELEASES` ещё нет, а `electron-winstaller` при
-   заданном `remoteReleases` вызывает `SyncReleases.exe` (`lib/index.js:272-274`)
+   заданном `remoteReleases` вызывает `SyncReleases.exe` (`node_modules/electron-winstaller/lib/index.js:272-274`)
    и падает на его ненулевом коде выхода (`lib/spawn-promise.js`) — гибла вся
    сборка. Дельта выключается вместе с этим вызовом, канал сборки остаётся
    `production`.
@@ -521,7 +521,7 @@ npm run l10n:bundles   # node script/i18n-freshness.mjs --bundles
   `app/test/unit/script/fork-version-test.ts` сверяет её с библиотекой на каждой
   форме, которую умеет производить модуль.
 - **Носитель** — `Options.version` в `createWindowsInstaller`
-  (`lib/index.js:203`, `Object.assign(metadata, options)`), поэтому
+  (`node_modules/electron-winstaller/lib/index.js:204`, `Object.assign(metadata, options)`), поэтому
   `app/package.json` и версия, которую показывает «О программе», остаются
   базовыми: пользователь видит `3.6.7-beta3`, а в `RELEASES` уходит
   `GitHubDesktopL10n-3.6.7-beta340382-full.nupkg`. Имена пакетов в
