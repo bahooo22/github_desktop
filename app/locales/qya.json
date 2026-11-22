@@ -1297,6 +1297,7 @@
       "releaseNotes.fork.upstreamSync3612",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
+      "releaseNotes.fork.upstreamSync370",
       "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
@@ -4351,7 +4352,8 @@
       "aboutDownloadButtons": "i siton: á-tulya i vinya cara, á-tulya i official GitHub Desktop. i parma Downloads haurassë harya neH.",
       "upstreamSync3611": "I fanwa lambë vinya carienë pá i upstream 3.6.11-beta1 cotya. Sí i projet carina npmnen, lá yarnnen, ar i fork leryalë carier hilyuvar.",
       "copilotCommit": "Minatacë Copilotnen: polë hyarya i cilienë ahyanië minatecinna ar téca i mentar.",
-      "upstreamSync3612": "I fanwa lambë vinya carienë pá i upstream 3.6.11 ar 3.6.12-beta1 cotya. Sí haura essë cilienë, ar i minatacë nirien."
+      "upstreamSync3612": "I fanwa lambë vinya carienë pá i upstream 3.6.11 ar 3.6.12-beta1 cotya. Sí haura essë cilienë, ar i minatacë nirien.",
+      "upstreamSync370": "I fanwa lambë vinya cotya upstream 3.7.0. Sí nótima essë lávima"
     }
   },
   "repositoriesList": {

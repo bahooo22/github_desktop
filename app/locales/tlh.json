@@ -1299,6 +1299,7 @@
       "releaseNotes.fork.upstreamSync3612",
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
+      "releaseNotes.fork.upstreamSync370",
       "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
@@ -4352,7 +4353,8 @@
       "aboutDownloadButtons": "bopDaq: De' chu' yIjom 'ej Official build yIHev. file Downloads DajaqDaq tu'lu' neH.",
       "upstreamSync3611": "jIH Hol chen upstream 3.6.11-beta1 yorDaq chenmoHlu'. DaH npm lo'lu', yarn lo'be'lu', 'ej fork jonHa' mIwmey 'e' tlha'.",
       "copilotCommit": "CopilotDaq vem yIchenmoH: Copilot wIvlu'bogh choHmey vemmeyDaq chevlaH 'ej Delmeychaj qonlaH.",
-      "upstreamSync3612": "jIH Hol chen upstream 3.6.11 'ej 3.6.12-beta1 yorDaq chenmoHlu'. DaH De' ngaSwI' mab yIwIv laH, 'ej vem chenmoHpu' vemmey yIyuv laH."
+      "upstreamSync3612": "jIH Hol chen upstream 3.6.11 'ej 3.6.12-beta1 yorDaq chenmoHlu'. DaH De' ngaSwI' mab yIwIv laH, 'ej vem chenmoHpu' vemmey yIyuv laH.",
+      "upstreamSync370": "jIH Hol chen upstream 3.7.0Daq chenmoHlu'. DaH ngIq mab yIwIv laH"
     }
   },
   "repositoriesList": {

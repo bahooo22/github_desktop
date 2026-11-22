@@ -2498,7 +2498,8 @@
       "aboutDownloadButtons": "The About dialog offers the update itself: install a fork build or download the official one. Nothing is started automatically — the file goes into the Downloads folder",
       "upstreamSync3611": "Upstream 3.6.11-beta1 is merged: the project now builds with npm instead of yarn, and the fork release workflows follow",
       "copilotCommit": "Commit with Copilot: the commit panel can split the selected changes into commits and write their messages",
-      "upstreamSync3612": "Upstream 3.6.11 and 3.6.12-beta1 are merged: a manual commit can push itself afterwards, and each repository can be given its own account"
+      "upstreamSync3612": "Upstream 3.6.11 and 3.6.12-beta1 are merged: a manual commit can push itself afterwards, and each repository can be given its own account",
+      "upstreamSync370": "Upstream 3.7.0 is merged: several GitHub accounts work at the same time"
     }
   },
   "repositoriesList": {
