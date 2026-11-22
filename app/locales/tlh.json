@@ -1493,6 +1493,7 @@
       "settings.copilot.add-provider",
       "settings.copilot.ai-credits-per-tokens",
       "settings.copilot.always-use-copilot-conflicts",
+      "settings.copilot.assisted-commit",
       "settings.copilot.byok-empty-description",
       "settings.copilot.cached-input",
       "settings.copilot.checking-access",
@@ -2177,6 +2178,10 @@
       "always-use-copilot-conflicts": {
         "@darwin": "reH Copilot 'e' yIlo' yol jemDI'",
         "@other": "reH Copilot 'e' yIlo' yol jemDI'"
+      },
+      "assisted-commit": {
+        "@darwin": "QaH choH vemmey",
+        "@other": "QaH choH vemmey"
       },
       "byok-empty-description": "peSwI' tIgh 'e' yIchel, 'ej ngaQHa'moHwI' lIj 'e' yIlo' OpenAI pat taw Dor, Azure, Anthropic, pagh Sum peSwI'mey Ollama ghun.",
       "provider-model-count": {

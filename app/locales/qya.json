@@ -1491,6 +1491,7 @@
       "settings.copilot.add-provider",
       "settings.copilot.ai-credits-per-tokens",
       "settings.copilot.always-use-copilot-conflicts",
+      "settings.copilot.assisted-commit",
       "settings.copilot.byok-empty-description",
       "settings.copilot.cached-input",
       "settings.copilot.checking-access",
@@ -2176,6 +2177,10 @@
       "always-use-copilot-conflicts": {
         "@darwin": "Ilya lúmë Mahta Copilot yá henta cotya",
         "@other": "ilya lúmë mahta Copilot yá henta cotya"
+      },
+      "assisted-commit": {
+        "@darwin": "Copiloto Minatacër",
+        "@other": "Copiloto minatacër"
       },
       "byok-empty-description": "Yanta i sito antindo itan yuhta imyaro latil: OpenAI-compatible, Azure, Anthropic, ar i nómëa antindo siti Ollama.",
       "provider-model-count": {

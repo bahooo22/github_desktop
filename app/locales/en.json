@@ -283,6 +283,10 @@
         "@darwin": "Always Use Copilot When Conflicts Are Detected",
         "@other": "Always use Copilot when conflicts are detected"
       },
+      "assisted-commit": {
+        "@darwin": "Assisted Commits",
+        "@other": "Assisted commits"
+      },
       "byok-empty-description": "Add a custom provider to use your own API keys with OpenAI-compatible endpoints, Azure, Anthropic, or local providers like Ollama.",
       "provider-model-count": {
         "_one": "{count:number} model",

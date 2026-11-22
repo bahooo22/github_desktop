@@ -229,6 +229,7 @@
       "conflict-resolution": "Разрешение конфликтов",
       "conflict-model-changes": "Смена модели применяется к будущим разрешениям конфликтов.",
       "always-use-copilot-conflicts": "Всегда использовать Copilot для конфликтов",
+      "assisted-commit": "Коммиты с поддержкой Copilot",
       "byok-empty-description": "Добавьте пользовательского провайдера, чтобы использовать свои ключи API с эндпоинтами, совместимыми с OpenAI, Azure, Anthropic или локальные провайдеры вроде Ollama.",
       "provider-model-count": {
         "_few": "{count:number} модели",

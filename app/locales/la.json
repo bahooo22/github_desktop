@@ -1491,6 +1491,7 @@
       "settings.copilot.add-provider",
       "settings.copilot.ai-credits-per-tokens",
       "settings.copilot.always-use-copilot-conflicts",
+      "settings.copilot.assisted-commit",
       "settings.copilot.byok-empty-description",
       "settings.copilot.cached-input",
       "settings.copilot.checking-access",
@@ -2199,6 +2200,10 @@
       "always-use-copilot-conflicts": {
         "@darwin": "Semper Copilot adhibere cum conflictus deteguntur",
         "@other": "Semper Copilot adhibere cum conflictus deteguntur"
+      },
+      "assisted-commit": {
+        "@darwin": "Auxilium committionum",
+        "@other": "Auxilium committionum"
       },
       "byok-empty-description": "Fornicem proprium addere ut claves API tuas cum finibus OpenAI-compatibilibus, Azure, Anthropic, vel fornices localis sicut Ollama adhibeas.",
       "provider-model-count": {
