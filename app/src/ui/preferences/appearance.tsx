@@ -12,7 +12,6 @@ import { Checkbox, CheckboxValue } from '../lib/checkbox'
 import { t } from '../../lib/l10n'
 import { encodePathAsUrl } from '../../lib/path'
 import { tabSizeDefault } from '../../lib/stores/app-store'
-import { enableFormattingPreferences } from '../../lib/feature-flag'
 import {
   DateFormat,
   TimeFormat,
@@ -213,10 +212,6 @@ export class Appearance extends React.Component<
   }
 
   private renderFormatting() {
-    if (!enableFormattingPreferences()) {
-      return null
-    }
-
     return (
       <div className="appearance-section formatting-section">
         <h2 id="formatting-heading">{t('settings.appearance.formatting')}</h2>

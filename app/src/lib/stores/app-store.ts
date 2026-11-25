@@ -346,7 +346,6 @@ import {
 } from './updates/changes-state'
 import { ManualConflictResolution } from '../../models/manual-conflict-resolution'
 import { BranchPruner } from './helpers/branch-pruner'
-import { enableCustomIntegration, enableWorktreeSupport } from '../feature-flag'
 import { isDotCom, isGHE, isGHES } from '../endpoint-capabilities'
 import { Banner, BannerType } from '../../models/banner'
 import { ComputedAction } from '../../models/computed-action'
@@ -2832,13 +2831,11 @@ export class AppStore extends TypedBaseStore<IAppState> {
 
     this.lastThankYou = getObject<ILastThankYou>(lastThankYouKey)
 
-    this.useCustomEditor =
-      enableCustomIntegration() && getBoolean(useCustomEditorKey, false)
+    this.useCustomEditor = getBoolean(useCustomEditorKey, false)
     this.customEditor = getObject<ICustomIntegration>(customEditorKey) ?? null
     this.copilotAppPath = localStorage.getItem(copilotAppPathKey)
 
-    this.useCustomShell =
-      enableCustomIntegration() && getBoolean(useCustomShellKey, false)
+    this.useCustomShell = getBoolean(useCustomShellKey, false)
     this.customShell = getObject<ICustomIntegration>(customShellKey) ?? null
 
     // Migrate custom editor and shell to the new format if needed. This
@@ -2922,10 +2919,6 @@ export class AppStore extends TypedBaseStore<IAppState> {
    * the toolbar reserves space for the dropdown whenever it is visible.
    */
   private isWorktreeDropdownVisible(): boolean {
-    if (!enableWorktreeSupport()) {
-      return false
-    }
-
     const repository = this.selectedRepository
     if (!(repository instanceof Repository)) {
       return false
@@ -3927,8 +3920,17 @@ export class AppStore extends TypedBaseStore<IAppState> {
     context: ICommitContext
   ): Promise<boolean> {
     this.assistedCommits.state.assertAvailable(repository)
-    await this.assistedCommits.readers.read(repository, undefined, () =>
-      this.assistedCommits.selections.verifyRestored(repository)
+    if (
+      this.repositoryStateCache.get(repository).isCommitting ||
+      this.isWorktreeMoving(repository)
+    ) {
+      return false
+    }
+    await this.assistedCommits.readers.read(
+      repository,
+      undefined,
+      () => this.assistedCommits.selections.verifyRestored(repository),
+      { lockRepository: true }
     )
     const state = this.repositoryStateCache.get(repository)
     const files = state.changesState.workingDirectory.files
@@ -4199,7 +4201,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public _changeFileIncluded(
+  public async _changeFileIncluded(
     repository: Repository,
     file:
       | WorkingDirectoryFileChange
@@ -4208,6 +4210,7 @@ export class AppStore extends TypedBaseStore<IAppState> {
   ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
     const files = Array.isArray(file) ? file : [file]
+    this.assistedCommits.selections.retire(repository, files)
     const modifiedIds = new Set<string>(files.map(f => f.id))
 
     this.repositoryStateCache.updateChangesState(repository, state => {
@@ -4221,11 +4224,10 @@ export class AppStore extends TypedBaseStore<IAppState> {
     })
 
     this.emitUpdate()
-    return Promise.resolve()
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public _changeFileLineSelection(
+  public async _changeFileLineSelection(
     repository: Repository,
     file: WorkingDirectoryFileChange,
     diffSelection: DiffSelection
@@ -4237,7 +4239,6 @@ export class AppStore extends TypedBaseStore<IAppState> {
       diffSelection
     )
     this.updateWorkingDirectoryFileSelection(repository, file, diffSelection)
-    return Promise.resolve()
   }
 
   /**
@@ -4263,11 +4264,16 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
-  public _changeIncludeAllFiles(
+  public async _changeIncludeAllFiles(
     repository: Repository,
     includeAll: boolean
   ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
+    this.assistedCommits.selections.retire(
+      repository,
+      this.repositoryStateCache.get(repository).changesState.workingDirectory
+        .files
+    )
     this.repositoryStateCache.updateChangesState(repository, state => {
       const workingDirectory =
         state.workingDirectory.withIncludeAllFiles(includeAll)
@@ -4275,8 +4281,6 @@ export class AppStore extends TypedBaseStore<IAppState> {
     })
 
     this.emitUpdate()
-
-    return Promise.resolve()
   }
 
   /** This shouldn't be called directly. See `Dispatcher`. */
@@ -4779,7 +4783,10 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See 'Dispatcher'. */
-  public _setCommitMode(repository: Repository, commitMode: CommitMode): void {
+  public async _setCommitMode(
+    repository: Repository,
+    commitMode: CommitMode
+  ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
     storeCommitMode(repository, commitMode)
     this.repositoryStateCache.updateChangesState(repository, () => ({
@@ -4789,7 +4796,10 @@ export class AppStore extends TypedBaseStore<IAppState> {
   }
 
   /** This shouldn't be called directly. See 'Dispatcher'. */
-  public _setPushAfterCommit(repository: Repository, enabled: boolean): void {
+  public async _setPushAfterCommit(
+    repository: Repository,
+    enabled: boolean
+  ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
     storePushAfterCommit(repository, enabled)
     this.repositoryStateCache.updateChangesState(repository, () => ({
@@ -4798,10 +4808,10 @@ export class AppStore extends TypedBaseStore<IAppState> {
     this.emitUpdate()
   }
 
-  public _updateCommitOptions(
+  public async _updateCommitOptions(
     repository: Repository,
     commitOptions: Partial<CommitOptions>
-  ): void {
+  ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
     this.repositoryStateCache.update(repository, state => ({
       skipCommitHooks: state.skipCommitHooks,
@@ -10602,13 +10612,12 @@ export class AppStore extends TypedBaseStore<IAppState> {
    * Set whether the user has chosen to hide or show the
    * co-authors field in the commit message component
    */
-  public _setShowCoAuthoredBy(
+  public async _setShowCoAuthoredBy(
     repository: Repository,
     showCoAuthoredBy: boolean
-  ) {
+  ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
     this.gitStoreCache.get(repository).setShowCoAuthoredBy(showCoAuthoredBy)
-    return Promise.resolve()
   }
 
   /**
@@ -10617,13 +10626,12 @@ export class AppStore extends TypedBaseStore<IAppState> {
    * @param repository Co-author settings are per-repository
    * @param coAuthors  Zero or more authors
    */
-  public _setCoAuthors(
+  public async _setCoAuthors(
     repository: Repository,
     coAuthors: ReadonlyArray<Author>
-  ) {
+  ): Promise<void> {
     this.assistedCommits.state.assertAvailable(repository)
     this.gitStoreCache.get(repository).setCoAuthors(coAuthors)
-    return Promise.resolve()
   }
 
   /**

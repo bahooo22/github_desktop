@@ -17,6 +17,7 @@ import {
   AssistedCommitRunState,
   isAssistedCommitRepositoryLocked,
 } from '../../models/assisted-commit-run'
+import { isRepositoryAffectedByAssistedCommit } from '../../lib/git/repository-operation'
 import {
   assistedCommitRequestsEqual,
   freezeAssistedCommitRequest,
@@ -72,7 +73,6 @@ import { formatCommitMessage } from '../../lib/format-commit-message'
 import { useRepoRulesLogic } from '../../lib/helpers/repo-rules'
 import { isDotCom } from '../../lib/endpoint-capabilities'
 import { WorkingDirectoryFileChange } from '../../models/status'
-import { enableHooksEnvironment } from '../../lib/feature-flag'
 import {
   getAccountForCopilot,
   getAccountForCopilotAssistedCommits,
@@ -757,7 +757,8 @@ export class CommitMessage extends React.Component<
       this.props.isGeneratingCommitMessage === true ||
       this.props.isCreatingCopilotAssistedCommits === true ||
       (this.props.assistedCommitState !== undefined &&
-        isAssistedCommitRepositoryLocked(this.props.assistedCommitState))
+        isAssistedCommitRepositoryLocked(this.props.assistedCommitState)) ||
+      isRepositoryAffectedByAssistedCommit(this.props.repository.path)
     )
   }
 
@@ -1499,19 +1500,21 @@ export class CommitMessage extends React.Component<
       })
     }
 
-    if (enableHooksEnvironment()) {
-      items.push({
-        type: 'checkbox',
-        checked: this.props.skipCommitHooks,
-        enabled: !this.isBusy,
-        label: t('commitMessage.bypass-hooks'),
-        action: () => {
-          this.updateCommitOptions({
-            skipCommitHooks: !this.props.skipCommitHooks,
-          })
-        },
-      })
-    }
+    items.push({
+      type: 'checkbox',
+
+      checked: this.props.skipCommitHooks,
+
+      enabled: !this.isBusy,
+
+      label: t('commitMessage.bypass-hooks'),
+
+      action: () => {
+        this.updateCommitOptions({
+          skipCommitHooks: !this.props.skipCommitHooks,
+        })
+      },
+    })
 
     items.push({
       type: 'checkbox',

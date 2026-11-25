@@ -59,7 +59,6 @@ export function getForkReleaseSummaries(
         latestVersion: release.version,
         datePublished: formatDate(new Date(release.pub_date), {
           time: false,
-          dateStyle: 'long',
         }),
         pretext: notes.filter(n => n.kind === 'pretext'),
         enhancements: notes.filter(

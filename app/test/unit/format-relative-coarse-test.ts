@@ -154,10 +154,7 @@ describe('RelativeTime past a week on the coarse scale', () => {
     const info = getRelativeTimeInfoFromDate(then, false)
 
     // Ветка «дольше недели» без флага сворачивается в дату и теряет тик.
-    assert.equal(
-      info.relativeText,
-      formatDate(then, { time: false, dateStyle: 'medium' })
-    )
+    assert.equal(info.relativeText, formatDate(then, { time: false }))
     assert.equal(info.duration, undefined)
   })
 

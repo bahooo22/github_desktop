@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import { enableFormattingPreferences } from '../lib/feature-flag'
 import { getDateFnsLocale } from '../lib/l10n/date-locale'
 
 const localeCountryCode =
@@ -359,10 +358,6 @@ const preferAbsoluteDatesKey = 'preferAbsoluteDates'
  * Defaults to false (i.e., relative time is shown by default).
  */
 export function getPreferAbsoluteDates(): boolean {
-  if (!enableFormattingPreferences()) {
-    return false
-  }
-
   return localStorage.getItem(preferAbsoluteDatesKey) === '1'
 }
 
