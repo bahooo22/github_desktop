@@ -1301,6 +1301,7 @@
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.upstreamSync370",
+      "releaseNotes.fork.upstreamSync371Beta1",
       "releaseNotes.fork.upstreamSyncBeta3",
       "releaseNotes.installAndRestart",
       "releaseNotes.markdownGenerated",
@@ -4372,7 +4373,8 @@
       "upstreamSync3611": "La interfaco estas rekonstruita sur upstream 3.6.11-beta1; la projekto nun konstruiĝas per npm anstataŭ yarn",
       "copilotCommit": "Eblas kommiti per Copilot: la kommita panelo dividas elektitajn ŝanĝojn en kommitojn kaj skribas iliajn mesaĝojn",
       "upstreamSync3612": "La interfaco estas rekonstruita sur upstream 3.6.11 kaj 3.6.12-beta1; mana komito povas sin mem puŝi poste, kaj ĉiu deponejo povas ricevi sian propran konton",
-      "upstreamSync370": "La interfaco estas rekonstruita sur upstream 3.7.0; pluraj GitHub-kontoj funkcias samtempe"
+      "upstreamSync370": "La interfaco estas rekonstruita sur upstream 3.7.0; pluraj GitHub-kontoj funkcias samtempe",
+      "upstreamSync371Beta1": "La interfaco estas rekonstruita sur upstream 3.7.1-beta1; Copilot povas dividi elektitajn ŝanĝojn en kommitojn"
     }
   },
   "repositoriesList": {
