@@ -1573,7 +1573,6 @@
       "settings.integration-form.path-placeholder",
       "settings.integrations.app-location",
       "settings.integrations.app-location-placeholder",
-      "settings.integrations.applications",
       "settings.integrations.choose",
       "settings.integrations.choose-copilot",
       "settings.integrations.configure-custom-editor",
@@ -1583,7 +1582,6 @@
       "settings.integrations.external-editor",
       "settings.integrations.external-editor-aria",
       "settings.integrations.install-editor",
-      "settings.integrations.no-editors-found",
       "settings.integrations.no-other-editors-found",
       "settings.integrations.shell",
       "settings.language.available",
@@ -2027,7 +2025,6 @@
         "@other": "Ekstera redaktilo"
       },
       "external-editor-aria": "Ekstera redaktilo",
-      "no-editors-found": "Neniu redaktilo trovita.",
       "no-other-editors-found": "Neniu alia redaktilo trovita.",
       "install-editor": "Instali {name}?",
       "configure-custom-editor": {
@@ -2039,7 +2036,6 @@
         "@darwin": "Agordi ĉiun ŝelon…",
         "@other": "Agordi ĉiun ŝelon…"
       },
-      "applications": "Aplikaĵoj",
       "choose-copilot": "Elekti GitHub Copilot",
       "copilot-description": "Esperante agentan disvolviĝon konstruitan natively sur GitHub.",
       "copilot-learn-more": "Plue lerni pri GitHub Copilot",

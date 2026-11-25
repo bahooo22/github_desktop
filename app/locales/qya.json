@@ -1571,7 +1571,6 @@
       "settings.integration-form.path-placeholder",
       "settings.integrations.app-location",
       "settings.integrations.app-location-placeholder",
-      "settings.integrations.applications",
       "settings.integrations.choose",
       "settings.integrations.choose-copilot",
       "settings.integrations.configure-custom-editor",
@@ -1581,7 +1580,6 @@
       "settings.integrations.external-editor",
       "settings.integrations.external-editor-aria",
       "settings.integrations.install-editor",
-      "settings.integrations.no-editors-found",
       "settings.integrations.no-other-editors-found",
       "settings.integrations.shell",
       "settings.language.available",
@@ -2002,7 +2000,6 @@
         "@other": "maxarma tecindo"
       },
       "external-editor-aria": "maxarma tecindo",
-      "no-editors-found": "i tecindo lá hirna.",
       "no-other-editors-found": "i hya tecindo lá hirna.",
       "install-editor": "tulca i {name}?",
       "configure-custom-editor": {
@@ -2014,7 +2011,6 @@
         "@darwin": "Santa i sito Shell…",
         "@other": "santa i sito Shell…"
       },
-      "applications": "ilya maxarma",
       "choose-copilot": "cilë i GitHub Copilot",
       "copilot-description": "Copilot vehtar i carasta. Sina ná carna i GitHubissë sundo.",
       "copilot-learn-more": "nolya i GitHub Copiloto manallë",

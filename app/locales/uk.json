@@ -105,13 +105,11 @@
     "integrations": {
       "external-editor": "Зовнішній редактор",
       "external-editor-aria": "Зовнішній редактор",
-      "no-editors-found": "Редактори не знайдено.",
       "no-other-editors-found": "Інші редактори не знайдено.",
       "install-editor": "Встановити {name}?",
       "configure-custom-editor": "Налаштувати редактор",
       "shell": "Оболонка",
       "configure-custom-shell": "Налаштувати оболонку",
-      "applications": "Застосунки",
       "choose-copilot": "Вибрати GitHub Copilot",
       "copilot-description": "Спробуйте розробку за допомогою агентів, нативно вбудовану в GitHub.",
       "copilot-learn-more": "Докладніше про GitHub Copilot",

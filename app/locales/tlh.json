@@ -1572,7 +1572,6 @@
       "settings.integration-form.path-placeholder",
       "settings.integrations.app-location",
       "settings.integrations.app-location-placeholder",
-      "settings.integrations.applications",
       "settings.integrations.choose",
       "settings.integrations.choose-copilot",
       "settings.integrations.configure-custom-editor",
@@ -1582,7 +1581,6 @@
       "settings.integrations.external-editor",
       "settings.integrations.external-editor-aria",
       "settings.integrations.install-editor",
-      "settings.integrations.no-editors-found",
       "settings.integrations.no-other-editors-found",
       "settings.integrations.shell",
       "settings.language.available",
@@ -2003,7 +2001,6 @@
         "@other": "Hop DI'wI'"
       },
       "external-editor-aria": "Hop DI'wI'",
-      "no-editors-found": "Hop DI'wI' tu'lu'be'.",
       "no-other-editors-found": "latlh Hop DI'wI' tu'lu'be'.",
       "install-editor": "{name} jom 'e' DaneHbej'a'?",
       "configure-custom-editor": {
@@ -2015,7 +2012,6 @@
         "@darwin": "tIgh Shell 'e' yIghun…",
         "@other": "tIgh Shell 'e' yIghun…"
       },
-      "applications": "Deryatmey",
       "choose-copilot": "GitHub Copilot 'e' yIwIv",
       "copilot-description": "GitHubDaq chenlu' Copilot nab 'e' yIghoj.",
       "copilot-learn-more": "GitHub Copilot 'e' je ghoj",

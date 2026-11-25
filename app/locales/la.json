@@ -1573,7 +1573,6 @@
       "settings.integration-form.path-placeholder",
       "settings.integrations.app-location",
       "settings.integrations.app-location-placeholder",
-      "settings.integrations.applications",
       "settings.integrations.choose",
       "settings.integrations.choose-copilot",
       "settings.integrations.configure-custom-editor",
@@ -1583,7 +1582,6 @@
       "settings.integrations.external-editor",
       "settings.integrations.external-editor-aria",
       "settings.integrations.install-editor",
-      "settings.integrations.no-editors-found",
       "settings.integrations.no-other-editors-found",
       "settings.integrations.shell",
       "settings.language.available",
@@ -2027,7 +2025,6 @@
         "@other": "Editor externus"
       },
       "external-editor-aria": "Editor externus",
-      "no-editors-found": "Nulli editores inventi.",
       "no-other-editors-found": "Nulli alii editores inventi.",
       "install-editor": "{name} instituere?",
       "configure-custom-editor": {
@@ -2039,7 +2036,6 @@
         "@darwin": "Shell proprium configurare…",
         "@other": "Shell proprium configurare…"
       },
-      "applications": "Applicationes",
       "choose-copilot": "Copilot eligere",
       "copilot-description": "Experientiam developmenti agentibus mota in GitHub nativa.",
       "copilot-learn-more": "Magis de Copilot in GitHub discere",

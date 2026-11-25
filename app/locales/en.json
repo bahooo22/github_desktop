@@ -123,7 +123,6 @@
         "@other": "External editor"
       },
       "external-editor-aria": "External editor",
-      "no-editors-found": "No editors found.",
       "no-other-editors-found": "No other editors found.",
       "install-editor": "Install {name}?",
       "configure-custom-editor": {
@@ -135,7 +134,6 @@
         "@darwin": "Configure Custom Shell…",
         "@other": "Configure custom shell…"
       },
-      "applications": "Applications",
       "choose-copilot": "Choose GitHub Copilot",
       "copilot-description": "Experience agent-driven development built natively on GitHub.",
       "copilot-learn-more": "Learn more about GitHub Copilot",
