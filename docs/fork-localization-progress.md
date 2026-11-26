@@ -5725,13 +5725,16 @@ tests»: 3 938 тестов, 3 897 успешных, одно падение, 40
 0 нарушений, `l10n:audit` — 36 видимых литералов и 0 непокрытых, `l10n:upstream` —
 ни новой строки и ни мёртвого ключа, `l10n:untranslated` — ru 25, uk 25, la 28,
 eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолки не двигали), а
-`npm test` полным набором — 3 929 тестов, 773 конвейера, 3 915 pass, 12 fail,
-2 skipped; `test:script` rc=0, `test:eslint` rc=0, `l10n:bundles` rc=1 с
+`npm test` полным набором — метрики бегунка `tests 3 929 / suites 773 /
+pass 3 915 / fail 12 / skipped 2`; `test:script` rc=0, `test:eslint` rc=0, `l10n:bundles` rc=1 с
 меткой «shipped copies out of date: 1»: раскатанная вручную копия
 `bin/resources/app` (сборка 15.10) отстаёт от свежего `out/` семью файлами —
 `cli.js`, `crash.js`, `highlighter.js`, `index.html`, `main.js`, `renderer.css`,
 `renderer.js`, — а обе `dist/`-копии мера печатает как
-`not rolled out (skipped)` и в счёт не берёт.
+`not rolled out (skipped)` и в счёт не берёт. Первичные носители этого прогона —
+копии в `glm/2026-11-27_session/` (журнал и лог CI); ссылки прежних волн на разовые
+скрипты в `E:/tmp` оставлены как история снимков, потому что каталог сеанса —
+хранилище, а `E:/tmp` — рабочее место.
 
 Пересъёмка прежних утверждений. «Тип-гейт остаётся незакрытым до `npm ci` в
 `gdlab`» снято: после установки `@github/copilot-sdk` в `app/node_modules` равен
@@ -5753,8 +5756,8 @@ eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолк�
 соответствующих снимков дерева.
 
 Хвосты волн 3.7.0, beta1 и beta2 «ФАЗА B (контейнер `gdlab`) не запускалась»
-сняты прогоном 27.11: `npm ci` в корне rc=0, `npm test` полным набором — 3 929
-тестов, 773 конвейера, 3 915 pass, 12 fail, 2 skipped, `lint:src` rc=0. Из файлов,
+сняты прогоном 27.11: `npm ci` в корне rc=0, `npm test` полным набором — метрики
+бегунка `tests 3 929 / suites 773 / pass 3 915 / fail 12 / skipped 2`, `lint:src` rc=0. Из файлов,
 которые в дерево принёс мерж beta2, пали только два теста
 `app/test/unit/git/checkout-test.ts` («pathspec magic» ждут CRLF-байты), а
 `fork changelog`, `main-process menu`, `AppStore history pagination`,
