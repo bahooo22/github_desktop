@@ -5724,8 +5724,12 @@ tests»: 3 938 тестов, 3 897 успешных, одно падение, 40
 ни новой строки и ни мёртвого ключа, `l10n:untranslated` — ru 25, uk 25, la 28,
 eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолки не двигали), а
 `npm test` полным набором — 3 929 тестов, 773 конвейера, 3 915 pass, 12 fail,
-2 skipped; `test:script` rc=0, `test:eslint` rc=0, `l10n:bundles` rc=1 — она ждёт
-`dist/`, которого без `build:prod` нет (7 файлов сборки отличаются от `out/`).
+2 skipped; `test:script` rc=0, `test:eslint` rc=0, `l10n:bundles` rc=1 с
+меткой «shipped copies out of date: 1»: раскатанная вручную копия
+`bin/resources/app` (сборка 15.10) отстаёт от свежего `out/` семью файлами —
+`cli.js`, `crash.js`, `highlighter.js`, `index.html`, `main.js`, `renderer.css`,
+`renderer.js`, — а обе `dist/`-копии мера печатает как
+`not rolled out (skipped)` и в счёт не берёт.
 
 Пересъёмка прежних утверждений. «Тип-гейт остаётся незакрытым до `npm ci` в
 `gdlab`» снято: после установки `@github/copilot-sdk` в `app/node_modules` равен
@@ -5737,6 +5741,15 @@ eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолк�
 сделанная plumbing'ом без переключения рабочего дерева, страховка — тег
 `backup-development-1127-pre-agents2`.
 
+Формулировка волн 3.7.0, beta1 и beta2 «`l10n:bundles` красная по замыслу (нет
+`dist/`, `build:prod` запрещён)» называет механизм неверно: по коду меры
+(`script/i18n-freshness.mjs:1547-1551`) отсутствующая раскатанная копия
+печатает `not rolled out (skipped)` и на код возврата не влияет, а rc=1 всегда
+приходит от `bin/resources/app` — копии, раскатанной вручную и старше последней
+сборки. CI этой меры не запускает: grep по `.github/workflows/ci.yml` не даёт ни
+`l10n:bundles`, ни `i18n-freshness`. Прежние формулировки оставлены как история
+соответствующих снимков дерева.
+
 Хвосты волн 3.7.0, beta1 и beta2 «ФАЗА B (контейнер `gdlab`) не запускалась»
 сняты прогоном 27.11: `npm ci` в корне rc=0, `npm test` полным набором — 3 929
 тестов, 773 конвейера, 3 915 pass, 12 fail, 2 skipped, `lint:src` rc=0. Из файлов,
@@ -5744,9 +5757,9 @@ eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолк�
 `app/test/unit/git/checkout-test.ts` («pathspec magic» ждут CRLF-байты), а
 `fork changelog`, `main-process menu`, `AppStore history pagination`,
 `AppStore assisted commit cancellation` и `CopilotPreferences` зелёные —
-`fork-changelog-test.ts` прогнан впервые. Прежние формулировки оставлены как
-история соответствующих снимков дерева; `l10n:bundles` и GUI-приёмка по-прежнему
-не сняты.
+`fork-changelog-test.ts` прогнан впервые. Прежние формулировки волн оставлены как история
+снимков дерева; `l10n:bundles` с этого прогона снята — красна из-за устаревшей
+раскатки `bin/`, — не снята остаётся GUI-приёмка.
 
 Средовое, называемое прямо. `npm run compile:dev` падает на OOM с heap 4 096: у
 этого скрипта override не задан ни у нас, ни в апстриме (в корневом
@@ -5768,5 +5781,5 @@ account is not signed in»); ни один из шести файлов не и�
 `desktop/desktop` — только `windows-2022` (`ci.yml:140`), а на том же head в CI при
 3 938 тестах падает ровно один; зонд `ln -s` и `chmod 755` на bind-дереве `/work`
 проходит, так что дело не в отсутствии прав. Остаются неснятыми: GUI-приёмка в
-поднятом стенде (noVNC) и `l10n:bundles` — ей нужен `dist/`, который даёт
-`build:prod`.
+поднятом стенде (noVNC). `l10n:bundles` снята красной, и механизм назван выше:
+отстаёт локальная раскатка `bin/resources/app`, а не отсутствие `dist/`.
