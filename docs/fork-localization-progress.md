@@ -5687,7 +5687,7 @@ en, ru/uk, la/eo, tlh/qya, мёртвые ключи — не нужны: мер
 
 Симптом. CI на PR #2 красен одной job — `Windows x64`, шаг «Wait for Windows unit
 tests»: 3 938 тестов, 3 897 успешных, одно падение, 40 пропущено (лог
-`E:/tmp/cilog_140172935827.txt`, строки 7499–7504). Упавший тест апстримный —
+`glm/2026-11-27_session/cilog_140172935827.txt`, копия с `E:/tmp`, строки 7499–7504). Упавший тест апстримный —
 `renders three independently selected, platform-labeled pickers (darwin=true)`
 (`app/test/unit/ui/copilot-preferences-test.tsx:1393-1416`); `Lint`, `CodeQL`,
 `CodeQL-Build`, `Windows arm64` и `E2E Smoke Windows x64` на том же head зелёные.
@@ -5717,8 +5717,10 @@ tests»: 3 938 тестов, 3 897 успешных, одно падение, 40
 воспроизведение причины. После: `copilot-preferences-test.tsx`, `l10n-test.ts`,
 `menu-test.ts`, `clone-repository-test.tsx` — 125 тестов, 125 pass, 0 fail.
 Однопрогонный набор фазы B (носитель `glm/scripts/phaseB_gates_1127.sh`, журнал
-`glm/2026-11-27_session/phaseB_1127.txt`, снимок 26.11 в 22:15–22:26 UTC): `npm ci`
-в контейнере rc=0, `test:setup` 0, `lint:src` 0, prettier по отслеживаемым файлам
+`glm/2026-11-27_session/phaseB_1127.txt`, метки шагов 26.11 с 22:15:03 по 22:37:00 UTC): `npm ci`
+в контейнере rc=0 — этот вызов сначала шёл отдельным запуском и в журнал не попал,
+поэтому установка переснята тем же носителем в 23:02 UTC (новый режим `install`),
+`test:setup` 0, `lint:src` 0, prettier по отслеживаемым файлам
 0, `check:eslint` 0, `l10n:parity` — 1 906 leaf-ключей в каждом из семи каталогов и
 0 нарушений, `l10n:audit` — 36 видимых литералов и 0 непокрытых, `l10n:upstream` —
 ни новой строки и ни мёртвого ключа, `l10n:untranslated` — ru 25, uk 25, la 28,
@@ -5758,13 +5760,14 @@ eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолк�
 `fork changelog`, `main-process menu`, `AppStore history pagination`,
 `AppStore assisted commit cancellation` и `CopilotPreferences` зелёные —
 `fork-changelog-test.ts` прогнан впервые. Прежние формулировки волн оставлены как история
-снимков дерева; `l10n:bundles` с этого прогона снята — красна из-за устаревшей
-раскатки `bin/`, — не снята остаётся GUI-приёмка.
+снимков дерева; `l10n:bundles` с этого прогона снята: красна из-за устаревшей раскатки
+`bin/` (см. абзац выше); не снята остаётся GUI-приёмка.
 
 Средовое, называемое прямо. `npm run compile:dev` падает на OOM с heap 4 096: у
 этого скрипта override не задан ни у нас, ни в апстриме (в корневом
-`package.json` соседний `compile:prod` несёт 8 192), а CI зовёт `build:prod`, где 8 192 стоит. Тип-гейт переснят тем же прогоном с `NODE_OPTIONS` (8 192):
-webpack собрался за 98 492 мс, RC=0.
+`package.json` соседний `compile:prod` несёт 8 192), а CI зовёт `build:prod`, где
+8 192 стоит. Тип-гейт переснят тем же прогоном с `NODE_OPTIONS` (8 192): webpack
+собрался за 98 492 мс, RC=0.
 `markdownlint` красен по чужому: 4 116 замечаний, из них 3 755 в `app/node_modules`;
 по отслеживаемым `.md`/`.mdx` — 238, в документах форка — 0; единственное
 пересечение с диффом серии — `docs/contributing/setup-windows.md`, причём строки 32
@@ -5776,10 +5779,28 @@ webpack собрался за 98 492 мс, RC=0.
 два `app/test/unit/git/checkout-test.ts` (`'base content\r\n' == 'base content\n'`),
 два `app/test/unit/git/submodule-test.ts` («discards only the literal submodule») и
 `app/test/unit/stores/app-store-add-accounts-test.ts` («The selected repository
-account is not signed in»); ни один из шести файлов не импортирует `l10n` (мера —
-`grep -c` по каждому даёт 0), матрица юнит-тестов для репозитория не из
-`desktop/desktop` — только `windows-2022` (`ci.yml:140`), а на том же head в CI при
-3 938 тестах падает ровно один; зонд `ln -s` и `chmod 755` на bind-дереве `/work`
+account is not signed in»); про природу последнего падения см. абзац ниже. Ни
+один из шести файлов не импортирует `l10n` (мера —
+`grep -c` по каждому даёт 0), юнит-тесты в CI идут внутри джобы `build`
+(`ci.yml:122`), чья матрица для репозитория не из `desktop/desktop` — только
+`windows-2022` (`ci.yml:140`), а на том же head в CI при 3 938 тестах падает ровно
+один; зонд `ln -s` и `chmod 755` на bind-дереве `/work`
 проходит, так что дело не в отсутствии прав. Остаются неснятыми: GUI-приёмка в
 поднятом стенде (noVNC). `l10n:bundles` снята красной, и механизм назван выше:
 отстаёт локальная раскатка `bin/resources/app`, а не отсутствие `dist/`.
+
+Разделение 12 падений по природе снято тем же носителем отдельно (режим `one`,
+метка 23:06 UTC в том же журнале): три файла изолированно дают метрики бегунка
+`tests 58 / suites 14 / pass 55 / fail 3`. `ahead-behind-store-test.ts` в изоляции
+зелёный — в полном наборе он упал таймаутом под нагрузкой. А
+`app-store-add-accounts-test.ts` падает и изолированно (105,9 мс в журнале), значит
+порядок файлов тут ни при чём и относить его к «файловой семантике» нельзя.
+Причастность серии проверена иначе: блок падающего `it` и обе функции — `_updateRepositoryAccount` (бросок на
+`app/src/lib/stores/app-store.ts:9575`) и `_switchWorktree` — совпадают побайтово
+между базой `development` и HEAD (мера — `git show` по обоим деревьям и сравнение
+строк). Дельта этого файла теста между базой и HEAD — +69/-0 пятью вставками на
+строках 21, 27, 88, 830 и 976, ни одна не попадает в интервал падающего `it`
+(HEAD:566-599). Значит поведение существовало в базе до серии. Почему тот же тест
+красен на Linux и зелёный на Windows — не проверялось: отдельной Linux-матрицы
+юнит-тестов в workflow нет, а форк собирается под Linux, так что это отдельная
+задача, а не блокатор PR.
