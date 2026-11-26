@@ -5737,6 +5737,17 @@ eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолк�
 сделанная plumbing'ом без переключения рабочего дерева, страховка — тег
 `backup-development-1127-pre-agents2`.
 
+Хвосты волн 3.7.0, beta1 и beta2 «ФАЗА B (контейнер `gdlab`) не запускалась»
+сняты прогоном 27.11: `npm ci` в корне rc=0, `npm test` полным набором — 3 929
+тестов, 773 конвейера, 3 915 pass, 12 fail, 2 skipped, `lint:src` rc=0. Из файлов,
+которые в дерево принёс мерж beta2, пали только два теста
+`app/test/unit/git/checkout-test.ts` («pathspec magic» ждут CRLF-байты), а
+`fork changelog`, `main-process menu`, `AppStore history pagination`,
+`AppStore assisted commit cancellation` и `CopilotPreferences` зелёные —
+`fork-changelog-test.ts` прогнан впервые. Прежние формулировки оставлены как
+история соответствующих снимков дерева; `l10n:bundles` и GUI-приёмка по-прежнему
+не сняты.
+
 Средовое, называемое прямо. `npm run compile:dev` падает на OOM с heap 4 096: у
 этого скрипта override не задан ни у нас, ни в апстриме (в корневом
 `package.json` соседний `compile:prod` несёт 8 192), а CI зовёт `build:prod`, где 8 192 стоит. Тип-гейт переснят тем же прогоном с `NODE_OPTIONS` (8 192):
