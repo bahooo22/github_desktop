@@ -51,7 +51,7 @@ Install dependencies first (`npm ci`), then run these from the repository root.
 - `.github/copilot-instructions.md` - stack, style conventions and the everyday commands.
 - `docs/contributing/setup.md` - environment setup.
 - `docs/contributing/styleguide.md` - style guide, including the Git command argument conventions.
-- `docs/fork-releases.md` - the four release workflows of this fork, the gate check and the download
+- `docs/fork-releases.md` - the five release workflows of this fork, the gate check and the download
   caches.
 
 Notes written for agent sessions in this fork are kept out of the tree on purpose: `agents/` and
