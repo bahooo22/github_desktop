@@ -2107,7 +2107,7 @@ app/test/unit/main-process/menu-test.ts` — 17 тестов, 17 пройден,
 `[кар винья но:тар хаура…]` читается с `italic` при весе 400, оригинал — 600.
 
 Мутационная самопроверка новой меры меню, обе половины. Подсказку убрать из
-inline-метки (`app/src/lib/l10n/core.ts:500` → `${text}`) — тест падает ровно
+inline-метки (`app/src/lib/l10n/core.ts:515` → `${text}`) — тест падает ровно
 «no Cyrillic gloss reached a menu label» (16 пройден / 1 падение). Счистку
 мнемоник выключить только для меток, у которых есть свой маркер, — падает
 вторая проверка, «access keys survived inside a gloss» (`menu-test.ts:457`,
@@ -5682,3 +5682,80 @@ en, ru/uk, la/eo, tlh/qya, мёртвые ключи — не нужны: мер
 `development` форка по-прежнему на `d215cb8055`, то есть в ветке лежат три незапушенные серии
 (3.7.0, 3.7.1-beta1, 3.7.1-beta2).
 
+
+## Время чтения платформы (27.11.2026)
+
+Симптом. CI на PR #2 красен одной job — `Windows x64`, шаг «Wait for Windows unit
+tests»: 3 938 тестов, 3 897 успешных, одно падение, 40 пропущено (лог
+`E:/tmp/cilog_140172935827.txt`, строки 7499–7504). Упавший тест апстримный —
+`renders three independently selected, platform-labeled pickers (darwin=true)`
+(`app/test/unit/ui/copilot-preferences-test.tsx:1393-1416`); `Lint`, `CodeQL`,
+`CodeQL-Build`, `Windows arm64` и `E2E Smoke Windows x64` на том же head зелёные.
+
+Причина. Правильный ответ теста задаёт апстримный тернарник `__DARWIN__ ? … : …`,
+который читает билд-глобал в момент рендера. Наш переводческий слой перенёс ту же
+пару в варианты каталога (`app/locales/en.json:269` → `@darwin`/`@other`), а
+`LocalizationManager` спрашивал платформу один раз при конструировании синглтона и
+держал ответ в поле. Тест меняет `globalThis.__DARWIN__` уже после импорта модуля,
+поэтому поле осталось с прежним значением, и вместо `@darwin` выбрался `@other`.
+Класс шире одного теста: 228 ключей `en.json` несут варианты платформы (мера —
+обход каталога и подсчёт словарей с ключом `@…`).
+
+Правка. `app/src/lib/l10n/core.ts`: поле `platform` → `platformOverride: Platform
+| null` (:126) плюс приватный геттер `platform` (:222), который без пина каждый раз
+зовёт `currentPlatform()`; `setPlatform` (:207) принимает `null` как «снова следить
+за билд-глобалом» и по-прежнему чистит кэш `effective`. Точки чтения (:385, :442,
+:551) не менялись. В проде пина нет: `grep -rn setPlatform app/src` даёт только
+определение, все вызовы — из тестов, поэтому продакшн-поведение становится ровно
+апстримным — вариант выбирается по актуальному билд-глобалу.
+
+Регресс. Новый `it` в `app/test/unit/l10n-test.ts` фиксирует инвариант, а не
+текущий дефект: живая платформа меняет строку вместе с `globalThis.__DARWIN__`, а
+после `setPlatform('win32')` флап глобала строку не меняет.
+
+Меры. До правки тот же файл теста в `gdlab`: 48 тестов, 47 pass, 1 fail — красное
+воспроизведение причины. После: `copilot-preferences-test.tsx`, `l10n-test.ts`,
+`menu-test.ts`, `clone-repository-test.tsx` — 125 тестов, 125 pass, 0 fail.
+Однопрогонный набор фазы B (носитель `glm/scripts/phaseB_gates_1127.sh`, журнал
+`glm/2026-11-27_session/phaseB_1127.txt`, снимок 26.11 в 22:15–22:26 UTC): `npm ci`
+в контейнере rc=0, `test:setup` 0, `lint:src` 0, prettier по отслеживаемым файлам
+0, `check:eslint` 0, `l10n:parity` — 1 906 leaf-ключей в каждом из семи каталогов и
+0 нарушений, `l10n:audit` — 36 видимых литералов и 0 непокрытых, `l10n:upstream` —
+ни новой строки и ни мёртвого ключа, `l10n:untranslated` — ru 25, uk 25, la 28,
+eo 20, tlh 53, qya 56 под потолками 28/28/31/23/56/59 (потолки не двигали), а
+`npm test` полным набором — 3 929 тестов, 773 конвейера, 3 915 pass, 12 fail,
+2 skipped; `test:script` rc=0, `test:eslint` rc=0, `l10n:bundles` rc=1 — она ждёт
+`dist/`, которого без `build:prod` нет (7 файлов сборки отличаются от `out/`).
+
+Пересъёмка прежних утверждений. «Тип-гейт остаётся незакрытым до `npm ci` в
+`gdlab`» снято: после установки `@github/copilot-sdk` в `app/node_modules` равен
+`1.0.34`, как требует `app/package.json:25`, и краснота хостового `tsc` (39 строк
+`error TS` в десяти файлах copilot-слоя) была следствием отсталой установки
+зависимостей, а не резолва; ни один из этих десяти путей в дифф серии не входит.
+Хвост волны beta2 «`development` форка по-прежнему на `d215cb8055`» устарел: в
+`development` запушен `ea27c0e2dc` — правка `AGENTS.md` про семь каталогов,
+сделанная plumbing'ом без переключения рабочего дерева, страховка — тег
+`backup-development-1127-pre-agents2`.
+
+Средовое, называемое прямо. `npm run compile:dev` падает на OOM с heap 4 096: у
+этого скрипта override не задан ни у нас, ни в апстриме (в корневом
+`package.json` соседний `compile:prod` несёт 8 192), а CI зовёт `build:prod`, где 8 192 стоит. Тип-гейт переснят тем же прогоном с `NODE_OPTIONS` (8 192):
+webpack собрался за 98 492 мс, RC=0.
+`markdownlint` красен по чужому: 4 116 замечаний, из них 3 755 в `app/node_modules`;
+по отслеживаемым `.md`/`.mdx` — 238, в документах форка — 0; единственное
+пересечение с диффом серии — `docs/contributing/setup-windows.md`, причём строки 32
+и 83 в нём совпадают с базой `d215cb8055` (мера — `git show` по этим строкам), а CI
+эту мерку не запускает вовсе. Юнит-тесты в Linux-контейнере дают 12 падений: `ahead-behind-store-test.ts`
+(таймаут ожидания ahead/behind), четыре теста
+`app/test/unit/git/assisted-commit-conversion-test.ts` и два
+`app/test/unit/git/assisted-commit-test.ts` (ждут CRLF в буфере и mode `100755`),
+два `app/test/unit/git/checkout-test.ts` (`'base content\r\n' == 'base content\n'`),
+два `app/test/unit/git/submodule-test.ts` («discards only the literal submodule») и
+`app/test/unit/stores/app-store-add-accounts-test.ts` («The selected repository
+account is not signed in»); ни один из шести файлов не импортирует `l10n` (мера —
+`grep -c` по каждому даёт 0), матрица юнит-тестов для репозитория не из
+`desktop/desktop` — только `windows-2022` (`ci.yml:140`), а на том же head в CI при
+3 938 тестах падает ровно один; зонд `ln -s` и `chmod 755` на bind-дереве `/work`
+проходит, так что дело не в отсутствии прав. Остаются неснятыми: GUI-приёмка в
+поднятом стенде (noVNC) и `l10n:bundles` — ей нужен `dist/`, который даёт
+`build:prod`.

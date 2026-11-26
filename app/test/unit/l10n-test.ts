@@ -275,6 +275,58 @@ describe('l10n manager', () => {
     assert.equal(localization.translate('greeting'), 'Привет')
   })
 
+  it('chooses a platform variant against the global while nothing pins it', t => {
+    // Upstream spelled the difference out inline as `__DARWIN__ ? … : …`, so the
+    // wording a component showed followed the global at render time. The catalog
+    // carries the same pair as `@darwin`/`@other`, and the Copilot preferences
+    // test flips the global inside a running process — a platform remembered
+    // from import time there prints the other platform's capitalization.
+    fresh()
+    localization.registerFromJson(
+      'en',
+      {
+        meta: { name: 'English', nativeName: 'English' },
+        copilot: {
+          'commit-message-generation': {
+            '@darwin': 'Commit Message Generation',
+            '@other': 'Commit message generation',
+          },
+        },
+      },
+      'builtin'
+    )
+    localization.setPlatform(null)
+    localization.setRequestedLocale('en')
+
+    const previous = __DARWIN__
+    t.after(() => {
+      Object.assign(globalThis, { __DARWIN__: previous })
+      fresh()
+    })
+
+    Object.assign(globalThis, { __DARWIN__: true })
+    assert.equal(
+      localization.translate('copilot.commit-message-generation'),
+      'Commit Message Generation'
+    )
+
+    Object.assign(globalThis, { __DARWIN__: false })
+    assert.equal(
+      localization.translate('copilot.commit-message-generation'),
+      'Commit message generation'
+    )
+
+    // A pin still outranks the global: `menu-test.ts` builds the template for
+    // win32, linux and darwin inside one process, and those labels must not
+    // drift to the running platform under it.
+    Object.assign(globalThis, { __DARWIN__: true })
+    localization.setPlatform('win32')
+    assert.equal(
+      localization.translate('copilot.commit-message-generation'),
+      'Commit message generation'
+    )
+  })
+
   it('falls back to the reference catalog for missing keys', () => {
     fresh()
     localization.setSystemLocales(['ru'])

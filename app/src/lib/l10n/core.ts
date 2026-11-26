@@ -123,7 +123,7 @@ class LocalizationManager {
   private requestedTag: string | null = null
   private systemTags = new Array<string>()
   private activeTag = FallbackLocaleTag
-  private platform: Platform = currentPlatform()
+  private platformOverride: Platform | null = null
   private glossMode: GlossMode = 'off'
 
   public registerFromJson(
@@ -203,10 +203,24 @@ class LocalizationManager {
     this.emit()
   }
 
-  /** Overridable so tests and the main process can pin the platform. */
-  public setPlatform(platform: Platform): void {
-    this.platform = platform
+  /** Overridable so a test can pin the platform; `null` restores the global. */
+  public setPlatform(platform: Platform | null): void {
+    this.platformOverride = platform
     this.effective.clear()
+  }
+
+  /**
+   * The platform whose `@darwin`/`@other` variants are chosen against.
+   *
+   * Asked of the build global on every lookup instead of once at construction:
+   * upstream spelled the difference out inline as `__DARWIN__ ? … : …`, so a
+   * component followed whatever the global said at render time. A catalog that
+   * freezes the platform at import prints the other platform's capitalization
+   * for anything that flips the global afterwards, and the tests that render
+   * both platforms in one process do exactly that.
+   */
+  private get platform(): Platform {
+    return this.platformOverride ?? currentPlatform()
   }
 
   public getRequestedLocale(): string | null {
