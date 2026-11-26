@@ -2498,7 +2498,8 @@
       "copilotCommit": "Commit with Copilot: the commit panel can split the selected changes into commits and write their messages",
       "upstreamSync3612": "Upstream 3.6.11 and 3.6.12-beta1 are merged: a manual commit can push itself afterwards, and each repository can be given its own account",
       "upstreamSync370": "Upstream 3.7.0 is merged: several GitHub accounts work at the same time",
-      "upstreamSync371Beta1": "Upstream 3.7.1-beta1 is merged: Copilot can split the selected changes into commits"
+      "upstreamSync371Beta1": "Upstream 3.7.1-beta1 is merged: Copilot can split the selected changes into commits",
+      "upstreamSync371Beta2": "Upstream 3.7.1-beta2 is merged: the commit history stays up to date"
     }
   },
   "repositoriesList": {
