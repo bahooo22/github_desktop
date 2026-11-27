@@ -10,11 +10,8 @@
     "ok": "ОК",
     "save": "Зберегти",
     "close": "Закрити",
-    "add": "Додати",
     "remove": "Видалити",
-    "retry": "Повторити",
     "invalidDate": "Некоректна дата",
-    "discard": "Відкинути",
     "done": "Готово",
     "learnMore": "Докладніше",
     "do-not-show-again": "Більше не показувати це повідомлення",
@@ -108,13 +105,11 @@
     "integrations": {
       "external-editor": "Зовнішній редактор",
       "external-editor-aria": "Зовнішній редактор",
-      "no-editors-found": "Редактори не знайдено.",
       "no-other-editors-found": "Інші редактори не знайдено.",
       "install-editor": "Встановити {name}?",
       "configure-custom-editor": "Налаштувати редактор",
       "shell": "Оболонка",
       "configure-custom-shell": "Налаштувати оболонку",
-      "applications": "Застосунки",
       "choose-copilot": "Вибрати GitHub Copilot",
       "copilot-description": "Спробуйте розробку за допомогою агентів, нативно вбудовану в GitHub.",
       "copilot-learn-more": "Докладніше про GitHub Copilot",
@@ -229,6 +224,7 @@
       "conflict-resolution": "Вирішення конфліктів",
       "conflict-model-changes": "Зміна моделі застосовується до майбутніх вирішень конфліктів.",
       "always-use-copilot-conflicts": "Завжди використовувати Copilot для конфліктів",
+      "assisted-commit": "Коміти з підтримкою Copilot",
       "byok-empty-description": "Додайте користувацького провайдера, щоб використовувати власні ключі API з ендпоінтами, сумісними з OpenAI, Azure, Anthropic, або локальні провайдери на кшталт Ollama.",
       "provider-model-count": {
         "_few": "{count:number} моделі",
@@ -343,8 +339,6 @@
     "create": "Створити",
     "tagInvalid": "Використовуйте код мови: «ru», «pt-BR» або «sr-Cyrl-RS».",
     "tagExists": "Переклад для {tag} уже існує.",
-    "original": "Оригінал",
-    "translation": "Переклад",
     "empty": "Немає чого показати.",
     "noResults": "Жоден рядок не відповідає пошуку.",
     "unsaved": "Є незбережені зміни.",
@@ -355,19 +349,8 @@
     "save": "Зберегти переклади",
     "saved": "Збережено в {path}",
     "saveFailed": "Не вдалося записати файл перекладу: {error}",
-    "exported": "Скопійовано в {path}",
-    "import": "Імпорт",
-    "importFailed": "Не вдалося прочитати {file}: {error}",
     "delete": "Видалити цей переклад",
     "deleted": "{tag} видалено",
-    "variants": {
-      "_one": "У рядка {count:number} форма",
-      "_few": "У рядка {count:number} форми",
-      "_many": "У рядка {count:number} форм",
-      "_other": "У рядка {count:number} форми"
-    },
-    "pluralNote": "Цей рядок змінюється залежно від числа, тому для кожної форми потрібна окрема графа.",
-    "platformNote": "Цей рядок відрізняється залежно від операційної системи. Показано форму для вашої системи.",
     "placeholderWarning": "В оригіналі є {placeholders} — збережіть їх і в перекладі.",
     "problemsTitle": "Частину записів каталогу не вдалося завантажити",
     "unknownKeysTitle": "Цих ключів немає у початковому каталозі",
@@ -773,8 +756,6 @@
     "continue-with-browser": "Продовжити в браузері",
     "enterprise-address": "Адреса корпоративного сервера",
     "browser-redirect-info": "Після входу браузер поверне вас до GitHub Desktop. Якщо браузер запитає дозвіл на запуск GitHub Desktop, надайте його.",
-    "existing-account-warning": "Ви вже увійшли до <ref>{host}</ref> під обліковим записом <ref>{login}</ref>. Якщо ви продовжите, спочатку буде виконано вихід з облікового запису.",
-    "credential-helper-info": "Git запитує облікові дані для доступу до <ref>{url}</ref>.",
     "expected-login": "Увійдіть як <ref>{login}</ref> на <ref>{host}</ref>, щоб продовжити."
   },
   "terms": {
@@ -1088,7 +1069,6 @@
     "choose": "Вибрати…",
     "clone": "Клонувати",
     "dotcom-sign-in-description": "Увійдіть в GitHub.com для клонування",
-    "enterprise-sign-in-description": "Увійдіть в Enterprise для клонування",
     "error-app-suffix": "Локальний шлях не може закінчуватися на .app в macOS. Виберіть іншу назву папки, щоб не вийшов пакет застосунку.",
     "error-directory-could-not-create": "Не вдалося створити директорію",
     "error-folder-not-empty": "У цій папці вже є файли. Git може клонувати лише в порожні папки.",
@@ -1132,14 +1112,12 @@
     "commit-title": "{verb} у гілку {branch}",
     "committed-just-now": "Коміт виконано щойно — {summary} (Sha: {sha})",
     "committing": "Коміт",
-    "committing-changes": "Коміт змін",
     "configure-options": "Налаштувати параметри коміту",
     "copilot-tooltip": "Створити повідомлення коміту за допомогою Copilot",
     "copilot-tooltip-cancel": "Скасувати генерацію опису коміту",
     "copilot-tooltip-no-files": "Створити повідомлення коміту за допомогою Copilot. Щоб згенерувати повідомлення, потрібно вибрати файли.",
     "create-group": "Створити коміт",
     "description-label": "Опис",
-    "description-placeholder": "Опис",
     "description-sr-label": "Опис коміту",
     "disable-spellcheck": "Вимкнути перевірку правопису",
     "enable-spellcheck": "Увімкнути перевірку правопису",
@@ -1170,16 +1148,8 @@
     "signed-off-by-trailer": "Додати трейлер Signed-off-by",
     "summary-label": "Заголовок коміту",
     "summary-required": "Щоб зафіксувати зміни, потрібен короткий опис коміту",
-    "summary-sr-label": "Короткий опис (скринридер)",
     "warning-word": "Попередження",
     "amend-notice": "Ваші зміни змінять <strong>останній коміт</strong>. <link>Припиніть доповнення</link>, щоб зафіксувати їх як новий коміт.",
-    "commit-button": {
-      "_one": "{verb} {count:number} файл у гілку <strong>{branch}</strong>",
-      "_few": "{verb} {count:number} файли у гілку <strong>{branch}</strong>",
-      "_many": "{verb} {count:number} файлів у гілку <strong>{branch}</strong>",
-      "_other": "{verb} {count:number} файлів у гілку <strong>{branch}</strong>"
-    },
-    "commit-button-plain": "{verb} у гілку <strong>{branch}</strong>",
     "no-write-access": "У вас немає прав на запис у <strong>{name}</strong>. Хочете <link>створити форк</link>?",
     "protected-branch": "<strong>{branch}</strong> — захищена гілка. Хочете <link>перемкнути гілку</link>?",
     "manual-description": "Зводку та опис коміту напишіть самостійно.",
@@ -1666,7 +1636,6 @@
   "publish": {
     "description": "Опис",
     "dotcom-sign-in-description": "Увійдіть до облікового запису GitHub.com, щоб опублікувати репозиторій.",
-    "enterprise-sign-in-description": "Увійдіть до Enterprise для публікації",
     "keep-private": "Залишити приватним",
     "name": "Ім'я",
     "none": "Немає",
@@ -2055,7 +2024,6 @@
     "whatsNew": "що нового",
     "dismiss": "сховати",
     "pendingInstall": "Доступна нова версія GitHub Desktop, яка буде встановлена під час наступного запуску. Див. <whatsNew/> або <restart/>.",
-    "installNow": "Доступна нова версія GitHub Desktop. <restart/> зараз, щоб встановити оновлення.",
     "showcase": "Додано нові можливості<version/>. Див. <whatsNew/> або <dismiss/>.",
     "prioritizeMissing": "У цій версії відсутні <importantUpdates/>. Будь ласка, <restart/> зараз, щоб встановити оновлення.",
     "importantUpdates": "важливі оновлення",
@@ -2152,11 +2120,6 @@
   },
   "tutorialPanelSkip": {
     "skip": "Пропустити"
-  },
-  "cloneRepositoryTabs": {
-    "dotcomTab": "GitHub.com",
-    "enterpriseTab": "GitHub Enterprise",
-    "urlTab": "URL"
   },
   "branchesContainerTabs": {
     "branchesTab": "Гілки",
@@ -2368,7 +2331,10 @@
       "aboutDownloadButtons": "Діалог «Про застосунок» сам пропонує оновлення: встановити збірку форка або завантажити офіційну. Ніщо не запускається автоматично — файл кладеться у «Завантаження»",
       "upstreamSync3611": "Базу оновлено до 3.6.11-beta1: проєкт збирається через npm замість yarn, релізні workflow форку переведено слідом",
       "copilotCommit": "Коміт через Copilot: панель коміту вміє розбивати вибрані зміни на коміти й писати до них повідомлення",
-      "upstreamSync3612": "Базу оновлено до 3.6.11 і 3.6.12-beta1: ручний коміт вміє сам надсилатися слідом, і кожному репозиторію можна призначити власний обліковий запис"
+      "upstreamSync3612": "Базу оновлено до 3.6.11 і 3.6.12-beta1: ручний коміт вміє сам надсилатися слідом, і кожному репозиторію можна призначити власний обліковий запис",
+      "upstreamSync370": "Базу оновлено до 3.7.0: кілька облікових записів GitHub працюють одночасно",
+      "upstreamSync371Beta1": "Базу оновлено до 3.7.1-beta1: Copilot уміє розбивати вибрані зміни на коміти",
+      "upstreamSync371Beta2": "Базу оновлено до 3.7.1-beta2: історія комітів залишається актуальною"
     }
   },
   "repositoriesList": {

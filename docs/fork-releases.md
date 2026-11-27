@@ -8,14 +8,14 @@
 ## Идентификатор и фид обновлений
 
 Все имена выводятся из одного значения — `getWindowsIdentifierName()`
-(`script/dist-info.ts:106`), сейчас это `GitHubDesktopL10n`. От него зависят
+(`script/dist-info.ts:123`), сейчас это `GitHubDesktopL10n`. От него зависят
 имя исполняемого файла, `GitHubDesktopL10nSetup-<arch>.exe`/`.msi`,
 `nugetPackageId` и имена `*-full.nupkg`/`*-delta.nupkg`, а также
 `AppUserModelId` (`app/src/main-process/main.ts:136` собирает
 `com.squirrel.<identifier>.<identifier>`).
 
 Фид обновлений — ассеты обычного GitHub Release, по одному тегу на
-архитектуру (`getUpdatesURL()`, `script/dist-info.ts:167`):
+архитектуру (`getUpdatesURL()`, `script/dist-info.ts:212`):
 
 - `latest-win-x64` и `latest-win-arm64` — Windows,
 - `latest-linux-x64` — Linux (portable-архив, `.deb` и AppImage; Squirrel-обновлений
@@ -35,9 +35,9 @@
 
 Поведение, специфичное для апстримного `central.github.com` (query
 `?version=&env=`, перезапись пути под arm64), отключено для форк-фида гейтом
-`isCentralFeed()` в рантайме (`app/src/ui/lib/update-store.ts:37`) и
-`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:236`, вызывается из
-`script/package.ts:113` и `:162` для `remoteReleases` и имён пакетов) — для
+`isCentralFeed()` в рантайме (`app/src/ui/lib/update-store.ts:39`) и
+`isCentralUpdatesFeed()` при упаковке (`script/dist-info.ts:279`, вызывается из
+`script/package.ts:124` и `:175` для `remoteReleases` и имён пакетов) — для
 статики GitHub-ассетов оно ломало бы загрузку.
 
 **Обратная сторона: сборка не может подписаться на апстрим.** Squirrel.Windows
@@ -45,7 +45,7 @@
 `RELEASES` назван `GitHubDesktop-*.nupkg` — другое имя, другой каталог установки.
 То есть установленная локализация, указывающая на central, на первой же
 проверке обновлений перестала бы быть локализацией. Дефолт `getUpdatesURL()`
-(`script/dist-info.ts:167`) — тег этого репозитория, так что central достижим
+(`script/dist-info.ts:212`) — тег этого репозитория, так что central достижим
 только ручным `DESKTOP_UPDATES_URL`; на этом пути `getUpdatesURL()` бросает
 исключение, если канал публикабельный (`production`/`beta`/`test`), — ошибка
 получается в логе сборки, а не на машине пользователя. Непубликуемые каналы
@@ -60,10 +60,10 @@
 
 **Имя ярлыка — отдельный рычаг.** Каталог установки и `AppUserModelId` разъезжаются
 сами, а `.lnk` Squirrel называет по `FileDescription` исполняемого файла:
-`getWindowsShortcutName()` (`script/dist-info.ts:131`) даёт сборке «GitHub Desktop
-L10n», значение попадает в `win32metadata` (`script/build.ts:264`) и в рантайм как
-`__WINDOWS_SHORTCUT_NAME__` (`app/app-info.ts:56`), по которому main-process и свой
-ярлык находит (`app/src/main-process/squirrel-updater.ts:162`,
+`getWindowsShortcutName()` (`script/dist-info.ts:148`) даёт сборке «GitHub Desktop
+L10n», значение попадает в `win32metadata` (`script/build.ts:285`) и в рантайм как
+`__WINDOWS_SHORTCUT_NAME__` (`app/app-info.ts:60`), по которому main-process и свой
+ярлык находит (`app/src/main-process/squirrel-updater.ts:197`,
 `app/src/lib/find-toast-activator-clsid.ts:10`). Без этого замера обе редакции
 писали один файл: в `Squirrel-Shortcut.log` двух установок на одной машине
 (08.10.2026) обе создают
@@ -80,7 +80,7 @@ L10n», значение попадает в `win32metadata` (`script/build.ts:2
 порядком `PATH`: замер 08.10.2026 на машине с обеими установками —
 `GitHubDesktop\bin` на позиции 22, `GitHubDesktopL10n\bin` на 30, то есть команда
 запускала стоковую сборку, даже когда пользователь работал в форке. Форк ставит
-`github-l10n` (`getWindowsCliCommandName()`, `script/dist-info.ts:144`), имя приходит
+`github-l10n` (`getWindowsCliCommandName()`, `script/dist-info.ts:161`), имя приходит
 в рантайм литералом `__WINDOWS_CLI_COMMAND_NAME__` и используется и для записи
 трамплинов (`app/src/main-process/squirrel-updater.ts:140`, `:159`), и в справке CLI
 (`app/src/cli/main.ts:43`). Старые `github.bat`/`github` в нашем `bin` удаляются при
@@ -291,12 +291,12 @@ x64 и arm64 не блокируют друг друга, а `cancel-in-progress
    которого на самом деле не нужно.
 2. `npm run build:prod` с `npm_config_arch` и `TARGET_ARCH` равными выбранной
    архитектуре (без `TARGET_ARCH` arm64-прогон собрал бы x64-нативы — см.
-   `script/build.ts:203`).
+   `script/build.ts:222`).
 3. `npm run package` со `DESKTOP_UPDATES_URL`, указывающим на ассеты этого же тега,
    `DESKTOP_FORK_BUILD_NUMBER` из output gate (версия публикации — см. следующий
    раздел) и `DESKTOP_SKIP_DELTA=1` при `first_run=true`. Флаг нужен для самого
    первого релиза: удалённого `RELEASES` ещё нет, а `electron-winstaller` при
-   заданном `remoteReleases` вызывает `SyncReleases.exe` (`lib/index.js:272-274`)
+   заданном `remoteReleases` вызывает `SyncReleases.exe` (`node_modules/electron-winstaller/lib/index.js:272-274`)
    и падает на его ненулевом коде выхода (`lib/spawn-promise.js`) — гибла вся
    сборка. Дельта выключается вместе с этим вызовом, канал сборки остаётся
    `production`.
@@ -521,16 +521,47 @@ npm run l10n:bundles   # node script/i18n-freshness.mjs --bundles
   `app/test/unit/script/fork-version-test.ts` сверяет её с библиотекой на каждой
   форме, которую умеет производить модуль.
 - **Носитель** — `Options.version` в `createWindowsInstaller`
-  (`lib/index.js:203`, `Object.assign(metadata, options)`), поэтому
+  (`node_modules/electron-winstaller/lib/index.js:204`, `Object.assign(metadata, options)`), поэтому
   `app/package.json` и версия, которую показывает «О программе», остаются
   базовыми: пользователь видит `3.6.7-beta3`, а в `RELEASES` уходит
   `GitHubDesktopL10n-3.6.7-beta340382-full.nupkg`. Имена пакетов в
   `script/dist-info.ts` строятся из той же функции, так что `RELEASES`, имена
   ассетов и сравнение gate не могут разойтись.
-- **Чистая база — ловушка**: `3.7.0-fork40500` по NuGet НИЖЕ `3.7.0`, поэтому
-  после апстрим-релиза без prerelease-хвоста первый форк-прогон получит отказ
-  gate «версия не выше опубликованной», и лечить его нужно бампом базовой
-  версии, а не обходом проверки.
+- **Чистая база — ловушка чужого фида, не нашего**: `3.7.0-fork41008` по NuGet
+  НИЖЕ голой `3.7.0`, поэтому прогон, сравнивающий свою версию с чистой базой,
+  получил бы отказ gate «версия не выше опубликованной». В нашем фиде голой
+  версии не бывает: gate берёт опубликованное значение из поля `version` блока
+  `fork-build-info` собственного релиза
+  (`.github/actions/release-gate/action.yml:197`), а этот блок workflow пишет
+  только с номером коммита — шаг сборки падает, если gate не вернул версию
+  (`.github/workflows/release-fork-windows.yml:388-392`). Замер 22.11.2026 после
+  мержа 3.7.0: `--compare 3.7.0-fork41008 3.6.12-beta140999` даёт `1`, то есть
+  первый прогон на новой базе проходит gate без бампа `app/package.json`. Если
+  отказ всё-таки появится, лечить его нужно бампом базовой версии, а не обходом
+  проверки.
+- **Именованный релиз апстрима — та же ловушка с другой стороны**: с 25.11.2026
+  апстрим публикует `release-3.7.0`, поэтому в чужом фиде впервые лежит голое
+  число той же основы, что и у нас. Gate этого не видит — он сверяется только с
+  полем `version` собственного релиза, — зато видит пользователь: баннер
+  официального канала появляется при любой публикации апстрима, а не только при
+  выходе беты. Следствие для базы: голое `3.7.1` по NuGet ОКАЖЕТСЯ ВЫШЕ нашей
+  `3.7.1-beta1.<номер>` (prerelease всегда ниже релиза той же основы), и тогда
+  фид форка будет отставать от базы, даже не получив ни одной правки. Мера —
+  та же: после мержа 3.7.1-beta1 `--compare 3.7.1-beta141053 3.7.0-fork41008`
+  даёт `1` (номер коммита снят `git rev-list --count HEAD` 26.11.2026), а бамп
+  `app/package.json` нужен ровно в тот момент, когда апстрим выпустит голую
+  `3.7.1`. Пересъёмка того же дня после мержа 3.7.1-beta2 (номер сборки — это
+  количество коммитов, поэтому он растёт на каждый коммит волны: 41 077 на мерже,
+  41 079 на её итоге): `--compare 3.7.1-beta241079 3.7.0-fork41008` = `1`,
+  `--compare 3.7.1-beta241079 3.7.1-beta141053` = `1`, `--compare
+  3.7.1-beta241079 3.7.1-beta241077` = `1`, и `--compare
+  3.7.1-beta241079 3.7.1` = `-1` — то есть ловушка не перевернулась, а осталась
+  открытой и подтверждена числом: тег `release-3.7.1` в апстриме уже есть
+  (`534cde998b`), а GitHub Release под ним ещё нет (404 на 26.11.2026), тогда как
+  `release-3.7.1-beta2` опубликован тем же днём в 13:46 UTC как prerelease.
+  Строка статуса ручной проверки при этом не должна подавляться
+  баннером — вызов `noteExternalCheck()` держится в
+  `app/src/ui/app.tsx:773`.
 
 Последствия, которые этот способ приносит:
 
@@ -891,7 +922,7 @@ rc=0:
 - `ci.yml` на `9226427d73` и на `e1c76f9b16` падал на Windows x64 по двум кейсам
   `app/test/unit/about-test.tsx` — фикстура кэша проверки релиза не писала поле
   `checkedSha`, которое по фиксу устаревшего баннера обязательно
-  (`app/src/lib/fork-release.ts:305-323`). Починено `5e0456781a`, и push-прогон
+  (`app/src/lib/fork-release.ts:325-326`). Починено `5e0456781a`, и push-прогон
   38014227524 на этом же коммите закрылся зелёным: Windows x64, Lint, Windows arm64
   и E2E Smoke — все success.
 

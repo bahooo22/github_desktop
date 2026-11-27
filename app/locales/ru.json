@@ -10,11 +10,8 @@
     "ok": "ОК",
     "save": "Сохранить",
     "close": "Закрыть",
-    "add": "Добавить",
     "remove": "Удалить",
-    "retry": "Повторить",
     "invalidDate": "Некорректная дата",
-    "discard": "Отменить",
     "done": "Готово",
     "learnMore": "Подробнее",
     "do-not-show-again": "Больше не показывать это сообщение",
@@ -108,13 +105,11 @@
     "integrations": {
       "external-editor": "Внешний редактор",
       "external-editor-aria": "Внешний редактор",
-      "no-editors-found": "Редакторы не найдены.",
       "no-other-editors-found": "Другие редакторы не найдены.",
       "install-editor": "Установить {name}?",
       "configure-custom-editor": "Настроить редактор",
       "shell": "Оболочка",
       "configure-custom-shell": "Настроить оболочку",
-      "applications": "Приложения",
       "choose-copilot": "Выбрать GitHub Copilot",
       "copilot-description": "Попробуйте разработку с помощью агентов, нативно встроенную в GitHub.",
       "copilot-learn-more": "Подробнее о GitHub Copilot",
@@ -229,6 +224,7 @@
       "conflict-resolution": "Разрешение конфликтов",
       "conflict-model-changes": "Смена модели применяется к будущим разрешениям конфликтов.",
       "always-use-copilot-conflicts": "Всегда использовать Copilot для конфликтов",
+      "assisted-commit": "Коммиты с поддержкой Copilot",
       "byok-empty-description": "Добавьте пользовательского провайдера, чтобы использовать свои ключи API с эндпоинтами, совместимыми с OpenAI, Azure, Anthropic или локальные провайдеры вроде Ollama.",
       "provider-model-count": {
         "_few": "{count:number} модели",
@@ -343,8 +339,6 @@
     "create": "Создать",
     "tagInvalid": "Используйте код языка: «ru», «pt-BR» или «sr-Cyrl-RS».",
     "tagExists": "Перевод для {tag} уже существует.",
-    "original": "Оригинал",
-    "translation": "Перевод",
     "empty": "Нечего показать.",
     "noResults": "Ни одна строка не подходит под поиск.",
     "unsaved": "Есть несохранённые изменения.",
@@ -355,19 +349,8 @@
     "save": "Сохранить переводы",
     "saved": "Сохранено в {path}",
     "saveFailed": "Не удалось записать файл перевода: {error}",
-    "exported": "Скопировано в {path}",
-    "import": "Импорт",
-    "importFailed": "Не удалось прочитать {file}: {error}",
     "delete": "Удалить этот перевод",
     "deleted": "{tag} удалён",
-    "variants": {
-      "_one": "У строки {count:number} форма",
-      "_few": "У строки {count:number} формы",
-      "_many": "У строки {count:number} форм",
-      "_other": "У строки {count:number} формы"
-    },
-    "pluralNote": "Эта строка меняется вместе с числом, поэтому для каждой формы нужна отдельная графа.",
-    "platformNote": "Эта строка различается по операционным системам. Показана форма для вашей системы.",
     "placeholderWarning": "В оригинале есть {placeholders} — сохраните их и в переводе.",
     "problemsTitle": "Часть записей каталога не удалось загрузить",
     "unknownKeysTitle": "Этих ключей нет в исходном каталоге",
@@ -773,8 +756,6 @@
     "continue-with-browser": "Продолжить в браузере",
     "enterprise-address": "Адрес корпоративного сервера",
     "browser-redirect-info": "После входа браузер вернёт вас в GitHub Desktop. Если браузер запросит разрешение на запуск GitHub Desktop, предоставьте его.",
-    "existing-account-warning": "Вы уже вошли в <ref>{host}</ref> под учётной записью <ref>{login}</ref>. Если вы продолжите, сначала будет выполнен выход из учётной записи.",
-    "credential-helper-info": "Git запрашивает учётные данные для доступа к <ref>{url}</ref>.",
     "expected-login": "Войдите как <ref>{login}</ref> на <ref>{host}</ref>, чтобы продолжить."
   },
   "terms": {
@@ -1088,7 +1069,6 @@
     "choose": "Выбрать…",
     "clone": "Клонировать",
     "dotcom-sign-in-description": "Войдите в GitHub.com для клонирования",
-    "enterprise-sign-in-description": "Войдите в Enterprise для клонирования",
     "error-app-suffix": "Локальный путь не может заканчиваться на .app в macOS. Выберите другое имя папки, чтобы не получится пакет приложения.",
     "error-directory-could-not-create": "Не удалось создать директорию",
     "error-folder-not-empty": "В этой папке уже есть файлы. Git может выполнять клонирование только в пустые папки.",
@@ -1132,14 +1112,12 @@
     "commit-title": "{verb} в ветку {branch}",
     "committed-just-now": "Коммит выполнен только что — {summary} (Sha: {sha})",
     "committing": "Коммичу",
-    "committing-changes": "Коммичу изменения",
     "configure-options": "Настроить параметры коммита",
     "copilot-tooltip": "Создать сообщение коммита с Copilot",
     "copilot-tooltip-cancel": "Отменить генерацию описания коммита",
     "copilot-tooltip-no-files": "Сгенерировать сообщение коммита с Copilot. Чтобы сгенерировать сообщение, нужно выбрать файлы.",
     "create-group": "Создать коммит",
     "description-label": "Описание",
-    "description-placeholder": "Описание",
     "description-sr-label": "Описание коммита",
     "disable-spellcheck": "Отключить проверку орфографии",
     "enable-spellcheck": "Включить проверку орфографии",
@@ -1170,16 +1148,8 @@
     "signed-off-by-trailer": "Добавить трейлер Signed-off-by",
     "summary-label": "Заголовок коммита",
     "summary-required": "Чтобы зафиксировать изменения, необходимо краткое описание коммита",
-    "summary-sr-label": "Краткое описание (скринридер)",
     "warning-word": "Предупреждение",
     "amend-notice": "Ваши изменения изменят <strong>последний коммит</strong>. <link>Прекратите дополнение</link>, чтобы зафиксировать их как новый коммит.",
-    "commit-button": {
-      "_one": "{verb} {count:number} файл в ветку <strong>{branch}</strong>",
-      "_few": "{verb} {count:number} файла в ветку <strong>{branch}</strong>",
-      "_many": "{verb} {count:number} файлов в ветку <strong>{branch}</strong>",
-      "_other": "{verb} {count:number} файлов в ветку <strong>{branch}</strong>"
-    },
-    "commit-button-plain": "{verb} в ветку <strong>{branch}</strong>",
     "no-write-access": "У вас нет прав на запись в <strong>{name}</strong>. Хотите <link>создать форк</link>?",
     "protected-branch": "<strong>{branch}</strong> — защищённая ветка. Хотите <link>переключить ветку</link>?",
     "manual-description": "Сводку и описание коммита напишите сами.",
@@ -1666,7 +1636,6 @@
   "publish": {
     "description": "Описание",
     "dotcom-sign-in-description": "Войдите в учётную запись GitHub.com, чтобы опубликовать репозиторий.",
-    "enterprise-sign-in-description": "Войдите в Enterprise для публикации",
     "keep-private": "Оставить приватным",
     "name": "Имя",
     "none": "Нет",
@@ -2055,7 +2024,6 @@
     "whatsNew": "что нового",
     "dismiss": "скрыть",
     "pendingInstall": "Доступна новая версия GitHub Desktop, которая будет установлена при следующем запуске. См. <whatsNew/> или <restart/>.",
-    "installNow": "Доступна новая версия GitHub Desktop. <restart/> сейчас, чтобы установить обновления.",
     "showcase": "Добавлены новые возможности<version/>. См. <whatsNew/> или <dismiss/>.",
     "prioritizeMissing": "В этой версии отсутствуют <importantUpdates/>. Пожалуйста, <restart/> сейчас, чтобы установить обновления.",
     "importantUpdates": "важные обновления",
@@ -2152,11 +2120,6 @@
   },
   "tutorialPanelSkip": {
     "skip": "Пропустить"
-  },
-  "cloneRepositoryTabs": {
-    "dotcomTab": "GitHub.com",
-    "enterpriseTab": "GitHub Enterprise",
-    "urlTab": "URL"
   },
   "branchesContainerTabs": {
     "branchesTab": "Ветки",
@@ -2368,7 +2331,10 @@
       "aboutDownloadButtons": "Диалог «О программе» сам предлагает обновление: установить сборку форка или скачать официальную. Ничего не запускается автоматически — файл кладётся в «Загрузки»",
       "upstreamSync3611": "База обновлена до 3.6.11-beta1: проект собирается через npm вместо yarn, релизные workflow форка переведены следом",
       "copilotCommit": "Коммит через Copilot: панель коммита умеет разбивать выбранные изменения на коммиты и писать к ним сообщения",
-      "upstreamSync3612": "База обновлена до 3.6.11 и 3.6.12-beta1: ручной коммит умеет сам отправляться следом, и каждому репозиторию можно назначить свою учётную запись"
+      "upstreamSync3612": "База обновлена до 3.6.11 и 3.6.12-beta1: ручной коммит умеет сам отправляться следом, и каждому репозиторию можно назначить свою учётную запись",
+      "upstreamSync370": "База обновлена до 3.7.0: несколько учётных записей GitHub работают одновременно",
+      "upstreamSync371Beta1": "База обновлена до 3.7.1-beta1: Copilot умеет разбивать выбранные изменения на коммиты",
+      "upstreamSync371Beta2": "База обновлена до 3.7.1-beta2: история коммитов остаётся актуальной"
     }
   },
   "repositoriesList": {

@@ -340,10 +340,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
           </p>
         )
 
-        const absoluteDate = formatDate(lastSuccessfulCheck, {
-          dateStyle: 'full',
-          timeStyle: 'short',
-        })
+        const absoluteDate = formatDate(lastSuccessfulCheck)
 
         const upToDateMessage = t('about.up-to-date', { date: absoluteDate })
 
@@ -365,10 +362,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
         }
 
         const firstRunMessage = t('about.firstRunOfBuild', {
-          date: formatDate(firstRun, {
-            dateStyle: 'full',
-            timeStyle: 'short',
-          }),
+          date: formatDate(firstRun),
         })
 
         return (
@@ -548,7 +542,7 @@ export class About extends React.Component<IAboutProps, IAboutState> {
               params={{
                 sha: status.releaseSha.substring(0, 10),
                 date: formatDate(new Date(status.builtAt), {
-                  dateStyle: 'long',
+                  time: false,
                 }),
                 count: status.aheadBy,
               }}

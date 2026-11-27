@@ -308,7 +308,7 @@ describe('about - the fork release line', () => {
     assert.ok(text.includes(releaseSha.substring(0, 10)), text)
     assert.ok(
       text.includes(
-        formatDate(new Date('2026-10-05T12:00:00.000Z'), { dateStyle: 'long' })
+        formatDate(new Date('2026-10-05T12:00:00.000Z'), { time: false })
       ),
       text
     )
@@ -629,12 +629,7 @@ describe('about - the build age line', () => {
 
     const announcement = statuses[1].querySelector('.sr-only')!.textContent!
     assert.ok(
-      announcement.includes(
-        formatDate(new Date(firstRunAt), {
-          dateStyle: 'full',
-          timeStyle: 'short',
-        })
-      ),
+      announcement.includes(formatDate(new Date(firstRunAt))),
       announcement
     )
     assert.ok(!announcement.includes('назад'), announcement)

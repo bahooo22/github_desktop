@@ -3,44 +3,14 @@ import {
   getDateFormatPreference,
   getTimeFormatPreference,
 } from '../models/formatting-preferences'
-import { enableFormattingPreferences } from './feature-flag'
 import { getDateFnsLocale } from './l10n/date-locale'
-import mem from 'mem'
-import QuickLRU from 'quick-lru'
-import { localization, t } from './l10n/core'
-
-// Initializing a date formatter is expensive but formatting is relatively cheap
-// so we cache them based on the locale and their options. The maxSize of a 100
-// is only as an escape hatch, we don't expect to ever create more than a
-// handful different formatters.
-const getDateFormatter = mem(Intl.DateTimeFormat, {
-  cache: new QuickLRU({ maxSize: 100 }),
-  cacheKey: (...args) => JSON.stringify(args),
-})
+import { t } from './l10n/core'
 
 interface IFormatDateOptions {
   /** Whether to include the date portion. Defaults to true. */
   readonly date?: boolean
   /** Whether to include the time portion. Defaults to true. */
   readonly time?: boolean
-
-  /**
-   * @deprecated Will be removed in a future release. Temporarily supported for
-   *             backward compatibility with existing code when
-   *             enableFormattingPreferences is disabled. As soon as formatting
-   *             preferences is shipped to production, this option will be
-   *             removed.
-   */
-  readonly dateStyle?: 'full' | 'long' | 'medium' | 'short'
-
-  /**
-   * @deprecated Will be removed in a future release. Temporarily supported for
-   *             backward compatibility with existing code when
-   *             enableFormattingPreferences is disabled. As soon as formatting
-   *             preferences is shipped to production, this option will be
-   *             removed.
-   */
-  readonly timeStyle?: 'full' | 'long' | 'medium' | 'short'
 }
 
 /**
@@ -51,17 +21,10 @@ interface IFormatDateOptions {
  */
 export function formatDate(
   value: Date,
-  { date = true, time = true, dateStyle, timeStyle }: IFormatDateOptions = {}
+  { date = true, time = true }: IFormatDateOptions = {}
 ): string {
   if (isNaN(value.valueOf())) {
     return t('common.invalidDate')
-  }
-
-  if (!enableFormattingPreferences()) {
-    return getDateFormatter(localization.getActiveTag(), {
-      dateStyle,
-      timeStyle,
-    }).format(value)
   }
 
   let formatString: string

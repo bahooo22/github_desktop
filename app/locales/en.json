@@ -9,11 +9,8 @@
     "ok": "OK",
     "save": "Save",
     "close": "Close",
-    "add": "Add",
     "remove": "Remove",
-    "retry": "Retry",
     "invalidDate": "Invalid date",
-    "discard": "Discard",
     "done": "Done",
     "learnMore": "Learn more",
     "do-not-show-again": "Do not show this message again",
@@ -126,7 +123,6 @@
         "@other": "External editor"
       },
       "external-editor-aria": "External editor",
-      "no-editors-found": "No editors found.",
       "no-other-editors-found": "No other editors found.",
       "install-editor": "Install {name}?",
       "configure-custom-editor": {
@@ -138,7 +134,6 @@
         "@darwin": "Configure Custom Shell…",
         "@other": "Configure custom shell…"
       },
-      "applications": "Applications",
       "choose-copilot": "Choose GitHub Copilot",
       "copilot-description": "Experience agent-driven development built natively on GitHub.",
       "copilot-learn-more": "Learn more about GitHub Copilot",
@@ -283,6 +278,10 @@
         "@darwin": "Always Use Copilot When Conflicts Are Detected",
         "@other": "Always use Copilot when conflicts are detected"
       },
+      "assisted-commit": {
+        "@darwin": "Assisted Commits",
+        "@other": "Assisted commits"
+      },
       "byok-empty-description": "Add a custom provider to use your own API keys with OpenAI-compatible endpoints, Azure, Anthropic, or local providers like Ollama.",
       "provider-model-count": {
         "_one": "{count:number} model",
@@ -384,8 +383,6 @@
     "create": "Create",
     "tagInvalid": "Use a language code such as \"ru\", \"pt-BR\" or \"sr-Cyrl-RS\".",
     "tagExists": "A translation for {tag} already exists.",
-    "original": "Original",
-    "translation": "Translation",
     "empty": "Nothing to show.",
     "noResults": "No string matches that search.",
     "unsaved": "You have changes that are not saved yet.",
@@ -396,17 +393,8 @@
     "save": "Save translations",
     "saved": "Saved to {path}",
     "saveFailed": "Could not write the translation file: {error}",
-    "exported": "Copied to {path}",
-    "import": "Import",
-    "importFailed": "{file} could not be read: {error}",
     "delete": "Delete this translation",
     "deleted": "Removed {tag}",
-    "variants": {
-      "_one": "This string has {count:number} form",
-      "_other": "This string has {count:number} forms"
-    },
-    "pluralNote": "This string changes with the number, so it needs one row per form.",
-    "platformNote": "This string differs per operating system. The row for this system is the one you see.",
     "placeholderWarning": "The original uses {placeholders} — keep them in your translation.",
     "problemsTitle": "Some catalog entries could not be loaded",
     "unknownKeysTitle": "These keys aren't part of the original catalog",
@@ -842,8 +830,6 @@
     },
     "enterprise-address": "Enterprise address",
     "browser-redirect-info": "Your browser will redirect you back to GitHub Desktop once you've signed in. If your browser asks for your permission to launch GitHub Desktop, please allow it.",
-    "existing-account-warning": "You're already signed in to <ref>{host}</ref> with the account <ref>{login}</ref>. If you continue, you will first be signed out.",
-    "credential-helper-info": "Git requesting credentials to access <ref>{url}</ref>.",
     "expected-login": "Sign in as <ref>{login}</ref> on <ref>{host}</ref> to continue."
   },
   "terms": {
@@ -1146,7 +1132,6 @@
     "choose": "Choose…",
     "clone": "Clone",
     "dotcom-sign-in-description": "Sign in to your GitHub.com account to access your repositories.",
-    "enterprise-sign-in-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories.",
     "error-app-suffix": "The local path cannot end in .app on macOS. Choose a different folder name to avoid creating an application bundle.",
     "error-directory-could-not-create": "Directory could not be created at this path.",
     "error-folder-not-empty": "This folder contains files. Git can only clone to empty folders.",
@@ -1199,7 +1184,6 @@
     "commit-title": "{verb} to {branch}",
     "committed-just-now": "Committed Just now - {summary} (Sha: {sha})",
     "committing": "Committing",
-    "committing-changes": "Committing Changes",
     "configure-options": "Configure commit options",
     "copilot-tooltip": {
       "@darwin": "Generate Commit Message with Copilot",
@@ -1209,7 +1193,6 @@
     "copilot-tooltip-no-files": "Generate commit message with Copilot. Files must be selected to generate a commit message.",
     "create-group": "Create commit",
     "description-label": "Description",
-    "description-placeholder": "Description",
     "description-sr-label": "Commit description",
     "disable-spellcheck": {
       "@darwin": "Disable Commit Spellcheck",
@@ -1255,14 +1238,8 @@
     },
     "summary-label": "Commit summary",
     "summary-required": "A commit summary is required to commit",
-    "summary-sr-label": "Commit summary",
     "warning-word": "Warning",
     "amend-notice": "Your changes will modify your <strong>most recent commit</strong>. <link>Stop amending</link> to make these changes as a new commit.",
-    "commit-button": {
-      "_one": "{verb} {count:number} file to <strong>{branch}</strong>",
-      "_other": "{verb} {count:number} files to <strong>{branch}</strong>"
-    },
-    "commit-button-plain": "{verb} to <strong>{branch}</strong>",
     "no-write-access": "You don't have write access to <strong>{name}</strong>. Want to <link>create a fork</link>?",
     "protected-branch": "<strong>{branch}</strong> is a protected branch. Want to <link>switch branches</link>?",
     "manual-description": "Write the commit summary and description yourself.",
@@ -1772,7 +1749,6 @@
   "publish": {
     "description": "Description",
     "dotcom-sign-in-description": "Sign in to your GitHub.com account to publish your repository.",
-    "enterprise-sign-in-description": "If you are using GitHub Enterprise at work, sign in to it to get access to your repositories.",
     "keep-private": "Keep this code private",
     "name": "Name",
     "none": "None",
@@ -2169,7 +2145,6 @@
     "whatsNew": "what's new",
     "dismiss": "dismiss",
     "pendingInstall": "An updated version of GitHub Desktop is available and will be installed at the next launch. See <whatsNew/> or <restart/>.",
-    "installNow": "A new version of GitHub Desktop is available. <restart/> now to install pending updates.",
     "showcase": "Exciting new features have been added<version/>. See <whatsNew/> or <dismiss/>.",
     "prioritizeMissing": "This version of GitHub Desktop is missing <importantUpdates/>. Please <restart/> now to install pending updates.",
     "importantUpdates": "important updates",
@@ -2283,11 +2258,6 @@
   },
   "tutorialPanelSkip": {
     "skip": "Skip"
-  },
-  "cloneRepositoryTabs": {
-    "dotcomTab": "GitHub.com",
-    "enterpriseTab": "GitHub Enterprise",
-    "urlTab": "URL"
   },
   "branchesContainerTabs": {
     "branchesTab": "Branches",
@@ -2526,7 +2496,10 @@
       "aboutDownloadButtons": "The About dialog offers the update itself: install a fork build or download the official one. Nothing is started automatically — the file goes into the Downloads folder",
       "upstreamSync3611": "Upstream 3.6.11-beta1 is merged: the project now builds with npm instead of yarn, and the fork release workflows follow",
       "copilotCommit": "Commit with Copilot: the commit panel can split the selected changes into commits and write their messages",
-      "upstreamSync3612": "Upstream 3.6.11 and 3.6.12-beta1 are merged: a manual commit can push itself afterwards, and each repository can be given its own account"
+      "upstreamSync3612": "Upstream 3.6.11 and 3.6.12-beta1 are merged: a manual commit can push itself afterwards, and each repository can be given its own account",
+      "upstreamSync370": "Upstream 3.7.0 is merged: several GitHub accounts work at the same time",
+      "upstreamSync371Beta1": "Upstream 3.7.1-beta1 is merged: Copilot can split the selected changes into commits",
+      "upstreamSync371Beta2": "Upstream 3.7.1-beta2 is merged: the commit history stays up to date"
     }
   },
   "repositoriesList": {
