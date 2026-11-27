@@ -15,6 +15,25 @@ describe('Upstream status', () => {
     assert.strictEqual(status.releasesBehind, 2)
   })
 
+  it('reads the fork prerelease tail as the release it is based on', () => {
+    // The feed published a bare 3.7.1 the day our 3.7.1-fork41097 was cut from
+    // it, and the full version compared as older, so the banner claimed an
+    // official release was ahead of the build that already contains it.
+    assert.strictEqual(
+      compareUpstreamVersions('3.7.1-fork41097', ['3.7.1', '3.7.0']),
+      null
+    )
+
+    const status = compareUpstreamVersions('3.7.1-fork41097', [
+      '3.7.2',
+      '3.7.1',
+    ])
+
+    assert.ok(status !== null)
+    assert.strictEqual(status.latestVersion, '3.7.2')
+    assert.strictEqual(status.releasesBehind, 1)
+  })
+
   it('stays silent when this build is the newest thing around', () => {
     assert.strictEqual(
       compareUpstreamVersions('3.6.0', ['3.5.9', '3.6.0']),

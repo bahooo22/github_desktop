@@ -34,6 +34,22 @@ interface ICachedCheck {
 }
 
 /**
+ * The release a build is based on, without its prerelease tail. Our builds are
+ * published as `3.7.1-fork41097`, and semver ranks a prerelease below the
+ * release it precedes, so comparing the full version made every fork build look
+ * older than the very upstream release it was cut from.
+ */
+function baseVersion(version: string): string | null {
+  const parsed = semver.parse(version)
+
+  if (parsed === null) {
+    return null
+  }
+
+  return `${parsed.major}.${parsed.minor}.${parsed.patch}`
+}
+
+/**
  * The newest upstream version and our distance to it, or null when there's
  * nothing to say: an offline app, a malformed feed and a build that is itself
  * at or ahead of upstream all look identical to the user, which is 'no news'.
@@ -48,18 +64,19 @@ export function compareUpstreamVersions(
     .sort((a, b) => semver.rcompare(a, b))
 
   const latest = valid[0]
+  const base = baseVersion(currentVersion)
 
-  if (latest === undefined || semver.valid(currentVersion) === null) {
+  if (latest === undefined || base === null) {
     return null
   }
 
-  if (semver.gte(currentVersion, latest)) {
+  if (semver.gte(base, latest)) {
     return null
   }
 
   return {
     latestVersion: latest,
-    releasesBehind: valid.filter(v => semver.gt(v, currentVersion)).length,
+    releasesBehind: valid.filter(v => semver.gt(v, base)).length,
   }
 }
 
