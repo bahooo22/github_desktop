@@ -5915,3 +5915,30 @@ eligibility аккаунта и оставляет `enableBetaFeatures()`, а в
 
 Остаются незакрытыми: GUI-приёмка в поднятом стенде (noVNC) и `l10n:bundles` — она красна
 по-прежнему из-за отстающей ручной раскатки `bin/resources/app`, а не из-за `dist/`.
+
+Закрытие волны 3, тот же день. `l10n:bundles` остаётся красным по той же чужой причине и остаётся
+в остатке; всё перечисленное выше закрыто. GUI-приёмка снята живым интерфейсом: dev-сборка
+(`npm run build:dev` с heap 8192, webpack 122 926 мс), portable-бандль вместо `@electron/packager`
+(902 МБ, 717 файлов, Electron 44.11.2, sha `b9f6a2dc059a`), `Xvfb` + CDP. В диалоге «О программе»
+английского интерфейса читается `Build 7152d9b0bb (x64)`, после `{"language": "ru"}` в
+`<userData>/localizations/settings.json` и рестарта — и окно, и диалог русские, включая форковую
+строку «Локализация: BaHooo (сборка 7152d9b0bb, 2026-11-27)». Packager в этом стенде неработоспособен:
+`EACCES: rename /work/dist/linux-x64-template-* → desktop-linux-x64` — это права 9p-маунта, а не
+сборки. Не замерено и называется прямо: отклик механизма обновлений (клик «Проверить новую сборку»
+за 30 секунд не изменил текст диалога, строк `update-store` в логе нет).
+
+PR #3 смержен в `development` мерж-коммитом `423a6f12f5` при `mergeable_state=clean`: 7 проверок
+`success`, 13 `skipped`, падений нет; метрики `Windows x64` — `tests 3 939 / suites 775 /
+pass 3 899 / fail 0 / skipped 40` за 1 265 329 мс. Обе находки закрыты каждая своим способом.
+Первая — документационно: `README.md`, пункт «Чего в форке сознательно нет» описывает погасшие
+assisted-коммиты в production-сборках и рабочий путь `GITHUB_DESKTOP_PREVIEW_FEATURES=1`, а
+возврат rollout-проверки отвергнут апстримским тестом `app/test/unit/repository-account-test.ts:169`.
+Вторая — правкой: `baseVersion()` в `app/src/lib/upstream-status.ts` сравнивает основу
+`major.minor.patch`, регрессивный тест в `app/test/unit/upstream-status-test.ts` держит оба конца
+(на своей основе баннера нет, на одну выше — `behind=1`). Живой фид при этом перечисляет голое
+`3.7.1` верхней записью, то есть «баннер ещё не сработал» из предыдущего абзаца было неверно:
+мера по `releases/latest` и по тегу не равна мере по фиду, который читает приложение. Пересъёмка
+носителем `glm/scripts/upstream_banner_live_1127.sh` даёт `feed_top=3.7.1` и `newer_than_base=0`.
+Гейты правки: `prettier --check` — 0, `eslint --rulesdir ./eslint-rules` — 0,
+`tsc --noEmit -p tsconfig.json` с heap 8192 — 0, `npm test -- app/test/unit/upstream-status-test.ts`
+— `tests 6 / pass 6 / fail 0` (было 5, добавлен регрессивный).

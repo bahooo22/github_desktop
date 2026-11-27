@@ -571,6 +571,29 @@ npm run l10n:bundles   # node script/i18n-freshness.mjs --bundles
   без авторизации, и баннер официального канала на голой `3.7.1` ещё не сработал.
   Носитель меры — `glm/scripts/upstream_release_probe_1127.py`, вызов анонимный,
   вывод лежит в `glm/2026-11-27_session/upstream_channel_1127.txt`.
+- **Баннер меряется фидом, а не страницей Releases, и он уже успел сработать**:
+  пересъёмка сутки спустя показывает, что
+  `central.github.com/deployments/desktop/desktop/changelog.json?limit=10`
+  перечисляет голое `3.7.1` верхней записью, хотя GitHub Release под тегом
+  `release-3.7.1` так и не опубликован (404). Предыдущий пункт выводил
+  «баннер ещё не сработал» из `releases/latest` и состояния тега, но приложение
+  читает именно фид, и для `3.7.1-fork41097` он давал
+  `yes behind=1 latest=3.7.1` — сборка, вырезанная из `3.7.1`, звала скачать
+  `3.7.1`.
+  Причина в сравнении полной версии: prerelease-хвост `-forkN` по semver всегда
+  ниже голой основы той же версии. Правка — `baseVersion()` в
+  `app/src/lib/upstream-status.ts`: расстояние считается до основы
+  `major.minor.patch`, а регрессивный тест держит оба конца («на своей основе
+  баннера нет» и «на одну основу выше — есть»); он же
+  `app/test/unit/upstream-status-test.ts`, тест
+  `reads the fork prerelease tail as the release it is based on`. Пересъёмка
+  живым фидом даёт `feed_top=3.7.1` и `newer_than_base=0` — баннер выключен,
+  носитель `glm/scripts/upstream_banner_live_1127.sh`. У этой меры своя история:
+  первая редакция (`glm/scripts/upstream_banner_measure_1127.sh`) держала список
+  версий фида, переписанный руками, и в нём оказалась `3.7.2`, которой нет ни в
+  production, ни в beta, — отставание было завышено до `behind=2`. Теперь список
+  читается из фида внутри самой меры, а сравнение считает функция приложения, не
+  копия формулы в скрипте.
 - **Валидатор версии Electron до этого мержа ронял релизный прогон форка**:
   `script/validate-electron-version.ts` держал `production: '44.9.1'`, тогда как
   корневой `package.json` уже требовал Electron `44.11.2` (строка 177), а все три релизных workflow

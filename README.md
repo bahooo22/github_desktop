@@ -134,6 +134,14 @@ OAuth-приложения —
   не подписан и не нотаризован, а первый запуск требует обхода Gatekeeper.
 - Автоматического скачивания обновлений: приложение только проверяет фиды и
   оповещает; любой пакет скачивается после нажатия «Скачать».
+- Copilot-assisted коммитов в публикуемых сборках: `enableCopilotAssistedCommit()`
+  (`app/src/lib/feature-flag.ts:102`) зависит от `enableBetaFeatures()`, а все три
+  релизных workflow задают `RELEASE_CHANNEL: production` — поэтому флаг погаснет,
+  даже если аккаунту выдано право `desktop_copilot_assisted_commits`. Рабочий путь
+  — запустить сборку с `GITHUB_DESKTOP_PREVIEW_FEATURES=1` (dev-сборка включает
+  preview сама); возвращать проверку rollout-флага аккаунта нельзя, апстримский
+  тест `app/test/unit/repository-account-test.ts:169` утверждает обратное: вне
+  preview rollout не действует.
 
 ## Where can I get it?
 
