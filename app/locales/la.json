@@ -1301,6 +1301,7 @@
       "releaseNotes.fork.upstreamSync368",
       "releaseNotes.fork.upstreamSync369",
       "releaseNotes.fork.upstreamSync370",
+      "releaseNotes.fork.upstreamSync371",
       "releaseNotes.fork.upstreamSync371Beta1",
       "releaseNotes.fork.upstreamSync371Beta2",
       "releaseNotes.fork.upstreamSyncBeta3",
@@ -4376,7 +4377,8 @@
       "upstreamSync3612": "Interfacies super upstream 3.6.11 et 3.6.12-beta1 reconstructa est; commitus manualis per se ipsum pelli potest, et unicuique repositorio sua sessio attribui potest",
       "upstreamSync370": "Interfacies super upstream 3.7.0 reconstructa est; plures sessiones GitHub simul operantur",
       "upstreamSync371Beta1": "Interfacies super upstream 3.7.1-beta1 reconstructa est; Copilot mutata selecta in plures commissiones dividere potest",
-      "upstreamSync371Beta2": "Interfacies super upstream 3.7.1-beta2 reconstructa est; historia committionum recens manet"
+      "upstreamSync371Beta2": "Interfacies super upstream 3.7.1-beta2 reconstructa est; historia committionum recens manet",
+      "upstreamSync371": "Interfacies super upstream 3.7.1 reconstructa est; historia committionum recens manet"
     }
   },
   "repositoriesList": {
