@@ -573,7 +573,7 @@ npm run l10n:bundles   # node script/i18n-freshness.mjs --bundles
   вывод лежит в `glm/2026-11-27_session/upstream_channel_1127.txt`.
 - **Валидатор версии Electron до этого мержа ронял релизный прогон форка**:
   `script/validate-electron-version.ts` держал `production: '44.9.1'`, тогда как
-  `package.json:177` уже требовал Electron `44.11.2`, а все три релизных workflow
+  корневой `package.json` уже требовал Electron `44.11.2` (строка 177), а все три релизных workflow
   задают `RELEASE_CHANNEL: production` — при непустом канале `errorOnMismatch`
   превращает расхождение в `process.exit(1)`. В `ci.yml` тот же шаг
   (`:115`) проходил молча, потому что канал там пуст и та же ветка кода печатает
